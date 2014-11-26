@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * MainTree
  *
- * @ORM\Table()
+ * @ORM\Table(name="maintree")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\MainTreeRepository")
  */
 class MainTree
