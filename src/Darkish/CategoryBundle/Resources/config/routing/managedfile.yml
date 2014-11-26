@@ -1,0 +1,5 @@
+managedfile:
+    path:     /ajax/upload
+    defaults: { _controller: "DarkishCategoryBundle:ManagedFile:upload" }
+    requirements: { _method: post }
+

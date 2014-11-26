@@ -1,0 +1,26 @@
+record:
+    path:     /
+    defaults: { _controller: "DarkishCategoryBundle:Record:index" }
+
+record_get_tree:
+    path:     /ajax/gettree
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTree", _format: json}
+
+record_get_tree_linear:
+    path:     /ajax/gettree_linear
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTreeLinear", _format: json}
+
+record_get_json:
+    path:     /ajax/getjson
+    defaults: { _controller: "DarkishCategoryBundle:Record:getJson", _format: json}
+
+
+record_get_record_for_category:
+    path:     /ajax/get_record_for_cat/{cid}/{page}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getRecordForCategory", _format: json, page: 1}
+
+record_get_record:
+    path:     /ajax/get_record/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getRecord", _format: json}
+
+

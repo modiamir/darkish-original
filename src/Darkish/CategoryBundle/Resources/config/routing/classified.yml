@@ -1,0 +1,68 @@
+classified:
+    path:     /
+    defaults: { _controller: "DarkishCategoryBundle:Classified:index" }
+
+classified_show:
+    path:     /{id}/show
+    defaults: { _controller: "DarkishCategoryBundle:Classified:show" }
+
+classified_new:
+    path:     /new
+    defaults: { _controller: "DarkishCategoryBundle:Classified:new" }
+
+classified_create:
+    path:     /ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:Classified:create" }
+    requirements: { _method: post }
+
+classified_edit:
+    path:     /ajax/edit/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:edit" }
+    requirements: { _method: put }
+
+classified_approve:
+    path:     /ajax/classified/approve/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:approve" }
+    requirements: { _method: put }
+
+classified_update:
+    path:     /{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:Classified:update" }
+    requirements: { _method: post|put }
+
+classified_delete:
+    path:     /ajax/classified/delete/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:delete" }
+    requirements: { _method: post|delete }
+
+classified_get_tree:
+    path:     /ajax/gettree
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTree", _format: json}
+
+classified_get_tree_linear:
+    path:     /ajax/gettree_linear
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTreeLinear", _format: json}
+
+
+
+classified_get_classified_for_category:
+    path:     /ajax/get_classified_for_cat/{cid}/{page}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getclassifiedForCategory", _format: json, page: 1}
+
+classified_total_pages_for_category:
+    path:     /ajax/get_total_pages/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTotalPagesForCat", _format: json}
+
+classified_get_generate_csrf:
+    path:     /ajax/generate_csrf/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:Classified:generateCsrf", _format: json, intention: ""}
+
+classified_get_is_csrf_valid:
+    path:     /ajax/is_csrf_valid/{token}/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:Classified:isCsrfValid", _format: json, intention: ""}
+
+classified_get_classified:
+    path:     /ajax/get_classified/{id}
+    defaults: {_controller: "DarkishCategoryBundle:Classified:getclassified", _format: json, intention: ""}
+    requirements:
+            id:  \d+

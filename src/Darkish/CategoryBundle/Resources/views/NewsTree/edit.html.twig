@@ -1,0 +1,63 @@
+{% extends '::panel_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/jstree/themes/default/style.min.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body -%}
+    <div class="container-fluid">
+        <div class="row show-grid">
+            <div class="col-md-12">
+                <h1>NewsTree list</h1>
+            </div>
+        </div>
+        <div class="row show-grid">
+            <div class="col-md-3">
+                <div id="using_json_2">
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                {{ form(edit_form) }}
+
+                <ul class="record_actions">
+                    <li>
+                        <a href="{{ path('admin_newstree') }}">
+                            Back to the list
+                        </a>
+                    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('assets/js/jstree/jstree.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            var data = {{ tree|json_encode|raw }};
+            console.log(data);
+
+            $('#using_json_2').jstree({ 'core' : {
+                'data' : data
+            } }).bind(
+                    "select_node.jstree", function(evt, data){
+                        //selected node object: data.inst.get_json()[0];
+                        //selected node text: data.inst.get_json()[0].data
+                        //window.location.replace("http://stackoverflow.com");
+                        console.log(data.node.original.original_id);
+                        window.location.replace(Routing.generate('admin_newstree_show', {id: data.node.original.original_id}));
+
+                    }
+            );
+        });
+    </script>
+
+{% endblock %}

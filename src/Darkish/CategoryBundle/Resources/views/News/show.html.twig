@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>News</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Createddate</th>
+                <td>{{ entity.createdDate }}</td>
+            </tr>
+            <tr>
+                <th>Expiredate</th>
+                <td>{{ entity.expireDate }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ entity.path }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ entity.body }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ entity.userId }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ entity.category }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('news') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('news_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

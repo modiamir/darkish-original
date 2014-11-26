@@ -1,0 +1,90 @@
+.data-grid {
+    width: 800px;
+}
+
+.news-top {
+    padding: 10px 0;
+}
+
+.ui-grid-viewport
+    .ui-grid-canvas
+        .ui-grid-row
+            .ui-grid-cell.unapproved{
+
+    color: lightgray;
+    text-align: center;
+
+}
+
+.ui-grid-viewport
+.ui-grid-canvas
+.ui-grid-row
+.ui-grid-cell.approved{
+
+    color: green;
+    text-align: center;
+
+}
+
+.ui-grid-viewport
+.ui-grid-canvas
+.ui-grid-row
+.ui-grid-cell.approved .ui-grid-cell-contents,
+.ui-grid-viewport
+.ui-grid-canvas
+.ui-grid-row
+.ui-grid-cell.unapproved .ui-grid-cell-contents {
+    text-indent: -9999px;
+    display: none;
+}
+
+.news-title-field, .news-subtitle-field {
+    width: 100%;
+    border-bottom: 1px solid #ddd
+}
+
+.news-title-field  form, .news-subtitle-field  form{
+    width: 90%;
+}
+
+.news-title-field  form .editable-controls, .news-subtitle-field  form .editable-controls{
+    width: 100%;
+}
+
+.news-title-field  form .editable-controls input, .news-subtitle-field  form .editable-controls input{
+    width: 95%;
+}
+
+
+.main-panel {
+    /*height: 360px;*/
+}
+
+.main-panel > .col-md-3, .main-panel > .col-md-9  {
+    height: 100%;
+}
+
+.main-panel > .col-md-3 .tree-wrapper, .main-panel > .col-md-9 .main-record-wrapper {
+    height: 95%;
+
+}
+
+.main-panel > .col-md-9 .main-record-wrapper .main-record-panel {
+    height: 100%;
+}
+
+.tree-wrapper {
+    padding: 10px 0;
+}
+
+.panel-body .right-section label {
+    width: 100px;
+}
+
+input.ng-dirty.ng-invalid,  input.ng-dirty.ng-invalid[type=radio]{
+    border-color: #ff0000;
+}
+
+input.ng-dirty.ng-valid, input.ng-dirty.ng-valid[type=radio] {
+    border-color: #00d220;
+}

@@ -1,0 +1,7 @@
+parameters:
+#    darkish_category.example.class: Darkish\CategoryBundle\Example
+
+services:
+#    darkish_category.example:
+#        class: %darkish_category.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

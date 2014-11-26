@@ -1,0 +1,39 @@
+
+
+darkish_category_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: DarkishCategoryBundle:Default:index }
+
+
+darkish_newstree_gettreejson:
+    pattern:  /admin/newstree/getjsontree
+    defaults: { _controller: DarkishCategoryBundle:NewsTree:getJsonTree }
+
+darkish_newstree_panel:
+    resource: "@DarkishCategoryBundle/Controller/NewsTreeController.php"
+    type:     annotation
+    prefix:   /
+
+
+DarkishCategoryBundle_news:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/news.yml"
+        prefix:   /admin/news
+
+DarkishCategoryBundle_offer:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/offer.yml"
+        prefix:   /admin/offer
+
+DarkishCategoryBundle_classified:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/classified.yml"
+        prefix:   /admin/classified
+DarkishCategoryBundle_managedfile:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/managedfile.yml"
+        prefix:   /admin/managedfile
+
+DarkishCategoryBundle_record:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/record.yml"
+        prefix:   /admin/record
+
+DarkishModi:
+        path:     /modi/test
+        defaults: { _controller: DarkishCategoryBundle:Default:test }

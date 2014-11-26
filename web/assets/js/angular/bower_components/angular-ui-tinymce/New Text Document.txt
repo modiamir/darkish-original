@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+  <title>basic</title>
+  <script type="text/javascript" src="../tinymce/tinymce.min.js"></script>
+  <script type="text/javascript" src="../angular/angular.js"></script>
+  <script type="text/javascript" src="src/tinymce.js"></script>
+  <script>
+  var myAppModule = angular.module('MyApp', ['ui.tinymce']);
+  myAppModule.controller('MyController', function($scope) {
+    $scope.tinymceOptions = {
+        handle_event_callback: function (e) {
+         
+        }
+    };
+  });
+
+  </script>
+</head>
+<body ng-controller="MyController">
+
+<form method="post" ng-init="inline = 0">
+    <div class="editor" ng-show="inline">
+	<textarea ng-show="inline" ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+	<button ng-show="inline" ng-click="inline=0">Stop Edit</button>
+	</div>
+	<div class="html-display" ng-hide="inline">
+		{{tinymceModel}}
+		<button  ng-click="inline=1"> edit</button>
+	</div>
+	
+	{{inline}}
+</form>
+
+</body>
+</html>

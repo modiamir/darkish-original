@@ -1,0 +1,86 @@
+news:
+    path:     /
+    defaults: { _controller: "DarkishCategoryBundle:News:index" }
+
+news_show:
+    path:     /{id}/show
+    defaults: { _controller: "DarkishCategoryBundle:News:show" }
+
+news_new:
+    path:     /new
+    defaults: { _controller: "DarkishCategoryBundle:News:new" }
+
+news_create:
+    path:     /ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:News:create" }
+    requirements: { _method: post }
+
+news_edit:
+    path:     /ajax/edit/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:edit" }
+    requirements: { _method: put }
+
+news_approve:
+    path:     /ajax/news/approve/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:approve" }
+    requirements: { _method: put }
+
+news_update:
+    path:     /{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:News:update" }
+    requirements: { _method: post|put }
+
+news_delete:
+    path:     /ajax/news/delete/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:delete" }
+    requirements: { _method: post|delete }
+
+news_get_tree:
+    path:     /ajax/gettree
+    defaults: { _controller: "DarkishCategoryBundle:News:getTree", _format: json}
+
+news_get_tree_linear:
+    path:     /ajax/gettree_linear
+    defaults: { _controller: "DarkishCategoryBundle:News:getTreeLinear", _format: json}
+
+
+
+news_get_news_for_category:
+    path:     /ajax/get_news_for_cat/{cid}/{page}
+    defaults: { _controller: "DarkishCategoryBundle:News:getNewsForCategory", _format: json, page: 1}
+
+news_total_pages_for_category:
+    path:     /ajax/get_total_pages/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:News:getTotalPagesForCat", _format: json}
+
+news_get_generate_csrf:
+    path:     /ajax/generate_csrf/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:News:generateCsrf", _format: json, intention: ""}
+
+news_get_is_csrf_valid:
+    path:     /ajax/is_csrf_valid/{token}/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:News:isCsrfValid", _format: json, intention: ""}
+
+news_get_news:
+    path:     /ajax/get_news/{id}
+    defaults: {_controller: "DarkishCategoryBundle:News:getNews", _format: json, intention: ""}
+    requirements:
+            id:  \d+
+news_upload_image:
+    path:     /ajax/upload_files/{iid}/{action}
+    defaults: {_controller: "DarkishCategoryBundle:News:uploadImage", action: edit}
+    requirements:
+            id: \d+
+
+news_gen_rand_upload_key:
+    path:     /ajax/gen_rand_upload_key
+    defaults: {_controller: "DarkishCategoryBundle:News:generateRandomUploadKey"}
+    requirements: { _method: get}
+
+news_get_new_id:
+    path:     /ajax/get_new_id
+    defaults: {_controller: "DarkishCategoryBundle:News:getNewId"}
+
+news_get_files_images:
+    path:     /ajax/get_files_images/{entityId}
+    defaults: {_controller: "DarkishCategoryBundle:News:getFilesImages"}

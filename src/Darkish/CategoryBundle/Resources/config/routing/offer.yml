@@ -1,0 +1,68 @@
+offer:
+    path:     /
+    defaults: { _controller: "DarkishCategoryBundle:Offer:index" }
+
+offer_show:
+    path:     /{id}/show
+    defaults: { _controller: "DarkishCategoryBundle:Offer:show" }
+
+offer_new:
+    path:     /new
+    defaults: { _controller: "DarkishCategoryBundle:Offer:new" }
+
+offer_create:
+    path:     /ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:Offer:create" }
+    requirements: { _method: post }
+
+offer_edit:
+    path:     /ajax/edit/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:edit" }
+    requirements: { _method: put }
+
+offer_approve:
+    path:     /ajax/offer/approve/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:approve" }
+    requirements: { _method: put }
+
+offer_update:
+    path:     /{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:Offer:update" }
+    requirements: { _method: post|put }
+
+offer_delete:
+    path:     /ajax/offer/delete/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:delete" }
+    requirements: { _method: post|delete }
+
+offer_get_tree:
+    path:     /ajax/gettree
+    defaults: { _controller: "DarkishCategoryBundle:Offer:getTree", _format: json}
+
+offer_get_tree_linear:
+    path:     /ajax/gettree_linear
+    defaults: { _controller: "DarkishCategoryBundle:Offer:getTreeLinear", _format: json}
+
+
+
+offer_get_offer_for_category:
+    path:     /ajax/get_offer_for_cat/{cid}/{page}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:getofferForCategory", _format: json, page: 1}
+
+offer_total_pages_for_category:
+    path:     /ajax/get_total_pages/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:getTotalPagesForCat", _format: json}
+
+offer_get_generate_csrf:
+    path:     /ajax/generate_csrf/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:Offer:generateCsrf", _format: json, intention: ""}
+
+offer_get_is_csrf_valid:
+    path:     /ajax/is_csrf_valid/{token}/{intention}
+    defaults: {_controller: "DarkishCategoryBundle:Offer:isCsrfValid", _format: json, intention: ""}
+
+offer_get_offer:
+    path:     /ajax/get_offer/{id}
+    defaults: {_controller: "DarkishCategoryBundle:Offer:getoffer", _format: json, intention: ""}
+    requirements:
+            id:  \d+

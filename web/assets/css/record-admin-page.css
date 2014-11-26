@@ -1,0 +1,274 @@
+
+body{
+    background-color: rgb(239, 239, 239);
+}
+
+.navbar-nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.news-top {
+    padding: 3px 0;
+}
+
+.navbar-brand {
+    float: right;
+    height: 35px;
+    padding: 5px 5px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar {
+    position: relative;
+    min-height: 40px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+}
+
+.container-fluid {
+    margin: 10px 10px;
+}
+
+.crud-buttons, .search-block {
+    background-color: #f4e701;
+    margin:  0;
+    padding: 3px 15px;
+    border: 1px solid #30487b;
+}
+
+.search-block .search-box {
+    width: 150px;
+}
+
+.search-block .search-btn {
+    background-color: #fff7c9;
+}
+
+.search-block .filter-chechboxes span {
+    width: 50%;
+    float: right;
+}
+
+.search-block .filter-chechboxes span label {
+    display: initial;
+}
+
+.branch-id-block{
+    background-color: #fff;
+    margin:  0;
+    padding: 3px 15px;
+    border: 1px solid #30487b;
+    display: inline-block;
+    width: 100%;
+}
+
+.branch-id-block .branch-id-label {
+    float: right;
+    width: 50px;
+}
+
+.branch-id-block .branch-id   {
+    float: right;
+    margin: 0;
+}
+
+
+
+
+
+.grid-block .selected, .grid-block .selected td {
+    background-color: cadetblue !important;
+    color: white;
+}
+
+.record-number-block-wrapper {
+    padding-left: 0;
+}
+
+.record-number-block {
+    border: 1px solid;
+    height: 70px;
+}
+
+.record-number-block span {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.record-number-block .record-number-preview {
+    height: 40px;
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    background-color: red;
+    color: white;
+    margin: 0 10%;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.record-teaser-preview-block {
+    background-color: white;
+    border: 3px solid #000000;
+    height: 70px;
+}
+
+.approved-block {
+    margin-top: 20px;
+}
+
+.approved-block .approved {
+    background: rgb(0, 194, 0);
+}
+
+.approved-block .approved input {
+    margin-right: 20px;
+}
+
+.approved-block .approved label {
+    margin-right: 40px;
+    color: white;
+    width: 50px;
+}
+
+.record-basic-info-wrapper {
+    margin-top: 20px;
+}
+
+.record-basic-info-wrapper .record-basic-info {
+    display: inline-block;
+    width: 100%;
+    border: 1px dashed;
+    padding: 10px;
+}
+
+.record-basic-info-wrapper .record-basic-info label{
+    width: 25%;
+    float: right;
+    text-align: left;
+}
+
+.record-basic-info-wrapper .record-basic-info input,.record-basic-info-wrapper .record-basic-info textarea{
+    width: 70%;
+    float: right;
+    margin-right: 5%;
+    margin-bottom: 3px;
+}
+
+.modal-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,0,0,0.5);
+}
+
+.modal-bg .btf-modal {
+    background: rgb(158, 158, 158);
+    border: 3px solid;
+    height: 450px;
+    padding: 0 5px;
+    width: 300px;
+}
+
+.modal-bg .btf-modal .tree-modal-header a{
+    float: left;
+    font-size: 16px;
+    margin-top: 3px;
+    padding: 3px 5px;
+    background-color: pink;
+    border: 1px solid crimson;
+    color: crimson;
+}
+
+/* jadiiiiiiiiiiiiiiiiiiiiiiiiid */
+
+.main-wrapper .main, .main-wrapper .list{
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.main-wrapper .col{
+    border: 1px solid #ddd;
+    padding: 0;
+}
+
+.main-wrapper .main .main-cols {
+    height: 530px;
+}
+
+.main-tree-block ul.filter-links{
+    border-bottom: 1px solid #CCCCCC;
+    padding-right: 0;
+}
+
+.main-tree-block ul.filter-links li {
+    list-style: none;
+
+
+}
+
+.main-tree-block ul.filter-links li a{
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+    padding: 2px 40px 2px 2px;
+}
+
+.main-tree-block ul.filter-links li a:hover {
+    background-color: #CCCCCC;
+}
+
+.record-tree {
+    height: 250px;
+    overflow: scroll;
+}
+
+
+h3.block-title {
+    margin: 0;
+    font-size: 16px;
+    background: #ddd;
+    text-align: center;
+    padding: 4px;
+    margin-bottom: 3px;
+}
+
+
+.main-search-block .search-box {
+    padding: 0 5px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.main-search-block .search-box .keyword {
+    margin: 3px;
+    width: 98%;
+}
+
+.sort-block span {
+    clear: both;
+    display: block;
+    padding-right: 20px;
+}
+
+.sort-block input {
+    width: 10%;
+    float: right;
+}
+
+.sort-block label {
+    width: 40%;
+    float: right;
+}
+
+.main-center .basic-info{
+    height: 101px;
+}
+
+.grid-block {
+    border: 1px solid #EEEEEE;
+}

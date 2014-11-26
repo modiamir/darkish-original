@@ -1,0 +1,37 @@
+<html>
+<head>
+<script src="../angular/angular.js"></script>
+<script src="angular-ckeditor.js"></script>
+
+</head>
+
+<body ng-app="controllers.ckeditor">
+
+<div ng-controller="CkeditorCtrl">
+  <div ckeditor="options" ng-model="content" ready="onReady()"></div>
+</div>
+
+
+<script>
+
+ angular.module('controllers.ckeditor', ['ckeditor'])
+.controller('CkeditorCtrl', function ($scope) {
+
+  // Editor options.
+  $scope.options = {
+    language: 'en',
+    allowedContent: true,
+    entities: false
+  };
+
+  // Called when the editor is completely ready.
+  $scope.onReady = function () {
+    // ...
+  };
+});
+
+</script>
+
+</body>
+
+</html>

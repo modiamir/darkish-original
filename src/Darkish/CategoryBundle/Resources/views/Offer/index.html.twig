@@ -1,0 +1,63 @@
+{% extends '::panel_layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/angular/tree-control.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/angular/tree-control-attributes.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/angular/ui-grid-unstable.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body -%}
+    <h1>News list</h1>
+
+    <div class="container-fluid" ng-controller="NewsIndexController">
+        <div class="row show-grid">
+            <div class="col-md-12">
+                <h1>شاخه بندی اخبار و سرگرمی</h1>
+            </div>
+        </div>
+        <div class="row show-grid">
+            <div class="col-md-3">
+                <div >
+
+                    <treecontrol class="tree-classic"
+                                 tree-model="dataForTheTree"
+                                 options="treeOptions"
+                                 on-selection="showSelected(node)"
+                                 selected-node="node1">
+                        [[node.title]]
+                    </treecontrol>
+
+
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="jumbotron">
+                    <h1>سلام آقا خالقی!</h1>
+                    [[ getForCategory ]]
+                    <input ng-model="catid" type="number"/>
+                    <button ng-click="clickForCat(catid)">test</button>
+                    <div id="grid1" ui-grid="{ data: myData }" class="grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+
+    <script src="{{ asset('assets/js/angular/angular-tree-control.js') }}"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="{{ asset('assets/js/angular/ui-grid-unstable.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Controllers/newsIndexCtrl.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Services/newsService.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Services/treeService.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/newsIndex.js') }}"></script>
+
+
+{% endblock %}
