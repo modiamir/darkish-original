@@ -105,14 +105,203 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             </div>
             <div class="col col-md-6 main-center main-cols">
                 <div class="basic-info col col-md-12">
-                    <div class="col-md-9 titles-box">
+                    <div class="basic-info-left-col">
+                        
+                       
+                        <div class="record-number-wrapper">
+                          <span class="record-number-title">شماره پرونده</span>
+                          <span class="record-number">12560</span>
+                          
+                        </div>
+                        <div class="record-confirme-status">
+                           تایید شده
+                        </div>
 
                     </div>
-                    <div class="col-md-3 number-box">
-unvar
+
+                    <div class="basic-info-right-col">
+                        <div class="record-title">
+                            <div class="record-title-lan">Lan</div>
+                            <div class="field-title record-title-title">عنوان:</div>
+                            <input type="text" name="record-title" class="record-title-input"> 
+                           
+                        </div>
+
+                        <div class="record-subtitle">
+                            <div class="field-title record-title-title">زیر عنوان:</div>
+                            <input type="text" name="record-subtitle" class="record-subtitle-input"> 
+                        </div>
+
                     </div>
+      
                 </div>
+                <div class="main-fields-row">
+                    <div class="col main-fields-wrapper">
+                        <div class="main-fields-first-section" >
+                            <div class="main-fields-search-key">
+                                <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
+                                <input type="text" name="searchkey-input" id="search-key-input" class="first-section-input"> 
+                            </div>
+
+                            <div class="main-fields-owner">
+                                <label class="main-fields-owner-title first-section-fields-title" for="owner-input">مالک/مدیر:</label>
+                                <input type="text" name="owner-input" id="owner-input" class="first-section-input"> 
+                            </div>
+
+                            <div class="main-fields-legal-name">
+                                <label class="main-fields-legal-name-title first-section-fields-title" for="legal-name-input">نام حقوقی:</label>
+                                <input type="text" name="legal-name-input" id="legal-name-input" class="first-section-input"> 
+                            </div>
+
+                            <div class="main-fields-tree-list">
+                                <div class="main-fields-tree-list-commands-wrapper">
+                                    <div class="tree-list-add-remove-button-wrapper">
+                                        <button type="button" id="tree-list-add-button">+</button>
+                                        <button type="button" id="tree-list-remove-button">-</button>
+                                    </div>
+                                    <div class="tree-list-trees-button-wrapper">
+                                        <button type="button" id="tree-list-trees-button">شاخه ها</button>
+                                    </div>
+                                    
+                                </div>
+                                <div id="tree-list-input" class="first-section-input">tree_list</div>
+                            </div>
+
+                        </div>
+                         <div class="main-fields-second-section" >
+
+                            <div id="just-html-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="just-html-chk" name="just-html-chk" class="second-section-chk" >
+                                <label id="just-html-chk-label" class="second-section-chk-label" for="just-html-chk"> فقط HTML</label>
+                            </div>
+
+                            <div id="html-page-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="html-page-chk" name="html-page-chk" class="second-section-chk" >
+                                <label id="html-page-chk-label" class="second-section-chk-label" for="html-page-chk"> صفحه HTML</label>
+                            </div>
+
+                            <div id="brand-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="brand-chk" name="brand-chk" class="second-section-chk" >
+                                <label id="brand-chk-label" class="second-section-chk-label" for="brand-chk"> برند - نمایندگی</label>
+                            </div>
+
+                             <div id="ranklist-combo-wrapper" class="main-fields-second-section-combo-wrapper">
+
+                                 <label id="ranklist-combo-label" class="second-section-combo-label" for="ranklist-combo">رتبه نمایش در لیست</label>
+
+                                <select id="ranklist-combo" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+                               
+                            </div>
+
+                            <div id="group-massage-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="group-massage-chk" name="group-massage-chk" class="second-section-chk" >
+                                <label id="group-massage-chk-label" class="second-section-chk-label" for="group-massage-chk">امکان ارسال پیام گروهی</label>
+                            </div>
+
+                             <div id="spec-massage-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="spec-massage-chk" name="spec-massage-chk" class="second-section-chk" >
+                                <label id="spec-massage-chk-label" class="second-section-chk-label" for="spec-massage-chk">امکان درج پیام ویژه</label>
+                            </div>
+
+                            <div id="bazar-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <label class="bazar-label">مرکز/بازار</label>
+                               	<label class="bazar-id">id</label>
+                            </div>
+
+                            <div id="central-wrapper" >
+                                <label  class="central-wrapper-combo-label second-section-combo-label" for="central-wrapper-combo">انتخاب مرکز</label>	
+                                <select id="central-wrapper-combo" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+
+                                <label class="central-floor-title second-section-fields-title" for="central-floor-input">طبقه</label>
+                                <input type="text" name="central-floor" id="central-floor-input" class="second-section-input"> 
+
+                               <label class="central-unit-title second-section-fields-title" for="central-unit-input">واحد</label>
+                               <input type="text" name="central-unit" id="central-unit-input" class="second-section-input"> 
+                            </div>
+
+                            <div id="trip-maker-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <div class="trip-maker-chk-wrapper">
+                                    <input type="checkbox" id="trip-maker-chk" name="trip-maker-chk" class="second-section-chk" >
+                                    <label id="trip-maker-chk-label" class="second-section-chk-label" for="trip-maker-chk">سفر ساز</label>
+                                </div>
+                                
+                                <label class="trip-maker-id">id</label>
+                            </div>
+
+                            <div id="choose-group-wrapper" >
+                                <label  class="choose-group-wrapper-combo-label second-section-combo-label" for="choose-group-wrapper-combo">انتخاب گروه</label>  
+                                <select id="choose-group-wrapper-combo" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+
+                                <label class="trip-maker-title second-section-fields-title" for="trip-maker-combo">رتبه در سفر ساز</label>
+                                <select id="trip-maker-combo" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+                            </div>
+                            <div id="info-bank-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <div class="info-bank-chk-wrapper">
+                                    <input type="checkbox" id="info-bank-chk" name="info-bank-chk" class="second-section-chk" >
+                                    <label id="info-bank-chk-label" class="info-bank-chk-label" for="info-bank-chk">بانک اطلاعات</label>
+                                </div>
+                                
+                                <label class="info-bank-id">id</label>
+                            </div>
+                            <div id="info-bank-choose-group-wrapper" >
+                                <label  class="info-bank-choose-group-wrapper-combo-label second-section-combo-label" for="info-bank-choose-group-wrapper-combo">انتخاب گروه</label>  
+                                <select id="info-bank-choose-group-wrapper-combo" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+                            </div>
+                         </div>
+
+                         <div class="main-fields-third-section" >
+                             <div id="spec-msg-detail-wrapper">
+                                 <div id="spec-msg-text-wrapper">
+                                     <label id="spec-msg-text-label" class="third-section-label " for="spec-msg-text-input">متن پیام ویژه</label>
+                                     <input type="text" id="spec-msg-text-input" class="third-section-input">
+                                 </div>
+                                 <div id="spec-msg-date-wrapper">
+
+                                     <label id="spec-msg-insert-date-label" class="third-section-label " for="spec-msg-insert-date-input">تاریخ درج</label>
+                                     <input type="text" id="spec-msg-insert-date-input" class="third-section-input">
+
+                                     <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
+                                     <input type="text" id="spec-msg-credit-date-input" class="third-section-input">
+                                 </div>
+                             </div>
+
+                             <div id="opening-hours-wrapper">
+                                 <label id="opening-time-label" class="third-section-label">ساعات کار</label>
+                                 <div id="opening-hours-time">
+                                     
+                                 </div>
+                                 <div class="holidays-wrapper"></div>
+                             </div>
+                         </div>
+                         <div class="main-fields-forth-section" >
+                             
+                         </div>
+                    </div>
+                    <div class="col capabilites"></div>
+                </div>
+                
             </div>
+
             <div class="col col-md-4 main-left main-cols">
 
             </div>
