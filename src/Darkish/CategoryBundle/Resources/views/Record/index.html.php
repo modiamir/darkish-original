@@ -110,10 +110,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                        
                         <div class="record-number-wrapper">
                           <span class="record-number-title">شماره پرونده</span>
-                          <span class="record-number">12560</span>
+                          <span class="record-number" ng-bind="RecordService.currentRecord.record_number"></span>
                           
                         </div>
-                        <div class="record-confirme-status">
+                        <div ng-bind="RecordService.currentRecord.verify ? 'تایید شده' : 'تایید نشده'" class="record-confirme-status" ng-class="{ 'approved': RecordService.currentRecord.verify , 'unapproved': !RecordService.currentRecord.verify }">
                            تایید شده
                         </div>
 
@@ -123,13 +123,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <div class="record-title">
                             <div class="record-title-lan">Lan</div>
                             <div class="field-title record-title-title">عنوان:</div>
-                            <input type="text" name="record-title" class="record-title-input"> 
+                            <input type="text" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title"> 
                            
                         </div>
 
                         <div class="record-subtitle">
                             <div class="field-title record-title-title">زیر عنوان:</div>
-                            <input type="text" name="record-subtitle" class="record-subtitle-input"> 
+                            <input type="text" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title"> 
                         </div>
 
                     </div>
@@ -140,17 +140,17 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <div class="main-fields-first-section" >
                             <div class="main-fields-search-key">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
-                                <input type="text" name="searchkey-input" id="search-key-input" class="first-section-input"> 
+                                <input type="text" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords"> 
                             </div>
 
                             <div class="main-fields-owner">
                                 <label class="main-fields-owner-title first-section-fields-title" for="owner-input">مالک/مدیر:</label>
-                                <input type="text" name="owner-input" id="owner-input" class="first-section-input"> 
+                                <input type="text" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner"> 
                             </div>
 
                             <div class="main-fields-legal-name">
                                 <label class="main-fields-legal-name-title first-section-fields-title" for="legal-name-input">نام حقوقی:</label>
-                                <input type="text" name="legal-name-input" id="legal-name-input" class="first-section-input"> 
+                                <input type="text" name="legal-name-input" id="legal-name-input" class="first-section-input" ng-model="RecordService.currentRecord.legal_name"> 
                             </div>
 
                             <div class="main-fields-tree-list">
@@ -171,17 +171,17 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                          <div class="main-fields-second-section" >
 
                             <div id="just-html-chk-wrapper" class="main-fields-second-section-chk-wrapper">
-                                <input type="checkbox" id="just-html-chk" name="just-html-chk" class="second-section-chk" >
+                                <input type="checkbox" id="just-html-chk" name="just-html-chk" class="second-section-chk" ng-model="RecordService.currentRecord.only_html">
                                 <label id="just-html-chk-label" class="second-section-chk-label" for="just-html-chk"> فقط HTML</label>
                             </div>
 
                             <div id="html-page-chk-wrapper" class="main-fields-second-section-chk-wrapper">
-                                <input type="checkbox" id="html-page-chk" name="html-page-chk" class="second-section-chk" >
+                                <input type="checkbox" id="html-page-chk" name="html-page-chk" class="second-section-chk" ng-model="RecordService.currentRecord.online_enable">
                                 <label id="html-page-chk-label" class="second-section-chk-label" for="html-page-chk"> صفحه HTML</label>
                             </div>
 
                             <div id="brand-chk-wrapper" class="main-fields-second-section-chk-wrapper">
-                                <input type="checkbox" id="brand-chk" name="brand-chk" class="second-section-chk" >
+                                <input type="checkbox" id="brand-chk" name="brand-chk" class="second-section-chk" ng-model="RecordService.currentRecord.brand_enable">
                                 <label id="brand-chk-label" class="second-section-chk-label" for="brand-chk"> برند - نمایندگی</label>
                             </div>
 
@@ -189,16 +189,23 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                  <label id="ranklist-combo-label" class="second-section-combo-label" for="ranklist-combo">رتبه نمایش در لیست</label>
 
-                                <select id="ranklist-combo" name=mytextarea>
-                                    <option name=one value=one> one </option>
-                                    <option name=two value=two> two </option>
-                                    <option name=three value=three> three </option>
+                                <select id="ranklist-combo" ng-model="RecordService.currentRecord.list_rank">
+                                    <option value=1> 1 </option>
+                                    <option value=2> 2 </option>
+                                    <option value=3> 3 </option>
+                                    <option value=4> 4 </option>
+                                    <option value=5> 5 </option>
+                                    <option value=6> 6 </option>
+                                    <option value=7> 7 </option>
+                                    <option value=8> 8 </option>
+                                    <option value=9> 9 </option>
+                                    <option value=10> 10 </option>
                                 </select>
                                
                             </div>
 
                             <div id="group-massage-chk-wrapper" class="main-fields-second-section-chk-wrapper">
-                                <input type="checkbox" id="group-massage-chk" name="group-massage-chk" class="second-section-chk" >
+                                <input type="checkbox" id="group-massage-chk" name="group-massage-chk" class="second-section-chk" ng-model="RecordService.currentRecord.bulk_sms_enable">
                                 <label id="group-massage-chk-label" class="second-section-chk-label" for="group-massage-chk">امکان ارسال پیام گروهی</label>
                             </div>
 
@@ -209,22 +216,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div id="bazar-wrapper" class="main-fields-second-section-chk-wrapper">
                                 <label class="bazar-label">مرکز/بازار</label>
-                               	<label class="bazar-id">id</label>
+                               	<label class="bazar-id" ng-bind="RecordService.currentRecord.center_index.id"></label>
                             </div>
 
                             <div id="central-wrapper" >
                                 <label  class="central-wrapper-combo-label second-section-combo-label" for="central-wrapper-combo">انتخاب مرکز</label>	
-                                <select id="central-wrapper-combo" name=mytextarea>
-                                    <option name=one value=one> one </option>
-                                    <option name=two value=two> two </option>
-                                    <option name=three value=three> three </option>
+                                <select id="central-wrapper-combo" ng-model="RecordService.currentRecord.center_index"
+                                    ng-options="center.name for center in ValuesService.centers">
+                                    <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
+
                                 </select>
 
                                 <label class="central-floor-title second-section-fields-title" for="central-floor-input">طبقه</label>
-                                <input type="text" name="central-floor" id="central-floor-input" class="second-section-input"> 
+                                <input type="text" name="central-floor" id="central-floor-input" class="second-section-input" ng-model="RecordService.currentRecord.center_floor"> 
 
                                <label class="central-unit-title second-section-fields-title" for="central-unit-input">واحد</label>
-                               <input type="text" name="central-unit" id="central-unit-input" class="second-section-input"> 
+                               <input type="text" name="central-unit" id="central-unit-input" class="second-section-input" ng-model="RecordService.currentRecord.center_unit_number"> 
                             </div>
 
                             <div id="trip-maker-wrapper" class="main-fields-second-section-chk-wrapper">
@@ -288,12 +295,119 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                              <div id="opening-hours-wrapper">
                                  <label id="opening-time-label" class="third-section-label">ساعات کار</label>
                                  <div id="opening-hours-time">
+                                    <span>
+                                    صبح
+                                    </span>
+                                    <input morning-one type="text" />
+                                    <input morning-two type="text" />
+                                    <span>
+                                    عصر
+                                    </span>
+                                    <input evening-one type="text" />
+                                    <input evening-two type="text" />
                                      
                                  </div>
-                                 <div class="holidays-wrapper"></div>
+                                 <div class="holidays-wrapper">
+                                     <span>
+                                         ایام تعطیل
+                                     </span>
+                                     <input type="checkbox" id="holiday-shanbe" />
+                                     <label for="holiday-shanbe">شنبه</label>
+
+                                     <input type="checkbox" id="holiday-yekshanbe" />
+                                     <label for="holiday-yekshanbe">یکشنبه</label>
+
+                                     <input type="checkbox" id="holiday-doshanbe" />
+                                     <label for="holiday-doshanbe">دوشنبه</label>
+
+                                     <input type="checkbox" id="holiday-seshanbe" />
+                                     <label for="holiday-seshanbe">سهشنبه</label>
+
+                                     <input type="checkbox" id="holiday-charshanbe" />
+                                     <label for="holiday-charshanbe">چهارشنبه</label>
+
+                                     <input type="checkbox" id="holiday-panjshanbe" />
+                                     <label for="holiday-panjshanbe">پنج شنبه</label>
+
+                                     <input type="checkbox" id="holiday-jome" />
+                                     <label for="holiday-jome">جمعه</label>
+
+                                     <input type="checkbox" id="holiday-holiday" />
+                                     <label for="holiday-holiday">تعطیل رسمی</label>
+
+
+
+
+
+
+                                 </div>
                              </div>
                          </div>
                          <div class="main-fields-forth-section" >
+                            <span> آدرس و تلفن</span>
+                            <label for="address">آدرس</label>
+                            <div class="form-item-wrapper address">
+                                <textarea id="address">
+                                    
+                                </textarea>
+                            </div>
+
+                            <label for="phone-one">تلفن</label>
+                            <div class="form-item-wrapper phone">
+                                <input type="text" id="phone-one"/>
+                                <input type="text" id="phone-two"/>
+                                <input type="text" id="phone-three"/>
+                                <input type="text" id="phone-four"/>
+                            </div>
+
+                            <label for="fax-one">فکس</label>
+                            <div class="form-item-wrapper fax">
+                                <input type="text" id="fax-one"/>
+                                <input type="text" id="fax-two"/>
+                            </div>
+
+                            <label for="mobile-one">همراه</label>
+                            <div class="form-item-wrapper mobile">
+                                <input type="text" id="mobile-one"/>
+                                <input type="text" id="mobile-two"/>
+                            </div>
+
+                            <label for="email">ایمیل</label>
+                            <div class="form-item-wrapper email">
+                                <input type="text" id="email"/>
+                            </div>
+
+                            <label for="website">سایت</label>
+                            <div class="form-item-wrapper website">
+                                <input type="text" id="website"/>
+                            </div>
+
+                            <label for="states"> محله </label>
+                            <div class="form-item-wrapper state">
+                                <select id="states" name=mytextarea>
+                                    <option name=one value=one> one </option>
+                                    <option name=two value=two> two </option>
+                                    <option name=three value=three> three </option>
+                                </select>
+                                <span class="state-id">
+                                    
+                                </span>   
+                            </div>
+
+
+                            <div class="map-button">
+                                <button class="btn map">مکان نقشه</button>
+                            </div>
+                            <div class="form-item-wrapper map">
+                                <input type="text" id="latitude"/>
+                                <input type="text" id="longitude"/>
+                            </div>
+                            
+
+
+
+
+
                              
                          </div>
                     </div>

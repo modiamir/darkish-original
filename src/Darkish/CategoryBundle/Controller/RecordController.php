@@ -227,7 +227,7 @@ class RecordController extends Controller
 
 
             $serialized = $this->get('jms_serializer')->
-                serialize($category->getRecords(), 'json', SerializationContext::create()->setGroups(array('list')));
+                serialize($category->getRecords(), 'json', SerializationContext::create()->setGroups(array('record.list')));
 
 
 
@@ -255,7 +255,12 @@ class RecordController extends Controller
             return new Response("Record ID is invalid", 404);
         }
 
-        return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('details', 'Default'))));
+        return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('record.details'))));
+    }
 
+    public function getCentersAction() {
+        $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Center');
+        $centers = $repository->findAll();
+        return new Response($this->get('jms_serializer')->serialize($centers, 'json', SerializationContext::create()->setGroups(array('center.list'))));
     }
 }

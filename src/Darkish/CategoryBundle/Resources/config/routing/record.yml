@@ -23,4 +23,7 @@ record_get_record:
     path:     /ajax/get_record/{id}
     defaults: { _controller: "DarkishCategoryBundle:Record:getRecord", _format: json}
 
+record_get_centers:
+    path:   /ajax/get_centers
+    defaults: { _controller: "DarkishCategoryBundle:Record:getCenters", _format: json }
 

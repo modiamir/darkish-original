@@ -9,7 +9,7 @@
 //        }]);
 
 angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal']).
-    controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', function($scope, $filter, TreeService, RecordService, treeModal) {
+    controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', function($scope, $filter, TreeService, RecordService, treeModal, ValuesService) {
 
 
         /**
@@ -18,6 +18,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
          */
         $scope.TreeService = TreeService;
         $scope.TreeService.updateTree();
+        $scope.ValuesService = ValuesService;
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
@@ -45,16 +46,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-        //console.log($scope.RecordService.gridOptions());
-
-
-
-
-
-
-
-
-
 
 
 
@@ -62,8 +53,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
     }])
     .factory('TreeService', ['$http', 'RecordService', function($http, RecordService){
-        var test;
+
         var tree = [];
+        
         var treeOptions = {
             nodeChildren: "children",
             dirSelectable: false,
@@ -103,9 +95,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             }
 
-
-
-
         };
     }])
     .factory('RecordService', ['$http',function($http){
@@ -122,6 +111,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         };
+
 
         self.list = function() {
             return items;
@@ -150,13 +140,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $http.get('ajax/get_record/'+record.id).then(
                 function(response) {
                     self.currentRecord = response.data;
+                    console.log(self.currentRecord);
                 },
                 function(errResponse) {
                     console.log(errResponse);
                 }
             );
 
-            console.log(self.currentRecord);
+            
         };
 
         self.isSelected = function(record) {
@@ -177,4 +168,32 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     }).
     controller('treeModalCtrl', ['$scope', 'treeModal', function ($scope, treeModal) {
         $scope.closeMe = treeModal.deactivate;
+    }]).
+    factory('ValuesService', ['$http', function ($http){ 
+        var centers;
+        
+        var self = {
+            centers: null
+        };
+
+        if(!centers) {
+            $http.get('ajax/get_centers').then(
+                function(response) {
+                    self.centers = response.data;
+                    console.log(response.data);
+                    
+                },
+                function(errResponse) {
+                    console.log(errResponse);
+                }
+            );    
+        }
+
+        
+        
+        
+        return self;
+
+        
+
     }]);

@@ -26,7 +26,7 @@ body{
     height: 35px;
     padding: 5px 5px;
     font-size: 18px;
-    line-height: 20px;
+    line-height: 30px;
 }
 
 .navbar {
@@ -306,15 +306,24 @@ h3.block-title {
 
 .record-confirme-status {
    
-    background: rgb(25, 194, 25);
+    /*background: rgb(25, 194, 25);*/
     width: 97%;
     margin-top: 7px;
-    height: 25px;
+    height: 30px;
     text-align: center;
     margin-right: auto;
     margin-left: auto;
     color: white;
 }
+
+.record-confirme-status.approved {
+    background: rgb(25, 194, 25);
+}
+
+.record-confirme-status.unapproved {
+    background: rgb(194, 25, 25);
+}
+
 .basic-info-left-col{
    float: left;
     height: 100%;
@@ -336,7 +345,7 @@ h3.block-title {
     float: left;
     background: rgb(134, 133, 132);
     width: 35px;
-    height: 22px;
+    height: 30px;
     margin-top: 2px;
     text-align: center;
     color: white;
@@ -390,9 +399,11 @@ h3.block-title {
 }
 .main-fields-first-section{
     height: 190px;
-    width: 100%;
     padding-top: 10px;
     direction: rtl;
+    margin: 10px 10px 0 10px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
 }
 .main-fields-search-key, .main-fields-owner, 
 .main-fields-legal-name, .main-fields-tree-list {
@@ -439,10 +450,18 @@ h3.block-title {
 }
 
 /*-----------main fields second section-------------*/
-.main-fields-second-section{height: 275px; background: yellow; padding-top: 10px; padding-right: 10px;}
+.main-fields-second-section{
+    /*height: 275px;*/
+    display: inline-block;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 0 10px 10px 10px;
+}
 .main-fields-second-section-chk-wrapper{
     width: 45%;
-    height: 24px;
+    height: 30px;
     margin-bottom: 5px;
 }
 #just-html-chk-wrapper{
@@ -465,11 +484,11 @@ h3.block-title {
 }
 #ranklist-combo-wrapper {
     float: right;
-    height: 24px;
+    height: 30px;
 }
 .main-fields-second-section-combo-wrapper {
     width: 45%;
-    height: 24px;
+    height: 30px;
     background: aquamarine;
 }
 #ranklist-combo-label {
@@ -478,7 +497,7 @@ h3.block-title {
 }
 #ranklist-combo {
     width: 34%;
-    height: 22px;
+    height: 30px;
     margin: auto;
     float: left;
     height: 100%;
@@ -514,7 +533,7 @@ h3.block-title {
 #central-wrapper {
     float: right;
     background: burlywood;
-    height: 24px;
+    height: 30px;
     margin-bottom: 5px;
 }
 #central-wrapper-combo {
@@ -543,7 +562,7 @@ h3.block-title {
     float: right;
     background: aqua;
     width: 75%;
-    height: 24px;
+    height: 30px;
 }
 .trip-maker-id {
     width: 22%;
@@ -557,7 +576,7 @@ h3.block-title {
     float: right;
     background: blueviolet;
     width: 100%;
-    height: 24px;
+    height: 30px;
     margin-bottom: 5px;
 }
 .choose-group-wrapper-combo-label{
@@ -603,13 +622,13 @@ h3.block-title {
     float: right;
     background: aqua;
     width: 75%;
-    height: 24px;
+    height: 30px;
 }
 #info-bank-choose-group-wrapper {
     float: right;
     background: blueviolet;
     width: 100%;
-    height: 24px;
+    height: 30px;
     margin-bottom: 5px;
 }
 .info-bank-choose-group-wrapper-combo-label {
@@ -624,7 +643,7 @@ h3.block-title {
 }
 
 /*-----------main fields third section-------------*/
-.main-fields-third-section{height: 200px;}
+.main-fields-third-section{}
 .third-section-label {
     float: right;
 }
@@ -634,16 +653,18 @@ h3.block-title {
 }
 
 .main-fields-third-section {
-    background: thistle;
 }
 #spec-msg-detail-wrapper {
-    border: groove 1px;
-    height: 55px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 2%;
+    display: inline-block;
+    width: 96%;
 }
 #spec-msg-text-wrapper {
     width: 100%;
     background: aliceblue;
-    height: 24px;
+    height: 30px;
     margin-bottom: 5px;
 }
 #spec-msg-text-label {
@@ -659,7 +680,7 @@ h3.block-title {
     float: right;
     width: 100%;
     background: blueviolet;
-    height: 24px;
+    height: 30px;
 }
 #spec-msg-insert-date-label {
     margin-right: 29px;
@@ -669,6 +690,131 @@ h3.block-title {
     margin-right: 17px;
     margin-left: 5px;
 }
+
+#opening-hours-wrapper {
+    border: 1px solid #ccc;
+    margin: 2%;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    width: 96%;
+}
+
+#opening-hours-wrapper label#opening-time-label {
+    position: absolute;
+    top: -10px;
+    line-height: 15px;
+    background: white;
+    padding: 0 5px;
+}
+
+#opening-hours-wrapper #opening-hours-time span{
+    float: right;
+    margin-left: 10px;
+}
+
+#opening-hours-wrapper #opening-hours-time input {
+    width: 50px;
+    margin-left: 10px;
+    float: right;
+}
+
+
+#opening-hours-wrapper .holidays-wrapper {
+    clear: both;
+    border: 1px dashed;
+    margin: 2%;
+    display: inline-block;
+    width: 96%;
+    padding: 10px;
+}
+
+#opening-hours-wrapper .holidays-wrapper span {
+    clear: both;
+    display: table;
+}
+
+#opening-hours-wrapper .holidays-wrapper label {
+    width: 20%;
+    float: right;
+}
+
+#opening-hours-wrapper .holidays-wrapper input {
+    width: 5%;
+    float: right;   
+}
 /*-----------main fields forth section-------------*/
-.main-fields-forth-section{height: 200px;}
+.main-fields-forth-section{
+    clear: both;
+    width: 96%;
+    display: inline-block;
+    margin: 2%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+}
+
+.main-fields-forth-section span {
+    position: absolute;
+    top: -10px;
+    line-height: 15px;
+    background: white;
+    padding: 0 5px;
+}
+
+.main-fields-forth-section label {
+    float: right;
+    width: 20%;
+    text-align: left;
+}
+
+.main-fields-forth-section .form-item-wrapper { 
+    float: right;
+    width: 75%;
+    margin-right: 4%;
+}   
+.main-fields-forth-section .form-item-wrapper textarea {
+    width: 95%;
+}
+
+.main-fields-forth-section .form-item-wrapper input {
+    width: 45%;
+    margin-left: 4%;
+    margin-bottom: 5px;
+}
+
+.main-fields-forth-section .form-item-wrapper.email input,
+.main-fields-forth-section .form-item-wrapper.website input {
+    width: 95%;
+}
+
+.main-fields-forth-section .form-item-wrapper.state select#states {
+    width: 70%;
+    float: right;
+    margin-bottom: 5px;
+}
+
+.main-fields-forth-section .form-item-wrapper.state span {
+    float: right;
+    position: inherit;
+    top: inherit;
+    width: 20%;
+    height: 30px;
+    background: rgb(216, 216, 216);
+    margin-right: 5%;
+}   
+
+.main-fields-forth-section .map-button {
+    float: right;
+    width: 20%;
+}
+
+.main-fields-forth-section .map-button button{
+    float: left;
+}
+
+
+
+
+
 /*shahed*/

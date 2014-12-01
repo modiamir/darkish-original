@@ -22,7 +22,7 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list"})
+     * @Groups({"record.list", "record.details"})
      */
     private $id;
 
@@ -30,7 +30,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="record_number", type="string", length=255, unique=true)
-     * @Groups({"list", "details"})
+     * @Groups({"record.list", "record.details"})
      */
     private $recordNumber;
 
@@ -39,7 +39,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"list", "details"})
+     * @Groups({"record.list", "record.details"})
      */
     private $title;
 
@@ -47,7 +47,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"list", "details"})
+     * @Groups({"record.list", "record.details"})
      *
      */
     private $subTitle;
@@ -55,7 +55,8 @@ class Record
     /**
      * @var integer
      *
-     * @ORM\Column(name="Owner", type="integer", nullable=true)
+     * @ORM\Column(name="Owner", type="string", nullable=true)
+     * @Groups({"record.details"})
      */
     private $owner;
 
@@ -63,20 +64,26 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LegalName", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $legalName;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="CenterIndex", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Center", inversedBy="records")
+     * @ORM\JoinColumn(name="CenterIndex", referencedColumnName="id")
+     * @Groups({"record.details"})
      */
     private $centerIndex;
+
+
 
     /**
      * @var string
      *
      * @ORM\Column(name="CenterFloor", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $centerFloor;
 
@@ -84,6 +91,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CenterUnitNumber", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $centerUnitNumber;
 
@@ -91,6 +99,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="AreaIndex", type="integer", nullable=true)
+     * @Groups({"record.details"})
      */
     private $areaIndex;
 
@@ -98,6 +107,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="MessageEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $messageEnable;
 
@@ -105,6 +115,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageText", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $messageText;
 
@@ -112,6 +123,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageValidityText", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $messageValidityText;
 
@@ -119,6 +131,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="ItineraryTypeIndex", type="integer", nullable=true)
+     * @Groups({"record.details"})
      */
     private $itineraryTypeIndex;
 
@@ -126,6 +139,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ItineraryRank", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $itineraryRank;
 
@@ -133,6 +147,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumber", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $telNumber;
 
@@ -140,6 +155,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="FaxNumber", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $faxNumber;
 
@@ -147,6 +163,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MobileNumbers", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $mobileNumbers;
 
@@ -154,6 +171,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $email;
 
@@ -161,6 +179,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $website;
 
@@ -168,6 +187,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $address;
 
@@ -175,6 +195,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Longitude", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $longitude;
 
@@ -182,6 +203,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Latitude", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $latitude;
 
@@ -189,6 +211,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Reserved1", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $reserved1;
 
@@ -196,6 +219,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Reserved2", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $reserved2;
 
@@ -203,6 +227,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="BrandEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $brandEnable;
 
@@ -210,6 +235,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ListRank", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $listRank;
 
@@ -217,6 +243,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MOpeningHours", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $mOpeningHours;
 
@@ -224,6 +251,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="AOpeningHours", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $aOpeningHours;
 
@@ -231,6 +259,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="WorkingDays", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $workingDays;
 
@@ -238,6 +267,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SearchKeywords", type="text", nullable=true)
+     * @Groups({"record.details"})
      */
     private $searchKeywords;
 
@@ -245,6 +275,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CreationDate", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $creationDate;
 
@@ -252,6 +283,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LastUpdate", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $lastUpdate;
 
@@ -259,6 +291,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="FavoriteEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $favoriteEnable;
 
@@ -266,6 +299,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="LikeEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $likeEnable;
 
@@ -273,6 +307,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="SendSmsEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $sendSmsEnable;
 
@@ -280,6 +315,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="InfoKeyEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $infoKeyEnable;
 
@@ -287,6 +323,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="CommentEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $commentEnable;
 
@@ -294,6 +331,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlyHtml", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $onlyHtml;
 
@@ -301,6 +339,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlineEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $onlineEnable;
 
@@ -308,6 +347,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="DbaseEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $dbaseEnable;
 
@@ -315,6 +355,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="DbaseTypeIndex", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $dbaseTypeIndex;
 
@@ -322,6 +363,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="BulkSmsEnable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $bulkSmsEnable;
 
@@ -329,6 +371,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $audio;
 
@@ -336,6 +379,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $video;
 
@@ -343,6 +387,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlineMarket", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $onlineMarket;
 
@@ -350,6 +395,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlineTicket", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $onlineTicket;
 
@@ -357,6 +403,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="VisitCount", type="integer", nullable=true)
+     * @Groups({"record.details"})
      */
     private $visitCount;
 
@@ -364,6 +411,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="FavoriteCount", type="integer", nullable=true)
+     * @Groups({"record.details"})
      */
     private $favoriteCount;
 
@@ -371,6 +419,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="LikeCount", type="integer", nullable=true)
+     * @Groups({"record.details"})
      */
     private $likeCount;
 
@@ -378,11 +427,15 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Verify", type="boolean", nullable=true)
+     * @Groups({"record.details"})
      */
     private $verify;
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $trees
+     *
+     * @Groups({"record.details"})
+     *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\MainTree", inversedBy="records")
      * @ORM\JoinTable(name="records_maintrees",
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
@@ -453,7 +506,7 @@ class Record
     /**
      * Set owner
      *
-     * @param integer $owner
+     * @param string $owner
      * @return Record
      */
     public function setOwner($owner)
@@ -466,7 +519,7 @@ class Record
     /**
      * Get owner
      *
-     * @return integer 
+     * @return string 
      */
     public function getOwner()
     {
@@ -496,28 +549,9 @@ class Record
         return $this->legalName;
     }
 
-    /**
-     * Set centerIndex
-     *
-     * @param integer $centerIndex
-     * @return Record
-     */
-    public function setCenterIndex($centerIndex)
-    {
-        $this->centerIndex = $centerIndex;
+    
 
-        return $this;
-    }
-
-    /**
-     * Get centerIndex
-     *
-     * @return integer 
-     */
-    public function getCenterIndex()
-    {
-        return $this->centerIndex;
-    }
+    
 
     /**
      * Set centerFloor
@@ -1594,4 +1628,27 @@ class Record
         $this->trees = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Set centerIndex
+     *
+     * @param \Darkish\CategoryBundle\Entity\Center $centerIndex
+     * @return Record
+     */
+    public function setCenterIndex(\Darkish\CategoryBundle\Entity\Center $centerIndex = null)
+    {
+        $this->centerIndex = $centerIndex;
+    
+        return $this;
+    }
+
+    /**
+     * Get centerIndex
+     *
+     * @return \Darkish\CategoryBundle\Entity\Center 
+     */
+    public function getCenterIndex()
+    {
+        return $this->centerIndex;
+    }
 }
