@@ -5,12 +5,12 @@ namespace Darkish\CategoryBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Itinerary
+ * SafarsazType
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class ItineraryType
+class SafarsazType
 {
     /**
      * @var integer
@@ -28,6 +28,11 @@ class ItineraryType
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="safarsazTypeIndex")
+     */
+    protected $records;
+
 
     /**
      * Get id
@@ -43,7 +48,7 @@ class ItineraryType
      * Set name
      *
      * @param string $name
-     * @return Itinerary
+     * @return SafarsazType
      */
     public function setName($name)
     {

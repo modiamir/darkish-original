@@ -130,10 +130,12 @@ class Record
     /**
      * @var integer
      *
-     * @ORM\Column(name="ItineraryTypeIndex", type="integer", nullable=true)
+     * @ORM\Column(name="SafarsazTypeIndex", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="SafarsazType", inversedBy="records")
+     * @ORM\JoinColumn(name="SafarsazTypeIndex", referencedColumnName="id")
      * @Groups({"record.details"})
      */
-    private $itineraryTypeIndex;
+    private $safarsazTypeIndex;
 
     /**
      * @var string
@@ -141,7 +143,7 @@ class Record
      * @ORM\Column(name="ItineraryRank", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $itineraryRank;
+    private $safarsazRank;
 
     /**
      * @var string
