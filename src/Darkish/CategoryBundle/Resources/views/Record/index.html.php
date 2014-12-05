@@ -411,7 +411,19 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                              
                          </div>
                     </div>
-                    <div class="col capabilites"></div>
+                    <div class="col capabilites">
+                        <div class="capabilites-buttons-wrapper">
+                            <div class="capabilites-status" >فعال</div>
+                            قابلیت ها
+                            <span class="capabilites-buttons favorit inactive">   </span>
+                            <span class="capabilites-buttons like inactive" >      </span>
+                            <span class="capabilites-buttons message inactive">   </span>
+                            <span class="capabilites-buttons safarname inactive"> </span>
+                            <span class="capabilites-buttons sound inactive">     </span>
+                            <span class="capabilites-buttons ticket inactive">    </span>
+                            <span class="capabilites-buttons video inactive">     </span>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
