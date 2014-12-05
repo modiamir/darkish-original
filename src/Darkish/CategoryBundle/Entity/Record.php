@@ -130,9 +130,9 @@ class Record
     /**
      * @var integer
      *
-     * @ORM\Column(name="SafarsazTypeIndex", type="integer", nullable=true)
+     * @ORM\Column(name="safarsazTypeIndex", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="SafarsazType", inversedBy="records")
-     * @ORM\JoinColumn(name="SafarsazTypeIndex", referencedColumnName="id")
+     * @ORM\JoinColumn(name="safarsazTypeIndex", referencedColumnName="id")
      * @Groups({"record.details"})
      */
     private $safarsazTypeIndex;
@@ -140,7 +140,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="ItineraryRank", type="string", length=255, nullable=true)
+     * @ORM\Column(name="SafarsazRank", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
     private $safarsazRank;
@@ -693,51 +693,9 @@ class Record
         return $this->messageValidityText;
     }
 
-    /**
-     * Set itineraryTypeIndex
-     *
-     * @param integer $itineraryTypeIndex
-     * @return Record
-     */
-    public function setItineraryTypeIndex($itineraryTypeIndex)
-    {
-        $this->itineraryTypeIndex = $itineraryTypeIndex;
+    
 
-        return $this;
-    }
-
-    /**
-     * Get itineraryTypeIndex
-     *
-     * @return integer 
-     */
-    public function getItineraryTypeIndex()
-    {
-        return $this->itineraryTypeIndex;
-    }
-
-    /**
-     * Set itineraryRank
-     *
-     * @param string $itineraryRank
-     * @return Record
-     */
-    public function setItineraryRank($itineraryRank)
-    {
-        $this->itineraryRank = $itineraryRank;
-
-        return $this;
-    }
-
-    /**
-     * Get itineraryRank
-     *
-     * @return string 
-     */
-    public function getItineraryRank()
-    {
-        return $this->itineraryRank;
-    }
+    
 
     /**
      * Set telNumber
@@ -1652,5 +1610,51 @@ class Record
     public function getCenterIndex()
     {
         return $this->centerIndex;
+    }
+
+    /**
+     * Set safarsazTypeIndex
+     *
+     * @param integer $safarsazTypeIndex
+     * @return Record
+     */
+    public function setSafarsazTypeIndex($safarsazTypeIndex)
+    {
+        $this->safarsazTypeIndex = $safarsazTypeIndex;
+    
+        return $this;
+    }
+
+    /**
+     * Get safarsazTypeIndex
+     *
+     * @return integer 
+     */
+    public function getSafarsazTypeIndex()
+    {
+        return $this->safarsazTypeIndex;
+    }
+
+    /**
+     * Set safarsazRank
+     *
+     * @param string $safarsazRank
+     * @return Record
+     */
+    public function setSafarsazRank($safarsazRank)
+    {
+        $this->safarsazRank = $safarsazRank;
+    
+        return $this;
+    }
+
+    /**
+     * Get safarsazRank
+     *
+     * @return string 
+     */
+    public function getSafarsazRank()
+    {
+        return $this->safarsazRank;
     }
 }
