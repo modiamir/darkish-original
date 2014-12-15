@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * Center
  *
- * @ORM\Table()
+ * @ORM\Table(name="center")
  * @ORM\Entity
  */
 class Center

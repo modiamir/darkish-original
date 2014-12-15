@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * DbaseType
  *
- * @ORM\Table()
+ * @ORM\Table(name="dbasetype")
  * @ORM\Entity
  */
 class DbaseType

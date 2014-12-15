@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * Area
  *
- * @ORM\Table()
+ * @ORM\Table(name="area")
  * @ORM\Entity
  */
 class Area

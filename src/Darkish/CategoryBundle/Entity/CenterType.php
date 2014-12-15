@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CenterType
  *
- * @ORM\Table()
+ * @ORM\Table(name="centertype")
  * @ORM\Entity
  */
 class CenterType

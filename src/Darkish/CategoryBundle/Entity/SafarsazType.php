@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * SafarsazType
  *
- * @ORM\Table()
+ * @ORM\Table(name="safarsaztype")
  * @ORM\Entity
  */
 class SafarsazType
