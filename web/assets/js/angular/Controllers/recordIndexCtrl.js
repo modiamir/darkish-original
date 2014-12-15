@@ -180,6 +180,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     self.currentRecord.bodyImagesList = Collection.getInstance();
                     self.currentRecord.videosList = Collection.getInstance();
                     self.currentRecord.bodyVideosList = Collection.getInstance();
+                    self.currentRecord.audiosList = Collection.getInstance();
                     self.currentRecord.bodyAudiosList = Collection.getInstance();
                     editing = true;
                     ValuesService.getRandUploadKey(true);
@@ -221,6 +222,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.selectBodyVideo = function(video) {
             console.log(video);
             self.selectedBodyVideo = video;
+        }
+
+        self.selectAudio = function(audio) {
+            console.log(audio);
+            self.selectedAudio = audio;
         }
 
         self.selectBodyAudio = function(audio) {
@@ -285,16 +291,34 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             self.currentRecord.images = self.currentRecord.imagesList.all();
         }
 
+        self.addToBodyImagesList = function(obj) {
+            console.log(obj);
+            self.currentRecord.bodyImagesList.add(obj);
+            self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
+        }
+
         self.addToVideosList = function(obj) {
             console.log(obj);
             self.currentRecord.videosList.add(obj);
-            self.currentRecord.videos = self.currentRecord.imagesList.all();
+            self.currentRecord.videos = self.currentRecord.videosList.all();
+        }
+
+        self.addToBodyVideosList = function(obj) {
+            console.log(obj);
+            self.currentRecord.bodyVideosList.add(obj);
+            self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
         }
 
         self.addToAudiosList = function(obj) {
             console.log(obj);
             self.currentRecord.audiosList.add(obj);
             self.currentRecord.audios = self.currentRecord.audiosList.all();
+        }
+
+        self.addToBodyAudiosList = function(obj) {
+            console.log(obj);
+            self.currentRecord.bodyAudiosList.add(obj);
+            self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
         }
 
         self.removeFromAttachList = function() {
@@ -310,6 +334,25 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'audio':
                     self.currentRecord.audiosList.remove(self.selectedAudio);
                     self.currentRecord.audios = self.currentRecord.audiosList.all();
+                    break;
+
+            }
+
+        }
+
+        self.removeFromBodyAttachList = function() {
+            switch(ValuesService.bodyAttachmentActiveTab) {
+                case 'image':
+                    self.currentRecord.bodyImagesList.remove(self.selectedBodyImage);
+                    self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
+                    break;
+                case 'video':
+                    self.currentRecord.bodyVideosList.remove(self.selectedBodyVideo);
+                    self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
+                    break;
+                case 'audio':
+                    self.currentRecord.bodyAudiosList.remove(self.selectedBodyAudio);
+                    self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
                     break;
 
             }
@@ -517,10 +560,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             RecordService.addToImagesList(response.data);
                             break;
                         case 'video':
-                            RecordService.currentRecord.videos.push(response.data);
+                            RecordService.addToVideosList(response.data);
                             break;
                         case 'audio':
-                            RecordService.currentRecord.audios.push(response.data);
+                            RecordService.addToAudiosList(response.data);
                             break;
 
                     }
@@ -534,72 +577,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
     }]).
-    controller('bodyUploadModalCtrl', ['$scope', 'bodyUploadModal', 'RecordService','TreeService', 'ValuesService', '$http', function ($scope, bodyUploadModal, RecordService, TreeService, ValuesService, $http) {
-
-        $scope.RecordService = RecordService;
-        $scope.ValuesService = ValuesService;
-        $scope.closeMe = function(){bodyUploadModal.deactivate();}
-        $scope.filesChanged = function(elm) {
-            $scope.bodyFiles = elm.bodyFiles;
-            $scope.$apply();
-            RecordService.bodyFile = $scope.Bodyfiles[0];
-        };
-
-        $scope.upload = function() {
-
-            var fd = new FormData();
-
-            fd.append('file', RecordService.file);
-            fd.append('uploadDir', ValuesService.activeTab);
-            fd.append('type', 'record');
-            if(RecordService.isNew()) {
-                if(ValuesService.getRandUploadKey()) {
-                    fd.append('uploadKey', ValuesService.getRandUploadKey());
-                }
-                alert('isnew');
-            } else {
-                fd.append('entityId', RecordService.currentRecord.id);
-                alert('is not new');
-            }
-
-
-
-
-
-            $http.post('../managedfile/ajax/upload', fd,
-                {
-                    transformRequest:angular.identity,
-                    headers: {'Content-Type':undefined }
-                }).then(
-                function(response){
-                    console.log(response);
-
-                    switch(response.data.upload_dir) {
-                        case 'image':
-                            RecordService.addToImagesList(response.data);
-                            break;
-                        case 'video':
-                            RecordService.currentRecord.videos.push(response.data);
-                            break;
-                        case 'audio':
-                            RecordService.currentRecord.audios.push(response.data);
-                            break;
-
-                    }
-
-
-                },
-                function(errResponse){
-
-                });
-        };
-
-
-    }]).
-    controller('bodyModalCtrl', ['$scope', 'bodyModal', 'RecordService','TreeService', 'ValuesService',
-        function (                $scope,   bodyModal,   RecordService,  TreeService,   ValuesService) {
+    controller('bodyModalCtrl', ['$scope', '$http' ,'bodyModal', 'RecordService','TreeService', 'ValuesService', 'bodyUploadModal',
+        function (                $scope,   $http,   bodyModal,   RecordService,  TreeService,   ValuesService,   bodyUploadModal) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
+        $scope.ValuesService = ValuesService;
         $scope.bodyEditorOptions = {
             language: 'en',
             height: '400px',
@@ -639,6 +621,82 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'others' },
                 { name: 'about' }
             ]
+        };
+
+        $scope.filesChanged = function(elm) {
+            $scope.files = elm.files;
+            $scope.$apply();
+            RecordService.bodyFile = $scope.files[0];
+        };
+
+
+        $scope.CkeditorInsert = function() {
+            switch(ValuesService.bodyAttachmentActiveTab) {
+                case 'image':
+//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    console.log(RecordService.selectedBodyImage.absolute_path);
+                    break;
+                case 'video':
+//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    console.log(RecordService.selectedBodyVideo.absolute_path);
+                    break;
+                case 'audio':
+//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    console.log(RecordService.selectedBodyAudio.absolute_path);
+                    break;
+
+            }
+
+
+        };
+
+        $scope.upload = function() {
+
+            var fd = new FormData();
+
+            fd.append('file', RecordService.bodyFile);
+            fd.append('uploadDir', ValuesService.bodyAttachmentActiveTab);
+            fd.append('type', 'record');
+            if(RecordService.isNew()) {
+                if(ValuesService.getRandUploadKey()) {
+                    fd.append('uploadKey', ValuesService.getRandUploadKey());
+                }
+                alert('isnew');
+            } else {
+                fd.append('entityId', RecordService.currentRecord.id);
+                alert('is not new');
+            }
+
+
+
+
+
+            $http.post('../managedfile/ajax/upload', fd,
+                {
+                    transformRequest:angular.identity,
+                    headers: {'Content-Type':undefined }
+                }).then(
+                function(response){
+                    console.log(response);
+
+                    switch(response.data.upload_dir) {
+                        case 'image':
+                            RecordService.addToBodyImagesList(response.data);
+                            break;
+                        case 'video':
+                            RecordService.addToBodyVideosList(response.data);
+                            break;
+                        case 'audio':
+                            RecordService.addToBodyAudiosList(response.data);
+                            break;
+
+                    }
+
+
+                },
+                function(errResponse){
+
+                });
         };
 
         $scope.closeMe = bodyModal.deactivate;

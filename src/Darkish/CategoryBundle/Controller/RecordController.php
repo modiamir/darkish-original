@@ -396,6 +396,48 @@ class RecordController extends Controller
 
             //$record->setImages($data['images']);
         }
+        if(isset($data['body_images'])) {
+
+            $currentBodyImages = $record->getBodyImages();
+            if($currentBodyImages) {
+                $newBodyImages = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_images'] as $bodyimage) {
+                    $newBodyImages->add($rep->find($bodyimage['id']));
+                }
+
+                $newBodyImagesIterator = $newBodyImages->getIterator();
+                while($newBodyImagesIterator->valid()) {
+                    if($currentBodyImages->contains($newBodyImagesIterator->current())) {
+                        $eCollec->add($newBodyImagesIterator->current());
+                    } else {
+                        $neCollec->add($newBodyImagesIterator->current());
+                    }
+                    $newBodyImagesIterator->next();
+                }
+
+                $currentBodyImagesIterator = $currentBodyImages->getIterator();
+                while($currentBodyImagesIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyImagesIterator->current()) && !$neCollec->contains($currentBodyImagesIterator->current())) {
+                        $currentBodyImages->removeElement($currentBodyImagesIterator->current());
+                    }
+                    $currentBodyImagesIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyImages->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$record->setImages($data['images']);
+        }
         if(isset($data['videos'])) {
             $currentVideos = $record->getVideos();
             if($currentVideos) {
@@ -434,6 +476,48 @@ class RecordController extends Controller
             }
 
             //$record->setVideos($data['videos']);
+        }
+        if(isset($data['body_videos'])) {
+
+            $currentBodyVideos = $record->getBodyVideos();
+            if($currentBodyVideos) {
+                $newBodyVideos = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_videos'] as $bodyvideo) {
+                    $newBodyVideos->add($rep->find($bodyvideo['id']));
+                }
+
+                $newBodyVideosIterator = $newBodyVideos->getIterator();
+                while($newBodyVideosIterator->valid()) {
+                    if($currentBodyVideos->contains($newBodyVideosIterator->current())) {
+                        $eCollec->add($newBodyVideosIterator->current());
+                    } else {
+                        $neCollec->add($newBodyVideosIterator->current());
+                    }
+                    $newBodyVideosIterator->next();
+                }
+
+                $currentBodyVideosIterator = $currentBodyVideos->getIterator();
+                while($currentBodyVideosIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyVideosIterator->current()) && !$neCollec->contains($currentBodyVideosIterator->current())) {
+                        $currentBodyVideos->removeElement($currentBodyVideosIterator->current());
+                    }
+                    $currentBodyVideosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyVideos->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$record->setImages($data['images']);
         }
         if(isset($data['audios'])) {
 
@@ -474,6 +558,48 @@ class RecordController extends Controller
             }
 
             //$record->setAudios($data['audios']);
+        }
+        if(isset($data['body_audios'])) {
+
+            $currentBodyAudios = $record->getBodyAudios();
+            if($currentBodyAudios) {
+                $newBodyAudios = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_audios'] as $bodyaudio) {
+                    $newBodyAudios->add($rep->find($bodyaudio['id']));
+                }
+
+                $newBodyAudiosIterator = $newBodyAudios->getIterator();
+                while($newBodyAudiosIterator->valid()) {
+                    if($currentBodyAudios->contains($newBodyAudiosIterator->current())) {
+                        $eCollec->add($newBodyAudiosIterator->current());
+                    } else {
+                        $neCollec->add($newBodyAudiosIterator->current());
+                    }
+                    $newBodyAudiosIterator->next();
+                }
+
+                $currentBodyAudiosIterator = $currentBodyAudios->getIterator();
+                while($currentBodyAudiosIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyAudiosIterator->current()) && !$neCollec->contains($currentBodyAudiosIterator->current())) {
+                        $currentBodyAudios->removeElement($currentBodyAudiosIterator->current());
+                    }
+                    $currentBodyAudiosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyAudios->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$record->setImages($data['images']);
         }
     }
 
