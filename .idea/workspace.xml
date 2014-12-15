@@ -23,48 +23,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RecordController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/RecordController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="257" column="152" selection-start="8294" selection-end="8294" vertical-scroll-proportion="0.0" vertical-offset="4369" max-vertical-offset="4539">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newsIndexCtrl.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="530" column="16" selection-start="20048" selection-end="20048" vertical-scroll-proportion="0.0" vertical-offset="8843" max-vertical-offset="11373">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/NewsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="547" column="5" selection-start="11603" selection-end="15001" vertical-scroll-proportion="0.0" vertical-offset="9021" max-vertical-offset="12852">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Record/index.html.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="250" column="32" selection-start="10265" selection-end="10265" vertical-scroll-proportion="0.32405567" vertical-offset="4087" max-vertical-offset="7327">
+            <state line="624" column="68" selection-start="42227" selection-end="42227" vertical-scroll-proportion="-5.0394735" vertical-offset="10225" max-vertical-offset="16592">
               <folding>
-                <marker date="1416949388272" expanded="true" signature="12447:12710" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="12447:12676" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="12447:12715" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="12483:12676" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="13891:14018" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="13936:13995" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="14059:14137" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="14180:14483" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="14260:14318" placeholder="..." />
-                <marker date="1416949388272" expanded="true" signature="14402:14460" placeholder="..." />
+                <element signature="e#35269#35289#0" expanded="true" />
+                <marker date="1418612365708" expanded="true" signature="9664:10890" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="9728:10847" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="9804:10100" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="10177:10718" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="10260:10667" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36078:37076" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36134:37041" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36196:37002" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36423:36528" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36601:36678" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="36868:36959" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38003:43541" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38079:43506" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38147:38265" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38334:43466" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38392:43423" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38459:42981" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38538:42930" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38627:42875" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38763:40275" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="38848:39246" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="39331:39730" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="39815:40213" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="40387:42815" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="40490:41180" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="40578:41112" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="40720:40732" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="40854:41042" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="41283:41966" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="41371:41899" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="41513:41525" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="41647:41829" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="42069:42752" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="42157:42685" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="42299:42311" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="42433:42615" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="43048:43376" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="43122:43325" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52106:52233" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52151:52210" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52274:52352" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52395:52698" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52475:52533" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="52617:52675" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53288:53928" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53332:53905" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53382:53878" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53447:53536" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53601:53662" placeholder="..." />
+                <marker date="1418612365708" expanded="true" signature="53772:53847" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -73,8 +87,19 @@
       <file leaf-file-name="record-admin-page.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/css/record-admin-page.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="273" column="1" selection-start="4387" selection-end="4387" vertical-scroll-proportion="-16.6" vertical-offset="4226" max-vertical-offset="4743">
+            <state line="1029" column="16" selection-start="18482" selection-end="18482" vertical-scroll-proportion="0.0" vertical-offset="17000" max-vertical-offset="17629">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecordController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/RecordController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="156" column="40" selection-start="5114" selection-end="5114" vertical-scroll-proportion="-6.8076925" vertical-offset="2475" max-vertical-offset="12750">
+              <folding>
+                <element signature="e#53#101#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,45 +107,54 @@
       <file leaf-file-name="Record.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Record.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="384" column="62" selection-start="7951" selection-end="7955" vertical-scroll-proportion="0.0" vertical-offset="6528" max-vertical-offset="27251">
+            <state line="651" column="0" selection-start="14401" selection-end="14411" vertical-scroll-proportion="-3.5882354" vertical-offset="10816" max-vertical-offset="40443">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="news.yml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/news.yml">
+      <file leaf-file-name="ManagedFileController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ManagedFileController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="0" selection-start="1310" selection-end="1489" vertical-scroll-proportion="0.0" vertical-offset="799" max-vertical-offset="1547">
+            <state line="36" column="9" selection-start="1267" selection-end="1267" vertical-scroll-proportion="-5.8846154" vertical-offset="204" max-vertical-offset="1751">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="recordIndexCtrl.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js">
+      <file leaf-file-name="newsIndexCtrl.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="173" column="36" selection-start="4357" selection-end="4366" vertical-scroll-proportion="0.0" vertical-offset="2941" max-vertical-offset="3162">
+            <state line="640" column="14" selection-start="23508" selection-end="26355" vertical-scroll-proportion="0.0" vertical-offset="10486" max-vertical-offset="11339">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="record.yml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/record.yml">
+      <file leaf-file-name="ManagedFile.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ManagedFile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="68" selection-start="818" selection-end="818" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="544">
+            <state line="139" column="13" selection-start="2895" selection-end="2904" vertical-scroll-proportion="-39.098038" vertical-offset="369" max-vertical-offset="8806">
               <folding>
-                <marker date="1416854331011" expanded="true" signature="695:837" placeholder="record_get_record:" />
+                <element signature="e#49#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainTree.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/MainTree.php">
+      <file leaf-file-name="recordIndexCtrl.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1133" column="30" selection-start="21167" selection-end="21177" vertical-scroll-proportion="0.0" vertical-offset="18959" max-vertical-offset="19448">
+            <state line="544" column="48" selection-start="18398" selection-end="18398" vertical-scroll-proportion="-6.454183" vertical-offset="12471" max-vertical-offset="13872">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newsIndex.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/js/angular/newsIndex.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="71" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
               <folding />
             </state>
           </provider>
@@ -135,17 +169,6 @@
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="s doctrine:schema:update --force " />
-      <command text="s doctrine:generate:entity" />
-      <command text="s doctrine:schema:update --force " />
-      <command text="s doctrine:generate:entities DarkishCategoryBundle:ManagedFile" />
-      <command text="s doctrine:schema:update --force" />
-      <command text="s generate:doctrine:entities DarkishCategoryBundle:ManagedFile" />
-      <command text="s doctrine:schema:update --force" />
-      <command text="s generate:controller" />
-      <command text="s doctrine:schema:update --force " />
-      <command text="composer update" />
-      <command text="s doctrine:generate:entity" />
       <command text="s " />
       <command text="s doctrine:generate:entity" />
       <command text="s generate:controller DarkishCategoryBundle:Record" />
@@ -160,19 +183,22 @@
       <command text="s doctrine:generate:entities DarkishCategoryBundle:MainTree" />
       <command text="s doctrine:generate:entities DarkishCategoryBundle" />
       <command text="bower" />
+      <command text="s doctrine:generate:entities DarkishCategoryBundle" />
+      <command text="s doctrine:schema:update --force " />
+      <command text="s doctrine:schema:update " />
+      <command text="s doctrine:generate:entities DarkishCategoryBundle:ItineraryType" />
+      <command text="s doctrine:generate:entities DarkishCategoryBundle:ItineraryType.php" />
+      <command text="s doctrine:generate:entity" />
+      <command text="s doctrine:generate:entities DarkishCategoryBundle:SafarsazType" />
+      <command text="s doctrine:generate:entities DarkishCategoryBundle:Center" />
+      <command text="s doctrine:schema:update --force" />
+      <command text="s doctrine:generate:entity" />
+      <command text="s doctrine:generate:entity " />
     </commandsHistory>
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/web/assets/js/angular/Directives/directives.js" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/bower_components/ng-ckeditor/examples/demo2.html" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/bower_components/ng-ckeditor/examples/demo1.html" />
-        <option value="$PROJECT_DIR$/web/assets/css/styles.css" />
-        <option value="$PROJECT_DIR$/web/assets/js/jquery.min.js" />
-        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/OfferTree.php" />
-        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/offer.yml" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/Services/treeService.js" />
         <option value="$PROJECT_DIR$/web/assets/js/angular/Services/offertreeService.js" />
         <option value="$PROJECT_DIR$/web/assets/js/angular/newsIndex.js" />
         <option value="$PROJECT_DIR$/web/assets/js/angular/offerIndex.js" />
@@ -191,16 +217,11 @@
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Classified.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Offer/index.html.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Classified/index.html.php" />
-        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/managedfile.yml" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/News.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/news.yml" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/Services/newsService.js" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/NewsController.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/NewsRepository.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/News/index.html.php" />
-        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ManagedFile.php" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js" />
-        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ManagedFileController.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/web/assets/js/angular/Services/recordService.js" />
@@ -209,13 +230,26 @@
         <option value="$PROJECT_DIR$/web/assets/js/angular/recordIndex.js" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ItineraryType.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/SafarsazType.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/DbaseType.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Area.php" />
+        <option value="$PROJECT_DIR$/web/assets/js/angular/bower_components/angular-google-maps/README.markdown" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/MainTree.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/RecordRepository.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Form/RecordType.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Center.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/record.yml" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/managedfile.yml" />
+        <option value="$PROJECT_DIR$/web/assets/js/angular/Services/newsService.js" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ManagedFileController.php" />
+        <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ManagedFile.php" />
+        <option value="$PROJECT_DIR$/web/assets/css/record-admin-page.css" />
+        <option value="$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/RecordController.php" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Record.php" />
-        <option value="$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js" />
-        <option value="$PROJECT_DIR$/web/assets/css/record-admin-page.css" />
         <option value="$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Record/index.html.php" />
+        <option value="$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js" />
       </list>
     </option>
   </component>
@@ -289,7 +323,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -304,7 +337,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -314,7 +347,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -328,25 +361,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uploads" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -368,7 +383,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -394,7 +409,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angular" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -424,7 +469,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -454,7 +499,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -484,7 +529,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -508,7 +553,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="angular-modal" />
+              <option name="myItemId" value="angular-collection" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -518,7 +563,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angular" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angular" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -536,7 +615,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -558,7 +637,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -572,7 +651,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -590,7 +669,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -612,7 +691,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -646,41 +725,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CategoryBundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Offer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -710,7 +755,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CategoryBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="News" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="darkish" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -740,7 +819,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -774,7 +853,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -800,7 +879,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -826,33 +905,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CategoryBundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DependencyInjection" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
+              <option name="myItemId" value="n-darkish" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -872,40 +925,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="darkish" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -915,8 +937,8 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sf" />
-    <property name="SearchEverywhereHistory" value="90&#10;F" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SearchEverywhereHistory" value="a&#10;i&#10;90&#10;F" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
   </component>
@@ -929,6 +951,7 @@
       <recent name="E:\xampp\htdocs\darkish\src\Darkish\CategoryBundle\Resources\config\routing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\xampp\htdocs\n-darkish\src\Darkish" />
       <recent name="E:\xampp\htdocs\darkish\web\assets\css" />
       <recent name="E:\xampp\htdocs\darkish\web\assets\css\jstree" />
       <recent name="E:\xampp\htdocs\darkish\web\assets" />
@@ -985,17 +1008,37 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293718" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24963397" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31042296" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33987916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39863715" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1003,12 +1046,12 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25553662" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2562893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.35314092" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="0" y="105" width="1366" height="518" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.35264054" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="0" y="105" width="1366" height="518" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1030,66 +1073,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Offer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="30" selection-start="2324" selection-end="2324" vertical-scroll-proportion="-1.9615384" vertical-offset="2091" max-vertical-offset="10183" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/OfferController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="9" selection-start="5600" selection-end="5600" vertical-scroll-proportion="-9.627451" vertical-offset="3096" max-vertical-offset="9299" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/panel_layout.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1784" selection-end="1784" vertical-scroll-proportion="-8.0" vertical-offset="306" max-vertical-offset="1428" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/OfferTree.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="6" selection-start="3090" selection-end="3090" vertical-scroll-proportion="-6.269231" vertical-offset="2438" max-vertical-offset="10625" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ClassifiedTree.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="0" selection-start="3497" selection-end="3497" vertical-scroll-proportion="-56.0" vertical-offset="153" max-vertical-offset="10625" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Classified/new.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="589" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ClassifiedController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="302" column="0" selection-start="7594" selection-end="7594" vertical-scroll-proportion="-2.631579" vertical-offset="4934" max-vertical-offset="9554" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/offerIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="10" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="731" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/classifiedIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="36" selection-start="959" selection-end="960" vertical-scroll-proportion="-11.56" vertical-offset="0" max-vertical-offset="731" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/offerService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="22" selection-start="18" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/classifiedService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="44" selection-start="1998" selection-end="1998" vertical-scroll-proportion="0.0" vertical-offset="901" max-vertical-offset="1122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/offerIndexCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="260" column="28" selection-start="7635" selection-end="7635" vertical-scroll-proportion="0.0" vertical-offset="4118" max-vertical-offset="10540" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/classifiedIndexCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="42" selection-start="774" selection-end="774" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="10540" />
@@ -1103,11 +1086,6 @@
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Classified/index.html.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="271" column="73" selection-start="13951" selection-end="13951" vertical-scroll-proportion="0.0" vertical-offset="4391" max-vertical-offset="6392" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Classified.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="42" selection-start="124" selection-end="124" vertical-scroll-proportion="-0.0" vertical-offset="85" max-vertical-offset="10234" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/classified.yml">
@@ -1125,16 +1103,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="542" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/managedfile.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="35" selection-start="149" selection-end="149" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/newsService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="68" selection-start="2055" selection-end="2055" vertical-scroll-proportion="0.0" vertical-offset="599" max-vertical-offset="1224" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/NewsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="29" selection-start="1613" selection-end="1613" vertical-scroll-proportion="0.0" vertical-offset="502" max-vertical-offset="1003" />
@@ -1143,21 +1111,6 @@
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/News.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="54" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0" vertical-offset="7892" max-vertical-offset="8432" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/News/index.html.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="68" selection-start="12270" selection-end="12284" vertical-scroll-proportion="0.0" vertical-offset="3395" max-vertical-offset="6188" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ManagedFile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="414" column="0" selection-start="7053" selection-end="7053" vertical-scroll-proportion="0.0" vertical-offset="6817" max-vertical-offset="8432" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ManagedFileController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="52" selection-start="1154" selection-end="1154" vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1904" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/DefaultController.php">
@@ -1190,16 +1143,6 @@
         <state line="0" column="0" selection-start="0" selection-end="89" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1241" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/newsIndex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/recordService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/recordtreeService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238" />
@@ -1220,11 +1163,6 @@
         <state line="614" column="31" selection-start="11003" selection-end="11014" vertical-scroll-proportion="0.0" vertical-offset="9276" max-vertical-offset="10625" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="11" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="748" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="45" selection-start="1259" selection-end="1259" vertical-scroll-proportion="-4.6666665" vertical-offset="255" max-vertical-offset="1275" />
@@ -1235,86 +1173,238 @@
         <state line="32" column="59" selection-start="1649" selection-end="1649" vertical-scroll-proportion="-17.0" vertical-offset="85" max-vertical-offset="935" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/NewsController.php">
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Classified.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="547" column="5" selection-start="11603" selection-end="15001" vertical-scroll-proportion="0.0" vertical-offset="9021" max-vertical-offset="12852">
-          <folding />
-        </state>
+        <state line="5" column="42" selection-start="124" selection-end="124" vertical-scroll-proportion="-0.0" vertical-offset="85" max-vertical-offset="10234" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/news.yml">
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/DbaseType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1310" selection-end="1489" vertical-scroll-proportion="0.0" vertical-offset="475" max-vertical-offset="1547">
-          <folding />
-        </state>
+        <state line="29" column="48" selection-start="507" selection-end="550" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="2057" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Area.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="39" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="115" max-vertical-offset="3604" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/bower_components/angular-google-maps/.bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/bower_components/angular-google-maps/README.markdown">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="896" selection-end="896" vertical-scroll-proportion="0.30357143" vertical-offset="85" max-vertical-offset="1173" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/bower_components/angular-google-maps/dist/angular-google-maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="194361" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/MainTree.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1133" column="30" selection-start="21167" selection-end="21177" vertical-scroll-proportion="0.0" vertical-offset="18959" max-vertical-offset="19448">
-          <folding />
-        </state>
+        <state line="40" column="63" selection-start="906" selection-end="906" vertical-scroll-proportion="-3.9230769" vertical-offset="510" max-vertical-offset="19431" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="36" selection-start="985" selection-end="996" vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="748" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/NewsTreeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="308" column="33" selection-start="8913" selection-end="8916" vertical-scroll-proportion="0.0" vertical-offset="5236" max-vertical-offset="6086" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/SafarsazType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="5" selection-start="1385" selection-end="2089" vertical-scroll-proportion="0.0" vertical-offset="1938" max-vertical-offset="2074" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/RecordRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="374" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/recordService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="49" selection-end="49" vertical-scroll-proportion="0.062730625" vertical-offset="0" max-vertical-offset="542" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Form/NewsType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Center.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="121" column="66" selection-start="2490" selection-end="2490" vertical-scroll-proportion="0.0" vertical-offset="2057" max-vertical-offset="8177" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Form/RecordType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="12" selection-start="443" selection-end="2504" vertical-scroll-proportion="-7.8461537" vertical-offset="51" max-vertical-offset="1819" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/record.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="68" selection-start="818" selection-end="818" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-          <folding>
-            <marker date="1416854331011" expanded="true" signature="695:837" placeholder="record_get_record:" />
-          </folding>
-        </state>
+        <state line="56" column="44" selection-start="1936" selection-end="1936" vertical-scroll-proportion="0.0" vertical-offset="497" max-vertical-offset="1105" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/RecordController.php">
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/NewsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="257" column="152" selection-start="8294" selection-end="8294" vertical-scroll-proportion="0.0" vertical-offset="4369" max-vertical-offset="4539">
+        <state line="719" column="4" selection-start="20230" selection-end="20365" vertical-scroll-proportion="-4.4313726" vertical-offset="11691" max-vertical-offset="12546" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/news.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="0" selection-start="2384" selection-end="2565" vertical-scroll-proportion="-9.04" vertical-offset="1032" max-vertical-offset="1547" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/config/routing/managedfile.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="39" selection-start="204" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Directives/directives.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="57" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0" vertical-offset="582" max-vertical-offset="1122">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Record.php">
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Services/newsService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="384" column="62" selection-start="7951" selection-end="7955" vertical-scroll-proportion="0.0" vertical-offset="6528" max-vertical-offset="27251">
+        <state line="56" column="34" selection-start="1898" selection-end="1902" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1224">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js">
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/ManagedFileController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="36" selection-start="4357" selection-end="4366" vertical-scroll-proportion="0.0" vertical-offset="2941" max-vertical-offset="3162">
+        <state line="36" column="9" selection-start="1267" selection-end="1267" vertical-scroll-proportion="-5.8846154" vertical-offset="204" max-vertical-offset="1751">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js">
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/News/index.html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="530" column="16" selection-start="20048" selection-end="20048" vertical-scroll-proportion="0.0" vertical-offset="8843" max-vertical-offset="11373">
+        <state line="344" column="110" selection-start="17370" selection-end="17476" vertical-scroll-proportion="-3.0980392" vertical-offset="5690" max-vertical-offset="6188">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/css/record-admin-page.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="273" column="1" selection-start="4387" selection-end="4387" vertical-scroll-proportion="-16.6" vertical-offset="4226" max-vertical-offset="4743">
+        <state line="1029" column="16" selection-start="18482" selection-end="18482" vertical-scroll-proportion="0.0" vertical-offset="17000" max-vertical-offset="17629">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/newsIndexCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="640" column="14" selection-start="23508" selection-end="26355" vertical-scroll-proportion="0.0" vertical-offset="10486" max-vertical-offset="11339">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/newsIndex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="71" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Controller/RecordController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="156" column="40" selection-start="5114" selection-end="5114" vertical-scroll-proportion="-6.8076925" vertical-offset="2475" max-vertical-offset="12750">
+          <folding>
+            <element signature="e#53#101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/ManagedFile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="13" selection-start="2895" selection-end="2904" vertical-scroll-proportion="-39.098038" vertical-offset="369" max-vertical-offset="8806">
+          <folding>
+            <element signature="e#49#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Entity/Record.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="651" column="0" selection-start="14401" selection-end="14411" vertical-scroll-proportion="-3.5882354" vertical-offset="10816" max-vertical-offset="40443">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Darkish/CategoryBundle/Resources/views/Record/index.html.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="250" column="32" selection-start="10265" selection-end="10265" vertical-scroll-proportion="0.32405567" vertical-offset="4087" max-vertical-offset="7327">
+        <state line="624" column="68" selection-start="42227" selection-end="42227" vertical-scroll-proportion="-5.0394735" vertical-offset="10225" max-vertical-offset="16592">
           <folding>
-            <marker date="1416949388272" expanded="true" signature="12447:12710" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="12447:12676" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="12447:12715" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="12483:12676" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="13891:14018" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="13936:13995" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="14059:14137" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="14180:14483" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="14260:14318" placeholder="..." />
-            <marker date="1416949388272" expanded="true" signature="14402:14460" placeholder="..." />
+            <element signature="e#35269#35289#0" expanded="true" />
+            <marker date="1418612365708" expanded="true" signature="9664:10890" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="9728:10847" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="9804:10100" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="10177:10718" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="10260:10667" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36078:37076" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36134:37041" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36196:37002" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36423:36528" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36601:36678" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="36868:36959" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38003:43541" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38079:43506" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38147:38265" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38334:43466" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38392:43423" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38459:42981" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38538:42930" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38627:42875" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38763:40275" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="38848:39246" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="39331:39730" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="39815:40213" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="40387:42815" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="40490:41180" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="40578:41112" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="40720:40732" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="40854:41042" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="41283:41966" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="41371:41899" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="41513:41525" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="41647:41829" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="42069:42752" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="42157:42685" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="42299:42311" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="42433:42615" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="43048:43376" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="43122:43325" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52106:52233" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52151:52210" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52274:52352" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52395:52698" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52475:52533" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="52617:52675" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53288:53928" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53332:53905" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53382:53878" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53447:53536" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53601:53662" placeholder="..." />
+            <marker date="1418612365708" expanded="true" signature="53772:53847" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/js/angular/Controllers/recordIndexCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="544" column="48" selection-start="18398" selection-end="18398" vertical-scroll-proportion="-6.454183" vertical-offset="12471" max-vertical-offset="13872">
+          <folding />
         </state>
       </provider>
     </entry>

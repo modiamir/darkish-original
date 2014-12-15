@@ -15,5 +15,8 @@
   ],
   "devDependencies": {
     "angular-ui-grid": "~3.0.0-rc.16"
+  },
+  "dependencies": {
+    "angular-google-maps": "~2.0.11"
   }
 }

@@ -541,7 +541,7 @@ newsIndexCtrl.directive('dynamic', function ($compile) {
             }).success(function(d){
                     $scope.ImageInputFile = "";
                     $scope.$apply();
-                    $scope.ImageInputFile = "<input name='imageupload' data-ng-show='editing' type='file' ng-model='news.files' onchange='angular.element(this).scope().filesChanged(this)' />";
+                    $scope.ImageInputFile = "<input name='imageupload' data-ng-show='editing' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />";
                 console.log($scope.newsform.imageupload);
             });
         };
@@ -604,8 +604,6 @@ newsIndexCtrl.directive('dynamic', function ($compile) {
                 height: '100px',
                 uiColor: '#e8ede0',
                 contentsLangDirection: 'rtl',
-                filebrowserImageBrowseUrl: 'ajax/upload_files/3',
-                filebrowserImageUploadUrl: 'ajax/upload_files/3',
                 toolbar_full: [
                     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },

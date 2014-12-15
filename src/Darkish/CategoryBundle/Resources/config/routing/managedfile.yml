@@ -3,3 +3,7 @@ managedfile:
     defaults: { _controller: "DarkishCategoryBundle:ManagedFile:upload" }
     requirements: { _method: post }
 
+managedfile_gen_rand_upload_key:
+    path:     /ajax/gen_rand_upload_key
+    defaults: {_controller: "DarkishCategoryBundle:ManagedFile:generateRandomUploadKey"}
+    requirements: { _method: get}

@@ -74,12 +74,13 @@ class ManagedFileController extends Controller
             $em->flush();
 
 
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
+            if($request->get('entityId')) {
 
-            $serializer = new Serializer($normalizers, $encoders);
+            }
 
+            $serializer = $this->get('jms_serializer');
             $serialized = $serializer->serialize($file, 'json');
+//            $serialized = $serializer->serialize($file, 'json');
 
 
 
@@ -101,6 +102,11 @@ class ManagedFileController extends Controller
 
 
 
+
+    }
+
+    public function generateRandomUploadKeyAction() {
+        return new Response($this->getUser()->getId().time().rand(1000,9999));
 
     }
 }

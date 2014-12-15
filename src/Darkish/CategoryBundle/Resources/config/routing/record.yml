@@ -27,3 +27,33 @@ record_get_centers:
     path:   /ajax/get_centers
     defaults: { _controller: "DarkishCategoryBundle:Record:getCenters", _format: json }
 
+record_get_safarsaz_types:
+    path:   /ajax/get_safarsaz_types
+    defaults: { _controller: "DarkishCategoryBundle:Record:getSafarsazTypes", _format: json }
+
+record_get_dbase_types:
+    path:   /ajax/get_dbase_types
+    defaults: { _controller: "DarkishCategoryBundle:Record:getDbaseTypes", _format: json }
+
+record_get_areas:
+    path:   /ajax/get_areas
+    defaults: { _controller: "DarkishCategoryBundle:Record:getAreas", _format: json }
+
+record_update:
+    path:     ajax/{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:Record:update" }
+    requirements: { _method: post|put }
+
+record_create:
+    path:     ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:Record:create" }
+    requirements: { _method: post }
+
+record_get_generate_csrf:
+    path:     /ajax/generate_csrf
+    defaults: {_controller: "DarkishCategoryBundle:Record:generateCsrf", _format: json}
+
+record_contains_tree:
+    path:     /ajax/contains_tree/{recordId}/{treeId}
+    defaults: { _controller: "DarkishCategoryBundle:Record:containsTree", _format: json}
+

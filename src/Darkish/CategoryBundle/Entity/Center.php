@@ -119,7 +119,7 @@ class Center
     private $treeIndex;
 
     /**
-     * @ORM\OneToMany(targetEntity="Record", mappedBy="center")
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="centerIndex")
      */
     protected $records;
 

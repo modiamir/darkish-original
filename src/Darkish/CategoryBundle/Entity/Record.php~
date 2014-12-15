@@ -98,7 +98,8 @@ class Record
     /**
      * @var integer
      *
-     * @ORM\Column(name="AreaIndex", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Area", inversedBy="records")
+     * @ORM\JoinColumn(name="AreaIndex", referencedColumnName="id")
      * @Groups({"record.details"})
      */
     private $areaIndex;
@@ -122,17 +123,34 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MessageValidityText", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MessageInsertDate", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $messageValidityText;
+    private $messageInsertDate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MessageValidityDate", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $messageValidityDate;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="safarsaz", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     *
+     */
+    private $safarsaz;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="safarsazTypeIndex", type="integer", nullable=true)
      * @ORM\ManyToOne(targetEntity="SafarsazType", inversedBy="records")
-     * @ORM\JoinColumn(name="safarsazTypeIndex", referencedColumnName="id")
+     * @ORM\JoinColumn(name="SafarsazTypeIndex", referencedColumnName="id")
      * @Groups({"record.details"})
      */
     private $safarsazTypeIndex;
@@ -148,26 +166,66 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumber", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberOne", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $telNumber;
+    private $telNumberOne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumber", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberTwo", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $faxNumber;
+    private $telNumberTwo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumbers", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberThree", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $mobileNumbers;
+    private $telNumberThree;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberFour", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $telNumberFour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FaxNumberOne", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $faxNumberOne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FaxNumberTwo", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $faxNumberTwo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MobileNumberOne", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $mobileNumberOne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MobileNumberTwo", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $mobileNumberTwo;
 
     /**
      * @var string
@@ -244,18 +302,34 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MOpeningHours", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MOpeningHoursFrom", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $mOpeningHours;
+    private $mOpeningHoursFrom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="AOpeningHours", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MOpeningHoursTo", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
-    private $aOpeningHours;
+    private $mOpeningHoursTo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AOpeningHoursFrom", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $aOpeningHoursFrom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AOpeningHoursTo", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $aOpeningHoursTo;
 
     /**
      * @var string
@@ -356,7 +430,8 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="DbaseTypeIndex", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="DbaseType", inversedBy="records")
+     * @ORM\JoinColumn(name="DbaseTypeIndex", referencedColumnName="id")
      * @Groups({"record.details"})
      */
     private $dbaseTypeIndex;
@@ -368,6 +443,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $bulkSmsEnable;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Body", type="text", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $body;
 
     /**
      * @var boolean
@@ -445,6 +528,68 @@ class Record
      *      )
      **/
     private $trees;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_images",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $images;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_body_images",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $bodyImages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_videos",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $videos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_body_videos",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $bodyVideos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_audios",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $audios;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_body_audios",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $bodyAudios;
+
+
 
 
 
@@ -1586,6 +1731,10 @@ class Record
     public function __construct()
     {
         $this->trees = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->audios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyImages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -1656,5 +1805,507 @@ class Record
     public function getSafarsazRank()
     {
         return $this->safarsazRank;
+    }
+
+    /**
+     * Set safarsaz
+     *
+     * @param boolean $safarsaz
+     * @return Record
+     */
+    public function setSafarsaz($safarsaz)
+    {
+        $this->safarsaz = $safarsaz;
+    
+        return $this;
+    }
+
+    /**
+     * Get safarsaz
+     *
+     * @return boolean 
+     */
+    public function getSafarsaz()
+    {
+        return $this->safarsaz;
+    }
+
+    /**
+     * Set messageInsertDate
+     *
+     * @param string $messageInsertDate
+     * @return Record
+     */
+    public function setMessageInsertDate($messageInsertDate)
+    {
+        $this->messageInsertDate = $messageInsertDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get messageInsertDate
+     *
+     * @return string 
+     */
+    public function getMessageInsertDate()
+    {
+        return $this->messageInsertDate;
+    }
+
+    /**
+     * Set messageValidityDate
+     *
+     * @param string $messageValidityDate
+     * @return Record
+     */
+    public function setMessageValidityDate($messageValidityDate)
+    {
+        $this->messageValidityDate = $messageValidityDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get messageValidityDate
+     *
+     * @return string 
+     */
+    public function getMessageValidityDate()
+    {
+        return $this->messageValidityDate;
+    }
+
+    /**
+     * Set mOpeningHoursFrom
+     *
+     * @param string $mOpeningHoursFrom
+     * @return Record
+     */
+    public function setMOpeningHoursFrom($mOpeningHoursFrom)
+    {
+        $this->mOpeningHoursFrom = $mOpeningHoursFrom;
+    
+        return $this;
+    }
+
+    /**
+     * Get mOpeningHoursFrom
+     *
+     * @return string 
+     */
+    public function getMOpeningHoursFrom()
+    {
+        return $this->mOpeningHoursFrom;
+    }
+
+    /**
+     * Set mOpeningHoursTo
+     *
+     * @param string $mOpeningHoursTo
+     * @return Record
+     */
+    public function setMOpeningHoursTo($mOpeningHoursTo)
+    {
+        $this->mOpeningHoursTo = $mOpeningHoursTo;
+    
+        return $this;
+    }
+
+    /**
+     * Get mOpeningHoursTo
+     *
+     * @return string 
+     */
+    public function getMOpeningHoursTo()
+    {
+        return $this->mOpeningHoursTo;
+    }
+
+    /**
+     * Set aOpeningHoursFrom
+     *
+     * @param string $aOpeningHoursFrom
+     * @return Record
+     */
+    public function setAOpeningHoursFrom($aOpeningHoursFrom)
+    {
+        $this->aOpeningHoursFrom = $aOpeningHoursFrom;
+    
+        return $this;
+    }
+
+    /**
+     * Get aOpeningHoursFrom
+     *
+     * @return string 
+     */
+    public function getAOpeningHoursFrom()
+    {
+        return $this->aOpeningHoursFrom;
+    }
+
+    /**
+     * Set aOpeningHoursTo
+     *
+     * @param string $aOpeningHoursTo
+     * @return Record
+     */
+    public function setAOpeningHoursTo($aOpeningHoursTo)
+    {
+        $this->aOpeningHoursTo = $aOpeningHoursTo;
+    
+        return $this;
+    }
+
+    /**
+     * Get aOpeningHoursTo
+     *
+     * @return string 
+     */
+    public function getAOpeningHoursTo()
+    {
+        return $this->aOpeningHoursTo;
+    }
+
+    /**
+     * Set telNumberOne
+     *
+     * @param string $telNumberOne
+     * @return Record
+     */
+    public function setTelNumberOne($telNumberOne)
+    {
+        $this->telNumberOne = $telNumberOne;
+    
+        return $this;
+    }
+
+    /**
+     * Get telNumberOne
+     *
+     * @return string 
+     */
+    public function getTelNumberOne()
+    {
+        return $this->telNumberOne;
+    }
+
+    /**
+     * Set telNumberTwo
+     *
+     * @param string $telNumberTwo
+     * @return Record
+     */
+    public function setTelNumberTwo($telNumberTwo)
+    {
+        $this->telNumberTwo = $telNumberTwo;
+    
+        return $this;
+    }
+
+    /**
+     * Get telNumberTwo
+     *
+     * @return string 
+     */
+    public function getTelNumberTwo()
+    {
+        return $this->telNumberTwo;
+    }
+
+    /**
+     * Set telNumberThree
+     *
+     * @param string $telNumberThree
+     * @return Record
+     */
+    public function setTelNumberThree($telNumberThree)
+    {
+        $this->telNumberThree = $telNumberThree;
+    
+        return $this;
+    }
+
+    /**
+     * Get telNumberThree
+     *
+     * @return string 
+     */
+    public function getTelNumberThree()
+    {
+        return $this->telNumberThree;
+    }
+
+    /**
+     * Set telNumberFour
+     *
+     * @param string $telNumberFour
+     * @return Record
+     */
+    public function setTelNumberFour($telNumberFour)
+    {
+        $this->telNumberFour = $telNumberFour;
+    
+        return $this;
+    }
+
+    /**
+     * Get telNumberFour
+     *
+     * @return string 
+     */
+    public function getTelNumberFour()
+    {
+        return $this->telNumberFour;
+    }
+
+    /**
+     * Set faxNumberOne
+     *
+     * @param string $faxNumberOne
+     * @return Record
+     */
+    public function setFaxNumberOne($faxNumberOne)
+    {
+        $this->faxNumberOne = $faxNumberOne;
+    
+        return $this;
+    }
+
+    /**
+     * Get faxNumberOne
+     *
+     * @return string 
+     */
+    public function getFaxNumberOne()
+    {
+        return $this->faxNumberOne;
+    }
+
+    /**
+     * Set faxNumberTwo
+     *
+     * @param string $faxNumberTwo
+     * @return Record
+     */
+    public function setFaxNumberTwo($faxNumberTwo)
+    {
+        $this->faxNumberTwo = $faxNumberTwo;
+    
+        return $this;
+    }
+
+    /**
+     * Get faxNumberTwo
+     *
+     * @return string 
+     */
+    public function getFaxNumberTwo()
+    {
+        return $this->faxNumberTwo;
+    }
+
+    /**
+     * Set mobileNumberOne
+     *
+     * @param string $mobileNumberOne
+     * @return Record
+     */
+    public function setMobileNumberOne($mobileNumberOne)
+    {
+        $this->mobileNumberOne = $mobileNumberOne;
+    
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberOne
+     *
+     * @return string 
+     */
+    public function getMobileNumberOne()
+    {
+        return $this->mobileNumberOne;
+    }
+
+    /**
+     * Set mobileNumberTwo
+     *
+     * @param string $mobileNumberTwo
+     * @return Record
+     */
+    public function setMobileNumberTwo($mobileNumberTwo)
+    {
+        $this->mobileNumberTwo = $mobileNumberTwo;
+    
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberTwo
+     *
+     * @return string 
+     */
+    public function getMobileNumberTwo()
+    {
+        return $this->mobileNumberTwo;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $images
+     * @return Record
+     */
+    public function addImage(\Darkish\CategoryBundle\Entity\ManagedFile $images)
+    {
+        $this->images[] = $images;
+    
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $images
+     */
+    public function removeImage(\Darkish\CategoryBundle\Entity\ManagedFile $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Add videos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $videos
+     * @return Record
+     */
+    public function addVideo(\Darkish\CategoryBundle\Entity\ManagedFile $videos)
+    {
+        $this->videos[] = $videos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove videos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $videos
+     */
+    public function removeVideo(\Darkish\CategoryBundle\Entity\ManagedFile $videos)
+    {
+        $this->videos->removeElement($videos);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * Add audios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $audios
+     * @return Record
+     */
+    public function addAudio(\Darkish\CategoryBundle\Entity\ManagedFile $audios)
+    {
+        $this->audios[] = $audios;
+    
+        return $this;
+    }
+
+    /**
+     * Remove audios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $audios
+     */
+    public function removeAudio(\Darkish\CategoryBundle\Entity\ManagedFile $audios)
+    {
+        $this->audios->removeElement($audios);
+    }
+
+    /**
+     * Get audios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAudios()
+    {
+        return $this->audios;
+    }
+
+
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     * @return Record
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string 
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Add bodyImages
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyImages
+     * @return Record
+     */
+    public function addBodyImage(\Darkish\CategoryBundle\Entity\ManagedFile $bodyImages)
+    {
+        $this->bodyImages[] = $bodyImages;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bodyImages
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyImages
+     */
+    public function removeBodyImage(\Darkish\CategoryBundle\Entity\ManagedFile $bodyImages)
+    {
+        $this->bodyImages->removeElement($bodyImages);
+    }
+
+    /**
+     * Get bodyImages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyImages()
+    {
+        return $this->bodyImages;
     }
 }

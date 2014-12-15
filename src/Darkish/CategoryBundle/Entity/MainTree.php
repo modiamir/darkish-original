@@ -23,6 +23,7 @@ class MainTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "record.details"})
      */
     private $id;
 
@@ -30,7 +31,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="UpTreeIndex", type="string", length=255)
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "record.details"})
      */
     private $upTreeIndex;
 
@@ -38,7 +39,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="TreeIndex", type="string", length=255)
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "record.details"})
      */
     private $treeIndex;
 
@@ -54,6 +55,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="Title", type="string", length=255)
+     * @Groups({"list", "details", "record.details"})
      */
     private $title;
 

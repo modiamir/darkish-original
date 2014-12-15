@@ -652,16 +652,30 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
-            // managedfile
-            if ($pathinfo === '/admin/managedfile/ajax/upload') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_managedfile;
-                }
+            if (0 === strpos($pathinfo, '/admin/managedfile/ajax')) {
+                // managedfile
+                if ($pathinfo === '/admin/managedfile/ajax/upload') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_managedfile;
+                    }
 
-                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\ManagedFileController::uploadAction',  '_route' => 'managedfile',);
+                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\ManagedFileController::uploadAction',  '_route' => 'managedfile',);
+                }
+                not_managedfile:
+
+                // managedfile_gen_rand_upload_key
+                if ($pathinfo === '/admin/managedfile/ajax/gen_rand_upload_key') {
+                    if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                        $allow = array_merge($allow, array('GET', 'HEAD'));
+                        goto not_managedfile_gen_rand_upload_key;
+                    }
+
+                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\ManagedFileController::generateRandomUploadKeyAction',  '_route' => 'managedfile_gen_rand_upload_key',);
+                }
+                not_managedfile_gen_rand_upload_key:
+
             }
-            not_managedfile:
 
             if (0 === strpos($pathinfo, '/admin/record')) {
                 // record
@@ -673,36 +687,94 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::indexAction',  '_route' => 'record',);
                 }
 
-                if (0 === strpos($pathinfo, '/admin/record/ajax/get')) {
-                    if (0 === strpos($pathinfo, '/admin/record/ajax/gettree')) {
-                        // record_get_tree
-                        if ($pathinfo === '/admin/record/ajax/gettree') {
-                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getTreeAction',  '_format' => 'json',  '_route' => 'record_get_tree',);
+                if (0 === strpos($pathinfo, '/admin/record/ajax')) {
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/get')) {
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/gettree')) {
+                            // record_get_tree
+                            if ($pathinfo === '/admin/record/ajax/gettree') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getTreeAction',  '_format' => 'json',  '_route' => 'record_get_tree',);
+                            }
+
+                            // record_get_tree_linear
+                            if ($pathinfo === '/admin/record/ajax/gettree_linear') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getTreeLinearAction',  '_format' => 'json',  '_route' => 'record_get_tree_linear',);
+                            }
+
                         }
 
-                        // record_get_tree_linear
-                        if ($pathinfo === '/admin/record/ajax/gettree_linear') {
-                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getTreeLinearAction',  '_format' => 'json',  '_route' => 'record_get_tree_linear',);
+                        // record_get_json
+                        if ($pathinfo === '/admin/record/ajax/getjson') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getJsonAction',  '_format' => 'json',  '_route' => 'record_get_json',);
+                        }
+
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
+                            if (0 === strpos($pathinfo, '/admin/record/ajax/get_record')) {
+                                // record_get_record_for_category
+                                if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
+                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'page' => 1,));
+                                }
+
+                                // record_get_record
+                                if (preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
+                                }
+
+                            }
+
+                            // record_get_centers
+                            if ($pathinfo === '/admin/record/ajax/get_centers') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getCentersAction',  '_format' => 'json',  '_route' => 'record_get_centers',);
+                            }
+
+                            // record_get_safarsaz_types
+                            if ($pathinfo === '/admin/record/ajax/get_safarsaz_types') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'record_get_safarsaz_types',);
+                            }
+
+                            // record_get_dbase_types
+                            if ($pathinfo === '/admin/record/ajax/get_dbase_types') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'record_get_dbase_types',);
+                            }
+
+                            // record_get_areas
+                            if ($pathinfo === '/admin/record/ajax/get_areas') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getAreasAction',  '_format' => 'json',  '_route' => 'record_get_areas',);
+                            }
+
                         }
 
                     }
 
-                    // record_get_json
-                    if ($pathinfo === '/admin/record/ajax/getjson') {
-                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getJsonAction',  '_format' => 'json',  '_route' => 'record_get_json',);
+                    // record_update
+                    if (preg_match('#^/admin/record/ajax/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_record_update;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_update')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::updateAction',));
+                    }
+                    not_record_update:
+
+                    // record_create
+                    if ($pathinfo === '/admin/record/ajax/create') {
+                        if ($this->context->getMethod() != 'POST') {
+                            $allow[] = 'POST';
+                            goto not_record_create;
+                        }
+
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::createAction',  '_route' => 'record_create',);
+                    }
+                    not_record_create:
+
+                    // record_get_generate_csrf
+                    if ($pathinfo === '/admin/record/ajax/generate_csrf') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::generateCsrfAction',  '_format' => 'json',  '_route' => 'record_get_generate_csrf',);
                     }
 
-                    if (0 === strpos($pathinfo, '/admin/record/ajax/get_record')) {
-                        // record_get_record_for_category
-                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
-                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'page' => 1,));
-                        }
-
-                        // record_get_record
-                        if (preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
-                        }
-
+                    // record_contains_tree
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/contains_tree') && preg_match('#^/admin/record/ajax/contains_tree/(?P<recordId>[^/]++)/(?P<treeId>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_contains_tree')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::containsTreeAction',  '_format' => 'json',));
                     }
 
                 }

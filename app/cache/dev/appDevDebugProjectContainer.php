@@ -510,7 +510,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAnnotationReaderService()
     {
-        return $this->services['annotation_reader'] = new \Doctrine\Common\Annotations\FileCacheReader(new \Doctrine\Common\Annotations\AnnotationReader(), 'D:/xampp/htdocs/n-darkish/app/cache/dev/annotations', true);
+        return $this->services['annotation_reader'] = new \Doctrine\Common\Annotations\FileCacheReader(new \Doctrine\Common\Annotations\AnnotationReader(), 'E:/xampp/htdocs/n-darkish/app/cache/dev/annotations', true);
     }
 
     /**
@@ -526,12 +526,12 @@ class appDevDebugProjectContainer extends Container
         $a = $this->get('assetic.asset_factory');
         $b = $this->get('templating.loader');
 
-        $c = new \Assetic\Cache\ConfigCache('D:/xampp/htdocs/n-darkish/app/cache/dev/assetic/config');
+        $c = new \Assetic\Cache\ConfigCache('E:/xampp/htdocs/n-darkish/app/cache/dev/assetic/config');
 
         $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($a, array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig'), $this->get('monolog.logger.assetic', ContainerInterface::NULL_ON_INVALID_REFERENCE)), $c, true), 'php' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Symfony\Bundle\AsseticBundle\Factory\Loader\AsseticHelperFormulaLoader($a), $c, true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($b, '', 'D:/xampp/htdocs/n-darkish/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($b, '', 'D:/xampp/htdocs/n-darkish/app/Resources/views', '/\\.[^.]+\\.php$/'), 'php');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($b, '', 'E:/xampp/htdocs/n-darkish/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($b, '', 'E:/xampp/htdocs/n-darkish/app/Resources/views', '/\\.[^.]+\\.php$/'), 'php');
 
         return $instance;
     }
@@ -624,7 +624,7 @@ class appDevDebugProjectContainer extends Container
         $a = $this->get('kernel');
         $b = $this->get('templating.filename_parser');
 
-        $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, 'D:/xampp/htdocs/n-darkish/app/Resources');
+        $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, 'E:/xampp/htdocs/n-darkish/app/Resources');
 
         return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, $this->get('templating.locator')), 1 => new \Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer($this), 2 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 3 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c), 4 => new \Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer($this->get('doctrine')), 5 => $this->get('sonata.admin.route.cache_warmup')));
     }
@@ -903,22 +903,22 @@ class appDevDebugProjectContainer extends Container
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
         $a = new \Doctrine\Common\Cache\ArrayCache();
-        $a->setNamespace('sf2orm_default_d96422ae6a798bd64a768fea79e2a24340c31ea535be620130c238a51a4f5e4d');
+        $a->setNamespace('sf2orm_default_ca104bd7adb05a9d82d318b3f79d295d2af8b75a6c03570bade5b0c94dea6f1c');
 
         $b = new \Doctrine\Common\Cache\ArrayCache();
-        $b->setNamespace('sf2orm_default_d96422ae6a798bd64a768fea79e2a24340c31ea535be620130c238a51a4f5e4d');
+        $b->setNamespace('sf2orm_default_ca104bd7adb05a9d82d318b3f79d295d2af8b75a6c03570bade5b0c94dea6f1c');
 
         $c = new \Doctrine\Common\Cache\ArrayCache();
-        $c->setNamespace('sf2orm_default_d96422ae6a798bd64a768fea79e2a24340c31ea535be620130c238a51a4f5e4d');
+        $c->setNamespace('sf2orm_default_ca104bd7adb05a9d82d318b3f79d295d2af8b75a6c03570bade5b0c94dea6f1c');
 
-        $d = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('D:\\xampp\\htdocs\\n-darkish\\src\\Application\\Sonata\\UserBundle\\Resources\\config\\doctrine' => 'Application\\Sonata\\UserBundle\\Entity', 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle\\Resources\\config\\doctrine' => 'Sonata\\UserBundle\\Entity', 'D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\doctrine' => 'FOS\\UserBundle\\Entity'));
+        $d = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('E:\\xampp\\htdocs\\n-darkish\\src\\Application\\Sonata\\UserBundle\\Resources\\config\\doctrine' => 'Application\\Sonata\\UserBundle\\Entity', 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle\\Resources\\config\\doctrine' => 'Sonata\\UserBundle\\Entity', 'E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\doctrine' => 'FOS\\UserBundle\\Entity'));
         $d->setGlobalBasename('mapping');
 
         $e = new \Doctrine\ORM\Mapping\Driver\DriverChain();
         $e->addDriver($d, 'Application\\Sonata\\UserBundle\\Entity');
         $e->addDriver($d, 'Sonata\\UserBundle\\Entity');
         $e->addDriver($d, 'FOS\\UserBundle\\Entity');
-        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => 'D:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle\\Entity')), 'Darkish\\CategoryBundle\\Entity');
+        $e->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => 'E:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle\\Entity')), 'Darkish\\CategoryBundle\\Entity');
 
         $f = new \Doctrine\ORM\Configuration();
         $f->setEntityNamespaces(array('ApplicationSonataUserBundle' => 'Application\\Sonata\\UserBundle\\Entity', 'SonataUserBundle' => 'Sonata\\UserBundle\\Entity', 'FOSUserBundle' => 'FOS\\UserBundle\\Entity', 'DarkishCategoryBundle' => 'Darkish\\CategoryBundle\\Entity'));
@@ -926,7 +926,7 @@ class appDevDebugProjectContainer extends Container
         $f->setQueryCacheImpl($b);
         $f->setResultCacheImpl($c);
         $f->setMetadataDriverImpl($e);
-        $f->setProxyDir('D:/xampp/htdocs/n-darkish/app/cache/dev/doctrine/orm/Proxies');
+        $f->setProxyDir('E:/xampp/htdocs/n-darkish/app/cache/dev/doctrine/orm/Proxies');
         $f->setProxyNamespace('Proxies');
         $f->setAutoGenerateProxyClasses(true);
         $f->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
@@ -989,7 +989,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getFileLocatorService()
     {
-        return $this->services['file_locator'] = new \Symfony\Component\HttpKernel\Config\FileLocator($this->get('kernel'), 'D:/xampp/htdocs/n-darkish/app/Resources');
+        return $this->services['file_locator'] = new \Symfony\Component\HttpKernel\Config\FileLocator($this->get('kernel'), 'E:/xampp/htdocs/n-darkish/app/Resources');
     }
 
     /**
@@ -1587,7 +1587,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getFosJsRouting_ExtractorService()
     {
-        return $this->services['fos_js_routing.extractor'] = new \FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractor($this->get('router'), array(), 'D:/xampp/htdocs/n-darkish/app/cache/dev', array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle', 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle', 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle', 'MonologBundle' => 'Symfony\\Bundle\\MonologBundle\\MonologBundle', 'SwiftmailerBundle' => 'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle', 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle', 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle', 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle', 'DarkishCategoryBundle' => 'Darkish\\CategoryBundle\\DarkishCategoryBundle', 'SonataDoctrineORMAdminBundle' => 'Sonata\\DoctrineORMAdminBundle\\SonataDoctrineORMAdminBundle', 'SonataCoreBundle' => 'Sonata\\CoreBundle\\SonataCoreBundle', 'SonataBlockBundle' => 'Sonata\\BlockBundle\\SonataBlockBundle', 'SonatajQueryBundle' => 'Sonata\\jQueryBundle\\SonatajQueryBundle', 'KnpMenuBundle' => 'Knp\\Bundle\\MenuBundle\\KnpMenuBundle', 'SonataAdminBundle' => 'Sonata\\AdminBundle\\SonataAdminBundle', 'SonataEasyExtendsBundle' => 'Sonata\\EasyExtendsBundle\\SonataEasyExtendsBundle', 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle', 'SonataUserBundle' => 'Sonata\\UserBundle\\SonataUserBundle', 'ApplicationSonataUserBundle' => 'Application\\Sonata\\UserBundle\\ApplicationSonataUserBundle', 'DarkishPanelBundle' => 'Darkish\\PanelBundle\\DarkishPanelBundle', 'FOSJsRoutingBundle' => 'FOS\\JsRoutingBundle\\FOSJsRoutingBundle', 'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle', 'JMSSerializerBundle' => 'JMS\\SerializerBundle\\JMSSerializerBundle', 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle', 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle', 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle', 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle'));
+        return $this->services['fos_js_routing.extractor'] = new \FOS\JsRoutingBundle\Extractor\ExposedRoutesExtractor($this->get('router'), array(), 'E:/xampp/htdocs/n-darkish/app/cache/dev', array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle', 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle', 'TwigBundle' => 'Symfony\\Bundle\\TwigBundle\\TwigBundle', 'MonologBundle' => 'Symfony\\Bundle\\MonologBundle\\MonologBundle', 'SwiftmailerBundle' => 'Symfony\\Bundle\\SwiftmailerBundle\\SwiftmailerBundle', 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle', 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle', 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle', 'DarkishCategoryBundle' => 'Darkish\\CategoryBundle\\DarkishCategoryBundle', 'SonataDoctrineORMAdminBundle' => 'Sonata\\DoctrineORMAdminBundle\\SonataDoctrineORMAdminBundle', 'SonataCoreBundle' => 'Sonata\\CoreBundle\\SonataCoreBundle', 'SonataBlockBundle' => 'Sonata\\BlockBundle\\SonataBlockBundle', 'SonatajQueryBundle' => 'Sonata\\jQueryBundle\\SonatajQueryBundle', 'KnpMenuBundle' => 'Knp\\Bundle\\MenuBundle\\KnpMenuBundle', 'SonataAdminBundle' => 'Sonata\\AdminBundle\\SonataAdminBundle', 'SonataEasyExtendsBundle' => 'Sonata\\EasyExtendsBundle\\SonataEasyExtendsBundle', 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle', 'SonataUserBundle' => 'Sonata\\UserBundle\\SonataUserBundle', 'ApplicationSonataUserBundle' => 'Application\\Sonata\\UserBundle\\ApplicationSonataUserBundle', 'DarkishPanelBundle' => 'Darkish\\PanelBundle\\DarkishPanelBundle', 'FOSJsRoutingBundle' => 'FOS\\JsRoutingBundle\\FOSJsRoutingBundle', 'IvoryCKEditorBundle' => 'Ivory\\CKEditorBundle\\IvoryCKEditorBundle', 'JMSSerializerBundle' => 'JMS\\SerializerBundle\\JMSSerializerBundle', 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle', 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle', 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle', 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle'));
     }
 
     /**
@@ -2145,7 +2145,7 @@ class appDevDebugProjectContainer extends Container
     protected function getJmsSerializerService()
     {
         $a = new \Metadata\MetadataFactory(new \Metadata\Driver\LazyLoadingDriver($this, 'jms_serializer.metadata_driver'), 'Metadata\\ClassHierarchyMetadata', true);
-        $a->setCache(new \Metadata\Cache\FileCache('D:/xampp/htdocs/n-darkish/app/cache/dev/jms_serializer'));
+        $a->setCache(new \Metadata\Cache\FileCache('E:/xampp/htdocs/n-darkish/app/cache/dev/jms_serializer'));
 
         $b = new \JMS\Serializer\EventDispatcher\LazyEventDispatcher($this);
         $b->setListeners(array('serializer.pre_serialize' => array(0 => array(0 => array(0 => 'jms_serializer.stopwatch_subscriber', 1 => 'onPreSerialize'), 1 => NULL, 2 => NULL), 1 => array(0 => array(0 => 'jms_serializer.doctrine_proxy_subscriber', 1 => 'onPreSerialize'), 1 => NULL, 2 => NULL)), 'serializer.post_serialize' => array(0 => array(0 => array(0 => 'jms_serializer.stopwatch_subscriber', 1 => 'onPostSerialize'), 1 => NULL, 2 => NULL))));
@@ -2271,7 +2271,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getJmsSerializer_MetadataDriverService()
     {
-        $a = new \Metadata\Driver\FileLocator(array('Symfony\\Bundle\\FrameworkBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle/Resources/config/serializer', 'Symfony\\Bundle\\SecurityBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/config/serializer', 'Symfony\\Bundle\\TwigBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/config/serializer', 'Symfony\\Bundle\\MonologBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\monolog-bundle/Resources/config/serializer', 'Symfony\\Bundle\\SwiftmailerBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/config/serializer', 'Symfony\\Bundle\\AsseticBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\assetic-bundle/Resources/config/serializer', 'Doctrine\\Bundle\\DoctrineBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/config/serializer', 'Sensio\\Bundle\\FrameworkExtraBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\framework-extra-bundle\\Sensio\\Bundle\\FrameworkExtraBundle/Resources/config/serializer', 'Darkish\\CategoryBundle' => 'D:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle/Resources/config/serializer', 'Sonata\\DoctrineORMAdminBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\doctrine-orm-admin-bundle/Resources/config/serializer', 'Sonata\\CoreBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\core-bundle/Resources/config/serializer', 'Sonata\\BlockBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\block-bundle/Resources/config/serializer', 'Sonata\\jQueryBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\jquery-bundle/Resources/config/serializer', 'Knp\\Bundle\\MenuBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\knplabs\\knp-menu-bundle\\Knp\\Bundle\\MenuBundle/Resources/config/serializer', 'Sonata\\AdminBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\admin-bundle/Resources/config/serializer', 'Sonata\\EasyExtendsBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\easy-extends-bundle/Resources/config/serializer', 'FOS\\UserBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/config/serializer', 'Sonata\\UserBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle/Resources/config/serializer', 'Application\\Sonata\\UserBundle' => 'D:\\xampp\\htdocs\\n-darkish\\src\\Application\\Sonata\\UserBundle/Resources/config/serializer', 'Darkish\\PanelBundle' => 'D:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\PanelBundle/Resources/config/serializer', 'FOS\\JsRoutingBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\jsrouting-bundle\\FOS\\JsRoutingBundle/Resources/config/serializer', 'Ivory\\CKEditorBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\egeloen\\ckeditor-bundle/Resources/config/serializer', 'JMS\\SerializerBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\jms\\serializer-bundle\\JMS\\SerializerBundle/Resources/config/serializer', 'Acme\\DemoBundle' => 'D:\\xampp\\htdocs\\n-darkish\\src\\Acme\\DemoBundle/Resources/config/serializer', 'Symfony\\Bundle\\WebProfilerBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/config/serializer', 'Sensio\\Bundle\\DistributionBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/config/serializer', 'Sensio\\Bundle\\GeneratorBundle' => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\generator-bundle\\Sensio\\Bundle\\GeneratorBundle/Resources/config/serializer'));
+        $a = new \Metadata\Driver\FileLocator(array('Symfony\\Bundle\\FrameworkBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle/Resources/config/serializer', 'Symfony\\Bundle\\SecurityBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/config/serializer', 'Symfony\\Bundle\\TwigBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/config/serializer', 'Symfony\\Bundle\\MonologBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\monolog-bundle/Resources/config/serializer', 'Symfony\\Bundle\\SwiftmailerBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/config/serializer', 'Symfony\\Bundle\\AsseticBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\assetic-bundle/Resources/config/serializer', 'Doctrine\\Bundle\\DoctrineBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/config/serializer', 'Sensio\\Bundle\\FrameworkExtraBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\framework-extra-bundle\\Sensio\\Bundle\\FrameworkExtraBundle/Resources/config/serializer', 'Darkish\\CategoryBundle' => 'E:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle/Resources/config/serializer', 'Sonata\\DoctrineORMAdminBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\doctrine-orm-admin-bundle/Resources/config/serializer', 'Sonata\\CoreBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\core-bundle/Resources/config/serializer', 'Sonata\\BlockBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\block-bundle/Resources/config/serializer', 'Sonata\\jQueryBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\jquery-bundle/Resources/config/serializer', 'Knp\\Bundle\\MenuBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\knplabs\\knp-menu-bundle\\Knp\\Bundle\\MenuBundle/Resources/config/serializer', 'Sonata\\AdminBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\admin-bundle/Resources/config/serializer', 'Sonata\\EasyExtendsBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\easy-extends-bundle/Resources/config/serializer', 'FOS\\UserBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/config/serializer', 'Sonata\\UserBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle/Resources/config/serializer', 'Application\\Sonata\\UserBundle' => 'E:\\xampp\\htdocs\\n-darkish\\src\\Application\\Sonata\\UserBundle/Resources/config/serializer', 'Darkish\\PanelBundle' => 'E:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\PanelBundle/Resources/config/serializer', 'FOS\\JsRoutingBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\jsrouting-bundle\\FOS\\JsRoutingBundle/Resources/config/serializer', 'Ivory\\CKEditorBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\egeloen\\ckeditor-bundle/Resources/config/serializer', 'JMS\\SerializerBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\jms\\serializer-bundle\\JMS\\SerializerBundle/Resources/config/serializer', 'Acme\\DemoBundle' => 'E:\\xampp\\htdocs\\n-darkish\\src\\Acme\\DemoBundle/Resources/config/serializer', 'Symfony\\Bundle\\WebProfilerBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/config/serializer', 'Sensio\\Bundle\\DistributionBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/config/serializer', 'Sensio\\Bundle\\GeneratorBundle' => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\generator-bundle\\Sensio\\Bundle\\GeneratorBundle/Resources/config/serializer'));
 
         return $this->services['jms_serializer.metadata_driver'] = new \JMS\Serializer\Metadata\Driver\DoctrineTypeDriver(new \Metadata\Driver\DriverChain(array(0 => new \JMS\Serializer\Metadata\Driver\YamlDriver($a), 1 => new \JMS\Serializer\Metadata\Driver\XmlDriver($a), 2 => new \JMS\Serializer\Metadata\Driver\PhpDriver($a), 3 => new \JMS\Serializer\Metadata\Driver\AnnotationDriver($this->get('annotation_reader')))), $this->get('doctrine'));
     }
@@ -2581,7 +2581,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getMonolog_Handler_MainService()
     {
-        return $this->services['monolog.handler.main'] = new \Monolog\Handler\StreamHandler('D:/xampp/htdocs/n-darkish/app/logs/dev.log', 100, true);
+        return $this->services['monolog.handler.main'] = new \Monolog\Handler\StreamHandler('E:/xampp/htdocs/n-darkish/app/logs/dev.log', 100, true);
     }
 
     /**
@@ -2814,7 +2814,7 @@ class appDevDebugProjectContainer extends Container
         $d = new \Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector($this->get('doctrine'));
         $d->addLogger('default', $this->get('doctrine.dbal.logger.profiling.default'));
 
-        $this->services['profiler'] = $instance = new \Symfony\Component\HttpKernel\Profiler\Profiler(new \Symfony\Component\HttpKernel\Profiler\FileProfilerStorage('file:D:/xampp/htdocs/n-darkish/app/cache/dev/profiler', '', '', 86400), $a);
+        $this->services['profiler'] = $instance = new \Symfony\Component\HttpKernel\Profiler\Profiler(new \Symfony\Component\HttpKernel\Profiler\FileProfilerStorage('file:E:/xampp/htdocs/n-darkish/app/cache/dev/profiler', '', '', 86400), $a);
 
         $instance->add($c);
         $instance->add($this->get('data_collector.request'));
@@ -2913,7 +2913,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getRouterService()
     {
-        return $this->services['router'] = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, 'D:/xampp/htdocs/n-darkish/app/cache/dev/assetic/routing.yml', array('cache_dir' => 'D:/xampp/htdocs/n-darkish/app/cache/dev', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevUrlMatcher', 'strict_requirements' => true, 'resource_type' => 'yaml'), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['router'] = new \Symfony\Bundle\FrameworkBundle\Routing\Router($this, 'E:/xampp/htdocs/n-darkish/app/cache/dev/assetic/routing.yml', array('cache_dir' => 'E:/xampp/htdocs/n-darkish/app/cache/dev', 'debug' => true, 'generator_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_base_class' => 'Symfony\\Component\\Routing\\Generator\\UrlGenerator', 'generator_dumper_class' => 'Symfony\\Component\\Routing\\Generator\\Dumper\\PhpGeneratorDumper', 'generator_cache_class' => 'appDevUrlGenerator', 'matcher_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_base_class' => 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableUrlMatcher', 'matcher_dumper_class' => 'Symfony\\Component\\Routing\\Matcher\\Dumper\\PhpMatcherDumper', 'matcher_cache_class' => 'appDevUrlMatcher', 'strict_requirements' => true, 'resource_type' => 'yaml'), $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('monolog.logger.router', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -3069,7 +3069,7 @@ class appDevDebugProjectContainer extends Container
         $f = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/admin/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $f->setProviderKey('admin');
 
-        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.1'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/admin/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5477baf33dac7', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
+        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.1'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'admin', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/admin/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/admin/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '548e27944fcfa', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/admin/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -3144,7 +3144,7 @@ class appDevDebugProjectContainer extends Container
         $f = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, array('login_path' => '/login', 'always_use_default_target_path' => false, 'default_target_path' => '/', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $f->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.1'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5477baf33dac7', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/login', false), NULL, NULL, $d));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => $this->get('security.context_listener.1'), 2 => $e, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $this->get('security.authentication.manager'), $this->get('security.authentication.session_strategy'), $a, 'main', $f, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($c, $a, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $d), array('use_forward' => false, 'check_path' => '/login_check', 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $d, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), NULL), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '548e27944fcfa', $d), 5 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $a, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($c, $a, '/login', false), NULL, NULL, $d));
     }
 
     /**
@@ -3162,7 +3162,7 @@ class appDevDebugProjectContainer extends Container
 
         $c = new \Symfony\Component\Security\Http\EntryPoint\BasicAuthenticationEntryPoint('Secured Demo Area');
 
-        return $this->services['security.firewall.map.context.modi'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('fos_user.user_manager'), 1 => $this->get('security.user.provider.concrete.in_memory')), 'modi', $b, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\BasicAuthenticationListener($a, $this->get('security.authentication.manager'), 'modi', $c, $b), 3 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '5477baf33dac7', $b), 4 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'modi', $c, NULL, NULL, $b));
+        return $this->services['security.firewall.map.context.modi'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('fos_user.user_manager'), 1 => $this->get('security.user.provider.concrete.in_memory')), 'modi', $b, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\BasicAuthenticationListener($a, $this->get('security.authentication.manager'), 'modi', $c, $b), 3 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '548e27944fcfa', $b), 4 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'modi', $c, NULL, NULL, $b));
     }
 
     /**
@@ -3188,7 +3188,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_SecureRandomService()
     {
-        return $this->services['security.secure_random'] = new \Symfony\Component\Security\Core\Util\SecureRandom('D:/xampp/htdocs/n-darkish/app/cache/dev/secure_random.seed', $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['security.secure_random'] = new \Symfony\Component\Security\Core\Util\SecureRandom('E:/xampp/htdocs/n-darkish/app/cache/dev/secure_random.seed', $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -3240,7 +3240,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSensioDistribution_WebconfiguratorService()
     {
-        $this->services['sensio_distribution.webconfigurator'] = $instance = new \Sensio\Bundle\DistributionBundle\Configurator\Configurator('D:/xampp/htdocs/n-darkish/app');
+        $this->services['sensio_distribution.webconfigurator'] = $instance = new \Sensio\Bundle\DistributionBundle\Configurator\Configurator('E:/xampp/htdocs/n-darkish/app');
 
         $instance->addStep(new \Sensio\Bundle\DistributionBundle\Configurator\Step\DoctrineStep(), 10);
         $instance->addStep(new \Sensio\Bundle\DistributionBundle\Configurator\Step\SecretStep(), 0);
@@ -3419,7 +3419,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSession_Storage_FilesystemService()
     {
-        return $this->services['session.storage.filesystem'] = new \Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage('D:/xampp/htdocs/n-darkish/app/cache/dev/sessions', 'MOCKSESSID', $this->get('session.storage.metadata_bag'));
+        return $this->services['session.storage.filesystem'] = new \Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage('E:/xampp/htdocs/n-darkish/app/cache/dev/sessions', 'MOCKSESSID', $this->get('session.storage.metadata_bag'));
     }
 
     /**
@@ -4183,7 +4183,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSonata_Admin_Route_CacheService()
     {
-        return $this->services['sonata.admin.route.cache'] = new \Sonata\AdminBundle\Route\RoutesCache('D:/xampp/htdocs/n-darkish/app/cache/dev/sonata/admin', true);
+        return $this->services['sonata.admin.route.cache'] = new \Sonata\AdminBundle\Route\RoutesCache('E:/xampp/htdocs/n-darkish/app/cache/dev/sonata/admin', true);
     }
 
     /**
@@ -5410,7 +5410,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTemplating_Helper_CodeService()
     {
-        return $this->services['templating.helper.code'] = new \Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper(NULL, 'D:/xampp/htdocs/n-darkish/app', 'UTF-8');
+        return $this->services['templating.helper.code'] = new \Symfony\Bundle\FrameworkBundle\Templating\Helper\CodeHelper(NULL, 'E:/xampp/htdocs/n-darkish/app', 'UTF-8');
     }
 
     /**
@@ -5945,7 +5945,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTranslator_DefaultService()
     {
-        return $this->services['translator.default'] = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, $this->get('translator.selector'), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/translations', 'debug' => true));
+        return $this->services['translator.default'] = new \Symfony\Bundle\FrameworkBundle\Translation\Translator($this, $this->get('translator.selector'), array('translation.loader.php' => array(0 => 'php'), 'translation.loader.yml' => array(0 => 'yml'), 'translation.loader.xliff' => array(0 => 'xlf', 1 => 'xliff'), 'translation.loader.po' => array(0 => 'po'), 'translation.loader.mo' => array(0 => 'mo'), 'translation.loader.qt' => array(0 => 'ts'), 'translation.loader.csv' => array(0 => 'csv'), 'translation.loader.res' => array(0 => 'res'), 'translation.loader.dat' => array(0 => 'dat'), 'translation.loader.ini' => array(0 => 'ini'), 'translation.loader.json' => array(0 => 'json')), array('cache_dir' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/translations', 'debug' => true));
     }
 
     /**
@@ -5958,14 +5958,14 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTwigService()
     {
-        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'exception_controller' => 'twig.controller.exception:showAction', 'autoescape_service' => NULL, 'autoescape_service_method' => NULL, 'cache' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/twig', 'charset' => 'UTF-8', 'paths' => array()));
+        $this->services['twig'] = $instance = new \Twig_Environment($this->get('twig.loader'), array('debug' => true, 'strict_variables' => true, 'exception_controller' => 'twig.controller.exception:showAction', 'autoescape_service' => NULL, 'autoescape_service_method' => NULL, 'cache' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/twig', 'charset' => 'UTF-8', 'paths' => array()));
 
         $instance->addExtension(new \Symfony\Bundle\SecurityBundle\Twig\Extension\LogoutUrlExtension($this->get('templating.helper.logout_url')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\SecurityExtension($this->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($this->get('translator')));
         $instance->addExtension(new \Symfony\Bundle\TwigBundle\Extension\AssetsExtension($this, $this->get('router.request_context', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Symfony\Bundle\TwigBundle\Extension\ActionsExtension($this));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\CodeExtension(NULL, 'D:/xampp/htdocs/n-darkish/app', 'UTF-8'));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\CodeExtension(NULL, 'E:/xampp/htdocs/n-darkish/app', 'UTF-8'));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\StopwatchExtension($this->get('debug.stopwatch', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
@@ -6031,26 +6031,26 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['twig.loader'] = $instance = new \Symfony\Bundle\TwigBundle\Loader\FilesystemLoader($this->get('templating.locator'), $this->get('templating.name_parser'));
 
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle/Resources/views', 'Framework');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/views', 'Security');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/views', 'Twig');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/views', 'Swiftmailer');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/views', 'Doctrine');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle/Resources/views', 'DarkishCategory');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\doctrine-orm-admin-bundle/Resources/views', 'SonataDoctrineORMAdmin');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\core-bundle/Resources/views', 'SonataCore');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\block-bundle/Resources/views', 'SonataBlock');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\admin-bundle/Resources/views', 'SonataAdmin');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/views', 'FOSUser');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle/Resources/views', 'SonataUser');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\PanelBundle/Resources/views', 'DarkishPanel');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\egeloen\\ckeditor-bundle/Resources/views', 'IvoryCKEditor');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\src\\Acme\\DemoBundle/Resources/views', 'AcmeDemo');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
-        $instance->addPath('D:/xampp/htdocs/n-darkish/app/Resources/views');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bridge\\Twig/Resources/views/Form');
-        $instance->addPath('D:\\xampp\\htdocs\\n-darkish\\vendor\\knplabs\\knp-menu\\src\\Knp\\Menu/Resources/views');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\FrameworkBundle/Resources/views', 'Framework');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\SecurityBundle/Resources/views', 'Security');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/views', 'Twig');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/views', 'Swiftmailer');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/views', 'Doctrine');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\CategoryBundle/Resources/views', 'DarkishCategory');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\doctrine-orm-admin-bundle/Resources/views', 'SonataDoctrineORMAdmin');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\core-bundle/Resources/views', 'SonataCore');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\block-bundle/Resources/views', 'SonataBlock');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\admin-bundle/Resources/views', 'SonataAdmin');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/views', 'FOSUser');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sonata-project\\user-bundle/Resources/views', 'SonataUser');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\src\\Darkish\\PanelBundle/Resources/views', 'DarkishPanel');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\egeloen\\ckeditor-bundle/Resources/views', 'IvoryCKEditor');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\src\\Acme\\DemoBundle/Resources/views', 'AcmeDemo');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
+        $instance->addPath('E:/xampp/htdocs/n-darkish/app/Resources/views');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Bridge\\Twig/Resources/views/Form');
+        $instance->addPath('E:\\xampp\\htdocs\\n-darkish\\vendor\\knplabs\\knp-menu\\src\\Knp\\Menu/Resources/views');
 
         return $instance;
     }
@@ -6109,12 +6109,12 @@ class appDevDebugProjectContainer extends Container
         $instance->setConstraintValidatorFactory($this->get('validator.validator_factory'));
         $instance->setTranslator($this->get('translator'));
         $instance->setTranslationDomain('validators');
-        $instance->addXmlMappings(array(0 => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/config/validation.xml', 1 => 'D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\validation.xml'));
+        $instance->addXmlMappings(array(0 => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\symfony\\symfony\\src\\Symfony\\Component\\Form/Resources/config/validation.xml', 1 => 'E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\validation.xml'));
         $instance->enableAnnotationMapping($this->get('annotation_reader'));
         $instance->addMethodMapping('loadValidatorMetadata');
         $instance->setApiVersion(3);
         $instance->addObjectInitializers(array(0 => $this->get('doctrine.orm.validator_initializer'), 1 => new \FOS\UserBundle\Validator\Initializer($this->get('fos_user.user_manager'))));
-        $instance->addXmlMapping('D:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\DependencyInjection\\Compiler/../../Resources/config/validation/orm.xml');
+        $instance->addXmlMapping('E:\\xampp\\htdocs\\n-darkish\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\DependencyInjection\\Compiler/../../Resources/config/validation/orm.xml');
 
         return $instance;
     }
@@ -6211,7 +6211,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetFactoryService()
     {
-        $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), 'D:/xampp/htdocs/n-darkish/app/../web', true);
+        $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), 'E:/xampp/htdocs/n-darkish/app/../web', true);
 
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
@@ -6232,7 +6232,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_CacheService()
     {
-        return $this->services['assetic.cache'] = new \Assetic\Cache\FilesystemCache('D:/xampp/htdocs/n-darkish/app/cache/dev/assetic/assets');
+        return $this->services['assetic.cache'] = new \Assetic\Cache\FilesystemCache('E:/xampp/htdocs/n-darkish/app/cache/dev/assetic/assets');
     }
 
     /**
@@ -6412,7 +6412,7 @@ class appDevDebugProjectContainer extends Container
         $b = $this->get('security.user_checker');
         $c = $this->get('security.encoder_factory');
 
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'modi', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5477baf33dac7'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5477baf33dac7'), 4 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 5 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5477baf33dac7'), 6 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'demo_secured_area', $c, true)), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'modi', $c, true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('548e27944fcfa'), 2 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'admin', $c, true), 3 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('548e27944fcfa'), 4 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'main', $c, true), 5 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('548e27944fcfa'), 6 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($a, $b, 'demo_secured_area', $c, true)), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -6657,7 +6657,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getTemplating_LocatorService()
     {
-        return $this->services['templating.locator'] = new \Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator($this->get('file_locator'), 'D:/xampp/htdocs/n-darkish/app/cache/dev');
+        return $this->services['templating.locator'] = new \Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator($this->get('file_locator'), 'E:/xampp/htdocs/n-darkish/app/cache/dev');
     }
 
     /**
@@ -6762,12 +6762,12 @@ class appDevDebugProjectContainer extends Container
     protected function getDefaultParameters()
     {
         return array(
-            'kernel.root_dir' => 'D:/xampp/htdocs/n-darkish/app',
+            'kernel.root_dir' => 'E:/xampp/htdocs/n-darkish/app',
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
             'kernel.name' => 'app',
-            'kernel.cache_dir' => 'D:/xampp/htdocs/n-darkish/app/cache/dev',
-            'kernel.logs_dir' => 'D:/xampp/htdocs/n-darkish/app/logs',
+            'kernel.cache_dir' => 'E:/xampp/htdocs/n-darkish/app/cache/dev',
+            'kernel.logs_dir' => 'E:/xampp/htdocs/n-darkish/app/logs',
             'kernel.bundles' => array(
                 'FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle',
                 'SecurityBundle' => 'Symfony\\Bundle\\SecurityBundle\\SecurityBundle',
@@ -6866,7 +6866,7 @@ class appDevDebugProjectContainer extends Container
             'debug.errors_logger_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\ErrorsLoggerListener',
             'debug.event_dispatcher.class' => 'Symfony\\Component\\HttpKernel\\Debug\\TraceableEventDispatcher',
             'debug.stopwatch.class' => 'Symfony\\Component\\Stopwatch\\Stopwatch',
-            'debug.container.dump' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/appDevDebugProjectContainer.xml',
+            'debug.container.dump' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/appDevDebugProjectContainer.xml',
             'debug.controller_resolver.class' => 'Symfony\\Component\\HttpKernel\\Controller\\TraceableControllerResolver',
             'debug.debug_handlers_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\DebugHandlersListener',
             'kernel.secret' => 'ThisTokenIsNotSoSecretChangeIt',
@@ -6892,7 +6892,7 @@ class appDevDebugProjectContainer extends Container
             'session.storage.options' => array(
                 'gc_probability' => 1,
             ),
-            'session.save_path' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/sessions',
+            'session.save_path' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/sessions',
             'session.metadata.update_threshold' => '0',
             'security.secure_random.class' => 'Symfony\\Component\\Security\\Core\\Util\\SecureRandom',
             'form.resolved_type_factory.class' => 'Symfony\\Component\\Form\\ResolvedFormTypeFactory',
@@ -6970,7 +6970,7 @@ class appDevDebugProjectContainer extends Container
             'data_collector.form.extractor.class' => 'Symfony\\Component\\Form\\Extension\\DataCollector\\FormDataExtractor',
             'profiler_listener.only_exceptions' => false,
             'profiler_listener.only_master_requests' => false,
-            'profiler.storage.dsn' => 'file:D:/xampp/htdocs/n-darkish/app/cache/dev/profiler',
+            'profiler.storage.dsn' => 'file:E:/xampp/htdocs/n-darkish/app/cache/dev/profiler',
             'profiler.storage.username' => '',
             'profiler.storage.password' => '',
             'profiler.storage.lifetime' => 86400,
@@ -6994,7 +6994,7 @@ class appDevDebugProjectContainer extends Container
             'router.request_context.host' => 'localhost',
             'router.request_context.scheme' => 'http',
             'router.request_context.base_url' => '',
-            'router.resource' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/assetic/routing.yml',
+            'router.resource' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/assetic/routing.yml',
             'router.cache_class_prefix' => 'appDev',
             'request_listener.http_port' => 80,
             'request_listener.https_port' => 443,
@@ -7134,7 +7134,7 @@ class appDevDebugProjectContainer extends Container
                 'exception_controller' => 'twig.controller.exception:showAction',
                 'autoescape_service' => NULL,
                 'autoescape_service_method' => NULL,
-                'cache' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/twig',
+                'cache' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/twig',
                 'charset' => 'UTF-8',
                 'paths' => array(
 
@@ -7208,7 +7208,7 @@ class appDevDebugProjectContainer extends Container
             'swiftmailer.mailer.default.transport.smtp.auth_mode' => NULL,
             'swiftmailer.mailer.default.transport.smtp.timeout' => 30,
             'swiftmailer.mailer.default.transport.smtp.source_ip' => NULL,
-            'swiftmailer.spool.default.memory.path' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/swiftmailer/spool/default',
+            'swiftmailer.spool.default.memory.path' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/swiftmailer/spool/default',
             'swiftmailer.mailer.default.spool.enabled' => true,
             'swiftmailer.mailer.default.plugin.impersonate' => NULL,
             'swiftmailer.mailer.default.single_address' => NULL,
@@ -7235,7 +7235,7 @@ class appDevDebugProjectContainer extends Container
             'assetic.node.paths' => array(
 
             ),
-            'assetic.cache_dir' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/assetic',
+            'assetic.cache_dir' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/assetic',
             'assetic.bundles' => array(
 
             ),
@@ -7247,15 +7247,15 @@ class appDevDebugProjectContainer extends Container
             'assetic.debug' => true,
             'assetic.use_controller' => true,
             'assetic.enable_profiler' => false,
-            'assetic.read_from' => 'D:/xampp/htdocs/n-darkish/app/../web',
-            'assetic.write_to' => 'D:/xampp/htdocs/n-darkish/app/../web',
+            'assetic.read_from' => 'E:/xampp/htdocs/n-darkish/app/../web',
+            'assetic.write_to' => 'E:/xampp/htdocs/n-darkish/app/../web',
             'assetic.variables' => array(
 
             ),
-            'assetic.java.bin' => 'C:\\Windows\\system32\\java.EXE',
-            'assetic.node.bin' => '/usr/bin/node',
-            'assetic.ruby.bin' => 'C:\\Ruby200-x64\\bin\\ruby.EXE',
-            'assetic.sass.bin' => 'C:\\Ruby200-x64\\bin\\sass.BAT',
+            'assetic.java.bin' => 'C:\\ProgramData\\Oracle\\Java\\javapath\\java.EXE',
+            'assetic.node.bin' => 'C:\\Program Files\\nodejs\\\\node.EXE',
+            'assetic.ruby.bin' => 'e:\\Ruby200\\bin\\ruby.EXE',
+            'assetic.sass.bin' => 'e:\\Ruby200\\bin\\sass.BAT',
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
             'assetic.twig_extension.functions' => array(
 
@@ -7324,7 +7324,7 @@ class appDevDebugProjectContainer extends Container
             'doctrine.orm.naming_strategy.default.class' => 'Doctrine\\ORM\\Mapping\\DefaultNamingStrategy',
             'doctrine.orm.naming_strategy.underscore.class' => 'Doctrine\\ORM\\Mapping\\UnderscoreNamingStrategy',
             'doctrine.orm.auto_generate_proxy_classes' => true,
-            'doctrine.orm.proxy_dir' => 'D:/xampp/htdocs/n-darkish/app/cache/dev/doctrine/orm/Proxies',
+            'doctrine.orm.proxy_dir' => 'E:/xampp/htdocs/n-darkish/app/cache/dev/doctrine/orm/Proxies',
             'doctrine.orm.proxy_namespace' => 'Proxies',
             'sensio_framework_extra.view.guesser.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser',
             'sensio_framework_extra.controller.listener.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\ControllerListener',
