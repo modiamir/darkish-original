@@ -8,7 +8,8 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolation;
 use Darkish\CategoryBundle\Entity\Record;
 use Darkish\CategoryBundle\Entity\MainTree;
 use Darkish\CategoryBundle\Form\NewsType;
@@ -67,8 +68,16 @@ class RecordController extends Controller
 
             if (count($errors) ) {
                 // perform some action, such as saving the task to the database
-
-                return new Response('form is invalid');
+                /* @var $errors ConstraintViolationList */
+                $error_iterator = $errors->getIterator();
+                $error_msgs = array();
+                while($error_iterator->valid()) {
+                    /* @var $current_error ConstraintViolation */
+                    $current_error = $error_iterator->current();
+                    $error_msgs[] = $current_error->getMessage();
+                    $error_iterator->next();
+                }
+                return new JsonResponse($error_msgs, 403);
             } else {
 
                 $em = $this->getDoctrine()->getManager();
@@ -83,7 +92,7 @@ class RecordController extends Controller
                 $e->getMessage().'<br/>'.
                 $e->getCode().'<br/>'.
                 $e->getFile().'<br/>'.
-                $e->getTraceAsString()
+                $e->getTraceAsString(), 403
             );
         }
 
@@ -109,7 +118,16 @@ class RecordController extends Controller
             if (count($errors) ) {
                 // perform some action, such as saving the task to the database
 
-                return new Response('form is invalid');
+                /* @var $errors ConstraintViolationList */
+                $error_iterator = $errors->getIterator();
+                $error_msgs = array();
+                while($error_iterator->valid()) {
+                    /* @var $current_error ConstraintViolation */
+                    $current_error = $error_iterator->current();
+                    $error_msgs[] = $current_error->getMessage();
+                    $error_iterator->next();
+                }
+                return new JsonResponse($error_msgs, 403);
             } else {
 
                 $em = $this->getDoctrine()->getManager();
@@ -125,7 +143,7 @@ class RecordController extends Controller
 
             };
         }catch (\Exception $e) {
-            return new Response($e->getMessage());
+            return new Response($e->getMessage(), 403);
         }
 
 
@@ -144,6 +162,27 @@ class RecordController extends Controller
         if(isset($data['sub_title'])) {
             $record->setSubTitle($data['sub_title']);
         }
+
+        if(isset($data['english_title'])) {
+            $record->setEnglishTitle($data['english_title']);
+        }
+        if(isset($data['english_sub_title'])) {
+            $record->setEnglishSubTitle($data['english_sub_title']);
+        }
+        if(isset($data['arabic_title'])) {
+            $record->setArabicTitle($data['arabic_title']);
+        }
+        if(isset($data['arabic_sub_title'])) {
+            $record->setArabicSubTitle($data['arabic_sub_title']);
+        }
+
+        if(isset($data['turkish_title'])) {
+            $record->setTurkishTitle($data['turkish_title']);
+        }
+        if(isset($data['turkish_sub_title'])) {
+            $record->setTurkishSubTitle($data['turkish_sub_title']);
+        }
+        
         if(isset($data['owner'])) {
             $record->setOwner($data['owner']);
         }
@@ -247,10 +286,12 @@ class RecordController extends Controller
             $record->setSearchKeywords($data['search_keywords']);
         }
         if(isset($data['creation_date'])) {
-            $record->setCreationDate($data['creation_date']);
+            $creation_date = new \DateTime($data['creation_date']);
+            $record->setCreationDate($creation_date);
         }
         if(isset($data['last_update'])) {
-            $record->setLastUpdate($data['last_update']);
+            $last_update = new \DateTime($data['last_update']);
+            $record->setLastUpdate($last_update);
         }
         if(isset($data['favorite_enable'])) {
             $record->setFavoriteEnable($data['favorite_enable']);
@@ -736,14 +777,31 @@ class RecordController extends Controller
             $newsList =  $query->getResult();
 
 
-//            $encoders = array(new XmlEncoder(), new JsonEncoder());
-//            $normalizers = array(new GetSetMethodNormalizer());
-//
-//            $serializer = new Serializer($normalizers, $encoders);
-//
-//            $serialized = $serializer->serialize($newsList, 'json');
+
             $serialized = $this->get('jms_serializer')->
-                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('list')));
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == 0) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('category' => ""));
+
+            $queryBuilder = $repository->createQueryBuilder('r');
+            /* @var $queryBuilder QueryBuilder */
+            $recordWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $qb2 = $repository->createQueryBuilder('rr');
+            $recordWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$recordWithTree->getDQL()));
+            $serialized = $this->get('jms_serializer')->
+                serialize($recordWithoutTree->getQuery()->getResult(), 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+
+
+
 
             return new Response(
                 $serialized
@@ -752,27 +810,25 @@ class RecordController extends Controller
 
         if($cid == -2) {
 
-            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-            //$newsList = $repository->findBy(array('category' => ""));
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
 
             $queryBuilder = $repository->createQueryBuilder('n');
             /* @var $queryBuilder QueryBuilder */
-            $queryBuilder->where('n.category = :category')
-                ->setParameter('category', "")
-                ->setFirstResult(($page-1) * $this->numPerPage)
-                ->setMaxResults($this->numPerPage)
+            $queryBuilder->where('n.active= :active')
+                ->setParameter('active', false)
+
             ;
 
 
             $query = $queryBuilder->getQuery();
             $newsList =  $query->getResult();
 
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
 
-            $serializer = new Serializer($normalizers, $encoders);
 
-            $serialized = $serializer->serialize($newsList, 'json');
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
 
             return new Response(
                 $serialized
@@ -827,6 +883,52 @@ class RecordController extends Controller
 
     }
 
+
+    public function searchRecordsAction($keyword, $search_by, $sort_by) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+        $qb = $repo->createQueryBuilder('r');
+        /* @var $qb QueryBuilder */
+        switch($search_by) {
+            case '1':
+                $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            case '2':
+                $qb->where($qb->expr()->like('r.recordNumber', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            case '3':
+
+                break;
+            default:
+
+                break;
+        }
+
+        switch($sort_by) {
+            case '4':
+                $qb->orderBy('r.recordNumber', 'Asc');
+                break;
+            case '3':
+                $qb->orderBy('r.recordNumber', 'Desc');
+                break;
+            case '2':
+                $qb->orderBy('r.creationDate', 'Asc');
+                break;
+            default:
+                $qb->orderBy('r.creationDate', 'Desc');
+                break;
+        }
+
+        $res = $qb->getQuery()->getResult();
+
+        return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list'))));
+    }
+
+    public function isUniqeRecordNumberAction($recordNumber) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+        $record = $repo->findByRecordNumber($recordNumber);
+        return new Response(count($record));
+    }
+
     public function getRecordAction($id) {
         $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $record = $repository->find($id);
@@ -866,5 +968,22 @@ class RecordController extends Controller
         $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
         $token = $csrf->generateCsrfToken(''); //Intention should be empty string, if you did not define it in parameters
         return new Response($token);
+    }
+
+    public function verifyRecordAction($recordId) {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:Record');
+        $record = $repo->find($recordId);
+
+        if(!$record) {
+            return new Response('record_id is invalid!', 404);
+        }
+        /* @var $record Record */
+        $record->setVerify(true);
+        $em->persist($record);
+        $em->flush();
+
+        return new Response('Record verified.');
+
     }
 }

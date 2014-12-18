@@ -9,8 +9,8 @@
 //        }]);
 
 angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor']).
-    controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal',
-                           function($scope,   $filter,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal ) {
+    controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal',
+                           function($scope,   $filter,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal ) {
 
 
         /**
@@ -23,6 +23,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
+
+
 
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
@@ -41,6 +43,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.showModal = treeModal.activate;
 
         $scope.showSavingModal = function(){console.log(RecordService.saved);savingModal.activate()};
+
+        $scope.showTitlesModal = function(){titlesModal.activate()};
+
+        $scope.showImageShowModal = function(image) { ValuesService.currentImageModal = image;  imageModal.activate()};
+
 
         $scope.showUploadModal = function() {uploadModal.activate();}
 
@@ -105,14 +112,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 });
             },
             selectTree: function(node) {
-                RecordService.getRecordsForCat(node.id);
-
+                RecordService.recordSearchCriteria = {cid: node.id}
+                RecordService.searchRecords();
             }
 
         };
     }])
     .factory('RecordService', ['$http', 'Collection', 'ValuesService', '$filter' ,function($http, Collection, ValuesService, $filter){
-        var recordList = [];
+        recordList = Collection.getInstance();
         var selectedRecord = {};
 //        var currentRecord;
 
@@ -127,6 +134,68 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         };
 
+
+        self.list = recordList;
+        self.nextSelectedRecord = function() {
+            var currentIndex = self.currentSelectedRecord();
+            if(self.nexable()){
+                self.selectRecord(self.list.array[currentIndex+1])
+            }
+        }
+
+        self.nexable = function() {
+            var currentIndex = self.currentSelectedRecord();
+            if(currentIndex != null &&
+                currentIndex < (self.list.length - 1) ){
+                return true;
+            }
+            return false;
+        }
+
+        self.previousSelectedRecord = function() {
+            var currentIndex = self.currentSelectedRecord();
+            if(self.previousable()){
+                self.selectRecord(self.list.array[currentIndex-1])
+            }
+        }
+
+        self.previousable = function() {
+            var currentIndex = self.currentSelectedRecord();
+            if(currentIndex != null &&
+                currentIndex > 0 ){
+                return true;
+            }
+            return false;
+        }
+
+        self.currentSelectedRecord =function() {
+            currentRecordIndex = null;
+            angular.forEach(self.list.array, function(value,key) {
+                if(value.id == selectedRecord.id) {
+                    currentRecordIndex = key;
+                    keepGoing = false;
+                }
+            })
+            return currentRecordIndex;
+        }
+
+        self.verifyCurrentRecord = function() {
+            return $http({
+                method: 'PUT',
+                url: 'ajax/verify_record/'+self.currentRecord.id,
+                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+            }).then(
+                function(response){
+                    self.currentRecord.verify = true;
+                },
+                function(responseErr){
+                    console.log(responseErr);
+                }
+            );
+        }
+
+
+
         self.currentRecord.treeList = Collection.getInstance();
         self.currentRecord.images = Collection.getInstance()
         self.currentRecord.videos = Collection.getInstance()
@@ -136,27 +205,68 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         self.currentCid;
 
-        self.list = function() {
-            return items;
-        };
+        self.recordSearchCriteria = {};
+
+//        self.list = function() {
+//            return items;
+//        };
 
         self.selectedRecord= function() {
-            return self.selectedRecord;
+            return selectedRecord;
         };
 
         self.getRecordsForCat = function(cid) {
 
             $http.get('ajax/get_record_for_cat/'+cid).then(function(response){
-                recordList = response.data;
+                recordList.removeAll();
+                recordList.addAll(response.data);
                 self.currentCid = cid;
                 //console.log(response);
+                selectedRecord = {id:0};
             },function(errResponse){
                 console.log(errResponse);
             });
         };
 
+        self.getRecordsByCriteria = function() {
+            if(!self.recordSearchCriteria.searchKeyword) {
+                self.recordSearchCriteria.searchKeyword = "";
+            }
+            if(!self.recordSearchCriteria.searchBy) {
+                self.recordSearchCriteria.searchBy = "1";
+            }
+            if(!self.recordSearchCriteria.sortBy) {
+                self.recordSearchCriteria.sortBy = "1";
+            }
+
+
+            $http.get('ajax/search_record/'+
+                self.recordSearchCriteria.searchKeyword+'/'+
+                self.recordSearchCriteria.searchBy+'/'+
+                self.recordSearchCriteria.sortBy
+                ).then(function(response){
+                recordList.removeAll();
+                recordList.addAll(response.data);
+                self.currentCid = null;
+                selectedRecord = {id:0};
+                //console.log(response);
+            },function(errResponse){
+                console.log(errResponse);
+            });
+        }
+
+        self.searchRecords = function() {
+            if(self.recordSearchCriteria.cid !=null) {
+                self.getRecordsForCat(self.recordSearchCriteria.cid)
+            } else {
+                self.recordSearchCriteria.cid = null;
+                self.getRecordsByCriteria();
+            }
+
+        }
+
         self.recordList = function() {
-            return recordList;
+            return recordList.all();
         };
 
         var temporaryRecord = {}
@@ -172,18 +282,30 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             result = prompt("شماره رکورد را وارد کنید.");
             if(result) {
                 if($filter('number')(result)) {
-                    temporaryRecord = angular.copy(self.currentRecord);
-                    self.currentRecord = angular.copy({});
-                    self.currentRecord.record_number = result;
-                    self.currentRecord.treeList = Collection.getInstance();
-                    self.currentRecord.imagesList = Collection.getInstance();
-                    self.currentRecord.bodyImagesList = Collection.getInstance();
-                    self.currentRecord.videosList = Collection.getInstance();
-                    self.currentRecord.bodyVideosList = Collection.getInstance();
-                    self.currentRecord.audiosList = Collection.getInstance();
-                    self.currentRecord.bodyAudiosList = Collection.getInstance();
-                    editing = true;
-                    ValuesService.getRandUploadKey(true);
+                    $http.get('ajax/is_unique/'+result).then(
+                        function(response){
+                            if(response.data == 0){
+                                temporaryRecord = angular.copy(self.currentRecord);
+                                self.currentRecord = angular.copy({});
+                                self.currentRecord.record_number = result;
+                                self.currentRecord.treeList = Collection.getInstance();
+                                self.currentRecord.imagesList = Collection.getInstance();
+                                self.currentRecord.bodyImagesList = Collection.getInstance();
+                                self.currentRecord.videosList = Collection.getInstance();
+                                self.currentRecord.bodyVideosList = Collection.getInstance();
+                                self.currentRecord.audiosList = Collection.getInstance();
+                                self.currentRecord.bodyAudiosList = Collection.getInstance();
+                                editing = true;
+                                ValuesService.getRandUploadKey(true);
+                            } else {
+                                alert('شماره وارد شده تکراری میباشد')
+                            }
+                        },
+                        function(responseErr){
+                            console.log(responseErr);
+                        }
+                    );
+
                 } else {
                     alert('شماره وارد شده معتبر نمیباشد. لطفا دوباره امتحان کنید.');
                 }
@@ -192,6 +314,28 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         }
 
+        self.isReadyToInsert = function() {
+            switch(ValuesService.bodyAttachmentActiveTab) {
+                case 'image':
+                    if(self.selectedBodyImage) {
+                        return true;
+                    }
+                    break;
+                case 'video':
+                    if(self.selectedBodyVideo) {
+                        return true;
+                    }
+                    break;
+                case 'audio':
+                    if(self.selectedBodyAudio) {
+                        return true;
+                    }
+                    break;
+                default:
+                    return false;
+            }
+            return false;
+        }
 
 
         self.editing = function() {
@@ -410,14 +554,17 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         }
 
+
+
         self.saveCurrentRecord = function() {
+            self.savingMessages = {}
             if(self.isNew()) {
 
                 self.saveCurrentNewRecord().then(
                     function(response){
                         self.currentReocrd = response;
                         self.saved = true;
-                        self.getRecordsForCat(self.currentCid);
+                        self.searchRecords();
                         self.finishEditing();
                     },
                     function(errResponse){console.log(errResponse);}
@@ -427,10 +574,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(response){
                         self.currentReocrd = response;
                         self.saved = true;
-                        self.getRecordsForCat(self.currentCid);
+                        self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
+                        self.searchRecords();
                         self.finishEditing();
                     },
-                    function(errResponse){console.log(errResponse);}
+                    function(errResponse){
+                        self.saved = true;
+                        self.savingMessages = errResponse.data;
+                        console.log(errResponse);
+                    }
                 );
             }
         }
@@ -494,6 +646,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             templateUrl: 'body-modal.html'
         });
     }).
+    factory('titlesModal', function (btfModal) {
+        return btfModal({
+            controller: 'titlesModalCtrl',
+            controllerAs: 'titlesModal',
+            templateUrl: 'titles-modal.html'
+        });
+    }).
+    factory('imageModal', function (btfModal) {
+        return btfModal({
+            controller: 'imageModalCtrl',
+            controllerAs: 'imageModal',
+            templateUrl: 'image-modal.html'
+        });
+    }).
     controller('treeModalCtrl', ['$scope', 'treeModal', 'RecordService','TreeService', function ($scope, treeModal, RecordService, TreeService) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
@@ -515,19 +681,66 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.closeMe = function(){RecordService.saved = false; savingModal.deactivate();}
 
     }]).
+    controller('titlesModalCtrl', ['$scope', 'titlesModal', 'RecordService','TreeService', function ($scope, titlesModal, RecordService, TreeService) {
+        $scope.RecordService = RecordService;
+        $scope.closeMe = function(){titlesModal.deactivate();}
+    }]).
+    controller('imageModalCtrl', ['$scope', 'imageModal', 'RecordService','TreeService', 'ValuesService', function ($scope, imageModal, RecordService, TreeService, ValuesService) {
+        $scope.RecordService = RecordService;
+        $scope.ValuesService = ValuesService;
+        $scope.closeMe = function(){ValuesService.currentImageModal = {}; imageModal.deactivate();}
+
+    }]).
     controller('uploadModalCtrl', ['$scope', 'uploadModal', 'RecordService','TreeService', 'ValuesService', '$http', function ($scope, uploadModal, RecordService, TreeService, ValuesService, $http) {
 
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
+        $scope.uploadable = false;
+        $scope.uploading = false;
         $scope.closeMe = function(){uploadModal.deactivate();}
         $scope.filesChanged = function(elm) {
             $scope.files = elm.files;
             $scope.$apply();
             RecordService.file = $scope.files[0];
+            fileType = RecordService.file.type.split("/")[0];
+            fileExtension = RecordService.file.type.split("/")[1];
+            switch(ValuesService.activeTab) {
+                case 'image':
+                    uploadableType = "image";
+                    uploadableExtensions = ["jpg", "png", "jpeg", "gif"];
+                    break;
+                case 'video':
+                    uploadableType = "video";
+                    uploadableExtensions = ["mp4"];
+                    break;
+                case 'audio':
+                    uploadableType = "audio";
+                    uploadableExtensions = ["mp3"];
+                    break;
+            }
+            if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                alert(
+                    "شما فقط میتوانید فاید "
+                        + uploadableType
+                        + " با پسوند های "
+                        + uploadableExtensions.join()
+                        + "انتخاب کنید."
+                );
+            } else {
+                $scope.uploadable = true;
+                $scope.$apply();
+            }
+
         };
 
-        $scope.upload = function() {
 
+
+        $scope.upload = function() {
+            if(!$scope.uploadable) {
+                return;
+            }
+            $scope.uploading = true;
+            $scope.$apply();
             var fd = new FormData();
 
             fd.append('file', RecordService.file);
@@ -537,10 +750,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 if(ValuesService.getRandUploadKey()) {
                     fd.append('uploadKey', ValuesService.getRandUploadKey());
                 }
-                alert('isnew');
             } else {
                 fd.append('entityId', RecordService.currentRecord.id);
-                alert('is not new');
+
             }
 
 
@@ -567,10 +779,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             break;
 
                     }
+                    $scope.uploading = false;
+                    $scope.$apply();
 
 
                 },
                 function(errResponse){
+                    console.log(errResponse);
+                    $scope.uploading = false;
+                    $scope.$apply();
 
                 });
         };
@@ -583,11 +800,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
         $scope.bodyEditorOptions = {
-            language: 'en',
+            language: 'fa',
             height: '400px',
             uiColor: '#e8ede0',
             contentsLangDirection: 'rtl',
-            toolbar_full: [
+            toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
                 { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
@@ -599,7 +816,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
                 '/',
                 { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
                 { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
                 { name: 'others', items: [ '-' ] },
                 { name: 'about', items: [ 'About' ] }
@@ -631,17 +847,22 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         $scope.CkeditorInsert = function() {
+            var CkInstance = null;
+            angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
-//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    CkInstance.insertHtml('<img alt="" width="100px" src="'+RecordService.selectedBodyImage.absolute_path+'" />');
                     console.log(RecordService.selectedBodyImage.absolute_path);
                     break;
                 case 'video':
-//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    CkInstance.insertHtml('<video width="320" height="240" autoplay>'+
+                        '<source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="video/mp4">'+
+                        'Your browser does not support the video tag.'+
+                        '</video>');
                     console.log(RecordService.selectedBodyVideo.absolute_path);
                     break;
                 case 'audio':
-//                    CKEDITOR.instances.editor1.insertHtml('<img width="100" src="'+absolutePath+'"/>');
+                    CkInstance.insertHtml('<h1> audio</h1>');
                     console.log(RecordService.selectedBodyAudio.absolute_path);
                     break;
 
@@ -661,10 +882,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 if(ValuesService.getRandUploadKey()) {
                     fd.append('uploadKey', ValuesService.getRandUploadKey());
                 }
-                alert('isnew');
             } else {
                 fd.append('entityId', RecordService.currentRecord.id);
-                alert('is not new');
             }
 
 
@@ -812,7 +1031,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
 
-
+        self.currentImageModal = {}
 
 
         self.safarsazRanks = [

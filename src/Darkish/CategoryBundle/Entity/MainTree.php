@@ -63,6 +63,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $subTitle;
 
@@ -70,6 +71,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="BackKeyTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $backKeyTitle;
 

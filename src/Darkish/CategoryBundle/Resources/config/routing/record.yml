@@ -19,6 +19,19 @@ record_get_record_for_category:
     path:     /ajax/get_record_for_cat/{cid}/{page}
     defaults: { _controller: "DarkishCategoryBundle:Record:getRecordForCategory", _format: json, page: 1}
 
+record_search_record:
+    path:     /ajax/search_record/{keyword}/{search_by}/{sort_by}
+    defaults: { _controller: "DarkishCategoryBundle:Record:searchRecords", _format: json, keyword: "", search_by: 1, sort_by: 1}
+
+record_is_unique:
+    path:     /ajax/is_unique/{recordNumber}
+    defaults: { _controller: "DarkishCategoryBundle:Record:isUniqeRecordNumber", _format: json }
+
+record_verify_record:
+    path:     /ajax/verify_record/{recordId}
+    defaults: { _controller: "DarkishCategoryBundle:Record:verifyRecord", _format: json }
+    requirements: { _method: post|put }
+
 record_get_record:
     path:     /ajax/get_record/{id}
     defaults: { _controller: "DarkishCategoryBundle:Record:getRecord", _format: json}

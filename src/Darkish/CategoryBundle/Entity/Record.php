@@ -7,6 +7,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Record
@@ -29,7 +31,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="record_number", type="string", length=255, unique=true)
+     * @ORM\Column(name="record_number", type="bigint", length=255, unique=true, options={"unsigned":true})
      * @Groups({"record.list", "record.details"})
      */
     private $recordNumber;
@@ -37,9 +39,14 @@ class Record
 
     /**
      * @var string
-     *
      * @ORM\Column(name="Title", type="string", length=255)
      * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
+     *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
      */
     private $title;
 
@@ -48,9 +55,99 @@ class Record
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
      * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
+     *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
      *
      */
     private $subTitle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="EnglishTitle", type="string", length=255)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
+     *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     */
+    private $englishTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="EnglishSubTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
+     *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     *
+     */
+    private $englishSubTitle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="ArabicTitle", type="string", length=255)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
+     *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     */
+    private $arabicTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ArabicSubTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
+     *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     *
+     */
+    private $arabicSubTitle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="TurkishTitle", type="string", length=255)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
+     *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     */
+    private $turkishTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TurkishSubTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.list", "record.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
+     *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
+     *
+     */
+    private $turkishSubTitle;
 
     /**
      * @var integer
@@ -348,9 +445,9 @@ class Record
     private $searchKeywords;
 
     /**
-     * @var string
+     * @var datetime
      *
-     * @ORM\Column(name="CreationDate", type="string", length=255, nullable=true)
+     * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
      * @Groups({"record.details"})
      */
     private $creationDate;
@@ -358,7 +455,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="LastUpdate", type="string", length=255, nullable=true)
+     * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
      * @Groups({"record.details"})
      */
     private $lastUpdate;
@@ -507,6 +604,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $likeCount;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Active", type="boolean", nullable=false, options={"default":0})
+     * @Groups({"record.details"})
+     */
+    private $active;
 
     /**
      * @var boolean
@@ -1210,51 +1315,7 @@ class Record
         return $this->searchKeywords;
     }
 
-    /**
-     * Set creationDate
-     *
-     * @param string $creationDate
-     * @return Record
-     */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
-    /**
-     * Get creationDate
-     *
-     * @return string 
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
-
-    /**
-     * Set lastUpdate
-     *
-     * @param string $lastUpdate
-     * @return Record
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return string 
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
+    
 
     /**
      * Set favoriteEnable
@@ -2373,5 +2434,212 @@ class Record
     public function getBodyAudios()
     {
         return $this->bodyAudios;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Record
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     * @return Record
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     * @return Record
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
+     * Set englishTitle
+     *
+     * @param string $englishTitle
+     * @return Record
+     */
+    public function setEnglishTitle($englishTitle)
+    {
+        $this->englishTitle = $englishTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get englishTitle
+     *
+     * @return string 
+     */
+    public function getEnglishTitle()
+    {
+        return $this->englishTitle;
+    }
+
+    /**
+     * Set englishSubTitle
+     *
+     * @param string $englishSubTitle
+     * @return Record
+     */
+    public function setEnglishSubTitle($englishSubTitle)
+    {
+        $this->englishSubTitle = $englishSubTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get englishSubTitle
+     *
+     * @return string 
+     */
+    public function getEnglishSubTitle()
+    {
+        return $this->englishSubTitle;
+    }
+
+    /**
+     * Set arabicTitle
+     *
+     * @param string $arabicTitle
+     * @return Record
+     */
+    public function setArabicTitle($arabicTitle)
+    {
+        $this->arabicTitle = $arabicTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get arabicTitle
+     *
+     * @return string 
+     */
+    public function getArabicTitle()
+    {
+        return $this->arabicTitle;
+    }
+
+    /**
+     * Set arabicSubTitle
+     *
+     * @param string $arabicSubTitle
+     * @return Record
+     */
+    public function setArabicSubTitle($arabicSubTitle)
+    {
+        $this->arabicSubTitle = $arabicSubTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get arabicSubTitle
+     *
+     * @return string 
+     */
+    public function getArabicSubTitle()
+    {
+        return $this->arabicSubTitle;
+    }
+
+    /**
+     * Set turkishTitle
+     *
+     * @param string $turkishTitle
+     * @return Record
+     */
+    public function setTurkishTitle($turkishTitle)
+    {
+        $this->turkishTitle = $turkishTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get turkishTitle
+     *
+     * @return string 
+     */
+    public function getTurkishTitle()
+    {
+        return $this->turkishTitle;
+    }
+
+    /**
+     * Set turkishSubTitle
+     *
+     * @param string $turkishSubTitle
+     * @return Record
+     */
+    public function setTurkishSubTitle($turkishSubTitle)
+    {
+        $this->turkishSubTitle = $turkishSubTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get turkishSubTitle
+     *
+     * @return string 
+     */
+    public function getTurkishSubTitle()
+    {
+        return $this->turkishSubTitle;
     }
 }

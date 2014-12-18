@@ -32,17 +32,17 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </h3>
                     <ul class="filter-links">
                         <li>
-                            <a>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -1};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -1}">
                                 تایید نشده ها
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: 0};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == 0}">
                                 بدون شاخه
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -2};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -2}">
                                 غیرفعال
                             </a>
                         </li>
@@ -55,6 +55,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                      selected-node="TreeService.currentTreeNode">
                             {{node.title}}
                         </treecontrol>
+                        <div data-ng-show="RecordService.isEditing()" id="tree-selectable-inactivator"></div>
                     </div>
                 </div>
                 <div class="main-search-block">
@@ -62,42 +63,46 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 جستجو
                     </h3>
                     <div class="search-box">
-                        <input id="search-by-title" type="radio" name="search-based-on" />
+                        <input id="search-by-title" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="1" />
                         <label for="search-by-title">
                             عنوان
                         </label>
-                        <input id="search-by-number" type="radio" name="search-based-on" />
+                        <input id="search-by-number" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="2" />
                         <label for="search-by-number">
                             شماره
                         </label>
-                        <input id="search-by-all" type="radio" name="search-based-on" />
+                        <input id="search-by-all" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="3" />
                         <label for="search-by-all">
                             همه
                         </label>
 
-                        <button class="btn">
+                        <button class="btn" data-ng-click="RecordService.recordSearchCriteria.cid = null; RecordService.searchRecords()">
                             بیاب
                         </button>
-                        <input type="text" class="keyword" />
+                        <input type="text" class="keyword" ng-model="RecordService.recordSearchCriteria.searchKeyword" />
                     </div>
                 </div>
                 <div class="sort-block">
                     <span>
                         ترتیب نمایش
                     </span>
-                    <input id="sort-by-date-desc" type="radio" name="sord-based-on" />
+                    <input id="sort-by-date-desc" type="radio" name="sort-based-on"
+                           ng-model="RecordService.recordSearchCriteria.sortBy" value="1" />
                     <label for="sort-by-date-desc">
                         تاریخ نزولی
                     </label>
-                    <input id="sort-by-date-asc" type="radio" name="sord-based-on" />
+                    <input id="sort-by-date-asc" type="radio" name="sort-based-on"
+                           ng-model="RecordService.recordSearchCriteria.sortBy" value="2" />
                     <label for="sort-by-date-asc">
 تاریخ صعودی
                     </label>
-                    <input id="sort-by-number-desc" type="radio" name="sord-based-on" />
+                    <input id="sort-by-number-desc" type="radio" name="sort-based-on"
+                           ng-model="RecordService.recordSearchCriteria.sortBy" value="3" />
                     <label for="sort-by-number-desc">
 شماره نزولی
                     </label>
-                    <input id="sort-by-number-asc" type="radio" name="sord-based-on" />
+                    <input id="sort-by-number-asc" type="radio" name="sort-based-on"
+                           ng-model="RecordService.recordSearchCriteria.sortBy" value="4" />
                     <label for="sort-by-number-asc">
 شماره صعودی
                     </label>
@@ -121,17 +126,57 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                     <div class="basic-info-right-col">
                         <div class="record-title">
-                            <div class="record-title-lan">Lan</div>
+                            <button data-ng-click="showTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
                             <div class="field-title record-title-title">عنوان:</div>
                             <input type="text" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title" ng-disabled="!RecordService.isEditing()" required>
                         </div>
 
                         <div class="record-subtitle">
                             <div class="field-title record-title-title">زیر عنوان:</div>
-                            <input type="text" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title" ng-disabled="!RecordService.isEditing()" required>
+                            <input  type="text" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title" ng-disabled="!RecordService.isEditing()" required>
                         </div>
 
+                        <script type="text/ng-template" id="titles-modal.html">
+                            <div class="modal-bg">
+                                <div class="btf-modal  titles-modal">
+                                    <div class="modal-body">
+                                        <label for="english-title">
+                                            عنوان انگلیسی
+                                        </label>
+                                        <input id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
 
+                                        <label for="english-sub-title">
+زیر عنوان انگلیسی
+                                        </label>
+                                        <input id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
+
+                                        <label for="arabic-title">
+                                            عنوان عربی
+                                        </label>
+                                        <input id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
+
+                                        <label for="arabic-sub-title">
+                                            زیر عنوان عربی
+                                        </label>
+                                        <input id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
+
+                                        <label for="turkish-title">
+                                            عنوان ترکیه ای
+                                        </label>
+                                        <input id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
+
+                                        <label for="turkish-sub-title">
+                                            زیر عنوان ترکیه ای
+                                        </label>
+                                        <input id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                        
+                                        <button class="btn" data-ng-click="closeMe()">
+                                            تایید
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
 
                     </div>
       
@@ -175,7 +220,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 </select>
                                 <script type="text/ng-template" id="tree-modal.html">
                                     <div class="modal-bg">
-                                        <div class="btf-modal">
+                                        <div class="btf-modal tree-modal">
                                             <div class="tree-modal-header">
                                                 <a href ng-click="closeMe()">X</a>
                                                 <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
@@ -188,7 +233,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                     {{node.title}}
                                                 </treecontrol>
                                             </div>
-                                            {{TreeService.currentSecondTreeNode}}
+
                                         </div>
                                     </div>
                                 </script>
@@ -272,14 +317,14 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div id="choose-group-wrapper" >
                                 <label  class="choose-group-wrapper-combo-label second-section-combo-label" for="choose-group-wrapper-combo">انتخاب گروه</label>
-                                <select id="central-wrapper-combo" ng-model="RecordService.currentRecord.safarsaz_type_index" ng-disabled="!RecordService.isEditing()"
+                                <select id="central-wrapper-combo" ng-model="RecordService.currentRecord.safarsaz_type_index" ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.safarsaz"
                                         ng-options="safarsazType.name for safarsazType in ValuesService.safarsazTypes">
                                     <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
 
                                 </select>
 
                                 <label class="trip-maker-title second-section-fields-title" for="trip-maker-combo">رتبه در سفر ساز</label>
-                                <select id="trip-maker-combo" ng-model="RecordService.currentRecord.safarsaz_rank" ng-disabled="!RecordService.isEditing()">
+                                <select id="trip-maker-combo" ng-model="RecordService.currentRecord.safarsaz_rank" ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.safarsaz">
                                      <option ng-repeat="safarsazRank in ValuesService.safarsazRanks" value="{{safarsazRank.id}}" > {{safarsazRank.name}} </option>
 
                                 </select>
@@ -294,7 +339,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             </div>
                             <div id="info-bank-choose-group-wrapper" >
                                 <label  class="info-bank-choose-group-wrapper-combo-label second-section-combo-label" for="info-bank-choose-group-wrapper-combo">انتخاب گروه</label>
-                                <select id="info-bank-choose-group-wrapper-combo" ng-model="RecordService.currentRecord.dbase_type_index" ng-disabled="!RecordService.isEditing()"
+                                <select id="info-bank-choose-group-wrapper-combo" ng-model="RecordService.currentRecord.dbase_type_index" ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.dbase_enable"
                                         ng-options="safarsazType.name for safarsazType in ValuesService.dbaseTypes">
                                     <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
 
@@ -321,16 +366,16 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                              <div id="opening-hours-wrapper">
                                  <label id="opening-time-label" class="third-section-label">ساعات کار</label>
                                  <div id="opening-hours-time">
-                                    <span>
+                                    <span class="morning">
                                     صبح
                                     </span>
-                                    <input morning-one type="text" ng-model="RecordService.currentRecord.m_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
-                                    <input morning-two type="text" ng-model="RecordService.currentRecord.m_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
-                                    <span>
+                                    <input class="morning-one"  type="time" ng-model="RecordService.currentRecord.m_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
+                                    <input class="morning-two"  type="time" ng-model="RecordService.currentRecord.m_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
+                                    <span class="evening">
                                     عصر
                                     </span>
-                                    <input evening-one type="text" ng-model="RecordService.currentRecord.a_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
-                                    <input evening-two type="text" ng-model="RecordService.currentRecord.a_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
+                                    <input class="evening-one"  type="time" ng-model="RecordService.currentRecord.a_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
+                                    <input class="evening-two"  type="time" ng-model="RecordService.currentRecord.a_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
                                      
                                  </div>
                                  <div class="holidays-wrapper">
@@ -406,7 +451,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <span> آدرس و تلفن</span>
                             <label for="address">آدرس</label>
                             <div class="form-item-wrapper address">
-                                <textarea id="address" ng-model="RecordService.currentRecord.address">
+                                <textarea id="address" ng-model="RecordService.currentRecord.address" ng-disabled="!RecordService.isEditing()">
                                     
                                 </textarea>
                             </div>
@@ -514,10 +559,23 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <div ng-switch="ValuesService.activeTab">
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
-                                        <li ng-repeat="image in RecordService.currentRecord.images" style="float: right" ng-click="RecordService.selectImage(image)" ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-src="{{image.absolute_path}}"  />
+                                        <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
+                                            <img ng-click="RecordService.selectImage(image)" ng-src="{{image.absolute_path}}"  />
+                                            <button class="btn" data-ng-click="showImageShowModal(image)" >open</button>
                                         </li>
                                     </ul>
+                                    <script type="text/ng-template" id="image-modal.html">
+                                        <div class="modal-bg">
+                                            <div class="btf-modal  image-modal">
+                                                <div class="modal-body">
+                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />
+                                                    <button class="btn" data-ng-click="closeMe()">
+                                                        بستن
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </script>
 
                                 </div>
                                 <div ng-switch-when="video" class="video">
@@ -547,13 +605,14 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                     <div class="modal-body">
                                     <input name='imageupload' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />
-                                    <span ng-hide="RecordService.saved">
-                                        در حال ذخیره سازی...
-                                    </span>
+                                    <p ng-hide="!uploading">
+در حال بارگذاری...
+                                    </p>
                                     <span ng-show="RecordService.saved">
         رکورد مورد نظر ذخیره شد.
                                     </span>
-                                    <button class="btn btn-info" data-ng-click="upload()">Upload</button>
+                                    <button ng-disabled="!uploadable" class="btn btn-info" data-ng-click="upload()">Upload</button>
+
                                     <button class="btn"  data-ng-click="closeMe()">
                                         بستن
                                     </button>
@@ -612,7 +671,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
                                                             حذف
                                                         </button>
-                                                        <button class="btn btn-info" data-ng-click="CkeditorInsert()">
+                                                        <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
                                                             درج
                                                         </button>
                                                         <input class="html-upload" name='imageupload' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />
@@ -640,6 +699,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                                 </ul>
                                                             </div>
                                                         </div>
+
 
                                                     </div>
                                                 </div>
@@ -688,7 +748,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
                 </div>
+                <div id="record-list-inactivator" data-ng-show="RecordService.isEditing()" >
+
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -752,7 +816,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </button>
                 </div>
             </script>
-            <button ng-disabled="!RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
+            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
             <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
@@ -767,7 +831,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 در حال ذخیره سازی...
                             </span>
                             <span ng-show="RecordService.saved">
-رکورد مورد نظر ذخیره شد.
+                                <p ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
+
+                                </p>
+
                             </span>
                             <button class="btn" ng-disabled="!RecordService.saved" data-ng-click="closeMe()">
                                 بستن
@@ -786,19 +853,15 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
         </div>
         <div class="col-md-3">
-            <button type="button" ng-disabled="newsGridOptions.page <= 1" class="btn btn-primary" ng-click="newsGridOptions.previousPage()">
+            <button type="button" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !RecordService.previousable()" class="btn btn-primary" ng-click="RecordService.previousSelectedRecord()">
                 قبلی
             </button>
 
-                صفحه
-                {{newsGridOptions.page}}
-                از
-                {{newsGridOptions.totalPages}}
 
-            <button type="button" ng-disabled="newsGridOptions.page >= newsGridOptions.totalPages" class="btn btn-primary" ng-click="newsGridOptions.nextPage()">
+            <button type="button" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !RecordService.nexable()" class="btn btn-primary" ng-click="RecordService.nextSelectedRecord()">
                 بعدی
             </button>
-            <button type="button" class="btn btn-success" ng-click="approveCurrentNews()" ng-disabled="editing || !news.id" >
+            <button type="button" class="btn btn-success" ng-click="RecordService.verifyCurrentRecord()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()" >
                 تایید
             </button>
         </div>
