@@ -135,6 +135,32 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
 
+        self.toggleCapability = function(cap) {
+            if(self.isEditing()) {
+                switch(cap) {
+                    case 'favorite_enable':
+                        self.currentRecord.favorite_enable = (self.currentRecord.favorite_enable == true) ? false : true;
+                        break;
+                    case 'like_enable':
+                        self.currentRecord.like_enable = (self.currentRecord.like_enable == true) ? false : true;
+                        break;
+                    case 'send_sms_enable':
+                        self.currentRecord.send_sms_enable = (self.currentRecord.send_sms_enable == true) ? false : true;
+                        break;
+                    case 'online_ticket':
+                        self.currentRecord.online_ticket = (self.currentRecord.online_ticket == true) ? false : true;
+                        break;
+                    case 'audio':
+                        self.currentRecord.audio = (self.currentRecord.audio == true) ? false : true;
+                        break;
+                    case 'video':
+                        self.currentRecord.video = (self.currentRecord.video == true) ? false : true;
+                        break;
+                }
+            }
+
+        }
+
         self.list = recordList;
         self.nextSelectedRecord = function() {
             var currentIndex = self.currentSelectedRecord();
@@ -799,6 +825,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
+        $scope.uploadable = false;
+        $scope.uploading = false;
         $scope.bodyEditorOptions = {
             language: 'fa',
             height: '400px',
@@ -843,10 +871,39 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $scope.files = elm.files;
             $scope.$apply();
             RecordService.bodyFile = $scope.files[0];
+            fileType = RecordService.bodyFile.type.split("/")[0];
+            fileExtension = RecordService.bodyFile.type.split("/")[1];
+            switch(ValuesService.bodyAttachmentActiveTab) {
+                case 'image':
+                    uploadableType = "image";
+                    uploadableExtensions = ["jpg", "png", "jpeg", "gif"];
+                    break;
+                case 'video':
+                    uploadableType = "video";
+                    uploadableExtensions = ["mp4"];
+                    break;
+                case 'audio':
+                    uploadableType = "audio";
+                    uploadableExtensions = ["mp3"];
+                    break;
+            }
+            if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                alert(
+                    "شما فقط میتوانید فاید "
+                        + uploadableType
+                        + " با پسوند های "
+                        + uploadableExtensions.join()
+                        + "انتخاب کنید."
+                );
+            } else {
+                $scope.uploadable = true;
+                $scope.$apply();
+            }
         };
 
 
         $scope.CkeditorInsert = function() {
+
             var CkInstance = null;
             angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
             switch(ValuesService.bodyAttachmentActiveTab) {
@@ -872,6 +929,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
         $scope.upload = function() {
+            if(!$scope.uploadable) {
+                return;
+            }
+            $scope.uploading = true;
+            $scope.$apply();
 
             var fd = new FormData();
 
@@ -910,11 +972,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             break;
 
                     }
+                    $scope.uploading = false;
+                    $scope.$apply();
 
 
                 },
                 function(errResponse){
-
+                    console.log(errResponse);
+                    $scope.uploading = false;
+                    $scope.$apply();
                 });
         };
 

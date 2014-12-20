@@ -893,24 +893,28 @@ h3.block-title {
     display: block;
     opacity: 0.7;
 }
-.favorit{
+.capabilites-buttons-wrapper .favorit{
     background-image: url(images/records/favorit.png);
     margin-top: 15px;
 }
-.like{
+.capabilites-buttons-wrapper .like{
     background-image: url(images/records/like.png);
 }
-.message{
+.capabilites-buttons-wrapper .message{
     background-image: url(images/records/message.png);
 }
-.safarname{
+.capabilites-buttons-wrapper .safarname{
     background-image: url(images/records/safarname.png);
 }
-.sound{
+.capabilites-buttons-wrapper .sound{
     background-image: url(images/records/sound.png);
 }
-.ticket{
+.capabilites-buttons-wrapper .ticket{
     background-image: url(images/records/ticket.png);
+}
+
+.capabilites-buttons-wrapper .video {
+    background-image: url(images/records/video.png);
 }
 .attachements-wrapper .video{
     background-image: url(images/records/video.png);
