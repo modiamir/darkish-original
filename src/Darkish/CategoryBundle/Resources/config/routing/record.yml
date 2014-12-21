@@ -70,3 +70,7 @@ record_contains_tree:
     path:     /ajax/contains_tree/{recordId}/{treeId}
     defaults: { _controller: "DarkishCategoryBundle:Record:containsTree", _format: json}
 
+record_access_test:
+    path:     /ajax/access
+    defaults: { _controller: "DarkishCategoryBundle:Record:access", _format: json}
+
