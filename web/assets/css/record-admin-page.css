@@ -176,12 +176,29 @@ body{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-bg .btf-modal {
+.modal-bg .btf-modal{
     background: rgb(158, 158, 158);
     border: 3px solid;
     height: 450px;
     padding: 0 5px;
-    width: 300px;
+}
+
+.modal-bg .btf-modal.image-modal {
+    
+    max-width: 600px;
+    max-height: 500px;
+}
+.modal-bg .btf-modal .modal-body {
+    position: relative;
+    padding: 15px;
+    max-width: 590px;
+    max-height: 500px;
+}
+.modal-bg .btf-modal .modal-body img {
+    position: relative;
+    padding: 15px;
+    max-width: 590px;
+    max-height: 400px;
 }
 
 .modal-bg .btf-modal .tree-modal-header a{
@@ -192,6 +209,20 @@ body{
     background-color: pink;
     border: 1px solid crimson;
     color: crimson;
+}
+.image-modal .modal-control-buttons{
+
+    width: 99%;
+    height: 50px;
+    bottom: 2px;
+    position: absolute;
+    right: 1px;
+
+}
+.modal-control-buttons .btn.close{
+    float: left;
+    margin-top: 4%;
+    margin-left: 2%;
 }
 
 /* jadiiiiiiiiiiiiiiiiiiiiiiiiid */
@@ -433,9 +464,9 @@ h3.block-title {
    height: 65px;
    background: white;
    border: groove 1px;
+   margin-left: 2.6%;
+   width: 75%;
    float: left;
-   margin-left: 17px;
-    width: 75%;
 
 }
 .main-fields-tree-list{
@@ -467,7 +498,7 @@ h3.block-title {
     margin-bottom: 5px;
 }
 #just-html-chk-wrapper{
-    background: red;
+    background: #ee1111;
     float: right;
     margin-left: 10px;
 }
@@ -477,11 +508,11 @@ h3.block-title {
 }
 #html-page-chk-wrapper {
     float: right;
-    background: aliceblue;
+    background: #eff4ff;
 }
 #brand-chk-wrapper {
     float: right;
-    background: antiquewhite;
+    background: #e3a21a;
     margin-left: 10px;
 }
 #ranklist-combo-wrapper {
@@ -491,7 +522,7 @@ h3.block-title {
 .main-fields-second-section-combo-wrapper {
     width: 45%;
     height: 30px;
-    background: aquamarine;
+    background: #00aba9;
 }
 #ranklist-combo-label {
     width: 65%;
@@ -507,20 +538,20 @@ h3.block-title {
 #group-massage-chk-wrapper {
     float: right;
     clear: both;
-    background: yellowgreen;
+    background: #99b433;
     margin-left: 10px;
 }
 #spec-massage-chk-wrapper {
     float: right;
-    background: violet;
+    background: rgba(255, 0, 151, 0.5);
 }
 #bazar-wrapper {
-    background: wheat;
+    background: #2d89ef;
     float: right;
 }
 .bazar-label {
     width: 75%;
-    background: blue;
+    background: #2d89ef;
     height: 100%;
     text-align: center;
 }
@@ -534,7 +565,7 @@ h3.block-title {
 }
 #central-wrapper {
     float: right;
-    background: burlywood;
+    background: rgba(227, 162, 26, 0.5);
     height: 30px;
     margin-bottom: 5px;
 }
@@ -549,12 +580,14 @@ h3.block-title {
     float: right;
     width: 10%;
     margin-left: 9px;
+    text-align: center;
 }
 #central-unit-input {
     height: 100%;
     float: right;
     width: 15%;
     margin-left: 7px;
+    text-align: center;
 }
 .central-wrapper-combo-label, .central-floor-title, .central-unit-title {
     float: right;
@@ -562,8 +595,8 @@ h3.block-title {
 }
 .trip-maker-chk-wrapper {
     float: right;
-    background: aqua;
-    width: 75%;
+    background: #2d89ef;
+    width: 78%;
     height: 30px;
 }
 .trip-maker-id {
@@ -576,7 +609,7 @@ h3.block-title {
 }
 #choose-group-wrapper {
     float: right;
-    background: blueviolet;
+    background: rgba(43, 87, 151, 0.5);
     width: 100%;
     height: 30px;
     margin-bottom: 5px;
@@ -622,13 +655,13 @@ h3.block-title {
 }
 .info-bank-chk-wrapper {
     float: right;
-    background: aqua;
-    width: 75%;
+    background: rgba(0, 163, 0, 0.5);
+    width: 78%;
     height: 30px;
 }
 #info-bank-choose-group-wrapper {
     float: right;
-    background: blueviolet;
+    background: rgba(43, 87, 151, 0.5);
     width: 100%;
     height: 30px;
     margin-bottom: 5px;
@@ -665,7 +698,7 @@ h3.block-title {
 }
 #spec-msg-text-wrapper {
     width: 100%;
-    background: aliceblue;
+    background: #eff4ff;
     height: 30px;
     margin-bottom: 5px;
 }
@@ -681,16 +714,16 @@ h3.block-title {
 #spec-msg-date-wrapper {
     float: right;
     width: 100%;
-    background: blueviolet;
+    background: rgba(43, 87, 151, 0.5);
     height: 30px;
 }
 #spec-msg-insert-date-label {
-    margin-right: 29px;
-    margin-left: 5px;
+   margin-right: 3%;
+   margin-left: 5px;
 }
 #spec-msg-credit-date-label {
-    margin-right: 17px;
-    margin-left: 5px;
+   margin-right: 2%;
+   margin-left: 5px;
 }
 
 #opening-hours-wrapper {
@@ -732,12 +765,12 @@ h3.block-title {
 
 #opening-hours-wrapper .working-days {
     position: absolute;
-    left: 20px;
-    top: 15px;
-    background: gray;
+    left: 4%;
+    top: 31%;
+    background: rgba(29, 29, 29, 0.5);
     color: white;
     padding: 3px 5px;
-    width: 90px;
+    width: 82px;
     text-align: center;
     height: 30px;
     line-height: 25px;
@@ -758,7 +791,7 @@ h3.block-title {
 
 #opening-hours-wrapper #opening-hours-time input {
     width: 150px;
-    margin-left: 10px;
+    margin-left: 1%;
     float: right;
 }
 
@@ -845,6 +878,8 @@ h3.block-title {
     height: 30px;
     background: rgb(216, 216, 216);
     margin-right: 5%;
+    text-align: CENTER;
+    line-height: 27px;
 }   
 
 .main-fields-forth-section .map-button {
@@ -1098,11 +1133,12 @@ h3.block-title {
     clear: both;
 }
 .add-attachment {
-    background: red;
+    background: #2d89ef;
     width: 75%;
     margin-right: 11%;
     margin-top: 17%;
 }
+
 .remove-attachment {
     background: red;
     width: 75%;
@@ -1113,7 +1149,10 @@ h3.block-title {
     padding-right:  5px !important;
     padding-left:  5px !important;
     background: cornsilk;
-    height: 520px;
+    height: 565px;
+}
+.html-editor-modal button.btn.upload-btn{
+    padding: 6px 5%;
 }
 .body-modal-content .col-md-10{
     padding-right: 0px !important;

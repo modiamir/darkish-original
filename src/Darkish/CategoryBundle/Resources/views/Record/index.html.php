@@ -581,8 +581,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         <div class="modal-bg">
                                             <div class="btf-modal  image-modal">
                                                 <div class="modal-body">
-                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />
-                                                    <button class="btn" data-ng-click="closeMe()">
+                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />  
+                                                </div>
+                                                <div class="modal-control-buttons">
+                                                    <button class="btn close" data-ng-click="closeMe()">
                                                         بستن
                                                     </button>
                                                 </div>
@@ -649,7 +651,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             ویرایش صفحه
                         </button>
                         <script type="text/ng-template" id="body-modal.html">
-                            <div id="body-modal-bg" class="modal-bg">
+                            <div id="body-modal-bg " class="modal-bg html-editor-modal">
                                 <div id="body-modal-btf" class="btf-modal">
                                     <div class="body-modal-header">
                                         <a href ng-click="closeMe()">X</a>
@@ -680,7 +682,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         <p ng-hide="!uploading">
                                                             در حال بارگذاری...
                                                         </p>
-                                                        <button class="btn" data-ng-click="upload()" ng-disabled="!uploadable">
+                                                        <button class="btn upload-btn" data-ng-click="upload()" ng-disabled="!uploadable">
                                                             بارگذاری
                                                         </button>
                                                         <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
