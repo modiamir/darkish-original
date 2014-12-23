@@ -973,6 +973,7 @@ class RecordController extends Controller
     }
 
     public function verifyRecordAction($recordId) {
+
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('DarkishCategoryBundle:Record');
         $record = $repo->find($recordId);
@@ -991,6 +992,8 @@ class RecordController extends Controller
 
     public function accessAction() {
         $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(1);
-        return new JsonResponse($this->get('security.context')->isGranted('view', $record));
+        $voter = $this->get('security.context');
+
+        return new JsonResponse($voter->isGranted('view', $record));
     }
 }

@@ -1,3 +1,10 @@
+services:
+    security.access.post_voter:
+        class:      Darkish\CategoryBundle\Security\Voter\PostVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example
 
@@ -6,9 +13,3 @@ parameters:
 #        class: %darkish_category.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 
-services:
-    security.access.post_voter:
-        class:      Darkish\CategoryBundle\Security\Authorization\Voter\PostVoter
-        public:     false
-        tags:
-           - { name: security.voter }
