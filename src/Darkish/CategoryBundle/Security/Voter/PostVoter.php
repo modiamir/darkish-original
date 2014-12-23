@@ -68,7 +68,7 @@ class PostVoter implements VoterInterface
             case self::VIEW:
                 // the data object could have for example a method isPrivate()
                 // which checks the Boolean attribute $private
-                if()
+
                     return VoterInterface::ACCESS_DENIED;
 
                 break;
