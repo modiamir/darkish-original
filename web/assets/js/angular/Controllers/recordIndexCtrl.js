@@ -829,7 +829,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.uploading = false;
         $scope.bodyEditorOptions = {
             language: 'fa',
-            height: '400px',
+            height: '395px',
             uiColor: '#e8ede0',
             contentsLangDirection: 'rtl',
             toolbar: [
