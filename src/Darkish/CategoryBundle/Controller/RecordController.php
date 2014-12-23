@@ -28,6 +28,8 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use JMS\Serializer\Serializer as JMSSerializer;
 use JMS\Serializer\SerializationContext;
 use Darkish\CategoryBundle\Form\RecordType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 class RecordController extends Controller
 {
@@ -971,6 +973,7 @@ class RecordController extends Controller
     }
 
     public function verifyRecordAction($recordId) {
+
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('DarkishCategoryBundle:Record');
         $record = $repo->find($recordId);
@@ -985,5 +988,12 @@ class RecordController extends Controller
 
         return new Response('Record verified.');
 
+    }
+
+    public function accessAction() {
+        $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(1);
+        $voter = $this->get('security.context');
+
+        return new JsonResponse($voter->isGranted('view', $record));
     }
 }

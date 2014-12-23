@@ -520,13 +520,26 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <div class="capabilites-buttons-wrapper">
                             <div class="capabilites-status" >فعال</div>
                             قابلیت ها
-                            <span class="capabilites-buttons favorit inactive">   </span>
-                            <span class="capabilites-buttons like inactive" >      </span>
-                            <span class="capabilites-buttons message inactive">   </span>
-                            <span class="capabilites-buttons safarname inactive"> </span>
-                            <span class="capabilites-buttons sound inactive">     </span>
-                            <span class="capabilites-buttons ticket inactive">    </span>
-                            <span class="capabilites-buttons video inactive">     </span>
+                            <span data-ng-click="RecordService.toggleCapability('favorite_enable')"
+                                  ng-class="{'active' : RecordService.currentRecord.favorite_enable == true, 'inactive' : RecordService.currentRecord.favorite_enable != true}"
+                                  class="capabilites-buttons favorit">   </span>
+                            <span data-ng-click="RecordService.toggleCapability('like_enable')"
+                                  ng-class="{'active' : RecordService.currentRecord.like_enable == true, 'inactive' : RecordService.currentRecord.like_enable != true}"
+                                  class="capabilites-buttons like inactive" >      </span>
+                            <span data-ng-click="RecordService.toggleCapability('send_sms_enable')"
+                                  ng-class="{'active' : RecordService.currentRecord.send_sms_enable == true, 'inactive' : RecordService.currentRecord.send_sms_enable != true}"
+                                  class="capabilites-buttons message inactive">   </span>
+                            <span ng-class="{'active' : RecordService.currentRecord.safarsaz == true, 'inactive' : RecordService.currentRecord.safarsaz != true}"
+                                class="capabilites-buttons safarname inactive"> </span>
+                            <span data-ng-click="RecordService.toggleCapability('online_ticket')"
+                                  ng-class="{'active' : RecordService.currentRecord.online_ticket == true, 'inactive' : RecordService.currentRecord.online_ticket != true}"
+                                class="capabilites-buttons ticket inactive">     </span>
+                            <span data-ng-click="RecordService.toggleCapability('audio')"
+                                  ng-class="{'active' : RecordService.currentRecord.audio == true, 'inactive' : RecordService.currentRecord.audio != true}"
+                                class="capabilites-buttons sound inactive">    </span>
+                            <span data-ng-click="RecordService.toggleCapability('video')"
+                                  ng-class="{'active' : RecordService.currentRecord.video == true, 'inactive' : RecordService.currentRecord.video != true}"
+                                class="capabilites-buttons video inactive">     </span>
                         </div>
                     </div>
                 </div>
@@ -568,8 +581,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         <div class="modal-bg">
                                             <div class="btf-modal  image-modal">
                                                 <div class="modal-body">
-                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />
-                                                    <button class="btn" data-ng-click="closeMe()">
+                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />  
+                                                </div>
+                                                <div class="modal-control-buttons">
+                                                    <button class="btn close" data-ng-click="closeMe()">
                                                         بستن
                                                     </button>
                                                 </div>
@@ -636,7 +651,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             ویرایش صفحه
                         </button>
                         <script type="text/ng-template" id="body-modal.html">
-                            <div id="body-modal-bg" class="modal-bg">
+                            <div id="body-modal-bg " class="modal-bg html-editor-modal">
                                 <div id="body-modal-btf" class="btf-modal">
                                     <div class="body-modal-header">
                                         <a href ng-click="closeMe()">X</a>
@@ -664,8 +679,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                                 صدا
                                                             </li>
                                                         </ul>
-
-                                                        <button class="btn" data-ng-click="upload()">
+                                                        <p ng-hide="!uploading">
+                                                            در حال بارگذاری...
+                                                        </p>
+                                                        <button class="btn upload-btn" data-ng-click="upload()" ng-disabled="!uploadable">
                                                             بارگذاری
                                                         </button>
                                                         <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">

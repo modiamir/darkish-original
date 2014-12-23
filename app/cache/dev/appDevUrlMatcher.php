@@ -707,40 +707,58 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                             return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getJsonAction',  '_format' => 'json',  '_route' => 'record_get_json',);
                         }
 
-                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
-                            if (0 === strpos($pathinfo, '/admin/record/ajax/get_record')) {
-                                // record_get_record_for_category
-                                if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'page' => 1,));
-                                }
+                        // record_get_record_for_category
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'page' => 1,));
+                        }
 
-                                // record_get_record
-                                if (preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
-                                }
+                    }
 
-                            }
+                    // record_search_record
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/search_record') && preg_match('#^/admin/record/ajax/search_record(?:/(?P<keyword>[^/]++)(?:/(?P<search_by>[^/]++)(?:/(?P<sort_by>[^/]++))?)?)?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_search_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::searchRecordsAction',  '_format' => 'json',  'keyword' => '',  'search_by' => 1,  'sort_by' => 1,));
+                    }
 
-                            // record_get_centers
-                            if ($pathinfo === '/admin/record/ajax/get_centers') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getCentersAction',  '_format' => 'json',  '_route' => 'record_get_centers',);
-                            }
+                    // record_is_unique
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/is_unique') && preg_match('#^/admin/record/ajax/is_unique/(?P<recordNumber>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_is_unique')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::isUniqeRecordNumberAction',  '_format' => 'json',));
+                    }
 
-                            // record_get_safarsaz_types
-                            if ($pathinfo === '/admin/record/ajax/get_safarsaz_types') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'record_get_safarsaz_types',);
-                            }
+                    // record_verify_record
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/verify_record') && preg_match('#^/admin/record/ajax/verify_record/(?P<recordId>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_record_verify_record;
+                        }
 
-                            // record_get_dbase_types
-                            if ($pathinfo === '/admin/record/ajax/get_dbase_types') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'record_get_dbase_types',);
-                            }
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_verify_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::verifyRecordAction',  '_format' => 'json',));
+                    }
+                    not_record_verify_record:
 
-                            // record_get_areas
-                            if ($pathinfo === '/admin/record/ajax/get_areas') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getAreasAction',  '_format' => 'json',  '_route' => 'record_get_areas',);
-                            }
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
+                        // record_get_record
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_record') && preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
+                        }
 
+                        // record_get_centers
+                        if ($pathinfo === '/admin/record/ajax/get_centers') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getCentersAction',  '_format' => 'json',  '_route' => 'record_get_centers',);
+                        }
+
+                        // record_get_safarsaz_types
+                        if ($pathinfo === '/admin/record/ajax/get_safarsaz_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'record_get_safarsaz_types',);
+                        }
+
+                        // record_get_dbase_types
+                        if ($pathinfo === '/admin/record/ajax/get_dbase_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'record_get_dbase_types',);
+                        }
+
+                        // record_get_areas
+                        if ($pathinfo === '/admin/record/ajax/get_areas') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getAreasAction',  '_format' => 'json',  '_route' => 'record_get_areas',);
                         }
 
                     }
