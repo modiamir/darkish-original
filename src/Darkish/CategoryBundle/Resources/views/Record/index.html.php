@@ -63,45 +63,45 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 جستجو
                     </h3>
                     <div class="search-box">
-                        <input id="search-by-title" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="1" />
+                        <input tabindex="-1" id="search-by-title" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="1" />
                         <label for="search-by-title">
                             عنوان
                         </label>
-                        <input id="search-by-number" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="2" />
+                        <input tabindex="-1" id="search-by-number" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="2" />
                         <label for="search-by-number">
                             شماره
                         </label>
-                        <input id="search-by-all" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="3" />
+                        <input tabindex="-1" id="search-by-all" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="3" />
                         <label for="search-by-all">
                             همه
                         </label>
 
-                        <button class="btn" data-ng-click="RecordService.recordSearchCriteria.cid = null; RecordService.searchRecords()">
+                        <button tabindex="-1" class="btn" data-ng-click="RecordService.recordSearchCriteria.cid = null; RecordService.searchRecords()">
                             بیاب
                         </button>
-                        <input type="text" class="keyword" ng-model="RecordService.recordSearchCriteria.searchKeyword" />
+                        <input type="text" class="keyword" ng-model="RecordService.recordSearchCriteria.searchKeyword" tabindex="-1" />
                     </div>
                 </div>
                 <div class="sort-block">
                     <span>
                         ترتیب نمایش
                     </span>
-                    <input id="sort-by-date-desc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-date-desc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="1" />
                     <label for="sort-by-date-desc">
                         تاریخ نزولی
                     </label>
-                    <input id="sort-by-date-asc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-date-asc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="2" />
                     <label for="sort-by-date-asc">
 تاریخ صعودی
                     </label>
-                    <input id="sort-by-number-desc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-number-desc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="3" />
                     <label for="sort-by-number-desc">
 شماره نزولی
                     </label>
-                    <input id="sort-by-number-asc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-number-asc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="4" />
                     <label for="sort-by-number-asc">
 شماره صعودی
@@ -182,6 +182,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
       
                 </div>
                 <div class="main-fields-row">
+
+
+
+
+
                     <div class="col main-fields-wrapper">
                         <div class="main-fields-first-section" >
 
@@ -202,14 +207,15 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
+                                    <div class="tree-list-trees-button-wrapper">
+                                        شاخه ها
+                                    </div>
                                     <div class="tree-list-add-remove-button-wrapper">
                                         <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
                                     </div>
-                                    <div class="tree-list-trees-button-wrapper">
-                                        <button type="button" id="tree-list-trees-button" ng-disabled="!RecordService.isEditing()">شاخه ها</button>
-                                    </div>
-                                    
+
+
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!RecordService.isEditing()"
                                             ng-options="tree.title for tree in RecordService.currentRecord.treeList.all()">
@@ -356,10 +362,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                  <div id="spec-msg-date-wrapper">
 
                                      <label id="spec-msg-insert-date-label" class="third-section-label " for="spec-msg-insert-date-input">تاریخ درج</label>
-                                     <input type="text" id="spec-msg-insert-date-input" class="third-section-input" ng-model="RecordService.currentRecord.message_insert_date" ng-disabled="!RecordService.isEditing()">
+                                     <input ng-click="openInsertDate($event)" type="text" id="spec-msg-insert-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_insert_date" is-open="insertDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
+
 
                                      <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
-                                     <input type="text" id="spec-msg-credit-date-input" class="third-section-input" ng-model="RecordService.currentRecord.message_validity_date" ng-disabled="!RecordService.isEditing()">
+                                     <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
+
                                  </div>
                              </div>
 
@@ -843,8 +851,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 <div class="modal-bg">
                     <div class="btf-modal">
 
+
                         <div class="modal-body">
-                            <span ng-hide="RecordService.saved">
+                            <span ng-show="!RecordService.saved">
                                 در حال ذخیره سازی...
                             </span>
                             <span ng-show="RecordService.saved">
@@ -900,12 +909,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-sanitize.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/xeditable.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ui-bootstrap.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ng-flow-standalone.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/libs/ckeditor/ckeditor.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ui-bootstrap-tpls-0.11.2.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/dateparser.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/position.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/datepicker-tpls.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persiandate.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persian-datepicker-tpls.js') ?>"></script>
+
+
+
+
+
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-collection/angular-collection.js') ?>"></script>
 
 
