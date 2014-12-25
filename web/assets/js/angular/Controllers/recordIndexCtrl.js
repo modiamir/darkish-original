@@ -8,7 +8,7 @@
 //            $scope.test = "this is test";
 //        }]);
 
-angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor']).
+angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker']).
     controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal',
                            function($scope,   $filter,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal ) {
 
@@ -57,8 +57,49 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
+                               $scope.today = function() {
+                                   $scope.dt = new Date();
+                               };
+                               $scope.today();
 
+                               $scope.clear = function () {
+                                   $scope.dt = null;
+                               };
 
+                               // Disable weekend selection
+                               $scope.disabled = function(date, mode) {
+                                   return ( mode === 'day' &&date.getDay() === 5  );
+                               };
+
+                               $scope.toggleMin = function() {
+                                   $scope.minDate = $scope.minDate ? null : new Date();
+                               };
+                               $scope.toggleMin();
+
+                               $scope.openInsertDate= function($event) {
+
+                                   $event.preventDefault();
+                                   $event.stopPropagation();
+
+                                   $scope.insertDateIsOpen = true;
+                                   $scope.validityDateIsOpen = false;
+                               };
+                               $scope.openValidityDate = function($event) {
+                                   $event.preventDefault();
+                                   $event.stopPropagation();
+
+                                   $scope.validityDateIsOpen = true;
+                                   $scope.insertDateIsOpen = false;
+                               };
+
+                               $scope.dateOptions = {
+                                   formatYear: 'yy',
+                                   startingDay: 6
+                               };
+
+                               $scope.initDate = new Date('2016-15-20');
+                               $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+                               $scope.format = $scope.formats[0];
 
 
 
@@ -374,30 +415,42 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             editing = false;
         }
 
+        self.selectedImages = {}
+
         self.selectImage = function(image) {
             console.log(image);
             self.selectedImage = image;
         }
+
+        self.selectedBodyImages = {}
 
         self.selectBodyImage = function(image) {
             console.log(image);
             self.selectedBodyImage = image;
         }
 
+        self.selectedVideos = {}
+
         self.selectVideo = function(video) {
             console.log(video);
             self.selectedVideo = video;
         }
+
+        self.selectedBodyVideos = {}
 
         self.selectBodyVideo = function(video) {
             console.log(video);
             self.selectedBodyVideo = video;
         }
 
+        self.selectedAudios = {}
+
         self.selectAudio = function(audio) {
             console.log(audio);
             self.selectedAudio = audio;
         }
+
+        self.selectedBodyAudios = {}
 
         self.selectBodyAudio = function(audio) {
             console.log(audio);
