@@ -33,7 +33,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class RecordController extends Controller
 {
-    private $numPerPage = 10;
+    private $numPerPage = 5;
 
     /**
      * Lists all News entities.
@@ -757,7 +757,7 @@ class RecordController extends Controller
         );
     }
 
-    public function getRecordForCategoryAction($cid, $page) {
+    public function getRecordForCategoryAction($cid, $count) {
 
 
         if($cid == -1) {
@@ -770,7 +770,7 @@ class RecordController extends Controller
             /* @var $queryBuilder QueryBuilder */
             $queryBuilder->where('n.verify= :verify')
                 ->setParameter('verify', false)
-                ->setFirstResult(($page-1) * $this->numPerPage)
+                ->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)
             ;
 
@@ -797,7 +797,9 @@ class RecordController extends Controller
             /* @var $queryBuilder QueryBuilder */
             $recordWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
             $qb2 = $repository->createQueryBuilder('rr');
-            $recordWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$recordWithTree->getDQL()));
+            $recordWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$recordWithTree->getDQL()))
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage);
             $serialized = $this->get('jms_serializer')->
                 serialize($recordWithoutTree->getQuery()->getResult(), 'json', SerializationContext::create()->setGroups(array('record.list')));
 
@@ -820,7 +822,8 @@ class RecordController extends Controller
             /* @var $queryBuilder QueryBuilder */
             $queryBuilder->where('n.active= :active')
                 ->setParameter('active', false)
-
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
             ;
 
 
@@ -840,8 +843,9 @@ class RecordController extends Controller
 
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
-
+        /* @var $repository \Darkish\CategoryBundle\Entity\MainTreeRepository */
         $category =  $repository->find($cid);
+
         if(!$category) {
             return new Response("Cid input is invalid", 404);
 
@@ -862,10 +866,16 @@ class RecordController extends Controller
 //
 //            $query = $queryBuilder->getQuery();
 //            $newsList =  $query->getResult();
-
+            /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
+            $repository = $this->getDoctrine()
+                ->getRepository('DarkishCategoryBundle:Record');
+            $qb = $repository->createQueryBuilder('r');
+            $qb->join('r.trees','t', 'WITH','t.id = '. $category->getId())->distinct();
+            $res = $qb->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)->getQuery()->getResult();
 
             $serialized = $this->get('jms_serializer')->
-                serialize($category->getRecords(), 'json', SerializationContext::create()->setGroups(array('record.list')));
+                serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list')));
 
 
 
@@ -886,7 +896,7 @@ class RecordController extends Controller
     }
 
 
-    public function searchRecordsAction($keyword, $search_by, $sort_by) {
+    public function searchRecordsAction($keyword, $search_by, $sort_by, $count = 0) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $qb = $repo->createQueryBuilder('r');
         /* @var $qb QueryBuilder */
@@ -898,7 +908,21 @@ class RecordController extends Controller
                 $qb->where($qb->expr()->like('r.recordNumber', $qb->expr()->literal('%' . $keyword . '%')));
                 break;
             case '3':
-
+                $qb->orWhere($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.subTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.legalName', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.messageText', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.email', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.website', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.address', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.searchKeywords', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.body', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.englishTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.englishSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.arabicTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.arabicSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.turkishTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.turkishSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
                 break;
             default:
 
@@ -919,6 +943,9 @@ class RecordController extends Controller
                 $qb->orderBy('r.creationDate', 'Desc');
                 break;
         }
+
+        $qb->setFirstResult($count);
+        $qb->setMaxResults($this->numPerPage);
 
         $res = $qb->getQuery()->getResult();
 
@@ -990,10 +1017,88 @@ class RecordController extends Controller
 
     }
 
+
+    public function toggleVerifyRecordAction($recordId) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:Record');
+        $record = $repo->find($recordId);
+
+        if(!$record) {
+            return new Response('record_id is invalid!', 404);
+        }
+        /* @var $record Record */
+        $record->setVerify(!$record->getVerify());
+        $em->persist($record);
+        $em->flush();
+
+        return new JsonResponse(array('verify' => $record->getVerify()));
+
+    }
+
+    public function deleteRecordAction($recordId) {
+        try{
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('DarkishCategoryBundle:Record');
+            $record = $repo->find($recordId);
+            /* @var $record Record */
+            $em->remove($record);
+            $em->flush();
+            return new Response('Record deleted');
+        } catch(\Doctrine\ORM\ORMInvalidArgumentException $e) {
+            return new Response('Record Not found', 404);
+        }
+
+
+
+    }
+
+
+    public function getUsernameAction() {
+        /* @var $sc \Symfony\Component\Security\Core\SecurityContext */
+        $sc = $this->get('security.context');
+
+        return new Response($sc->getToken()->getUsername());
+    }
+
+    public function toggleActiveRecordAction($recordId) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:Record');
+        $record = $repo->find($recordId);
+
+        if(!$record) {
+            return new Response('record_id is invalid!', 404);
+        }
+        /* @var $record Record */
+        $record->setActive(!$record->getActive());
+        $em->persist($record);
+        $em->flush();
+        return new JsonResponse(array('active' => $record->getActive()));
+
+    }
+
     public function accessAction() {
         $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(1);
         $voter = $this->get('security.context');
 
         return new JsonResponse($voter->isGranted('view', $record));
+    }
+
+    public function getLastRecordNumberAction() {
+
+        /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
+        $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+        $qb = $repository->createQueryBuilder('r');
+        $qb->select('r.recordNumber')->orderBy('r.recordNumber','Desc')->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+        $recordNumber = (int)$res[0]['recordNumber'];
+        $recordNumber++;
+        $count = strlen($recordNumber);
+        $numOfZeros = 6 - $count;
+        for($i = 1;$i<=$numOfZeros; $i++) {
+            $recordNumber = '0'. $recordNumber;
+        }
+        return new Response($recordNumber);
     }
 }

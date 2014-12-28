@@ -31,7 +31,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="record_number", type="bigint", length=255, unique=true, options={"unsigned":true})
+     * @ORM\Column(name="record_number", type="string", length=255, unique=true)
      * @Groups({"record.list", "record.details"})
      */
     private $recordNumber;
@@ -616,7 +616,7 @@ class Record
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Verify", type="boolean", nullable=true)
+     * @ORM\Column(name="Verify", type="boolean", nullable=false, options={"default": 0})
      * @Groups({"record.details"})
      */
     private $verify;
