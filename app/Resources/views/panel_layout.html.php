@@ -3,12 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+
+    <title>
+        مدیریت رکوردها | درکیش
+    </title>
 
     <?php if($view['slots']->has('stylesheets')): ?>
         <link href="<?php echo $view['assets']->getUrl('assets/css/bootstrap-arabic.css') ?>" type="text/css" rel="stylesheet" />
         <link href="<?php echo $view['assets']->getUrl('assets/css/styles.css') ?>" type="text/css" rel="stylesheet" />
+        <link href="<?php echo $view['assets']->getUrl('assets/css/font-awesome.min.css') ?>" type="text/css" rel="stylesheet" />
+
         <?php $view['slots']->output('stylesheets') ?>
     <?php else: ?>
         <link href="{{ asset('assets/css/bootstrap-arabic.css') }}" type="text/css" rel="stylesheet" />
@@ -24,7 +28,7 @@
 
 </head>
 <body ng-app="<?php $view['slots']->output('ngapp') ?>" ng-controller="<?php $view['slots']->output('controller') ?>"  >
-<form name="<?php $view['slots']->output('formname') ?>" novalidate>
+<form ng-cloak ng-class="{'loaded': loaded, 'notloaded': !loaded }" class="notloaded" name="<?php $view['slots']->output('formname') ?>" novalidate>
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -75,5 +79,8 @@
     <?php endif; ?>
 
 </form>
+<div id="loading" ng-cloak ng-class="{'loaded': loaded }"">
+<i class="fa fa-spinner fa-spin"></i>
+</div>
 </body>
 </html>
