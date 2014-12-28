@@ -177,7 +177,7 @@ body{
 }
 
 .modal-bg .btf-modal{
-    background: rgb(158, 158, 158);
+    background: rgb(255, 255, 255);
     border: 3px solid;
     height: 450px;
     padding: 0 5px;
@@ -951,8 +951,9 @@ h3.block-title {
 .capabilites-buttons-wrapper .video {
     background-image: url(images/records/video.png);
 }
-.attachements-wrapper .video{
-    background-image: url(images/records/video.png);
+.attachements-wrapper .video-tab{
+    display: inline-block;
+    height: 100%;
 }
 
 
@@ -1004,9 +1005,7 @@ h3.block-title {
     height: 100%;
 }
 
-.attachements-wrapper .center .tab-content .image ul.image-list,
- .attachements-wrapper .center .tab-content .image ul.audio-list,
- .attachements-wrapper .center .tab-content .image ul.video-list{
+.attachements-wrapper .center .tab-content .image ul.image-list{
     list-style: none;
     display: flex;
     padding: 0;
@@ -1028,18 +1027,32 @@ h3.block-title {
     background-color: #7d94ac;
 }
 
+
+.attachements-wrapper .center .tab-content .video,
+.attachements-wrapper .center .tab-content .audio {
+    height: 100%;
+}
+
+.attachements-wrapper .center .tab-content .video ul.video-list,
+.attachements-wrapper .center .tab-content .audio ul.audio-list{
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0 10px 0 0;
+}
+
 .attachements-wrapper .center .tab-content .video ul.video-list li {
     padding: 3px 5px;
     background-image: url("images/records/video.jpg");
-    overflow: hidden;
-    width: 45px;
-    height: 65px;
-    background-repeat: repeat-x;
-    line-height: 100px;
-    margin: 0px 10px;
+    background-position: right top;
+    background-size: 20px;
+    background-repeat: no-repeat;
     text-align: right;
     direction: rtl;
-    overflow-wrap: break-word
+    padding-right: 30px;
+    overflow-wrap: break-word;
+    width: 90%;
 }
 
 .attachements-wrapper .center .tab-content .video ul.video-list li.selected {
@@ -1047,18 +1060,20 @@ h3.block-title {
     color: white;
 }
 
+
+
 .attachements-wrapper .center .tab-content .audio ul.audio-list li {
     padding: 3px 5px;
     background-image: url("images/records/audio.jpg");
-    overflow: hidden;
-    width: 45px;
-    height: 65px;
-    background-repeat: repeat-x;
-    line-height: 100px;
-    margin: 0px 10px;
+    background-position: right top;
+    background-size: 20px;
+
+    background-repeat: no-repeat;
     text-align: right;
     direction: rtl;
-    overflow-wrap: break-word
+    padding-right: 30px;
+    overflow-wrap: break-word;
+    width: 90%;
 
 }
 
@@ -1268,4 +1283,102 @@ h3.block-title {
     height: 80%;
     overflow-y: scroll;
 }
+
+
+.active-inactive-btn .fa-times {
+    color: #f00000;
+}
+
+.active-inactive-btn .fa-check {
+    color: #00d220;
+}
+
+.active-inactive-btn.is-active .fa-times{
+    display: none;
+}
+
+.active-inactive-btn.is-active:hover .fa-times{
+    display: inherit;
+}
+.active-inactive-btn.is-active:hover .fa-check {
+    display: none;
+}
+
+.active-inactive-btn.is-inactive .fa-check{
+    display: none;
+}
+
+.active-inactive-btn.is-inactive:hover .fa-check{
+    display: inherit;
+}
+.active-inactive-btn.is-inactive:hover .fa-times {
+    display: none;
+}
+
+
+#loading {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #8b0000;
+    text-align: center;
+    visibility:visible;
+    opacity:1;
+    transition-delay:0s;
+}
+
+#loading.loaded {
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0s linear 0.5s,opacity 0.5s linear;
+}
+
+#loading .fa-spinner {
+    font-size: 100px;
+    color: white;
+    margin-top: 300px;
+}
+
+form.notloaded {
+    display: none;
+}
+
+form.loaded {
+    display: inherit;
+}
+
+
+.verify-notverify-btn .fa-times {
+    color: #f00000;
+}
+
+.verify-notverify-btn .fa-check {
+    color: #00d220;
+}
+
+.verify-notverify-btn.is-verify .fa-times{
+    display: none;
+}
+
+.verify-notverify-btn.is-verify:hover .fa-times{
+    display: inherit;
+}
+.verify-notverify-btn.is-verify:hover .fa-check {
+    display: none;
+}
+
+.verify-notverify-btn.is-notverify .fa-check{
+    display: none;
+}
+
+.verify-notverify-btn.is-notverify:hover .fa-check{
+    display: inherit;
+}
+.verify-notverify-btn.is-notverify:hover .fa-times {
+    display: none;
+}
+
+
 /*shahed*/

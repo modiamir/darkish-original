@@ -10,6 +10,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/css/record-admin-page.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.css') ?>" type="text/css" rel="stylesheet" />
+<link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
 
 <?php $view['slots']->stop() ?>
 
@@ -63,45 +64,45 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 جستجو
                     </h3>
                     <div class="search-box">
-                        <input id="search-by-title" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="1" />
+                        <input tabindex="-1" id="search-by-title" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="1" />
                         <label for="search-by-title">
                             عنوان
                         </label>
-                        <input id="search-by-number" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="2" />
+                        <input tabindex="-1" id="search-by-number" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="2" />
                         <label for="search-by-number">
                             شماره
                         </label>
-                        <input id="search-by-all" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="3" />
+                        <input tabindex="-1" id="search-by-all" type="radio" name="search-based-on" ng-model="RecordService.recordSearchCriteria.searchBy" value="3" />
                         <label for="search-by-all">
                             همه
                         </label>
 
-                        <button class="btn" data-ng-click="RecordService.recordSearchCriteria.cid = null; RecordService.searchRecords()">
+                        <button tabindex="-1" class="btn" data-ng-click="RecordService.recordSearchCriteria.cid = null; RecordService.searchRecords()">
                             بیاب
                         </button>
-                        <input type="text" class="keyword" ng-model="RecordService.recordSearchCriteria.searchKeyword" />
+                        <input type="text" class="keyword" ng-model="RecordService.recordSearchCriteria.searchKeyword" tabindex="-1" />
                     </div>
                 </div>
                 <div class="sort-block">
                     <span>
                         ترتیب نمایش
                     </span>
-                    <input id="sort-by-date-desc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-date-desc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="1" />
                     <label for="sort-by-date-desc">
                         تاریخ نزولی
                     </label>
-                    <input id="sort-by-date-asc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-date-asc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="2" />
                     <label for="sort-by-date-asc">
 تاریخ صعودی
                     </label>
-                    <input id="sort-by-number-desc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-number-desc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="3" />
                     <label for="sort-by-number-desc">
 شماره نزولی
                     </label>
-                    <input id="sort-by-number-asc" type="radio" name="sort-based-on"
+                    <input tabindex="-1" id="sort-by-number-asc" type="radio" name="sort-based-on"
                            ng-model="RecordService.recordSearchCriteria.sortBy" value="4" />
                     <label for="sort-by-number-asc">
 شماره صعودی
@@ -115,7 +116,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                        
                         <div class="record-number-wrapper">
                           <span class="record-number-title">شماره پرونده</span>
-                          <span class="record-number" ng-bind="RecordService.currentRecord.record_number"></span>
+                          <span class="record-number" dir="ltr">
+                              {{RecordService.currentRecord.record_number.substring(0,3)}},
+                              {{RecordService.currentRecord.record_number.substring(3,6)}}
+                          </span>
                           
                         </div>
                         <div ng-bind="RecordService.currentRecord.verify ? 'تایید شده' : 'تایید نشده'" class="record-confirme-status" ng-class="{ 'approved': RecordService.currentRecord.verify , 'unapproved': !RecordService.currentRecord.verify }">
@@ -137,8 +141,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </div>
 
                         <script type="text/ng-template" id="titles-modal.html">
-                            <div class="modal-bg">
-                                <div class="btf-modal  titles-modal">
+                            <div class="modal-bg" data-ng-click="closeMe()">
+                                <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
+                                    <h3 class="modal-header">
+                                        عناوین
+                                    </h3>
                                     <div class="modal-body">
                                         <label for="english-title">
                                             عنوان انگلیسی
@@ -182,6 +189,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
       
                 </div>
                 <div class="main-fields-row">
+
+
+
+
+
                     <div class="col main-fields-wrapper">
                         <div class="main-fields-first-section" >
 
@@ -202,14 +214,15 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
+                                    <div class="tree-list-trees-button-wrapper">
+                                        شاخه ها
+                                    </div>
                                     <div class="tree-list-add-remove-button-wrapper">
                                         <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
                                     </div>
-                                    <div class="tree-list-trees-button-wrapper">
-                                        <button type="button" id="tree-list-trees-button" ng-disabled="!RecordService.isEditing()">شاخه ها</button>
-                                    </div>
-                                    
+
+
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!RecordService.isEditing()"
                                             ng-options="tree.title for tree in RecordService.currentRecord.treeList.all()">
@@ -221,6 +234,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <script type="text/ng-template" id="tree-modal.html">
                                     <div class="modal-bg">
                                         <div class="btf-modal tree-modal">
+                                            <h3 class="modal-header">
+                                                انتخاب شاخه ها
+                                            </h3>
                                             <div class="tree-modal-header">
                                                 <a href ng-click="closeMe()">X</a>
                                                 <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
@@ -356,10 +372,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                  <div id="spec-msg-date-wrapper">
 
                                      <label id="spec-msg-insert-date-label" class="third-section-label " for="spec-msg-insert-date-input">تاریخ درج</label>
-                                     <input type="text" id="spec-msg-insert-date-input" class="third-section-input" ng-model="RecordService.currentRecord.message_insert_date" ng-disabled="!RecordService.isEditing()">
+                                     <input ng-click="openInsertDate($event)" type="text" id="spec-msg-insert-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_insert_date" is-open="insertDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
+
 
                                      <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
-                                     <input type="text" id="spec-msg-credit-date-input" class="third-section-input" ng-model="RecordService.currentRecord.message_validity_date" ng-disabled="!RecordService.isEditing()">
+                                     <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
+
                                  </div>
                              </div>
 
@@ -573,13 +591,17 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-click="RecordService.selectImage(image)" ng-src="{{image.absolute_path}}"  />
-                                            <button class="btn" data-ng-click="showImageShowModal(image)" >open</button>
+                                            <img ng-click="RecordService.selectedImage = image ;showImageShowModal(image)" ng-src="{{image.absolute_path}}"  />
+                                            <input
+                                                type="checkbox"
+                                                checklist-model="RecordService.selectedImages"
+                                                checklist-value="image"
+                                            />
                                         </li>
                                     </ul>
                                     <script type="text/ng-template" id="image-modal.html">
-                                        <div class="modal-bg">
-                                            <div class="btf-modal  image-modal">
+                                        <div class="modal-bg" data-ng-click="closeMe()">
+                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
                                                 <div class="modal-body">
                                                     <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />  
                                                 </div>
@@ -595,17 +617,57 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 </div>
                                 <div ng-switch-when="video" class="video">
                                     <ul class="video-list">
-                                        <li ng-repeat="video in RecordService.currentRecord.videos" style="float: right" ng-click="RecordService.selectVideo(video)" ng-class="{'selected' : RecordService.selectedVideo.id == video.id}">
-                                            <span ng-bind="video.file_name"  />
+                                        <li ng-repeat="video in RecordService.currentRecord.videos" style="float: right"  ng-class="{'selected' : RecordService.selectedVideo.id == video.id}">
+                                            <input
+                                                type="checkbox"
+                                                checklist-model="RecordService.selectedVideos"
+                                                checklist-value="video"
+                                                />
+                                            <span ng-bind="video.file_name" ng-click="RecordService.selectedVideo =video; showVideoShowModal(video)"></span>
                                         </li>
                                     </ul>
                                 </div>
                                 <div ng-switch-when="audio" class="audio">
                                     <ul class="audio-list">
-                                        <li ng-repeat="audio in RecordService.currentRecord.audios" style="float: right" ng-click="RecordService.selectAudio(audio)" ng-class="{'selected' : RecordService.selectedAudio.id == audio.id}">
-                                            <span ng-bind="audio.file_name"  />
+                                        <li ng-repeat="audio in RecordService.currentRecord.audios" style="float: right" ng-class="{'selected' : RecordService.selectedAudio.id == audio.id}">
+                                            <input
+                                                type="checkbox"
+                                                checklist-model="RecordService.selectedAudios"
+                                                checklist-value="audio"
+                                            />
+                                            <span ng-bind="audio.file_name" ng-click="RecordService.selectedAudio = audio" >  </span>
                                         </li>
                                     </ul>
+                                    <script type="text/ng-template" id="video-modal.html">
+                                        <div class="modal-bg" data-ng-click="closeMe()">
+                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
+                                                <div class="modal-body">
+                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />
+                                                    <div>
+                                                        <video width="300" media-player="videoPlayer" data-playlist="videoPlaylist" ng-init="">
+
+                                                        </video>
+                                                        <span ng-show="videoPlayer.playing">Player status: Playing</span>
+                                                        <span ng-show="!videoPlayer.playing">Player status: Paused</span>
+                                                        <button  class="btn" data-ng-click="videoPlayer.playPause()">
+                                                            قطع/وصل
+                                                        </button>
+                                                        <button class="btn" data-ng-click="videoPlayer.next()">
+بعدی
+                                                        </button>
+                                                        <button class="btn" data-ng-click="videoPlayer.prev()">
+                                                            قبلی
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-control-buttons">
+                                                    <button class="btn close" data-ng-click="closeMe()">
+                                                        بستن
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -615,9 +677,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             اضافه
                         </button>
                         <script type="text/ng-template" id="upload-modal.html">
-                            <div class="modal-bg">
-                                <div class="btf-modal">
 
+                            <div class="modal-bg" data-ng-click="closeMe()">
+                                <div class="btf-modal" data-ng-click="$event.stopPropagation()">
+                                    <h3 class="modal-header">
+                                        آپلود فایل
+                                    </h3>
                                     <div class="modal-body">
                                     <input name='imageupload' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />
                                     <p ng-hide="!uploading">
@@ -650,9 +715,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="showBodyModal()">
                             ویرایش صفحه
                         </button>
-                        <script type="text/ng-template" id="body-modal.html">
-                            <div id="body-modal-bg " class="modal-bg html-editor-modal">
-                                <div id="body-modal-btf" class="btf-modal">
+                        <script type="text/ng-template" id="body-modal.html" >
+                            <div id="body-modal-bg " class="modal-bg html-editor-modal" data-ng-click="closeMe()">
+                                <div id="body-modal-btf" class="btf-modal"  data-ng-click="$event.stopPropagation()">
+                                    <h3 class="modal-header">
+                                        بدنه رکورد
+                                    </h3>
                                     <div class="body-modal-header">
                                         <a href ng-click="closeMe()">X</a>
                                     </div>
@@ -696,7 +764,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             <div ng-switch-when="image" class="image">
                                                                 <ul class="image-list files-list">
                                                                     <li class = "file" ng-repeat="image in RecordService.currentRecord.body_images" style="float: right" ng-click="RecordService.selectBodyImage(image)" ng-class="{'selected' : RecordService.selectedBodyImage.id == image.id}">
-                                                                        <img ng-src="{{image.absolute_path}}"  />
+                                                                        <img ng-src="{{image.absolute_path}}"  ng-click="RecordService.selectedBodyImage = image ;showImageShowModal(image)" />
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checklist-model="RecordService.selectedBodyImages"
+                                                                            checklist-value="image"
+                                                                            />
                                                                     </li>
                                                                 </ul>
 
@@ -704,14 +777,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             <div ng-switch-when="video" class="video">
                                                                 <ul class="video-list files-list">
                                                                     <li class = "file" ng-repeat="video in RecordService.currentRecord.body_videos" style="float: right" ng-click="RecordService.selectBodyVideo(video)" ng-class="{'selected' : RecordService.selectedBodyVideo.id == video.id}">
-                                                                        <span ng-bind="video.file_name"  />
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checklist-model="RecordService.selectedBodyVideos"
+                                                                            checklist-value="video"
+                                                                        />
+                                                                        <span ng-click="RecordService.selectedBodyVideo =video" ng-bind="video.file_name"></span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                             <div ng-switch-when="audio" class="audio">
                                                                 <ul class="audio-list files-list">
                                                                     <li class = "file" ng-repeat="audio in RecordService.currentRecord.body_audios" style="float: right" ng-click="RecordService.selectBodyAudio(audio)" ng-class="{'selected' : RecordService.selectedBodyAudio.id == audio.id}">
-                                                                        <span ng-bind="audio.file_name"  />
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checklist-model="RecordService.selectedBodyAudios"
+                                                                            checklist-value="audio"
+                                                                        />
+                                                                        <span ng-click="RecordService.selectedBodyAudio =audio" ng-bind="audio.file_name" ></span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -743,7 +826,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
         <div class="row list">
             <div class="col col-lg-12">
                 <div class="grid-block">
-                    <table st-table="recordList()" class="table table-striped">
+                    <table st-table="recordList()" class="table table-striped" infinite-scroll="RecordService.searchRecords(RecordService.recordList().length)">
                         <thead>
                         <tr>
                             <th>ردیف</th>
@@ -775,6 +858,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
 
+
     <div class="container-fluid">
 
 
@@ -784,6 +868,8 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
     </div>
+
+
 
 
 
@@ -805,7 +891,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('top-actions');?>
-    <div  class="news-top row show-grid ">
+    <div  class="news-top show-grid ">
 
         <div class="col-md-4">
             <button ng-disabled="RecordService.isEditing()" type="button" class="btn btn-primary" ng-click="RecordService.editingNew()">
@@ -815,36 +901,41 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             <button ng-disabled="RecordService.isNew() || RecordService.isEditing()" type="button" class="btn btn-info" ng-click="RecordService.editing()">
                 ویرایش
             </button>
-            <script type="text/ng-template" id="deleteModalContent.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">
-                         حذف خبر
-                    </h3>
-                </div>
-                <div class="modal-body">
-                    آیا از حذف خبر فعلی اطمینان دارید؟
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="okDeleteModal()">
-                        بله
-                    </button>
-                    <button class="btn btn-warning" ng-click="cancelDeleteModal()">
-                        خیر
-                    </button>
+            <script type="text/ng-template" id="delete-modal.html">
+
+                <div class="modal-bg" data-ng-click="closeMe()">
+                    <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
+                        <h3 class="modal-header">
+                            حذف رکورد
+                        </h3>
+                        <div class="modal-body">
+                            آیا از حذف رکورد جاری اطمینان دارید؟
+                            <button class="btn btn-warning" data-ng-click="closeMe()">
+                                خیر (انصراف)
+                            </button>
+                            <button class="btn btn-danger" data-ng-click="deleteCurrentRecord()">
+                                بله (حذف)
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </script>
-            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
+            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="showDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
             <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
                 ذخیره
             </button>
             <script type="text/ng-template" id="saving-modal.html">
+
                 <div class="modal-bg">
                     <div class="btf-modal">
+                        <h3 class="modal-header">
+                            ذخیره
+                        </h3>
 
                         <div class="modal-body">
-                            <span ng-hide="RecordService.saved">
+                            <span ng-show="!RecordService.saved">
                                 در حال ذخیره سازی...
                             </span>
                             <span ng-show="RecordService.saved">
@@ -869,7 +960,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
             <button type="button" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !RecordService.previousable()" class="btn btn-primary" ng-click="RecordService.previousSelectedRecord()">
                 قبلی
             </button>
@@ -878,13 +969,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             <button type="button" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !RecordService.nexable()" class="btn btn-primary" ng-click="RecordService.nextSelectedRecord()">
                 بعدی
             </button>
-            <button type="button" class="btn btn-success" ng-click="RecordService.verifyCurrentRecord()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()" >
-                تایید
+
+            <button ng-disabled="!RecordService.currentRecord.id || !RecordService.isEditing()" data-ng-click="RecordService.toggleActiveCurrentRecord()" data-ng-show="RecordService.currentRecord.id" class="btn active-inactive-btn" ng-class="{'is-active': RecordService.currentRecord.active == true,'is-inactive': RecordService.currentRecord.active == false }" >
+                <i class="fa fa-check"></i>
+                <i class="fa fa-times"></i>
+                {{(RecordService.currentRecord.active)?'فعال':'غیر فعال'}}
             </button>
+
+            <button ng-disabled="!RecordService.currentRecord.id || !RecordService.isEditing()" data-ng-click="RecordService.toggleVerifyCurrentRecord()" data-ng-show="RecordService.currentRecord.id" class="btn verify-notverify-btn" ng-class="{'is-verify': RecordService.currentRecord.verify == true,'is-notverify': RecordService.currentRecord.verify == false }" >
+                <i class="fa fa-check"></i>
+                <i class="fa fa-times"></i>
+                {{(RecordService.currentRecord.verify)? 'تایید شده':'تایید نشده'}}
+            </button>
+
         </div>
 
-        <div class="col-md-1 left" style="float: left">
-            Username
+        <div class="col-md-1 left" style="float: left"  >
+            نام کاربری:
+            {{ValuesService.username}}
         </div>
     </div>
 <?php $view['slots']->stop() ?>
@@ -900,12 +1002,30 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-sanitize.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/xeditable.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ui-bootstrap.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ng-flow-standalone.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/libs/ckeditor/ckeditor.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ui-bootstrap-tpls-0.11.2.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/dateparser.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/position.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/datepicker-tpls.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persiandate.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persian-datepicker-tpls.js') ?>"></script>
+
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/checklist-model/checklist-model.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-media-player/dist/angular-media-player.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.js') ?>"></script>
+
+
+
+
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-collection/angular-collection.js') ?>"></script>
 
 

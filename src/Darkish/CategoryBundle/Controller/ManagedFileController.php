@@ -24,6 +24,7 @@ class ManagedFileController extends Controller
     public function uploadAction(Request $request)
     {
 
+
         /* @var $form Form  */
 
         $file = new ManagedFile();

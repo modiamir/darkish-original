@@ -16,11 +16,11 @@ record_get_json:
 
 
 record_get_record_for_category:
-    path:     /ajax/get_record_for_cat/{cid}/{page}
-    defaults: { _controller: "DarkishCategoryBundle:Record:getRecordForCategory", _format: json, page: 1}
+    path:     /ajax/get_record_for_cat/{cid}/{count}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getRecordForCategory", _format: json, count: 0}
 
 record_search_record:
-    path:     /ajax/search_record/{keyword}/{search_by}/{sort_by}
+    path:     /ajax/search_record/{search_by}/{sort_by}/{count}/{keyword}
     defaults: { _controller: "DarkishCategoryBundle:Record:searchRecords", _format: json, keyword: "", search_by: 1, sort_by: 1}
 
 record_is_unique:
@@ -30,6 +30,21 @@ record_is_unique:
 record_verify_record:
     path:     /ajax/verify_record/{recordId}
     defaults: { _controller: "DarkishCategoryBundle:Record:verifyRecord", _format: json }
+    requirements: { _method: post|put }
+
+record_toggle_verify_record:
+    path:     /ajax/toggle_verify_record/{recordId}
+    defaults: { _controller: "DarkishCategoryBundle:Record:toggleVerifyRecord", _format: json }
+    requirements: { _method: post|put }
+
+record_toggle_active_record:
+    path:     /ajax/toggle_active_record/{recordId}
+    defaults: { _controller: "DarkishCategoryBundle:Record:toggleActiveRecord", _format: json }
+    requirements: { _method: post|put }
+
+record_delete_record:
+    path:     /ajax/delete_record/{recordId}
+    defaults: { _controller: "DarkishCategoryBundle:Record:deleteRecord", _format: json }
     requirements: { _method: post|put }
 
 record_get_record:
@@ -73,4 +88,13 @@ record_contains_tree:
 record_access_test:
     path:     /ajax/access
     defaults: { _controller: "DarkishCategoryBundle:Record:access", _format: json}
+
+record_get_username:
+    path:     /ajax/get_username
+    defaults: { _controller: "DarkishCategoryBundle:Record:getUsername", _format: json}
+
+record_get_last_recordnumber:
+    path:     /ajax/get_last_recordnumber
+    defaults: { _controller: "DarkishCategoryBundle:Record:getLastRecordNumber", _format: json}
+
 
