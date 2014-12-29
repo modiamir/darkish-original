@@ -1100,7 +1100,7 @@ class RecordController extends Controller
 
 
         $res = $qb->getQuery()->getResult();
-        $recordNumber = (int)$res[0]['recordNumber'];
+        $recordNumber = (count($res))? (int)$res[0]['recordNumber'] : 0;
 
         $repository2 = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordLock');
         $qb2 = $repository2->createQueryBuilder('rl');
