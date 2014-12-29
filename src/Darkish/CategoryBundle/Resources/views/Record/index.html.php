@@ -248,9 +248,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         <div class="btf-modal tree-modal">
                                             <h3 class="modal-header1">
                                                 انتخاب شاخه ها
+                                                
+                                                <div class="modal-header-control-buttons-wrapper">
+                                                    <a href ng-click="closeMe()">X</a>
+                                                </div>
                                             </h3>
-                                            <div class="tree-modal-header">
-                                                <a href ng-click="closeMe()">X</a>
+                                            
+                                            <div class="modal-control-buttons-wrapper">
                                                 <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                             </div>
                                             <div class="tree-modal-content">
@@ -385,7 +389,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                      
                                      <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
-                                     <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
+                                     <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بستن" />
 
                                  </div>
                              </div>
@@ -687,7 +691,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </button>
                         <script type="text/ng-template" id="upload-modal.html">
 
-                            <div class="modal-bg" data-ng-click="closeMe()">
+                            <div class="modal-bg upload-file" data-ng-click="closeMe()">
                                 <div class="btf-modal" data-ng-click="$event.stopPropagation()">
                                     <h3 class="modal-header1">
                                         آپلود فایل
@@ -700,11 +704,14 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <span ng-show="RecordService.saved">
         رکورد مورد نظر ذخیره شد.
                                     </span>
-                                    <button ng-disabled="!uploadable" class="btn btn-info" data-ng-click="upload()">Upload</button>
+                                    
 
-                                    <button class="btn"  data-ng-click="closeMe()">
-                                        بستن
-                                    </button>
+                                    </div>
+                                    <div class="modal-control-buttons-wrapper">
+                                        <button class="btn"  data-ng-click="closeMe()">
+                                            بستن
+                                        </button>
+                                        <button ng-disabled="!uploadable" class="btn btn-info" data-ng-click="upload()">Upload</button>
                                     </div>
                                 </div>
                             </div>
