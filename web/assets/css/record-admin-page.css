@@ -193,6 +193,7 @@ body{
     padding: 15px;
     max-width: 590px;
     max-height: 500px;
+    padding-top: 5px;
 }
 .modal-bg .btf-modal .modal-body img {
     position: relative;
@@ -210,6 +211,45 @@ body{
     border: 1px solid crimson;
     color: crimson;
 }
+
+.modal-header1{
+    border-bottom: solid 1px #DAD7D7;
+    margin-right: 5px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 0px;
+}
+
+.modal-header2{
+    margin-top: 5px;
+    font-size: 17px;
+    padding-top: 0px;
+    border-bottom: solid 1px #eee;
+    width: 50%;
+    padding-bottom: 7px;
+    color: rgb(169, 168, 168);
+}
+.modal-control-buttons-wrapper{
+    width: 98%;
+    position: absolute;
+    bottom: 2px;
+    padding: 3px;
+    border-top: solid 1px #eee;
+    height: 40px;
+}
+.modal-header-control-buttons-wrapper{
+    width: 100px;
+    float: left;
+    height: 30px;
+    padding: 3px;
+    font-size: 20px;
+    margin-left: 15px;
+}
+.modal-header-control-buttons-wrapper a{
+    float: left;
+    color: #d9534f;
+}
+
 .image-modal .modal-control-buttons{
 
     width: 99%;
@@ -335,25 +375,7 @@ h3.block-title {
     margin-left: auto;
 }
 
-.record-confirme-status {
-   
-    /*background: rgb(25, 194, 25);*/
-    width: 97%;
-    margin-top: 7px;
-    height: 30px;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    color: white;
-}
 
-.record-confirme-status.approved {
-    background: rgb(25, 194, 25);
-}
-
-.record-confirme-status.unapproved {
-    background: rgb(194, 25, 25);
-}
 
 .basic-info-left-col{
    float: left;
@@ -473,13 +495,15 @@ h3.block-title {
     height: 65px;
 }
 .tree-list-add-remove-button-wrapper {
-    width: 51%;
+    width: 23%;
     margin: auto;
+    float: left;
+    margin-left: 6px;
 }
 .tree-list-trees-button-wrapper {
-    width: 65%;
-    margin: auto;
-    margin-top: 5px;
+    width: 53%;
+    margin-top: 13px;
+    float: left;
 }
 
 /*-----------main fields second section-------------*/
@@ -498,7 +522,7 @@ h3.block-title {
     margin-bottom: 5px;
 }
 #just-html-chk-wrapper{
-    background: #ee1111;
+    background: rgba(238, 17, 17, 0.5);
     float: right;
     margin-left: 10px;
 }
@@ -508,21 +532,22 @@ h3.block-title {
 }
 #html-page-chk-wrapper {
     float: right;
-    background: #eff4ff;
+    background: rgba(255, 0, 151, 0.5);
 }
 #brand-chk-wrapper {
     float: right;
-    background: #e3a21a;
+    background: rgba(227, 162, 26, 1);
     margin-left: 10px;
 }
 #ranklist-combo-wrapper {
     float: right;
     height: 30px;
+    padding: 2px;
 }
 .main-fields-second-section-combo-wrapper {
     width: 45%;
     height: 30px;
-    background: #00aba9;
+    background: rgba(0, 171, 169, 0.5);
 }
 #ranklist-combo-label {
     width: 65%;
@@ -543,15 +568,15 @@ h3.block-title {
 }
 #spec-massage-chk-wrapper {
     float: right;
-    background: rgba(255, 0, 151, 0.5);
+    background: #eff4ff;
 }
 #bazar-wrapper {
-    background: #2d89ef;
+    
     float: right;
 }
 .bazar-label {
+    background:  rgba(227, 162, 26, 0.5);
     width: 75%;
-    background: #2d89ef;
     height: 100%;
     text-align: center;
 }
@@ -568,6 +593,7 @@ h3.block-title {
     background: rgba(227, 162, 26, 0.5);
     height: 30px;
     margin-bottom: 5px;
+    padding: 2px;
 }
 #central-wrapper-combo {
     height: 100%;
@@ -595,8 +621,8 @@ h3.block-title {
 }
 .trip-maker-chk-wrapper {
     float: right;
-    background: #2d89ef;
-    width: 78%;
+    background: rgba(45, 137, 239, 0.5);
+    width: 75%;
     height: 30px;
 }
 .trip-maker-id {
@@ -609,10 +635,11 @@ h3.block-title {
 }
 #choose-group-wrapper {
     float: right;
-    background: rgba(43, 87, 151, 0.5);
+    background: rgba(45, 137, 239, 0.5);
     width: 100%;
     height: 30px;
     margin-bottom: 5px;
+    padding: 2px;
 }
 .choose-group-wrapper-combo-label{
     
@@ -656,15 +683,16 @@ h3.block-title {
 .info-bank-chk-wrapper {
     float: right;
     background: rgba(0, 163, 0, 0.5);
-    width: 78%;
+    width: 75%;
     height: 30px;
 }
 #info-bank-choose-group-wrapper {
     float: right;
-    background: rgba(43, 87, 151, 0.5);
+    background: rgba(0, 163, 0, 0.5);
     width: 100%;
     height: 30px;
     margin-bottom: 5px;
+    padding: 2px;
 }
 .info-bank-choose-group-wrapper-combo-label {
     float: right;
@@ -696,11 +724,15 @@ h3.block-title {
     display: inline-block;
     width: 96%;
 }
+#spec-msg-detail-wrapper input {
+    font-size: 12px;
+}
 #spec-msg-text-wrapper {
     width: 100%;
     background: #eff4ff;
     height: 30px;
     margin-bottom: 5px;
+    padding: 3px;
 }
 #spec-msg-text-label {
     float: right;
@@ -714,8 +746,9 @@ h3.block-title {
 #spec-msg-date-wrapper {
     float: right;
     width: 100%;
-    background: rgba(43, 87, 151, 0.5);
+    background: #eff4ff;
     height: 30px;
+    padding: 3px;
 }
 #spec-msg-insert-date-label {
    margin-right: 3%;
@@ -766,7 +799,7 @@ h3.block-title {
 #opening-hours-wrapper .working-days {
     position: absolute;
     left: 4%;
-    top: 31%;
+    top: 24.5%;
     background: rgba(29, 29, 29, 0.5);
     color: white;
     padding: 3px 5px;
@@ -793,6 +826,7 @@ h3.block-title {
     width: 150px;
     margin-left: 1%;
     float: right;
+    height: 30px;
 }
 
 
@@ -899,16 +933,7 @@ h3.block-title {
     text-align: center;
     font-size: 20px;
 }
-.capabilites-status{
-    width: 75%;
-    height: 30px;
-    line-height: 30px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    background: rgb(151, 186, 240);
-}
+
 .capabilites-buttons.inactive{
     width: 45px;
     height: 45px;
@@ -1164,7 +1189,7 @@ h3.block-title {
     padding-right:  5px !important;
     padding-left:  5px !important;
     background: cornsilk;
-    height: 565px;
+    height: 523px;
 }
 .html-editor-modal button.btn.upload-btn{
     padding: 6px 5%;
@@ -1265,18 +1290,26 @@ h3.block-title {
     width: 100%;
     background-color: rgba(0,0,0,0.1);
 }
+.tree-classic{
+    font-family: yekan;
+    font-size:11px;
+}
 
 
 .titles-modal label{
     float: right;
-    width: 40%;
+    width: 12%;
+    font-size: 13px;
+    margin-right: 10%;
 }
 
 .titles-modal input {
     float: right;
     clear: left;
     width: 60%;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    height: 26px;
+    font-size: 13px;
 }
 
 .tree-modal .tree-modal-content {
@@ -1335,7 +1368,7 @@ h3.block-title {
     transition:visibility 0s linear 0.5s,opacity 0.5s linear;
 }
 
-#loading .fa-spinner {
+#loading .fa-spinner, #loading .fa-circle-o-notch {
     font-size: 100px;
     color: white;
     margin-top: 300px;
