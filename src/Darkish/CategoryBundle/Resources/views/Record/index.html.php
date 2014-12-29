@@ -122,10 +122,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                           </span>
                           
                         </div>
-                        <div ng-bind="RecordService.currentRecord.verify ? 'تایید شده' : 'تایید نشده'" class="record-confirme-status" ng-class="{ 'approved': RecordService.currentRecord.verify , 'unapproved': !RecordService.currentRecord.verify }">
-                           تایید شده
-                        </div>
-
+                        
                     </div>
 
                     <div class="basic-info-right-col">
@@ -143,40 +140,55 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <script type="text/ng-template" id="titles-modal.html">
                             <div class="modal-bg" data-ng-click="closeMe()">
                                 <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
-                                    <h3 class="modal-header">
+                                    <h3 class="modal-header1">
                                         عناوین
                                     </h3>
                                     <div class="modal-body">
-                                        <label for="english-title">
-                                            عنوان انگلیسی
-                                        </label>
-                                        <input id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
 
-                                        <label for="english-sub-title">
-زیر عنوان انگلیسی
-                                        </label>
-                                        <input id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                        <h4 class="modal-header2">
+                                            انگلیسی
+                                        </h4>
+                                            <label for="english-title">
+                                            عنوان
+                                            </label>
+                                            <input id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
 
-                                        <label for="arabic-title">
-                                            عنوان عربی
-                                        </label>
-                                        <input id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
+                                            <label for="english-sub-title">
+    زیر عنوان
+                                            </label>
+                                            <input id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
 
-                                        <label for="arabic-sub-title">
-                                            زیر عنوان عربی
-                                        </label>
-                                        <input id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
 
-                                        <label for="turkish-title">
-                                            عنوان ترکیه ای
-                                        </label>
-                                        <input id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
+                                        <h4 class="modal-header2">
+                                            عربی
+                                        </h4>
+                                            <label for="arabic-title">
+                                            عنوان
+                                            </label>
+                                            <input id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
 
-                                        <label for="turkish-sub-title">
-                                            زیر عنوان ترکیه ای
-                                        </label>
-                                        <input id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
-                                        
+                                            <label for="arabic-sub-title">
+                                                زیر عنوان
+                                            </label>
+                                            <input id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
+
+
+                                        <h4 class="modal-header2">
+                                            ترکی
+                                        </h4>
+
+                                            <label for="turkish-title">
+                                                عنوان
+                                            </label>
+                                            <input id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
+
+                                            <label for="turkish-sub-title">
+                                                زیر عنوان
+                                            </label>
+                                            <input id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
+
+                                    </div>
+                                    <div class="modal-control-buttons-wrapper">
                                         <button class="btn" data-ng-click="closeMe()">
                                             تایید
                                         </button>
@@ -214,9 +226,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
-                                    <div class="tree-list-trees-button-wrapper">
-                                        شاخه ها
-                                    </div>
+                                    <label class="tree-list-trees-button-wrapper">
+                                        شاخه ها:
+                                    </label>
                                     <div class="tree-list-add-remove-button-wrapper">
                                         <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
@@ -234,7 +246,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <script type="text/ng-template" id="tree-modal.html">
                                     <div class="modal-bg">
                                         <div class="btf-modal tree-modal">
-                                            <h3 class="modal-header">
+                                            <h3 class="modal-header1">
                                                 انتخاب شاخه ها
                                             </h3>
                                             <div class="tree-modal-header">
@@ -371,10 +383,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                  </div>
                                  <div id="spec-msg-date-wrapper">
 
-                                     <label id="spec-msg-insert-date-label" class="third-section-label " for="spec-msg-insert-date-input">تاریخ درج</label>
-                                     <input ng-click="openInsertDate($event)" type="text" id="spec-msg-insert-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_insert_date" is-open="insertDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
-
-
+                                     
                                      <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
                                      <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بسته" />
 
@@ -536,7 +545,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </div>
                     <div class="col capabilites">
                         <div class="capabilites-buttons-wrapper">
-                            <div class="capabilites-status" >فعال</div>
+                            
                             قابلیت ها
                             <span data-ng-click="RecordService.toggleCapability('favorite_enable')"
                                   ng-class="{'active' : RecordService.currentRecord.favorite_enable == true, 'inactive' : RecordService.currentRecord.favorite_enable != true}"
@@ -680,7 +689,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div class="modal-bg" data-ng-click="closeMe()">
                                 <div class="btf-modal" data-ng-click="$event.stopPropagation()">
-                                    <h3 class="modal-header">
+                                    <h3 class="modal-header1">
                                         آپلود فایل
                                     </h3>
                                     <div class="modal-body">
@@ -718,12 +727,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <script type="text/ng-template" id="body-modal.html" >
                             <div id="body-modal-bg " class="modal-bg html-editor-modal" data-ng-click="closeMe()">
                                 <div id="body-modal-btf" class="btf-modal"  data-ng-click="$event.stopPropagation()">
-                                    <h3 class="modal-header">
+                                    <h3 class="modal-header1">
                                         بدنه رکورد
+                                        <div class="modal-header-control-buttons-wrapper">
+                                            <a href ng-click="closeMe()">X</a>
+                                        </div>
                                     </h3>
-                                    <div class="body-modal-header">
-                                        <a href ng-click="closeMe()">X</a>
-                                    </div>
+                                    
                                     <div class="body-modal-content">
                                         <div class="row">
                                             <div class="col-md-2">

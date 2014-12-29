@@ -2,6 +2,7 @@
 
 namespace Darkish\CategoryBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\RecordLock;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -62,6 +63,7 @@ class RecordController extends Controller
             /* @var $record Record*/
             $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
             $this->recordMassAssignment($record, $data);
+            $record->setLastUpdate(new \DateTime());
 
             //return new Response($serializer->serialize($record, 'json'));
 
@@ -111,6 +113,8 @@ class RecordController extends Controller
             /* @var $record Record*/
             $record = new Record();
             $this->recordMassAssignment($record, $data);
+            $record->setCreationDate(new \DateTime());
+            $record->setLastUpdate(new \DateTime());
 
             //return new Response($serializer->serialize($record, 'json'));
 
@@ -287,14 +291,6 @@ class RecordController extends Controller
         if(isset($data['search_keywords'])) {
             $record->setSearchKeywords($data['search_keywords']);
         }
-        if(isset($data['creation_date'])) {
-            $creation_date = new \DateTime($data['creation_date']);
-            $record->setCreationDate($creation_date);
-        }
-        if(isset($data['last_update'])) {
-            $last_update = new \DateTime($data['last_update']);
-            $record->setLastUpdate($last_update);
-        }
         if(isset($data['favorite_enable'])) {
             $record->setFavoriteEnable($data['favorite_enable']);
         }
@@ -345,6 +341,13 @@ class RecordController extends Controller
         }
         if(isset($data['verify'])) {
             $record->setVerify($data['verify']);
+        } else {
+            $record->setVerify(false);
+        }
+        if(isset($data['active'])) {
+            $record->setActive($data['active']);
+        } else {
+            $record->setActive(false);
         }
         if(isset($data['center_index'])) {
             //$record->setCenterIndex($data['center_index']);
@@ -952,10 +955,10 @@ class RecordController extends Controller
         return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list'))));
     }
 
-    public function isUniqeRecordNumberAction($recordNumber) {
+    public function isUniqeRecordNumber($recordNumber) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $record = $repo->findByRecordNumber($recordNumber);
-        return new Response(count($record));
+        return count($record);
     }
 
     public function getRecordAction($id) {
@@ -1086,19 +1089,81 @@ class RecordController extends Controller
     }
 
     public function getLastRecordNumberAction() {
+        $this->deleteExpiredRecordLocks();
+
 
         /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
         $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $qb = $repository->createQueryBuilder('r');
         $qb->select('r.recordNumber')->orderBy('r.recordNumber','Desc')->setMaxResults(1);
+
+
+
         $res = $qb->getQuery()->getResult();
         $recordNumber = (int)$res[0]['recordNumber'];
-        $recordNumber++;
-        $count = strlen($recordNumber);
+
+        $repository2 = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordLock');
+        $qb2 = $repository2->createQueryBuilder('rl');
+        $qb2->select('rl.recordNumber')->orderBy('rl.recordNumber','Desc')->setMaxResults(1);
+
+        $res2 = $qb2->getQuery()->getResult();
+
+        $recordNumber2 = (count($res2)) ? (int)$res2[0]['recordNumber'] : 0;
+
+        $biggerRecordNumber = ($recordNumber > $recordNumber2)? $recordNumber : $recordNumber2;
+
+        $biggerRecordNumber++;
+        $count = strlen($biggerRecordNumber);
         $numOfZeros = 6 - $count;
+
         for($i = 1;$i<=$numOfZeros; $i++) {
-            $recordNumber = '0'. $recordNumber;
+            $biggerRecordNumber = '0'. $biggerRecordNumber;
         }
-        return new Response($recordNumber);
+        return new Response($biggerRecordNumber);
+    }
+
+    public  function isLocked($recordNumber) {
+        /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
+        $this->deleteExpiredRecordLocks();
+        $currentUser = $this->get('security.context')->getToken()->getUser();
+        $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordLock');
+        $qb = $repository->createQueryBuilder('rl');
+        $qb->where('rl.recordNumber = :record_number')
+            ->andWhere('rl.userId != :user_id')
+            ->setParameter('record_number', $recordNumber)
+            ->setParameter('user_id', $this->get('security.context')->getToken()->getUser()->getId());
+        $res = $qb->getQuery()->getResult();
+        return count($res);
+    }
+
+    public function lockRecordNumberAction($recordNumber) {
+        if($this->isUniqeRecordNumber($recordNumber) == 0 && $this->isLocked($recordNumber) == 0) {
+            $lock = new RecordLock();
+            $lock->setUserId($this->get('security.context')->getToken()->getUser()->getId());
+            $lock->setRecordNumber($recordNumber);
+            $now = new \DateTime();
+            $lock->setCreated($now);
+            $weekLater = new \DateTime();
+            $weekLater->add(new \DateInterval("PT30M"));
+            $lock->setExpire($weekLater);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lock);
+            $em->flush();
+
+            return new Response(0);
+        }
+        else {
+            return new Response('record_number is not unique or is locked by another user', 403);
+        }
+    }
+
+    public function deleteExpiredRecordLocks() {
+        /* @var $repository \Darkish\CategoryBundle\Entity\RecordLockRepository */
+        $now = new \DateTime();
+        $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordLock');
+        $qb = $repository->createQueryBuilder('rl');
+        $qb->delete()->where($qb->expr()->lt('rl.expire', ':expire'))
+            ->setParameter('expire', $now);
+        $qb->getQuery()->execute();
     }
 }

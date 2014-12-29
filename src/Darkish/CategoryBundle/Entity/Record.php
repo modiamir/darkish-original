@@ -67,7 +67,7 @@ class Record
 
     /**
      * @var string
-     * @ORM\Column(name="EnglishTitle", type="string", length=255)
+     * @ORM\Column(name="EnglishTitle", type="string", length=255, nullable=true)
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
@@ -95,7 +95,7 @@ class Record
 
     /**
      * @var string
-     * @ORM\Column(name="ArabicTitle", type="string", length=255)
+     * @ORM\Column(name="ArabicTitle", type="string", length=255, nullable=true)
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
@@ -123,7 +123,7 @@ class Record
 
     /**
      * @var string
-     * @ORM\Column(name="TurkishTitle", type="string", length=255)
+     * @ORM\Column(name="TurkishTitle", type="string", length=255, nullable=true)
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",

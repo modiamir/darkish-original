@@ -23,9 +23,6 @@ record_search_record:
     path:     /ajax/search_record/{search_by}/{sort_by}/{count}/{keyword}
     defaults: { _controller: "DarkishCategoryBundle:Record:searchRecords", _format: json, keyword: "", search_by: 1, sort_by: 1}
 
-record_is_unique:
-    path:     /ajax/is_unique/{recordNumber}
-    defaults: { _controller: "DarkishCategoryBundle:Record:isUniqeRecordNumber", _format: json }
 
 record_verify_record:
     path:     /ajax/verify_record/{recordId}
@@ -96,5 +93,10 @@ record_get_username:
 record_get_last_recordnumber:
     path:     /ajax/get_last_recordnumber
     defaults: { _controller: "DarkishCategoryBundle:Record:getLastRecordNumber", _format: json}
+
+record_lock_record_number:
+    path:     /ajax/lock_record_number/{recordNumber}
+    defaults: { _controller: "DarkishCategoryBundle:Record:lockRecordNumber", _format: json}
+    requirements: { _method: post|put }
 
 
