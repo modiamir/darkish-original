@@ -410,37 +410,52 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         self.editingNew= function() {
 
-            result = prompt("شماره رکورد را وارد کنید.", ValuesService.defaultRecordNumber);
-            if(result) {
-                if($filter('number')(result) && result.length == 6) {
-                    $http.get('ajax/is_unique/'+result).then(
-                        function(response){
-                            if(response.data == 0){
-                                temporaryRecord = angular.copy(self.currentRecord);
-                                self.currentRecord = angular.copy({});
-                                self.currentRecord.record_number = result;
-                                self.currentRecord.treeList = Collection.getInstance();
-                                self.currentRecord.imagesList = Collection.getInstance();
-                                self.currentRecord.bodyImagesList = Collection.getInstance();
-                                self.currentRecord.videosList = Collection.getInstance();
-                                self.currentRecord.bodyVideosList = Collection.getInstance();
-                                self.currentRecord.audiosList = Collection.getInstance();
-                                self.currentRecord.bodyAudiosList = Collection.getInstance();
-                                editing = true;
-                                ValuesService.getRandUploadKey(true);
-                            } else {
-                                alert('شماره وارد شده تکراری میباشد')
-                            }
-                        },
-                        function(responseErr){
+            $http.get('ajax/get_last_recordnumber').then(
+                function(response){
+                    defaultRecordNumber = response.data;
+                    result = prompt("شماره رکورد را وارد کنید.", defaultRecordNumber);
+                    if(result) {
+                        if($filter('number')(result) && result.length == 6) {
+                            $http({
+                                method: 'PUT',
+                                url: 'ajax/lock_record_number/'+result,
+                                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+                            }).then(
+                                function(response){
+                                    if(response.data == 0){
+                                        temporaryRecord = angular.copy(self.currentRecord);
+                                        self.currentRecord = angular.copy({});
+                                        self.currentRecord.record_number = result;
+                                        self.currentRecord.treeList = Collection.getInstance();
+                                        self.currentRecord.imagesList = Collection.getInstance();
+                                        self.currentRecord.bodyImagesList = Collection.getInstance();
+                                        self.currentRecord.videosList = Collection.getInstance();
+                                        self.currentRecord.bodyVideosList = Collection.getInstance();
+                                        self.currentRecord.audiosList = Collection.getInstance();
+                                        self.currentRecord.bodyAudiosList = Collection.getInstance();
+                                        editing = true;
+                                        ValuesService.getRandUploadKey(true);
+                                    } else {
+                                        alert('شماره وارد شده تکراری میباشد')
+                                    }
+                                },
+                                function(responseErr){
+                                    alert("شماره وارد شده تکراری است و یا توسط کاربر دیگری قفل شده است.")
+                                }
+                            );
+
+                        } else {
+                            alert('شماره وارد شده معتبر نمیباشد. لطفا دوباره امتحان کنید.');
                         }
-                    );
 
-                } else {
-                    alert('شماره وارد شده معتبر نمیباشد. لطفا دوباره امتحان کنید.');
+                    }
+                },function(responseErr){
+                    alert("خطا")
+                    console.log(responseErr);
                 }
+            );
 
-            }
+
 
         }
 
@@ -715,12 +730,17 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                 self.saveCurrentNewRecord().then(
                     function(response){
-                        self.currentReocrd = response;
+                        self.currentRecord = {}
+                        self.currentRecord = response.data[0];
+                        
+
                         self.saved = true;
                         self.searchRecords();
                         self.finishEditing();
                     },
-                    function(errResponse){}
+                    function(errResponse){
+
+                    }
                 );
             } else {
                 self.updateCurrentRecord().then(
@@ -1226,15 +1246,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         }
 
-        if(!self.defaultRecordNumber) {
-            $http.get('ajax/get_last_recordnumber').then(
-                function(response){
-                    self.defaultRecordNumber = response.data;
-                },function(responseErr){
-                    console.log(responseErr);
-                }
-            );
-        }
+
 
         self.activeTab = 'image';
         self.bodyAttachmentActiveTab = 'image';

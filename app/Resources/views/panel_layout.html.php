@@ -80,7 +80,7 @@
 
 </form>
 <div id="loading" ng-cloak ng-class="{'loaded': loaded }"">
-<i class="fa fa-spinner fa-spin"></i>
+<i class="fa fa-circle-o-notch fa-spin"></i>
 </div>
 </body>
 </html>

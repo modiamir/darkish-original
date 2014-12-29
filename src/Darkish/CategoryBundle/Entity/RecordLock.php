@@ -3,7 +3,7 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Entity\User;
+use Application\Sonata\UserBundle\Entity\User as User;
 
 /**
  * RecordLock
@@ -23,19 +23,16 @@ class RecordLock
     private $id;
 
     /**
-     *
-     * @ORM\OneToOne(targetEntity="FOSUserUser")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    private $user;
+    private $userId;
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="Record")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
-     *
+     * @ORM\Column(name="record_number", type="string", length=255, nullable=false)
+     * 
      */
-    private $record;
+    private $recordNumber;
 
     /**
      * @var \DateTime
@@ -43,6 +40,13 @@ class RecordLock
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire", type="datetime")
+     */
+    private $expire;
 
 
     
@@ -82,52 +86,75 @@ class RecordLock
         return $this->created;
     }
 
+
+
+
     /**
-     * Set record
+     * Set recordNumber
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
+     * @param string $recordNumber
      * @return RecordLock
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setRecordNumber($recordNumber)
     {
-        $this->record = $record;
+        $this->recordNumber = $recordNumber;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get recordNumber
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return string 
      */
-    public function getRecord()
+    public function getRecordNumber()
     {
-        return $this->record;
+        return $this->recordNumber;
     }
 
-
-
-
     /**
-     * Set user
+     * Set expire
      *
-     * @param \Darkish\CategoryBundle\Entity\FOSUserUser $user
+     * @param \DateTime $expire
      * @return RecordLock
      */
-    public function setUser(\Darkish\CategoryBundle\Entity\FOSUserUser $user = null)
+    public function setExpire($expire)
     {
-        $this->user = $user;
+        $this->expire = $expire;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get expire
      *
-     * @return \Darkish\CategoryBundle\Entity\FOSUserUser 
+     * @return \DateTime 
      */
-    public function getUser()
+    public function getExpire()
     {
-        return $this->user;
+        return $this->expire;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     * @return RecordLock
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }
