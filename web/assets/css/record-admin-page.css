@@ -1129,11 +1129,13 @@ h3.block-title {
 .html-wrapper {
     position: static;
     margin: 10px 5px;
+    height: 390px;
+    overflow-y: scroll;
 
 }
 
 .html-wrapper .html-preview {
-    margin-top: 40px;
+    height: 100%;
 }
 
 
