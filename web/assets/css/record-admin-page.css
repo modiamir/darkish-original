@@ -1131,6 +1131,9 @@ h3.block-title {
     margin: 10px 5px;
     height: 390px;
     overflow-y: scroll;
+    width: 94%;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 
 }
 
