@@ -732,7 +732,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(response){
                         self.currentRecord = {}
                         self.currentRecord = response.data[0];
-                        
+
 
                         self.saved = true;
                         self.searchRecords();
