@@ -725,7 +725,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                 <div class="row html-wrapper">
                     <div class="col-md-12">
-                        <div class="html-preview" ng-bind-html="RecordService.currentRecord.body">
+                        <div class="html-preview" ng-bind-html="RecordService.trustedBody()">
 
                         </div>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="showBodyModal()">

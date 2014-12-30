@@ -173,7 +173,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         };
     }])
-    .factory('RecordService', ['$http', 'Collection', 'ValuesService', '$filter' ,function($http, Collection, ValuesService, $filter){
+    .factory('RecordService', ['$http', '$sce', 'Collection', 'ValuesService', '$filter' ,function($http, $sce, Collection, ValuesService, $filter){
         recordList = Collection.getInstance();
         var selectedRecord = {};
 //        var currentRecord;
@@ -323,6 +323,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         }
 
+
+        self.trustedBody =  function() {
+            tempBody = (self.currentRecord.body)? self.currentRecord.body : "";
+            return $sce.trustAsHtml(tempBody);
+        }
 
         self.currentRecord.treeList = Collection.getInstance();
         self.currentRecord.images = Collection.getInstance()
