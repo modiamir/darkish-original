@@ -387,7 +387,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                  </div>
                                  <div id="spec-msg-date-wrapper">
 
-                                     
+
                                      <label id="spec-msg-credit-date-label" class="third-section-label " for="spec-msg-credit-date-input">تاریخ اعتبار</label>
                                      <input ng-click="openValidityDate($event)" type="text" id="spec-msg-credit-date-input" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.message_validity_date" is-open="validityDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بستن" />
 
@@ -725,7 +725,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                 <div class="row html-wrapper">
                     <div class="col-md-12">
-                        <div class="html-preview" ng-bind-html="RecordService.currentRecord.body">
+                        <div class="html-preview" ng-bind-html="RecordService.trustedBody()">
 
                         </div>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="showBodyModal()">
