@@ -810,8 +810,8 @@ h3.block-title {
 
 #opening-hours-wrapper .working-days {
     position: absolute;
-    left: 4%;
-    top: 24.5%;
+    left: 0;
+    top: 0;
     background: rgba(29, 29, 29, 0.5);
     color: white;
     padding: 3px 5px;
@@ -829,16 +829,32 @@ h3.block-title {
     padding: 0 5px;
 }
 
-#opening-hours-wrapper #opening-hours-time span{
+#opening-hours-time table {
+    direction: ltr;
+}
+
+
+
+#opening-hours-wrapper #opening-hours-time span.morning,
+#opening-hours-wrapper #opening-hours-time span.evening{
     float: right;
     margin-left: 10px;
+    clear: both;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 #opening-hours-wrapper #opening-hours-time input {
-    width: 150px;
-    margin-left: 1%;
+    width: 50px;
+
+}
+
+#opening-hours-wrapper #opening-hours-time label {
     float: right;
-    height: 30px;
+    height: 100px;
+    line-height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 
@@ -849,11 +865,16 @@ h3.block-title {
     display: inline-block;
     width: 96%;
     padding: 10px;
+    position: relative;
+
+
 }
 
 #opening-hours-wrapper .holidays-wrapper span {
     clear: both;
     display: table;
+    margin-bottom: 10px;
+    margin-top: -5px;
 }
 
 #opening-hours-wrapper .holidays-wrapper label {
