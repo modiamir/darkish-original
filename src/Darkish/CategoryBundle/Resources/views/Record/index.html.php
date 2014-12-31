@@ -127,9 +127,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                     <div class="basic-info-right-col">
                         <div class="record-title">
-                            <button data-ng-click="showTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
                             <div class="field-title record-title-title">عنوان:</div>
                             <input type="text" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title" ng-disabled="!RecordService.isEditing()" required>
+                            <button data-ng-click="showTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
                         </div>
 
                         <div class="record-subtitle">
@@ -250,13 +250,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 انتخاب شاخه ها
                                                 
                                                 <div class="modal-header-control-buttons-wrapper">
-                                                    <a href ng-click="closeMe()">X</a>
+                                                    <a ng-click="closeMe()">X</a>
                                                 </div>
                                             </h3>
                                             
-                                            <div class="modal-control-buttons-wrapper">
-                                                <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
-                                            </div>
                                             <div class="tree-modal-content">
                                                 <treecontrol class="tree-classic"
                                                              tree-model="tree()"
@@ -264,6 +261,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                              selected-node="TreeService.currentSecondTreeNode">
                                                     {{node.title}}
                                                 </treecontrol>
+                                            </div>
+                                            <div class="modal-control-buttons-wrapper">
+                                                <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                             </div>
 
                                         </div>
@@ -400,14 +400,30 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <span class="morning">
                                     صبح
                                     </span>
-                                    <input class="morning-one"  type="time" ng-model="RecordService.currentRecord.m_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
-                                    <input class="morning-two"  type="time" ng-model="RecordService.currentRecord.m_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
+                                    <label>
+                                     از
+                                    </label>
+                                    <timepicker ng-change="RecordService.currentRecord.m_opening_hours_from = RecordService.getTime(RecordService.currentRecord.m_opening_hours_from_date);"
+                                                class="morning-one" ng-model="RecordService.currentRecord.m_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                     <label>
+                                     تا
+                                     </label>
+                                    <timepicker ng-change="RecordService.currentRecord.m_opening_hours_to = RecordService.getTime(RecordService.currentRecord.m_opening_hours_to_date);"
+                                        class="morning-two" ng-model="RecordService.currentRecord.m_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
                                     <span class="evening">
                                     عصر
                                     </span>
-                                    <input class="evening-one"  type="time" ng-model="RecordService.currentRecord.a_opening_hours_from"  ng-disabled="!RecordService.isEditing()" />
-                                    <input class="evening-two"  type="time" ng-model="RecordService.currentRecord.a_opening_hours_to"  ng-disabled="!RecordService.isEditing()" />
-                                     
+                                     <label>
+                                         از
+                                     </label>
+                                    <timepicker ng-change="RecordService.currentRecord.a_opening_hours_from = RecordService.getTime(RecordService.currentRecord.a_opening_hours_from_date);"
+                                        class="evening-one" ng-model="RecordService.currentRecord.a_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                     <label>
+                                         تا
+                                     </label>
+                                    <timepicker ng-change="RecordService.currentRecord.a_opening_hours_to = RecordService.getTime(RecordService.currentRecord.a_opening_hours_to_date);"
+                                        class="evening-two" ng-model="RecordService.currentRecord.a_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+
                                  </div>
                                  <div class="holidays-wrapper">
                                      <span>
@@ -604,7 +620,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-click="RecordService.selectedImage = image ;showImageShowModal(image)" ng-src="{{image.absolute_path}}"  />
+                                            <img ng-click="RecordService.selectedImage = image ;showImageShowModal(image, $index)" ng-src="{{image.absolute_path}}"  />
                                             <input
                                                 type="checkbox"
                                                 checklist-model="RecordService.selectedImages"
@@ -616,10 +632,17 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         <div class="modal-bg" data-ng-click="closeMe()">
                                             <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
                                                 <div class="modal-body">
-                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />  
+                                                    <img width="100%" ng-src="{{currentImage.absolute_path}}" />
                                                 </div>
+
                                                 <div class="modal-control-buttons">
-                                                    <button class="btn close" data-ng-click="closeMe()">
+                                                    <button data-ng-click="prev()" class="btn btn-info" ng-disabled="currentIndex <= 1">
+                                                        قبلی
+                                                    </button>
+                                                    <button data-ng-click="next()" class="btn btn-info" ng-disabled="currentIndex >= totalImage">
+                                                        بعدی
+                                                    </button>
+                                                    <button class="btn btn-warning close" data-ng-click="closeMe()">
                                                         بستن
                                                     </button>
                                                 </div>
@@ -636,9 +659,29 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 checklist-model="RecordService.selectedVideos"
                                                 checklist-value="video"
                                                 />
-                                            <span ng-bind="video.file_name" ng-click="RecordService.selectedVideo =video; showVideoShowModal(video)"></span>
+                                            <span ng-bind="video.file_name" ng-click="RecordService.selectedVideo =video; showVideoShowModal(video, $index)"></span>
                                         </li>
                                     </ul>
+                                    <script type="text/ng-template" id="video-modal.html">
+                                        <div class="modal-bg" data-ng-click="closeMe()">
+                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
+                                                <div class="modal-body">
+                                                    <video id="modal-video-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentVideo.absolute_path}}" type="{{currentVideo.filemime}}"></video>
+                                                </div>
+                                                <div class="modal-control-buttons">
+                                                    <button data-ng-click="prev()" class="btn btn-info" ng-disabled="currentIndex <= 1">
+                                                        قبلی
+                                                    </button>
+                                                    <button data-ng-click="next()" class="btn btn-info" ng-disabled="currentIndex >= totalVideo">
+                                                        بعدی
+                                                    </button>
+                                                    <button class="btn close" data-ng-click="closeMe()">
+                                                        بستن
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </script>
                                 </div>
                                 <div ng-switch-when="audio" class="audio">
                                     <ul class="audio-list">
@@ -651,36 +694,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             <span ng-bind="audio.file_name" ng-click="RecordService.selectedAudio = audio" >  </span>
                                         </li>
                                     </ul>
-                                    <script type="text/ng-template" id="video-modal.html">
-                                        <div class="modal-bg" data-ng-click="closeMe()">
-                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
-                                                <div class="modal-body">
-                                                    <img width="100%" ng-src="{{ValuesService.currentImageModal.absolute_path}}" />
-                                                    <div>
-                                                        <video width="300" media-player="videoPlayer" data-playlist="videoPlaylist" ng-init="">
 
-                                                        </video>
-                                                        <span ng-show="videoPlayer.playing">Player status: Playing</span>
-                                                        <span ng-show="!videoPlayer.playing">Player status: Paused</span>
-                                                        <button  class="btn" data-ng-click="videoPlayer.playPause()">
-                                                            قطع/وصل
-                                                        </button>
-                                                        <button class="btn" data-ng-click="videoPlayer.next()">
-بعدی
-                                                        </button>
-                                                        <button class="btn" data-ng-click="videoPlayer.prev()">
-                                                            قبلی
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-control-buttons">
-                                                    <button class="btn close" data-ng-click="closeMe()">
-                                                        بستن
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -725,7 +739,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                 <div class="row html-wrapper">
                     <div class="col-md-12">
-                        <div class="html-preview" ng-bind-html="RecordService.trustedBody()">
+                        <div class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="showBodyModal()">
@@ -737,7 +751,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <h3 class="modal-header1">
                                         بدنه رکورد
                                         <div class="modal-header-control-buttons-wrapper">
-                                            <a href ng-click="closeMe()">X</a>
+                                            <a ng-click="closeMe()">X</a>
                                         </div>
                                     </h3>
                                     
@@ -842,6 +856,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
         </div>
         <div class="row list">
             <div class="col col-lg-12">
+
                 <div class="grid-block">
                     <table st-table="recordList()" class="table table-striped" infinite-scroll="RecordService.searchRecords(RecordService.recordList().length)">
                         <thead>
@@ -897,10 +912,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 <?php $view['slots']->start('top-menu');?>
     <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a href="{{ path('admin_newstree') }}" class="dropdown-toggle" data-toggle="dropdown">اخبار و سرگرمی<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">رکوردها<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="<?php print $view['router']->generate("offer"); ?>">پیشنهاد ویژه</a></li>
                 <li><a href="<?php print $view['router']->generate("classified"); ?>">نیازمندی ها</a></li>
+                <li><a href="<?php print $view['router']->generate("news"); ?>" >اخبار و سرگرمی</a></li>
 
             </ul>
         </li>
@@ -1016,7 +1032,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/vfs_fonts.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-ui-grid/ui-grid.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-smart-table/dist/smart-table.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-sanitize.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-sanitize.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/xeditable.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ng-flow-standalone.min.js') ?>"></script>
@@ -1024,6 +1040,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/ui-bootstrap-tpls-0.11.2.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/bootstrap/src/timepicker/timepicker.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/dateparser.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/position.js') ?>"></script>
@@ -1038,9 +1055,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js') ?>"></script>
 
-    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.js') ?>"></script>
-
-
+<!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-google-maps/dist/angular-google-maps.min.js') ?><!--"></script>-->
+<!---->
+<!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?><!--"></script>-->
+<!---->
+<!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-collection/angular-collection.js') ?>"></script>
