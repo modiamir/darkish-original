@@ -206,7 +206,7 @@ body{
     position: relative;
     padding: 15px;
     max-width: 590px;
-    max-height: 400px;
+    max-height: 300px;
 }
 
 .modal-bg .btf-modal .tree-modal-header a{
@@ -255,6 +255,7 @@ body{
 .modal-header-control-buttons-wrapper a{
     float: left;
     color: #d9534f;
+    cursor: pointer;
 }
 
 .image-modal .modal-control-buttons{
@@ -371,7 +372,6 @@ h3.block-title {
 }
 .record-number-wrapper{
 
-    
     width: 90px;
     height: 45px;
     background-color: rgb(222,222,220);
@@ -380,6 +380,7 @@ h3.block-title {
     text-align: center;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 15%;
 }
 
 
@@ -389,11 +390,12 @@ h3.block-title {
     height: 100%;
     width: 15%;
     padding-top: 10px;
+    margin-left: 2%;
 
 }
 .basic-info-right-col{
     float: right;
-    width: 85%;
+    width: 83%;
     height: 100%;
     padding: 10px;
 }
@@ -401,8 +403,11 @@ h3.block-title {
     width: 100%;
     padding-top: 5px;
 }
+.record-title .record-title-input{
+    width: 70%;
+}
 .record-title-lan {
-    float: left;
+   /* float: left;*/
     background: rgb(134, 133, 132);
     width: 35px;
     height: 30px;
@@ -805,8 +810,8 @@ h3.block-title {
 
 #opening-hours-wrapper .working-days {
     position: absolute;
-    left: 4%;
-    top: 24.5%;
+    left: 0;
+    top: 0;
     background: rgba(29, 29, 29, 0.5);
     color: white;
     padding: 3px 5px;
@@ -824,16 +829,32 @@ h3.block-title {
     padding: 0 5px;
 }
 
-#opening-hours-wrapper #opening-hours-time span{
+#opening-hours-time table {
+    direction: ltr;
+}
+
+
+
+#opening-hours-wrapper #opening-hours-time span.morning,
+#opening-hours-wrapper #opening-hours-time span.evening{
     float: right;
     margin-left: 10px;
+    clear: both;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 #opening-hours-wrapper #opening-hours-time input {
-    width: 150px;
-    margin-left: 1%;
+    width: 50px;
+
+}
+
+#opening-hours-wrapper #opening-hours-time label {
     float: right;
-    height: 30px;
+    height: 100px;
+    line-height: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 
@@ -844,11 +865,16 @@ h3.block-title {
     display: inline-block;
     width: 96%;
     padding: 10px;
+    position: relative;
+
+
 }
 
 #opening-hours-wrapper .holidays-wrapper span {
     clear: both;
     display: table;
+    margin-bottom: 10px;
+    margin-top: -5px;
 }
 
 #opening-hours-wrapper .holidays-wrapper label {
@@ -1131,10 +1157,13 @@ h3.block-title {
     margin: 10px 5px;
     height: 390px;
     overflow-y: scroll;
-    width: 94%;
+    width: 98%;
     overflow-wrap: break-word;
-    overflow-x: hidden;
+    overflow-x: scroll;
 
+}
+.html-wrapper .col-md-12{
+    width: 95%;
 }
 
 .html-wrapper .html-preview {
@@ -1145,7 +1174,7 @@ h3.block-title {
 #body-modal-button {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 20px;
 
 }
 
@@ -1325,7 +1354,7 @@ h3.block-title {
 }
 
 .tree-modal .tree-modal-content {
-    height: 80%;
+    height: 70%;
     overflow-y: scroll;
 }
 

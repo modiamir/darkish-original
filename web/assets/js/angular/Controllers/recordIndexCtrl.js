@@ -9,10 +9,10 @@
 //        }]);
 
 angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
-                            ,'mediaPlayer', 'infinite-scroll', 'cfp.hotkeys'
+                            ,'mediaPlayer', 'infinite-scroll'
     ]).
-    controller('RecordIndexCtrl', ['$scope', '$filter', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval',
-    function($scope,   $filter,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval ) {
+    controller('RecordIndexCtrl', ['$scope', '$filter', '$sce', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval',
+    function($scope,   $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval ) {
 
 
         /**
@@ -48,9 +48,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         $scope.showTitlesModal = function(){titlesModal.activate()};
 
-        $scope.showImageShowModal = function(image) { ValuesService.currentImageModal = image;  imageModal.activate()};
+        $scope.showImageShowModal = function(image, index) { ValuesService.currentImageModal.image = image; ValuesService.currentImageModal.index = index;  imageModal.activate()};
 
-        $scope.showVideoShowModal = function(video) { ValuesService.currentVideoModal = video;  videoModal.activate()};
+        $scope.showVideoShowModal = function(video, index) { ValuesService.currentVideoModal.video = video; ValuesService.currentVideoModal.index = index;  videoModal.activate()};
 
         $scope.showDeleteModal = function(){
             deleteModal.activate();
@@ -123,6 +123,23 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
+        $scope.trustedBody =  function() {
+            tempBody = (RecordService.currentRecord.body)? RecordService.currentRecord.body : "";
+            return $sce.trustAsHtml(tempBody);
+        }
+
+
+        /**
+         * configuration for time picker -- begin
+         */
+        $scope.hstep = 1;
+        $scope.mstep = 15;
+        $scope.ismeridian = false;
+
+
+        /* configuration for time picker -- begin */
+
+
     }])
     .factory("Collection", function($collection){
     var Collection = $collection;
@@ -173,7 +190,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         };
     }])
-    .factory('RecordService', ['$http', '$sce', 'Collection', 'ValuesService', '$filter' ,function($http, $sce, Collection, ValuesService, $filter){
+    .factory('RecordService', ['$http', 'Collection', 'ValuesService', '$filter' ,function($http, Collection, ValuesService, $filter){
         recordList = Collection.getInstance();
         var selectedRecord = {};
 //        var currentRecord;
@@ -324,10 +341,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
 
-        self.trustedBody =  function() {
-            tempBody = (self.currentRecord.body)? self.currentRecord.body : "";
-            return $sce.trustAsHtml(tempBody);
-        }
+
 
         self.currentRecord.treeList = Collection.getInstance();
         self.currentRecord.images = Collection.getInstance()
@@ -438,6 +452,33 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                                         self.currentRecord.bodyVideosList = Collection.getInstance();
                                         self.currentRecord.audiosList = Collection.getInstance();
                                         self.currentRecord.bodyAudiosList = Collection.getInstance();
+
+                                        /**
+                                         * initializing working time variables -- begin
+                                         *
+                                         */
+
+                                        self.currentRecord.m_opening_hours_from_date = new Date();
+                                        self.currentRecord.m_opening_hours_from_date.setHours(0);
+                                        self.currentRecord.m_opening_hours_from_date.setMinutes(0);
+
+                                        self.currentRecord.m_opening_hours_to_date = new Date();
+                                        self.currentRecord.m_opening_hours_to_date.setHours(0);
+                                        self.currentRecord.m_opening_hours_to_date.setMinutes(0);
+
+                                        self.currentRecord.a_opening_hours_from_date = new Date();
+                                        self.currentRecord.a_opening_hours_from_date.setHours(0);
+                                        self.currentRecord.a_opening_hours_from_date.setMinutes(0);
+
+                                        self.currentRecord.a_opening_hours_to_date = new Date();
+                                        self.currentRecord.a_opening_hours_to_date.setHours(0);
+                                        self.currentRecord.a_opening_hours_to_date.setMinutes(0);
+
+
+
+                                        /* initializing working time variables -- end */
+
+
                                         editing = true;
                                         ValuesService.getRandUploadKey(true);
                                     } else {
@@ -526,7 +567,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-
+        self.getTime = function(datetime) {
+            hours = datetime.getHours();
+            times = datetime.getMinutes();
+            hours = ((""+hours).length == 1) ? '0'+ hours : ""+hours;
+            times = ((""+times).length == 1) ? '0'+ times : ""+times;
+            return hours+':'+times;
+        }
 
 
         self.finishEditing = function() {
@@ -548,6 +595,51 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             return $decoded;
                         }();
                     }
+
+                    if(self.currentRecord.m_opening_hours_from) {
+                        var res = self.currentRecord.m_opening_hours_from.split(":");
+                        self.currentRecord.m_opening_hours_from_date = new Date();
+                        self.currentRecord.m_opening_hours_from_date.setHours(res[0]);
+                        self.currentRecord.m_opening_hours_from_date.setMinutes(res[1]);
+                    } else {
+                        self.currentRecord.m_opening_hours_from_date = new Date();
+                        self.currentRecord.m_opening_hours_from_date.setHours(0);
+                        self.currentRecord.m_opening_hours_from_date.setMinutes(0);
+                    }
+                    if(self.currentRecord.m_opening_hours_to) {
+                        var res = self.currentRecord.m_opening_hours_to.split(":");
+                        self.currentRecord.m_opening_hours_to_date = new Date();
+                        self.currentRecord.m_opening_hours_to_date.setHours(res[0]);
+                        self.currentRecord.m_opening_hours_to_date.setMinutes(res[1]);
+                    } else {
+                        self.currentRecord.m_opening_hours_to_date = new Date();
+                        self.currentRecord.m_opening_hours_to_date.setHours(0);
+                        self.currentRecord.m_opening_hours_to_date.setMinutes(0);
+                    }
+
+
+                    if(self.currentRecord.a_opening_hours_from) {
+                        var res = self.currentRecord.a_opening_hours_from.split(":");
+                        self.currentRecord.a_opening_hours_from_date = new Date();
+                        self.currentRecord.a_opening_hours_from_date.setHours(res[0]);
+                        self.currentRecord.a_opening_hours_from_date.setMinutes(res[1]);
+                    } else {
+                        self.currentRecord.a_opening_hours_from_date = new Date();
+                        self.currentRecord.a_opening_hours_from_date.setHours(0);
+                        self.currentRecord.a_opening_hours_from_date.setMinutes(0);
+                    }
+                    if(self.currentRecord.a_opening_hours_to) {
+                        var res = self.currentRecord.a_opening_hours_to.split(":");
+                        self.currentRecord.a_opening_hours_to_date = new Date();
+                        self.currentRecord.a_opening_hours_to_date.setHours(res[0]);
+                        self.currentRecord.a_opening_hours_to_date.setMinutes(res[1]);
+                    } else {
+                        self.currentRecord.a_opening_hours_to_date = new Date();
+                        self.currentRecord.a_opening_hours_to_date.setHours(0);
+                        self.currentRecord.a_opening_hours_to_date.setMinutes(0);
+                    }
+                    
+                    
 
                     self.currentRecord.treeList = Collection.getInstance();
                     self.currentRecord.treeList.addAll(self.currentRecord.trees);
@@ -886,15 +978,48 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
         $scope.closeMe = function(){ValuesService.currentImageModal = {}; imageModal.deactivate();}
+        $scope.currentImage = RecordService.currentRecord.images[ValuesService.currentImageModal.index];
+        $scope.totalImage = RecordService.currentRecord.images.length;
+        $scope.currentIndex = ValuesService.currentImageModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentImageModal.index = ValuesService.currentImageModal.index + 1;
+            $scope.currentImage = RecordService.currentRecord.images[ValuesService.currentImageModal.index];
+            $scope.currentIndex = ValuesService.currentImageModal.index + 1;
+        }
+        $scope.prev = function() {
+            ValuesService.currentImageModal.index = ValuesService.currentImageModal.index -1;
+            $scope.currentImage = RecordService.currentRecord.images[ValuesService.currentImageModal.index];
+            $scope.currentIndex = ValuesService.currentImageModal.index + 1;
+        }
+
 
 
     }]).
-    controller('videoModalCtrl', ['$scope', 'videoModal', 'RecordService','TreeService', 'ValuesService', function ($scope, videoModal, RecordService, TreeService, ValuesService) {
+    controller('videoModalCtrl', ['$scope', '$sce', 'videoModal', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, videoModal, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
-        $scope.videoPlaylist = RecordService.currentRecord.videoPlaylist;
-
         $scope.closeMe = function(){ValuesService.currentVideoModal = {}; videoModal.deactivate();}
+        $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        $scope.totalVideo = RecordService.currentRecord.videos.length;
+        $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index + 1;
+            $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+            $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+            var videoPlayer = document.getElementById('modal-video-player');
+            videoPlayer.src = $scope.currentVideo.absolute_path;
+            videoPlayer.load();
+            videoPlayer.play();
+        }
+        $scope.prev = function() {
+            ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index -1;
+            $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+            $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+            var videoPlayer = document.getElementById('modal-video-player');
+            videoPlayer.src = $scope.currentVideo.absolute_path;
+            videoPlayer.load();
+            videoPlayer.play();
+        }
 
     }]).
     controller('uploadModalCtrl', ['$scope', 'uploadModal', 'RecordService','TreeService', 'ValuesService', '$http', function ($scope, uploadModal, RecordService, TreeService, ValuesService, $http) {
@@ -1008,7 +1133,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             language: 'fa',
             height: '353px',
             uiColor: '#e8ede0',
+            extraPlugins: "dragresize,video",
             contentsLangDirection: 'rtl',
+            allowedContent : true,
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -1018,7 +1145,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
                 { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video' ] },
                 '/',
                 { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
                 { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
@@ -1088,13 +1215,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     CkInstance.insertHtml('<img alt="" width="100px" src="'+RecordService.selectedBodyImage.absolute_path+'" />');
                     break;
                 case 'video':
-                    CkInstance.insertHtml('<video width="400" controls>'+
-                        '<source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'">'+
-                        'Your browser does not support HTML5 video.'+
-                        '</video>');
+                    CkInstance.insertHtml('<p><video controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
                     break;
                 case 'audio':
-                    CkInstance.insertHtml('<h1> audio</h1>');
+                    CkInstance.insertHtml('<p><audio controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
                     break;
 
             }
@@ -1272,6 +1396,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         self.currentImageModal = {}
+        self.currentVideoModal = {}
 
 
         self.safarsazRanks = [
@@ -1318,11 +1443,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         ];
 
-        
-        
-        
         return self;
-
-        
 
     }]);
