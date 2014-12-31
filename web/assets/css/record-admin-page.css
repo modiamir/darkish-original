@@ -206,7 +206,7 @@ body{
     position: relative;
     padding: 15px;
     max-width: 590px;
-    max-height: 400px;
+    max-height: 300px;
 }
 
 .modal-bg .btf-modal .tree-modal-header a{
@@ -255,6 +255,7 @@ body{
 .modal-header-control-buttons-wrapper a{
     float: left;
     color: #d9534f;
+    cursor: pointer;
 }
 
 .image-modal .modal-control-buttons{
@@ -371,7 +372,6 @@ h3.block-title {
 }
 .record-number-wrapper{
 
-    
     width: 90px;
     height: 45px;
     background-color: rgb(222,222,220);
@@ -380,6 +380,7 @@ h3.block-title {
     text-align: center;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 15%;
 }
 
 
@@ -389,11 +390,12 @@ h3.block-title {
     height: 100%;
     width: 15%;
     padding-top: 10px;
+    margin-left: 2%;
 
 }
 .basic-info-right-col{
     float: right;
-    width: 85%;
+    width: 83%;
     height: 100%;
     padding: 10px;
 }
@@ -401,8 +403,11 @@ h3.block-title {
     width: 100%;
     padding-top: 5px;
 }
+.record-title .record-title-input{
+    width: 70%;
+}
 .record-title-lan {
-    float: left;
+   /* float: left;*/
     background: rgb(134, 133, 132);
     width: 35px;
     height: 30px;
@@ -1131,10 +1136,13 @@ h3.block-title {
     margin: 10px 5px;
     height: 390px;
     overflow-y: scroll;
-    width: 94%;
+    width: 98%;
     overflow-wrap: break-word;
-    overflow-x: hidden;
+    overflow-x: scroll;
 
+}
+.html-wrapper .col-md-12{
+    width: 95%;
 }
 
 .html-wrapper .html-preview {
@@ -1145,7 +1153,7 @@ h3.block-title {
 #body-modal-button {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 20px;
 
 }
 
@@ -1325,7 +1333,7 @@ h3.block-title {
 }
 
 .tree-modal .tree-modal-content {
-    height: 80%;
+    height: 70%;
     overflow-y: scroll;
 }
 
