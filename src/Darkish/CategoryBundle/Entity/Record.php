@@ -622,6 +622,13 @@ class Record
     private $verify;
 
     /**
+     * @var integer
+     * @ORM\Column(name="AccessClass", type="integer", options={"default": 1})
+     * @Groups({"record.details"})
+     */
+    private $accessClass;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection $trees
      *
      * @Groups({"record.details"})
@@ -2641,5 +2648,28 @@ class Record
     public function getTurkishSubTitle()
     {
         return $this->turkishSubTitle;
+    }
+
+    /**
+     * Set accessClass
+     *
+     * @param integer $accessClass
+     * @return Record
+     */
+    public function setAccessClass($accessClass)
+    {
+        $this->accessClass = $accessClass;
+
+        return $this;
+    }
+
+    /**
+     * Get accessClass
+     *
+     * @return integer 
+     */
+    public function getAccessClass()
+    {
+        return $this->accessClass;
     }
 }

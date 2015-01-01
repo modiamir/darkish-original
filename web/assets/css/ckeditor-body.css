@@ -1,0 +1,157 @@
+@font-face {
+    font-family: yekan;
+    src: url("../fonts/yekan/yekan.eot");
+    src: url("../fonts/yekan/yekan.eot?#iefix") format("embedded-opentype"), url("../fonts/yekan/yekan.woff") format("woff"), url("../fonts/yekan/yekan.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Mitra';
+    src: url('../fonts/mitra/mitra.eot');
+    src: url('../fonts/mitra/mitra.otf') format('opentype');
+    src: local('☺'),
+    local('B Mitra'),
+    url('../fonts/mitra/mitra.woff') format('woff'),
+    url('../fonts/mitra/mitra.ttf') format('truetype'),
+    url('../fonts/mitra/mitra.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Mitra';
+    src: url('../fonts/mitra/mitra-bold.eot');
+    src: url('../fonts/mitra/mitra-bold.otf') format('opentype');
+    src: local('☺'),
+    local('B Mitra'),
+    url('../fonts/mitra/mitra-bold.woff') format('woff'),
+    url('../fonts/mitra/mitra-bold.ttf') format('truetype'),
+    url('../fonts/mitra/mitra-bold.svg') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'B Lotus';
+    src: url('../fonts/lotus/lotus.eot');
+    src: url('../fonts/lotus/lotus.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../fonts/lotus/lotus.woff') format('woff'),
+    url('../fonts/lotus/lotus.ttf') format('truetype'),
+    url('../fonts/lotus/lotus.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Koodak';
+    src: url('../fonts/koodak/koodak.eot');
+    src: url('../fonts/koodak/koodak.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../fonts/koodak/koodak.woff') format('woff'),
+    url('../fonts/koodak/koodak.ttf') format('truetype'),
+    url('../fonts/koodak/koodak.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roya';
+    src: url('../fonts/roya/roya.eot');
+    src: url('../fonts/roya/roya.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../fonts/roya/roya.woff') format('woff'),
+    url('../fonts/roya/roya.ttf') format('truetype'),
+    url('../fonts/roya/roya.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.body.primary-header {
+    color: #C00000;
+    font-family: yekan;
+    font-size: 16px;
+    text-align: center
+}
+
+.body.secondary-header {
+    color: #2E74B5;
+    font-family: yekan;
+    font-size: 14px;
+    text-align: center
+}
+
+.body.primary-text {
+    color: #3b3838;
+    font-family: B Mitra;
+    font-size: 14px;
+    text-align: right;
+    line-height: 120%
+}
+
+.body.secondary-text {
+    color: #3b3838;
+    font-family: B Mitra;
+    font-size: 12px;
+    text-align: right;
+    padding-right: 5%;
+    background-image: url(images/bullet.png);
+    background-position: 97% 2px;
+    background-size: 6px;
+    background-repeat: no-repeat;
+}
+
+.body.little-text {
+    font-family: "B Mitra";
+    font-size: 10px;
+    color: rgb(59,56,56);
+    text-align: right;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+.body.subtitle-text {
+    font-family: "B Mitra";
+    font-size: 9px;
+    color: rgb(59,56,56);
+    text-align: right;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+.body.latin-primary-header {
+    font-family: Tahoma;
+    font-size: 12px;
+    color: rgb(47,84,150);
+    text-align: center;
+}
+
+.body.latin-secondary-header {
+    font-family: Tahoma;
+    font-size: 11px;
+    color: rgb(46, 116, 181);
+    text-align: center;
+
+}
+
+.body.latin-text {
+    font-family: Tahoma;
+    font-size: 10px;
+    color: rgb(59, 56, 56);
+    text-align: left;
+    direction: ltr;
+}
+
+.body.latin-link {
+    font-family: Tahoma;
+    font-size: 9px;
+    color: rgb(83, 129, 53);
+    text-align: left;
+    direction: ltr;
+}
