@@ -219,6 +219,9 @@ class RecordController extends Controller
         if(isset($data['safarsaz'])) {
             $record->setSafarsaz($data['safarsaz']);
         }
+        if(isset($data['access_class'])) {
+            $record->setAccessClass($data['access_class']);
+        }
         if(isset($data['safarsaz_rank'])) {
             $record->setSafarsazRank($data['safarsaz_rank']);
         }

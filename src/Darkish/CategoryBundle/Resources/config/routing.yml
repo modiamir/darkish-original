@@ -34,6 +34,10 @@ DarkishCategoryBundle_record:
         resource: "@DarkishCategoryBundle/Resources/config/routing/record.yml"
         prefix:   /admin/record
 
+DarkishCategoryBundle_user:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/user.yml"
+        prefix:   /admin/user
+
 DarkishModi:
         path:     /modi/test
         defaults: { _controller: DarkishCategoryBundle:Default:test }

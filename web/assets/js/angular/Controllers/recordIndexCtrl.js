@@ -11,8 +11,24 @@
 angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
                             ,'mediaPlayer', 'infinite-scroll'
     ]).
-    controller('RecordIndexCtrl', ['$scope', '$filter', '$sce', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval',
-    function($scope,   $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval ) {
+    controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval', 'poollingFactory',
+    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval, poollingFactory) {
+
+
+        CKEDITOR.stylesSet.add( 'my_styles', [
+            // سبک های درکیش
+            { name: 'تیتر اصلی', element: 'h1', attributes: { 'class': 'body primary-header' } },
+            { name: 'تیتر فرعی',  element: 'h2', attributes: { 'class': 'body secondary-header' } },
+            { name: 'متن اصلی',  element: 'p', attributes: { 'class': 'body primary-text' } },
+            { name: 'متن فرعی',  element: 'p',attributes: { 'class': 'body secondary-text' } },
+            { name: 'متن کوچک',  element: 'p',attributes: { 'class': 'body little-text' } },
+            { name: 'زیر نویس',  element: 'p',attributes: { 'class': 'body subtitle-text' } },
+            { name: 'Titr – Latin',  element: 'h1',attributes: { 'class': 'body latin-primary-header' } },
+            { name: 'SubTitr - Latin',  element: 'h2',attributes: { 'class': 'body latin-secondary-header' } },
+            { name: 'Text - Latin',  element: 'p',attributes: { 'class': 'body latin-text' } },
+            { name: 'Link - Latin',  element: 'p',attributes: { 'class': 'body latin-link' } },
+
+        ]);
 
 
         /**
@@ -111,7 +127,43 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
+        $scope.logout = function() {
+            $http.get('../user/ajax/logout').then(
+                function(response){
+                    $scope.loggedOut();
+                },
+                function(responseErr){
+                    console.log(responseErr);
+                }
+            );
+        }
 
+        $scope.isLoggedIn = function() {
+            $http.get('../user/ajax/is_logged_in').then(
+                function(response){
+                    console.log(response);
+                    if(response.data[0] === true) {
+                        console.log('you are logged in');
+                    } else {
+                        $scope.loggedOut();
+                    }
+                },
+                function(responseErr){
+                    $scope.loggedOut();
+                }
+            );
+        }
+
+        $scope.loggedOut = function() {
+            alert("" +
+            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
+            "");
+            window.location = "../record";
+        }
+
+        poollingFactory.callFnOnInterval(function() {
+            $scope.isLoggedIn();
+        });
 
 
 
@@ -145,6 +197,23 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     var Collection = $collection;
 
     return Collection;
+    })
+    .factory("poollingFactory", function ($timeout) {
+
+        var timeIntervalInSec = 10;
+
+        function callFnOnInterval(fn, timeInterval) {
+
+            var promise = $timeout(fn, 1000 * timeIntervalInSec);
+
+            return promise.then(function(){
+                callFnOnInterval(fn, timeInterval);
+            });
+        };
+
+        return {
+            callFnOnInterval: callFnOnInterval
+        };
     })
     .factory('TreeService', ['$http', 'RecordService', '$collection', function($http, RecordService, $collection){
 
@@ -292,31 +361,41 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         self.toggleVerifyCurrentRecord = function() {
-            return $http({
-                method: 'PUT',
-                url: 'ajax/toggle_verify_record/'+self.currentRecord.id,
-                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
-            }).then(
-                function(response){
-                    self.currentRecord.verify = response.data.verify;
-                },
-                function(responseErr){
-                }
-            );
+            if(!self.currentRecord.id) {
+                self.currentRecord.verify = !self.currentRecord.verify;
+            } else {
+                return $http({
+                    method: 'PUT',
+                    url: 'ajax/toggle_verify_record/'+self.currentRecord.id,
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+                }).then(
+                    function(response){
+                        self.currentRecord.verify = response.data.verify;
+                    },
+                    function(responseErr){
+                    }
+                );
+            }
+
         }
 
         self.toggleActiveCurrentRecord = function() {
-            return $http({
-                method: 'PUT',
-                url: 'ajax/toggle_active_record/'+self.currentRecord.id,
-                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
-            }).then(
-                function(response){
-                    self.currentRecord.active = response.data.active;
-                },
-                function(responseErr){
-                }
-            );
+            if(!self.currentRecord.id) {
+                self.currentRecord.active = !self.currentRecord.active;
+            }else {
+                return $http({
+                    method: 'PUT',
+                    url: 'ajax/toggle_active_record/'+self.currentRecord.id,
+                    headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+                }).then(
+                    function(response){
+                        self.currentRecord.active = response.data.active;
+                    },
+                    function(responseErr){
+                    }
+                );
+            }
+
         }
 
 
@@ -434,7 +513,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     defaultRecordNumber = response.data;
                     result = prompt("شماره رکورد را وارد کنید.", defaultRecordNumber);
                     if(result) {
-                        if($filter('number')(result) && result.length == 6) {
+                        if($filter('number')(result) && result.length <= 6 && result.length > 0) {
+                            for(var i = result.length ; i< 6 ; i++) {
+                                result = "0"+result;
+                            }
                             $http({
                                 method: 'PUT',
                                 url: 'ajax/lock_record_number/'+result,
@@ -477,6 +559,33 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
                                         /* initializing working time variables -- end */
+
+                                        /**
+                                         * initializing capabilities --begin
+                                         */
+
+                                        self.currentRecord.favorite_enable = true;
+                                        self.currentRecord.like_enable = true;
+
+                                        /* initializing capabilities --end  */
+
+
+                                        /**
+                                         * initializing verify active --begin
+                                         */
+
+                                        self.currentRecord.verify = false;
+                                        self.currentRecord.active = false;
+
+                                        /* initializing verify active --end  */
+
+                                        /**
+                                         * initializing access class --begin
+                                         */
+
+                                        self.currentRecord.access_class = 1;
+
+                                        /* initializing access class --end  */
 
 
                                         editing = true;
@@ -1131,11 +1240,22 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.uploading = false;
         $scope.bodyEditorOptions = {
             language: 'fa',
-            height: '353px',
+            height: '300px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video",
+            extraPlugins: "dragresize,video,templates,dialog",
             contentsLangDirection: 'rtl',
             allowedContent : true,
+            stylesSet : 'my_styles',
+            font_names :
+            'Arial/Arial, Helvetica, sans-serif;' +
+            'Times New Roman/Times New Roman, Times, serif;' +
+            'yekan;'+
+            'B Mitra;'+
+            'B Lotus;'+
+            'B Koodak;'+
+            'Roya;'+
+            'Tahoma;',
+            contentsCss : '../../../assets/css/ckeditor-body.css',
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -1147,7 +1267,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
                 { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video' ] },
                 '/',
-                { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+                { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'Templates' ] },
                 { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
                 { name: 'others', items: [ '-' ] },
                 { name: 'about', items: [ 'About' ] }
@@ -1170,6 +1290,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'about' }
             ]
         };
+
+
 
         $scope.filesChanged = function(elm) {
             $scope.files = elm.files;
@@ -1441,6 +1563,27 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 name: 10
             }
 
+        ];
+
+
+
+        self.accessClasses = [
+            {
+                value: 1,
+                label: "کلاس اول"
+            },
+            {
+                value: 2,
+                label: "کلاس دوم"
+            },
+            {
+                value: 3,
+                label: "کلاس سوم"
+            },
+            {
+                value: 4,
+                label: "کلاس چهارم"
+            }
         ];
 
         return self;

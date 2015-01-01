@@ -219,9 +219,20 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <input type="text" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner" ng-disabled="!RecordService.isEditing()">
                             </div>
 
+
                             <div class="main-fields-legal-name">
                                 <label class="main-fields-legal-name-title first-section-fields-title" for="legal-name-input">نام حقوقی:</label>
                                 <input type="text" name="legal-name-input" id="legal-name-input" class="first-section-input" ng-model="RecordService.currentRecord.legal_name" ng-disabled="!RecordService.isEditing()">
+                            </div>
+
+                            <div class="main-fields-owner">
+                                <label class="trip-maker-title first-section-fields-title" for="trip-maker-combo">
+                                    کلاس دسترسی
+                                </label>
+                                <select id="trip-maker-combo" ng-model="RecordService.currentRecord.access_class" ng-disabled="!RecordService.isEditing()" class="first-section-input">
+                                    <option ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
+
+                                </select>
                             </div>
 
                             <div class="main-fields-tree-list">
@@ -961,8 +972,8 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             </button>
             <script type="text/ng-template" id="saving-modal.html">
 
-                <div class="modal-bg">
-                    <div class="btf-modal">
+                <div class="modal-bg" data-ng-click="closeMe()">
+                    <div class="btf-modal"  data-ng-click="$event.stopPropagation()">
                         <h3 class="modal-header">
                             ذخیره
                         </h3>
@@ -1003,13 +1014,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 بعدی
             </button>
 
-            <button ng-disabled="!RecordService.currentRecord.id || !RecordService.isEditing()" data-ng-click="RecordService.toggleActiveCurrentRecord()" data-ng-show="RecordService.currentRecord.id" class="btn active-inactive-btn" ng-class="{'is-active': RecordService.currentRecord.active == true,'is-inactive': RecordService.currentRecord.active == false }" >
+            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing()" data-ng-click="RecordService.toggleActiveCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn active-inactive-btn" ng-class="{'is-active': RecordService.currentRecord.active == true,'is-inactive': RecordService.currentRecord.active == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(RecordService.currentRecord.active)?'فعال':'غیر فعال'}}
             </button>
 
-            <button ng-disabled="!RecordService.currentRecord.id || !RecordService.isEditing()" data-ng-click="RecordService.toggleVerifyCurrentRecord()" data-ng-show="RecordService.currentRecord.id" class="btn verify-notverify-btn" ng-class="{'is-verify': RecordService.currentRecord.verify == true,'is-notverify': RecordService.currentRecord.verify == false }" >
+            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing()" data-ng-click="RecordService.toggleVerifyCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn verify-notverify-btn" ng-class="{'is-verify': RecordService.currentRecord.verify == true,'is-notverify': RecordService.currentRecord.verify == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(RecordService.currentRecord.verify)? 'تایید شده':'تایید نشده'}}
@@ -1017,9 +1028,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
         </div>
 
-        <div class="col-md-1 left" style="float: left"  >
+        <div class="col-md-3 left" style="float: left"  >
             نام کاربری:
             {{ValuesService.username}}
+            <button class="btn btn-warning logout-btn" data-ng-click="logout()">
+                خروج
+            </button>
+
         </div>
     </div>
 <?php $view['slots']->stop() ?>
