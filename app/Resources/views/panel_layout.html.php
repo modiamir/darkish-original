@@ -59,23 +59,23 @@
 
     <?php if($view['slots']->has('javascripts')): ?>
         <script src="<?php echo $view['assets']->getUrl('bundles/fosjsrouting/js/router.js') ?>"></script>
-        <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets\js\angular\bower_components\angular-file-upload\dist\angular-file-upload-shim.min.js') ?>"></script>
+        
         <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.min.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets/js/bootstrap-arabic.js') ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular.js'); ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-touch.js'); ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-animate.js'); ?>"></script>
-        <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets\js\angular\bower_components\angular-file-upload\dist\angular-file-upload.min.js') ?>"></script>
+        
         <?php $view['slots']->output('javascripts') ?>
     <?php else: ?>
         <script src="<?php echo $view['assets']->getUrl('bundles/fosjsrouting/js/router.js') ?>"></script>
-        <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets\js\angular\bower_components\angular-file-upload\dist\angular-file-upload-shim.min.js') ?>"></script>
+        
         <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.min.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets/js/bootstrap-arabic.js') ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular.js'); ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-touch.js'); ?>"></script>
         <script src="<?php echo $view['assets']->getUrl('assets/js/angular/angular-animate.js'); ?>"></script>
-        <script type="text/javascript" src="<?php echo $view['assets']->getUrl('assets\js\angular\bower_components\angular-file-upload\dist\angular-file-upload.min.js') ?>"></script>
+        
     <?php endif; ?>
 
 </form>

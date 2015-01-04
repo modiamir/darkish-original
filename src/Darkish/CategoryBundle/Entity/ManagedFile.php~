@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile as UploadedFile;
-
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -19,7 +21,7 @@ class ManagedFile
 {
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="200000000")
      */
     private $file;
 
@@ -30,6 +32,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"record.details"})
      */
     private $id;
 
@@ -39,6 +42,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
+     * @Groups({"record.details"})
      */
     private $userId;
 
@@ -46,6 +50,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
+     * @Groups({"record.details"})
      */
     private $fileName;
 
@@ -53,6 +58,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
+     * @Groups({"record.details"})
      */
     private $path;
 
@@ -60,6 +66,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
+     * @Groups({"record.details"})
      */
     private $filemime;
 
@@ -67,6 +74,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
+     * @Groups({"record.details"})
      */
     private $filesize;
 
@@ -74,15 +82,36 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     *
+     * @Groups({"record.details"})
      *
      */
     private $status;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="temporary", type="boolean")
+     * @Groups({"record.details"})
+     *
+     */
+    private $temporary;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_thumbnail", type="boolean")
+     * @Groups({"record.details"})
+     *
+     */
+    private $isThumbnail;
+    
+    
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
+     * @Groups({"record.details"})
      */
     private $timestamp;
 
@@ -90,8 +119,9 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
+     * @Groups({"record.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -102,7 +132,8 @@ class ManagedFile
      *
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
-     * @Assert\NotNull()
+     *
+     * @Groups({"record.details"})
      */
     private $entityId;
 
@@ -115,6 +146,7 @@ class ManagedFile
      * @Assert\Choice(choices = {"image", "video", "audio"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
+     * @Groups({"record.details"})
      */
     private $uploadDir;
 
@@ -123,9 +155,10 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     *
+     * @Groups({"record.details"})
      */
     private $uploadKey;
+
 
 
     /**
@@ -366,12 +399,18 @@ class ManagedFile
         return $this->entityId;
     }
 
+
+    /**
+     * @Groups({"record.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
     public function getAbsolutePath()
     {
 
         return null === $this->path
             ? null
-            : "http://".$_SERVER['SERVER_NAME'].'/darkish/web/uploads/'.$this->getUploadDir().'/'.$this->path;
+            : "http://".$_SERVER['SERVER_NAME'].'/n-darkish/web/uploads/'.$this->getUploadDir().'/'.$this->path;
     }
 
     public function getWebPath()
@@ -473,14 +512,17 @@ class ManagedFile
 
         // move takes the target directory and then the
         // target filename to move to
+
+        $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getClientOriginalExtension();
+        $this->fileName = $fileName;
         $newFile = $this->getFile()->move(
             $this->getUploadRootDir(),
-            $this->getFile()->getClientOriginalName()
+            $this->fileName
         );
 
         // set the path property to the filename where you've saved the file
-        $this->path = $this->getFile()->getClientOriginalName();
-        $this->fileName = $this->path;
+        $this->path = $this->fileName;
+
         $this->filemime = $newFile->getMimeType();
         $this->filesize = $newFile->getSize();
 

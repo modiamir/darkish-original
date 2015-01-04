@@ -87,6 +87,9 @@ class RecordController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($record);
                 $em->flush();
+                
+                $this->setTemporaryThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                
                 return new Response($serializer->serialize($record, 'json'));
 
             };
@@ -140,10 +143,9 @@ class RecordController extends Controller
                 $em->persist($record);
                 $em->flush();
 
-                /*
-                 * bad az zakhire kardane recorde jadid be donbale image haei ke ba upload key
-                 * dade shode motabegh hastand migardad ta anha ra be recorde jadid assign konad
-                 */
+                $this->setTemporaryThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                
+                
 
                 return new Response($serializer->serialize(array($record), 'json'));
 
@@ -156,6 +158,9 @@ class RecordController extends Controller
 
     }
 
+    
+    
+    
 
     public function recordMassAssignment(Record &$record, $data) {
 
@@ -651,6 +656,52 @@ class RecordController extends Controller
             //$record->setImages($data['images']);
         }
     }
+    
+    
+    private function setTemporaryThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios) {
+//        $serializer = $this->get('jms_serializer');
+//            /* @var $serializer JMSSerializer */
+//        $data = $serializer->deserialize($request->get('data'), 'array', 'json');
+//        $images = $data['images'];
+//        $videos = $data['videos'];
+//        $audios = $data['audios'];
+//        
+//        $body_images = $data['body_images'];
+//        $body_audios = $data['body_audios'];
+//        $body_videos = $data['body_videos'];
+        
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+        $em = $this->getDoctrine()->getManager();
+        
+        $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos);
+        
+        
+        /**
+         * settings isThumbnail and temporary for files
+         */
+        
+        foreach($files as $key => $file) {
+            /* @var $managedFile \Darkish\CategoryBundle\Entity\ManagedFile */
+            $managedFile = $repo->find($file['id']);
+            if(isset($file['is_thumbnail'])) {
+                $managedFile->setIsThumbnail($file['is_thumbnail']);
+            } else {
+                $managedFile->setIsThumbnail(false);
+            }
+            if(isset($file['temporary'])) {
+                $managedFile->setTemporary($file['temporary']);
+            } else {
+                $managedFile->setTemporary(false);
+            }
+            
+            
+            $em->persist($managedFile);
+            
+        }
+        $em->flush();
+//        return new Response('Operation done succesfully', 200);
+        
+    }
 
     public function getTreeAction() {
 
@@ -725,7 +776,7 @@ class RecordController extends Controller
 
 
 
-    private function buildTree(array $elements, $parentId = "#") {
+    private function buildTree(array $elements, $parentId = "00") {
         $branch = array();
 
         foreach ($elements as $element) {

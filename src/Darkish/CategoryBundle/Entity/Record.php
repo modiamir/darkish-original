@@ -635,8 +635,8 @@ class Record
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\MainTree", inversedBy="records")
      * @ORM\JoinTable(name="records_maintrees",
-     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="maintree_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="maintree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
     private $trees;
