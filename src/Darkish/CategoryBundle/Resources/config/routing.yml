@@ -41,3 +41,8 @@ DarkishCategoryBundle_user:
 DarkishModi:
         path:     /modi/test
         defaults: { _controller: DarkishCategoryBundle:Default:test }
+        
+managedfile_nervgh:
+    path:     /nervgh
+    defaults: { _controller: "DarkishCategoryBundle:ManagedFile:nervgh" }
+    requirements: { _method: post|options }

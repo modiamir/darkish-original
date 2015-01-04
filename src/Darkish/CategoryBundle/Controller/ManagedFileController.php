@@ -18,6 +18,8 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use JMS\Serializer\Serializer as JMSSerializer;
+use JMS\Serializer\SerializationContext;
 
 class ManagedFileController extends Controller
 {
@@ -106,8 +108,51 @@ class ManagedFileController extends Controller
 
     }
 
+    public function nervghAction(Request $request) {
+        $serializer = $this->get('jms_serializer');
+        return new Response($serializer->serialize($request->files->get('file'), 'json'));
+        
+        
+    }
+
     public function generateRandomUploadKeyAction() {
         return new Response($this->getUser()->getId().time().rand(1000,9999));
 
+    }
+    
+    public function setTemporaryThumbnailAction(Request $request) {
+        $serializer = $this->get('jms_serializer');
+            /* @var $serializer JMSSerializer */
+        $data = $serializer->deserialize($request->get('data'), 'array', 'json');
+        $images = $data['images'];
+        $videos = $data['videos'];
+        $audios = $data['audios'];
+        
+        $body_images = $data['body_images'];
+        $body_audios = $data['body_audios'];
+        $body_videos = $data['body_videos'];
+        
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+        $em = $this->getDoctrine()->getManager();
+        
+        $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos);
+        
+        
+        /**
+         * settings isThumbnail and temporary for files
+         */
+        
+        foreach($files as $key => $file) {
+            /* @var $managedFile \Darkish\CategoryBundle\Entity\ManagedFile */
+            $managedFile = $repo->find($file['id']);
+            $managedFile->setIsThumbnail($file['is_thumbnail']);
+            $managedFile->setTemporary($file['temporary']);
+            
+            $em->persist($managedFile);
+            
+        }
+        $em->flush();
+        return new Response('Operation done succesfully', 200);
+        
     }
 }

@@ -722,21 +722,89 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         آپلود فایل
                                     </h3>
                                     <div class="modal-body">
-                                    <input name='imageupload' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />
-                                    <p ng-hide="!uploading">
-در حال بارگذاری...
-                                    </p>
-                                    <span ng-show="RecordService.saved">
-        رکورد مورد نظر ذخیره شد.
-                                    </span>
                                     
+                                        <div class="container upload-modal-container">
+
+
+
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+
+                                                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+
+                                                </div>
+
+                                                <div class="col-md-12" style="margin-bottom: 40px">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50%">Name</th>
+                                                                <th ng-show="uploader.isHTML5">Size</th>
+                                                                <th ng-show="uploader.isHTML5">Progress</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="item in uploader.queue">
+                                                                <td>
+                                                                    <strong>{{ item.file.name }}</strong>
+                                                                    <!-- Image preview -->
+                                                                    <!--auto height-->
+                                                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                                                    <!--auto width-->
+
+                                                                    <!--fixed width and height -->
+                                                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                                                </td>
+                                                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                                                <td ng-show="uploader.isHTML5">
+                                                                    <div class="progress" style="margin-bottom: 0;">
+                                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                                </td>
+                                                                <td nowrap>
+                                                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div>
+                                                        <div>
+                                                            Queue progress:
+                                                            <div class="progress" style="">
+                                                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
                                     <div class="modal-control-buttons-wrapper">
                                         <button class="btn"  data-ng-click="closeMe()">
                                             بستن
                                         </button>
-                                        <button ng-disabled="!uploadable" class="btn btn-info" data-ng-click="upload()">Upload</button>
                                     </div>
                                 </div>
                             </div>
@@ -745,6 +813,179 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 data-ng-click="RecordService.removeFromAttachList()">
                             حذف
                         </button>
+                        <button class="btn btn-info btn-temporary-modal" ng-disabled="!RecordService.isEditing()"
+                                data-ng-click="showTemporaryModal()">
+                            تنظیمات
+                        </button>
+                        <script type="text/ng-template" id="temporary-modal.html">
+
+                            <div class="modal-bg temporary-file" data-ng-click="closeMe()">
+                                <div class="btf-modal" data-ng-click="$event.stopPropagation()">
+                                    <h3 class="modal-header1">
+                                        تنظیمات فایل ها
+                                    </h3>
+                                    <div class="modal-body">
+                                    <tabset>
+                                        <tab heading="تصاویر">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        نمایه
+                                                    </th>
+
+                                                </tr>
+                                                <tr ng-repeat="image in images">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{image.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{image.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="image.temporary" />
+                                                    </td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="image.is_thumbnail" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        <tab heading="تصاویر بدنه">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="bodyImage in bodyImages">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyImage.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{bodyImage.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="bodyImage.temporary" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        <tab heading="ویدئو ها">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="video in videos">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{video.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{video.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="video.temporary" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        <tab heading="ویدئو های بدنه">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="bodyVideo in bodyVideos">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyVideo.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{bodyVideo.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="bodyVideo.temporary" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        <tab heading="صدا ها">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="audio in audios">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{audio.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{audio.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="audio.temporary" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        <tab heading="صدا های بدنه">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        موقت
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="bodyAudio in bodyAudios">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyAudio.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{bodyAudio.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="bodyAudio.temporary" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                    </tabset>
+
+                                    </div>
+                                    <div class="modal-control-buttons-wrapper">
+                                        <button class="btn"  data-ng-click="closeMe()">
+                                            بستن
+                                        </button>
+                                        <button class="btn btn-info" data-ng-click="save()">
+                                            ذخیره
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
+                        
                     </div>
                 </div>
 
@@ -768,85 +1009,126 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     
                                     <div class="body-modal-content">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-4 body-modal-right">
                                                 <div class="body-attachments">
                                                     <div class="body-attachments-inner">
-
-                                                        <ul class="tab-list" ng-init="ValuesService.bodyAttachmentActiveTab = 'image'">
-                                                            <li class="pure-button "
-                                                                ng-class="{'tab-active': ValuesService.bodyAttachmentActiveTab === 'image'}"
-                                                                ng-click="ValuesService.bodyAttachmentActiveTab = 'image'">
-                                                                عکس
-                                                            </li>
-                                                            <li class="pure-button "
-                                                                ng-class="{'tab-active': ValuesService.bodyAttachmentActiveTab === 'video'}"
-                                                                ng-click="ValuesService.bodyAttachmentActiveTab = 'video'">
-                                                                فیلم
-                                                            </li>
-                                                            <li class="pure-button "
-                                                                ng-class="{'tab-active': ValuesService.bodyAttachmentActiveTab === 'audio'}"
-                                                                ng-click="ValuesService.bodyAttachmentActiveTab = 'audio'">
-                                                                صدا
-                                                            </li>
-                                                        </ul>
-                                                        <p ng-hide="!uploading">
-                                                            در حال بارگذاری...
-                                                        </p>
-                                                        <button class="btn upload-btn" data-ng-click="upload()" ng-disabled="!uploadable">
-                                                            بارگذاری
-                                                        </button>
-                                                        <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
-                                                            حذف
-                                                        </button>
-                                                        <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
-                                                            درج
-                                                        </button>
-                                                        <input class="html-upload" name='imageupload' type='file' ng-model='files' onchange='angular.element(this).scope().filesChanged(this)' />
-                                                        <div ng-switch="ValuesService.bodyAttachmentActiveTab">
-                                                            <div ng-switch-when="image" class="image">
-                                                                <ul class="image-list files-list">
-                                                                    <li class = "file" ng-repeat="image in RecordService.currentRecord.body_images" style="float: right" ng-click="RecordService.selectBodyImage(image)" ng-class="{'selected' : RecordService.selectedBodyImage.id == image.id}">
-                                                                        <img ng-src="{{image.absolute_path}}"  ng-click="RecordService.selectedBodyImage = image ;showImageShowModal(image)" />
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            checklist-model="RecordService.selectedBodyImages"
-                                                                            checklist-value="image"
+                                                        
+                                                        <tabset ng-init="selectTab('image')">
+                                                            <tab select="selectTab('image')" heading="عکس">
+                                                                <div class="image">
+                                                                    <ul class="image-list files-list">
+                                                                        <li class = "file" ng-repeat="image in RecordService.currentRecord.body_images" style="float: right" ng-click="RecordService.selectBodyImage(image)" ng-class="{'selected' : RecordService.selectedBodyImage.id == image.id}">
+                                                                            <img ng-src="{{image.absolute_path}}"  ng-click="RecordService.selectedBodyImage = image ;showImageShowModal(image)" />
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checklist-model="RecordService.selectedBodyImages"
+                                                                                checklist-value="image"
+                                                                                />
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </tab>
+                                                            <tab select="selectTab('video')" heading="فیلم">
+                                                                <div class="video">
+                                                                    <ul class="video-list files-list">
+                                                                        <li class = "file" ng-repeat="video in RecordService.currentRecord.body_videos" style="float: right" ng-click="RecordService.selectBodyVideo(video)" ng-class="{'selected' : RecordService.selectedBodyVideo.id == video.id}">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checklist-model="RecordService.selectedBodyVideos"
+                                                                                checklist-value="video"
                                                                             />
-                                                                    </li>
-                                                                </ul>
+                                                                            <span ng-click="RecordService.selectedBodyVideo =video" ng-bind="video.file_name"></span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </tab>
+                                                            <tab select="selectTab('audio')" heading="صدا">
+                                                                <div class="audio">
+                                                                    <ul class="audio-list files-list">
+                                                                        <li class = "file" ng-repeat="audio in RecordService.currentRecord.body_audios" style="float: right" ng-click="RecordService.selectBodyAudio(audio)" ng-class="{'selected' : RecordService.selectedBodyAudio.id == audio.id}">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checklist-model="RecordService.selectedBodyAudios"
+                                                                                checklist-value="audio"
+                                                                            />
+                                                                            <span ng-click="RecordService.selectedBodyAudio =audio" ng-bind="audio.file_name" ></span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </tab>
+                                                        </tabset>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        <div class="container body-modal-container">
+
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
+                                                                        حذف
+                                                                    </button>
+                                                                    <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
+                                                                        درج
+                                                                    </button>
+                                                                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+
+                                                                </div>
+
+                                                                <div class="col-md-12" style="margin-bottom: 40px">
+                                                                    
+                                                                            <div ng-repeat="item in uploader.queue">
+                                                                                <div>
+                                                                                    <strong>{{ item.file.name }}</strong>
+                                                                                    <!-- Image preview -->
+                                                                                    <!--auto height-->
+                                                                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                                                                    <!--auto width-->
+
+                                                                                    <!--fixed width and height -->
+                                                                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                                                                </div>
+                                                                                <div ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</div>
+                                                                                <div ng-show="uploader.isHTML5">
+                                                                                    <div class="progress" style="margin-bottom: 0;">
+                                                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="text-center">
+                                                                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                                                </div>
+                                                                                <div nowrap>
+                                                                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                                                        <span class="glyphicon glyphicon-upload"></span> Upload
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                                                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+
+                                                                    
+
+                                                                </div>
 
                                                             </div>
-                                                            <div ng-switch-when="video" class="video">
-                                                                <ul class="video-list files-list">
-                                                                    <li class = "file" ng-repeat="video in RecordService.currentRecord.body_videos" style="float: right" ng-click="RecordService.selectBodyVideo(video)" ng-class="{'selected' : RecordService.selectedBodyVideo.id == video.id}">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            checklist-model="RecordService.selectedBodyVideos"
-                                                                            checklist-value="video"
-                                                                        />
-                                                                        <span ng-click="RecordService.selectedBodyVideo =video" ng-bind="video.file_name"></span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div ng-switch-when="audio" class="audio">
-                                                                <ul class="audio-list files-list">
-                                                                    <li class = "file" ng-repeat="audio in RecordService.currentRecord.body_audios" style="float: right" ng-click="RecordService.selectBodyAudio(audio)" ng-class="{'selected' : RecordService.selectedBodyAudio.id == audio.id}">
-                                                                        <input
-                                                                            type="checkbox"
-                                                                            checklist-model="RecordService.selectedBodyAudios"
-                                                                            checklist-value="audio"
-                                                                        />
-                                                                        <span ng-click="RecordService.selectedBodyAudio =audio" ng-bind="audio.file_name" ></span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+
                                                         </div>
-
-
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-10">
+                                            <div class="col-md-8">
                                                 <div class="body-editor">
                                                     <textarea ckeditor="bodyEditorOptions" ng-model="RecordService.currentRecord.body"></textarea>
 
@@ -1069,6 +1351,8 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-media-player/dist/angular-media-player.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js') ?>"></script>
+    
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-file-upload/angular-file-upload.js') ?>"></script>
 
 <!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-google-maps/dist/angular-google-maps.min.js') ?><!--"></script>-->
 <!---->

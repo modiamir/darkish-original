@@ -86,6 +86,26 @@ class ManagedFile
      *
      */
     private $status;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="temporary", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"record.details"})
+     *
+     */
+    private $temporary;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"record.details"})
+     *
+     */
+    private $isThumbnail;
+    
+    
 
     /**
      * @var \DateTime
@@ -508,5 +528,51 @@ class ManagedFile
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
+    }
+
+    /**
+     * Set temporary
+     *
+     * @param boolean $temporary
+     * @return ManagedFile
+     */
+    public function setTemporary($temporary)
+    {
+        $this->temporary = $temporary;
+
+        return $this;
+    }
+
+    /**
+     * Get temporary
+     *
+     * @return boolean 
+     */
+    public function getTemporary()
+    {
+        return $this->temporary;
+    }
+
+    /**
+     * Set isThumbnail
+     *
+     * @param boolean $isThumbnail
+     * @return ManagedFile
+     */
+    public function setIsThumbnail($isThumbnail)
+    {
+        $this->isThumbnail = $isThumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get isThumbnail
+     *
+     * @return boolean 
+     */
+    public function getIsThumbnail()
+    {
+        return $this->isThumbnail;
     }
 }

@@ -46,6 +46,7 @@ class UserController extends Controller
         $securityContext = $this->container->get('security.context');
         /* @var $securityContext \Symfony\Component\Security\Core\SecurityContext */
         $res = $securityContext->getToken()->isAuthenticated();
+        
 
         return new JsonResponse(array($res));
     }
