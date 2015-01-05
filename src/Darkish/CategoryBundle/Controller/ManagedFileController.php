@@ -120,7 +120,7 @@ class ManagedFileController extends Controller
 
     }
     
-    public function setTemporaryThumbnailAction(Request $request) {
+    public function setContinualThumbnailAction(Request $request) {
         $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */
         $data = $serializer->deserialize($request->get('data'), 'array', 'json');
@@ -139,14 +139,14 @@ class ManagedFileController extends Controller
         
         
         /**
-         * settings isThumbnail and temporary for files
+         * settings isThumbnail and continual for files
          */
         
         foreach($files as $key => $file) {
             /* @var $managedFile \Darkish\CategoryBundle\Entity\ManagedFile */
             $managedFile = $repo->find($file['id']);
             $managedFile->setIsThumbnail($file['is_thumbnail']);
-            $managedFile->setTemporary($file['temporary']);
+            $managedFile->setContinual($file['continual']);
             
             $em->persist($managedFile);
             
