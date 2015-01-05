@@ -1432,15 +1432,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-        };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
             switch(response.upload_dir) {
                 case 'image':
                     RecordService.addToImagesList(response);
@@ -1454,6 +1445,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             }
             alert('فایل با موفقیت بارگزاری شد.');
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
