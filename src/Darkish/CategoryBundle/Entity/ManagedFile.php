@@ -90,11 +90,11 @@ class ManagedFile
     /**
      * @var boolean
      *
-     * @ORM\Column(name="temporary", type="boolean", nullable=true, options={"default":0})
+     * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
      * @Groups({"record.details"})
      *
      */
-    private $temporary;
+    private $continual;
     
     /**
      * @var boolean
@@ -530,28 +530,7 @@ class ManagedFile
         $this->file = null;
     }
 
-    /**
-     * Set temporary
-     *
-     * @param boolean $temporary
-     * @return ManagedFile
-     */
-    public function setTemporary($temporary)
-    {
-        $this->temporary = $temporary;
-
-        return $this;
-    }
-
-    /**
-     * Get temporary
-     *
-     * @return boolean 
-     */
-    public function getTemporary()
-    {
-        return $this->temporary;
-    }
+    
 
     /**
      * Set isThumbnail
@@ -574,5 +553,28 @@ class ManagedFile
     public function getIsThumbnail()
     {
         return $this->isThumbnail;
+    }
+
+    /**
+     * Set continual
+     *
+     * @param boolean $continual
+     * @return ManagedFile
+     */
+    public function setContinual($continual)
+    {
+        $this->continual = $continual;
+
+        return $this;
+    }
+
+    /**
+     * Get continual
+     *
+     * @return boolean 
+     */
+    public function getContinual()
+    {
+        return $this->continual;
     }
 }

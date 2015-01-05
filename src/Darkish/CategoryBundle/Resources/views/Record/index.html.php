@@ -227,7 +227,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                             <div class="main-fields-owner">
                                 <label class="trip-maker-title first-section-fields-title" for="trip-maker-combo">
-                                    کلاس دسترسی
+                                    سطح دسترسی
                                 </label>
                                 <select id="trip-maker-combo" ng-model="RecordService.currentRecord.access_class" ng-disabled="!RecordService.isEditing()" class="first-section-input">
                                     <option ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
@@ -559,12 +559,41 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
                             <div class="map-button">
-                                <button class="btn map">مکان نقشه</button>
+                                <button ng-disabled="!RecordService.isEditing()" ng-click="showMapModal()" class="btn map">مکان نقشه</button>
+                                <script type="text/ng-template" id="map-modal.html">
+                                    <div class="modal-bg" data-ng-click="closeMe()">
+                                        <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
+                                            <h3 class="modal-header1">
+                                                عناوین
+                                            </h3>
+                                            <div class="modal-body">
+
+                                                <div class="google-map-selector">
+                                                    <ui-gmap-google-map center='map.center' zoom='map.zoom' events='map.events'>
+                                                        <ui-gmap-marker coords="map.marker.coords" options="map.marker.options" events="map.marker.events" idkey="map.marker.id">
+                                                        </ui-gmap-marker>
+                                                    </ui-gmap-google-map>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-control-buttons-wrapper">
+                                                <button class="btn" data-ng-click="closeMe()">
+                                                    انصراف
+                                                </button>
+                                                <button class="btn" data-ng-click="apply()">
+                                                    تایید
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </script>
                             </div>
                             <div class="form-item-wrapper map">
                                 <input type="text" id="latitude" ng-model="RecordService.currentRecord.latitude" ng-disabled="!RecordService.isEditing()" />
                                 <input type="text" id="longitude" ng-model="RecordService.currentRecord.longitude" ng-disabled="!RecordService.isEditing()" />
+                                
                             </div>
+                            
                             
 
 
@@ -592,11 +621,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <span data-ng-click="RecordService.toggleCapability('online_ticket')"
                                   ng-class="{'active' : RecordService.currentRecord.online_ticket == true, 'inactive' : RecordService.currentRecord.online_ticket != true}"
                                 class="capabilites-buttons ticket inactive">     </span>
-                            <span data-ng-click="RecordService.toggleCapability('audio')"
-                                  ng-class="{'active' : RecordService.currentRecord.audio == true, 'inactive' : RecordService.currentRecord.audio != true}"
+                            <span ng-class="{'active' : RecordService.hasAudio() == true, 'inactive' : RecordService.hasAudio() != true}"
                                 class="capabilites-buttons sound inactive">    </span>
-                            <span data-ng-click="RecordService.toggleCapability('video')"
-                                  ng-class="{'active' : RecordService.currentRecord.video == true, 'inactive' : RecordService.currentRecord.video != true}"
+                            <span ng-class="{'active' : RecordService.hasVideo() == true, 'inactive' : RecordService.hasVideo() != true}"
                                 class="capabilites-buttons video inactive">     </span>
                         </div>
                     </div>
@@ -813,19 +840,31 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 data-ng-click="RecordService.removeFromAttachList()">
                             حذف
                         </button>
-                        <button class="btn btn-info btn-temporary-modal" ng-disabled="!RecordService.isEditing()"
-                                data-ng-click="showTemporaryModal()">
+                        <button class="btn btn-info btn-continual-modal" ng-disabled="!RecordService.isEditing()"
+                                data-ng-click="showContinualModal()">
                             تنظیمات
                         </button>
-                        <script type="text/ng-template" id="temporary-modal.html">
+                        <script type="text/ng-template" id="continual-modal.html">
 
-                            <div class="modal-bg temporary-file" data-ng-click="closeMe()">
+                            <div class="modal-bg continual-file" data-ng-click="closeMe()">
                                 <div class="btf-modal" data-ng-click="$event.stopPropagation()">
                                     <h3 class="modal-header1">
                                         تنظیمات فایل ها
                                     </h3>
                                     <div class="modal-body">
-                                    <tabset>
+                                    <div class="row">
+                                        <div class="col col-md-6 center" style="text-align: center;
+                                                                                border-bottom: 1px solid rgb(110, 181, 95);
+                                                                                padding-bottom: 5px;">
+                                            رکورد
+                                        </div>
+                                        <div class="col col-md-6 center" style="text-align: center;
+                                                                                border-bottom: 1px solid rgb(117, 95, 181);
+                                                                                padding-bottom: 5px;">
+                                            صفحه HTML
+                                        </div>
+                                    </div>
+                                    <tabset justified="true">
                                         <tab heading="تصاویر">
                                             <table class="table table-striped" 
                                                 style="height: 300px;overflow-y: scroll;display: inline-block;">
@@ -837,7 +876,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         پیش نمایش
                                                     </th>
                                                     <th style="width: 10%">
-                                                        موقت
+                                                        دائمی
                                                     </th>
                                                     <th style="width: 10%">
                                                         نمایه
@@ -848,33 +887,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                     <td style="width: 50%; overflow-wrap: break-word;">{{image.file_name}}</td>
                                                     <td style="width: 30%"><img ng-src="{{image.absolute_path}}" width="50" /></td>
                                                     <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="image.temporary" />
+                                                        <input type="checkbox" ng-model="image.continual" />
                                                     </td>
                                                     <td style="width: 10%">
                                                         <input type="checkbox" ng-model="image.is_thumbnail" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        <tab heading="تصاویر بدنه">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        موقت
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="bodyImage in bodyImages">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyImage.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{bodyImage.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyImage.temporary" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -890,19 +906,19 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         پیش نمایش
                                                     </th>
                                                     <th style="width: 10%">
-                                                        موقت
+                                                        دائمی
                                                     </th>
                                                 </tr>
                                                 <tr ng-repeat="video in videos">
                                                     <td style="width: 50%; overflow-wrap: break-word;">{{video.file_name}}</td>
                                                     <td style="width: 30%"><img ng-src="{{video.absolute_path}}" width="50" /></td>
                                                     <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="video.temporary" />
+                                                        <input type="checkbox" ng-model="video.continual" />
                                                     </td>
                                                 </tr>
                                             </table>
                                         </tab>
-                                        <tab heading="ویدئو های بدنه">
+                                        <tab heading="صدا ">
                                             <table class="table table-striped" 
                                                 style="height: 300px;overflow-y: scroll;display: inline-block;">
                                                 <tr>
@@ -910,45 +926,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         نام فایل
                                                     </th>
                                                     <th style="width: 30%">
-                                                        پیش نمایش
+                                                        آیکون
                                                     </th>
                                                     <th style="width: 10%">
-                                                        موقت
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="bodyVideo in bodyVideos">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyVideo.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{bodyVideo.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyVideo.temporary" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        <tab heading="صدا ها">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        موقت
+                                                        دائمی
                                                     </th>
                                                 </tr>
                                                 <tr ng-repeat="audio in audios">
                                                     <td style="width: 50%; overflow-wrap: break-word;">{{audio.file_name}}</td>
                                                     <td style="width: 30%"><img ng-src="{{audio.absolute_path}}" width="50" /></td>
                                                     <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="audio.temporary" />
+                                                        <input type="checkbox" ng-model="audio.continual" />
                                                     </td>
                                                 </tr>
                                             </table>
                                         </tab>
-                                        <tab heading="صدا های بدنه">
+                                        <tab heading="تصاویر ">
                                             <table class="table table-striped" 
                                                 style="height: 300px;overflow-y: scroll;display: inline-block;">
                                                 <tr>
@@ -959,14 +952,62 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                         پیش نمایش
                                                     </th>
                                                     <th style="width: 10%">
-                                                        موقت
+                                                        دائمی
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="bodyImage in bodyImages">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyImage.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{bodyImage.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="bodyImage.continual" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        
+                                        <tab heading="ویدئو ها ">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        دائمی
+                                                    </th>
+                                                </tr>
+                                                <tr ng-repeat="bodyVideo in bodyVideos">
+                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyVideo.file_name}}</td>
+                                                    <td style="width: 30%"><img ng-src="{{bodyVideo.absolute_path}}" width="50" /></td>
+                                                    <td style="width: 10%">
+                                                        <input type="checkbox" ng-model="bodyVideo.continual" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tab>
+                                        
+                                        <tab heading="صدا">
+                                            <table class="table table-striped" 
+                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                                <tr>
+                                                    <th style="width: 50%">
+                                                        نام فایل
+                                                    </th>
+                                                    <th style="width: 30%">
+                                                        پیش نمایش
+                                                    </th>
+                                                    <th style="width: 10%">
+                                                        دائمی
                                                     </th>
                                                 </tr>
                                                 <tr ng-repeat="bodyAudio in bodyAudios">
                                                     <td style="width: 50%; overflow-wrap: break-word;">{{bodyAudio.file_name}}</td>
                                                     <td style="width: 30%"><img ng-src="{{bodyAudio.absolute_path}}" width="50" /></td>
                                                     <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyAudio.temporary" />
+                                                        <input type="checkbox" ng-model="bodyAudio.continual" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1149,6 +1190,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
         </div>
         <div class="row list">
             <div class="col col-lg-12">
+                
 
                 <div class="grid-block">
                     <table st-table="recordList()" class="table table-striped" infinite-scroll="RecordService.searchRecords(RecordService.recordList().length)">
@@ -1354,10 +1396,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-file-upload/angular-file-upload.js') ?>"></script>
 
-<!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-google-maps/dist/angular-google-maps.min.js') ?><!--"></script>-->
-<!---->
-<!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?><!--"></script>-->
-<!---->
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-google-maps/dist/angular-google-maps.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?>"></script>
+
+    
 <!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 
 

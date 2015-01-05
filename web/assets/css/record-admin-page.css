@@ -190,15 +190,27 @@ body{
     width: 100%;
 }
 
-.modal-bg.temporary-file .btf-modal{
+.modal-bg.continual-file .btf-modal{
     background: rgb(255, 255, 255);
     border: 3px solid;
     
     padding: 0 5px;
 }
 
-.modal-bg.temporary-file .btf-modal ul.nav-tabs li {
+.modal-bg.continual-file .btf-modal ul.nav-tabs li {
     font-size: 10px;
+}
+
+.modal-bg.continual-file .btf-modal ul.nav-tabs li:nth-child(3) {
+    border-left: 2px solid rgb(110, 181, 95);
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
+.modal-bg.continual-file .btf-modal ul.nav-tabs li:nth-child(4) {
+    border-right: 2px solid rgb(117, 95, 181);
+    padding-right: 3px;
+    padding-top: 3px;
 }
 
 
@@ -1241,7 +1253,7 @@ h3.block-title {
     margin-top: 5%;
 }
 
-.btn-temporary-modal {
+.btn-continual-modal {
     width: 75%;
     margin-right: 11%;
     margin-top: 5%;
@@ -1496,4 +1508,12 @@ form.loaded {
 
 .logout-btn {
 
+}
+
+.google-map-selector {
+    width: 100%;
+    clear: both;
+}
+.google-map-selector .angular-google-map-container {
+    height: 300px;    
 }

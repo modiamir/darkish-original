@@ -88,7 +88,7 @@ class RecordController extends Controller
                 $em->persist($record);
                 $em->flush();
                 
-                $this->setTemporaryThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
                 
                 return new Response($serializer->serialize($record, 'json'));
 
@@ -143,7 +143,7 @@ class RecordController extends Controller
                 $em->persist($record);
                 $em->flush();
 
-                $this->setTemporaryThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
                 
                 
 
@@ -658,7 +658,7 @@ class RecordController extends Controller
     }
     
     
-    private function setTemporaryThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios) {
+    private function setContinualThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios) {
 //        $serializer = $this->get('jms_serializer');
 //            /* @var $serializer JMSSerializer */
 //        $data = $serializer->deserialize($request->get('data'), 'array', 'json');
@@ -677,7 +677,7 @@ class RecordController extends Controller
         
         
         /**
-         * settings isThumbnail and temporary for files
+         * settings isThumbnail and continual for files
          */
         
         foreach($files as $key => $file) {
@@ -688,10 +688,10 @@ class RecordController extends Controller
             } else {
                 $managedFile->setIsThumbnail(false);
             }
-            if(isset($file['temporary'])) {
-                $managedFile->setTemporary($file['temporary']);
+            if(isset($file['continual'])) {
+                $managedFile->setContinual($file['continual']);
             } else {
-                $managedFile->setTemporary(false);
+                $managedFile->setContinual(false);
             }
             
             
