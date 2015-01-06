@@ -564,7 +564,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <div class="modal-bg" data-ng-click="closeMe()">
                                         <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
                                             <h3 class="modal-header1">
-                                                عناوین
+                                                نقشه
                                             </h3>
                                             <div class="modal-body">
 
