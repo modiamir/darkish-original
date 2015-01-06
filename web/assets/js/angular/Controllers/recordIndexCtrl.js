@@ -637,7 +637,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(response){
                         recordList.remove(selectedRecord);
                         self.currentRecord = {}
-                        continualRecord = {}
+                        temporaryRecord = {}
                         serv.deactivate();
                     },
                     function(responseErr){
@@ -725,7 +725,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             return recordList.all();
         };
 
-        var continualRecord = {}
+        var temporaryRecord = {}
 
         self.file = null;
 
@@ -752,7 +752,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             }).then(
                                 function(response){
                                     if(response.data == 0){
-                                        continualRecord = angular.copy(self.currentRecord);
+                                        temporaryRecord = angular.copy(self.currentRecord);
                                         self.currentRecord = angular.copy({});
                                         self.currentRecord.record_number = result;
                                         self.currentRecord.treeList = Collection.getInstance();
@@ -867,12 +867,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         self.editing = function() {
-            continualRecord = angular.copy(self.currentRecord);
+            temporaryRecord = angular.copy(self.currentRecord);
             editing = true;
         }
 
         self.cancelEditing = function() {
-            self.currentRecord = angular.copy(continualRecord);
+            self.currentRecord = angular.copy(temporaryRecord);
             editing = false;
         }
 
@@ -914,7 +914,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         self.finishEditing = function() {
-            self.continualRecord = {}
+            temporaryRecord = {}
             editing = false;
         }
 
@@ -1158,7 +1158,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-        self.saveCurrentRecord = function() {
+        self.saveCurrentRecord = function(contin) {
+            contin = (contin)? true : false;
             self.savingMessages = {}
             if(self.isNew()) {
 
@@ -1169,8 +1170,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
                         self.saved = true;
-                        self.searchRecords();
-                        self.finishEditing();
+                        self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
+                        if(!contin) {
+                            self.searchRecords();
+                            self.finishEditing();
+                        } else {
+                            temporaryRecord = angular.copy(self.currentRecord);
+                        }
                     },
                     function(errResponse){
                         self.saved = true;
@@ -1183,8 +1189,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         self.currentReocrd = response;
                         self.saved = true;
                         self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
-                        self.searchRecords();
-                        self.finishEditing();
+                        if(!contin) {
+                            self.searchRecords();
+                            self.finishEditing();
+                        }else {
+                            temporaryRecord = angular.copy(self.currentRecord);
+                        }
                     },
                     function(errResponse){
                         self.saved = true;
@@ -1689,7 +1699,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             'B Koodak;'+
             'Roya;'+
             'Tahoma;',
-            contentsCss : '../../../assets/css/ckeditor-body.css',
+            contentsCss : '../../assets/css/ckeditor-body.css',
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },

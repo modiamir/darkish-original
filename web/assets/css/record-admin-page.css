@@ -14,8 +14,13 @@ body{
     padding-bottom: 5px;
 }
 
-.news-top {
+.record-top {
     padding: 3px 0;
+}
+
+.record-top button{
+    font-size: 12px;
+    padding: 6px 8px;
 }
 
 .navbar-brand {

@@ -128,13 +128,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     <div class="basic-info-right-col">
                         <div class="record-title">
                             <div class="field-title record-title-title">عنوان:</div>
-                            <input type="text" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title" ng-disabled="!RecordService.isEditing()" required>
+                            <input type="text" ng-maxlength="70" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title" ng-disabled="!RecordService.isEditing()" required>
                             <button data-ng-click="showTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
                         </div>
 
                         <div class="record-subtitle">
                             <div class="field-title record-title-title">زیر عنوان:</div>
-                            <input  type="text" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title" ng-disabled="!RecordService.isEditing()" required>
+                            <input  type="text" ng-maxlength="70" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title" ng-disabled="!RecordService.isEditing()" required>
                         </div>
 
                         <script type="text/ng-template" id="titles-modal.html">
@@ -151,12 +151,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             <label for="english-title">
                                             عنوان
                                             </label>
-                                            <input id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
 
                                             <label for="english-sub-title">
     زیر عنوان
                                             </label>
-                                            <input id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
 
 
                                         <h4 class="modal-header2">
@@ -165,12 +165,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             <label for="arabic-title">
                                             عنوان
                                             </label>
-                                            <input id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
 
                                             <label for="arabic-sub-title">
                                                 زیر عنوان
                                             </label>
-                                            <input id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
 
 
                                         <h4 class="modal-header2">
@@ -180,12 +180,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             <label for="turkish-title">
                                                 عنوان
                                             </label>
-                                            <input id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
 
                                             <label for="turkish-sub-title">
                                                 زیر عنوان
                                             </label>
-                                            <input id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                            <input ng-maxlength="70" id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
 
                                     </div>
                                     <div class="modal-control-buttons-wrapper">
@@ -1291,7 +1291,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('top-actions');?>
-    <div  class="news-top show-grid ">
+    <div  class="record-top show-grid ">
 
         <div class="col-md-4">
             <button ng-disabled="RecordService.isEditing()" type="button" class="btn btn-primary" ng-click="RecordService.editingNew()">
@@ -1325,6 +1325,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             </button>
             <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
                 ذخیره
+            </button>
+            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
+                ذخیره و ادامه
             </button>
             <script type="text/ng-template" id="saving-modal.html">
 
