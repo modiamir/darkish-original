@@ -142,7 +142,13 @@ class RecordController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($record);
                 $em->flush();
-
+                $data['images'] = (isset($data['images']))?$data['images']:[];
+                $data['body_images'] = (isset($data['body_images']))?$data['body_images']:[];
+                $data['videos'] = (isset($data['videos']))?$data['videos']:[];
+                $data['body_videos'] = (isset($data['body_videos']))?$data['body_videos']:[];
+                $data['audios'] = (isset($data['audios']))?$data['audios']:[];
+                $data['body_audios'] = (isset($data['body_audios']))?$data['body_audios']:[];
+                
                 $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
                 
                 
