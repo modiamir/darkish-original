@@ -19,9 +19,199 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         });
     }])      
     .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval', 'poollingFactory',
-                                    'continualModal', 'mapModal',
-    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval, poollingFactory, continualModal, mapModal) {
+                                    'continualModal', 'mapModal','FileUploader',
+    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval, poollingFactory, continualModal, mapModal,FileUploader) {
 
+
+
+
+        /**
+         * 
+         * uploader
+         */
+
+        var uploader = $scope.uploader = new FileUploader({
+            url: '../managedfile/ajax/upload'
+        });
+        uploader.withCredentials = true;
+        uploader.queueLimit =10 ;
+        uploader.autoUpload = true;
+        uploader.removeAfterUpload = true;
+        uploader.formData.push({uploadDir : ValuesService.activeTab});
+        uploader.formData.push({type : 'record'});
+        uploader.msg = "";
+        
+        
+        // FILTERS
+            
+        uploader.filters.push({
+            name: 'imageTypeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'image') {
+                    uploadableType = "image";
+                    uploadableExtensions = ["jpg", "jpeg"];
+                    fileType = item.type.split("/")[0];
+                    fileExtension = item.type.split("/")[1];
+                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'imageSizeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'image') {
+                    if(item.size > 300000) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'videoTypeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'video') {
+                    uploadableType = "video";
+                    uploadableExtensions = ["mp4"];
+                    fileType = item.type.split("/")[0];
+                    fileExtension = item.type.split("/")[1];
+                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'videoSizeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'video') {
+                    if(item.size > 10000000) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'audioTypeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'audio') {
+                    uploadableType = "audio";
+                    uploadableExtensions = ["mp3"];
+                    fileType = item.type.split("/")[0];
+                    fileExtension = item.type.split("/")[1];
+                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'audioSizeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'audio') {
+                    if(item.size > 4000000) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+
+        // CALLBACKS
+
+        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+            switch(filter.name) {
+                case 'imageTypeFilter':
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.';
+                    break;
+                case 'imageSizeFilter':
+                    uploader.msg = 'imageSizeFilter';
+                    break;
+                case 'audioTypeFilter':
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   mp3  آپلود کنید.';
+                    break;
+                case 'audioSizeFilter':
+                    uploader.msg = 'audioSizeFilter';
+                    break;
+                case 'videoTypeFilter':
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   mp4  آپلود کنید.';
+                    break;
+                case 'videoSizeFilter':
+                    uploader.msg = 'videoSizeFilter';
+                    break;
+                
+            }
+        };
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+            switch(response.upload_dir) {
+                case 'image':
+                    RecordService.addToImagesList(response);
+                    break;
+                case 'video':
+                    RecordService.addToVideosList(response);
+                    break;
+                case 'audio':
+                    RecordService.addToAudiosList(response);
+                    break;
+
+            }
+            uploader.msg = 'فایل با موفقیت بارگزاری شد.';
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+        };
+
+        console.info('uploader', uploader);
+        //////////////////////////
 
 
         /**
@@ -1877,7 +2067,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         self.safarsazRanks = [];
-        for(var i = 1; i<=30; i++) {
+        for(var i = 1; i<=10; i++) {
             self.safarsazRanks.push({
                 id: i,
                 name: i

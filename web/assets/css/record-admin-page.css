@@ -313,6 +313,40 @@ body{
     height: 530px;
 }
 
+.main-wrapper .main-cols .file-upload-row {
+    margin: 0;
+    height: 40px;
+    clear: both;
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;   
+}
+
+.main-wrapper .file-upload-row .col {
+    border: none;
+    padding-top: 5px;
+}
+
+.main-wrapper .file-upload-row .btn {
+    height: 25px;
+    line-height: 25px;
+    padding: 0px 5px;
+    font-size: 12px;
+}
+
+.main-wrapper .file-upload-row .progress {
+    height: 25px;
+    margin-top: 2px;
+    width: 90%;
+    margin-right: 5%;
+}
+
+.main-wrapper .file-upload-row .message-box {
+    padding-top: 0;
+}
+.main-wrapper .file-upload-row .uploader-msg {
+    font-size: 10px;
+}
 .main-tree-block ul.filter-links{
     border-bottom: 1px solid #CCCCCC;
     padding-right: 0;
@@ -1179,7 +1213,7 @@ h3.block-title {
 .html-wrapper {
     position: static;
     margin: 10px 5px;
-    height: 390px;
+    height: 350px;
     overflow-y: scroll;
     width: 98%;
     overflow-wrap: break-word;
