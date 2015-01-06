@@ -43,7 +43,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -57,7 +57,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -71,7 +71,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -85,7 +85,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -99,7 +99,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -113,7 +113,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -127,7 +127,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -141,7 +141,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
