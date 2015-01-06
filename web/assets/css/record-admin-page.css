@@ -1551,3 +1551,44 @@ form.loaded {
 .google-map-selector .angular-google-map-container {
     height: 300px;    
 }
+
+
+label.file-select:hover {
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+
+label.file-select {
+    background: #2d89ef;
+    width: 75%;
+    margin-right: 11%;
+    margin-top: 5%;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 10px;
+    color: white;
+    padding: 10px 0;
+}
+
+label.file-select.disabled {
+    cursor: default;
+    background-color: #AECDEF;
+    border: none;
+}
+

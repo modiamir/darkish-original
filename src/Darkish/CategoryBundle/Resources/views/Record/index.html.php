@@ -781,7 +781,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </button>-->
                         
                         
-                        <label>
+                        <label class="file-select" ng-class="{'disabled': !RecordService.isEditing()}">
                             انتخاب فایل
                             <input ng-disabled="!RecordService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                         </label>
