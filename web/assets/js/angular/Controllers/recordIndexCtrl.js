@@ -49,7 +49,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg"];
+                    uploadableExtensions = ["jpg", "jpeg", "png"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -146,7 +146,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             console.info('onWhenAddingFileFailed', item, filter, options);
             switch(filter.name) {
                 case 'imageTypeFilter':
-                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.';
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا png یا   jpg آپلود کنید.';
                     break;
                 case 'imageSizeFilter':
                     uploader.msg = 'imageSizeFilter';
@@ -353,9 +353,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.isLoggedIn = function() {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
-                    console.log(response);
+//                    console.log(response);
                     if(response.data[0] === true) {
-                        console.log('you are logged in');
+//                        console.log('you are logged in');
                     } else {
                         $scope.loggedOut();
                     }
@@ -1173,7 +1173,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         self.finishEditing();
                     },
                     function(errResponse){
-
+                        self.saved = true;
+                        self.savingMessages = errResponse.data;
                     }
                 );
             } else {
@@ -1192,6 +1193,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 );
             }
         }
+        
+        
 
         self.changeWorkingDays = function() {
 
@@ -1671,11 +1674,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             height: '300px',
             uiColor: '#e8ede0',
             extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight",
-            line_height:"1em;1.1em;1.2em;1.3em;1.4em;1.5em;1.6;1.7;1.8;1.9;2;",
+            line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,
             stylesSet : 'my_styles',
-            colorButton_colors: '00923E,F8C100,28166F',
+            colorButton_colors: '008299,2672EC,8C0095,5133AB,AC193D,D24726,008A00,094AB2,FFFFFF,A0A0A0,4B4B4B,F3B200,77B900,2572EB,AD103C,00A3A3,FE7C22,FFFFFF,FFFFFF,FFFFFF,FFFFFF,FFFFFF,FFFFFF,FFFFFF,00A0B1,2E8DEF,A700AE,643EBF,BF1E4B,DC572E,00A600,0A5BC4,DCDCDC,8C8C8C,323232,FFF000,00CA00,3F90FF,FF5757,00F5F5,FE9E3C',
             colorButton_enableMore: true,
             font_names :
             'Arial/Arial, Helvetica, sans-serif;' +
@@ -1733,10 +1736,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             url: '../managedfile/ajax/upload'
         });
         uploader.withCredentials = true;
-        uploader.queueLimit =1 ;
-//        uploader.autoUpload = true;
+        uploader.queueLimit =10 ;
+        uploader.autoUpload = true;
         uploader.removeAfterUpload = true;
-        
+        uploader.msg = "";
         uploader.formData.push({type : 'record'});
         
         $scope.selectTab = function(currentTab) {
@@ -1751,7 +1754,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg"];
+                    uploadableExtensions = ["jpg", "jpeg", "png"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -1848,22 +1851,22 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             console.info('onWhenAddingFileFailed', item, filter, options);
             switch(filter.name) {
                 case 'imageTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.');
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.';
                     break;
                 case 'imageSizeFilter':
-                    alert('imageSizeFilter');
+                    uploader.msg = 'imageSizeFilter';
                     break;
                 case 'audioTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   mp3  آپلود کنید.');
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   mp3  آپلود کنید.';
                     break;
                 case 'audioSizeFilter':
-                    alert('audioSizeFilter');
+                    uploader.msg = 'audioSizeFilter';
                     break;
                 case 'videoTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   mp4  آپلود کنید.');
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   mp4  آپلود کنید.';
                     break;
                 case 'videoSizeFilter':
-                    alert('videoSizeFilter');
+                    uploader.msg = 'videoSizeFilter';
                     break;
                 
             }
@@ -1906,7 +1909,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     break;
 
             }
-            alert('فایل با موفقیت بارگزاری شد.');
+            uploader.msg = 'فایل با موفقیت بارگزاری شد.';
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');

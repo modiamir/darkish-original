@@ -1161,45 +1161,32 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                                     <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
                                                                         درج
                                                                     </button>
-                                                                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+                                                                    <label class="file-select" ng-class="{'disabled': !RecordService.isEditing()}">
+                                                                        انتخاب فایل
+                                                                        <input ng-disabled="!RecordService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                                                                    </label>
 
                                                                 </div>
 
                                                                 <div class="col-md-12" style="margin-bottom: 40px">
                                                                     
-                                                                            <div ng-repeat="item in uploader.queue">
-                                                                                <div>
-                                                                                    <strong>{{ item.file.name }}</strong>
-                                                                                    <!-- Image preview -->
-                                                                                    <!--auto height-->
-                                                                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-                                                                                    <!--auto width-->
-
-                                                                                    <!--fixed width and height -->
-                                                                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
-                                                                                </div>
-                                                                                <div ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</div>
-                                                                                <div ng-show="uploader.isHTML5">
-                                                                                    <div class="progress" style="margin-bottom: 0;">
-                                                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                            <div class="row file-upload-row">
+                                                                                <div class="col col-md-4">
+                                                                                    <div class="progress" style="">
+                                                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="text-center">
-                                                                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                                                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                                                                </div>
-                                                                                <div nowrap>
-                                                                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                                                                        <span class="glyphicon glyphicon-upload"></span> Upload
-                                                                                    </button>
-                                                                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                                                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                                                                                    </button>
-                                                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                                                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                                                                <div class="col col-md-2">
+                                                                                    <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                                                                                        انصراف
                                                                                     </button>
                                                                                 </div>
+                                                                                <div class="col col-md-6 message-box">
+                                                                                    <span class="uploader-msg" ng-bind="uploader.msg">
+
+                                                                                    </span>
+                                                                                </div>
+
                                                                             </div>
                                                                         
 
