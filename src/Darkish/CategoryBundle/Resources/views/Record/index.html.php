@@ -315,6 +315,26 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <option value=8> 8 </option>
                                     <option value=9> 9 </option>
                                     <option value=10> 10 </option>
+                                    <option value=1> 11 </option>
+                                    <option value=2> 12 </option>
+                                    <option value=3> 13 </option>
+                                    <option value=4> 14 </option>
+                                    <option value=5> 15 </option>
+                                    <option value=6> 16 </option>
+                                    <option value=7> 17 </option>
+                                    <option value=8> 18 </option>
+                                    <option value=9> 19 </option>
+                                    <option value=10> 20 </option>
+                                    <option value=1> 21 </option>
+                                    <option value=2> 22 </option>
+                                    <option value=3> 23 </option>
+                                    <option value=4> 24 </option>
+                                    <option value=5> 25 </option>
+                                    <option value=6> 26 </option>
+                                    <option value=7> 27 </option>
+                                    <option value=8> 28 </option>
+                                    <option value=9> 29 </option>
+                                    <option value=10> 30 </option>
                                 </select>
                                
                             </div>
@@ -632,6 +652,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             </div>
 
             <div class="col col-md-4 main-left main-cols">
+                <div class="row file-upload-row">
+                    <div class="col col-md-4">
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2">
+                        <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                            انصراف
+                        </button>
+                    </div>
+                    <div class="col col-md-6 message-box">
+                        <span class="uploader-msg" ng-bind="uploader.msg">
+                            
+                        </span>
+                    </div>
+                    
+                </div>
                 <div class="row attachements-wrapper">
                     <div class="col-md-2 right">
                         <ul class="tab-list" ng-init="ValuesService.activeTab = 'image'">
@@ -738,9 +776,16 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </div>
                     </div>
                     <div class="col-md-2 left">
-                        <button class="btn btn-info add-attachment" ng-disabled="!RecordService.isEditing()" data-ng-click="showUploadModal()">
+<!--                        <button class="btn btn-info add-attachment" ng-disabled="!RecordService.isEditing()" data-ng-click="showUploadModal()">
                             اضافه
-                        </button>
+                        </button>-->
+                        
+                        
+                        <label>
+                            انتخاب فایل
+                            <input ng-disabled="!RecordService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                        </label>
+                        
                         <script type="text/ng-template" id="upload-modal.html">
 
                             <div class="modal-bg upload-file" data-ng-click="closeMe()">
@@ -758,7 +803,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                                 <div class="col-md-12">
 
-                                                    <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+                                                    <input type="file" nv-file-select="" uploader="uploader" multiple="true"  /><br/>
 
                                                 </div>
 
