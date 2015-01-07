@@ -18,9 +18,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
           libraries: 'weather,geometry,visualization'
         });
     }])      
-    .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'treeModal', 'ValuesService', 'savingModal', 'uploadModal', 'bodyModal', 'titlesModal', 'imageModal', 'videoModal', 'deleteModal','$interval', 'poollingFactory',
-                                    'continualModal', 'mapModal','FileUploader',
-    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   treeModal,   ValuesService,   savingModal,   uploadModal,   bodyModal,   titlesModal,   imageModal, videoModal, deleteModal, $interval, poollingFactory, continualModal, mapModal,FileUploader) {
+    .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService','$interval', 'poollingFactory',
+                                     'mapModal','FileUploader', '$modal',
+    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal) {
 
 
 
@@ -253,6 +253,244 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
+        
+        /**
+         * Tree modal initializing
+         */
+        
+        
+        $scope.openTreeModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'treeModal.html',
+                controller: 'treeModalCtrl',
+                size: size,
+                resolve: {
+                    
+                }
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        //////////////
+        
+        
+        /**
+         * Saving modal initialization
+         */
+        
+        
+        $scope.openSavingModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'savingModal.html',
+                controller: 'savingModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                backdrop: 'static'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        //////////////
+        
+        /**
+         * Body modal initialization
+         */
+        
+        
+                
+        $scope.openBodyModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyModal.html',
+                controller: 'bodyModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'body-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
+        /**
+         * Titles modal initialization
+         */
+        
+        
+    
+            
+        $scope.openTitlesModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'titlesModal.html',
+                controller: 'titlesModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'titles-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        /**
+         * delete modal initialization
+         */
+        
+                
+    
+            
+        $scope.openDeleteModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'deleteModal.html',
+                controller: 'deleteModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'delete-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
+    
+        /**
+         * continual modal initialization
+         */
+        
+                
+    
+            
+        $scope.openContinualModal = function (size) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'continualModal.html',
+                controller: 'continualModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'continual-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
+
+        /**
+         * image modal initialization
+         */
+        
+                
+    
+            
+        $scope.openImageModal = function (size, image, index) {
+            ValuesService.currentImageModal.image = image; 
+            ValuesService.currentImageModal.index = index;
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'imageModal.html',
+                controller: 'imageModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'image-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
+
+   
+        /**
+         * image modal initialization
+         */
+        
+                
+    
+            
+        $scope.openVideoModal = function (size, video, index) {
+            ValuesService.currentVideoModal.video = video; 
+            ValuesService.currentVideoModal.index = index;
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'videoModal.html',
+                controller: 'videoModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'video-modal-window'
+            });
+
+            treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
 
         /**
          *
@@ -264,30 +502,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             return RecordService.recordList();
         };
 
-        $scope.showModal = treeModal.activate;
+        
 
-        $scope.showSavingModal = function(){savingModal.activate()};
+        
 
-        $scope.showTitlesModal = function(){titlesModal.activate()};
         
         $scope.showMapModal = function(){mapModal.activate()};
 
-        $scope.showImageShowModal = function(image, index) { ValuesService.currentImageModal.image = image; ValuesService.currentImageModal.index = index;  imageModal.activate()};
-
-        $scope.showVideoShowModal = function(video, index) { ValuesService.currentVideoModal.video = video; ValuesService.currentVideoModal.index = index;  videoModal.activate()};
-
-        $scope.showDeleteModal = function(){
-            deleteModal.activate();
-        };
         
-        $scope.showContinualModal = function(){
-            continualModal.activate();
-        };
 
-        $scope.showUploadModal = function() {uploadModal.activate();}
-
-        $scope.showBodyModal = bodyModal.activate;
-
+        
 
 
         /**
@@ -638,7 +862,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         recordList.remove(selectedRecord);
                         self.currentRecord = {}
                         temporaryRecord = {}
-                        serv.deactivate();
+                        serv.close();
                     },
                     function(responseErr){
                         console.log(responseErr)
@@ -1228,48 +1452,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         return self;
     }]).
-    factory('treeModal', function (btfModal) {
-        return btfModal({
-            controller: 'treeModalCtrl',
-            controllerAs: 'treeModal',
-            templateUrl: 'tree-modal.html'
-        });
-    }).
-    factory('savingModal', function (btfModal) {
-        return btfModal({
-            controller: 'savingModalCtrl',
-            controllerAs: 'savingModal',
-            templateUrl: 'saving-modal.html'
-        });
-    }).
-    factory('uploadModal', function (btfModal) {
-        return btfModal({
-            controller: 'uploadModalCtrl',
-            controllerAs: 'uploadModal',
-            templateUrl: 'upload-modal.html'
-        });
-    }).
-    factory('bodyUploadModal', function (btfModal) {
-        return btfModal({
-            controller: 'bodyUploadModalCtrl',
-            controllerAs: 'bodyUploadModal',
-            templateUrl: 'body-upload-modal.html'
-        });
-    }).
-    factory('bodyModal', function (btfModal) {
-        return btfModal({
-            controller: 'bodyModalCtrl',
-            controllerAs: 'bodyModal',
-            templateUrl: 'body-modal.html'
-        });
-    }).
-    factory('titlesModal', function (btfModal) {
-        return btfModal({
-            controller: 'titlesModalCtrl',
-            controllerAs: 'titlesModal',
-            templateUrl: 'titles-modal.html'
-        });
-    }).
     factory('mapModal', function (btfModal) {
         return btfModal({
             controller: 'mapModalCtrl',
@@ -1277,37 +1459,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             templateUrl: 'map-modal.html'
         });
     }).
-    factory('deleteModal', function (btfModal) {
-        return btfModal({
-            controller: 'deleteModalCtrl',
-            controllerAs: 'deleteModal',
-            templateUrl: 'delete-modal.html'
-        });
-    }).
-    factory('continualModal', function (btfModal) {
-        return btfModal({
-            controller: 'continualModalCtrl',
-            controllerAs: 'continualModal',
-            templateUrl: 'continual-modal.html'
-        });
-    }).
-            
-    factory('imageModal', function (btfModal) {
-        return btfModal({
-            controller: 'imageModalCtrl',
-            controllerAs: 'imageModal',
-            templateUrl: 'image-modal.html'
-        });
-    }).
-    factory('videoModal', function (btfModal) {
-        return btfModal({
-            controller: 'videoModalCtrl',
-            controllerAs: 'videoModal',
-            templateUrl: 'video-modal.html'
-        });
-    }).
 
-    controller('treeModalCtrl', ['$scope', 'treeModal', 'RecordService','TreeService', function ($scope, treeModal, RecordService, TreeService) {
+    controller('treeModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.tree = function() {
@@ -1317,20 +1470,23 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
-        $scope.closeMe = treeModal.deactivate;
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
 
         $scope.addTerm = function(term) {
 
         }
     }]).
-    controller('savingModalCtrl', ['$scope', 'savingModal', 'RecordService','TreeService', function ($scope, savingModal, RecordService, TreeService) {
+    controller('savingModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
         $scope.RecordService = RecordService;
-        $scope.closeMe = function(){RecordService.saved = false; savingModal.deactivate();}
+        $scope.close = function(){$modalInstance.backdrop = true; $modalInstance.close();}
 
     }]).
-    controller('titlesModalCtrl', ['$scope', 'titlesModal', 'RecordService','TreeService', function ($scope, titlesModal, RecordService, TreeService) {
+    controller('titlesModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', function ($scope, $modalInstance, RecordService, TreeService) {
         $scope.RecordService = RecordService;
-        $scope.closeMe = function(){titlesModal.deactivate();}
+        $scope.close = function(){$modalInstance.close();}
         
     }]).
     controller('mapModalCtrl', ['$scope', 'mapModal', 'RecordService','TreeService', 'uiGmapGoogleMapApi', function ($scope, mapModal, RecordService, TreeService, GoogleMapApi) {
@@ -1376,14 +1532,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         });
         ///////////////
     }]).
-    controller('deleteModalCtrl', ['$scope', 'deleteModal', 'RecordService','TreeService', function ($scope, deleteModal, RecordService, TreeService) {
+    controller('deleteModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', function ($scope, $modalInstance, RecordService, TreeService) {
         $scope.RecordService = RecordService;
-        $scope.closeMe = function(){deleteModal.deactivate();}
+        $scope.close = function(){$modalInstance.close();}
         $scope.deleteCurrentRecord = function() {
-            console.log(RecordService.deleteCurrentRecord(deleteModal));
+            console.log(RecordService.deleteCurrentRecord($modalInstance));
         }
     }]).
-    controller('continualModalCtrl', ['$scope', '$http', 'continualModal', 'RecordService','TreeService', function ($scope, $http, continualModal, RecordService, TreeService) {
+    controller('continualModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','TreeService', function ($scope, $http, $modalInstance, RecordService, TreeService) {
         $scope.RecordService = RecordService;
         $scope.images = angular.copy(RecordService.currentRecord.imagesList.all());
         $scope.audios = angular.copy(RecordService.currentRecord.audiosList.all());
@@ -1392,7 +1548,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.bodyImages = angular.copy(RecordService.currentRecord.bodyImagesList.all());
         $scope.bodyAudios = angular.copy(RecordService.currentRecord.bodyAudiosList.all());
         $scope.bodyVideos = angular.copy(RecordService.currentRecord.bodyVideosList.all());
-        $scope.closeMe = function(){continualModal.deactivate();}
+        $scope.close = function(){$modalInstance.close();}
         $scope.save = function() {
             RecordService.currentRecord.imagesList.removeAll();
             RecordService.currentRecord.imagesList.addAll($scope.images);
@@ -1418,15 +1574,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             RecordService.currentRecord.bodyVideosList.addAll($scope.bodyVideos);
             RecordService.currentRecord.body_videos = RecordService.currentRecord.bodyVideosList.all();
             
-            
+            $modalInstance.close();
         }
         
     }]).
         
-    controller('imageModalCtrl', ['$scope', 'imageModal', 'RecordService','TreeService', 'ValuesService', function ($scope, imageModal, RecordService, TreeService, ValuesService) {
+    controller('imageModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $modalInstance, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
-        $scope.closeMe = function(){ValuesService.currentImageModal = {}; imageModal.deactivate();}
+        $scope.close = function(){ValuesService.currentImageModal = {}; $modalInstance.close();}
         $scope.currentImage = RecordService.currentRecord.images[ValuesService.currentImageModal.index];
         $scope.totalImage = RecordService.currentRecord.images.length;
         $scope.currentIndex = ValuesService.currentImageModal.index + 1;
@@ -1444,10 +1600,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
     }]).
-    controller('videoModalCtrl', ['$scope', '$sce', 'videoModal', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, videoModal, RecordService, TreeService, ValuesService) {
+    controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
-        $scope.closeMe = function(){ValuesService.currentVideoModal = {}; videoModal.deactivate();}
+        $scope.close = function(){ValuesService.currentVideoModal = {}; $modalInstance.close();}
         $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
         $scope.totalVideo = RecordService.currentRecord.videos.length;
         $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
@@ -1471,211 +1627,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
     }]).
-    controller('uploadModalCtrl', ['$scope', 'uploadModal', 'RecordService','TreeService', 'ValuesService', '$http', 'FileUploader', function ($scope, uploadModal, RecordService, TreeService, ValuesService, $http, FileUploader) {
-
-        $scope.RecordService = RecordService;
-        $scope.ValuesService = ValuesService;
-        
-        $scope.closeMe = function(){uploadModal.deactivate();}
-        /**
-         * 
-         * uploader
-         */
-
-        var uploader = $scope.uploader = new FileUploader({
-            url: '../managedfile/ajax/upload'
-        });
-        uploader.withCredentials = true;
-        uploader.queueLimit =1 ;
-//        uploader.autoUpload = true;
-        uploader.removeAfterUpload = true;
-        uploader.formData.push({uploadDir : ValuesService.activeTab});
-        uploader.formData.push({type : 'record'});
-        
-        
-        
-        // FILTERS
-            
-        uploader.filters.push({
-            name: 'imageTypeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'image') {
-                    uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg"];
-                    fileType = item.type.split("/")[0];
-                    fileExtension = item.type.split("/")[1];
-                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-        
-        uploader.filters.push({
-            name: 'imageSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'image') {
-                    if(item.size > 300000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-        
-        uploader.filters.push({
-            name: 'videoTypeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'video') {
-                    uploadableType = "video";
-                    uploadableExtensions = ["mp4"];
-                    fileType = item.type.split("/")[0];
-                    fileExtension = item.type.split("/")[1];
-                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-        
-        uploader.filters.push({
-            name: 'videoSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'video') {
-                    if(item.size > 10000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-        
-        uploader.filters.push({
-            name: 'audioTypeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'audio') {
-                    uploadableType = "audio";
-                    uploadableExtensions = ["mp3"];
-                    fileType = item.type.split("/")[0];
-                    fileExtension = item.type.split("/")[1];
-                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-        
-        uploader.filters.push({
-            name: 'audioSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'audio') {
-                    if(item.size > 4000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
-
-        // CALLBACKS
-
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
-            switch(filter.name) {
-                case 'imageTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.');
-                    break;
-                case 'imageSizeFilter':
-                    alert('imageSizeFilter');
-                    break;
-                case 'audioTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   mp3  آپلود کنید.');
-                    break;
-                case 'audioSizeFilter':
-                    alert('audioSizeFilter');
-                    break;
-                case 'videoTypeFilter':
-                    alert('شما فقط میتوانید فایل با پسوندهای   mp4  آپلود کنید.');
-                    break;
-                case 'videoSizeFilter':
-                    alert('videoSizeFilter');
-                    break;
-                
-            }
-        };
-        uploader.onAfterAddingFile = function(fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function(addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
-        uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
-        };
-        uploader.onProgressItem = function(fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        uploader.onProgressAll = function(progress) {
-            console.info('onProgressAll', progress);
-        };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
-            switch(response.upload_dir) {
-                case 'image':
-                    RecordService.addToImagesList(response);
-                    break;
-                case 'video':
-                    RecordService.addToVideosList(response);
-                    break;
-                case 'audio':
-                    RecordService.addToAudiosList(response);
-                    break;
-
-            }
-            alert('فایل با موفقیت بارگزاری شد.');
-        };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-        };
-        uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
-        };
-
-        console.info('uploader', uploader);
-
-        
-        /***************************
-         *************************** 
-         ***************************
-         */
-        
-        
-
-
-    }]).
-    controller('bodyModalCtrl', ['$scope', '$http' ,'bodyModal', 'RecordService','TreeService', 'ValuesService', 'bodyUploadModal', 'FileUploader',
-        function (                $scope,   $http,   bodyModal,   RecordService,  TreeService,   ValuesService,   bodyUploadModal, FileUploader) {
+    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance',
+        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
@@ -1958,7 +1911,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         
 
-        $scope.closeMe = bodyModal.deactivate;
+        $scope.close = function(){$modalInstance.close();}
 
 
     }]).

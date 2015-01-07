@@ -195,24 +195,24 @@ body{
     width: 100%;
 }
 
-.modal-bg.continual-file .btf-modal{
+.continual-modal-window .btf-modal{
     background: rgb(255, 255, 255);
     border: 3px solid;
     
     padding: 0 5px;
 }
 
-.modal-bg.continual-file .btf-modal ul.nav-tabs li {
+.continual-modal-window ul.nav-tabs li {
     font-size: 10px;
 }
 
-.modal-bg.continual-file .btf-modal ul.nav-tabs li:nth-child(3) {
+.continual-modal-window ul.nav-tabs li:nth-child(3) {
     border-left: 2px solid rgb(110, 181, 95);
     padding-left: 3px;
     padding-top: 3px;
 }
 
-.modal-bg.continual-file .btf-modal ul.nav-tabs li:nth-child(4) {
+.continual-modal-window  ul.nav-tabs li:nth-child(4) {
     border-right: 2px solid rgb(117, 95, 181);
     padding-right: 3px;
     padding-top: 3px;
@@ -1275,9 +1275,7 @@ h3.block-title {
     clear: both;
 }
 
-#body-modal-btf .body-modal-content .body-modal-container{
-    width: 100%;
-}
+
 .add-attachment {
     background: #2d89ef;
     width: 75%;
@@ -1625,4 +1623,18 @@ label.file-select.disabled {
 
 .body-attachments .file-upload-row .uploader-msg {
     font-size: 10px;
+}
+
+.body-modal-window .modal-dialog {
+    width: 96%
+}
+
+.body-modal-window .modal-dialog .body-modal-container{
+    width: 100%;
+}
+
+.body-modal-window .modal-dialog  .close-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
