@@ -129,73 +129,70 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <div class="record-title">
                             <div class="field-title record-title-title">عنوان:</div>
                             <input type="text" ng-maxlength="70" name="record-title" class="record-title-input" ng-model="RecordService.currentRecord.title" ng-disabled="!RecordService.isEditing()" required>
-                            <button data-ng-click="showTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
+                            <button data-ng-click="openTitlesModal()" class="record-title-lan" ng-disabled="!RecordService.isEditing()" >Lan</button>
                         </div>
 
                         <div class="record-subtitle">
                             <div class="field-title record-title-title">زیر عنوان:</div>
                             <input  type="text" ng-maxlength="70" name="record-subtitle" class="record-subtitle-input" ng-model="RecordService.currentRecord.sub_title" ng-disabled="!RecordService.isEditing()" required>
                         </div>
+                        
+                        <script type="text/ng-template" id="titlesModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">عناوین</h3>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="modal-header2">
+                                    انگلیسی
+                                </h4>
+                                    <label for="english-title">
+                                    عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
 
-                        <script type="text/ng-template" id="titles-modal.html">
-                            <div class="modal-bg" data-ng-click="closeMe()">
-                                <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
-                                    <h3 class="modal-header1">
-                                        عناوین
-                                    </h3>
-                                    <div class="modal-body">
-
-                                        <h4 class="modal-header2">
-                                            انگلیسی
-                                        </h4>
-                                            <label for="english-title">
-                                            عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="english-title" ng-model="RecordService.currentRecord.english_title" ng-disabled="!RecordService.isEditing()" />
-
-                                            <label for="english-sub-title">
-    زیر عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                    <label for="english-sub-title">
+زیر عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="english-sub-title" ng-model="RecordService.currentRecord.english_sub_title" ng-disabled="!RecordService.isEditing()" />
 
 
-                                        <h4 class="modal-header2">
-                                            عربی
-                                        </h4>
-                                            <label for="arabic-title">
-                                            عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
+                                <h4 class="modal-header2">
+                                    عربی
+                                </h4>
+                                    <label for="arabic-title">
+                                    عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="arabic-title" ng-model="RecordService.currentRecord.arabic_title" ng-disabled="!RecordService.isEditing()" />
 
-                                            <label for="arabic-sub-title">
-                                                زیر عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                    <label for="arabic-sub-title">
+                                        زیر عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="arabic-sub-title" ng-model="RecordService.currentRecord.arabic_sub_title" ng-disabled="!RecordService.isEditing()" />
 
 
-                                        <h4 class="modal-header2">
-                                            ترکی
-                                        </h4>
+                                <h4 class="modal-header2">
+                                    ترکی
+                                </h4>
 
-                                            <label for="turkish-title">
-                                                عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
+                                    <label for="turkish-title">
+                                        عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="turkish-title" ng-model="RecordService.currentRecord.turkish_title" ng-disabled="!RecordService.isEditing()" />
 
-                                            <label for="turkish-sub-title">
-                                                زیر عنوان
-                                            </label>
-                                            <input ng-maxlength="70" id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
+                                    <label for="turkish-sub-title">
+                                        زیر عنوان
+                                    </label>
+                                    <input ng-maxlength="70" id="turkish-sub-title" ng-model="RecordService.currentRecord.turkish_sub_title" ng-disabled="!RecordService.isEditing()" />
 
-                                    </div>
-                                    <div class="modal-control-buttons-wrapper">
-                                        <button class="btn" data-ng-click="closeMe()">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info pull-left" data-ng-click="close()">
                                             تایید
-                                        </button>
-                                    </div>
-                                </div>
+                                </button>
                             </div>
                         </script>
+                        
+                        
 
                     </div>
       
@@ -242,6 +239,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     </label>
                                     <div class="tree-list-add-remove-button-wrapper">
                                         <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
+                                        <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
                                     </div>
 
@@ -254,32 +252,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
                                 </select>
-                                <script type="text/ng-template" id="tree-modal.html">
-                                    <div class="modal-bg">
-                                        <div class="btf-modal tree-modal">
-                                            <h3 class="modal-header1">
-                                                انتخاب شاخه ها
-                                                
-                                                <div class="modal-header-control-buttons-wrapper">
-                                                    <a ng-click="closeMe()">X</a>
-                                                </div>
-                                            </h3>
-                                            
-                                            <div class="tree-modal-content">
-                                                <treecontrol class="tree-classic"
-                                                             tree-model="tree()"
-                                                             options="treeOptions()"
-                                                             selected-node="TreeService.currentSecondTreeNode">
-                                                    {{node.title}}
-                                                </treecontrol>
-                                            </div>
-                                            <div class="modal-control-buttons-wrapper">
-                                                <button class="btn" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
-                                            </div>
-
-                                        </div>
+                                <script type="text/ng-template" id="treeModal.html">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">انتخاب شاخه ها</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <treecontrol class="tree-classic"
+                                                    tree-model="tree()"
+                                                    options="treeOptions()"
+                                                    selected-node="TreeService.currentSecondTreeNode">
+                                           {{node.title}}
+                                        </treecontrol>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                        <button class="btn btn-info pull-left" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
+                                
                             </div>
 
                         </div>
@@ -696,7 +686,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-click="RecordService.selectedImage = image ;showImageShowModal(image, $index)" ng-src="{{image.absolute_path}}"  />
+                                            <img ng-click="RecordService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.absolute_path}}"  />
                                             <input
                                                 type="checkbox"
                                                 checklist-model="RecordService.selectedImages"
@@ -704,27 +694,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             />
                                         </li>
                                     </ul>
-                                    <script type="text/ng-template" id="image-modal.html">
-                                        <div class="modal-bg" data-ng-click="closeMe()">
-                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
-                                                <div class="modal-body">
-                                                    <img width="100%" ng-src="{{currentImage.absolute_path}}" />
-                                                </div>
-
-                                                <div class="modal-control-buttons">
-                                                    <button data-ng-click="prev()" class="btn btn-info" ng-disabled="currentIndex <= 1">
-                                                        قبلی
-                                                    </button>
-                                                    <button data-ng-click="next()" class="btn btn-info" ng-disabled="currentIndex >= totalImage">
-                                                        بعدی
-                                                    </button>
-                                                    <button class="btn btn-warning close" data-ng-click="closeMe()">
-                                                        بستن
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <script type="text/ng-template" id="imageModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <img width="100%" ng-src="{{currentImage.absolute_path}}" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalImage">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
                                         </div>
                                     </script>
+                                    
 
                                 </div>
                                 <div ng-switch-when="video" class="video">
@@ -735,27 +722,24 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 checklist-model="RecordService.selectedVideos"
                                                 checklist-value="video"
                                                 />
-                                            <span ng-bind="video.file_name" ng-click="RecordService.selectedVideo =video; showVideoShowModal(video, $index)"></span>
+                                            <span ng-bind="video.file_name" ng-click="RecordService.selectedVideo =video; openVideoModal('lg',video, $index)"></span>
                                         </li>
                                     </ul>
-                                    <script type="text/ng-template" id="video-modal.html">
-                                        <div class="modal-bg" data-ng-click="closeMe()">
-                                            <div class="btf-modal  image-modal" data-ng-click="$event.stopPropagation()">
-                                                <div class="modal-body">
-                                                    <video id="modal-video-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentVideo.absolute_path}}" type="{{currentVideo.filemime}}"></video>
-                                                </div>
-                                                <div class="modal-control-buttons">
-                                                    <button data-ng-click="prev()" class="btn btn-info" ng-disabled="currentIndex <= 1">
-                                                        قبلی
-                                                    </button>
-                                                    <button data-ng-click="next()" class="btn btn-info" ng-disabled="currentIndex >= totalVideo">
-                                                        بعدی
-                                                    </button>
-                                                    <button class="btn close" data-ng-click="closeMe()">
-                                                        بستن
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <script type="text/ng-template" id="videoModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <video id="modal-video-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentVideo.absolute_path}}" type="{{currentVideo.filemime}}"></video>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalVideo">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
                                         </div>
                                     </script>
                                 </div>
@@ -886,187 +870,198 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             حذف
                         </button>
                         <button class="btn btn-info btn-continual-modal" ng-disabled="!RecordService.isEditing()"
-                                data-ng-click="showContinualModal()">
+                                data-ng-click="openContinualModal()">
                             تنظیمات
                         </button>
+                        <script type="text/ng-template" id="continualModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">تنظیمات فایل ها</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col col-md-6 center" style="text-align: center;
+                                                                            border-bottom: 1px solid rgb(110, 181, 95);
+                                                                            padding-bottom: 5px;">
+                                        رکورد
+                                    </div>
+                                    <div class="col col-md-6 center" style="text-align: center;
+                                                                            border-bottom: 1px solid rgb(117, 95, 181);
+                                                                            padding-bottom: 5px;">
+                                        صفحه HTML
+                                    </div>
+                                </div>
+                                <tabset justified="true">
+                                    <tab heading="تصاویر">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                                <th style="width: 10%">
+                                                    نمایه
+                                                </th>
+
+                                            </tr>
+                                            <tr ng-repeat="image in images">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{image.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{image.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="image.continual" />
+                                                </td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="image.is_thumbnail" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+                                    <tab heading="ویدئو ها">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="video in videos">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{video.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{video.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="video.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+                                    <tab heading="صدا ">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    آیکون
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="audio in audios">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{audio.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{audio.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="audio.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+                                    <tab heading="تصاویر ">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="bodyImage in bodyImages">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{bodyImage.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{bodyImage.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="bodyImage.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+
+                                    <tab heading="ویدئو ها ">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="bodyVideo in bodyVideos">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{bodyVideo.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{bodyVideo.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="bodyVideo.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+
+                                    <tab heading="صدا">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="bodyAudio in bodyAudios">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{bodyAudio.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{bodyAudio.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="bodyAudio.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+                                </tabset>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn"  data-ng-click="close()">
+                                    بستن
+                                </button>
+                                <button class="btn btn-info" data-ng-click="save()">
+                                    ذخیره
+                                </button>
+                            </div>
+                        </script>
                         <script type="text/ng-template" id="continual-modal.html">
 
                             <div class="modal-bg continual-file" data-ng-click="closeMe()">
                                 <div class="btf-modal" data-ng-click="$event.stopPropagation()">
                                     <h3 class="modal-header1">
-                                        تنظیمات فایل ها
+                                        
                                     </h3>
                                     <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col col-md-6 center" style="text-align: center;
-                                                                                border-bottom: 1px solid rgb(110, 181, 95);
-                                                                                padding-bottom: 5px;">
-                                            رکورد
-                                        </div>
-                                        <div class="col col-md-6 center" style="text-align: center;
-                                                                                border-bottom: 1px solid rgb(117, 95, 181);
-                                                                                padding-bottom: 5px;">
-                                            صفحه HTML
-                                        </div>
-                                    </div>
-                                    <tabset justified="true">
-                                        <tab heading="تصاویر">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        نمایه
-                                                    </th>
-
-                                                </tr>
-                                                <tr ng-repeat="image in images">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{image.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{image.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="image.continual" />
-                                                    </td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="image.is_thumbnail" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        <tab heading="ویدئو ها">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="video in videos">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{video.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{video.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="video.continual" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        <tab heading="صدا ">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        آیکون
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="audio in audios">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{audio.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{audio.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="audio.continual" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        <tab heading="تصاویر ">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="bodyImage in bodyImages">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyImage.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{bodyImage.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyImage.continual" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
                                         
-                                        <tab heading="ویدئو ها ">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="bodyVideo in bodyVideos">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyVideo.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{bodyVideo.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyVideo.continual" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                        
-                                        <tab heading="صدا">
-                                            <table class="table table-striped" 
-                                                style="height: 300px;overflow-y: scroll;display: inline-block;">
-                                                <tr>
-                                                    <th style="width: 50%">
-                                                        نام فایل
-                                                    </th>
-                                                    <th style="width: 30%">
-                                                        پیش نمایش
-                                                    </th>
-                                                    <th style="width: 10%">
-                                                        دائمی
-                                                    </th>
-                                                </tr>
-                                                <tr ng-repeat="bodyAudio in bodyAudios">
-                                                    <td style="width: 50%; overflow-wrap: break-word;">{{bodyAudio.file_name}}</td>
-                                                    <td style="width: 30%"><img ng-src="{{bodyAudio.absolute_path}}" width="50" /></td>
-                                                    <td style="width: 10%">
-                                                        <input type="checkbox" ng-model="bodyAudio.continual" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </tab>
-                                    </tabset>
 
                                     </div>
                                     <div class="modal-control-buttons-wrapper">
-                                        <button class="btn"  data-ng-click="closeMe()">
-                                            بستن
-                                        </button>
-                                        <button class="btn btn-info" data-ng-click="save()">
-                                            ذخیره
-                                        </button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -1080,14 +1075,138 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <div class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>
-                        <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="showBodyModal()">
+                        <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
                             ویرایش صفحه
                         </button>
+                        <script type="text/ng-template" id="bodyModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">بدنه رکورد</h3>
+                                <button class=" close-button btn btn-primary pull-right" ng-click="close()">بستن</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-4 body-modal-right">
+                                        <div class="body-attachments">
+                                            <div class="body-attachments-inner">
+
+                                                <tabset ng-init="selectTab('image')">
+                                                    <tab select="selectTab('image')" heading="عکس">
+                                                        <div class="image">
+                                                            <ul class="image-list files-list">
+                                                                <li class = "file" ng-repeat="image in RecordService.currentRecord.body_images" style="float: right" ng-click="RecordService.selectBodyImage(image)" ng-class="{'selected' : RecordService.selectedBodyImage.id == image.id}">
+                                                                    <img ng-src="{{image.absolute_path}}"  ng-click="RecordService.selectedBodyImage = image ;showImageShowModal(image)" />
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checklist-model="RecordService.selectedBodyImages"
+                                                                        checklist-value="image"
+                                                                        />
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </tab>
+                                                    <tab select="selectTab('video')" heading="فیلم">
+                                                        <div class="video">
+                                                            <ul class="video-list files-list">
+                                                                <li class = "file" ng-repeat="video in RecordService.currentRecord.body_videos" style="float: right" ng-click="RecordService.selectBodyVideo(video)" ng-class="{'selected' : RecordService.selectedBodyVideo.id == video.id}">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checklist-model="RecordService.selectedBodyVideos"
+                                                                        checklist-value="video"
+                                                                    />
+                                                                    <span ng-click="RecordService.selectedBodyVideo =video" ng-bind="video.file_name"></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </tab>
+                                                    <tab select="selectTab('audio')" heading="صدا">
+                                                        <div class="audio">
+                                                            <ul class="audio-list files-list">
+                                                                <li class = "file" ng-repeat="audio in RecordService.currentRecord.body_audios" style="float: right" ng-click="RecordService.selectBodyAudio(audio)" ng-class="{'selected' : RecordService.selectedBodyAudio.id == audio.id}">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checklist-model="RecordService.selectedBodyAudios"
+                                                                        checklist-value="audio"
+                                                                    />
+                                                                    <span ng-click="RecordService.selectedBodyAudio =audio" ng-bind="audio.file_name" ></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </tab>
+                                                </tabset>
+
+
+
+
+
+                                                <div class="container body-modal-container">
+
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+                                                            <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
+                                                                حذف
+                                                            </button>
+                                                            <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
+                                                                درج
+                                                            </button>
+                                                            <label class="file-select" ng-class="{'disabled': !RecordService.isEditing()}">
+                                                                انتخاب فایل
+                                                                <input ng-disabled="!RecordService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                                                            </label>
+
+                                                        </div>
+
+                                                        <div class="col-md-12" style="margin-bottom: 40px">
+
+                                                                    <div class="row file-upload-row">
+                                                                        <div class="col col-md-4">
+                                                                            <div class="progress" style="">
+                                                                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col col-md-2">
+                                                                            <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                                                                                انصراف
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="col col-md-6 message-box">
+                                                                            <span class="uploader-msg" ng-bind="uploader.msg">
+
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="body-editor">
+                                            <textarea ckeditor="bodyEditorOptions" ng-model="RecordService.currentRecord.body"></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </script>
                         <script type="text/ng-template" id="body-modal.html" >
                             <div id="body-modal-bg " class="modal-bg html-editor-modal" data-ng-click="closeMe()">
                                 <div id="body-modal-btf" class="btf-modal"  data-ng-click="$event.stopPropagation()">
                                     <h3 class="modal-header1">
-                                        بدنه رکورد
+                                        
                                         <div class="modal-header-control-buttons-wrapper">
                                             <a ng-click="closeMe()">X</a>
                                         </div>
@@ -1301,57 +1420,65 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             <button ng-disabled="RecordService.isNew() || RecordService.isEditing()" type="button" class="btn btn-info" ng-click="RecordService.editing()">
                 ویرایش
             </button>
+            <script type="text/ng-template" id="deleteModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">حذف رکورد</h3>
+                </div>
+                <div class="modal-body">
+                    آیا از حذف رکورد جاری اطمینان دارید؟
+                            
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" data-ng-click="close()">
+                        خیر (انصراف)
+                    </button>
+                    <button class="btn btn-danger" data-ng-click="deleteCurrentRecord()">
+                        بله (حذف)
+                    </button>
+                </div>
+            </script>
             <script type="text/ng-template" id="delete-modal.html">
 
                 <div class="modal-bg" data-ng-click="closeMe()">
                     <div class="btf-modal  titles-modal" data-ng-click="$event.stopPropagation()">
                         <h3 class="modal-header">
-                            حذف رکورد
+                            
                         </h3>
                         <div class="modal-body">
-                            آیا از حذف رکورد جاری اطمینان دارید؟
-                            <button class="btn btn-warning" data-ng-click="closeMe()">
-                                خیر (انصراف)
-                            </button>
-                            <button class="btn btn-danger" data-ng-click="deleteCurrentRecord()">
-                                بله (حذف)
-                            </button>
+                            
                         </div>
                     </div>
                 </div>
             </script>
-            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="showDeleteModal()" ng-disabled="editing || !news.id">
+            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
-            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
+            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
                 ذخیره
             </button>
-            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="showSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
+            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
                 ذخیره و ادامه
             </button>
-            <script type="text/ng-template" id="saving-modal.html">
+            <script type="text/ng-template" id="savingModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">ذخیره</h3>
+                </div>
+                <div class="modal-body">
+                    <span ng-show="!RecordService.saved">
+                        در حال ذخیره سازی...
+                    </span>
+                    <span ng-show="RecordService.saved">
+                        <p ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
 
-                <div class="modal-bg" data-ng-click="closeMe()">
-                    <div class="btf-modal"  data-ng-click="$event.stopPropagation()">
-                        <h3 class="modal-header">
-                            ذخیره
-                        </h3>
+                        </p>
 
-                        <div class="modal-body">
-                            <span ng-show="!RecordService.saved">
-                                در حال ذخیره سازی...
-                            </span>
-                            <span ng-show="RecordService.saved">
-                                <p ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
-
-                                </p>
-
-                            </span>
-                            <button class="btn" ng-disabled="!RecordService.saved" data-ng-click="closeMe()">
-                                بستن
-                            </button>
-                        </div>
-                    </div>
+                    </span>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" ng-disabled="!RecordService.saved" data-ng-click="close()">
+                        بستن
+                    </button>
                 </div>
             </script>
             <button ng-disabled="!RecordService.isEditing()" type="button" class="btn btn-warning" ng-click="RecordService.cancelEditing(); recordform.$setPristine()">
