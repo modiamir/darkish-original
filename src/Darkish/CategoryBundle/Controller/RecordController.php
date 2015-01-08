@@ -378,11 +378,20 @@ class RecordController extends Controller
         }
         if(isset($data['icon'])) {
             $iconRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
-            
+            $em = $this->getDoctrine()->getManager();
             if(isset($data['icon']['id'])) {
                 $icon = $iconRepo->find($data['icon']['id']);
                 if($icon) {
                     $record->setIcon($icon);
+                    if(isset($data['icon']['continual']) && $data['icon']['continual']) {
+                        $icon->setContinual(true);
+                        $em->persist($icon);
+                        $em->flush();
+                    } else {
+                        $icon->setContinual(false);
+                        $em->persist($icon);
+                        $em->flush();
+                    }
                 }
             } else {
                 $record->setIcon();
