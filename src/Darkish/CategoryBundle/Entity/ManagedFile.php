@@ -143,7 +143,7 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_dir", type="string", nullable=true)
      *
-     * @Assert\Choice(choices = {"image", "video", "audio"}, message = "Input a valid uploadDir.")
+     * @Assert\Choice(choices = {"image", "video", "audio", "icon"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
      * @Groups({"record.details"})

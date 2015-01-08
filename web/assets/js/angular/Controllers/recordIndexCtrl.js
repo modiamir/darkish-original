@@ -77,6 +77,38 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         });
         
         uploader.filters.push({
+            name: 'iconTypeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'icon') {
+                    uploadableType = "icon";
+                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    fileType = item.type.split("/")[0];
+                    fileExtension = item.type.split("/")[1];
+                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
+            name: 'iconSizeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'icon') {
+                    if(item.size > 300000) {
+                        return false;
+                    }
+                }
+                return true;
+                
+                 
+            }
+        });
+        
+        uploader.filters.push({
             name: 'videoTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'video') {
@@ -151,6 +183,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'imageSizeFilter':
                     uploader.msg = 'imageSizeFilter';
                     break;
+                case 'iconTypeFilter':
+                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا png یا   jpg آپلود کنید.';
+                    break;
+                case 'iconSizeFilter':
+                    uploader.msg = 'iconSizeFilter';
+                    break;
                 case 'audioTypeFilter':
                     uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   mp3  آپلود کنید.';
                     break;
@@ -186,6 +224,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             switch(response.upload_dir) {
                 case 'image':
                     RecordService.addToImagesList(response);
+                    break;
+                case 'icon':
+                    RecordService.currentRecord.icon = response;
                     break;
                 case 'video':
                     RecordService.addToVideosList(response);
@@ -461,7 +502,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
    
         /**
-         * image modal initialization
+         * video modal initialization
          */
         
                 
@@ -483,6 +524,40 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             treeModalInstance.result.then(
             function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
+        /**
+         * cancel modal initialization
+         */
+        
+                
+    
+            
+        $scope.openCancelModal = function (size, form) {
+            
+            var cancelModalInstance = $modal.open({
+                templateUrl: 'cancelModal.html',
+                controller: 'cancelModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'cancel-modal-window'
+            });
+
+            cancelModalInstance.result.then(
+            function (setPristine) {
+                if(setPristine) {
+                    form.$setPristine();
+                }
+                
                 
             }, function () {
                 
@@ -1627,6 +1702,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
     }]).
+    controller('cancelModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', function ($scope, $modalInstance, RecordService, TreeService) {
+        $scope.RecordService = RecordService;
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.cancel = function() {
+            RecordService.cancelEditing(); 
+            $modalInstance.close(true);
+        }
+    }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance',
         function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance) {
         $scope.RecordService = RecordService;
@@ -1634,7 +1717,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.ValuesService = ValuesService;
         $scope.bodyEditorOptions = {
             language: 'fa',
-            height: '300px',
+            height: '500px',
             uiColor: '#e8ede0',
             extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",

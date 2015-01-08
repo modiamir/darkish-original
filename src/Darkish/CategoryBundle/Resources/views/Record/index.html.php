@@ -238,7 +238,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         شاخه ها:
                                     </label>
                                     <div class="tree-list-add-remove-button-wrapper">
-                                        <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
+                                        
                                         <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
                                     </div>
@@ -305,26 +305,26 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <option value=8> 8 </option>
                                     <option value=9> 9 </option>
                                     <option value=10> 10 </option>
-                                    <option value=1> 11 </option>
-                                    <option value=2> 12 </option>
-                                    <option value=3> 13 </option>
-                                    <option value=4> 14 </option>
-                                    <option value=5> 15 </option>
-                                    <option value=6> 16 </option>
-                                    <option value=7> 17 </option>
-                                    <option value=8> 18 </option>
-                                    <option value=9> 19 </option>
-                                    <option value=10> 20 </option>
-                                    <option value=1> 21 </option>
-                                    <option value=2> 22 </option>
-                                    <option value=3> 23 </option>
-                                    <option value=4> 24 </option>
-                                    <option value=5> 25 </option>
-                                    <option value=6> 26 </option>
-                                    <option value=7> 27 </option>
-                                    <option value=8> 28 </option>
-                                    <option value=9> 29 </option>
-                                    <option value=10> 30 </option>
+                                    <option value=11> 11 </option>
+                                    <option value=12> 12 </option>
+                                    <option value=13> 13 </option>
+                                    <option value=14> 14 </option>
+                                    <option value=15> 15 </option>
+                                    <option value=16> 16 </option>
+                                    <option value=17> 17 </option>
+                                    <option value=18> 18 </option>
+                                    <option value=19> 19 </option>
+                                    <option value=20> 20 </option>
+                                    <option value=21> 21 </option>
+                                    <option value=22> 22 </option>
+                                    <option value=23> 23 </option>
+                                    <option value=24> 24 </option>
+                                    <option value=25> 25 </option>
+                                    <option value=26> 26 </option>
+                                    <option value=27> 27 </option>
+                                    <option value=28> 28 </option>
+                                    <option value=29> 29 </option>
+                                    <option value=30> 30 </option>
                                 </select>
                                
                             </div>
@@ -643,21 +643,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
             <div class="col col-md-4 main-left main-cols">
                 <div class="row file-upload-row">
-                    <div class="col col-md-4">
-                        <div class="progress" style="">
-                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                        </div>
-                    </div>
-                    <div class="col col-md-2">
-                        <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
-                            انصراف
-                        </button>
-                    </div>
                     <div class="col col-md-6 message-box">
                         <span class="uploader-msg" ng-bind="uploader.msg">
                             
                         </span>
                     </div>
+                    <div class="col col-md-4">
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2 upload-cancel">
+                        <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                            X
+                        </button>
+                    </div>
+                    
                     
                 </div>
                 <div class="row attachements-wrapper">
@@ -667,6 +668,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 ng-class="{'tab-active': ValuesService.activeTab === 'image'}"
                                 ng-click="ValuesService.activeTab = 'image'">
                                 عکس
+                            </li>
+                            <li class="pure-button"
+                                ng-class="{'tab-active': ValuesService.activeTab === 'icon'}"
+                                ng-click="ValuesService.activeTab = 'icon'">
+                                آیکون
                             </li>
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'video'}"
@@ -710,6 +716,26 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 بستن
                                             </button>
                                         </div>
+                                    </script>
+                                    
+
+                                </div>
+                                <div ng-switch-when="icon" class="icon">
+                                    
+                                    <img ng-show="RecordService.currentRecord.icon.id" ng-click="openIconModal('lg',icon)" ng-src="{{RecordService.currentRecord.icon.absolute_path}}"  />
+                                    <input
+                                        ng-show="RecordService.currentRecord.icon.id"
+                                        type="checkbox"
+                                        checklist-model="RecordService.selectedIcon"
+                                        checklist-value="true"
+                                    />
+                                        
+                                    <script type="text/ng-template" id="iconModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <img width="100%" ng-src="{{icon.absolute_path}}" />
+                                        </div>
+                                        
                                     </script>
                                     
 
@@ -1082,6 +1108,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <div class="modal-header">
                                 <h3 class="modal-title">بدنه رکورد</h3>
                                 <button class=" close-button btn btn-primary pull-right" ng-click="close()">بستن</button>
+                                <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
+                                    ذخیره و ادامه
+                                </button>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -1144,7 +1173,33 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                                     <div class="row">
 
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-12" >
+
+                                                            <div class="row file-upload-row">
+                                                                <div class="col col-md-8">
+                                                                    <div class="progress" style="">
+                                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col col-md-4">
+                                                                    <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                                                                        انصراف
+                                                                    </button>
+                                                                </div>
+
+
+                                                            </div>
+
+
+
+
+                                                        </div>
+                                                        <div class="col col-md-12 message-box">
+                                                            <span class="uploader-msg" ng-bind="uploader.msg">
+
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-md-12 body-upload-buttons" >
                                                             <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
                                                                 حذف
                                                             </button>
@@ -1158,31 +1213,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                                         </div>
 
-                                                        <div class="col-md-12" style="margin-bottom: 40px">
-
-                                                                    <div class="row file-upload-row">
-                                                                        <div class="col col-md-4">
-                                                                            <div class="progress" style="">
-                                                                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col col-md-2">
-                                                                            <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
-                                                                                انصراف
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="col col-md-6 message-box">
-                                                                            <span class="uploader-msg" ng-bind="uploader.msg">
-
-                                                                            </span>
-                                                                        </div>
-
-                                                                    </div>
-
-
-
-
-                                                        </div>
+                                                        
 
                                                     </div>
 
@@ -1287,7 +1318,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                                                 </div>
 
-                                                                <div class="col-md-12" style="margin-bottom: 40px">
+                                                                <div class="col-md-12">
                                                                     
                                                                             <div class="row file-upload-row">
                                                                                 <div class="col col-md-4">
@@ -1481,9 +1512,21 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </button>
                 </div>
             </script>
-            <button ng-disabled="!RecordService.isEditing()" type="button" class="btn btn-warning" ng-click="RecordService.cancelEditing(); recordform.$setPristine()">
+            <button ng-disabled="!RecordService.isEditing()" type="button" class="btn btn-warning" ng-click="openCancelModal('lg',recordform)">
                 انصراف
             </button>
+            <script type="text/ng-template" id="cancelModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">انصراف</h3>
+                </div>
+                <div class="modal-body">
+                    آیا از انصراف ویرایش رکورد جاری اطمینان دارید؟
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="cancel()">بله</button>
+                    <button class="btn btn-warning" ng-click="close()">خیر</button>
+                </div>
+            </script>
 
 
 
