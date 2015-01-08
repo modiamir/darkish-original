@@ -424,26 +424,34 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                     <label>
                                      از
                                     </label>
-                                    <timepicker ng-change="RecordService.currentRecord.m_opening_hours_from = RecordService.getTime(RecordService.currentRecord.m_opening_hours_from_date);"
-                                                class="morning-one" ng-model="RecordService.currentRecord.m_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                    <timepicker  mousewheel="false" ng-change="RecordService.currentRecord.m_opening_hours_from = RecordService.getTime(RecordService.currentRecord.m_opening_hours_from_date);"
+                                                class="morning-one" ng-model="RecordService.currentRecord.m_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"
+                                                ng-class="{'time-disabled': !RecordService.isEditing()}"
+                                    ></timepicker>
                                      <label>
                                      تا
                                      </label>
-                                    <timepicker ng-change="RecordService.currentRecord.m_opening_hours_to = RecordService.getTime(RecordService.currentRecord.m_opening_hours_to_date);"
-                                        class="morning-two" ng-model="RecordService.currentRecord.m_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                    <timepicker mousewheel="false" ng-change="RecordService.currentRecord.m_opening_hours_to = RecordService.getTime(RecordService.currentRecord.m_opening_hours_to_date);"
+                                        class="morning-two" ng-model="RecordService.currentRecord.m_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"
+                                        ng-class="{'time-disabled': !RecordService.isEditing()}"
+                                    ></timepicker>
                                     <span class="evening">
                                     عصر
                                     </span>
                                      <label>
                                          از
                                      </label>
-                                    <timepicker ng-change="RecordService.currentRecord.a_opening_hours_from = RecordService.getTime(RecordService.currentRecord.a_opening_hours_from_date);"
-                                        class="evening-one" ng-model="RecordService.currentRecord.a_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                    <timepicker mousewheel="false" ng-change="RecordService.currentRecord.a_opening_hours_from = RecordService.getTime(RecordService.currentRecord.a_opening_hours_from_date);"
+                                        class="evening-one" ng-model="RecordService.currentRecord.a_opening_hours_from_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"
+                                        ng-class="{'time-disabled': !RecordService.isEditing()}"
+                                    ></timepicker>
                                      <label>
                                          تا
                                      </label>
-                                    <timepicker ng-change="RecordService.currentRecord.a_opening_hours_to = RecordService.getTime(RecordService.currentRecord.a_opening_hours_to_date);"
-                                        class="evening-two" ng-model="RecordService.currentRecord.a_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"></timepicker>
+                                    <timepicker mousewheel="false" ng-change="RecordService.currentRecord.a_opening_hours_to = RecordService.getTime(RecordService.currentRecord.a_opening_hours_to_date);"
+                                        class="evening-two" ng-model="RecordService.currentRecord.a_opening_hours_to_date" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" ng-disabled="!RecordService.isEditing()"
+                                        ng-class="{'time-disabled': !RecordService.isEditing()}"
+                                    ></timepicker>
 
                                  </div>
                                  <div class="holidays-wrapper">
@@ -1218,17 +1226,16 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             </span>
                                                         </div>
                                                         <div class="col-md-12 body-upload-buttons" >
-                                                            <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
-                                                                حذف
-                                                            </button>
-                                                            <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
-                                                                درج
-                                                            </button>
                                                             <label class="file-select" ng-class="{'disabled': !RecordService.isEditing()}">
                                                                 انتخاب فایل
                                                                 <input ng-disabled="!RecordService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                                                             </label>
-
+                                                            <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
+                                                                درج
+                                                            </button>
+                                                            <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
+                                                                حذف
+                                                            </button>
                                                         </div>
 
                                                         
