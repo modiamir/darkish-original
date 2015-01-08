@@ -364,6 +364,7 @@ class RecordController extends Controller
             $record->setActive(false);
         }
         if(isset($data['center_index'])) {
+            
             //$record->setCenterIndex($data['center_index']);
         }
         if(isset($data['area_index'])) {
@@ -374,6 +375,19 @@ class RecordController extends Controller
         }
         if(isset($data['dbase_type_index'])) {
             //$record->setDbaseTypeIndex($data['dbase_type_index']);
+        }
+        if(isset($data['icon'])) {
+            $iconRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+            
+            if(isset($data['icon']['id'])) {
+                $icon = $iconRepo->find($data['icon']['id']);
+                if($icon) {
+                    $record->setIcon($icon);
+                }
+            } else {
+                $record->setIcon();
+            }
+            
         }
         if(isset($data['trees'])) {
             $currentTrees = $record->getTrees();
@@ -1028,7 +1042,7 @@ class RecordController extends Controller
         if(!$record) {
             return new Response("Record ID is invalid", 404);
         }
-//        return new Response($this->get('jms_serializer')->serialize($record->getIcon(), 'json'));
+//        return new Response($this->get('jms_serializer')->serialize($record, 'json'));
         return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('record.details'))));
     }
 

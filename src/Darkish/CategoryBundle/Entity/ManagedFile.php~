@@ -143,7 +143,7 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_dir", type="string", nullable=true)
      *
-     * @Assert\Choice(choices = {"image", "video", "audio"}, message = "Input a valid uploadDir.")
+     * @Assert\Choice(choices = {"image", "video", "audio", "icon"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
      * @Groups({"record.details"})
@@ -158,6 +158,11 @@ class ManagedFile
      * @Groups({"record.details"})
      */
     private $uploadKey;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="icon")
+     */
+    protected $iconForRecord;
 
 
 
@@ -530,28 +535,7 @@ class ManagedFile
         $this->file = null;
     }
 
-    /**
-     * Set temporary
-     *
-     * @param boolean $temporary
-     * @return ManagedFile
-     */
-    public function setTemporary($temporary)
-    {
-        $this->temporary = $temporary;
-
-        return $this;
-    }
-
-    /**
-     * Get temporary
-     *
-     * @return boolean 
-     */
-    public function getTemporary()
-    {
-        return $this->temporary;
-    }
+    
 
     /**
      * Set isThumbnail
@@ -574,5 +558,28 @@ class ManagedFile
     public function getIsThumbnail()
     {
         return $this->isThumbnail;
+    }
+
+    /**
+     * Set continual
+     *
+     * @param boolean $continual
+     * @return ManagedFile
+     */
+    public function setContinual($continual)
+    {
+        $this->continual = $continual;
+
+        return $this;
+    }
+
+    /**
+     * Get continual
+     *
+     * @return boolean 
+     */
+    public function getContinual()
+    {
+        return $this->continual;
     }
 }

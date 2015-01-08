@@ -156,8 +156,14 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
      * @Groups({"record.details"})
+     * 
      */
     private $uploadKey;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="icon")
+     */
+    protected $iconForRecord;
 
 
 
@@ -576,5 +582,45 @@ class ManagedFile
     public function getContinual()
     {
         return $this->continual;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->iconForRecord = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add iconForRecord
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $iconForRecord
+     * @return ManagedFile
+     */
+    public function addIconForRecord(\Darkish\CategoryBundle\Entity\Record $iconForRecord)
+    {
+        $this->iconForRecord[] = $iconForRecord;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForRecord
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $iconForRecord
+     */
+    public function removeIconForRecord(\Darkish\CategoryBundle\Entity\Record $iconForRecord)
+    {
+        $this->iconForRecord->removeElement($iconForRecord);
+    }
+
+    /**
+     * Get iconForRecord
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForRecord()
+    {
+        return $this->iconForRecord;
     }
 }

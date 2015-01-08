@@ -652,10 +652,12 @@ class Record
     private $images;
     
     /**
-     * @ORM\ManyToOne(targetEntity="ManagedFile")
-     * @ORM\JoinColumn(name="icon_id", referencedColumnName="id")
-     * 
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForRecord")
+     * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
      * @Groups({"record.details"})
+     * 
      **/
     private $icon;
 
@@ -2680,6 +2682,8 @@ class Record
     {
         return $this->accessClass;
     }
+
+    
 
     
 

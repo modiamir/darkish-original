@@ -41,6 +41,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         uploader.formData.push({type : 'record'});
         uploader.msg = "";
         
+        $scope.selectTab = function(currentTab) {
+            ValuesService.activeTab = currentTab;
+            uploader.formData.push({uploadDir : ValuesService.activeTab});
+        }
         
         // FILTERS
             
@@ -62,25 +66,25 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'imageSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'image') {
-                    if(item.size > 300000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'imageSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.activeTab == 'image') {
+//                    if(item.size > 300000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
         
         uploader.filters.push({
             name: 'iconTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'icon') {
-                    uploadableType = "icon";
+                    uploadableType = "image";
                     uploadableExtensions = ["jpg", "jpeg", "png"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
@@ -94,19 +98,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'iconSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'icon') {
-                    if(item.size > 300000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'iconSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.activeTab == 'icon') {
+//                    if(item.size > 300000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
         
         uploader.filters.push({
             name: 'videoTypeFilter',
@@ -126,19 +130,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'videoSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'video') {
-                    if(item.size > 10000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'videoSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.activeTab == 'video') {
+//                    if(item.size > 10000000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
         
         uploader.filters.push({
             name: 'audioTypeFilter',
@@ -158,19 +162,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'audioSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.activeTab == 'audio') {
-                    if(item.size > 4000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'audioSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.activeTab == 'audio') {
+//                    if(item.size > 4000000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
 
         // CALLBACKS
 
@@ -1364,6 +1368,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         self.currentRecord.imagesList.remove(value);
                     });
                     self.currentRecord.images = self.currentRecord.imagesList.all();
+                    break;
+                case 'icon':
+                    
+                    self.currentRecord.icon = {};
                     break;
                 case 'video':
                     angular.forEach(self.selectedVideos, function(value, key){

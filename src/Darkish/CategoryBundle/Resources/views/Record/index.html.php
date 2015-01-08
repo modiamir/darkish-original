@@ -666,22 +666,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <ul class="tab-list" ng-init="ValuesService.activeTab = 'image'">
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'image'}"
-                                ng-click="ValuesService.activeTab = 'image'">
+                                ng-click="selectTab('image')">
                                 عکس
                             </li>
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'icon'}"
-                                ng-click="ValuesService.activeTab = 'icon'">
+                                ng-click="selectTab('icon')">
                                 آیکون
                             </li>
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'video'}"
-                                ng-click="ValuesService.activeTab = 'video'">
+                                ng-click="selectTab('video')">
                                 فیلم
                             </li>
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'audio'}"
-                                ng-click="ValuesService.activeTab = 'audio'">
+                                ng-click="selectTab('audio')">
                                 صدا
                             </li>
                         </ul>
