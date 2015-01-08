@@ -238,7 +238,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                         شاخه ها:
                                     </label>
                                     <div class="tree-list-add-remove-button-wrapper">
-                                        <button type="button" ng-click="showModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
+                                        
                                         <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">+</button>
                                         <button type="button" ng-click="RecordService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!RecordService.isEditing()">-</button>
                                     </div>
