@@ -1028,7 +1028,7 @@ class RecordController extends Controller
         if(!$record) {
             return new Response("Record ID is invalid", 404);
         }
-
+//        return new Response($this->get('jms_serializer')->serialize($record->getIcon(), 'json'));
         return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('record.details'))));
     }
 

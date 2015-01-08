@@ -352,6 +352,11 @@ body{
 .main-wrapper .file-upload-row .uploader-msg {
     font-size: 10px;
 }
+
+.main-wrapper .main-cols .file-upload-row .upload-cancel{
+    text-align: center;
+}
+
 .main-tree-block ul.filter-links{
     border-bottom: 1px solid #CCCCCC;
     padding-right: 0;
@@ -1339,9 +1344,10 @@ h3.block-title {
 }
 .body-attachments-inner .files-list{
     padding: 0px;
-    margin-top: 10px;
+    padding-top: 10px;
     overflow-y: scroll;
-    height: 240px;
+    height: 400px;
+    margin-bottom: 0;
 }
 
 .body-attachments-inner .file{
@@ -1596,16 +1602,29 @@ label.file-select.disabled {
 }
 
 .body-attachments label.file-select {
-    float: right;
+    
     width: 55px;
-    margin-top: 0;
-    margin-left: 3px;
+    margin:0;
+    
     height: 34px;
 }
 
 .body-attachments .file-upload-row {
-    margin-top: 5px;
-    border-top: 1px solid #ddd;
+    border: 1px solid #ddd;
+    padding: 3px 10px;
+    width: 70%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.body-attachments .message-box {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.body-attachments .body-upload-buttons {
+    margin: 10px 0 ;
+    text-align: center;
 }
 
 .body-attachments .file-upload-row button {
@@ -1631,10 +1650,22 @@ label.file-select.disabled {
 
 .body-modal-window .modal-dialog .body-modal-container{
     width: 100%;
+    background-color: rgb(237, 237, 237);
 }
 
 .body-modal-window .modal-dialog  .close-button {
     position: absolute;
     top: 10px;
     left: 10px;
+}
+
+.body-modal-window .modal-dialog  .save-continue-button {
+    position: absolute;
+    top: 10px;
+    left: 80px;
+}
+
+.body-modal-window .body-attachments .body-attachments-inner ul.nav-tabs {
+    background-color: rgb(213, 213, 213);
+    padding-top: 30px;
 }

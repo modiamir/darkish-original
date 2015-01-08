@@ -650,6 +650,14 @@ class Record
      * @Groups({"record.details"})
      **/
     private $images;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\JoinColumn(name="icon_id", referencedColumnName="id")
+     * 
+     * @Groups({"record.details"})
+     **/
+    private $icon;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -2671,5 +2679,30 @@ class Record
     public function getAccessClass()
     {
         return $this->accessClass;
+    }
+
+    
+
+    /**
+     * Set icon
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $icon
+     * @return Record
+     */
+    public function setIcon(\Darkish\CategoryBundle\Entity\ManagedFile $icon = null)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 }

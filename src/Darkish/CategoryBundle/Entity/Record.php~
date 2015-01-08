@@ -43,7 +43,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -57,7 +57,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -71,7 +71,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -85,7 +85,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -99,7 +99,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -113,7 +113,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -127,7 +127,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -141,7 +141,7 @@ class Record
      * @Groups({"record.list", "record.details"})
      * @Assert\Length(
      *      min = "2",
-     *      max = "50",
+     *      max = "70",
      *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
      *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
@@ -624,6 +624,7 @@ class Record
     /**
      * @var integer
      * @ORM\Column(name="AccessClass", type="integer", options={"default": 1})
+     * @Groups({"record.details"})
      */
     private $accessClass;
 
@@ -634,8 +635,8 @@ class Record
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\MainTree", inversedBy="records")
      * @ORM\JoinTable(name="records_maintrees",
-     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="maintree_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="maintree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
     private $trees;
@@ -649,6 +650,13 @@ class Record
      * @Groups({"record.details"})
      **/
     private $images;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\JoinColumn(name="icon_id", referencedColumnName="id")
+     * @Groups({"record.details"})
+     **/
+    private $icon;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -2647,5 +2655,61 @@ class Record
     public function getTurkishSubTitle()
     {
         return $this->turkishSubTitle;
+    }
+
+    /**
+     * Set accessClass
+     *
+     * @param integer $accessClass
+     * @return Record
+     */
+    public function setAccessClass($accessClass)
+    {
+        $this->accessClass = $accessClass;
+
+        return $this;
+    }
+
+    /**
+     * Get accessClass
+     *
+     * @return integer 
+     */
+    public function getAccessClass()
+    {
+        return $this->accessClass;
+    }
+
+    /**
+     * Add icons
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $icons
+     * @return Record
+     */
+    public function addIcon(\Darkish\CategoryBundle\Entity\ManagedFile $icons)
+    {
+        $this->icons[] = $icons;
+
+        return $this;
+    }
+
+    /**
+     * Remove icons
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $icons
+     */
+    public function removeIcon(\Darkish\CategoryBundle\Entity\ManagedFile $icons)
+    {
+        $this->icons->removeElement($icons);
+    }
+
+    /**
+     * Get icons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIcons()
+    {
+        return $this->icons;
     }
 }
