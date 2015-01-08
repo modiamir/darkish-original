@@ -206,13 +206,13 @@ body{
     font-size: 10px;
 }
 
-.continual-modal-window ul.nav-tabs li:nth-child(3) {
+.continual-modal-window ul.nav-tabs li:nth-child(4) {
     border-left: 2px solid rgb(110, 181, 95);
     padding-left: 3px;
     padding-top: 3px;
 }
 
-.continual-modal-window  ul.nav-tabs li:nth-child(4) {
+.continual-modal-window  ul.nav-tabs li:nth-child(5) {
     border-right: 2px solid rgb(117, 95, 181);
     padding-right: 3px;
     padding-top: 3px;

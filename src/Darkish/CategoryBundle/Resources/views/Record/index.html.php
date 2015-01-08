@@ -654,7 +654,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </div>
                     </div>
                     <div class="col col-md-2 upload-cancel">
-                        <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                        <button ng-show="uploader.isUploading" ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
                             X
                         </button>
                     </div>
@@ -905,12 +905,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col col-md-6 center" style="text-align: center;
+                                    <div class="col col-md-7 center" style="text-align: center;
                                                                             border-bottom: 1px solid rgb(110, 181, 95);
                                                                             padding-bottom: 5px;">
                                         رکورد
                                     </div>
-                                    <div class="col col-md-6 center" style="text-align: center;
+                                    <div class="col col-md-5 center" style="text-align: center;
                                                                             border-bottom: 1px solid rgb(117, 95, 181);
                                                                             padding-bottom: 5px;">
                                         صفحه HTML
@@ -930,9 +930,6 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 <th style="width: 10%">
                                                     دائمی
                                                 </th>
-                                                <th style="width: 10%">
-                                                    نمایه
-                                                </th>
 
                                             </tr>
                                             <tr ng-repeat="image in images">
@@ -941,8 +938,29 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                 <td style="width: 10%">
                                                     <input type="checkbox" ng-model="image.continual" />
                                                 </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
+                                    <tab heading="آیکن">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{RecordService.currentRecord.icon.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{RecordService.currentRecord.icon.absolute_path}}" width="50" /></td>
                                                 <td style="width: 10%">
-                                                    <input type="checkbox" ng-model="image.is_thumbnail" />
+                                                    <input type="checkbox" ng-model="RecordService.currentRecord.icon.continual" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -978,7 +996,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                     نام فایل
                                                 </th>
                                                 <th style="width: 30%">
-                                                    آیکون
+                                                    پیش نمایش
                                                 </th>
                                                 <th style="width: 10%">
                                                     دائمی
@@ -1182,7 +1200,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col col-md-4">
-                                                                    <button ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+                                                                    <button ng-show="uploader.isUploading" ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
                                                                         انصراف
                                                                     </button>
                                                                 </div>
