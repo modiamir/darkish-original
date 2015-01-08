@@ -1213,6 +1213,12 @@ h3.block-title {
     height: 40px;
 }
 
+.attachements-wrapper .center .tab-content .icon img {
+    max-width: 200px;
+    max-height: 100px;
+    margin-right: 10px;
+}
+
 .attachements-wrapper .left {
     padding: 0;
     display: inherit;
