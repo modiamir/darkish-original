@@ -53,7 +53,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -182,7 +182,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             console.info('onWhenAddingFileFailed', item, filter, options);
             switch(filter.name) {
                 case 'imageTypeFilter':
-                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا png یا   jpg آپلود کنید.';
+                    uploader.msg = "شما فقط میتوانید فایل با پسوند های  png و bmp و jpg آپلود کنید";
                     break;
                 case 'imageSizeFilter':
                     uploader.msg = 'imageSizeFilter';
@@ -670,10 +670,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.loggedOut = function() {
-            alert("" +
-            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
-            "");
-            window.location = "../record";
+//            alert("" +
+//            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
+//            "");
+//            window.location = "../record";
         }
 
         poollingFactory.callFnOnInterval(function() {
@@ -1808,7 +1808,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -1905,7 +1905,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             console.info('onWhenAddingFileFailed', item, filter, options);
             switch(filter.name) {
                 case 'imageTypeFilter':
-                    uploader.msg = 'شما فقط میتوانید فایل با پسوندهای   jpeg یا   jpg آپلود کنید.';
+                    uploader.msg = "شما فقط میتوانید فایل با پسوند های  png و bmp و jpg آپلود کنید";
                     break;
                 case 'imageSizeFilter':
                     uploader.msg = 'imageSizeFilter';
