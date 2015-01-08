@@ -1394,7 +1394,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     angular.forEach(self.selectedBodyImages, function(value, key){
-                        self.currentRecord.bodyImagesList.remove(value);
+//                        self.currentRecord.bodyImagesList.remove(value);
+                        
                     });
                     self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
                     break;
@@ -1821,19 +1822,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'imageSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.bodyAttachmentActiveTab == 'image') {
-                    if(item.size > 300000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'imageSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.bodyAttachmentActiveTab == 'image') {
+//                    if(item.size > 300000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
         
         uploader.filters.push({
             name: 'videoTypeFilter',
@@ -1853,19 +1854,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'videoSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.bodyAttachmentActiveTab == 'video') {
-                    if(item.size > 10000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'videoSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.bodyAttachmentActiveTab == 'video') {
+//                    if(item.size > 10000000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
         
         uploader.filters.push({
             name: 'audioTypeFilter',
@@ -1885,19 +1886,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
-        uploader.filters.push({
-            name: 'audioSizeFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
-                if(ValuesService.bodyAttachmentActiveTab == 'audio') {
-                    if(item.size > 4000000) {
-                        return false;
-                    }
-                }
-                return true;
-                
-                 
-            }
-        });
+//        uploader.filters.push({
+//            name: 'audioSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.bodyAttachmentActiveTab == 'audio') {
+//                    if(item.size > 4000000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//                
+//                 
+//            }
+//        });
 
         // CALLBACKS
 
@@ -1986,13 +1987,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
-                    CkInstance.insertHtml('<p style="text-align:center;"><img alt="" style="width:200px;" src="'+RecordService.selectedBodyImage.absolute_path+'" /></p>');
+                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyImage.file_name+'" style="text-align:center;"><img file-name="'+RecordService.selectedBodyImage.file_name+'"  alt="" style="width:200px;" src="'+RecordService.selectedBodyImage.absolute_path+'" /></p>');
                     break;
                 case 'video':
-                    CkInstance.insertHtml('<p style="text-align:center;" ><video controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
+                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyVideo.file_name+'"  style="text-align:center;" ><video file-name="'+RecordService.selectedBodyVideo.file_name+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
                     break;
                 case 'audio':
-                    CkInstance.insertHtml('<p style="text-align:center;" ><audio controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
+                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyAudio.file_name+'" style="text-align:center;" ><audio file-name="'+RecordService.selectedBodyAudio.file_name+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
                     break;
 
             }
