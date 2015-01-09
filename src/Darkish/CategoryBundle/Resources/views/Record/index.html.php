@@ -1137,6 +1137,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
                                     ذخیره و ادامه
                                 </button>
+                                <span class="body-save-continue-message" ng-show="RecordService.saved">
+                                    <ul>
+                                        <li ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
+                                        </li>
+                                    </ul>
+                                </span>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -1236,6 +1242,15 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             <button class="btn btn-danger" data-ng-click="RecordService.removeFromBodyAttachList()">
                                                                 حذف
                                                             </button>
+                                                            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button-bottom btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
+                                                                ذخیره و ادامه
+                                                            </button>
+                                                            <span class="body-save-continue-message-bottom" ng-show="RecordService.saved">
+                                                                <ul>
+                                                                    <li ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
+                                                                    </li>
+                                                                </ul>
+                                                            </span>
                                                         </div>
 
                                                         

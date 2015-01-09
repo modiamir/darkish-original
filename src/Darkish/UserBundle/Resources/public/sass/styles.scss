@@ -1,0 +1,21 @@
+@font-face {
+    font-family: yekan;
+    src: url("../fonts/yekan/yekan.eot");
+    src: url("../fonts/yekan/yekan.eot?#iefix") format("embedded-opentype"), url("../fonts/yekan/yekan.woff") format("woff"), url("../fonts/yekan/yekan.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: yekan;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+    .operator-login-form {
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+    }
+}
+
