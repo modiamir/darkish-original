@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Darkish\UserBundle\DarkishUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
