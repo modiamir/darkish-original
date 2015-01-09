@@ -1676,6 +1676,18 @@ label.file-select.disabled {
     left: 80px;
 }
 
+.body-save-continue-message {
+     position: absolute;
+    left: 200px;
+    top: 12px;
+    list-style: none;
+}
+
+span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
+    list-style: none;
+    text-align: center;
+}
+
 .body-modal-window .body-attachments .body-attachments-inner ul.nav-tabs {
     background-color: rgb(213, 213, 213);
     padding-top: 30px;

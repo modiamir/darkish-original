@@ -670,10 +670,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.loggedOut = function() {
-//            alert("" +
-//            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
-//            "");
-//            window.location = "../record";
+            alert("" +
+            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
+            "");
+            window.location = "../record";
         }
 
         poollingFactory.callFnOnInterval(function() {
@@ -1389,25 +1389,74 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
 
         }
+        
+        self.cleanBodyAttachments = function() {
+            bodyDom = angular.element(self.currentRecord.body);
+            angular.forEach(self.currentRecord.bodyImagesList.array, function(value, key){
+                filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                if(filesInEditor.length == 0) {
+                    self.currentRecord.bodyImagesList.remove(value);
+                }
+            });
+            self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
+            
+            angular.forEach(self.currentRecord.bodyVideosList.array, function(value, key){
+                filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                if(filesInEditor.length == 0) {
+                    self.currentRecord.bodyVideosList.remove(value);
+                }
+            });
+            self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
+            
+            angular.forEach(self.currentRecord.bodyAudiosList.array, function(value, key){
+                filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                if(filesInEditor.length == 0) {
+                    self.currentRecord.bodyAudiosList.remove(value);
+                }
+            });
+            self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
+            
+        }
 
         self.removeFromBodyAttachList = function() {
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     angular.forEach(self.selectedBodyImages, function(value, key){
-//                        self.currentRecord.bodyImagesList.remove(value);
+                        
+                        bodyDom = angular.element(self.currentRecord.body);
+                        filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                        if(filesInEditor.length > 0) {
+                            alert("امکان حذف فایل "+"\n"+value.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
+                        }else {
+                            self.currentRecord.bodyImagesList.remove(value);
+                        }
                         
                     });
                     self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
                     break;
                 case 'video':
                     angular.forEach(self.selectedBodyVideos, function(value, key){
-                        self.currentRecord.bodyVideosList.remove(value);
+                        bodyDom = angular.element(self.currentRecord.body);
+                        filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                        if(filesInEditor.length > 0) {
+                            alert("امکان حذف فایل "+"\n"+value.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
+                        }else {
+                            self.currentRecord.bodyVideosList.remove(value);
+                        }
+                        
                     });
                     self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
                     break;
                 case 'audio':
                     angular.forEach(self.selectedBodyAudios, function(value, key){
-                        self.currentRecord.bodyAudiosList.remove(value);
+                        bodyDom = angular.element(self.currentRecord.body);
+                        filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                        if(filesInEditor.length > 0) {
+                            alert("امکان حذف فایل "+"\n"+value.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
+                        }else {
+                            self.currentRecord.bodyAudiosList.remove(value);
+                        }
+                        
                     });
                     self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
                     break;
@@ -1469,6 +1518,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.saveCurrentRecord = function(contin) {
             contin = (contin)? true : false;
             self.savingMessages = {}
+            self.saved = false;
+            if(!contin){
+                self.cleanBodyAttachments();
+            }
             if(self.isNew()) {
 
                 self.saveCurrentNewRecord().then(
@@ -1728,7 +1781,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             language: 'fa',
             height: '500px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight",
+            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,
@@ -1754,7 +1807,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
                 { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video' ] },
+                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Halfhr', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video' ] },
                 '/',
                 { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'Templates', 'TextColor', 'BGColor', 'lineheight' ] },
                 { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
@@ -1985,15 +2038,19 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             var CkInstance = null;
             angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
+            
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
-                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyImage.file_name+'" style="text-align:center;"><img file-name="'+RecordService.selectedBodyImage.file_name+'"  alt="" style="width:200px;" src="'+RecordService.selectedBodyImage.absolute_path+'" /></p>');
+                    var fileClass = RecordService.selectedBodyImage.file_name.replace(".", "-");
+                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;"><img class="'+fileClass+'"  alt="" style="width:200px;" src="'+RecordService.selectedBodyImage.absolute_path+'" /></p>');
                     break;
                 case 'video':
-                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyVideo.file_name+'"  style="text-align:center;" ><video file-name="'+RecordService.selectedBodyVideo.file_name+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
+                    var fileClass = RecordService.selectedBodyVideo.file_name.replace(".", "-");
+                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
                     break;
                 case 'audio':
-                    CkInstance.insertHtml('<p file-name="'+RecordService.selectedBodyAudio.file_name+'" style="text-align:center;" ><audio file-name="'+RecordService.selectedBodyAudio.file_name+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
+                    var fileClass = RecordService.selectedBodyAudio.file_name.replace(".", "-");
+                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
                     break;
 
             }
