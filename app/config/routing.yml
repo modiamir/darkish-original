@@ -1,3 +1,4 @@
+
 darkish_panel:
     resource: "@DarkishPanelBundle/Resources/config/routing.yml"
     prefix:   /
@@ -42,3 +43,8 @@ sonata_user:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
+darkish_user:
+    resource: "@DarkishUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
