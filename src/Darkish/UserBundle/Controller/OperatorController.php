@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class OperatorController extends Controller
 {
     /**
@@ -40,6 +42,19 @@ class OperatorController extends Controller
         );
     }
 
+    /**
+     * @Route("/admin/is_remembered", name="security_remembered")
+     */
+    public function isRememberedAction() {
+        /* @var $sc \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken */
+        $sc = $this->get('security.context')->getToken();
+        
+        
+        return new JsonResponse($this->get('security.context')->isGranted(
+        'IS_AUTHENTICATED_REMEMBERED'
+       ));
+    }
+    
     /**
      * @Route("/admin/operator/login_check", name="login_check")
      */

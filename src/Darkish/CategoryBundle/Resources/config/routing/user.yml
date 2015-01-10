@@ -5,3 +5,6 @@ user_logout:
 user_is_logged_in:
     path:     /ajax/is_logged_in
     defaults: { _controller: "DarkishCategoryBundle:User:isLoggedIn" }
+
+user_admin_logout:
+    path:     /logout

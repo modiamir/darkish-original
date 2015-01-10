@@ -48,6 +48,10 @@ class UserController extends Controller
         $res = $securityContext->getToken()->isAuthenticated();
         
 
-        return new JsonResponse(array($res));
+        return new JsonResponse(array(
+                $this->get('security.context')->isGranted(
+                    'IS_AUTHENTICATED_FULLY'
+                   ))
+        );
     }
 }
