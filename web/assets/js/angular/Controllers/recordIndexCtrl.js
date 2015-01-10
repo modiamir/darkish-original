@@ -643,7 +643,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         $scope.logout = function() {
-            $http.get('../user/ajax/logout').then(
+            $http.get('../user/logout').then(
                 function(response){
                     $scope.loggedOut();
                 },
@@ -656,15 +656,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.isLoggedIn = function() {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
-//                    console.log(response);
+//                    console.log(response.data[0]);
                     if(response.data[0] === true) {
-//                        console.log('you are logged in');
+                        console.log(response.data);
                     } else {
                         $scope.loggedOut();
                     }
                 },
                 function(responseErr){
-                    $scope.loggedOut();
+                    
                 }
             );
         }
