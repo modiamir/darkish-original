@@ -657,10 +657,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
 //                    console.log(response.data[0]);
-                    if(response.data[0] === true) {
-                        console.log(response.data);
-                    } else {
+                    if(response.data[0] === false) {
                         $scope.loggedOut();
+                    } else {
+                        
                     }
                 },
                 function(responseErr){
