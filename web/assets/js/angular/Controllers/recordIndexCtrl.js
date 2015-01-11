@@ -643,7 +643,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         $scope.logout = function() {
-            $http.get('../user/logout').then(
+            $http.get('../operator/logout').then(
                 function(response){
                     $scope.loggedOut();
                 },
@@ -1065,6 +1065,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                                         self.currentRecord.bodyVideosList = Collection.getInstance();
                                         self.currentRecord.audiosList = Collection.getInstance();
                                         self.currentRecord.bodyAudiosList = Collection.getInstance();
+                                        self.currentRecord.bodyDocsList = Collection.getInstance();
 
                                         /**
                                          * initializing working time variables -- begin
@@ -1162,6 +1163,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         return true;
                     }
                     break;
+                case 'doc':
+                    if(self.selectedBodyDoc) {
+                        return true;
+                    }
+                    break;
                 default:
                     return false;
             }
@@ -1190,6 +1196,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.selectedAudios = []
 
         self.selectedBodyAudios = []
+        
+        self.selectedBodyDocs = []
 
 
         self.selectedImage = {}
@@ -1316,6 +1324,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                     self.currentRecord.bodyAudiosList = Collection.getInstance();
                     self.currentRecord.bodyAudiosList.addAll(self.currentRecord.body_audios);
+                    
+                    self.currentRecord.bodyDocsList = Collection.getInstance();
+                    self.currentRecord.bodyDocsList.addAll(self.currentRecord.body_docs);
                 },
                 function(errResponse) {
                 }
@@ -1359,6 +1370,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.addToBodyAudiosList = function(obj) {
             self.currentRecord.bodyAudiosList.add(obj);
             self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
+        }
+        
+        self.addToBodyDocsList = function(obj) {
+            self.currentRecord.bodyDocsList.add(obj);
+            self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
         }
 
         self.removeFromAttachList = function() {
@@ -1416,6 +1432,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
             self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
             
+            angular.forEach(self.currentRecord.bodyDocsList.array, function(value, key){
+                filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                if(filesInEditor.length == 0) {
+                    self.currentRecord.bodyDocsList.remove(value);
+                }
+            });
+            self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
+            
         }
 
         self.removeFromBodyAttachList = function() {
@@ -1459,6 +1483,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         
                     });
                     self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
+                    break;
+                
+                case 'doc':
+                    angular.forEach(self.selectedBodyDocs, function(value, key){
+                        bodyDom = angular.element(self.currentRecord.body);
+                        filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
+                        if(filesInEditor.length > 0) {
+                            alert("امکان حذف فایل "+"\n"+value.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
+                        }else {
+                            self.currentRecord.bodyDocsList.remove(value);
+                        }
+                        
+                    });
+                    self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
                     break;
 
             }
@@ -1684,6 +1722,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         $scope.bodyImages = angular.copy(RecordService.currentRecord.bodyImagesList.all());
         $scope.bodyAudios = angular.copy(RecordService.currentRecord.bodyAudiosList.all());
+        $scope.bodyDocs = angular.copy(RecordService.currentRecord.bodyDocsList.all());
         $scope.bodyVideos = angular.copy(RecordService.currentRecord.bodyVideosList.all());
         $scope.close = function(){$modalInstance.close();}
         $scope.save = function() {
@@ -1706,6 +1745,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             RecordService.currentRecord.bodyAudiosList.removeAll();
             RecordService.currentRecord.bodyAudiosList.addAll($scope.bodyAudios);
             RecordService.currentRecord.body_audios = RecordService.currentRecord.bodyAudiosList.all();
+            
+            RecordService.currentRecord.bodyDocsList.removeAll();
+            RecordService.currentRecord.bodyDocsList.addAll($scope.bodyDocs);
+            RecordService.currentRecord.body_docs = RecordService.currentRecord.bodyDocsList.all();
 
             RecordService.currentRecord.bodyVideosList.removeAll();
             RecordService.currentRecord.bodyVideosList.addAll($scope.bodyVideos);
@@ -2015,6 +2058,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'audio':
                     RecordService.addToBodyAudiosList(response);
                     break;
+                case 'doc':
+                    RecordService.addToBodyDocsList(response);
+                    break;
 
             }
             uploader.msg = 'فایل با موفقیت بارگزاری شد.';
@@ -2051,6 +2097,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'audio':
                     var fileClass = RecordService.selectedBodyAudio.file_name.replace(".", "-");
                     CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
+                    break;
+                    
+                case 'doc':
+                    var text = prompt("لطفا متن مربوط به لینک دانلود فایل را وارد نمایید. در غیر این صورت نام فایل به عنوان متن در نظر گرفته می شود.");
+                    text = (text)?text:RecordService.selectedBodyDoc.file_name;
+                    var fileClass = RecordService.selectedBodyDoc.file_name.replace(".", "-");
+                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><a class="'+fileClass+'" href="'+RecordService.selectedBodyDoc.absolute_path+'"  > '+text+'  </a></p>');
                     break;
 
             }

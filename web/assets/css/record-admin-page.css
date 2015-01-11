@@ -1394,7 +1394,7 @@ h3.block-title {
     background-position: center top;
 }
 
-.body-attachments-inner .audio .file.selected,.body-attachments-inner .image .file.selected {
+.body-attachments-inner .audio .file.selected, .body-attachments-inner .file.selected span ,.body-attachments-inner .image .file.selected {
 
     background-color: #7d94ac;
 }
@@ -1693,3 +1693,15 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     padding-top: 30px;
 }
 
+.main-field-forht-half-section {
+    border: 1px solid #ccc;
+    margin: 2%;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    width: 96%;
+}
+
+.main-field-forht-half-section #show-contact-on-list{
+    margin-left: 45px;
+}
