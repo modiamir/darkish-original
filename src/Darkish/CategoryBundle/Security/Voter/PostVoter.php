@@ -11,13 +11,19 @@ class PostVoter implements VoterInterface
     const VIEW = 'view';
     const EDIT = 'edit';
     const VERIFY = 'publish';
+    const CREATE = 'create';
+    const ACTIVATE = 'activate';
+    const OTHER = 'other';
 
     public function supportsAttribute($attribute)
     {
         return in_array($attribute, array(
             self::VIEW,
             self::EDIT,
-            self::VERIFY
+            self::VERIFY,
+            self::CREATE,
+            self::ACTIVATE,
+            self::OTHER
         ));
 
     }
@@ -30,7 +36,7 @@ class PostVoter implements VoterInterface
     }
 
     /**
-    * @var \Darkish\CategoryBundle\Entity\Post $post
+    * @var \Darkish\CategoryBundle\Entity\Record $record
     */
     public function vote(TokenInterface $token, $record, array $attributes)
     {
@@ -69,19 +75,60 @@ class PostVoter implements VoterInterface
                 // the data object could have for example a method isPrivate()
                 // which checks the Boolean attribute $private
 
-                    return VoterInterface::ACCESS_DENIED;
+                    return VoterInterface::ACCESS_GRANTED;
 
                 break;
 
             case self::EDIT:
                 // we assume that our data object has a method getOwner() to
                 // get the current owner user entity for this data object
-
-                return VoterInterface::ACCESS_GRANTED;
+                
+                $allowed_roles = array(
+                    'ROLE_EDITOR',
+                    'ROLE_ADMIN',
+                    'ROLE_SUPER_ADMIN',
+                );
+                if(count(array_intersect($allowed_roles, $user->getRolesNames()))) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
                 break;
 
             case self::VERIFY:
-
+                $allowed_roles = array(
+                    'ROLE_ADMIN',
+                    'ROLE_SUPER_ADMIN',
+                );
+                if(count(array_intersect($allowed_roles, $user->getRolesNames()))) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+                break;
+            case self::CREATE:
+                $allowed_roles = array(
+                    'ROlE_PUBLISHER',
+                    'ROLE_EDITOR',
+                    'ROLE_ADMIN',
+                    'ROLE_SUPER_ADMIN',
+                );
+                if(count(array_intersect($allowed_roles, $user->getRolesNames()))) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+                break;
+            case self::ACTIVATE:
+                $allowed_roles = array(
+                    'ROLE_ADMIN',
+                    'ROLE_SUPER_ADMIN',
+                );
+                if(count(array_intersect($allowed_roles, $user->getRolesNames()))) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+                break;
+            case self::OTHER:
+                $allowed_roles = array(
+                    'ROLE_SUPER_ADMIN',
+                );
+                if(count(array_intersect($allowed_roles, $user->getRolesNames()))) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
                 break;
         }
 

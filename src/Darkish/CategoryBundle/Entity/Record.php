@@ -479,6 +479,22 @@ class Record
     /**
      * @var boolean
      *
+     * @ORM\Column(name="ShowContactOnList", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $showContactOnList;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="OnlyContactInformation", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $onlyContactInformation;
+    
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="SendSmsEnable", type="boolean", nullable=true)
      * @Groups({"record.details"})
      */
@@ -710,6 +726,16 @@ class Record
      * @Groups({"record.details"})
      **/
     private $bodyAudios;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="records_body_docs",
+     *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"record.details"})
+     **/
+    private $bodyDocs;
 
 
 
@@ -2708,5 +2734,84 @@ class Record
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * Set showContactOnList
+     *
+     * @param boolean $showContactOnList
+     * @return Record
+     */
+    public function setShowContactOnList($showContactOnList)
+    {
+        $this->showContactOnList = $showContactOnList;
+
+        return $this;
+    }
+
+    /**
+     * Get showContactOnList
+     *
+     * @return boolean 
+     */
+    public function getShowContactOnList()
+    {
+        return $this->showContactOnList;
+    }
+
+    /**
+     * Set onlyContactInformation
+     *
+     * @param boolean $onlyContactInformation
+     * @return Record
+     */
+    public function setOnlyContactInformation($onlyContactInformation)
+    {
+        $this->onlyContactInformation = $onlyContactInformation;
+
+        return $this;
+    }
+
+    /**
+     * Get onlyContactInformation
+     *
+     * @return boolean 
+     */
+    public function getOnlyContactInformation()
+    {
+        return $this->onlyContactInformation;
+    }
+
+    /**
+     * Add bodyDocs
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
+     * @return Record
+     */
+    public function addBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
+    {
+        $this->bodyDocs[] = $bodyDocs;
+
+        return $this;
+    }
+
+    /**
+     * Remove bodyDocs
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
+     */
+    public function removeBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
+    {
+        $this->bodyDocs->removeElement($bodyDocs);
+    }
+
+    /**
+     * Get bodyDocs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyDocs()
+    {
+        return $this->bodyDocs;
     }
 }

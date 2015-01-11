@@ -34,7 +34,7 @@ security:
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER
             logout:
-                path:   /admin/user/logout
+                path:   /admin/operator/logout
 #        admin:
 #            pattern:            /admin(.*)
 #            context:            user
