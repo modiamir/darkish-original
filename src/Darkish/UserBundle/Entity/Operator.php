@@ -39,12 +39,20 @@ class Operator implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="operators")
+     *
+     */
+    private $roles;
 
     public function __construct()
     {
         $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
+        
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -78,7 +86,19 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_USER', 'ROLE_ADMIN');
+        /* @var $this->roles \Doctrine\Common\Collections\ArrayCollection() */
+        return $this->roles->toArray();
+    }
+    
+    public function getRolesNames() {
+        $roles = [];
+        /* @var $this->roles \Doctrine\Common\Collections\ArrayCollection() */
+        $rolesIterator = $this->roles->getIterator();
+        while($rolesIterator->valid()) {
+            $roles[] = $rolesIterator->current()->getRole();
+            $rolesIterator->next();
+        }
+        return $roles;
     }
 
     /**
@@ -219,5 +239,28 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Darkish\UserBundle\Entity\Role $roles
+     * @return Operator
+     */
+    public function addRole(\Darkish\UserBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Darkish\UserBundle\Entity\Role $roles
+     */
+    public function removeRole(\Darkish\UserBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
     }
 }

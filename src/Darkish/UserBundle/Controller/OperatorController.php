@@ -61,4 +61,21 @@ class OperatorController extends Controller
     public function loginCheckAction()
     {
     }
+    
+    /**
+     * @Route("/admin/operator/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+    }
+    
+    /**
+     * @Route("/admin/operator/check_permission", name="check_permission")
+     */
+    public function checkPermissionAction() {
+        $record = new \Darkish\CategoryBundle\Entity\Record();
+        return new JsonResponse($this->get('security.context')->isGranted('edit', $record));
+        
+        
+    }
 }

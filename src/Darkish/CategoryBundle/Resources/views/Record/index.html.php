@@ -523,6 +523,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                  </div>
                              </div>
                          </div>
+                        <div class="main-field-forht-half-section">
+                            <label for="show-contact-on-list" >نمایش دکمه تماس روی لیست ها</label>
+                            <input ng-disabled="!RecordService.isEditing()" id="show-contact-on-list" type="checkbox" ng-model="RecordService.currentRecord.show_contact_on_list" />
+                            <label for="only-contact-information">فقط حاوی اطلاعات تماس</label>
+                            <input ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.show_contact_on_list" id="only-contact-information" type="checkbox" ng-model="RecordService.currentRecord.only_contact_information" />
+                        </div>
                          <div class="main-fields-forth-section" >
                             <span> آدرس و تلفن</span>
                             <label for="address">آدرس</label>
@@ -1090,6 +1096,30 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                             </tr>
                                         </table>
                                     </tab>
+                            
+                                    <tab heading="دیگر">
+                                        <table class="table table-striped" 
+                                            style="height: 300px;overflow-y: scroll;display: inline-block;">
+                                            <tr>
+                                                <th style="width: 50%">
+                                                    نام فایل
+                                                </th>
+                                                <th style="width: 30%">
+                                                    پیش نمایش
+                                                </th>
+                                                <th style="width: 10%">
+                                                    دائمی
+                                                </th>
+                                            </tr>
+                                            <tr ng-repeat="bodyDoc in bodyDocs">
+                                                <td style="width: 50%; overflow-wrap: break-word;">{{bodyDoc.file_name}}</td>
+                                                <td style="width: 30%"><img ng-src="{{bodyDoc.absolute_path}}" width="50" /></td>
+                                                <td style="width: 10%">
+                                                    <input type="checkbox" ng-model="bodyDoc.continual" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </tab>
                                 </tabset>
                             </div>
                             <div class="modal-footer">
@@ -1189,6 +1219,20 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                                         checklist-value="audio"
                                                                     />
                                                                     <span ng-click="RecordService.selectedBodyAudio =audio" ng-bind="audio.file_name" ></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </tab>
+                                                    <tab select="selectTab('doc')" heading="دیگر">
+                                                        <div class="doc">
+                                                            <ul class="doc-list files-list">
+                                                                <li class = "file" ng-repeat="doc in RecordService.currentRecord.body_docs" style="float: right" ng-click="RecordService.selectBodyAudio(doc)" ng-class="{'selected' : RecordService.selectedBodyDoc.id == doc.id}">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checklist-model="RecordService.selectedBodyDocs"
+                                                                        checklist-value="doc"
+                                                                    />
+                                                                    <span ng-click="RecordService.selectedBodyDoc =doc" ng-bind="doc.file_name" ></span>
                                                                 </li>
                                                             </ul>
                                                         </div>

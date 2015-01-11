@@ -34,7 +34,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class RecordController extends Controller
 {
-    private $numPerPage = 5;
+    private $numPerPage = 15;
 
     /**
      * Lists all News entities.
@@ -88,7 +88,7 @@ class RecordController extends Controller
                 $em->persist($record);
                 $em->flush();
                 
-                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
                 
                 return new Response($serializer->serialize($record, 'json'));
 
@@ -148,8 +148,9 @@ class RecordController extends Controller
                 $data['body_videos'] = (isset($data['body_videos']))?$data['body_videos']:[];
                 $data['audios'] = (isset($data['audios']))?$data['audios']:[];
                 $data['body_audios'] = (isset($data['body_audios']))?$data['body_audios']:[];
+                $data['body_docs'] = (isset($data['body_docs']))?$data['body_docs']:[];
                 
-                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios']);
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
                 
                 
 
@@ -191,6 +192,14 @@ class RecordController extends Controller
         }
         if(isset($data['arabic_sub_title'])) {
             $record->setArabicSubTitle($data['arabic_sub_title']);
+        }
+        
+        if(isset($data['show_contact_on_list'])) {
+            $record->setShowContactOnList($data['show_contact_on_list']);
+        }
+        
+        if(isset($data['only_contact_information'])) {
+            $record->setOnlyContactInformation($data['only_contact_information']);
         }
 
         if(isset($data['turkish_title'])) {
@@ -684,10 +693,53 @@ class RecordController extends Controller
 
             //$record->setImages($data['images']);
         }
+        
+        if(isset($data['body_docs'])) {
+
+            $currentBodyDocs = $record->getBodyDocs();
+            if($currentBodyDocs) {
+                $newBodyDocs = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_docs'] as $bodydoc) {
+                    $newBodyDocs->add($rep->find($bodydoc['id']));
+                }
+
+                $newBodyDocsIterator = $newBodyDocs->getIterator();
+                while($newBodyDocsIterator->valid()) {
+                    if($currentBodyDocs->contains($newBodyDocsIterator->current())) {
+                        $eCollec->add($newBodyDocsIterator->current());
+                    } else {
+                        $neCollec->add($newBodyDocsIterator->current());
+                    }
+                    $newBodyDocsIterator->next();
+                }
+
+                $currentBodyDocsIterator = $currentBodyDocs->getIterator();
+                while($currentBodyDocsIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyDocsIterator->current()) && !$neCollec->contains($currentBodyDocsIterator->current())) {
+                        $currentBodyDocs->removeElement($currentBodyDocsIterator->current());
+                    }
+                    $currentBodyDocsIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyDocs->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$record->setImages($data['images']);
+        }
     }
     
     
-    private function setContinualThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios) {
+    private function setContinualThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios, $body_docs) {
 //        $serializer = $this->get('jms_serializer');
 //            /* @var $serializer JMSSerializer */
 //        $data = $serializer->deserialize($request->get('data'), 'array', 'json');
@@ -702,7 +754,7 @@ class RecordController extends Controller
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
         $em = $this->getDoctrine()->getManager();
         
-        $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos);
+        $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos, $body_docs);
         
         
         /**
