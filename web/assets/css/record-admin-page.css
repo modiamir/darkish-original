@@ -1709,3 +1709,31 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .main-field-forht-half-section #show-contact-on-list{
     margin-left: 45px;
 }
+
+
+.grid-block-wrapper .grid-block {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+
+.record-insert-text-label, .link-insert-text-label {
+    width: 20%;
+    margin-left: 10%;
+}
+
+#record-insert-text, #link-insert-text {
+    width: 60%;
+    
+}
+
+.record-insert-id-label, .link-insert-link-label {
+    width: 20%;
+    margin-left: 10%;
+    margin-top: 20px;
+}
+
+#record-insert-id, #link-insert-link {
+    width: 60%;
+    margin-top: 20px;
+}

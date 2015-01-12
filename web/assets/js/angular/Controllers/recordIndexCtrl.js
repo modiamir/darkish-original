@@ -9,7 +9,7 @@
 //        }]);
 
 angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
-                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps'
+                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll'
     ])
     .config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
         GoogleMapApi.configure({
@@ -22,6 +22,22 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                                      'mapModal','FileUploader', '$modal',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal) {
 
+
+        gb = document.getElementsByClassName('grid-block')[0];
+        tbl = gb.getElementsByTagName('table')[0];
+              
+        
+        gridblock = angular.element(gb);
+        table = angular.element(tbl);
+        
+        gridblock.on('scroll', function() {
+          console.info('table height', table.height());
+          console.info('grid block height', gridblock.height());
+          console.info('grid block pos', gridblock.scrollTop());
+          if(gridblock.scrollTop() + gridblock.height() >= table.height()) {
+              RecordService.searchRecords(RecordService.recordList().length);
+          }
+        });
 
 
 
@@ -578,7 +594,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
          *  RecordService Initializing
          */
         $scope.RecordService = RecordService;
-        $scope.RecordService.getRecordsForCat(1);
+        $scope.RecordService.getRecordsForCat(-1,0);
         $scope.recordList = function() {
             return RecordService.recordList();
         };
@@ -1014,6 +1030,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         self.searchRecords = function(count) {
+            
             if(!count) {
                 count=0;
             }
@@ -1677,7 +1694,47 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.insertTree = function() {
             
             console.log($scope.currentBodyTreeNode);
-            CkInstance.insertHtml('<span class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.treeIndex+'">'+$scope.currentBodyTreeNode.title+'</span>');
+            CkInstance.insertHtml('<a href="#" class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.treeIndex+'">'+$scope.currentBodyTreeNode.title+'</a>');
+            $scope.close();
+        }
+    }]).
+    controller('bodyRecordModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
+        $scope.RecordService = RecordService;
+        $scope.TreeService = TreeService;
+        $scope.text = "";
+        $scope.recordId = "";
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
+
+        var CkInstance = null;
+        angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
+        
+        $scope.insertRecord = function() {
+            
+            console.log($scope.currentBodyTreeNode);
+            CkInstance.insertHtml('<a href="#" class="body inner-link " record-id="'+$scope.recordId+'">'+$scope.text+'</a>');
+            $scope.close();
+        }
+    }]).
+    controller('insertLinkModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
+        $scope.RecordService = RecordService;
+        $scope.TreeService = TreeService;
+        $scope.text = "";
+        $scope.link = "";
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
+
+        var CkInstance = null;
+        angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
+        
+        $scope.insertLink = function() {
+            $scope.insertableLink= 'http://'+$scope.link;
+            console.log($scope.currentBodyTreeNode);
+            CkInstance.insertHtml('<a class="body web-link " href="'+$scope.insertableLink+'">'+$scope.text+'</a>');
             $scope.close();
         }
     }]).
@@ -1920,6 +1977,63 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
 
             bodyTreeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        
+        
+        //////////////
+        
+        
+        /**
+         * Body Record modal initializing
+         */
+        
+        
+        $scope.openBodyRecordModal = function (size) {
+
+            var bodyRecordModalInstance = $modal.open({
+                templateUrl: 'bodyRecordModal.html',
+                controller: 'bodyRecordModalCtrl',
+                size: size,
+                resolve: {
+                    
+                }
+            });
+
+            bodyRecordModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        
+        
+        //////////////
+        
+        /**
+         * Insert link modal initializing
+         */
+        
+        
+        $scope.openInsertLinkModal = function (size) {
+
+            var bodyInsertLinkInstance = $modal.open({
+                templateUrl: 'insertLinkModal.html',
+                controller: 'insertLinkModalCtrl',
+                size: size,
+                resolve: {
+                    
+                }
+            });
+
+            insertLinkModalInstance.result.then(
             function () {
                 
             }, function () {

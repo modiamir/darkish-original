@@ -203,7 +203,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 
 
-                    <div class="col main-fields-wrapper">
+                    <div class="col main-fields-wrapper" id="main-fields-wrapper">
                         <div class="main-fields-first-section" >
 
                             <div class="main-fields-search-key">
@@ -1289,13 +1289,15 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button-bottom btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
                                                                 ذخیره و ادامه
                                                             </button>
-                                                            <button class="btn insert-tree-button" ng-click="openBodyTreeModal()" >درج شاخه</button>
                                                             <span class="body-save-continue-message-bottom" ng-show="RecordService.saved">
                                                                 <ul>
                                                                     <li ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
                                                                     </li>
                                                                 </ul>
                                                             </span>
+                                                            <button class="btn insert-tree-button" ng-click="openBodyTreeModal()" >درج شاخه</button>
+                                                            <button class="btn insert-record-button" ng-click="openBodyRecordModal()" >درج رکورد</button>
+                                                            <button class="btn insert-record-button" ng-click="openInsertLinkModal()" >درج لینک</button>
                                                         </div>
 
                                                         
@@ -1320,7 +1322,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         </script>
                         <script type="text/ng-template" id="bodyTreeModal.html">
                             <div class="modal-header">
-                                <h3 class="modal-title">انتخاب شاخه ها</h3>
+                                <h3 class="modal-title">درج شاخه</h3>
                             </div>
                             <div class="modal-body">
                                 <treecontrol class="tree-classic"
@@ -1333,6 +1335,40 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <div class="modal-footer">
                                 <button class="btn btn-warning" ng-click="close()">بستن</button>
                                 <button class="btn btn-info pull-left" data-ng-click="insertTree()">اضافه</button>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="bodyRecordModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">درج رکورد</h3>
+                            </div>
+                            <div class="modal-body">
+                                <label class="record-insert-text-label" for="record-insert-text">متن</label>
+                                <input id="record-insert-text" type="text" ng-model="text" />
+                                
+                                <label class="record-insert-id-label" for="record-insert-id">شماره رکورد</label>
+                                <input id="record-insert-id" type="text" ng-model="recordId" />
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                <button class="btn btn-info pull-left" data-ng-click="insertRecord()">اضافه</button>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="insertLinkModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">درج لینک</h3>
+                            </div>
+                            <div class="modal-body">
+                                <label class="link-insert-text-label" for="record-insert-text">متن</label>
+                                <input id="link-insert-text" type="text" ng-model="text" />
+                                
+                                <label class="link-insert-link-label" for="record-insert-id">لینک</label>
+                                <input dir="ltr" id="link-insert-link" type="text" ng-model="link" /><span dir="ltr"> http:// </span>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                <button class="btn btn-info pull-left" data-ng-click="insertLink()">اضافه</button>
                             </div>
                         </script>
                         <script type="text/ng-template" id="body-modal.html" >
@@ -1473,11 +1509,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             </div>
         </div>
         <div class="row list">
-            <div class="col col-lg-12">
+            <div class="col col-lg-12 grid-block-wrapper">
                 
 
                 <div class="grid-block">
-                    <table st-table="recordList()" class="table table-striped" infinite-scroll="RecordService.searchRecords(RecordService.recordList().length)">
+                    <table st-table="recordList()" class="table table-striped">
                         <thead>
                         <tr>
                             <th>ردیف</th>
@@ -1707,6 +1743,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?>"></script>
 
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
     
 <!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 
@@ -1720,4 +1757,29 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 <!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/Services/recordtreeService.js') ?><!--"></script>-->
 <!--    <script src="--><?php //echo $view['assets']->getUrl('assets/js/angular/recordIndex.js') ?><!--"></script>-->
 
+    
+    <script>
+    document.onkeydown = function (event) {
+	
+	if (!event) { /* This will happen in IE */
+		event = window.event;
+	}
+		
+	var keyCode = event.keyCode;
+	
+	if (keyCode == 8 &&
+		((event.target || event.srcElement).tagName != "TEXTAREA") && 
+		((event.target || event.srcElement).tagName != "INPUT")) { 
+		
+		if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+			event.stopPropagation();
+		} else {
+			alert("prevented");
+			event.returnValue = false;
+		}
+		
+		return false;
+	}
+};	
+    </script>
 <?php $view['slots']->stop() ?>
