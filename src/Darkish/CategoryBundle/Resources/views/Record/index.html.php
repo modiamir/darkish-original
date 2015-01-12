@@ -1289,6 +1289,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                                             <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button-bottom btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
                                                                 ذخیره و ادامه
                                                             </button>
+                                                            <button class="btn insert-tree-button" ng-click="openBodyTreeModal()" >درج شاخه</button>
                                                             <span class="body-save-continue-message-bottom" ng-show="RecordService.saved">
                                                                 <ul>
                                                                     <li ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
@@ -1316,6 +1317,23 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 
                             </div>
                             
+                        </script>
+                        <script type="text/ng-template" id="bodyTreeModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">انتخاب شاخه ها</h3>
+                            </div>
+                            <div class="modal-body">
+                                <treecontrol class="tree-classic"
+                                            tree-model="tree()"
+                                            options="treeOptions()"
+                                            selected-node="currentBodyTreeNode">
+                                   {{node.title}}
+                                </treecontrol>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                <button class="btn btn-info pull-left" data-ng-click="insertTree()">اضافه</button>
+                            </div>
                         </script>
                         <script type="text/ng-template" id="body-modal.html" >
                             <div id="body-modal-bg " class="modal-bg html-editor-modal" data-ng-click="closeMe()">

@@ -155,3 +155,32 @@
     text-align: left;
     direction: ltr;
 }
+
+.body.record-id {
+    background-color: #67b168;
+    color: white;
+    padding: 1px 3px;
+}
+
+.body.tree-node {
+    background-color: #048CAD;
+    color: white;
+    padding: 1px 3px;
+}
+
+.body.inner-link {
+    color: rgb(10, 91, 196);
+    font-family: yekan;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    background-color: rgb(244, 244, 244);
+}
+
+.body.web-link {
+    color: rgb(255, 87, 87);
+    font-family: yekan;
+    line-height: 24px;
+    text-align: center;
+    background-color: rgb(220, 220, 220);
+}
