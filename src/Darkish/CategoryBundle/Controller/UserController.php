@@ -50,7 +50,7 @@ class UserController extends Controller
 
         return new JsonResponse(array(
                 $this->get('security.context')->isGranted(
-                    'IS_AUTHENTICATED_FULLY'
+                    'ROLE_USER'
                    ))
         );
     }
