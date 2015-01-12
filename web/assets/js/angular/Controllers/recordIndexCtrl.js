@@ -274,6 +274,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             { name: 'SubTitr - Latin',  element: 'h2',attributes: { 'class': 'body latin-secondary-header' } },
             { name: 'Text - Latin',  element: 'p',attributes: { 'class': 'body latin-text' } },
             { name: 'Link - Latin',  element: 'p',attributes: { 'class': 'body latin-link' } },
+            { name: 'لینک داخلی',  element: 'span',attributes: { 'class': 'body inner-link' } },
+            { name: 'لینک اینترنتی',  element: 'span',attributes: { 'class': 'body web-link' } },
 
         ]);
         //////////////////////
@@ -1654,6 +1656,31 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         }
     }]).
+    controller('bodyTreeModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
+        $scope.RecordService = RecordService;
+        $scope.TreeService = TreeService;
+        $scope.tree = function() {
+            return $scope.TreeService.tree();
+        }
+
+        $scope.treeOptions = function() {
+            return $scope.TreeService.treeOptions();
+        }
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
+
+        var CkInstance = null;
+        angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
+        
+        $scope.insertTree = function() {
+            
+            console.log($scope.currentBodyTreeNode);
+            CkInstance.insertHtml('<span class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.treeIndex+'">'+$scope.currentBodyTreeNode.title+'</span>');
+            $scope.close();
+        }
+    }]).
     controller('savingModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.backdrop = true; $modalInstance.close();}
@@ -1815,8 +1842,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $modalInstance.close(true);
         }
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance',
-        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance) {
+    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
+        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance, $modal) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
@@ -1824,7 +1851,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             language: 'fa',
             height: '500px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr",
+            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,
@@ -1850,7 +1877,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
                 { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
                 { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Halfhr', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video' ] },
+                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Halfhr', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video', 'Record' ] },
                 '/',
                 { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'Templates', 'TextColor', 'BGColor', 'lineheight' ] },
                 { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
@@ -1876,6 +1903,33 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             ]
         };
 
+        /**
+         * Tree modal initializing
+         */
+        
+        
+        $scope.openBodyTreeModal = function (size) {
+
+            var bodyTreeModalInstance = $modal.open({
+                templateUrl: 'bodyTreeModal.html',
+                controller: 'bodyTreeModalCtrl',
+                size: size,
+                resolve: {
+                    
+                }
+            });
+
+            bodyTreeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        
+        
+        //////////////
 
 
         /**
