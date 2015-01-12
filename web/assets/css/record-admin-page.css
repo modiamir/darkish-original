@@ -1638,6 +1638,10 @@ label.file-select.disabled {
     margin-left: 5px;
 }
 
+.body-attachments .body-upload-buttons button.insert-tree-button {
+    margin-top: 5px;
+}
+
 .body-attachments .file-upload-row button {
     width: 40px;
     padding: 3px 0;
