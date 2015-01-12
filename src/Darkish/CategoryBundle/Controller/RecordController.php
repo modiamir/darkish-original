@@ -1009,9 +1009,10 @@ class RecordController extends Controller
                 ->getRepository('DarkishCategoryBundle:Record');
             $qb = $repository->createQueryBuilder('r');
             $qb->join('r.trees','t', 'WITH','t.id = '. $category->getId())->distinct();
+            $qb->orderBy('r.listRank', 'Asc');
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
-
+            
             $serialized = $this->get('jms_serializer')->
                 serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list')));
 
