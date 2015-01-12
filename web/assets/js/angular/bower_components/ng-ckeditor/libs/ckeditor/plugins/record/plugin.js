@@ -12,7 +12,7 @@
 CKEDITOR.plugins.add( 'record', {
 
 	// Register the icons.
-	icons: 'Rocord',
+	icons: 'rocord',
 
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
