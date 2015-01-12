@@ -46,10 +46,10 @@
             <label for="password">رمز عبور:</label>
             <input dir="ltr" class="form-control" placeholder="رمز عبور" type="password" id="password" name="_password" />
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
             <input type="checkbox" id="remember_me" name="_remember_me" checked />
             <label for="remember_me">مرا به خاطر بسپار</label>
-        </div>
+        </div>-->
         <!--
             If you want to control the URL the user
             is redirected to on success (more details below)
