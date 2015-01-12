@@ -391,7 +391,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="ListRank", type="string", length=255, nullable=true)
+     * @ORM\Column(name="ListRank", type="integer", length=255, nullable=true)
      * @Groups({"record.details"})
      */
     private $listRank;
