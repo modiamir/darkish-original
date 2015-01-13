@@ -43,9 +43,9 @@ class RecordController extends Controller
     public function indexAction()
     {
         $record = new Record();
-        if (false === $this->get('security.context')->isGranted('view', $record)) {
-            throw new AccessDeniedException('Unauthorised access!');
-        }
+//        if (false === $this->get('security.context')->isGranted('view', $record)) {
+//            throw new AccessDeniedException('Unauthorised access!');
+//        }
 
 
         $em = $this->getDoctrine()->getManager();
@@ -65,9 +65,9 @@ class RecordController extends Controller
         
         try {
             $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
-            if (false === $this->get('security.context')->isGranted('edit', $record)) {
-                throw new AccessDeniedException('Unauthorised access!');
-            }
+//            if (false === $this->get('security.context')->isGranted('edit', $record)) {
+//                throw new AccessDeniedException('Unauthorised access!');
+//            }
 
             $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */

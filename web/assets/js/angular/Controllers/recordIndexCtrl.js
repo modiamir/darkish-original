@@ -1677,10 +1677,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
-
-        $scope.treeOptions = function() {
+        
+        
+        $scope.mainTreeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
+        $scope.treeOptions = angular.copy($scope.TreeService.treeOptions());
+        $scope.treeOptions.dirSelectable = true;
         
         $scope.close = function () {
             $modalInstance.close();
@@ -2269,7 +2272,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     var text = prompt("لطفا متن مربوط به لینک دانلود فایل را وارد نمایید. در غیر این صورت نام فایل به عنوان متن در نظر گرفته می شود.");
                     text = (text)?text:RecordService.selectedBodyDoc.file_name;
                     var fileClass = RecordService.selectedBodyDoc.file_name.replace(".", "-");
-                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><a class="'+fileClass+'" href="'+RecordService.selectedBodyDoc.absolute_path+'"  > '+text+'  </a></p>');
+                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><a class="body web-link '+fileClass+'" href="'+RecordService.selectedBodyDoc.absolute_path+'"  > '+text+'  </a></p>');
                     break;
 
             }
