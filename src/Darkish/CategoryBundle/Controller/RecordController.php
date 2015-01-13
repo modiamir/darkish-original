@@ -42,6 +42,12 @@ class RecordController extends Controller
      */
     public function indexAction()
     {
+        $record = new Record();
+        if (false === $this->get('security.context')->isGranted('view', $record)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('DarkishCategoryBundle:Record')->findAll();
@@ -56,12 +62,19 @@ class RecordController extends Controller
     }
 
     public function updateAction(Request $request, $id) {
+        
         try {
+            $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
+            if (false === $this->get('security.context')->isGranted('edit', $record)) {
+                throw new AccessDeniedException('Unauthorised access!');
+            }
+
             $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */
             $data = $serializer->deserialize($request->get('data'), 'array', 'json');
             /* @var $record Record*/
-            $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
+            
+            
             $this->recordMassAssignment($record, $data);
             $record->setLastUpdate(new \DateTime());
 
@@ -960,6 +973,33 @@ class RecordController extends Controller
             /* @var $queryBuilder QueryBuilder */
             $queryBuilder->where('n.active= :active')
                 ->setParameter('active', false)
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+        
+        if($cid == -3) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->orderBy('n.creationDate', 'Desc')
                 ->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)
             ;

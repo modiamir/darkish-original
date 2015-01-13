@@ -591,7 +591,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
          *  RecordService Initializing
          */
         $scope.RecordService = RecordService;
-        $scope.RecordService.getRecordsForCat(-1,0);
+        $scope.RecordService.getRecordsForCat(-3,0);
         $scope.recordList = function() {
             return RecordService.recordList();
         };
