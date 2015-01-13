@@ -1332,7 +1332,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                             <div class="modal-body">
                                 <treecontrol class="tree-classic"
                                             tree-model="tree()"
-                                            options="treeOptions()"
+                                            options="treeOptions"
                                             selected-node="currentBodyTreeNode">
                                    {{node.title}}
                                 </treecontrol>
