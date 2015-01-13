@@ -1641,12 +1641,14 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     <span ng-show="!RecordService.saved">
                         در حال ذخیره سازی...
                     </span>
-                    <span ng-show="RecordService.saved">
+                    <span ng-show="RecordService.saved && RecordService.savingMessageIsArray">
                         <p ng-repeat="msg in RecordService.savingMessages" ng-bind="msg">
 
                         </p>
 
                     </span>
+                    <p ng-show="RecordService.saved && !RecordService.savingMessageIsArray" ng-bind="RecordService.savingMessages">
+                    </p>
                     
                 </div>
                 <div class="modal-footer">

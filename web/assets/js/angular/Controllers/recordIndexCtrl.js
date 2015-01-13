@@ -1597,6 +1597,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(errResponse){
                         self.saved = true;
                         self.savingMessages = errResponse.data;
+                        self.savingMessageIsArray = (angular.isArray(self.savingMessages))? true:false;
+                        console.log(errResponse);
                     }
                 );
             } else {
@@ -1615,6 +1617,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(errResponse){
                         self.saved = true;
                         self.savingMessages = errResponse.data;
+                        self.savingMessageIsArray = (angular.isArray(self.savingMessages))? true:false;
+                        console.log(errResponse);
                     }
                 );
             }
