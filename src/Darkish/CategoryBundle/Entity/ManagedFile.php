@@ -21,7 +21,7 @@ class ManagedFile
 {
 
     /**
-     * @Assert\File(maxSize="200000000")
+     * 
      */
     private $file;
 

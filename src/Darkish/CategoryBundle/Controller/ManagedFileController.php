@@ -67,7 +67,7 @@ class ManagedFileController extends Controller
         } else {
             $errorsString = (string) $errors;
 
-            return new Response($errorsString);
+            return new Response($errorsString, 401);
         }
 
         $validator = $this->get('validator');
