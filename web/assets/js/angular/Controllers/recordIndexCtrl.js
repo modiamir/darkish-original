@@ -1326,6 +1326,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     self.currentRecord.audiosList.addAll(self.currentRecord.audios);
                     self.currentRecord.audioPlaylist = [];
                     angular.forEach(self.currentRecord.audios, function(value, key){
+                        var playlistItem = {};
                         playlistItem.src = value.absolute_path;
                         playlistItem.type = value.filemime;
                         self.currentRecord.audioPlaylist.push(playlistItem);
