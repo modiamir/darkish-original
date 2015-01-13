@@ -31,9 +31,6 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         table = angular.element(tbl);
         
         gridblock.on('scroll', function() {
-          console.info('table height', table.height());
-          console.info('grid block height', gridblock.height());
-          console.info('grid block pos', gridblock.scrollTop());
           if(gridblock.scrollTop() + gridblock.height() >= table.height()) {
               RecordService.searchRecords(RecordService.recordList().length);
           }
