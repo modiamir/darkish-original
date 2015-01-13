@@ -33,6 +33,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </h3>
                     <ul class="filter-links">
                         <li>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -3};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -3}">
+                                همه
+                            </a>
+                        </li>
+                        <li>
                             <a data-ng-click="TreeService.currentTreeNode = {id: -1};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -1}">
                                 تایید نشده ها
                             </a>
