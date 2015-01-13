@@ -63,6 +63,7 @@ class RecordController extends Controller
 
     public function updateAction(Request $request, $id) {
         
+        
         try {
             $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
 //            if (false === $this->get('security.context')->isGranted('edit', $record)) {
@@ -112,7 +113,7 @@ class RecordController extends Controller
                 $e->getMessage().'<br/>'.
                 $e->getCode().'<br/>'.
                 $e->getFile().'<br/>'.
-                $e->getTraceAsString(), 403
+                $e->getTraceAsString(), 401
             );
         }
 
@@ -171,7 +172,7 @@ class RecordController extends Controller
 
             };
         }catch (\Exception $e) {
-            return new Response($e->getMessage(), 403);
+            return new Response($e->getMessage(), 401);
         }
 
 
