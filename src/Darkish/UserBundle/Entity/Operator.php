@@ -45,6 +45,11 @@ class Operator implements AdvancedUserInterface, \Serializable
      *
      */
     private $roles;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
+     */
+    protected $records;
 
     public function __construct()
     {
@@ -262,5 +267,40 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function removeRole(\Darkish\UserBundle\Entity\Role $roles)
     {
         $this->roles->removeElement($roles);
+    }
+
+    
+
+    /**
+     * Add records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     * @return Operator
+     */
+    public function addRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records[] = $records;
+
+        return $this;
+    }
+
+    /**
+     * Remove records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     */
+    public function removeRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records->removeElement($records);
+    }
+
+    /**
+     * Get records
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }

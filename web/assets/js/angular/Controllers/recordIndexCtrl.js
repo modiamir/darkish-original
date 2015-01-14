@@ -18,11 +18,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
           libraries: 'weather,geometry,visualization'
         });
     }])      
-    .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService','$interval', 'poollingFactory',
-                                     'mapModal','FileUploader', '$modal',
-    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal) {
+    .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
+                                     'mapModal','FileUploader', '$modal', 'SecurityService',
+    function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
 
-
+        
+        /**
+         * initializing config for list endless scroll
+         */
         gb = document.getElementsByClassName('grid-block')[0];
         tbl = gb.getElementsByTagName('table')[0];
               
@@ -35,7 +38,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
               RecordService.searchRecords(RecordService.recordList().length);
           }
         });
-
+        /////////////////////
 
 
         /**
@@ -591,13 +594,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
          *  RecordService Initializing
          */
         $scope.RecordService = RecordService;
+        $scope.SecurityService = SecurityService;
         $scope.RecordService.getRecordsForCat(-3,0);
         $scope.recordList = function() {
             return RecordService.recordList();
         };
 
         
-
+        
         
 
         
@@ -1425,7 +1429,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         self.cleanBodyAttachments = function() {
             bodyDom = angular.element(self.currentRecord.body);
-            angular.forEach(self.currentRecord.bodyImagesList.array, function(value, key){
+            angular.forEach(self.currentRecord.bodyImagesList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
                     self.currentRecord.bodyImagesList.remove(value);
@@ -1433,7 +1437,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
             self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
             
-            angular.forEach(self.currentRecord.bodyVideosList.array, function(value, key){
+            angular.forEach(self.currentRecord.bodyVideosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
                     self.currentRecord.bodyVideosList.remove(value);
@@ -1441,7 +1445,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
             self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
             
-            angular.forEach(self.currentRecord.bodyAudiosList.array, function(value, key){
+            angular.forEach(self.currentRecord.bodyAudiosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
                     self.currentRecord.bodyAudiosList.remove(value);
@@ -1449,7 +1453,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
             self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
             
-            angular.forEach(self.currentRecord.bodyDocsList.array, function(value, key){
+            angular.forEach(self.currentRecord.bodyDocsList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
                     self.currentRecord.bodyDocsList.remove(value);
@@ -2438,4 +2442,232 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         return self;
 
-    }]);
+    }]).factory('SecurityService', ['$http', 'RecordService', function($http, RecordService){
+        var self={};
+        
+            
+        var viewAccess = null;
+        var editAccess = {};
+        var deleteAccess = {};
+        var verifyAccess = null;
+        var createAccess = null;
+        var activateAccess = null;
+        var otherAccess = null;
+        
+        self.actionsAccess = {};
+        self.buttonsAccess = {};
+        
+        
+        self.actionsAccess.viewAccess = function() {
+            if(viewAccess == 'waiting') {
+                return false;
+            }
+            if(viewAccess == null) {
+                viewAccess = 'waiting';
+                $http.get('ajax/check_permission/view').then(
+                    function(response){
+                        viewAccess = response.data[0];
+                        return viewAccess;
+                    },
+                    function(errResponse){
+                        viewAccess = null;
+                        return false;
+                    }
+                );
+            } else {
+                return viewAccess;
+            }
+            
+        }
+        
+        self.actionsAccess.editAccess = function() {
+            if(editAccess[RecordService.currentRecord.id] == 'waiting') {
+                return false;
+            }
+            
+            if(!angular.isDefined(editAccess[RecordService.currentRecord.id])) {
+                editAccess[RecordService.currentRecord.id] = 'waiting';
+                
+                $http.get('ajax/check_permission/edit/'+RecordService.currentRecord.id).then(
+                    function(response){
+                        editAccess[RecordService.currentRecord.id] = response.data[0];
+                        return editAccess[RecordService.currentRecord.id];
+                    },
+                    function(errResponse){
+                        editAccess[RecordService.currentRecord.id] = null;
+                        return false;
+                    }
+                );
+            } else {
+                return editAccess[RecordService.currentRecord.id];
+            }
+            
+        }
+        
+        
+        self.actionsAccess.deleteAccess = function() {
+            if(deleteAccess[RecordService.currentRecord.id] == 'waiting') {
+                return false;
+            }
+            
+            if(!angular.isDefined(deleteAccess[RecordService.currentRecord.id])) {
+                deleteAccess[RecordService.currentRecord.id] = 'waiting';
+                
+                $http.get('ajax/check_permission/remove/'+RecordService.currentRecord.id).then(
+                    function(response){
+                        deleteAccess[RecordService.currentRecord.id] = response.data[0];
+                        return deleteAccess[RecordService.currentRecord.id];
+                    },
+                    function(errResponse){
+                        deleteAccess[RecordService.currentRecord.id] = null;
+                        return false;
+                    }
+                );
+            } else {
+                return deleteAccess[RecordService.currentRecord.id];
+            }
+            
+        }
+        
+        
+        self.actionsAccess.verifyAccess = function() {
+            if(verifyAccess == 'waiting') {
+                return false;
+            }
+            if(verifyAccess == null) {
+                verifyAccess = 'waiting';
+                $http.get('ajax/check_permission/verify').then(
+                    function(response){
+                        verifyAccess = response.data[0];
+                        return verifyAccess;
+                    },
+                    function(errResponse){
+                        verifyAccess = null;
+                        return false;
+                    }
+                );
+            } else {
+                return verifyAccess;
+            }
+            
+        }
+        
+        self.actionsAccess.createAccess = function() {
+            if(createAccess == 'waiting') {
+                return false;
+            }
+            if(createAccess == null) {
+                createAccess = 'waiting';
+                $http.get('ajax/check_permission/create').then(
+                    function(response){
+                        createAccess = response.data[0];
+                        return createAccess;
+                    },
+                    function(errResponse){
+                        createAccess = null;
+                        return false;
+                    }
+                );
+            } else {
+                return createAccess;
+            }
+            
+        }
+        
+        self.actionsAccess.activateAccess = function() {
+            if(activateAccess == 'waiting') {
+                return false;
+            }
+            if(activateAccess == null) {
+                activateAccess = 'waiting';
+                $http.get('ajax/check_permission/activate').then(
+                    function(response){
+                        activateAccess = response.data[0];
+                        return activateAccess;
+                    },
+                    function(errResponse){
+                        activateAccess = null;
+                        return false;
+                    }
+                );
+            } else {
+                return activateAccess;
+            }
+            
+        }
+        
+        self.actionsAccess.otherAccess = function() {
+            if(otherAccess == 'waiting') {
+                return false;
+            }
+            if(otherAccess == null) {
+                otherAccess = 'waiting';
+                $http.get('ajax/check_permission/other').then(
+                    function(response){
+                        otherAccess = response.data[0];
+                        return otherAccess;
+                    },
+                    function(errResponse){
+                        otherAccess = null;
+                        return false;
+                    }
+                );
+            } else {
+                return otherAccess;
+            }
+            
+        }
+        
+        self.buttonsAccess.newButtonAccess = function() {
+            return self.actionsAccess.createAccess();
+        }
+        
+        
+        
+        self.buttonsAccess.editButtonAccess = function() {
+            return self.actionsAccess.editAccess();
+        }
+        
+        self.buttonsAccess.deleteButtonAccess = function() {
+            return self.actionsAccess.deleteAccess();
+        }
+        
+        self.buttonsAccess.verifyButtonAccess = function() {
+            return self.actionsAccess.verifyAccess();
+        }
+        
+        self.test = function() {
+            return false;
+        }
+        
+        self.buttonsAccess.activateButtonAccess = function() {
+            return self.actionsAccess.activateAccess();
+        }
+        
+        
+        
+        self.buttonsAccess.saveButtonAccess = function() {
+            if(RecordService.isNew()) {
+                return true;
+            } else {
+                return self.actionsAccess.editAccess();
+            }
+            
+        }
+        
+        
+        
+        self.buttonsAccess.saveAndContinueButtonAccess = function() {
+            if(RecordService.isNew()) {
+                return true;
+            } else {
+                return self.actionsAccess.editAccess();
+            }
+            
+        }
+        
+        return self;
+        
+        
+        
+    } ]);

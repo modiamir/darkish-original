@@ -65,10 +65,11 @@ class RecordController extends Controller
         
         
         try {
+            $user = $this->getUser();
             $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
-//            if (false === $this->get('security.context')->isGranted('edit', $record)) {
-//                throw new AccessDeniedException('Unauthorised access!');
-//            }
+            if (false === $this->get('security.context')->isGranted('edit', $record)) {
+                throw new AccessDeniedException('Unauthorised access!');
+            }
 
             $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */
@@ -78,7 +79,11 @@ class RecordController extends Controller
             
             $this->recordMassAssignment($record, $data);
             $record->setLastUpdate(new \DateTime());
-
+            $record->setUser($user);
+            
+            if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
+                $record->setVerify(false);
+            }
             //return new Response($serializer->serialize($record, 'json'));
 
             $validator = $this->get('validator');
@@ -124,6 +129,7 @@ class RecordController extends Controller
 
     public function createAction(Request $request) {
         try {
+            $user = $this->getUser();
             $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */
             $data = $serializer->deserialize($request->get('data'), 'array', 'json');
@@ -132,6 +138,7 @@ class RecordController extends Controller
             $this->recordMassAssignment($record, $data);
             $record->setCreationDate(new \DateTime());
             $record->setLastUpdate(new \DateTime());
+            $record->setUser($user);
 
             //return new Response($serializer->serialize($record, 'json'));
 
@@ -1342,5 +1349,21 @@ class RecordController extends Controller
         $qb->delete()->where($qb->expr()->lt('rl.expire', ':expire'))
             ->setParameter('expire', $now);
         $qb->getQuery()->execute();
+    }
+    
+    public function checkPermissionAction($attribute, $id = null) {
+        try {
+            if($id) {
+                $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
+            }else {
+                $record = new Record();
+            }
+            $granted = $this->get('security.context')->isGranted($attribute, $record);
+            return new JsonResponse(array($granted));
+        } catch(Exception $e) {
+            return new Response($e->getMessage(), $e->getCode());
+        }
+        
+        return new JsonResponse(array($attribute,$class, $id));
     }
 }
