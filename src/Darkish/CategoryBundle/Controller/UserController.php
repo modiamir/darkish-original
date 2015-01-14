@@ -48,6 +48,11 @@ class UserController extends Controller
         $res = $securityContext->getToken()->isAuthenticated();
         
 
+//        return new JsonResponse(array(
+//                $this->get('security.context')->getToken()->getUser()->getRolesNames()
+//        ));
+        
+        
         return new JsonResponse(array(
                 $this->get('security.context')->isGranted(
                     'ROLE_USER'

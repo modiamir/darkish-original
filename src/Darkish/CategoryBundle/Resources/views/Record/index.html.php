@@ -1587,11 +1587,11 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
     <div  class="record-top show-grid ">
 
         <div class="col-md-4">
-            <button ng-disabled="RecordService.isEditing()" type="button" class="btn btn-primary" ng-click="RecordService.editingNew()">
+            <button ng-show="SecurityService.buttonsAccess.newButtonAccess()" ng-disabled="RecordService.isEditing()" type="button" class="btn btn-primary" ng-click="RecordService.editingNew()">
                 جدید
             </button>
 
-            <button ng-disabled="RecordService.isNew() || RecordService.isEditing()" type="button" class="btn btn-info" ng-click="RecordService.editing()">
+            <button ng-show="SecurityService.buttonsAccess.editButtonAccess()" ng-disabled="RecordService.isNew() || RecordService.isEditing()" type="button" class="btn btn-info" ng-click="RecordService.editing()">
                 ویرایش
             </button>
             <script type="text/ng-template" id="deleteModal.html">
@@ -1624,13 +1624,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     </div>
                 </div>
             </script>
-            <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
+            <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
-            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
+            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord();recordform.$setPristine()">
                 ذخیره
             </button>
-            <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
+            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();RecordService.saveCurrentRecord(true);recordform.$setPristine()">
                 ذخیره و ادامه
             </button>
             <script type="text/ng-template" id="savingModal.html">
@@ -1688,18 +1688,19 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 بعدی
             </button>
 
-            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing()" data-ng-click="RecordService.toggleActiveCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn active-inactive-btn" ng-class="{'is-active': RecordService.currentRecord.active == true,'is-inactive': RecordService.currentRecord.active == false }" >
+            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing() || !(SecurityService.buttonsAccess.activateButtonAccess() == true)" data-ng-click="RecordService.toggleActiveCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn active-inactive-btn" ng-class="{'is-active': RecordService.currentRecord.active == true,'is-inactive': RecordService.currentRecord.active == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(RecordService.currentRecord.active)?'فعال':'غیر فعال'}}
             </button>
-
-            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing()" data-ng-click="RecordService.toggleVerifyCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn verify-notverify-btn" ng-class="{'is-verify': RecordService.currentRecord.verify == true,'is-notverify': RecordService.currentRecord.verify == false }" >
+            
+            <button ng-disabled="!RecordService.currentRecord.record_number || !RecordService.isEditing() || !(SecurityService.buttonsAccess.verifyButtonAccess() == true)" data-ng-click="RecordService.toggleVerifyCurrentRecord()" data-ng-show="RecordService.currentRecord.record_number" class="btn verify-notverify-btn" ng-class="{'is-verify': RecordService.currentRecord.verify == true,'is-notverify': RecordService.currentRecord.verify == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(RecordService.currentRecord.verify)? 'تایید شده':'تایید نشده'}}
             </button>
-
+            
+            
         </div>
 
         <div class="col-md-3 left" style="float: left"  >

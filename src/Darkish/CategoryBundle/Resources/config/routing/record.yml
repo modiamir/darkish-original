@@ -100,3 +100,6 @@ record_lock_record_number:
     requirements: { _method: post|put }
 
 
+record_check_permission:
+    path:     /ajax/check_permission/{attribute}/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Record:checkPermission", _format: json, id: null}

@@ -45,6 +45,11 @@ class Operator implements AdvancedUserInterface, \Serializable
      *
      */
     private $roles;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="recordId")
+     */
+    protected $records;
 
     public function __construct()
     {
@@ -86,8 +91,19 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
-        
+        /* @var $this->roles \Doctrine\Common\Collections\ArrayCollection() */
         return $this->roles->toArray();
+    }
+    
+    public function getRolesNames() {
+        $roles = [];
+        /* @var $this->roles \Doctrine\Common\Collections\ArrayCollection() */
+        $rolesIterator = $this->roles->getIterator();
+        while($rolesIterator->valid()) {
+            $roles[] = $rolesIterator->current()->getRole();
+            $rolesIterator->next();
+        }
+        return $roles;
     }
 
     /**
@@ -252,4 +268,6 @@ class Operator implements AdvancedUserInterface, \Serializable
     {
         $this->roles->removeElement($roles);
     }
+
+    
 }

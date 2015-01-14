@@ -738,6 +738,14 @@ class Record
     private $bodyDocs;
 
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Operator", inversedBy="records")
+     * @ORM\JoinColumn(name="UserId", referencedColumnName="id")
+     * @Groups({"record.details"})
+     */
+    private $user;
 
 
 
@@ -2813,5 +2821,32 @@ class Record
     public function getBodyDocs()
     {
         return $this->bodyDocs;
+    }
+
+    
+
+    
+
+    /**
+     * Set user
+     *
+     * @param \Darkish\UserBundle\Entity\Operator $user
+     * @return Record
+     */
+    public function setUser(\Darkish\UserBundle\Entity\Operator $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Darkish\UserBundle\Entity\Operator 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

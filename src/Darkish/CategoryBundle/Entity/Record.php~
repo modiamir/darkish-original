@@ -391,7 +391,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="ListRank", type="string", length=255, nullable=true)
+     * @ORM\Column(name="ListRank", type="integer", length=255, nullable=true)
      * @Groups({"record.details"})
      */
     private $listRank;
@@ -738,6 +738,14 @@ class Record
     private $bodyDocs;
 
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Operator", inversedBy="records")
+     * @ORM\JoinColumn(name="UserId", referencedColumnName="id")
+     * @Groups({"record.details"})
+     */
+    private $userId;
 
 
 
@@ -2781,4 +2789,41 @@ class Record
     {
         return $this->onlyContactInformation;
     }
+
+    /**
+     * Add bodyDocs
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
+     * @return Record
+     */
+    public function addBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
+    {
+        $this->bodyDocs[] = $bodyDocs;
+
+        return $this;
+    }
+
+    /**
+     * Remove bodyDocs
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
+     */
+    public function removeBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
+    {
+        $this->bodyDocs->removeElement($bodyDocs);
+    }
+
+    /**
+     * Get bodyDocs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyDocs()
+    {
+        return $this->bodyDocs;
+    }
+
+    
+
+    
 }
