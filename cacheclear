@@ -1,0 +1,7 @@
+#!/bin/bash
+# My first script
+
+sudo php app/console cache:clear --no-optional-warmers --env=prod
+sudo php app/console cache:clear --no-optional-warmers --env=dev
+sudo chgrp www-data ./ -R
+sudo chmod g+w ./ -R
