@@ -1585,8 +1585,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                 self.saveCurrentNewRecord().then(
                     function(response){
-                        self.currentRecord = {}
-                        self.currentRecord = response.data[0];
+//                        self.currentRecord = {}
+//                        self.currentRecord = response.data[0];
 
 
                         self.saved = true;
@@ -1608,7 +1608,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 self.updateCurrentRecord().then(
                     function(response){
-                        self.currentReocrd = response;
+//                        self.currentReocrd = response;
                         self.saved = true;
                         self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
                         if(!contin) {

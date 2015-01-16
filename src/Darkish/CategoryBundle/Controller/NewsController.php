@@ -2,10 +2,15 @@
 
 namespace Darkish\CategoryBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\NewsLock;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\DBALException;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolation;
 use Darkish\CategoryBundle\Entity\News;
 use Darkish\CategoryBundle\Entity\NewsTree;
 use Darkish\CategoryBundle\Form\NewsType;
@@ -21,15 +26,15 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use JMS\Serializer\Serializer as JMSSerializer;
+use JMS\Serializer\SerializationContext;
+use Darkish\CategoryBundle\Form\RecordType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * News controller.
- *
- */
+
 class NewsController extends Controller
 {
-
-    private $numPerPage = 4;
+    private $numPerPage = 15;
 
     /**
      * Lists all News entities.
@@ -37,6 +42,12 @@ class NewsController extends Controller
      */
     public function indexAction()
     {
+        $news = new News();
+//        if (false === $this->get('security.context')->isGranted('view', $news)) {
+//            throw new AccessDeniedException('Unauthorised access!');
+//        }
+
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('DarkishCategoryBundle:News')->findAll();
@@ -49,550 +60,585 @@ class NewsController extends Controller
 
         ));
     }
-    /**
-     * Creates a new News entity.
-     *
-     */
-    public function createAction(Request $request)
-    {
-        /*$entity = new News();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
+    public function updateAction(Request $request, $id) {
+        
+        
+        try {
+            $user = $this->getUser();
+            $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
+            
+            if (false === $this->get('security.context')->isGranted('edit', $news)) {
+                throw new AccessDeniedException('Unauthorised access!');
+            }
+            
+            $serializer = $this->get('jms_serializer');
+            /* @var $serializer JMSSerializer */
+            $data = $serializer->deserialize($request->get('data'), 'array', 'json');
+            /* @var $news News*/
+            
+            
+            $this->newsMassAssignment($news, $data);
+            $news->setLastUpdate(new \DateTime());
+            $news->setUser($user);
+            
+            if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
+                $news->setVerify(false);
+            }
+            
+            $validator = $this->get('validator');
+            $errors = $validator->validate($news);
+
+            if (count($errors) ) {
+                // perform some action, such as saving the task to the database
+                /* @var $errors ConstraintViolationList */
+                $error_iterator = $errors->getIterator();
+                $error_msgs = array();
+                while($error_iterator->valid()) {
+                    /* @var $current_error ConstraintViolation */
+                    $current_error = $error_iterator->current();
+                    $error_msgs[] = $current_error->getMessage();
+                    $error_iterator->next();
+                }
+                return new JsonResponse($error_msgs, 403);
+            } else {
+                
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($news);
+                
+                $em->flush();
+                
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
+                
+                return new Response($serializer->serialize($news, 'json'));
+
+            };
+        }catch (\Exception $e) {
+            return new Response(
+                $e->getLine().'<br/>'.
+                $e->getMessage().'<br/>'.
+                $e->getCode().'<br/>'.
+                $e->getFile().'<br/>'.
+                $e->getTraceAsString(), 401
+            );
+        }
+
+
+
+    }
+
+
+    public function createAction(Request $request) {
+        try {
+            $user = $this->getUser();
+            $serializer = $this->get('jms_serializer');
+            /* @var $serializer JMSSerializer */
+            $data = $serializer->deserialize($request->get('data'), 'array', 'json');
+            /* @var $news News*/
+            $news = new News();
+            $this->newsMassAssignment($news, $data);
+            $news->setCreationDate(new \DateTime());
+            $news->setLastUpdate(new \DateTime());
+            $news->setUser($user);
+
+            //return new Response($serializer->serialize($news, 'json'));
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($news);
+
+            if (count($errors) ) {
+                // perform some action, such as saving the task to the database
+
+                /* @var $errors ConstraintViolationList */
+                $error_iterator = $errors->getIterator();
+                $error_msgs = array();
+                while($error_iterator->valid()) {
+                    /* @var $current_error ConstraintViolation */
+                    $current_error = $error_iterator->current();
+                    $error_msgs[] = $current_error->getMessage();
+                    $error_iterator->next();
+                }
+                return new JsonResponse($error_msgs, 403);
+            } else {
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($news);
+                $em->flush();
+                $data['images'] = (isset($data['images']))?$data['images']:[];
+                $data['body_images'] = (isset($data['body_images']))?$data['body_images']:[];
+                $data['videos'] = (isset($data['videos']))?$data['videos']:[];
+                $data['body_videos'] = (isset($data['body_videos']))?$data['body_videos']:[];
+                $data['audios'] = (isset($data['audios']))?$data['audios']:[];
+                $data['body_audios'] = (isset($data['body_audios']))?$data['body_audios']:[];
+                $data['body_docs'] = (isset($data['body_docs']))?$data['body_docs']:[];
+                
+                $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
+                
+                
+
+                return new Response($serializer->serialize(array($news), 'json'));
+
+            };
+        }catch (\Exception $e) {
+            return new Response($e->getMessage(), 401);
+        }
+
+
+
+    }
+
+    
+    
+    
+
+    public function newsMassAssignment(News &$news, $data) {
+
+        if(isset($data['title'])) {
+            $news->setTitle($data['title']);
+        }
+        if(isset($data['sub_title'])) {
+            $news->setSubTitle($data['sub_title']);
+        }
+
+        if(isset($data['publish_date'])) {
+            $date = new \DateTime($data['publish_date']);
+            $news->setPublishDate($date);
+        }
+        if(isset($data['expire_date'])) {
+            $date = new \DateTime($data['expire_date']);
+            $news->setExpireDate($date);
+        }
+        
+        if(isset($data['body'])) {
+            $news->setBody($data['body']);
+        }
+        if(isset($data['audio'])) {
+            $news->setAudio($data['audio']);
+        }
+        if(isset($data['video'])) {
+            $news->setVideo($data['video']);
+        }
+        
+        if(isset($data['is_competition'])) {
+            $news->setIsCompetition($data['is_competition']);
+        }
+        
+        if(isset($data['true_answer'])) {
+            $news->setTrueAnswer($data['true_answer']);
+        }
+        
+        if(isset($data['rate'])) {
+            $news->setRate($data['rate']);
+        }
+        
+        if(isset($data['verify'])) {
+            $news->setVerify($data['verify']);
+        } else {
+            $news->setVerify(false);
+        }
+        if(isset($data['active'])) {
+            $news->setActive($data['active']);
+        } else {
+            $news->setActive(false);
+        }
+        if(isset($data['icon'])) {
+            $iconRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('news_show', array('id' => $entity->getId())));
+            if(isset($data['icon']['id'])) {
+                $icon = $iconRepo->find($data['icon']['id']);
+                if($icon) {
+                    $news->setIcon($icon);
+                    if(isset($data['icon']['continual']) && $data['icon']['continual']) {
+                        $icon->setContinual(true);
+                        $em->persist($icon);
+                        $em->flush();
+                    } else {
+                        $icon->setContinual(false);
+                        $em->persist($icon);
+                        $em->flush();
+                    }
+                }
+            } else {
+                $news->setIcon();
+            }
+            
         }
-
-        return $this->render('DarkishCategoryBundle:News:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));*/
-
-
-
-
-
-        $news = new News();
-        $em = $this->getDoctrine()->getManager();
-
-
-
-
-        if($request->get('title')) {
-            $news->setTitle($request->get('title'));
-        }
-
-        if($request->get('subTitle')) {
-            $news->setSubTitle($request->get('subTitle'));
-        }
-
-        $news->setCreatedDate(new \DateTime);
-
-        if($request->get('publishDate')) {
-            $news->setPublishDate($request->get('publishDate'));
-        }
-
-        if($request->get('expireDate')) {
-            $news->setExpireDate($request->get('expireDate'));
-        }
-
-        if($request->get('body')) {
-            $news->setBody($request->get('body'));
-        }
-
-        $news->setUserId($this->getUser()->getId());
-
-        $news->setStatus(false);
-
-        if($request->get('newstreeId')) {
-            $newsTree = $em->getRepository('DarkishCategoryBundle:NewsTree')->find($request->get('newstreeId'));
-            /* @var $newsTree NewsTree */
-            if($newsTree) {
-                $news->setCategory($newsTree->getTreeIndex());
-                $news->setNewstreeId($request->get('newstreeId'));
+        if(isset($data['trees'])) {
+            $currentTrees = $news->getTrees();
+            $newTrees = new ArrayCollection();
+            $eCollec = new ArrayCollection();
+            $neCollec = new ArrayCollection();
+            $rCollec = new ArrayCollection();
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+            foreach($data['trees'] as $tree) {
+                $newTrees->add($rep->find($tree['id']));
             }
 
-        }
-
-        if($request->get('isCompetition') == 0 || $request->get('isCompetition') == 1 ) {
-            $news->setIsCompetition($request->get('isCompetition'));
-        }
-
-        if($request->get('trueAnswer')) {
-            $news->setTrueAnswer($request->get('trueAnswer'));
-        }
-
-        if($request->get('rate')) {
-            $news->setRate($request->get('rate'));
-        }
-
-
-
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($news);
-
-
-
-
-
-
-        if (count($errors) == 0) {
-            $em = $this->getDoctrine()->getManager();
-
-            //$news->upload();
-
-            $em->persist($news);
-            $em->flush();
-
-            //return $this->redirect($this->generateUrl('admin_newstree'));
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($news, 'json');
-
-            return new Response($serialized);
-        } else {
-            $errorsString = (string) $errors;
-
-            return new Response($errorsString);
-        }
-
-
-
-
-
-
-    }
-
-    /**
-     * Creates a form to create a News entity.
-     *
-     * @param News $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(News $entity)
-    {
-        $form = $this->createForm(new NewsType(), $entity, array(
-            'action' => $this->generateUrl('news_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new News entity.
-     *
-     */
-    public function newAction()
-    {
-        $entity = new News();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('DarkishCategoryBundle:News:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a News entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('DarkishCategoryBundle:News')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find News entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('DarkishCategoryBundle:News:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing News entity.
-     *
-     */
-    public function editAction($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $news = $em->getRepository('DarkishCategoryBundle:News')->find($id);
-
-        if (!$news) {
-            return new Response("404 Not Found", 404);
-        }
-
-
-
-
-
-
-        if($request->get('title')) {
-            $news->setTitle($request->get('title'));
-        }
-
-        if($request->get('subTitle')) {
-            $news->setSubTitle($request->get('subTitle'));
-        }
-
-        $news->setCreatedDate(new \DateTime);
-
-        if($request->get('publishDate')) {
-            $news->setPublishDate($request->get('publishDate'));
-        }
-
-        if($request->get('expireDate')) {
-            $news->setExpireDate($request->get('expireDate'));
-        }
-
-        if($request->get('body')) {
-            $news->setBody($request->get('body'));
-        }
-
-        $news->setUserId($this->getUser()->getId());
-
-        $news->setStatus(false);
-
-        if($request->get('newstreeId')) {
-            $newsTree = $em->getRepository('DarkishCategoryBundle:NewsTree')->find($request->get('newstreeId'));
-            /* @var $newsTree NewsTree */
-            if($newsTree) {
-                $news->setCategory($newsTree->getTreeIndex());
-                $news->setNewstreeId($request->get('newstreeId'));
+            $newTreesIterator = $newTrees->getIterator();
+            while($newTreesIterator->valid()) {
+                if($currentTrees->contains($newTreesIterator->current())) {
+                    $eCollec->add($newTreesIterator->current());
+                } else {
+                    $neCollec->add($newTreesIterator->current());
+                }
+                $newTreesIterator->next();
             }
 
+            $currentTreesIterator = $currentTrees->getIterator();
+            while($currentTreesIterator->valid()) {
+                if(!$eCollec->contains($currentTreesIterator->current()) && !$neCollec->contains($currentTreesIterator->current())) {
+                    $currentTrees->removeElement($currentTreesIterator->current());
+                }
+                $currentTreesIterator->next();
+            }
+
+            $neCollecIterator = $neCollec->getIterator();
+            while($neCollecIterator->valid()) {
+                $currentTrees->add($neCollecIterator->current());
+                $neCollecIterator->next();
+            }
+
+
+
+            //$news->setTrees($data['trees']);
         }
+        if(isset($data['images'])) {
 
-        if($request->get('isCompetition') == 0 || $request->get('isCompetition') == 1 ) {
-            $news->setIsCompetition($request->get('isCompetition'));
+            $currentImages = $news->getImages();
+            if($currentImages) {
+                $newImages = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['images'] as $image) {
+                    $newImages->add($rep->find($image['id']));
+                }
+
+                $newImagesIterator = $newImages->getIterator();
+                while($newImagesIterator->valid()) {
+                    if($currentImages->contains($newImagesIterator->current())) {
+                        $eCollec->add($newImagesIterator->current());
+                    } else {
+                        $neCollec->add($newImagesIterator->current());
+                    }
+                    $newImagesIterator->next();
+                }
+
+                $currentImagesIterator = $currentImages->getIterator();
+                while($currentImagesIterator->valid()) {
+                    if(!$eCollec->contains($currentImagesIterator->current()) && !$neCollec->contains($currentImagesIterator->current())) {
+                        $currentImages->removeElement($currentImagesIterator->current());
+                    }
+                    $currentImagesIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentImages->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$news->setImages($data['images']);
         }
+        if(isset($data['body_images'])) {
 
-        if($request->get('trueAnswer')) {
-            $news->setTrueAnswer($request->get('trueAnswer'));
+            $currentBodyImages = $news->getBodyImages();
+            if($currentBodyImages) {
+                $newBodyImages = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_images'] as $bodyimage) {
+                    $newBodyImages->add($rep->find($bodyimage['id']));
+                }
+
+                $newBodyImagesIterator = $newBodyImages->getIterator();
+                while($newBodyImagesIterator->valid()) {
+                    if($currentBodyImages->contains($newBodyImagesIterator->current())) {
+                        $eCollec->add($newBodyImagesIterator->current());
+                    } else {
+                        $neCollec->add($newBodyImagesIterator->current());
+                    }
+                    $newBodyImagesIterator->next();
+                }
+
+                $currentBodyImagesIterator = $currentBodyImages->getIterator();
+                while($currentBodyImagesIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyImagesIterator->current()) && !$neCollec->contains($currentBodyImagesIterator->current())) {
+                        $currentBodyImages->removeElement($currentBodyImagesIterator->current());
+                    }
+                    $currentBodyImagesIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyImages->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$news->setImages($data['images']);
         }
+        if(isset($data['videos'])) {
+            $currentVideos = $news->getVideos();
+            if($currentVideos) {
+                $newVideos = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['videos'] as $video) {
+                    $newVideos->add($rep->find($video['id']));
+                }
 
-        if($request->get('rate')) {
-            $news->setRate($request->get('rate'));
+                $newVideosIterator = $newVideos->getIterator();
+                while($newVideosIterator->valid()) {
+                    if($currentVideos->contains($newVideosIterator->current())) {
+                        $eCollec->add($newVideosIterator->current());
+                    } else {
+                        $neCollec->add($newVideosIterator->current());
+                    }
+                    $newVideosIterator->next();
+                }
+
+                $currentVideosIterator = $currentVideos->getIterator();
+                while($currentVideosIterator->valid()) {
+                    if(!$eCollec->contains($currentVideosIterator->current()) && !$neCollec->contains($currentVideosIterator->current())) {
+                        $currentVideos->removeElement($currentVideosIterator->current());
+                    }
+                    $currentVideosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentVideos->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+            //$news->setVideos($data['videos']);
         }
+        if(isset($data['body_videos'])) {
+
+            $currentBodyVideos = $news->getBodyVideos();
+            if($currentBodyVideos) {
+                $newBodyVideos = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_videos'] as $bodyvideo) {
+                    $newBodyVideos->add($rep->find($bodyvideo['id']));
+                }
+
+                $newBodyVideosIterator = $newBodyVideos->getIterator();
+                while($newBodyVideosIterator->valid()) {
+                    if($currentBodyVideos->contains($newBodyVideosIterator->current())) {
+                        $eCollec->add($newBodyVideosIterator->current());
+                    } else {
+                        $neCollec->add($newBodyVideosIterator->current());
+                    }
+                    $newBodyVideosIterator->next();
+                }
+
+                $currentBodyVideosIterator = $currentBodyVideos->getIterator();
+                while($currentBodyVideosIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyVideosIterator->current()) && !$neCollec->contains($currentBodyVideosIterator->current())) {
+                        $currentBodyVideos->removeElement($currentBodyVideosIterator->current());
+                    }
+                    $currentBodyVideosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyVideos->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
 
 
 
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($news);
-
-
-
-
-
-
-        if (count($errors) == 0) {
-            $em = $this->getDoctrine()->getManager();
-
-            //$news->upload();
-
-            $em->persist($news);
-            $em->flush();
-
-            //return $this->redirect($this->generateUrl('admin_newstree'));
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($news, 'json');
-
-            return new Response($serialized);
-        } else {
-            $errorsString = (string) $errors;
-
-            return new Response($errorsString);
+            //$news->setImages($data['images']);
         }
+        if(isset($data['audios'])) {
 
+            $currentAudios = $news->getAudios();
+            if($currentAudios) {
+                $newAudios = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['audios'] as $audio) {
+                    $newAudios->add($rep->find($audio['id']));
+                }
+
+                $newAudiosIterator = $newAudios->getIterator();
+                while($newAudiosIterator->valid()) {
+                    if($currentAudios->contains($newAudiosIterator->current())) {
+                        $eCollec->add($newAudiosIterator->current());
+                    } else {
+                        $neCollec->add($newAudiosIterator->current());
+                    }
+                    $newAudiosIterator->next();
+                }
+
+                $currentAudiosIterator = $currentAudios->getIterator();
+                while($currentAudiosIterator->valid()) {
+                    if(!$eCollec->contains($currentAudiosIterator->current()) && !$neCollec->contains($currentAudiosIterator->current())) {
+                        $currentAudios->removeElement($currentAudiosIterator->current());
+                    }
+                    $currentAudiosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentAudios->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+            //$news->setAudios($data['audios']);
+        }
+        if(isset($data['body_audios'])) {
+
+            $currentBodyAudios = $news->getBodyAudios();
+            if($currentBodyAudios) {
+                $newBodyAudios = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_audios'] as $bodyaudio) {
+                    $newBodyAudios->add($rep->find($bodyaudio['id']));
+                }
+
+                $newBodyAudiosIterator = $newBodyAudios->getIterator();
+                while($newBodyAudiosIterator->valid()) {
+                    if($currentBodyAudios->contains($newBodyAudiosIterator->current())) {
+                        $eCollec->add($newBodyAudiosIterator->current());
+                    } else {
+                        $neCollec->add($newBodyAudiosIterator->current());
+                    }
+                    $newBodyAudiosIterator->next();
+                }
+
+                $currentBodyAudiosIterator = $currentBodyAudios->getIterator();
+                while($currentBodyAudiosIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyAudiosIterator->current()) && !$neCollec->contains($currentBodyAudiosIterator->current())) {
+                        $currentBodyAudios->removeElement($currentBodyAudiosIterator->current());
+                    }
+                    $currentBodyAudiosIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyAudios->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$news->setImages($data['images']);
+        }
+        
+        if(isset($data['body_docs'])) {
+
+            $currentBodyDocs = $news->getBodyDocs();
+            if($currentBodyDocs) {
+                $newBodyDocs = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $rCollec = new ArrayCollection();
+                $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                foreach($data['body_docs'] as $bodydoc) {
+                    $newBodyDocs->add($rep->find($bodydoc['id']));
+                }
+
+                $newBodyDocsIterator = $newBodyDocs->getIterator();
+                while($newBodyDocsIterator->valid()) {
+                    if($currentBodyDocs->contains($newBodyDocsIterator->current())) {
+                        $eCollec->add($newBodyDocsIterator->current());
+                    } else {
+                        $neCollec->add($newBodyDocsIterator->current());
+                    }
+                    $newBodyDocsIterator->next();
+                }
+
+                $currentBodyDocsIterator = $currentBodyDocs->getIterator();
+                while($currentBodyDocsIterator->valid()) {
+                    if(!$eCollec->contains($currentBodyDocsIterator->current()) && !$neCollec->contains($currentBodyDocsIterator->current())) {
+                        $currentBodyDocs->removeElement($currentBodyDocsIterator->current());
+                    }
+                    $currentBodyDocsIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentBodyDocs->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+            }
+
+
+
+            //$news->setImages($data['images']);
+        }
     }
-
-    /**
-    * Creates a form to edit a News entity.
-    *
-    * @param News $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(News $entity)
-    {
-        $form = $this->createForm(new NewsType(), $entity, array(
-            'action' => $this->generateUrl('news_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing News entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
+    
+    
+    private function setContinualThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios, $body_docs) {
+//        $serializer = $this->get('jms_serializer');
+//            /* @var $serializer JMSSerializer */
+//        $data = $serializer->deserialize($request->get('data'), 'array', 'json');
+//        $images = $data['images'];
+//        $videos = $data['videos'];
+//        $audios = $data['audios'];
+//        
+//        $body_images = $data['body_images'];
+//        $body_audios = $data['body_audios'];
+//        $body_videos = $data['body_videos'];
+        
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('DarkishCategoryBundle:News')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find News entity.');
+        
+        $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos, $body_docs);
+        
+        
+        /**
+         * settings isThumbnail and continual for files
+         */
+        
+        foreach($files as $key => $file) {
+            /* @var $managedFile \Darkish\CategoryBundle\Entity\ManagedFile */
+            $managedFile = $repo->find($file['id']);
+            if(isset($file['is_thumbnail'])) {
+                $managedFile->setIsThumbnail($file['is_thumbnail']);
+            } else {
+                $managedFile->setIsThumbnail(false);
+            }
+            if(isset($file['continual'])) {
+                $managedFile->setContinual($file['continual']);
+            } else {
+                $managedFile->setContinual(false);
+            }
+            
+            
+            $em->persist($managedFile);
+            
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('news_edit', array('id' => $id)));
-        }
-
-        return $this->render('DarkishCategoryBundle:News:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    /**
-     * Deletes a News entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-
-
-        $em = $this->getDoctrine()->getManager();
-        $news = $em->getRepository('DarkishCategoryBundle:News')->find($id);
-
-        if (!$news) {
-            return new Response("404 Not Found", 404);
-        }
-
-        $em->remove($news);
         $em->flush();
-
-
-        return new Response("Deleted", 200);
+//        return new Response('Operation done succesfully', 200);
+        
     }
-
-    /**
-     * Creates a form to delete a News entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('news_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
-
-
-    public function approveAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $news = $em->getRepository('DarkishCategoryBundle:News')->find($id);
-
-        if (!$news) {
-            return new Response("404 Not Found", 404);
-        }
-
-        $news->setStatus(true);
-        //$news->upload();
-
-        $em->persist($news);
-        $em->flush();
-
-        //return $this->redirect($this->generateUrl('admin_newstree'));
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
-
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $serialized = $serializer->serialize($news, 'json');
-
-        return new Response($serialized);
-
-    }
-
-
-    public function getNewsForCategoryAction($cid, $page) {
-
-
-        if($cid == -1) {
-
-            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-            //$newsList = $repository->findBy(array('status' => false));
-
-
-            $queryBuilder = $repository->createQueryBuilder('n');
-            /* @var $queryBuilder QueryBuilder */
-            $queryBuilder->where('n.status= :status')
-                ->setParameter('status', false)
-                ->setFirstResult(($page-1) * $this->numPerPage)
-                ->setMaxResults($this->numPerPage)
-            ;
-
-
-            $query = $queryBuilder->getQuery();
-            $newsList =  $query->getResult();
-
-
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($newsList, 'json');
-
-            return new Response(
-                $serialized
-                , 200);
-        }
-
-        if($cid == -2) {
-            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-            //$newsList = $repository->findBy(array('category' => ""));
-
-            $queryBuilder = $repository->createQueryBuilder('n');
-            /* @var $queryBuilder QueryBuilder */
-            $queryBuilder->where('n.category = :category')
-                ->setParameter('category', "")
-                ->setFirstResult(($page-1) * $this->numPerPage)
-                ->setMaxResults($this->numPerPage)
-            ;
-
-
-            $query = $queryBuilder->getQuery();
-            $newsList =  $query->getResult();
-
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($newsList, 'json');
-
-            return new Response(
-                $serialized
-                , 200);
-        }
-
-
-        $repository = $this->getDoctrine()
-            ->getRepository('DarkishCategoryBundle:NewsTree');
-
-        $category =  $repository->find($cid);
-        if(!$category) {
-            return new Response("Cid input is invalid", 404);
-
-        }
-        else {
-            /* @var $category NewsTree */
-            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-            //$newsList = $repository->findBy(array('category' => $category->getTreeIndex()));
-
-            $queryBuilder = $repository->createQueryBuilder('n');
-            /* @var $queryBuilder QueryBuilder */
-            $queryBuilder->where('n.newstreeId = :ntid')
-                ->setParameter('ntid', $category->getId())
-                ->setFirstResult(($page-1) * $this->numPerPage)
-                ->setMaxResults($this->numPerPage)
-            ;
-
-
-            $query = $queryBuilder->getQuery();
-            $newsList =  $query->getResult();
-
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($newsList, 'json');
-
-            return new Response(
-                $serialized
-                , 200);
-        }
-
-    }
-
-    public function getTotalPagesForCatAction($cid) {
-        $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-        /* @var $qb QueryBuilder */
-        $qb = $repository->createQueryBuilder('n');
-        $qb->select('COUNT(n)');
-        if($cid == -1) {
-            $qb->where('n.status= :status')
-                ->setParameter('status', false);
-        } elseif($cid == -2) {
-            $qb->where('n.category = :category')
-               ->setParameter('category', "");
-        } else {
-            $repository = $this->getDoctrine()
-                ->getRepository('DarkishCategoryBundle:NewsTree');
-
-            $category =  $repository->find($cid);
-            if(!$category) {
-                return new Response("Cid input is invalid", 404);
-
-            }
-            $qb->where('n.newstreeId = :ntid')
-                ->setParameter('ntid', $category->getId());
-
-        }
-        $count = $qb->getQuery()->getSingleScalarResult();
-        return new Response(ceil($count/$this->numPerPage));
-    }
-
-    public function getNewsAction($id) {
-        $repository = $this->getDoctrine()
-            ->getRepository('DarkishCategoryBundle:News');
-        if($news = $repository->find($id)) {
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-
-            $serializer = new Serializer($normalizers, $encoders);
-
-            $serialized = $serializer->serialize($news, 'json');
-            return new Response($serialized);
-        } else {
-            return new Response("Id input is invalid", 404);
-        }
-
-    }
-
-
 
     public function getTreeAction() {
 
@@ -618,6 +664,31 @@ class NewsController extends Controller
         );
     }
 
+    public function containsTreeAction($newsId, $treeId) {
+        try {
+            /* @var $news News */
+            $news =$this->getDoctrine()->getManager()->getRepository('DarkishCategoryBundle:News')->find($newsId);
+            $trees = $news->getTrees();
+            $tempArray = new ArrayCollection();
+
+            $iterator = $trees->getIterator();
+            $counter = 0;
+            $currents = array();
+            while($iterator->valid()) {
+
+                $counter++;
+
+                $currents[] = $iterator->current();
+                $iterator->next();
+            }
+
+            return new Response($this->get('jms_serializer')->
+                serialize($currents, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+        } catch(\Exception $e) {
+            return new Response($e->getMessage());
+        }
+    }
+
 
     public function getTreeLinearAction() {
         $repository = $this->getDoctrine()
@@ -640,7 +711,9 @@ class NewsController extends Controller
         );
     }
 
-    private function buildTree(array $elements, $parentId = "#") {
+
+
+    private function buildTree(array $elements, $parentId = "00") {
         $branch = array();
 
         foreach ($elements as $element) {
@@ -656,95 +729,350 @@ class NewsController extends Controller
         return $branch;
     }
 
-    public function generateCsrfAction($intention) {
+    public function getJsonAction() {
+        $News = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:News')
+            ->find(1);
 
-        $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
-        $token = $csrf->generateCsrfToken($intention); //Intention should be empty string, if you did not define it in parameters
+        $Tree = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:NewsTree')
+            ->find(1);
 
-        return new JsonResponse($token);
+        /* @var $serializer JMSSerializer */
+        $serializer = $this->get('jms_serializer');
+
+        /* @var $News News */
+        $News->addTree($Tree);
+
+
+
+        return new Response(
+            $serializer->serialize($Tree, 'json', SerializationContext::create()->setGroups(array('list', 'Default')))
+        );
     }
 
-
-    public function isCsrfValidAction($token, $intention) {
-        $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
-        return new JsonResponse($csrf->isCsrfTokenValid($intention, $token));
-    }
+    public function getNewsForCategoryAction($cid, $count) {
 
 
-    public function uploadImageAction($iid, $action, Request $request ) {
-        if($request->files->has('upload')) {
-            $upload = $request->files->get('upload');
-        } else {
-            return new Response('File doesn\'t exist', 401);
+        if($cid == -1) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->where('n.verify= :verify')
+                ->setParameter('verify', false)
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('news.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == 0) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+            //$newsList = $repository->findBy(array('category' => ""));
+
+            $queryBuilder = $repository->createQueryBuilder('r');
+            /* @var $queryBuilder QueryBuilder */
+            $newsWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $qb2 = $repository->createQueryBuilder('rr');
+            $newsWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$newsWithTree->getDQL()))
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage);
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsWithoutTree->getQuery()->getResult(), 'json', SerializationContext::create()->setGroups(array('news.list')));
+
+
+
+
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == -2) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->where('n.active= :active')
+                ->setParameter('active', false)
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('news.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+        
+        if($cid == -3) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->orderBy('n.creationDate', 'Desc')
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('news.list')));
+
+            return new Response(
+                $serialized
+                , 200);
         }
 
 
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:NewsTree');
+        /* @var $repository \Darkish\CategoryBundle\Entity\NewsTreeRepository */
+        $category =  $repository->find($cid);
+
+        if(!$category) {
+            return new Response("Cid input is invalid", 404);
+
+        }
+        else {
+            /* @var $category NewsTree */
+//            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+//            //$newsList = $repository->findBy(array('category' => $category->getTreeIndex()));
+//
+//            $queryBuilder = $repository->createQueryBuilder('n');
+//            /* @var $queryBuilder QueryBuilder */
+//            $queryBuilder->where('n.newstreeId = :ntid')
+//                ->setParameter('ntid', $category->getId())
+//                ->setFirstResult(($page-1) * $this->numPerPage)
+//                ->setMaxResults($this->numPerPage)
+//            ;
+//
+//
+//            $query = $queryBuilder->getQuery();
+//            $newsList =  $query->getResult();
+            /* @var $repository \Darkish\CategoryBundle\Entity\NewsRepository */
+            $repository = $this->getDoctrine()
+                ->getRepository('DarkishCategoryBundle:News');
+            $qb = $repository->createQueryBuilder('r');
+            $qb->join('r.trees','t', 'WITH','t.id = '. $category->getId())->distinct();
+            $res = $qb->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)->getQuery()->getResult();
+            
+            $serialized = $this->get('jms_serializer')->
+                serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list')));
 
 
-        $fs = new Filesystem();
-        $dir = 'uploads/temporary/news/'.$this->getUser()->getId().'_'.$iid;
-        try {
-            if(!$fs->exists($dir)) {
-                $fs->mkdir($dir);
-            }
 
-        } catch (IOExceptionInterface $e) {
-            return new Response('error', 401);
+
+//            $newsList = $category->getNewss();
+//            $encoders = array(new XmlEncoder(), new JsonEncoder());
+//            $normalizers = array(new GetSetMethodNormalizer());
+//
+//            $serializer = new Serializer($normalizers, $encoders);
+//
+//            $serialized = $serializer->serialize($newsList, 'json');
+
+            return new Response(
+                $serialized
+                , 200);
         }
 
-        /* @var $upload UploadedFile */
-        $upload->move($dir,$upload->getClientOriginalName());
-
-
-
-
-
-
-
-        $url = "http://localhost/darkish/web/uploads/documents/1.jpg";
-
-
-
-
-
-        return new Response("
-
-         <script>window.parent.CKEDITOR.tools.callFunction(
-         ".                                      $request->query->get('CKEditorFuncNum')        .
-            ", '" . $url . "');</script>
-
-
-        ");
     }
 
-    public function generateRandomUploadKeyAction() {
-        return new Response($this->getUser()->getId().time().rand(1000,9999));
 
+    public function searchNewssAction($keyword, $search_by, $sort_by, $count = 0) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+        $qb = $repo->createQueryBuilder('r');
+        /* @var $qb QueryBuilder */
+        switch($search_by) {
+            case '1':
+                $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            case '3':
+                $qb->orWhere($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.subTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.body', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            default:
+
+                break;
+        }
+
+        switch($sort_by) {
+            case '2':
+                $qb->orderBy('r.creationDate', 'Asc');
+                break;
+            default:
+                $qb->orderBy('r.creationDate', 'Desc');
+                break;
+        }
+
+        $qb->setFirstResult($count);
+        $qb->setMaxResults($this->numPerPage);
+
+        $res = $qb->getQuery()->getResult();
+
+        return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list'))));
     }
 
-    public function getNewIdAction() {
+    
+
+    public function getNewsAction($id) {
         $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
-        //$newsList = $repository->findBy(array('status' => false));
+        $news = $repository->find($id);
 
-
-        $queryBuilder = $repository->createQueryBuilder('n');
-        /* @var $queryBuilder QueryBuilder */
-        $queryBuilder->select('n.id')->orderBy('n.id','DESC')->setFirstResult(0)->setMaxResults(1);
-        $query = $queryBuilder->getQuery();
-        $newsList =  $query->getResult();
-
-        if(count($newsList)) {
-            return new Response($newsList[0]['id']+1);
-        } else {
-            return 1;
+        if(!$news) {
+            return new Response("News ID is invalid", 404);
         }
+//        return new Response($this->get('jms_serializer')->serialize($news, 'json'));
+        return new Response($this->get('jms_serializer')->serialize($news, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+    }
+
+
+    public function generateCsrfAction() {
+        $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
+        $token = $csrf->generateCsrfToken(''); //Intention should be empty string, if you did not define it in parameters
+        return new Response($token);
+    }
+
+    public function verifyNewsAction($newsId) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:News');
+        $news = $repo->find($newsId);
+
+        if(!$news) {
+            return new Response('news_id is invalid!', 404);
+        }
+        /* @var $news News */
+        $news->setVerify(true);
+        $em->persist($news);
+        $em->flush();
+
+        return new Response('News verified.');
+
+    }
+
+
+    public function toggleVerifyNewsAction($newsId) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:News');
+        $news = $repo->find($newsId);
+
+        if(!$news) {
+            return new Response('news_id is invalid!', 404);
+        }
+        /* @var $news News */
+        $news->setVerify(!$news->getVerify());
+        $em->persist($news);
+        $em->flush();
+
+        return new JsonResponse(array('verify' => $news->getVerify()));
+
+    }
+
+    public function deleteNewsAction($newsId) {
+        try{
+            $em = $this->getDoctrine()->getManager();
+            $repo = $em->getRepository('DarkishCategoryBundle:News');
+            $news = $repo->find($newsId);
+            /* @var $news News */
+            $em->remove($news);
+            $em->flush();
+            return new Response('News deleted');
+        } catch(\Doctrine\ORM\ORMInvalidArgumentException $e) {
+            return new Response('News Not found', 404);
+        }
+
 
 
     }
 
-    public function getFilesImagesAction($entityId) {
-        $images = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->getImagesFiles($entityId);
 
-        return new Response($images);
+    public function getUsernameAction() {
+        /* @var $sc \Symfony\Component\Security\Core\SecurityContext */
+        $sc = $this->get('security.context');
+
+        return new Response($sc->getToken()->getUsername());
+    }
+
+    public function toggleActiveNewsAction($newsId) {
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('DarkishCategoryBundle:News');
+        $news = $repo->find($newsId);
+
+        if(!$news) {
+            return new Response('news_id is invalid!', 404);
+        }
+        /* @var $news News */
+        $news->setActive(!$news->getActive());
+        $em->persist($news);
+        $em->flush();
+        return new JsonResponse(array('active' => $news->getActive()));
+
+    }
+
+    public function accessAction() {
+        $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find(1);
+        $voter = $this->get('security.context');
+
+        return new JsonResponse($voter->isGranted('view', $news));
+    }
+
+    
+    
+    public function checkPermissionAction($attribute, $id = null) {
+        try {
+            if($id) {
+                $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
+            }else {
+                $news = new News();
+            }
+            $granted = $this->get('security.context')->isGranted($attribute, $news);
+            return new JsonResponse(array($granted));
+        } catch(Exception $e) {
+            return new Response($e->getMessage(), $e->getCode());
+        }
+        
+        return new JsonResponse(array($attribute,$class, $id));
     }
 }

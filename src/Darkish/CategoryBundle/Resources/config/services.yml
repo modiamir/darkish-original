@@ -4,6 +4,11 @@ services:
         public:     false
         tags:
            - { name: security.voter }
+    security.access.news_voter:
+        class:      Darkish\CategoryBundle\Security\Voter\NewsVoter
+        public:     false
+        tags:
+           - { name: security.voter }
 
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example

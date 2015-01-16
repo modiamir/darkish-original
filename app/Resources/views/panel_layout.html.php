@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>
-        مدیریت رکوردها | درکیش
+        | درکیش
+        <?php $view['slots']->output('pagetitle') ?>
     </title>
 
     <?php if($view['slots']->has('stylesheets')): ?>

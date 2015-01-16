@@ -14,7 +14,7 @@
 
 <?php $view['slots']->stop() ?>
 
-
+<?php $view['slots']->start('pagetitle') ?>مدیریت رکوردها<?php $view['slots']->stop() ?>
 <?php $view['slots']->start('ngapp') ?>RecordApp<?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('controller') ?>
@@ -211,6 +211,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     <div class="col main-fields-wrapper" id="main-fields-wrapper">
                         <div class="main-fields-first-section" >
 
+                            <div class="main-fields-informations">
+                                <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات یک:</label>
+                                <input type="text" name="info-one-input" id="info-two-input" class="first-section-input" ng-model="RecordService.currentRecord.info_one" ng-disabled="!RecordService.isEditing()">
+                                <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات دو:</label>
+                                <input type="text" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()">
+                            </div>
                             <div class="main-fields-search-key">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
                                 <input type="text" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords" ng-disabled="!RecordService.isEditing()">

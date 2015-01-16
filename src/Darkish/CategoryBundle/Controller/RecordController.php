@@ -314,6 +314,12 @@ class RecordController extends Controller
         if(isset($data['brand_enable'])) {
             $record->setBrandEnable($data['brand_enable']);
         }
+        if(isset($data['info_one'])) {
+            $record->setInfoOne($data['info_one']);
+        }
+        if(isset($data['info_two'])) {
+            $record->setInfoTwo($data['info_two']);
+        }
         if(isset($data['list_rank'])) {
             $record->setListRank($data['list_rank']);
         }

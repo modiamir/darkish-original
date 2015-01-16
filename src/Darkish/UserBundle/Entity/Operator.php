@@ -50,6 +50,11 @@ class Operator implements AdvancedUserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
      */
     protected $records;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\News", mappedBy="user")
+     */
+    protected $news;
 
     public function __construct()
     {
