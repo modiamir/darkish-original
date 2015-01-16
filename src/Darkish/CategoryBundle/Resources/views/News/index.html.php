@@ -186,12 +186,12 @@
                             </div>
                             <div class="dates">
                                 <div class="publish-date-box">
-                                    <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ اعتبار</label>
+                                    <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
                                     <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
                                 </div>
 
                                 <div class="expire-date-box">
-                                    <label id="expire-date-label" class="third-section-label " for="expire-date-picker">تاریخ اعتبار</label>
+                                    <label id="expire-date-label" class="third-section-label " for="expire-date-picker">تاریخ پایان انتشار</label>
                                     <input ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
                                 </div>
                             </div>
