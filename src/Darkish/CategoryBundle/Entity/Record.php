@@ -572,6 +572,15 @@ class Record
      * @Groups({"record.details"})
      */
     private $infoTwo;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Hostelry", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $hostelry;
+    
 
     /**
      * @var string
@@ -2910,5 +2919,28 @@ class Record
     public function getInfoTwo()
     {
         return $this->infoTwo;
+    }
+
+    /**
+     * Set hostelry
+     *
+     * @param boolean $hostelry
+     * @return Record
+     */
+    public function setHostelry($hostelry)
+    {
+        $this->hostelry = $hostelry;
+
+        return $this;
+    }
+
+    /**
+     * Get hostelry
+     *
+     * @return boolean 
+     */
+    public function getHostelry()
+    {
+        return $this->hostelry;
     }
 }

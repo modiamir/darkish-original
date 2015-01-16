@@ -572,6 +572,15 @@ class Record
      * @Groups({"record.details"})
      */
     private $infoTwo;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Hostelry", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $hostelry;
+    
 
     /**
      * @var string
@@ -2864,5 +2873,51 @@ class Record
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set infoOne
+     *
+     * @param string $infoOne
+     * @return Record
+     */
+    public function setInfoOne($infoOne)
+    {
+        $this->infoOne = $infoOne;
+
+        return $this;
+    }
+
+    /**
+     * Get infoOne
+     *
+     * @return string 
+     */
+    public function getInfoOne()
+    {
+        return $this->infoOne;
+    }
+
+    /**
+     * Set infoTwo
+     *
+     * @param string $infoTwo
+     * @return Record
+     */
+    public function setInfoTwo($infoTwo)
+    {
+        $this->infoTwo = $infoTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get infoTwo
+     *
+     * @return string 
+     */
+    public function getInfoTwo()
+    {
+        return $this->infoTwo;
     }
 }
