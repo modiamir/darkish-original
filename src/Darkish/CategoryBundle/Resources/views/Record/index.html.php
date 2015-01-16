@@ -428,6 +428,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                              <div id="opening-hours-wrapper">
                                  <label id="opening-time-label" class="third-section-label">ساعات کار</label>
+                                 <div class="hostelry-box">
+                                     <label class="hostelry-label" for="hostelry-input">
+                                         شبانه روزی
+                                     </label>
+                                     <input id="hostelry-input" type="checkbox" ng-model="RecordService.currentRecord.hostelry" ng-disabled="!RecordService.isEditing()" />
+                                 </div>
                                  <div id="opening-hours-time">
                                     <span class="morning">
                                     صبح

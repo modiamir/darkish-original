@@ -320,6 +320,13 @@ class RecordController extends Controller
         if(isset($data['info_two'])) {
             $record->setInfoTwo($data['info_two']);
         }
+        if(isset($data['info_two'])) {
+            $record->setInfoTwo($data['info_two']);
+        }
+        if(isset($data['hostelry'])) {
+            $record->setHostelry($data['hostelry']);
+        }
+        
         if(isset($data['list_rank'])) {
             $record->setListRank($data['list_rank']);
         }
