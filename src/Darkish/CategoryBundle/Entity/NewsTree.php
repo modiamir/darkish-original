@@ -3,6 +3,10 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * NewsTree
@@ -18,6 +22,7 @@ class NewsTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "news.details"})
      */
     private $id;
 
@@ -25,6 +30,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="up_tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "news.details"})
      */
     private $upTreeIndex;
 
@@ -32,6 +38,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "news.details"})
      */
     private $treeIndex;
 
@@ -46,6 +53,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "news.details"})
      */
     private $title;
 
@@ -53,6 +61,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "news.details"})
      */
     private $subTitle;
 
@@ -60,6 +69,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="back_key_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "news.details"})
      */
     private $backKeyTitle;
 
@@ -99,9 +109,9 @@ class NewsTree
     private $iconFileName;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="icon_set_files_name", type="array", nullable=true)
+     * @ORM\Column(name="icon_set_files_name", type="string", nullable=true)
      */
     private $iconSetFilesName;
 
@@ -149,9 +159,11 @@ class NewsTree
 
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="newsTree")
+     * @var \Doctrine\Common\Collections\ArrayCollection $news
+     *
+     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\News", mappedBy="trees")
      */
-    protected  $newsList;
+    protected $news;
 
     /**
      * Get id
@@ -419,7 +431,7 @@ class NewsTree
     /**
      * Set iconSetFilesName
      *
-     * @param array $iconSetFilesName
+     * @param strj g $iconSetFilesName
      * @return NewsTree
      */
     public function setIconSetFilesName($iconSetFilesName)
@@ -432,7 +444,7 @@ class NewsTree
     /**
      * Get iconSetFilesName
      *
-     * @return array 
+     * @return string 
      */
     public function getIconSetFilesName()
     {
@@ -577,43 +589,50 @@ class NewsTree
         return $this->hiddenTree;
     }
 
-    public function __construct()
-    {
-        $this->newsList = new ArrayCollection();
-    }
+    
 
 
+
+    
 
     /**
-     * Add newsList
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add news
      *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
+     * @param \Darkish\CategoryBundle\Entity\News $news
      * @return NewsTree
      */
-    public function addNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function addNews(\Darkish\CategoryBundle\Entity\News $news)
     {
-        $this->newsList[] = $newsList;
+        $this->news[] = $news;
 
         return $this;
     }
 
     /**
-     * Remove newsList
+     * Remove news
      *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
+     * @param \Darkish\CategoryBundle\Entity\News $news
      */
-    public function removeNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function removeNews(\Darkish\CategoryBundle\Entity\News $news)
     {
-        $this->newsList->removeElement($newsList);
+        $this->news->removeElement($news);
     }
 
     /**
-     * Get newsList
+     * Get news
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getNewsList()
+    public function getNews()
     {
-        return $this->newsList;
+        return $this->news;
     }
 }

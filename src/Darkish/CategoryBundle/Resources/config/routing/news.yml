@@ -2,39 +2,6 @@ news:
     path:     /
     defaults: { _controller: "DarkishCategoryBundle:News:index" }
 
-news_show:
-    path:     /{id}/show
-    defaults: { _controller: "DarkishCategoryBundle:News:show" }
-
-news_new:
-    path:     /new
-    defaults: { _controller: "DarkishCategoryBundle:News:new" }
-
-news_create:
-    path:     /ajax/create
-    defaults: { _controller: "DarkishCategoryBundle:News:create" }
-    requirements: { _method: post }
-
-news_edit:
-    path:     /ajax/edit/{id}
-    defaults: { _controller: "DarkishCategoryBundle:News:edit" }
-    requirements: { _method: put }
-
-news_approve:
-    path:     /ajax/news/approve/{id}
-    defaults: { _controller: "DarkishCategoryBundle:News:approve" }
-    requirements: { _method: put }
-
-news_update:
-    path:     /{id}/update
-    defaults: { _controller: "DarkishCategoryBundle:News:update" }
-    requirements: { _method: post|put }
-
-news_delete:
-    path:     /ajax/news/delete/{id}
-    defaults: { _controller: "DarkishCategoryBundle:News:delete" }
-    requirements: { _method: post|delete }
-
 news_get_tree:
     path:     /ajax/gettree
     defaults: { _controller: "DarkishCategoryBundle:News:getTree", _format: json}
@@ -43,44 +10,96 @@ news_get_tree_linear:
     path:     /ajax/gettree_linear
     defaults: { _controller: "DarkishCategoryBundle:News:getTreeLinear", _format: json}
 
+news_get_json:
+    path:     /ajax/getjson
+    defaults: { _controller: "DarkishCategoryBundle:News:getJson", _format: json}
 
 
 news_get_news_for_category:
-    path:     /ajax/get_news_for_cat/{cid}/{page}
-    defaults: { _controller: "DarkishCategoryBundle:News:getNewsForCategory", _format: json, page: 1}
+    path:     /ajax/get_news_for_cat/{cid}/{count}
+    defaults: { _controller: "DarkishCategoryBundle:News:getNewsForCategory", _format: json, count: 0}
 
-news_total_pages_for_category:
-    path:     /ajax/get_total_pages/{cid}
-    defaults: { _controller: "DarkishCategoryBundle:News:getTotalPagesForCat", _format: json}
+news_search_news:
+    path:     /ajax/search_news/{search_by}/{sort_by}/{count}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:News:searchNewss", _format: json, keyword: "", search_by: 1, sort_by: 1}
 
-news_get_generate_csrf:
-    path:     /ajax/generate_csrf/{intention}
-    defaults: {_controller: "DarkishCategoryBundle:News:generateCsrf", _format: json, intention: ""}
 
-news_get_is_csrf_valid:
-    path:     /ajax/is_csrf_valid/{token}/{intention}
-    defaults: {_controller: "DarkishCategoryBundle:News:isCsrfValid", _format: json, intention: ""}
+news_verify_news:
+    path:     /ajax/verify_news/{newsId}
+    defaults: { _controller: "DarkishCategoryBundle:News:verifyNews", _format: json }
+    requirements: { _method: post|put }
+
+news_toggle_verify_news:
+    path:     /ajax/toggle_verify_news/{newsId}
+    defaults: { _controller: "DarkishCategoryBundle:News:toggleVerifyNews", _format: json }
+    requirements: { _method: post|put }
+
+news_toggle_active_news:
+    path:     /ajax/toggle_active_news/{newsId}
+    defaults: { _controller: "DarkishCategoryBundle:News:toggleActiveNews", _format: json }
+    requirements: { _method: post|put }
+
+news_delete_news:
+    path:     /ajax/delete_news/{newsId}
+    defaults: { _controller: "DarkishCategoryBundle:News:deleteNews", _format: json }
+    requirements: { _method: post|put }
 
 news_get_news:
     path:     /ajax/get_news/{id}
-    defaults: {_controller: "DarkishCategoryBundle:News:getNews", _format: json, intention: ""}
-    requirements:
-            id:  \d+
-news_upload_image:
-    path:     /ajax/upload_files/{iid}/{action}
-    defaults: {_controller: "DarkishCategoryBundle:News:uploadImage", action: edit}
-    requirements:
-            id: \d+
+    defaults: { _controller: "DarkishCategoryBundle:News:getNews", _format: json}
 
-news_gen_rand_upload_key:
-    path:     /ajax/gen_rand_upload_key
-    defaults: {_controller: "DarkishCategoryBundle:News:generateRandomUploadKey"}
-    requirements: { _method: get}
+news_get_centers:
+    path:   /ajax/get_centers
+    defaults: { _controller: "DarkishCategoryBundle:News:getCenters", _format: json }
 
-news_get_new_id:
-    path:     /ajax/get_new_id
-    defaults: {_controller: "DarkishCategoryBundle:News:getNewId"}
+news_get_safarsaz_types:
+    path:   /ajax/get_safarsaz_types
+    defaults: { _controller: "DarkishCategoryBundle:News:getSafarsazTypes", _format: json }
 
-news_get_files_images:
-    path:     /ajax/get_files_images/{entityId}
-    defaults: {_controller: "DarkishCategoryBundle:News:getFilesImages"}
+news_get_dbase_types:
+    path:   /ajax/get_dbase_types
+    defaults: { _controller: "DarkishCategoryBundle:News:getDbaseTypes", _format: json }
+
+news_get_areas:
+    path:   /ajax/get_areas
+    defaults: { _controller: "DarkishCategoryBundle:News:getAreas", _format: json }
+
+news_update:
+    path:     ajax/{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:News:update" }
+    requirements: { _method: post|put }
+
+news_create:
+    path:     ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:News:create" }
+    requirements: { _method: post }
+
+news_get_generate_csrf:
+    path:     /ajax/generate_csrf
+    defaults: {_controller: "DarkishCategoryBundle:News:generateCsrf", _format: json}
+
+news_contains_tree:
+    path:     /ajax/contains_tree/{newsId}/{treeId}
+    defaults: { _controller: "DarkishCategoryBundle:News:containsTree", _format: json}
+
+news_access_test:
+    path:     /ajax/access
+    defaults: { _controller: "DarkishCategoryBundle:News:access", _format: json}
+
+news_get_username:
+    path:     /ajax/get_username
+    defaults: { _controller: "DarkishCategoryBundle:News:getUsername", _format: json}
+
+news_get_last_newsnumber:
+    path:     /ajax/get_last_newsnumber
+    defaults: { _controller: "DarkishCategoryBundle:News:getLastNewsNumber", _format: json}
+
+news_lock_news_number:
+    path:     /ajax/lock_news_number/{newsNumber}
+    defaults: { _controller: "DarkishCategoryBundle:News:lockNewsNumber", _format: json}
+    requirements: { _method: post|put }
+
+
+news_check_permission:
+    path:     /ajax/check_permission/{attribute}/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:checkPermission", _format: json, id: null}

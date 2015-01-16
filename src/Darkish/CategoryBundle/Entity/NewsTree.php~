@@ -149,9 +149,11 @@ class NewsTree
 
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="newsTree")
+     * @var \Doctrine\Common\Collections\ArrayCollection $news
+     *
+     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\News", mappedBy="trees")
      */
-    protected  $newsList;
+    protected $news;
 
     /**
      * Get id
@@ -577,43 +579,10 @@ class NewsTree
         return $this->hiddenTree;
     }
 
-    public function __construct()
-    {
-        $this->newsList = new ArrayCollection();
-    }
+    
 
 
 
-    /**
-     * Add newsList
-     *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
-     * @return NewsTree
-     */
-    public function addNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
-    {
-        $this->newsList[] = $newsList;
+    
 
-        return $this;
-    }
-
-    /**
-     * Remove newsList
-     *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
-     */
-    public function removeNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
-    {
-        $this->newsList->removeElement($newsList);
-    }
-
-    /**
-     * Get newsList
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getNewsList()
-    {
-        return $this->newsList;
-    }
 }

@@ -556,6 +556,22 @@ class Record
      * @Groups({"record.details"})
      */
     private $bulkSmsEnable;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="InfoOne", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $infoOne;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column(name="InfoTwo", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $infoTwo;
 
     /**
      * @var string
@@ -745,7 +761,7 @@ class Record
      * @ORM\JoinColumn(name="UserId", referencedColumnName="id")
      * @Groups({"record.details"})
      */
-    private $userId;
+    private $user;
 
 
 
@@ -2826,4 +2842,27 @@ class Record
     
 
     
+
+    /**
+     * Set user
+     *
+     * @param \Darkish\UserBundle\Entity\Operator $user
+     * @return Record
+     */
+    public function setUser(\Darkish\UserBundle\Entity\Operator $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Darkish\UserBundle\Entity\Operator 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
