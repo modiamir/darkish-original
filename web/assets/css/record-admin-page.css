@@ -1737,3 +1737,32 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     width: 60%;
     margin-top: 20px;
 }
+
+.user-box {
+    height: 25px;
+    line-height: 25px;
+}
+
+.user-box .username-label {
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 0;
+    margin-left: 3px;
+}
+
+.user-box .username-value {
+    height: 25px;
+    line-height: 25px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.user-box.logged-out .fa-power-off{
+    color: red;
+    font-size: 20px;
+}
+
+.user-box.logged-in .fa-power-off{
+    color: green;
+    font-size: 20px;
+}

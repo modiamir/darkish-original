@@ -1190,10 +1190,10 @@
             <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!NewsService.currentNews.id || NewsService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();NewsService.saveCurrentNews();newsform.$setPristine()">
+            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave()">
                 ذخیره
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="openSavingModal();NewsService.saveCurrentNews(true);newsform.$setPristine()">
+            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave(true)">
                 ذخیره و ادامه
             </button>
             <script type="text/ng-template" id="savingModal.html">
@@ -1266,12 +1266,35 @@
             
         </div>
 
-        <div class="col-md-3 left" style="float: left"  >
+        <div class="col-md-3 left user-box" ng-class="{'logged-in': SecurityService.loggedIn, 'logged-out': !SecurityService.loggedIn}" style="float: left"  >
+            <label class="username-label">
             نام کاربری:
+            </label>
+            <i class="fa fa-power-off"></i>
+            <span class="username-value">
             {{ValuesService.username}}
-            <button class="btn btn-warning logout-btn" data-ng-click="logout()">
+            </span>
+            <button ng-show="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="logout()">
                 خروج
             </button>
+            <button ng-hide="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
+                ورود مجدد
+            </button>
+            <script type="text/ng-template" id="loginModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">ورود مجدد</h3>
+                </div>
+                <div class="modal-body">
+                    <label class="username" for="login-username" >نام کاربری</label>
+                    <input id="login-username" type="text" ng-model="username">
+                    <label class="password" for="login-password" >رمز عبور</label>
+                    <input id="login-password" type="text" ng-model="password">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="login()">ورود</button>
+                    <button class="btn btn-warning" ng-click="close()">بستن</button>
+                </div>
+            </script>
 
         </div>
     </div>

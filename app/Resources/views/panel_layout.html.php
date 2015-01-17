@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>
-        | درکیش
+        درکیش  |
         <?php $view['slots']->output('pagetitle') ?>
     </title>
 

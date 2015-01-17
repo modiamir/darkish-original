@@ -30,6 +30,9 @@ use JMS\Serializer\Serializer as JMSSerializer;
 use JMS\Serializer\SerializationContext;
 use Darkish\CategoryBundle\Form\RecordType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 
 class UserController extends Controller
@@ -58,5 +61,40 @@ class UserController extends Controller
                     'ROLE_USER'
                    ))
         );
+    }
+    
+    public function loginAction(Request $request) {
+        try{
+            $em = $this->getDoctrine();
+            $repo = $em->getRepository("DarkishUserBundle:Operator"); //Entity Repository
+            $username = ($request->request->has('username'))? $request->request->get('username') : NULL;
+            $password = ($request->request->has('password'))? $request->request->get('password') : NULL;
+            if(!$username || !$password) {
+                throw new Exception('Username or Password is missing!', 404);
+            }
+            $users = $repo->findByUsername($username);
+            if (count($users) == 0) {
+                throw new UsernameNotFoundException("User not found", 404);
+            } else {
+                $user = $users[0];
+                $token = new UsernamePasswordToken($user, null, "admin_area", $user->getRoles());
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+                /* @var $factory \Symfony\Component\Security\Core\Encoder\EncoderFactory */
+                $isPassValid = $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
+                if(!$isPassValid) {
+                    throw new Exception('Password is wrong!', 404);
+                }
+                $this->get("security.context")->setToken($token); //now the user is logged in
+                
+                $event = new InteractiveLoginEvent($request, $token);
+                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+                return new Response('logged in');
+            }
+        } catch(\Exception $ex) {
+            return new Response($ex->getMessage(), 404);
+        }
+        
+        
     }
 }

@@ -21,7 +21,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
-
+        
         
         /**
          * initializing config for list endless scroll
@@ -587,6 +587,37 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
         
         ///////////////
+        
+        /**
+         * login modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLoginModal = function (size) {
+            
+            var loginModalInstance = $modal.open({
+                templateUrl: 'loginModal.html',
+                controller: 'loginModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            loginModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
 
         /**
@@ -661,6 +692,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
+        /**
+         * 
+         * user authentication config
+         */
+        
+        SecurityService.loggedIn = true;
+        
         $scope.logout = function() {
             $http.get('../operator/logout').then(
                 function(response){
@@ -677,9 +715,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 function(response){
 //                    console.log(response.data[0]);
                     if(response.data[0] === false) {
-                        $scope.loggedOut();
+                        SecurityService.loggedIn = false;
                     } else {
-                        
+                        SecurityService.loggedIn = true;
                     }
                 },
                 function(responseErr){
@@ -694,7 +732,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             "");
             window.location = "../record";
         }
-
+        
+        $scope.checkLogInAndSave = function(contin) {
+            
+            if(!SecurityService.loggedIn) {
+                $scope.openLoginModal();
+            } else {
+                contin = (contin)? true : false;
+                $scope.openSavingModal();
+                RecordService.saveCurrentRecord(contin);
+                $scope.recordform.$setPristine();
+                
+            }
+        }
+        
         poollingFactory.callFnOnInterval(function() {
             $scope.isLoggedIn();
         });
@@ -704,6 +755,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $interval(function(){
             $scope.loaded = true;
         }, 3000);
+        
+        /////////////////////////////
 
 
 
@@ -1906,6 +1959,45 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.cancel = function() {
             RecordService.cancelEditing(); 
             $modalInstance.close(true);
+        }
+    }]).
+    controller('loginModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {
+        $scope.RecordService = RecordService;
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.cancel = function() {
+            $modalInstance.close(true);
+        }
+        $scope.login = function() {
+            var approve = true;
+            var redirect = false;
+            if(ValuesService.username != $scope.username) {
+                
+                approve = confirm("نام کاربری وارد شده با نام کاربری شناسایی شده از قبل متفاوت است. در صورت ادامه صفحه مجددا بارگزاری خواهد شد. آیا از ادامه اطمینان دارید؟");
+                redirect = true;
+            }
+            if(approve) {
+                $http({
+                    method: 'POST',
+                    url: '../user/ajax/login',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param({username: $scope.username, password: $scope.password})
+                }).then(
+                        function (response) {
+                            SecurityService.loggedIn = true;
+                            if(redirect) {
+                                window.location = "../record";
+                            } else {
+                                $modalInstance.close(true);
+                            }
+                            
+                        },
+                        function (errResponse) {
+                            alert(errResponse.data);
+                        }
+                );
+            }
+            
+            
         }
     }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 

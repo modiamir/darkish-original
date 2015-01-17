@@ -560,6 +560,38 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
         
         ///////////////
+        
+        /**
+         * login modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLoginModal = function (size) {
+            
+            var loginModalInstance = $modal.open({
+                templateUrl: 'loginModal.html',
+                controller: 'loginModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            loginModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
 
 
         /**
@@ -639,6 +671,13 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
 
 
+        /**
+         * 
+         * user authentication config
+         */
+
+        SecurityService.loggedIn = true;
+
         $scope.logout = function() {
             $http.get('../operator/logout').then(
                 function(response){
@@ -655,9 +694,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 function(response){
 //                    console.log(response.data[0]);
                     if(response.data[0] === false) {
-                        $scope.loggedOut();
+                        SecurityService.loggedIn = false;
                     } else {
-                        
+                        SecurityService.loggedIn = true;
                     }
                 },
                 function(responseErr){
@@ -672,6 +711,19 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             "");
             window.location = "../news";
         }
+        
+        $scope.checkLogInAndSave = function(contin) {
+            
+            if(!SecurityService.loggedIn) {
+                $scope.openLoginModal();
+            } else {
+                contin = (contin)? true : false;
+                $scope.openSavingModal();
+                NewsService.saveCurrentNews(contin);
+                $scope.newsform.$setPristine();
+                
+            }
+        }
 
         poollingFactory.callFnOnInterval(function() {
             $scope.isLoggedIn();
@@ -683,7 +735,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             $scope.loaded = true;
         }, 3000);
 
-
+        /////////////////////////////////
 
 
 
@@ -1676,6 +1728,45 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.cancel = function() {
             NewsService.cancelEditing(); 
             $modalInstance.close(true);
+        }
+    }]).
+    controller('loginModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
+        $scope.NewsService = NewsService;
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.cancel = function() {
+            $modalInstance.close(true);
+        }
+        $scope.login = function() {
+            var approve = true;
+            var redirect = false;
+            if(ValuesService.username != $scope.username) {
+                
+                approve = confirm("نام کاربری وارد شده با نام کاربری شناسایی شده از قبل متفاوت است. در صورت ادامه صفحه مجددا بارگزاری خواهد شد. آیا از ادامه اطمینان دارید؟");
+                redirect = true;
+            }
+            if(approve) {
+                $http({
+                    method: 'POST',
+                    url: '../user/ajax/login',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param({username: $scope.username, password: $scope.password})
+                }).then(
+                        function (response) {
+                            SecurityService.loggedIn = true;
+                            if(redirect) {
+                                window.location = "../news";
+                            } else {
+                                $modalInstance.close(true);
+                            }
+                            
+                        },
+                        function (errResponse) {
+                            alert(errResponse.data);
+                        }
+                );
+            }
+            
+            
         }
     }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
