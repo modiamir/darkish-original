@@ -240,17 +240,124 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::indexAction',  '_route' => 'news',);
                 }
 
-                // news_show
-                if (preg_match('#^/admin/news/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_show')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::showAction',));
-                }
-
-                // news_new
-                if ($pathinfo === '/admin/news/new') {
-                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::newAction',  '_route' => 'news_new',);
-                }
-
                 if (0 === strpos($pathinfo, '/admin/news/ajax')) {
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/get')) {
+                        if (0 === strpos($pathinfo, '/admin/news/ajax/gettree')) {
+                            // news_get_tree
+                            if ($pathinfo === '/admin/news/ajax/gettree') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getTreeAction',  '_format' => 'json',  '_route' => 'news_get_tree',);
+                            }
+
+                            // news_get_tree_linear
+                            if ($pathinfo === '/admin/news/ajax/gettree_linear') {
+                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getTreeLinearAction',  '_format' => 'json',  '_route' => 'news_get_tree_linear',);
+                            }
+
+                        }
+
+                        // news_get_json
+                        if ($pathinfo === '/admin/news/ajax/getjson') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getJsonAction',  '_format' => 'json',  '_route' => 'news_get_json',);
+                        }
+
+                        // news_get_news_for_category
+                        if (0 === strpos($pathinfo, '/admin/news/ajax/get_news_for_cat') && preg_match('#^/admin/news/ajax/get_news_for_cat/(?P<cid>[^/]++)(?:/(?P<count>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_news_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getNewsForCategoryAction',  '_format' => 'json',  'count' => 0,));
+                        }
+
+                    }
+
+                    // news_search_news
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/search_news') && preg_match('#^/admin/news/ajax/search_news/(?P<search_by>[^/]++)/(?P<sort_by>[^/]++)/(?P<count>[^/]++)(?:/(?P<keyword>[^/]++))?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_search_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::searchNewssAction',  '_format' => 'json',  'keyword' => '',  'search_by' => 1,  'sort_by' => 1,));
+                    }
+
+                    // news_verify_news
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/verify_news') && preg_match('#^/admin/news/ajax/verify_news/(?P<newsId>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_news_verify_news;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_verify_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::verifyNewsAction',  '_format' => 'json',));
+                    }
+                    not_news_verify_news:
+
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/toggle_')) {
+                        // news_toggle_verify_news
+                        if (0 === strpos($pathinfo, '/admin/news/ajax/toggle_verify_news') && preg_match('#^/admin/news/ajax/toggle_verify_news/(?P<newsId>[^/]++)$#s', $pathinfo, $matches)) {
+                            if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                                $allow = array_merge($allow, array('POST', 'PUT'));
+                                goto not_news_toggle_verify_news;
+                            }
+
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_toggle_verify_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::toggleVerifyNewsAction',  '_format' => 'json',));
+                        }
+                        not_news_toggle_verify_news:
+
+                        // news_toggle_active_news
+                        if (0 === strpos($pathinfo, '/admin/news/ajax/toggle_active_news') && preg_match('#^/admin/news/ajax/toggle_active_news/(?P<newsId>[^/]++)$#s', $pathinfo, $matches)) {
+                            if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                                $allow = array_merge($allow, array('POST', 'PUT'));
+                                goto not_news_toggle_active_news;
+                            }
+
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_toggle_active_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::toggleActiveNewsAction',  '_format' => 'json',));
+                        }
+                        not_news_toggle_active_news:
+
+                    }
+
+                    // news_delete_news
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/delete_news') && preg_match('#^/admin/news/ajax/delete_news/(?P<newsId>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_news_delete_news;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_delete_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::deleteNewsAction',  '_format' => 'json',));
+                    }
+                    not_news_delete_news:
+
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/get_')) {
+                        // news_get_news
+                        if (0 === strpos($pathinfo, '/admin/news/ajax/get_news') && preg_match('#^/admin/news/ajax/get_news/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getNewsAction',  '_format' => 'json',));
+                        }
+
+                        // news_get_centers
+                        if ($pathinfo === '/admin/news/ajax/get_centers') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getCentersAction',  '_format' => 'json',  '_route' => 'news_get_centers',);
+                        }
+
+                        // news_get_safarsaz_types
+                        if ($pathinfo === '/admin/news/ajax/get_safarsaz_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'news_get_safarsaz_types',);
+                        }
+
+                        // news_get_dbase_types
+                        if ($pathinfo === '/admin/news/ajax/get_dbase_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'news_get_dbase_types',);
+                        }
+
+                        // news_get_areas
+                        if ($pathinfo === '/admin/news/ajax/get_areas') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getAreasAction',  '_format' => 'json',  '_route' => 'news_get_areas',);
+                        }
+
+                    }
+
+                    // news_update
+                    if (preg_match('#^/admin/news/ajax/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_news_update;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_update')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::updateAction',));
+                    }
+                    not_news_update:
+
                     // news_create
                     if ($pathinfo === '/admin/news/ajax/create') {
                         if ($this->context->getMethod() != 'POST') {
@@ -262,130 +369,48 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     }
                     not_news_create:
 
-                    // news_edit
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/edit') && preg_match('#^/admin/news/ajax/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                        if ($this->context->getMethod() != 'PUT') {
-                            $allow[] = 'PUT';
-                            goto not_news_edit;
-                        }
-
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_edit')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::editAction',));
-                    }
-                    not_news_edit:
-
-                    // news_approve
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/news/approve') && preg_match('#^/admin/news/ajax/news/approve/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                        if ($this->context->getMethod() != 'PUT') {
-                            $allow[] = 'PUT';
-                            goto not_news_approve;
-                        }
-
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_approve')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::approveAction',));
-                    }
-                    not_news_approve:
-
-                }
-
-                // news_update
-                if (preg_match('#^/admin/news/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
-                    if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
-                        $allow = array_merge($allow, array('POST', 'PUT'));
-                        goto not_news_update;
+                    // news_get_generate_csrf
+                    if ($pathinfo === '/admin/news/ajax/generate_csrf') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::generateCsrfAction',  '_format' => 'json',  '_route' => 'news_get_generate_csrf',);
                     }
 
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_update')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::updateAction',));
-                }
-                not_news_update:
-
-                if (0 === strpos($pathinfo, '/admin/news/ajax')) {
-                    // news_delete
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/news/delete') && preg_match('#^/admin/news/ajax/news/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                        if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                            $allow = array_merge($allow, array('POST', 'DELETE'));
-                            goto not_news_delete;
-                        }
-
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_delete')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::deleteAction',));
+                    // news_contains_tree
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/contains_tree') && preg_match('#^/admin/news/ajax/contains_tree/(?P<newsId>[^/]++)/(?P<treeId>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_contains_tree')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::containsTreeAction',  '_format' => 'json',));
                     }
-                    not_news_delete:
 
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/ge')) {
-                        if (0 === strpos($pathinfo, '/admin/news/ajax/get')) {
-                            if (0 === strpos($pathinfo, '/admin/news/ajax/gettree')) {
-                                // news_get_tree
-                                if ($pathinfo === '/admin/news/ajax/gettree') {
-                                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getTreeAction',  '_format' => 'json',  '_route' => 'news_get_tree',);
-                                }
+                    // news_access_test
+                    if ($pathinfo === '/admin/news/ajax/access') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::accessAction',  '_format' => 'json',  '_route' => 'news_access_test',);
+                    }
 
-                                // news_get_tree_linear
-                                if ($pathinfo === '/admin/news/ajax/gettree_linear') {
-                                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getTreeLinearAction',  '_format' => 'json',  '_route' => 'news_get_tree_linear',);
-                                }
-
-                            }
-
-                            if (0 === strpos($pathinfo, '/admin/news/ajax/get_')) {
-                                // news_get_news_for_category
-                                if (0 === strpos($pathinfo, '/admin/news/ajax/get_news_for_cat') && preg_match('#^/admin/news/ajax/get_news_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_news_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getNewsForCategoryAction',  '_format' => 'json',  'page' => 1,));
-                                }
-
-                                // news_total_pages_for_category
-                                if (0 === strpos($pathinfo, '/admin/news/ajax/get_total_pages') && preg_match('#^/admin/news/ajax/get_total_pages/(?P<cid>[^/]++)$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_total_pages_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getTotalPagesForCatAction',  '_format' => 'json',));
-                                }
-
-                            }
-
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/get_')) {
+                        // news_get_username
+                        if ($pathinfo === '/admin/news/ajax/get_username') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getUsernameAction',  '_format' => 'json',  '_route' => 'news_get_username',);
                         }
 
-                        // news_get_generate_csrf
-                        if (0 === strpos($pathinfo, '/admin/news/ajax/generate_csrf') && preg_match('#^/admin/news/ajax/generate_csrf(?:/(?P<intention>[^/]++))?$#s', $pathinfo, $matches)) {
-                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_generate_csrf')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::generateCsrfAction',  '_format' => 'json',  'intention' => '',));
+                        // news_get_last_newsnumber
+                        if ($pathinfo === '/admin/news/ajax/get_last_newsnumber') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getLastNewsNumberAction',  '_format' => 'json',  '_route' => 'news_get_last_newsnumber',);
                         }
 
                     }
 
-                    // news_get_is_csrf_valid
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/is_csrf_valid') && preg_match('#^/admin/news/ajax/is_csrf_valid/(?P<token>[^/]++)(?:/(?P<intention>[^/]++))?$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_is_csrf_valid')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::isCsrfValidAction',  '_format' => 'json',  'intention' => '',));
-                    }
-
-                    // news_get_news
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/get_news') && preg_match('#^/admin/news/ajax/get_news/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_news')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getNewsAction',  '_format' => 'json',  'intention' => '',));
-                    }
-
-                    // news_upload_image
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/upload_files') && preg_match('#^/admin/news/ajax/upload_files/(?P<iid>[^/]++)(?:/(?P<action>[^/]++))?$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_upload_image')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::uploadImageAction',  'action' => 'edit',));
-                    }
-
-                    if (0 === strpos($pathinfo, '/admin/news/ajax/ge')) {
-                        // news_gen_rand_upload_key
-                        if ($pathinfo === '/admin/news/ajax/gen_rand_upload_key') {
-                            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
-                                $allow = array_merge($allow, array('GET', 'HEAD'));
-                                goto not_news_gen_rand_upload_key;
-                            }
-
-                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::generateRandomUploadKeyAction',  '_route' => 'news_gen_rand_upload_key',);
-                        }
-                        not_news_gen_rand_upload_key:
-
-                        if (0 === strpos($pathinfo, '/admin/news/ajax/get_')) {
-                            // news_get_new_id
-                            if ($pathinfo === '/admin/news/ajax/get_new_id') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getNewIdAction',  '_route' => 'news_get_new_id',);
-                            }
-
-                            // news_get_files_images
-                            if (0 === strpos($pathinfo, '/admin/news/ajax/get_files_images') && preg_match('#^/admin/news/ajax/get_files_images/(?P<entityId>[^/]++)$#s', $pathinfo, $matches)) {
-                                return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_get_files_images')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::getFilesImagesAction',));
-                            }
-
+                    // news_lock_news_number
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/lock_news_number') && preg_match('#^/admin/news/ajax/lock_news_number/(?P<newsNumber>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_news_lock_news_number;
                         }
 
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_lock_news_number')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::lockNewsNumberAction',  '_format' => 'json',));
+                    }
+                    not_news_lock_news_number:
+
+                    // news_check_permission
+                    if (0 === strpos($pathinfo, '/admin/news/ajax/check_permission') && preg_match('#^/admin/news/ajax/check_permission/(?P<attribute>[^/]++)(?:/(?P<id>[^/]++))?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'news_check_permission')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\NewsController::checkPermissionAction',  '_format' => 'json',  'id' => NULL,));
                     }
 
                 }
@@ -675,6 +700,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
                 not_managedfile_gen_rand_upload_key:
 
+                // managedfile_set_temporary_tuhmbnail
+                if ($pathinfo === '/admin/managedfile/ajax/set_temporary_thumbnail') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_managedfile_set_temporary_tuhmbnail;
+                    }
+
+                    return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\ManagedFileController::setTemporaryThumbnailAction',  '_route' => 'managedfile_set_temporary_tuhmbnail',);
+                }
+                not_managedfile_set_temporary_tuhmbnail:
+
             }
 
             if (0 === strpos($pathinfo, '/admin/record')) {
@@ -707,40 +743,89 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                             return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getJsonAction',  '_format' => 'json',  '_route' => 'record_get_json',);
                         }
 
-                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
-                            if (0 === strpos($pathinfo, '/admin/record/ajax/get_record')) {
-                                // record_get_record_for_category
-                                if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<page>[^/]++))?$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'page' => 1,));
-                                }
+                        // record_get_record_for_category
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_record_for_cat') && preg_match('#^/admin/record/ajax/get_record_for_cat/(?P<cid>[^/]++)(?:/(?P<count>[^/]++))?$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record_for_category')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordForCategoryAction',  '_format' => 'json',  'count' => 0,));
+                        }
 
-                                // record_get_record
-                                if (preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
-                                }
+                    }
 
+                    // record_search_record
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/search_record') && preg_match('#^/admin/record/ajax/search_record/(?P<search_by>[^/]++)/(?P<sort_by>[^/]++)/(?P<count>[^/]++)(?:/(?P<keyword>[^/]++))?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_search_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::searchRecordsAction',  '_format' => 'json',  'keyword' => '',  'search_by' => 1,  'sort_by' => 1,));
+                    }
+
+                    // record_verify_record
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/verify_record') && preg_match('#^/admin/record/ajax/verify_record/(?P<recordId>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_record_verify_record;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_verify_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::verifyRecordAction',  '_format' => 'json',));
+                    }
+                    not_record_verify_record:
+
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/toggle_')) {
+                        // record_toggle_verify_record
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/toggle_verify_record') && preg_match('#^/admin/record/ajax/toggle_verify_record/(?P<recordId>[^/]++)$#s', $pathinfo, $matches)) {
+                            if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                                $allow = array_merge($allow, array('POST', 'PUT'));
+                                goto not_record_toggle_verify_record;
                             }
 
-                            // record_get_centers
-                            if ($pathinfo === '/admin/record/ajax/get_centers') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getCentersAction',  '_format' => 'json',  '_route' => 'record_get_centers',);
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_toggle_verify_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::toggleVerifyRecordAction',  '_format' => 'json',));
+                        }
+                        not_record_toggle_verify_record:
+
+                        // record_toggle_active_record
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/toggle_active_record') && preg_match('#^/admin/record/ajax/toggle_active_record/(?P<recordId>[^/]++)$#s', $pathinfo, $matches)) {
+                            if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                                $allow = array_merge($allow, array('POST', 'PUT'));
+                                goto not_record_toggle_active_record;
                             }
 
-                            // record_get_safarsaz_types
-                            if ($pathinfo === '/admin/record/ajax/get_safarsaz_types') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'record_get_safarsaz_types',);
-                            }
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_toggle_active_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::toggleActiveRecordAction',  '_format' => 'json',));
+                        }
+                        not_record_toggle_active_record:
 
-                            // record_get_dbase_types
-                            if ($pathinfo === '/admin/record/ajax/get_dbase_types') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'record_get_dbase_types',);
-                            }
+                    }
 
-                            // record_get_areas
-                            if ($pathinfo === '/admin/record/ajax/get_areas') {
-                                return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getAreasAction',  '_format' => 'json',  '_route' => 'record_get_areas',);
-                            }
+                    // record_delete_record
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/delete_record') && preg_match('#^/admin/record/ajax/delete_record/(?P<recordId>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_record_delete_record;
+                        }
 
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_delete_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::deleteRecordAction',  '_format' => 'json',));
+                    }
+                    not_record_delete_record:
+
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
+                        // record_get_record
+                        if (0 === strpos($pathinfo, '/admin/record/ajax/get_record') && preg_match('#^/admin/record/ajax/get_record/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                            return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_get_record')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getRecordAction',  '_format' => 'json',));
+                        }
+
+                        // record_get_centers
+                        if ($pathinfo === '/admin/record/ajax/get_centers') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getCentersAction',  '_format' => 'json',  '_route' => 'record_get_centers',);
+                        }
+
+                        // record_get_safarsaz_types
+                        if ($pathinfo === '/admin/record/ajax/get_safarsaz_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getSafarsazTypesAction',  '_format' => 'json',  '_route' => 'record_get_safarsaz_types',);
+                        }
+
+                        // record_get_dbase_types
+                        if ($pathinfo === '/admin/record/ajax/get_dbase_types') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getDbaseTypesAction',  '_format' => 'json',  '_route' => 'record_get_dbase_types',);
+                        }
+
+                        // record_get_areas
+                        if ($pathinfo === '/admin/record/ajax/get_areas') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getAreasAction',  '_format' => 'json',  '_route' => 'record_get_areas',);
                         }
 
                     }
@@ -777,6 +862,61 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                         return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_contains_tree')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::containsTreeAction',  '_format' => 'json',));
                     }
 
+                    // record_access_test
+                    if ($pathinfo === '/admin/record/ajax/access') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::accessAction',  '_format' => 'json',  '_route' => 'record_access_test',);
+                    }
+
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/get_')) {
+                        // record_get_username
+                        if ($pathinfo === '/admin/record/ajax/get_username') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getUsernameAction',  '_format' => 'json',  '_route' => 'record_get_username',);
+                        }
+
+                        // record_get_last_recordnumber
+                        if ($pathinfo === '/admin/record/ajax/get_last_recordnumber') {
+                            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::getLastRecordNumberAction',  '_format' => 'json',  '_route' => 'record_get_last_recordnumber',);
+                        }
+
+                    }
+
+                    // record_lock_record_number
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/lock_record_number') && preg_match('#^/admin/record/ajax/lock_record_number/(?P<recordNumber>[^/]++)$#s', $pathinfo, $matches)) {
+                        if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                            $allow = array_merge($allow, array('POST', 'PUT'));
+                            goto not_record_lock_record_number;
+                        }
+
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_lock_record_number')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::lockRecordNumberAction',  '_format' => 'json',));
+                    }
+                    not_record_lock_record_number:
+
+                    // record_check_permission
+                    if (0 === strpos($pathinfo, '/admin/record/ajax/check_permission') && preg_match('#^/admin/record/ajax/check_permission/(?P<attribute>[^/]++)(?:/(?P<id>[^/]++))?$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'record_check_permission')), array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\RecordController::checkPermissionAction',  '_format' => 'json',  'id' => NULL,));
+                    }
+
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/admin/user')) {
+                if (0 === strpos($pathinfo, '/admin/user/ajax')) {
+                    // user_logout
+                    if ($pathinfo === '/admin/user/ajax/logout') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\UserController::logoutAction',  '_route' => 'user_logout',);
+                    }
+
+                    // user_is_logged_in
+                    if ($pathinfo === '/admin/user/ajax/is_logged_in') {
+                        return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\UserController::isLoggedInAction',  '_route' => 'user_is_logged_in',);
+                    }
+
+                }
+
+                // user_admin_logout
+                if ($pathinfo === '/admin/user/logout') {
+                    return array('_route' => 'user_admin_logout');
                 }
 
             }
@@ -787,6 +927,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         if ($pathinfo === '/modi/test') {
             return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\DefaultController::testAction',  '_route' => 'DarkishModi',);
         }
+
+        // managedfile_nervgh
+        if ($pathinfo === '/nervgh') {
+            if (!in_array($this->context->getMethod(), array('POST', 'OPTIONS'))) {
+                $allow = array_merge($allow, array('POST', 'OPTIONS'));
+                goto not_managedfile_nervgh;
+            }
+
+            return array (  '_controller' => 'Darkish\\CategoryBundle\\Controller\\ManagedFileController::nervghAction',  '_route' => 'managedfile_nervgh',);
+        }
+        not_managedfile_nervgh:
 
         if (0 === strpos($pathinfo, '/log')) {
             if (0 === strpos($pathinfo, '/login')) {
@@ -1140,6 +1291,40 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // fos_js_routing_js
         if (0 === strpos($pathinfo, '/js/routing') && preg_match('#^/js/routing(?:\\.(?P<_format>js|json))?$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'fos_js_routing_js')), array (  '_controller' => 'fos_js_routing.controller:indexAction',  '_format' => 'js',));
+        }
+
+        if (0 === strpos($pathinfo, '/admin')) {
+            // login_route
+            if ($pathinfo === '/admin/operator/login') {
+                return array (  '_controller' => 'Darkish\\UserBundle\\Controller\\OperatorController::loginAction',  '_route' => 'login_route',);
+            }
+
+            // security_remembered
+            if ($pathinfo === '/admin/is_remembered') {
+                return array (  '_controller' => 'Darkish\\UserBundle\\Controller\\OperatorController::isRememberedAction',  '_route' => 'security_remembered',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/operator')) {
+                if (0 === strpos($pathinfo, '/admin/operator/log')) {
+                    // login_check
+                    if ($pathinfo === '/admin/operator/login_check') {
+                        return array (  '_controller' => 'Darkish\\UserBundle\\Controller\\OperatorController::loginCheckAction',  '_route' => 'login_check',);
+                    }
+
+                    // logout
+                    if ($pathinfo === '/admin/operator/logout') {
+                        return array (  '_controller' => 'Darkish\\UserBundle\\Controller\\OperatorController::logoutAction',  '_route' => 'logout',);
+                    }
+
+                }
+
+                // check_permission
+                if ($pathinfo === '/admin/operator/check_permission') {
+                    return array (  '_controller' => 'Darkish\\UserBundle\\Controller\\OperatorController::checkPermissionAction',  '_route' => 'check_permission',);
+                }
+
+            }
+
         }
 
         // _welcome
