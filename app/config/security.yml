@@ -57,6 +57,7 @@ security:
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
         - { path: ^/admin/user/ajax/is_logged_in, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/user/ajax/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/operator/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_PUBLISHER, ROLE_EDITOR] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
