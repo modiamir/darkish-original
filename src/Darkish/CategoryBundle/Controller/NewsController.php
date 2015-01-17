@@ -110,7 +110,7 @@ class NewsController extends Controller
                 
                 $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
                 
-                return new Response($serializer->serialize($news, 'json'));
+                return new Response($serializer->serialize($news, 'json', SerializationContext::create()->setGroups(array('news.details'))));
 
             };
         }catch (\Exception $e) {
@@ -176,7 +176,7 @@ class NewsController extends Controller
                 
                 
 
-                return new Response($serializer->serialize(array($news), 'json'));
+                return new Response($serializer->serialize(array($news), 'json', SerializationContext::create()->setGroups(array('news.details'))));
 
             };
         }catch (\Exception $e) {
