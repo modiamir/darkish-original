@@ -175,7 +175,7 @@ class RecordController extends Controller
                 
                 
 
-                return new Response($serializer->serialize(array($record), 'json'));
+                return new Response($serializer->serialize(array($record), 'json', SerializationContext::create()->setGroups(array('record.details'))));
 
             };
         }catch (\Exception $e) {
