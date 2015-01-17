@@ -63,7 +63,7 @@ class RecordController extends Controller
 
     public function updateAction(Request $request, $id) {
         
-        
+	
         try {
             $user = $this->getUser();
             $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
@@ -108,8 +108,8 @@ class RecordController extends Controller
                 $em->flush();
                 
                 $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
-                
-                return new Response($serializer->serialize($record, 'json'));
+
+                return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('record.details'))));
 
             };
         }catch (\Exception $e) {
