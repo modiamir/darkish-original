@@ -768,18 +768,35 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
         
         $scope.checkConnectionSave = function(contin) {
-            if(!SecurityService.connected) {
-                $scope.openDisconnectModal();
-            }else
-            if(!SecurityService.loggedIn) {
-                $scope.openLoginModal();
-            } else {
-                contin = (contin)? true : false;
-                $scope.openSavingModal();
-                RecordService.saveCurrentRecord(contin);
-                $scope.recordform.$setPristine();
-                
-            }
+            $http.get('../user/ajax/is_logged_in').then(
+                function(response){
+                    SecurityService.connected = true;
+                    if(response.data[0] === false) {
+                        SecurityService.loggedIn = false;
+                    } else {
+                        SecurityService.loggedIn = true;    
+                    }
+                    
+                    
+                    
+                    if(!SecurityService.connected) {
+                        $scope.openDisconnectModal();
+                    }else
+                    if(!SecurityService.loggedIn) {
+                        $scope.openLoginModal();
+                    } else {
+                        contin = (contin)? true : false;
+                        $scope.openSavingModal();
+                        RecordService.saveCurrentRecord(contin);
+                        $scope.recordform.$setPristine();
+
+                    }
+                }, 
+                function(errResponse){
+                    $scope.openDisconnectModal();
+                }
+            );
+            
         }
         
         poollingFactory.callFnOnInterval(function() {
