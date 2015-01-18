@@ -1639,10 +1639,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
                 حذف
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave()">
+            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="checkConnectionSave()">
                 ذخیره
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave(true)">
+            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="checkConnectionSave(true)">
                 ذخیره و ادامه
             </button>
             <script type="text/ng-template" id="savingModal.html">
@@ -1665,6 +1665,22 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 </div>
                 <div class="modal-footer">
                     <button class="btn" ng-disabled="!RecordService.saved" data-ng-click="close()">
+                        بستن
+                    </button>
+                </div>
+            </script>
+            <script type="text/ng-template" id="disconnectModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">قطع اتصال</h3>
+                </div>
+                <div class="modal-body">
+                    <span ng-show="!RecordService.saved">
+                            كاربر گرامي، ارتباط شما با سرور قطع شده است. پس از برقراري ارتباط، دوباره سعي كنيد.
+                    </span>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-ng-click="close()">
                         بستن
                     </button>
                 </div>
@@ -1715,7 +1731,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             
         </div>
 
-        <div class="col-md-3 left user-box" ng-class="{'logged-in': SecurityService.loggedIn, 'logged-out': !SecurityService.loggedIn}" style="float: left"  >
+        <div class="col-md-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn || !SecurityService.connected)}" style="float: left"  >
             <label class="username-label">
             نام کاربری:
             </label>
@@ -1723,10 +1739,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
             <span class="username-value">
             {{ValuesService.username}}
             </span>
-            <button ng-show="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="logout()">
+            <button ng-show="SecurityService.loggedIn && SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="logout()">
                 خروج
             </button>
-            <button ng-hide="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
+            <button ng-hide="SecurityService.loggedIn || !SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
                 ورود مجدد
             </button>
             <script type="text/ng-template" id="loginModal.html">
