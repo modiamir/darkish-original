@@ -1674,7 +1674,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                     <h3 class="modal-title">قطع اتصال</h3>
                 </div>
                 <div class="modal-body">
-                    <span ng-show="!RecordService.saved">
+                    <span>
                             كاربر گرامي، ارتباط شما با سرور قطع شده است. پس از برقراري ارتباط، دوباره سعي كنيد.
                     </span>
                     
