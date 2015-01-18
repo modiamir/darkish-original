@@ -618,6 +618,37 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
         
         ///////////////
+        
+        /**
+         * disconnect modal initialization
+         */
+        
+                
+    
+            
+        $scope.openDisconnectModal = function (size) {
+            
+            var disconnectModalInstance = $modal.open({
+                templateUrl: 'disconnectModal.html',
+                controller: 'disconnectModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'disconnect-modal-window'
+            });
+
+            disconnectModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
 
         /**
@@ -698,6 +729,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
          */
         
         SecurityService.loggedIn = true;
+        SecurityService.connected = true;
         
         $scope.logout = function() {
             $http.get('../operator/logout').then(
@@ -714,14 +746,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
 //                    console.log(response.data[0]);
+                    SecurityService.connected = true;
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;
+                        SecurityService.loggedIn = true;    
                     }
+                    
                 },
                 function(responseErr){
-                    
+                    SecurityService.connected = false;
                 }
             );
         }
@@ -733,8 +767,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             window.location = "../record";
         }
         
-        $scope.checkLogInAndSave = function(contin) {
-            
+        $scope.checkConnectionSave = function(contin) {
+            if(!SecurityService.connected) {
+                $scope.openDisconnectModal();
+            }else
             if(!SecurityService.loggedIn) {
                 $scope.openLoginModal();
             } else {
@@ -1999,6 +2035,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             
             
         }
+    }]).
+    controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {
+        $scope.RecordService = RecordService;
+        $scope.close = function(){$modalInstance.close(false);}
+        
     }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
         function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance, $modal) {
