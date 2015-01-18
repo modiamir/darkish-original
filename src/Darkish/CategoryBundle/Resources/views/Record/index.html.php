@@ -1603,7 +1603,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 جدید
             </button>
 
-            <button ng-show="SecurityService.buttonsAccess.editButtonAccess()" ng-disabled="RecordService.isNew() || RecordService.isEditing() || SecurityService.connected" type="button" class="btn btn-info" ng-click="RecordService.editing()">
+            <button ng-show="SecurityService.buttonsAccess.editButtonAccess()" ng-disabled="RecordService.isNew() || RecordService.isEditing() || !SecurityService.connected" type="button" class="btn btn-info" ng-click="RecordService.editing()">
                 ویرایش
             </button>
             <script type="text/ng-template" id="deleteModal.html">
