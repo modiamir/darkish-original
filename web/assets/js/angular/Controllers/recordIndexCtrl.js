@@ -730,6 +730,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         SecurityService.loggedIn = true;
         SecurityService.connected = true;
+        SecurityService.disconnectModalDisplayed = false;
         
         $scope.logout = function() {
             $http.get('../operator/logout').then(
@@ -747,6 +748,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 function(response){
 //                    console.log(response.data[0]);
                     SecurityService.connected = true;
+                    SecurityService.disconnectModalDisplayed = false;
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
@@ -756,6 +758,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 },
                 function(responseErr){
                     SecurityService.connected = false;
+                    if(SecurityService.disconnectModalDisplayed == false) {
+                        SecurityService.disconnectModalDisplayed = true;
+                        $scope.openDisconnectModal();
+                    }
+                    
                 }
             );
         }
@@ -2058,11 +2065,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.close = function(){$modalInstance.close(false);}
         
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
-        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService, FileUploader, $modalInstance, $modal) {
+    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 
+        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService,   SecurityService,   FileUploader, $modalInstance, $modal) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
+        $scope.SecurityService = SecurityService;
         $scope.bodyEditorOptions = {
             language: 'fa',
             height: '500px',
@@ -2146,6 +2154,100 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         
         //////////////
+        
+        /**
+         * login modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLoginModal = function (size) {
+            
+            var loginModalInstance = $modal.open({
+                templateUrl: 'loginModal.html',
+                controller: 'loginModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            loginModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        /**
+         * disconnect modal initialization
+         */
+        
+                
+    
+            
+        $scope.openDisconnectModal = function (size) {
+            
+            var disconnectModalInstance = $modal.open({
+                templateUrl: 'disconnectModal.html',
+                controller: 'disconnectModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'disconnect-modal-window'
+            });
+
+            disconnectModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        $scope.checkConnectionSave = function(contin) {
+            $http.get('../user/ajax/is_logged_in').then(
+                function(response){
+                    SecurityService.connected = true;
+                    if(response.data[0] === false) {
+                        SecurityService.loggedIn = false;
+                    } else {
+                        SecurityService.loggedIn = true;    
+                    }
+                    
+                    
+                    
+                    if(!SecurityService.connected) {
+                        $scope.openDisconnectModal();
+                    }else
+                    if(!SecurityService.loggedIn) {
+                        $scope.openLoginModal();
+                    } else {
+                        contin = (contin)? true : false;
+//                        $scope.openSavingModal();
+                        RecordService.saveCurrentRecord(contin);
+//                        $scope.recordform.$setPristine();
+
+                    }
+                }, 
+                function(errResponse){
+                    $scope.openDisconnectModal();
+                }
+            );
+            
+        }
         
         
         /**
