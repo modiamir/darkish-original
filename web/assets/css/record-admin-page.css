@@ -1242,6 +1242,7 @@ h3.block-title {
 
 .html-wrapper .html-preview {
     height: 100%;
+    padding-top: 50px;
 }
 
 
@@ -1249,6 +1250,13 @@ h3.block-title {
     position: absolute;
     top: 5px;
     left: 20px;
+
+}
+
+#body-preview-modal-button {
+    position: absolute;
+    top: 5px;
+    left: 130px;
 
 }
 
@@ -1765,4 +1773,73 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .user-box.logged-in .fa-power-off{
     color: green;
     font-size: 20px;
+}
+
+
+.body-preview-modal-window .body-preview-box{
+    background-image: url(images/mobile_frame.jpg);
+    width: 347px;
+    background-size: 347px;
+    height: 646px;
+    background-repeat: no-repeat;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: relative;
+    display: table;
+}
+
+.body-preview-modal-window .body-preview-box .body-preview-content {
+    width: 300px;
+    margin: auto;
+    display: block;
+    position: relative;
+    margin-top: 82px;
+    height: 483px;
+    overflow-y: scroll;
+}
+
+.body-preview-modal-window .modal-body {
+    padding: 0;
+}
+
+
+.body-preview-modal-window .modal-dialog {
+    width: 347px;
+}
+
+.body-preview-modal-window .modal-dialog .modal-content {
+    border: 0;
+}
+
+.body-preview-modal-window .modal-dialog .fa-close {
+    position: absolute;
+    z-index: 10;
+    top: 15px;
+    right: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.body-preview-modal-window .modal-dialog .fa-close:hover {
+    cursor: pointer;
+}
+
+
+.body-preview-modal-window .modal-dialog .go-to-top {
+    position: absolute;
+    z-index: 10;
+    top: 50px;
+    left: 178px;
+}
+
+.body-preview-modal-window .modal-dialog .return {
+    position: absolute;
+    z-index: 10;
+    top: 50px;
+    right: 178px;
 }

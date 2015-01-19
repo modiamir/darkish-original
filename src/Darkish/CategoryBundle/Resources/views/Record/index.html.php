@@ -1177,6 +1177,25 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
                             ویرایش صفحه
                         </button>
+                        <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
+                            پیش نمایش صفحه
+                        </button>
+                        <script type="text/ng-template" id="bodyPreviewModal.html">
+                            <div class="modal-body">
+                                <i ng-click="close()" class="fa fa-close"></i>
+                                <button ng-click="goToTop()" class="go-to-top" ng-click="">
+                                بالای صفحه<i class="fa fa-arrow-up"></i>
+                                </button>
+                                <button ng-click="close()" class="return" ng-click="">
+                                بازگشت<i class="fa fa-arrow-left"></i>
+                                </button>
+                                <div class="body-preview-box">
+                                    <div class="body-preview-content" ng-bind-html="trustedBody()">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </script>
                         <script type="text/ng-template" id="bodyModal.html">
                             <div class="modal-header">
                                 <h3 class="modal-title">بدنه رکورد</h3>

@@ -589,6 +589,37 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         ///////////////
         
         /**
+         * body preview modal initialization
+         */
+        
+                
+    
+            
+        $scope.openBodyPreviewModal = function (size) {
+            var bodyPreviewModalInstance = $modal.open({
+                templateUrl: 'bodyPreviewModal.html',
+                controller: 'bodyPreviewModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'body-preview-modal-window'
+            });
+
+            bodyPreviewModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
+        /**
          * login modal initialization
          */
         
@@ -1700,7 +1731,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     function(response){
 //                        self.currentRecord = {}
 //                        self.currentRecord = response.data[0];
-
+                        self.currentRecord.id = response.data[0].id;
+                        self.selectRecord(self.currentRecord);
 
                         self.saved = true;
                         self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
@@ -2065,6 +2097,21 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.close = function(){$modalInstance.close(false);}
         
     }]).
+    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $modalInstance, RecordService, ValuesService, SecurityService) {
+        $scope.RecordService = RecordService;
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.trustedBody =  function() {
+            tempBody = (RecordService.currentRecord.body)? RecordService.currentRecord.body : "";
+            return $sce.trustAsHtml(tempBody);
+        }
+        $scope.goToTop = function() {
+            section = document.getElementsByClassName('body-preview-content')[0];
+            sectionElm = angular.element(section);
+            sectionElm.scrollTo(0,0);
+            
+        }
+        
+    }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 
         function (                $scope,   $http,   RecordService,  TreeService,   ValuesService,   SecurityService,   FileUploader, $modalInstance, $modal) {
         $scope.RecordService = RecordService;
@@ -2154,6 +2201,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         
         //////////////
+        
+        
+        
         
         /**
          * login modal initialization
