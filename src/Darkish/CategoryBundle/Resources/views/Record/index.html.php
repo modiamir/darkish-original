@@ -1859,5 +1859,13 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 		return false;
 	}
 };	
+
+
+CKEDITOR.on('instanceReady', function(evt){
+    setTimeout( function(){
+        evt.editor.resetUndo();
+    }, 500 );
+
+});
     </script>
 <?php $view['slots']->stop() ?>
