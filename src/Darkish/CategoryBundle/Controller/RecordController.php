@@ -79,6 +79,7 @@ class RecordController extends Controller
             
             $this->recordMassAssignment($record, $data);
             $record->setLastUpdate(new \DateTime());
+            $record->setHtmlLastUpdate(new \DateTime());
             $record->setUser($user);
             
             if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
@@ -138,6 +139,7 @@ class RecordController extends Controller
             $this->recordMassAssignment($record, $data);
             $record->setCreationDate(new \DateTime());
             $record->setLastUpdate(new \DateTime());
+            $record->setHtmlLastUpdate(new \DateTime());
             $record->setUser($user);
 
             //return new Response($serializer->serialize($record, 'json'));

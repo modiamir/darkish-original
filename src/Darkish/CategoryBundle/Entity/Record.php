@@ -459,6 +459,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $lastUpdate;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
+     * @Groups({"record.details"})
+     */
+    private $htmlLastUpdate;
 
     /**
      * @var boolean
@@ -2942,5 +2950,28 @@ class Record
     public function getHostelry()
     {
         return $this->hostelry;
+    }
+
+    /**
+     * Set htmlLastUpdate
+     *
+     * @param \DateTime $htmlLastUpdate
+     * @return Record
+     */
+    public function setHtmlLastUpdate($htmlLastUpdate)
+    {
+        $this->htmlLastUpdate = $htmlLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlLastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getHtmlLastUpdate()
+    {
+        return $this->htmlLastUpdate;
     }
 }

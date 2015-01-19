@@ -378,7 +378,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
                 
         $scope.openBodyModal = function (size) {
-
+            
             var treeModalInstance = $modal.open({
                 templateUrl: 'bodyModal.html',
                 controller: 'bodyModalCtrl',
@@ -2122,7 +2122,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             language: 'fa',
             height: '500px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record",
+            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record,mycustom,tabletools,contextmenu,contextmenu,menu,floatpanel,panel,tableresize,colordialog,dialogadvtab",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,
@@ -2174,13 +2174,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             ]
         };
 
+
+        
         /**
          * Tree modal initializing
          */
         
         
         $scope.openBodyTreeModal = function (size) {
-
+            
             var bodyTreeModalInstance = $modal.open({
                 templateUrl: 'bodyTreeModal.html',
                 controller: 'bodyTreeModalCtrl',
@@ -2189,7 +2191,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     
                 }
             });
-
+            
             bodyTreeModalInstance.result.then(
             function () {
                 
