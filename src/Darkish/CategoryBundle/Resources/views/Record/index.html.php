@@ -1191,7 +1191,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 </button>
                                 <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>
                                 <div class="body-preview-box">
-                                    <div class="body-preview-content" ng-bind-html="trustedBody">
+                                    <div ng-show="innerLink" class="body-preview-content" ng-bind-html="trustedBody">
+                                    </div>
+                                    <div ng-show="externalLink" class="body-preview-content external-link">
+                                        <iframe ng-src="{{trustedUrl}}" width="362" height="588" />
                                     </div>
                                 </div>
                             </div>

@@ -1778,9 +1778,9 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 .body-preview-modal-window .body-preview-box{
     background-image: url(images/mobile_frame.jpg);
-    width: 347px;
-    background-size: 347px;
-    height: 646px;
+    width: 421px;
+    background-size: 421px;
+    height: 794px;
     background-repeat: no-repeat;
     margin-top: 30px;
     margin-bottom: 50px;
@@ -1789,13 +1789,17 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 }
 
 .body-preview-modal-window .body-preview-box .body-preview-content {
-    width: 300px;
+    width: 366px;
     margin: auto;
     display: block;
     position: relative;
-    margin-top: 82px;
-    height: 483px;
+    margin-top: 98px;
+    height: 523px;
     overflow-y: scroll;
+}
+
+.body-preview-modal-window .body-preview-box .body-preview-content.external-link {
+    overflow-y:visible;
 }
 
 .body-preview-modal-window .modal-body {
@@ -1809,6 +1813,8 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 .body-preview-modal-window .modal-dialog .modal-content {
     border: 0;
+    height: 784px;
+    width: 421px;
 }
 
 .body-preview-modal-window .modal-dialog .fa-close {
@@ -1833,15 +1839,15 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .body-preview-modal-window .modal-dialog .go-to-top {
     position: absolute;
     z-index: 10;
-    top: 50px;
-    left: 178px;
+    top: 60px;
+    left: 212px;
 }
 
 .body-preview-modal-window .modal-dialog .rt-title {
     position: absolute;
     z-index: 10;
-    top: 23px;
-    left: 97px;
+    top: 28px;
+    left: 131px;
     height: 25px;
     width: 169px;
     line-height: 25px;
@@ -1854,6 +1860,6 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .body-preview-modal-window .modal-dialog .return {
     position: absolute;
     z-index: 10;
-    top: 50px;
-    right: 178px;
+    top: 60px;
+    right: 218px;
 }

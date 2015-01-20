@@ -11,9 +11,9 @@ CKEDITOR.plugins.add( 'mycustom', {
                 // Get a reference to the "Link Info" tab.
                 var infoTab = dialogDefinition.getContents('info');
                 infoTab.add({
-                id : 'imageWidth',
-                type : 'checkbox',
-                label : 'عرض تصویر'
+                    id : 'imageWidth',
+                    type : 'checkbox',
+                    label : 'عرض تصویر'
                 });
                 
                 var onOk = dialogDefinition.onOk;
@@ -35,6 +35,7 @@ CKEDITOR.plugins.add( 'mycustom', {
 //                    imgHtml.addClass(classes);
 //                    
 //                    editor.insertElement(imgHtml);
+                      
                     
                 };
             }
