@@ -2097,18 +2097,23 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.close = function(){$modalInstance.close(false);}
         
     }]).
-    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $modalInstance, RecordService, ValuesService, SecurityService) {
+    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, RecordService, ValuesService, SecurityService) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close(false);}
         $scope.getTrustedBody =  function(untrustedBody) {
             tempBody = (untrustedBody)? untrustedBody : "";
             return $sce.trustAsHtml(tempBody);
         }
+        $scope.history = $collection.getInstance();
         $scope.trustedBody = $scope.getTrustedBody(RecordService.currentRecord.body);
-        
+        $scope.innerLink = true;
+        $scope.externalLink = false;
         $scope.loadRecord = function(recordNumber) {
+            $scope.innerLink = true;
+            $scope.externalLink = false;
             $http.get('ajax/get_record_by_number/' + recordNumber).then(
                     function (response) {
+                        
                         $scope.rtTitle = response.data.title;
                         $scope.trustedBody = $scope.getTrustedBody(response.data.body);
                         $scope.observeEvents();
@@ -2121,6 +2126,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.loadTree = function(treeIndex) {
             $http.get('ajax/get_tree_by_index/' + treeIndex).then(
                     function (response) {
+                        $scope.innerLink = true;
+                        $scope.externalLink = false;
                         $scope.rtTitle = response.data.title;
                         $scope.observeEvents();
                     },
@@ -2128,6 +2135,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         $scope.rtTitle = '<span style="color:red">ناموجود</span>'
                     }
             );
+        }
+        
+        $scope.loadExternal = function(url) {
+            $scope.innerLink = false;
+            $scope.externalLink = true;
+            $scope.trustedUrl = $sce.trustAsResourceUrl(url);
+            $scope.url = url;
+            $scope.trustedBody = "";
         }
         
         $scope.observeEvents = function() {
@@ -2143,7 +2158,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     treeIndex = event.toElement.getAttribute('tree-index');
                     $scope.loadTree(treeIndex);
                     event.preventDefault();
-                })
+                });
+                
+                
+//                var withHref = document.querySelectorAll('.body-preview-content a[href]');
+                angular.element($(".body-preview-content a[href != '#']")).on('click', function (event) {
+                    console.log(event);
+                    url = event.toElement.getAttribute('href');
+                    $scope.loadExternal(url);
+                    event.preventDefault();
+                });
             }, 500);
         }
         $scope.observeEvents();
