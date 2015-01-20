@@ -1189,8 +1189,9 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <button ng-click="close()" class="return" ng-click="">
                                 بازگشت<i class="fa fa-arrow-left"></i>
                                 </button>
+                                <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>
                                 <div class="body-preview-box">
-                                    <div class="body-preview-content" ng-bind-html="trustedBody()">
+                                    <div class="body-preview-content" ng-bind-html="trustedBody">
                                     </div>
                                 </div>
                             </div>

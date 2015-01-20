@@ -1381,4 +1381,35 @@ class RecordController extends Controller
         
         return new JsonResponse(array($attribute,$class, $id));
     }
+    
+    public function getRecordByNumberAction($number) {
+        try {
+            $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            $records = $repo->findByRecordNumber($number);
+            if(count($records)) {
+                $record = $records[0];
+                return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(array('record.details'))));
+            } else {
+                return new Response('Not found', 404);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+            
+    }
+    
+    public function getTreeByIndexAction($index) {
+        try {
+            $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
+            $trees = $repo->findByTreeIndex($index);
+            if(count($trees)) {
+                $tree = $trees[0];
+                return new Response($this->get('jms_serializer')->serialize($tree, 'json'));
+            } else {
+                return new Response('Not found', 404);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 }
