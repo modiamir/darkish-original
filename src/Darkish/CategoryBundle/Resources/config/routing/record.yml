@@ -103,3 +103,11 @@ record_lock_record_number:
 record_check_permission:
     path:     /ajax/check_permission/{attribute}/{id}
     defaults: { _controller: "DarkishCategoryBundle:Record:checkPermission", _format: json, id: null}
+    
+record_get_by_number:
+    path:     /ajax/get_record_by_number/{number}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getRecordByNumber", _format: json}
+    
+record_get_tree_by_index:
+    path:     /ajax/get_tree_by_index/{index}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTreeByIndex", _format: json}

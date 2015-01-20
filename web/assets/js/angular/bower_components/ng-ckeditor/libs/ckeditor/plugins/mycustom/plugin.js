@@ -19,22 +19,22 @@ CKEDITOR.plugins.add( 'mycustom', {
                 var onOk = dialogDefinition.onOk;
 
                 dialogDefinition.onOk = function (e) {
-                    var imageSrcUrl = e.sender.originalElement.$.src;
-                    var imgHtml = CKEDITOR.dom.element.createFromHtml("<img src=" + imageSrcUrl + " alt='' align='right'/>");
-                    console.log(dialogDefinition);
-                    var classes = this.getContentElement( 'advanced', 'txtGenClass').getValue();
-                    console.log(this.getContentElement( 'advanced', 'txtGenClass'));
-                    if(this.getContentElement( 'info', 'imageWidth').getValue()) {
-                        classes = 'full-width-mobile '+ classes;
-                    } else {
-                        classes = ' '+ classes;
-                        classes.replace("full-width-mobile", "");
-                    }
-                    
-                    
-                    imgHtml.addClass(classes);
-                    
-                    editor.insertElement(imgHtml);
+//                    var imageSrcUrl = e.sender.originalElement.$.src;
+//                    var imgHtml = CKEDITOR.dom.element.createFromHtml("<img src=" + imageSrcUrl + " alt='' align='right'/>");
+//                    console.log(dialogDefinition);
+//                    var classes = this.getContentElement( 'advanced', 'txtGenClass').getValue();
+//                    console.log(this.getContentElement( 'advanced', 'txtGenClass'));
+//                    if(this.getContentElement( 'info', 'imageWidth').getValue()) {
+//                        classes = 'full-width-mobile '+ classes;
+//                    } else {
+//                        classes = ' '+ classes;
+//                        classes.replace("full-width-mobile", "");
+//                    }
+//                    
+//                    
+//                    imgHtml.addClass(classes);
+//                    
+//                    editor.insertElement(imgHtml);
                     
                 };
             }
