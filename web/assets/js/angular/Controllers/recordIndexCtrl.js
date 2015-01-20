@@ -2100,10 +2100,55 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $modalInstance, RecordService, ValuesService, SecurityService) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close(false);}
-        $scope.trustedBody =  function() {
-            tempBody = (RecordService.currentRecord.body)? RecordService.currentRecord.body : "";
+        $scope.getTrustedBody =  function(untrustedBody) {
+            tempBody = (untrustedBody)? untrustedBody : "";
             return $sce.trustAsHtml(tempBody);
         }
+        $scope.trustedBody = $scope.getTrustedBody(RecordService.currentRecord.body);
+        
+        $scope.loadRecord = function(recordNumber) {
+            $http.get('ajax/get_record_by_number/' + recordNumber).then(
+                    function (response) {
+                        $scope.rtTitle = response.data.title;
+                        $scope.trustedBody = $scope.getTrustedBody(response.data.body);
+                        $scope.observeEvents();
+                    },
+                    function (errResponse) {
+                        $scope.rtTitle = '<span style="color:red">ناموجود</span>'
+                    }
+            );
+        }
+        $scope.loadTree = function(treeIndex) {
+            $http.get('ajax/get_tree_by_index/' + treeIndex).then(
+                    function (response) {
+                        $scope.rtTitle = response.data.title;
+                        $scope.observeEvents();
+                    },
+                    function (errResponse) {
+                        $scope.rtTitle = '<span style="color:red">ناموجود</span>'
+                    }
+            );
+        }
+        
+        $scope.observeEvents = function() {
+            setTimeout(function () {
+                angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).on('click', function (event) {
+                    recordNumber = event.toElement.getAttribute('record-id');
+                    $scope.loadRecord(recordNumber);
+                    event.preventDefault();
+                });
+
+                angular.element(document.querySelectorAll('.body-preview-content a[tree-index]')).on('click', function (event) {
+                    console.log(event);
+                    treeIndex = event.toElement.getAttribute('tree-index');
+                    $scope.loadTree(treeIndex);
+                    event.preventDefault();
+                })
+            }, 500);
+        }
+        $scope.observeEvents();
+        
+            
         $scope.goToTop = function() {
             section = document.getElementsByClassName('body-preview-content')[0];
             sectionElm = angular.element(section);
@@ -2122,7 +2167,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             language: 'fa',
             height: '500px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record,mycustom,tabletools,contextmenu,contextmenu,menu,floatpanel,panel,tableresize,colordialog,dialogadvtab",
+            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record,tabletools,contextmenu,contextmenu,menu,floatpanel,panel,tableresize,colordialog,dialogadvtab",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,

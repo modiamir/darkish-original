@@ -7,7 +7,7 @@ CKEDITOR.plugins.add( 'mycustom', {
             var dialogDefinition = ev.data.definition;
             
             // Check if the definition is from the dialog window you are interested in (the "Link" dialog window).
-            if (dialogName == 'image') {
+            if (false && dialogName == 'image') {
                 // Get a reference to the "Link Info" tab.
                 var infoTab = dialogDefinition.getContents('info');
                 infoTab.add({
@@ -45,7 +45,7 @@ CKEDITOR.plugins.add( 'mycustom', {
                 var urlField = advancedTab.get( 'advCSSClasses' );
                 var widthField = infoTab.get( 'txtWidth' );
                 urlField[ 'default' ] = 'body-table';
-                widthField [ 'default' ] = '100%';
+//                widthField [ 'default' ] = '100%';
             }
             
         });
