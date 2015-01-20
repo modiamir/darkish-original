@@ -45,7 +45,7 @@ CKEDITOR.plugins.add( 'mycustom', {
                 var urlField = advancedTab.get( 'advCSSClasses' );
                 var widthField = infoTab.get( 'txtWidth' );
                 urlField[ 'default' ] = 'body-table';
-//                widthField [ 'default' ] = '100%';
+                widthField [ 'default' ] = '';
             }
             
         });
