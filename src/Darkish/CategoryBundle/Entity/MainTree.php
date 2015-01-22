@@ -7,6 +7,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -34,6 +36,12 @@ class MainTree
      * @Groups({"list", "details", "record.details"})
      */
     private $upTreeIndex;
+    
+    /**
+     *
+     * @Groups({"list", "details", "record.details"})
+     */
+    private $parentTreeTitle;
 
     /**
      * @var string
@@ -1139,5 +1147,22 @@ class MainTree
     public function getRecords()
     {
         return $this->records;
+    }
+    
+    public function setParentTreeTitle($title) {
+        $this->parentTreeTitle = $title;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     * @Groups({"list", "details", "record.details"})
+     */
+    public function getParentTreeTitle() {
+        return $this->parentTreeTitle;
     }
 }

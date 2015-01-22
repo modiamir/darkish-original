@@ -395,6 +395,34 @@ class Record
      * @Groups({"record.details"})
      */
     private $listRank;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankTwo", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankTwo;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankThree", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankThree;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankFour", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankFour;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankFive", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankFive;
 
     /**
      * @var string
@@ -2950,5 +2978,28 @@ class Record
     public function getHostelry()
     {
         return $this->hostelry;
+    }
+
+    /**
+     * Set htmlLastUpdate
+     *
+     * @param \DateTime $htmlLastUpdate
+     * @return Record
+     */
+    public function setHtmlLastUpdate($htmlLastUpdate)
+    {
+        $this->htmlLastUpdate = $htmlLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlLastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getHtmlLastUpdate()
+    {
+        return $this->htmlLastUpdate;
     }
 }

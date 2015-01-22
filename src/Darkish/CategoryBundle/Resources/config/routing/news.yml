@@ -103,3 +103,15 @@ news_lock_news_number:
 news_check_permission:
     path:     /ajax/check_permission/{attribute}/{id}
     defaults: { _controller: "DarkishCategoryBundle:News:checkPermission", _format: json, id: null}
+    
+news_get_by_id:
+    path:     /ajax/get_news_by_id/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:getNewsById", _format: json}
+    
+news_get_tree_by_index:
+    path:     /ajax/get_tree_by_index/{index}
+    defaults: { _controller: "DarkishCategoryBundle:News:getTreeByIndex", _format: json}
+    
+news_get_test_tree:
+    path:     /get_test_tree/{id}
+    defaults: { _controller: "DarkishCategoryBundle:News:getTestTree", _format: json}

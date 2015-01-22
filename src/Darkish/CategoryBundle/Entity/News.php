@@ -79,6 +79,15 @@ class News
      * @Groups({"news.details"})
      */
     private $lastUpdate;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
+     * @Groups({"news.details"})
+     */
+    private $htmlLastUpdate;
 
     /**
      * @var datetime
@@ -953,5 +962,28 @@ class News
     public function getRate()
     {
         return $this->rate;
+    }
+
+    /**
+     * Set htmlLastUpdate
+     *
+     * @param \DateTime $htmlLastUpdate
+     * @return News
+     */
+    public function setHtmlLastUpdate($htmlLastUpdate)
+    {
+        $this->htmlLastUpdate = $htmlLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlLastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getHtmlLastUpdate()
+    {
+        return $this->htmlLastUpdate;
     }
 }

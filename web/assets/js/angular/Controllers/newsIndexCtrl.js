@@ -561,6 +561,38 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         ///////////////
         
+        
+        /**
+         * body preview modal initialization
+         */
+        
+                
+    
+            
+        $scope.openBodyPreviewModal = function (size) {
+            var bodyPreviewModalInstance = $modal.open({
+                templateUrl: 'bodyPreviewModal.html',
+                controller: 'bodyPreviewModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'body-preview-modal-window'
+            });
+
+            bodyPreviewModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
         /**
          * login modal initialization
          */
@@ -592,6 +624,37 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         ///////////////
 
+
+        /**
+         * disconnect modal initialization
+         */
+        
+                
+    
+            
+        $scope.openDisconnectModal = function (size) {
+            
+            var disconnectModalInstance = $modal.open({
+                templateUrl: 'disconnectModal.html',
+                controller: 'disconnectModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'disconnect-modal-window'
+            });
+
+            disconnectModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
 
         /**
@@ -677,6 +740,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
          */
 
         SecurityService.loggedIn = true;
+        SecurityService.connected = true;
+        SecurityService.disconnectModalDisplayed = false;
 
         $scope.logout = function() {
             $http.get('../operator/logout').then(
@@ -693,6 +758,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
 //                    console.log(response.data[0]);
+                    SecurityService.connected = true;
+                    SecurityService.disconnectModalDisplayed = false;
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
@@ -700,7 +767,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 },
                 function(responseErr){
-                    
+                    SecurityService.connected = false;
+                    if(SecurityService.disconnectModalDisplayed == false) {
+                        SecurityService.disconnectModalDisplayed = true;
+                        $scope.openDisconnectModal();
+                    }
                 }
             );
         }
@@ -712,17 +783,36 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             window.location = "../news";
         }
         
-        $scope.checkLogInAndSave = function(contin) {
+        $scope.checkConnectionSave = function(contin) {
+            $http.get('../user/ajax/is_logged_in').then(
+                function(response){
+                    SecurityService.connected = true;
+                    if(response.data[0] === false) {
+                        SecurityService.loggedIn = false;
+                    } else {
+                        SecurityService.loggedIn = true;    
+                    }
+                    
+                    
+                    
+                    if(!SecurityService.connected) {
+                        $scope.openDisconnectModal();
+                    }else
+                    if(!SecurityService.loggedIn) {
+                        $scope.openLoginModal();
+                    } else {
+                        contin = (contin)? true : false;
+                        $scope.openSavingModal();
+                        NewsService.saveCurrentNews(contin);
+                        $scope.recordform.$setPristine();
+
+                    }
+                }, 
+                function(errResponse){
+                    $scope.openDisconnectModal();
+                }
+            );
             
-            if(!SecurityService.loggedIn) {
-                $scope.openLoginModal();
-            } else {
-                contin = (contin)? true : false;
-                $scope.openSavingModal();
-                NewsService.saveCurrentNews(contin);
-                $scope.newsform.$setPristine();
-                
-            }
         }
 
         poollingFactory.callFnOnInterval(function() {
@@ -1469,7 +1559,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                        self.currentNews = {}
 //                        self.currentNews = response.data[0];
 
-
+                        self.currentNews.id = response.data[0].id;
+                        self.selectNews(self.currentNews);
                         self.saved = true;
                         self.savingMessages = ['خبر مورد نظر ذخیره شد.'];
                         if(!contin) {
@@ -1769,6 +1860,113 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             
         }
     }]).
+    controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
+        $scope.NewsService = NewsService;
+        $scope.close = function(){$modalInstance.close(false);}
+        
+    }]).
+    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, NewsService, ValuesService, SecurityService) {
+        $scope.NewsService = NewsService;
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.getTrustedBody =  function(untrustedBody) {
+            tempBody = (untrustedBody)? untrustedBody : "";
+            return $sce.trustAsHtml(tempBody);
+        }
+        $scope.history = $collection.getInstance();
+        $scope.trustedBody = $scope.getTrustedBody(NewsService.currentNews.body);
+        $scope.innerLink = true;
+        $scope.externalLink = false;
+        
+        $scope.loadNews = function(newsId) {
+            $scope.innerLink = true;
+            $scope.externalLink = false;
+            $http.get('ajax/get_news_by_id/' + newsId).then(
+                    function (response) {
+                        $scope.rtTitle = response.data.title;
+                        $scope.trustedBody = $scope.getTrustedBody(response.data.body);
+                        $scope.observeEvents();
+                    },
+                    function (errResponse) {
+                        $scope.rtTitle = '<span style="color:red">ناموجود</span>'
+                    }
+            );
+        }
+        $scope.loadTree = function(treeIndex) {
+            $http.get('ajax/get_tree_by_index/' + treeIndex).then(
+                    function (response) {
+                        $scope.innerLink = true;
+                        $scope.externalLink = false;
+                        $scope.rtTitle = response.data.title;
+                        $scope.observeEvents();
+                    },
+                    function (errResponse) {
+                        $scope.rtTitle = '<span style="color:red">ناموجود</span>'
+                    }
+            );
+        }
+        
+        $scope.loadExternal = function(url) {
+            $scope.innerLink = false;
+            $scope.externalLink = true;
+            $scope.trustedUrl = $sce.trustAsResourceUrl(url);
+            $scope.url = url;
+            $scope.trustedBody = "";
+        }
+        
+        $scope.observeEvents = function() {
+            setTimeout(function () {
+                angular.element(document.querySelectorAll('.body-preview-content a[news-id]')).unbind('click');
+                angular.element(document.querySelectorAll('.body-preview-content a[news-id]')).on('click', function (event) {
+                    newsId = event.toElement.getAttribute('news-id');
+                    $scope.loadNews(newsId);
+                    $scope.history.add({func: $scope.loadNews, arg: newsId});
+                    event.preventDefault();
+                });
+
+                angular.element(document.querySelectorAll('.body-preview-content a[tree-index]')).unbind('click');
+                angular.element(document.querySelectorAll('.body-preview-content a[tree-index]')).on('click', function (event) {
+                    console.log(event);
+                    treeIndex = event.toElement.getAttribute('tree-index');
+                    $scope.loadTree(treeIndex);
+                    $scope.history.add({func: $scope.loadTree, arg: treeIndex});
+                    event.preventDefault();
+                });
+                
+                
+                angular.element($(".body-preview-content a[href != '#']")).unbind('click');
+                angular.element($(".body-preview-content a[href != '#']")).on('click', function (event) {
+                    console.log(event);
+                    url = event.toElement.getAttribute('href');
+                    $scope.loadExternal(url);
+                    $scope.history.add({func: $scope.loadExternal, arg: url});
+                    event.preventDefault();
+                });
+            }, 500);
+        }
+        $scope.observeEvents();
+        
+        $scope.history.add({func: $scope.loadNews, arg: NewsService.currentNews.id});
+        $scope.back = function() {
+            var func = $scope.history.array[$scope.history.length-2];
+            func.func(func.arg);
+            $scope.history.remove($scope.history.array[$scope.history.length-1]);
+        }
+        
+        $scope.hasBack = function() {
+            if($scope.history.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        $scope.goToTop = function() {
+            section = document.getElementsByClassName('body-preview-content')[0];
+            sectionElm = angular.element(section);
+            sectionElm.scrollTo(0,0);
+            
+        }
+        
+    }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
         function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, FileUploader, $modalInstance, $modal) {
         $scope.NewsService = NewsService;
@@ -1778,7 +1976,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             language: 'fa',
             height: '500px',
             uiColor: '#e8ede0',
-            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr",
+            extraPlugins: "dragresize,video,templates,dialog,colorbutton,lineheight,halfhr,record,mycustom,tabletools,contextmenu,contextmenu,menu,floatpanel,panel,tableresize,colordialog,dialogadvtab",
             line_height:"1;1.1;1.2;1.3;1.4;1.5;1.6;1.7;1.8;1.9;2;",
             contentsLangDirection: 'rtl',
             allowedContent : true,
@@ -1857,6 +2055,101 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         
         //////////////
+        
+        
+        /**
+         * login modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLoginModal = function (size) {
+            
+            var loginModalInstance = $modal.open({
+                templateUrl: 'loginModal.html',
+                controller: 'loginModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            loginModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        /**
+         * disconnect modal initialization
+         */
+        
+                
+    
+            
+        $scope.openDisconnectModal = function (size) {
+            
+            var disconnectModalInstance = $modal.open({
+                templateUrl: 'disconnectModal.html',
+                controller: 'disconnectModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'disconnect-modal-window'
+            });
+
+            disconnectModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        $scope.checkConnectionSave = function(contin) {
+            $http.get('../user/ajax/is_logged_in').then(
+                function(response){
+                    SecurityService.connected = true;
+                    if(response.data[0] === false) {
+                        SecurityService.loggedIn = false;
+                    } else {
+                        SecurityService.loggedIn = true;    
+                    }
+                    
+                    
+                    
+                    if(!SecurityService.connected) {
+                        $scope.openDisconnectModal();
+                    }else
+                    if(!SecurityService.loggedIn) {
+                        $scope.openLoginModal();
+                    } else {
+                        contin = (contin)? true : false;
+//                        $scope.openSavingModal();
+                        NewsService.saveCurrentNews(contin);
+//                        $scope.newsform.$setPristine();
+
+                    }
+                }, 
+                function(errResponse){
+                    $scope.openDisconnectModal();
+                }
+            );
+            
+        }
         
         
         /**

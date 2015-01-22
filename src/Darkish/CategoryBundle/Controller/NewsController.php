@@ -80,6 +80,7 @@ class NewsController extends Controller
             
             $this->newsMassAssignment($news, $data);
             $news->setLastUpdate(new \DateTime());
+            $news->setHtmlLastUpdate(new \DateTime());
             $news->setUser($user);
             
             if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
@@ -139,6 +140,7 @@ class NewsController extends Controller
             $this->newsMassAssignment($news, $data);
             $news->setCreationDate(new \DateTime());
             $news->setLastUpdate(new \DateTime());
+            $record->setHtmlLastUpdate(new \DateTime());
             $news->setUser($user);
 
             //return new Response($serializer->serialize($news, 'json'));
@@ -655,6 +657,7 @@ class NewsController extends Controller
             $node['treeIndex'] = $product->getTreeIndex();
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
         }
         $hierarchy = $this->buildTree($tree);
@@ -702,6 +705,7 @@ class NewsController extends Controller
             $node['treeIndex'] = $product->getTreeIndex();
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
         }
 
@@ -1075,4 +1079,40 @@ class NewsController extends Controller
         
         return new JsonResponse(array($attribute,$class, $id));
     }
+    
+    public function getNewsByIdAction($id) {
+        try {
+            $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+            $news = $repo->find($id);
+            if($news) {
+                return new Response($this->get('jms_serializer')->serialize($news, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+            } else {
+                return new Response('Not found', 404);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+            
+    }
+    
+    public function getTreeByIndexAction($index) {
+        try {
+            $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+            $trees = $repo->findByTreeIndex($index);
+            if(count($trees)) {
+                $tree = $trees[0];
+                return new Response($this->get('jms_serializer')->serialize($tree, 'json'));
+            } else {
+                return new Response('Not found', 404);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+    
+    public function getTestTreeAction($id) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+        return new Response($this->get('jms_serializer')->serialize($repo->find($id), 'json'));
+    }
 }
+            

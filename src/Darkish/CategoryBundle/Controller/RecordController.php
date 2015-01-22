@@ -332,6 +332,18 @@ class RecordController extends Controller
         if(isset($data['list_rank'])) {
             $record->setListRank($data['list_rank']);
         }
+        if(isset($data['list_rank_two'])) {
+            $record->setListRankTwo($data['list_rank_two']);
+        }
+        if(isset($data['list_rank_three'])) {
+            $record->setListRankThree($data['list_rank_three']);
+        }
+        if(isset($data['list_rank_four'])) {
+            $record->setListRankFour($data['list_rank_four']);
+        }
+        if(isset($data['list_rank_five'])) {
+            $record->setListRankFive($data['list_rank_five']);
+        }
         if(isset($data['m_opening_hours_from'])) {
             $record->setMOpeningHoursFrom($data['m_opening_hours_from']);
         }
@@ -835,6 +847,7 @@ class RecordController extends Controller
             $node['treeIndex'] = $product->getTreeIndex();
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
         }
         $hierarchy = $this->buildTree($tree);
@@ -882,6 +895,7 @@ class RecordController extends Controller
             $node['treeIndex'] = $product->getTreeIndex();
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
         }
 
@@ -1411,5 +1425,10 @@ class RecordController extends Controller
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    public function getTestTreeAction($id) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
+        return new Response($this->get('jms_serializer')->serialize($repo->find($id), 'json'));
     }
 }

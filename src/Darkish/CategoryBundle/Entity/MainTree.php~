@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * MainTree
  *
- * @ORM\Table()
+ * @ORM\Table(name="maintree")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\MainTreeRepository")
  */
 class MainTree
@@ -23,6 +23,7 @@ class MainTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "record.details"})
      */
     private $id;
 
@@ -30,15 +31,17 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="UpTreeIndex", type="string", length=255)
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "record.details"})
      */
     private $upTreeIndex;
+    
+    private $mostParentTreeTitle;
 
     /**
      * @var string
      *
      * @ORM\Column(name="TreeIndex", type="string", length=255)
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "record.details"})
      */
     private $treeIndex;
 
@@ -54,6 +57,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="Title", type="string", length=255)
+     * @Groups({"list", "details", "record.details"})
      */
     private $title;
 
@@ -61,6 +65,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $subTitle;
 
@@ -68,8 +73,10 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="BackKeyTitle", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
      */
     private $backKeyTitle;
+
 
     /**
      * @var string
@@ -1109,21 +1116,21 @@ class MainTree
      * @param \Darkish\CategoryBundle\Entity\Record $records
      * @return MainTree
      */
-    public function addRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    public function addRecord(\Darkish\CategoryBundle\Entity\Record $record)
     {
-        $this->records[] = $records;
+        $this->records[] = $record;
 
         return $this;
     }
 
     /**
-     * Remove records
+     * Remove record
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $records
+     * @param \Darkish\CategoryBundle\Entity\Record $record
      */
-    public function removeRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    public function removeRecord(\Darkish\CategoryBundle\Entity\Record $record)
     {
-        $this->records->removeElement($records);
+        $this->records->removeElement($record);
     }
 
     /**

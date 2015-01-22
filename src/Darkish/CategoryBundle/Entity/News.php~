@@ -79,6 +79,15 @@ class News
      * @Groups({"news.details"})
      */
     private $lastUpdate;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
+     * @Groups({"news.details"})
+     */
+    private $htmlLastUpdate;
 
     /**
      * @var datetime
@@ -100,8 +109,8 @@ class News
      *
      * @var boolean
      * 
-     * @ORM\Column(name="IsCompetition", type="boolean", nullable=false, options={"default":0})
-     *  
+     * @ORM\Column(name="IsCompetition", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"news.details"}) 
      */
     private $isCompetition;
     
@@ -110,6 +119,7 @@ class News
      * @var integer
      * 
      * @ORM\Column(name="TrueAnswer", type="integer", nullable=true)
+     * @Groups({"news.details"})
      */
     private $trueAnswer;
     
@@ -118,6 +128,7 @@ class News
      * @var integer
      * 
      * @ORM\Column(name="Rate", type="integer", nullable=true)
+     * @Groups({"news.details"})
      */
     private $rate;
     
@@ -882,5 +893,97 @@ class News
     public function getVideo()
     {
         return $this->video;
+    }
+
+    /**
+     * Set isCompetition
+     *
+     * @param boolean $isCompetition
+     * @return News
+     */
+    public function setIsCompetition($isCompetition)
+    {
+        $this->isCompetition = $isCompetition;
+
+        return $this;
+    }
+
+    /**
+     * Get isCompetition
+     *
+     * @return boolean 
+     */
+    public function getIsCompetition()
+    {
+        return $this->isCompetition;
+    }
+
+    /**
+     * Set trueAnswer
+     *
+     * @param integer $trueAnswer
+     * @return News
+     */
+    public function setTrueAnswer($trueAnswer)
+    {
+        $this->trueAnswer = $trueAnswer;
+
+        return $this;
+    }
+
+    /**
+     * Get trueAnswer
+     *
+     * @return integer 
+     */
+    public function getTrueAnswer()
+    {
+        return $this->trueAnswer;
+    }
+
+    /**
+     * Set rate
+     *
+     * @param integer $rate
+     * @return News
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return integer 
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * Set htmlLastUpdate
+     *
+     * @param \DateTime $htmlLastUpdate
+     * @return News
+     */
+    public function setHtmlLastUpdate($htmlLastUpdate)
+    {
+        $this->htmlLastUpdate = $htmlLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlLastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getHtmlLastUpdate()
+    {
+        return $this->htmlLastUpdate;
     }
 }

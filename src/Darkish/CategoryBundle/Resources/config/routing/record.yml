@@ -111,3 +111,7 @@ record_get_by_number:
 record_get_tree_by_index:
     path:     /ajax/get_tree_by_index/{index}
     defaults: { _controller: "DarkishCategoryBundle:Record:getTreeByIndex", _format: json}
+    
+record_get_test_tree:
+    path:     /get_test_tree/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTestTree", _format: json}

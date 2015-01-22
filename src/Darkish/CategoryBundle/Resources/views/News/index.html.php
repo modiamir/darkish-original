@@ -161,7 +161,7 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!NewsService.isEditing()"
-                                            ng-options="tree.title for tree in NewsService.currentNews.treeList.all()">
+                                            ng-options="(tree.parent_tree_title + '-->' + tree.title ) for tree in NewsService.currentNews.treeList.all()">
                                         
 
                                 </select>
@@ -375,7 +375,7 @@
                         
                         <label class="file-select" ng-class="{'disabled': !NewsService.isEditing()}">
                             انتخاب فایل
-                            <input ng-disabled="!NewsService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                            <input ng-disabled="!NewsService.isEditing()  || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                         </label>
                         
                         <script type="text/ng-template" id="upload-modal.html">
@@ -728,11 +728,34 @@
                         <button data-ng-show="NewsService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
                             ویرایش صفحه
                         </button>
+                        <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
+                            پیش نمایش صفحه
+                        </button>
+                        <script type="text/ng-template" id="bodyPreviewModal.html">
+                            <div class="modal-body">
+                                <i ng-click="close()" class="fa fa-close"></i>
+                                <button ng-click="goToTop()" class="go-to-top" ng-click="">
+                                بالای صفحه<i class="fa fa-arrow-up"></i>
+                                </button>
+                                <button ng-disabled="!hasBack()" ng-click="back()" class="return" ng-click="">
+                                بازگشت<i class="fa fa-arrow-left"></i>
+                                </button>
+                                <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>
+                                <div class="body-preview-box">
+                                    <div ng-show="innerLink" class="body-preview-content" ng-bind-html="trustedBody">
+                                    </div>
+                                    <div ng-show="externalLink" class="body-preview-content external-link">
+                                        <iframe ng-src="{{trustedUrl}}" width="362" height="588" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </script>
                         <script type="text/ng-template" id="bodyModal.html">
                             <div class="modal-header">
                                 <h3 class="modal-title">بدنه خبر</h3>
                                 <button class=" close-button btn btn-primary pull-right" ng-click="close()">بستن</button>
-                                <button ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="openSavingModal();NewsService.saveCurrentNews(true);newsform.$setPristine()">
+                                <button ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="checkConnectionSave(true);newsform.$setPristine()">
                                     ذخیره و ادامه
                                 </button>
                                 <span class="body-save-continue-message" ng-show="NewsService.saved">
@@ -846,7 +869,7 @@
                                                         <div class="col-md-12 body-upload-buttons" >
                                                             <label class="file-select" ng-class="{'disabled': !NewsService.isEditing()}">
                                                                 انتخاب فایل
-                                                                <input ng-disabled="!NewsService.isEditing()" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                                                                <input ng-disabled="!NewsService.isEditing() || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                                                             </label>
                                                             <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!NewsService.isReadyToInsert()">
                                                                 درج
@@ -854,7 +877,7 @@
                                                             <button class="btn btn-danger" data-ng-click="NewsService.removeFromBodyAttachList()">
                                                                 حذف
                                                             </button>
-                                                            <button ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="save-continue-button-bottom btn btn-success" ng-click="openSavingModal();NewsService.saveCurrentNews(true);newsform.$setPristine()">
+                                                            <button ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="save-continue-button-bottom btn btn-success" ng-click="checkConnectionSave(true);newsform.$setPristine()">
                                                                 ذخیره و ادامه
                                                             </button>
                                                             <span class="body-save-continue-message-bottom" ng-show="NewsService.saved">
@@ -1154,7 +1177,7 @@
                 جدید
             </button>
 
-            <button ng-show="SecurityService.buttonsAccess.editButtonAccess()" ng-disabled="NewsService.isNew() || NewsService.isEditing()" type="button" class="btn btn-info" ng-click="NewsService.editing()">
+            <button ng-show="SecurityService.buttonsAccess.editButtonAccess()" ng-disabled="NewsService.isNew() || NewsService.isEditing() || !SecurityService.connected" type="button" class="btn btn-info" ng-click="NewsService.editing()">
                 ویرایش
             </button>
             <script type="text/ng-template" id="deleteModal.html">
@@ -1187,13 +1210,13 @@
                     </div>
                 </div>
             </script>
-            <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!NewsService.currentNews.id || NewsService.isEditing()"  type="button" class="btn btn-danger" ng-click="openDeleteModal()" ng-disabled="editing || !news.id">
+            <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!NewsService.currentNews.id || NewsService.isEditing() || !SecurityService.connected"  type="button" class="btn btn-danger" ng-click="openDeleteModal()">
                 حذف
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave()">
+            <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkConnectionSave()">
                 ذخیره
             </button>
-            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkLogInAndSave(true)">
+            <button ng-show="SecurityService.buttonsAccess.saveAndContinueButtonAccess()" ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="btn btn-success" ng-click="checkConnectionSave(true)">
                 ذخیره و ادامه
             </button>
             <script type="text/ng-template" id="savingModal.html">
@@ -1216,6 +1239,22 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn" ng-disabled="!NewsService.saved" data-ng-click="close()">
+                        بستن
+                    </button>
+                </div>
+            </script>
+            <script type="text/ng-template" id="disconnectModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">قطع اتصال</h3>
+                </div>
+                <div class="modal-body">
+                    <span>
+                            كاربر گرامي، ارتباط شما با سرور قطع شده است. پس از برقراري ارتباط، دوباره سعي كنيد.
+                    </span>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-ng-click="close()">
                         بستن
                     </button>
                 </div>
@@ -1251,13 +1290,13 @@
                 بعدی
             </button>
 
-            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.activateButtonAccess() == true)" data-ng-click="NewsService.toggleActiveCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn active-inactive-btn" ng-class="{'is-active': NewsService.currentNews.active == true,'is-inactive': NewsService.currentNews.active == false }" >
+            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.activateButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleActiveCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn active-inactive-btn" ng-class="{'is-active': NewsService.currentNews.active == true,'is-inactive': NewsService.currentNews.active == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(NewsService.currentNews.active)?'فعال':'غیر فعال'}}
             </button>
             
-            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.verifyButtonAccess() == true)" data-ng-click="NewsService.toggleVerifyCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn verify-notverify-btn" ng-class="{'is-verify': NewsService.currentNews.verify == true,'is-notverify': NewsService.currentNews.verify == false }" >
+            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.verifyButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleVerifyCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn verify-notverify-btn" ng-class="{'is-verify': NewsService.currentNews.verify == true,'is-notverify': NewsService.currentNews.verify == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(NewsService.currentNews.verify)? 'تایید شده':'تایید نشده'}}
@@ -1266,7 +1305,7 @@
             
         </div>
 
-        <div class="col-md-3 left user-box" ng-class="{'logged-in': SecurityService.loggedIn, 'logged-out': !SecurityService.loggedIn}" style="float: left"  >
+        <div class="col-md-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn  && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn  && !SecurityService.connected)}" style="float: left"  >
             <label class="username-label">
             نام کاربری:
             </label>
@@ -1274,10 +1313,10 @@
             <span class="username-value">
             {{ValuesService.username}}
             </span>
-            <button ng-show="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="logout()">
+            <button ng-show="SecurityService.loggedIn && SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="logout()">
                 خروج
             </button>
-            <button ng-hide="SecurityService.loggedIn" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
+            <button ng-hide="SecurityService.loggedIn  || !SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
                 ورود مجدد
             </button>
             <script type="text/ng-template" id="loginModal.html">
@@ -1375,5 +1414,11 @@
 		return false;
 	}
 };	
+CKEDITOR.on('instanceReady', function(evt){
+    setTimeout( function(){
+        evt.editor.resetUndo();
+    }, 500 );
+
+});
     </script>
 <?php $view['slots']->stop() ?>
