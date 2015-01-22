@@ -185,3 +185,8 @@ sonata_doctrine_orm_admin:
                 bigint:    SonataAdminBundle:CRUD:base_show_field.html.twig
                 integer:   SonataAdminBundle:CRUD:base_show_field.html.twig
                 decimal:   SonataAdminBundle:CRUD:base_show_field.html.twig
+services:
+    my.subscriber:
+        class: Darkish\CategoryBundle\EventListener\TreeSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

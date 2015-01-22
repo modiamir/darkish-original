@@ -2108,12 +2108,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.trustedBody = $scope.getTrustedBody(RecordService.currentRecord.body);
         $scope.innerLink = true;
         $scope.externalLink = false;
+        
         $scope.loadRecord = function(recordNumber) {
             $scope.innerLink = true;
             $scope.externalLink = false;
             $http.get('ajax/get_record_by_number/' + recordNumber).then(
                     function (response) {
-                        
                         $scope.rtTitle = response.data.title;
                         $scope.trustedBody = $scope.getTrustedBody(response.data.body);
                         $scope.observeEvents();
@@ -2147,32 +2147,50 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         $scope.observeEvents = function() {
             setTimeout(function () {
+                angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).unbind('click');
                 angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).on('click', function (event) {
                     recordNumber = event.toElement.getAttribute('record-id');
                     $scope.loadRecord(recordNumber);
+                    $scope.history.add({func: $scope.loadRecord, arg: recordNumber});
                     event.preventDefault();
                 });
 
+                angular.element(document.querySelectorAll('.body-preview-content a[tree-index]')).unbind('click');
                 angular.element(document.querySelectorAll('.body-preview-content a[tree-index]')).on('click', function (event) {
                     console.log(event);
                     treeIndex = event.toElement.getAttribute('tree-index');
                     $scope.loadTree(treeIndex);
+                    $scope.history.add({func: $scope.loadTree, arg: treeIndex});
                     event.preventDefault();
                 });
                 
                 
-//                var withHref = document.querySelectorAll('.body-preview-content a[href]');
+                angular.element($(".body-preview-content a[href != '#']")).unbind('click');
                 angular.element($(".body-preview-content a[href != '#']")).on('click', function (event) {
                     console.log(event);
                     url = event.toElement.getAttribute('href');
                     $scope.loadExternal(url);
+                    $scope.history.add({func: $scope.loadExternal, arg: url});
                     event.preventDefault();
                 });
             }, 500);
         }
         $scope.observeEvents();
         
-            
+        $scope.history.add({func: $scope.loadRecord, arg: RecordService.currentRecord.record_number});
+        $scope.back = function() {
+            var func = $scope.history.array[$scope.history.length-2];
+            func.func(func.arg);
+            $scope.history.remove($scope.history.array[$scope.history.length-1]);
+        }
+        
+        $scope.hasBack = function() {
+            if($scope.history.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         $scope.goToTop = function() {
             section = document.getElementsByClassName('body-preview-content')[0];
             sectionElm = angular.element(section);
@@ -2787,6 +2805,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.safarsazRanks = [];
         for(var i = 1; i<=10; i++) {
             self.safarsazRanks.push({
+                id: i,
+                name: i
+            })
+        }
+        
+        self.treeRanks = [];
+        for(var i = 1; i<=30; i++) {
+            self.treeRanks.push({
                 id: i,
                 name: i
             })

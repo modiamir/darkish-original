@@ -563,13 +563,18 @@ h3.block-title {
 
 }
 #tree-list-input {
-   height: 65px;
-   background: white;
-   border: groove 1px;
-   margin-left: 2.6%;
-   width: 75%;
-   float: left;
+   height: 102px;
+    background: white;
+    border: groove 1px;
+    margin-left: 2.6%;
+    width: 60%;
+    float: left;
+    font-size: 10px;
 
+}
+select#tree-list-input option {
+    height: 20px;
+    border-bottom: 1px solid #cccccc;
 }
 .main-fields-tree-list{
     height: 65px;
@@ -1242,6 +1247,7 @@ h3.block-title {
 
 .html-wrapper .html-preview {
     height: 100%;
+    padding-top: 50px;
 }
 
 
@@ -1251,7 +1257,12 @@ h3.block-title {
     left: 20px;
 
 }
+#body-preview-modal-button {
+    position: absolute;
+    top: 5px;
+    left: 130px;
 
+}
 
 #body-modal-bg {
 
@@ -1802,4 +1813,97 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .user-box.logged-in .fa-power-off{
     color: green;
     font-size: 20px;
+}
+
+
+
+
+
+
+.body-preview-modal-window .body-preview-box{
+    background-image: url(images/mobile_frame.jpg);
+    width: 421px;
+    background-size: 421px;
+    height: 794px;
+    background-repeat: no-repeat;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: relative;
+    display: table;
+}
+
+.body-preview-modal-window .body-preview-box .body-preview-content {
+    width: 366px;
+    margin: auto;
+    display: block;
+    position: relative;
+    margin-top: 98px;
+    height: 588px;
+    overflow-y: scroll;
+}
+
+.body-preview-modal-window .body-preview-box .body-preview-content.external-link {
+    overflow-y:visible;
+}
+
+.body-preview-modal-window .modal-body {
+    padding: 0;
+}
+
+
+.body-preview-modal-window .modal-dialog {
+    width: 347px;
+}
+
+.body-preview-modal-window .modal-dialog .modal-content {
+    border: 0;
+    height: 784px;
+    width: 421px;
+}
+
+.body-preview-modal-window .modal-dialog .fa-close {
+    position: absolute;
+    z-index: 10;
+    top: 15px;
+    right: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.body-preview-modal-window .modal-dialog .fa-close:hover {
+    cursor: pointer;
+}
+
+
+.body-preview-modal-window .modal-dialog .go-to-top {
+    position: absolute;
+    z-index: 10;
+    top: 60px;
+    left: 212px;
+}
+
+.body-preview-modal-window .modal-dialog .rt-title {
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    left: 131px;
+    height: 25px;
+    width: 169px;
+    line-height: 25px;
+    text-align: center;
+    background-color: #eaeaea;
+    vertical-align: middle;
+    border-radius: 30px 30px 0 0;
+}
+
+.body-preview-modal-window .modal-dialog .return {
+    position: absolute;
+    z-index: 10;
+    top: 60px;
+    right: 218px;
 }

@@ -257,12 +257,29 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!RecordService.isEditing()"
-                                            ng-options="tree.title for tree in RecordService.currentRecord.treeList.all()">
+                                        ng-options="(tree.parent_tree_title + '-->' +tree.title) for tree in RecordService.currentRecord.treeList.all()">
                                         <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
 
 
 
                                 </select>
+                                <div class="tree-ranks">
+                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    </select>
+                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_two" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    </select>
+                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_three" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    </select>
+                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_four" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    </select>
+                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_five" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    </select>
+                                </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
                                         <h3 class="modal-title">انتخاب شاخه ها</h3>
@@ -304,39 +321,10 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                              <div id="ranklist-combo-wrapper" class="main-fields-second-section-combo-wrapper">
 
                                  <label id="ranklist-combo-label" class="second-section-combo-label" for="ranklist-combo">رتبه نمایش در لیست</label>
-
-                                <select id="ranklist-combo" ng-model="RecordService.currentRecord.list_rank" ng-disabled="!RecordService.isEditing()">
-                                    <option value=1> 1 </option>
-                                    <option value=2> 2 </option>
-                                    <option value=3> 3 </option>
-                                    <option value=4> 4 </option>
-                                    <option value=5> 5 </option>
-                                    <option value=6> 6 </option>
-                                    <option value=7> 7 </option>
-                                    <option value=8> 8 </option>
-                                    <option value=9> 9 </option>
-                                    <option value=10> 10 </option>
-                                    <option value=11> 11 </option>
-                                    <option value=12> 12 </option>
-                                    <option value=13> 13 </option>
-                                    <option value=14> 14 </option>
-                                    <option value=15> 15 </option>
-                                    <option value=16> 16 </option>
-                                    <option value=17> 17 </option>
-                                    <option value=18> 18 </option>
-                                    <option value=19> 19 </option>
-                                    <option value=20> 20 </option>
-                                    <option value=21> 21 </option>
-                                    <option value=22> 22 </option>
-                                    <option value=23> 23 </option>
-                                    <option value=24> 24 </option>
-                                    <option value=25> 25 </option>
-                                    <option value=26> 26 </option>
-                                    <option value=27> 27 </option>
-                                    <option value=28> 28 </option>
-                                    <option value=29> 29 </option>
-                                    <option value=30> 30 </option>
-                                </select>
+<!--
+                                <select id="ranklist-combo" ng-model="RecordService.currentRecord.list_rank" ng-disabled="!RecordService.isEditing()"
+                                        ng-options="rank.name for rank in ValuesService.treeRanks" >
+                                </select>-->
                                
                             </div>
 
@@ -1186,7 +1174,7 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                                 <button ng-click="goToTop()" class="go-to-top" ng-click="">
                                 بالای صفحه<i class="fa fa-arrow-up"></i>
                                 </button>
-                                <button ng-click="close()" class="return" ng-click="">
+                                <button ng-disabled="!hasBack()" ng-click="back()" class="return" ng-click="">
                                 بازگشت<i class="fa fa-arrow-left"></i>
                                 </button>
                                 <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>

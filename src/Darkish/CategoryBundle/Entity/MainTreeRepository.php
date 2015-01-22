@@ -12,4 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class MainTreeRepository extends EntityRepository
 {
+    public function getTest() {
+        return 'asd';
+    }
 }

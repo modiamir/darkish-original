@@ -531,7 +531,7 @@ h3.block-title {
     display: inline-block;
 }
 .main-fields-first-section{
-    height: 235px;
+    height: 335px;
     padding-top: 10px;
     direction: rtl;
     margin: 10px 10px 0 10px;
@@ -563,13 +563,19 @@ h3.block-title {
 
 }
 #tree-list-input {
-   height: 65px;
-   background: white;
-   border: groove 1px;
-   margin-left: 2.6%;
-   width: 75%;
-   float: left;
+   height: 102px;
+    background: white;
+    border: groove 1px;
+    margin-left: 2.6%;
+    width: 60%;
+    float: left;
+    font-size: 10px;
 
+}
+
+select#tree-list-input option {
+    height: 20px;
+    border-bottom: 1px solid #cccccc;
 }
 .main-fields-tree-list{
     height: 65px;
@@ -633,12 +639,18 @@ h3.block-title {
     width: 65%;
     text-align: left;
 }
-#ranklist-combo {
-    width: 34%;
+
+.tree-ranks {
+    width: 15%;
+    float: left;
+}
+.ranklist-combo {
     height: 30px;
     margin: auto;
     float: left;
-    height: 100%;
+    font-size: 10px;
+    height: 20px;
+    line-height: 20px;
 }
 #group-massage-chk-wrapper {
     float: right;
@@ -1794,7 +1806,7 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     display: block;
     position: relative;
     margin-top: 98px;
-    height: 523px;
+    height: 588px;
     overflow-y: scroll;
 }
 

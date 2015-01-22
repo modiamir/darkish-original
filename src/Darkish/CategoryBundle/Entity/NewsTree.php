@@ -7,6 +7,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * NewsTree
@@ -33,6 +35,12 @@ class NewsTree
      * @Groups({"list", "details", "news.details"})
      */
     private $upTreeIndex;
+    
+    /**
+     *
+     * @Groups({"list", "details", "news.details"})
+     */
+    private $parentTreeTitle;
 
     /**
      * @var string
@@ -634,5 +642,22 @@ class NewsTree
     public function getNews()
     {
         return $this->news;
+    }
+    
+    public function setParentTreeTitle($title) {
+        $this->parentTreeTitle = $title;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     * @Groups({"list", "details", "news.details"})
+     */
+    public function getParentTreeTitle() {
+        return $this->parentTreeTitle;
     }
 }

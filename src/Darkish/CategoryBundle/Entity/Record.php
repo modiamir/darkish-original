@@ -395,6 +395,34 @@ class Record
      * @Groups({"record.details"})
      */
     private $listRank;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankTwo", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankTwo;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankThree", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankThree;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankFour", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankFour;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ListRankFive", type="integer", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $listRankFive;
 
     /**
      * @var string
@@ -2973,5 +3001,97 @@ class Record
     public function getHtmlLastUpdate()
     {
         return $this->htmlLastUpdate;
+    }
+
+    /**
+     * Set listRankTwo
+     *
+     * @param integer $listRankTwo
+     * @return Record
+     */
+    public function setListRankTwo($listRankTwo)
+    {
+        $this->listRankTwo = $listRankTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankTwo
+     *
+     * @return integer 
+     */
+    public function getListRankTwo()
+    {
+        return $this->listRankTwo;
+    }
+
+    /**
+     * Set listRankThree
+     *
+     * @param integer $listRankThree
+     * @return Record
+     */
+    public function setListRankThree($listRankThree)
+    {
+        $this->listRankThree = $listRankThree;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankThree
+     *
+     * @return integer 
+     */
+    public function getListRankThree()
+    {
+        return $this->listRankThree;
+    }
+
+    /**
+     * Set listRankFour
+     *
+     * @param integer $listRankFour
+     * @return Record
+     */
+    public function setListRankFour($listRankFour)
+    {
+        $this->listRankFour = $listRankFour;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankFour
+     *
+     * @return integer 
+     */
+    public function getListRankFour()
+    {
+        return $this->listRankFour;
+    }
+
+    /**
+     * Set listRankFive
+     *
+     * @param integer $listRankFive
+     * @return Record
+     */
+    public function setListRankFive($listRankFive)
+    {
+        $this->listRankFive = $listRankFive;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankFive
+     *
+     * @return integer 
+     */
+    public function getListRankFive()
+    {
+        return $this->listRankFive;
     }
 }
