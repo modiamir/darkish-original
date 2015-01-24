@@ -804,7 +804,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         contin = (contin)? true : false;
                         $scope.openSavingModal();
                         NewsService.saveCurrentNews(contin);
-                        $scope.recordform.$setPristine();
+                        $scope.newsform.$setPristine();
 
                     }
                 }, 
@@ -923,7 +923,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
         var self = {
 
-            currentNews: {}
+            currentNews: {active:false, verify:false}
 
 
 
@@ -1177,14 +1177,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
             self.currentNews.verify = false;
             self.currentNews.active = false;
+            self.currentNews.continual = true; 
 
             /* initializing verify active --end  */
 
-
+            
 
             editing = true;
             ValuesService.getRandUploadKey(true);
-
+            
+            self.currentNews.publish_date = new Date();
 
 
         }
@@ -2509,7 +2511,13 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         self.currentVideoModal = {}
 
 
-        
+        self.treeRanks = [];
+        for(var i = 1; i<=30; i++) {
+            self.treeRanks.push({
+                id: i,
+                name: i
+            })
+        }
 
 
         return self;
