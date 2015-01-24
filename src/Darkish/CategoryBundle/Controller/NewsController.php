@@ -140,7 +140,7 @@ class NewsController extends Controller
             $this->newsMassAssignment($news, $data);
             $news->setCreationDate(new \DateTime());
             $news->setLastUpdate(new \DateTime());
-            $record->setHtmlLastUpdate(new \DateTime());
+            $news->setHtmlLastUpdate(new \DateTime());
             $news->setUser($user);
 
             //return new Response($serializer->serialize($news, 'json'));
@@ -219,6 +219,18 @@ class NewsController extends Controller
         }
         if(isset($data['video'])) {
             $news->setVideo($data['video']);
+        }
+        
+        if(isset($data['continual'])) {
+            $news->setContinual($data['continual']);
+        }
+        
+        if(isset($data['immediate'])) {
+            $news->setImmediate($data['immediate']);
+        }
+        
+        if(isset($data['list_rank'])) {
+            $news->setListRank($data['list_rank']);
         }
         
         if(isset($data['is_competition'])) {

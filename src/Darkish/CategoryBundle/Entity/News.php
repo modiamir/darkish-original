@@ -109,6 +109,35 @@ class News
      *
      * @var boolean
      * 
+     * @ORM\Column(name="Continual", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"news.details"}) 
+     */
+    private $continual;
+    
+    
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="Immediate", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"news.details"}) 
+     */
+    private $immediate;
+    
+    /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="ListRank", type="integer", nullable=true)
+     * @Groups({"news.details"})
+     */
+    private $listRank;
+    
+    
+    /**
+     *
+     * @var boolean
+     * 
      * @ORM\Column(name="IsCompetition", type="boolean", nullable=true, options={"default":0})
      * @Groups({"news.details"}) 
      */
@@ -985,5 +1014,74 @@ class News
     public function getHtmlLastUpdate()
     {
         return $this->htmlLastUpdate;
+    }
+
+    /**
+     * Set continual
+     *
+     * @param boolean $continual
+     * @return News
+     */
+    public function setContinual($continual)
+    {
+        $this->continual = $continual;
+
+        return $this;
+    }
+
+    /**
+     * Get continual
+     *
+     * @return boolean 
+     */
+    public function getContinual()
+    {
+        return $this->continual;
+    }
+
+    /**
+     * Set immediate
+     *
+     * @param boolean $immediate
+     * @return News
+     */
+    public function setImmediate($immediate)
+    {
+        $this->immediate = $immediate;
+
+        return $this;
+    }
+
+    /**
+     * Get immediate
+     *
+     * @return boolean 
+     */
+    public function getImmediate()
+    {
+        return $this->immediate;
+    }
+
+    /**
+     * Set listRank
+     *
+     * @param integer $listRank
+     * @return News
+     */
+    public function setListRank($listRank)
+    {
+        $this->listRank = $listRank;
+
+        return $this;
+    }
+
+    /**
+     * Get listRank
+     *
+     * @return integer 
+     */
+    public function getListRank()
+    {
+        return $this->listRank;
     }
 }

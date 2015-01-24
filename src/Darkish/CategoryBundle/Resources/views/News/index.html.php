@@ -117,6 +117,19 @@
                 <div class="basic-info col col-md-12">
                     
 
+                    <div class="basic-info-left-col">
+                        
+                        <div class="news-number-wrapper">
+                          <span class="news-number-title">شماره خبر</span>
+                          <span class="news-number" dir="ltr">
+                              N{{NewsService.currentNews.id}}
+                          </span>
+                          
+                        </div>
+                        
+                    </div>
+                    
+                    
                     <div class="basic-info-right-col">
                         <div class="news-title">
                             <div class="field-title news-title-title">عنوان:</div>
@@ -134,6 +147,7 @@
                         
 
                     </div>
+                    
       
                 </div>
                 <div class="main-fields-row">
@@ -149,13 +163,9 @@
 
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
-                                    <label class="tree-list-trees-button-wrapper">
-                                        شاخه ها:
-                                    </label>
                                     <div class="tree-list-add-remove-button-wrapper">
-                                        
-                                        <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!NewsService.isEditing()">+</button>
-                                        <button type="button" ng-click="NewsService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!NewsService.isEditing()">-</button>
+                                        <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!NewsService.isEditing()">شاخه</button>                                        
+                                        <button type="button" ng-click="NewsService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!NewsService.isEditing()">حذف</button>
                                     </div>
 
 
@@ -184,36 +194,78 @@
                                 </script>
                                 
                             </div>
-                            <div class="dates">
-                                <div class="publish-date-box">
-                                    <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
-                                    <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
+                            
+                            <div class="main-fields-dates-competition row">
+                                <div class="dates col col-md-6">
+                                    <div class="publish-date-box">
+                                        <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
+                                        <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
+                                    </div>
+
+                                    
+                                    <div class="expire-date-box">
+                                        <div class="continual-box">
+                                            <label for="continual-checkbox" class="continual-label">
+                                                دائمی
+                                            </label>
+                                            <input type="checkbox" id="continual-checkbox" ng-model="NewsService.currentNews.continual" ng-disabled="!NewsService.isEditing()"  />
+                                        </div>
+                                        <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
+                                        <input  ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing() || NewsService.currentNews.continual" close-text="بستن" />
+                                    </div>
+                                </div>
+                                
+                                <div class="immediate-rank-box col col-md-6">
+                                    <div class="immediate-box">
+                                        <label class="immedate-label" for="immediate-input">
+                                            خبر فوری
+                                        </label>
+                                        <input type="checkbox" id="immediate-input" ng-model="NewsService.currentNews.immediate" ng-disabled="!NewsService.isEditing()" />
+                                    </div>
+                                    <div class="listrank-box">
+                                        <label for="listrank-select" class="listrank-label">
+                                            رتبه در لیست
+                                        </label>
+                                        <select id="listrank-select" ng-model="NewsService.currentNews.list_rank" ng-disabled="!NewsService.isEditing()">
+                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                        </select>
+                                    </select>
+                                    </div>
+                                    
                                 </div>
 
-                                <div class="expire-date-box">
-                                    <label id="expire-date-label" class="third-section-label " for="expire-date-picker">تاریخ پایان انتشار</label>
-                                    <input ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
+                                <div class="competition-box col col-md-12">
+                                    <div class="competition-head">
+                                        <input id="is-competition-input" ng-model="NewsService.currentNews.is_competition" type="checkbox" ng-disabled="!NewsService.isEditing()" />
+                                        <label class="is-competition-label" for="is-competition-input">
+                                            مسابقه
+                                        </label>
+                                        
+                                    </div>
+                                    
+                                    <div class="true-answer">
+                                        <label class="true-answer-label">
+                                            پاسخ درست
+                                        </label>
+                                        <label class="answer-label" for="answer-1">1</label> <input type="radio" id="answer-1" ng-model="NewsService.currentNews.true_answer" value="1" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                        <label class="answer-label" for="answer-2">2</label> <input type="radio" id="answer-2" ng-model="NewsService.currentNews.true_answer" value="2" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                        <label class="answer-label" for="answer-3">3</label> <input type="radio" id="answer-3" ng-model="NewsService.currentNews.true_answer" value="3" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                        <label class="answer-label" for="answer-4">4</label> <input type="radio" id="answer-4" ng-model="NewsService.currentNews.true_answer" value="4" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>                                
+                                    </div>
+                                    
+                                    <div class="rate">
+                                        <label class="competition-rate-label" for="competition-rate-input">
+                                            امتیاز
+                                        </label>
+                                        <label class="rate-label" for="rate-1">10</label><input type="radio" id="rate-1" ng-model="NewsService.currentNews.rate" value="10" name="rate" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                        <label class="rate-label" for="rate-2">20</label><input type="radio" id="rate-2" ng-model="NewsService.currentNews.rate" value="20" name="rate" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                        <label class="rate-label" for="rate-3">50</label><input type="radio" id="rate-3" ng-model="NewsService.currentNews.rate" value="50" name="rate" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             
-                            <div class="competition-box">
-                                <label class="is-competition-label" for="is-competition-input">
-                                    مسابقه
-                                </label>
-                                <input id="is-competition-input" ng-model="NewsService.currentNews.is_competition" type="checkbox" ng-disabled="!NewsService.isEditing()" />
-                                <label class="true-answer-label">
-                                    پاسخ درست
-                                </label>
-                                <label class="answer-label" for="answer-1">1</label> <input type="radio" id="answer-1" ng-model="NewsService.currentNews.true_answer" value="1" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
-                                <label class="answer-label" for="answer-2">2</label> <input type="radio" id="answer-2" ng-model="NewsService.currentNews.true_answer" value="2" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
-                                <label class="answer-label" for="answer-3">3</label> <input type="radio" id="answer-3" ng-model="NewsService.currentNews.true_answer" value="3" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
-                                <label class="answer-label" for="answer-4">4</label> <input type="radio" id="answer-4" ng-model="NewsService.currentNews.true_answer" value="4" name="trueanswer" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>                                
-                                
-                                <label class="competition-rate-label" for="competition-rate-input">
-                                    امتیاز
-                                </label>
-                                <input id="competition-rate-input" ng-model="NewsService.currentNews.rate" ng-disabled="!NewsService.isEditing() || !NewsService.currentNews.is_competition"/>
-                            </div>
+                            
 
                         </div>
 
@@ -1290,13 +1342,13 @@
                 بعدی
             </button>
 
-            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.activateButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleActiveCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn active-inactive-btn" ng-class="{'is-active': NewsService.currentNews.active == true,'is-inactive': NewsService.currentNews.active == false }" >
+            <button ng-disabled="!NewsService.isEditing() || !(SecurityService.buttonsAccess.activateButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleActiveCurrentNews()"  class="btn active-inactive-btn" ng-class="{'is-active': NewsService.currentNews.active == true,'is-inactive': NewsService.currentNews.active == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(NewsService.currentNews.active)?'فعال':'غیر فعال'}}
             </button>
             
-            <button ng-disabled="!NewsService.currentNews.news_number || !NewsService.isEditing() || !(SecurityService.buttonsAccess.verifyButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleVerifyCurrentNews()" data-ng-show="NewsService.currentNews.news_number" class="btn verify-notverify-btn" ng-class="{'is-verify': NewsService.currentNews.verify == true,'is-notverify': NewsService.currentNews.verify == false }" >
+            <button ng-disabled="!NewsService.isEditing() || !(SecurityService.buttonsAccess.verifyButtonAccess() == true) || !SecurityService.connected" data-ng-click="NewsService.toggleVerifyCurrentNews()"  class="btn verify-notverify-btn" ng-class="{'is-verify': NewsService.currentNews.verify == true,'is-notverify': NewsService.currentNews.verify == false }" >
                 <i class="fa fa-check"></i>
                 <i class="fa fa-times"></i>
                 {{(NewsService.currentNews.verify)? 'تایید شده':'تایید نشده'}}
