@@ -259,6 +259,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $safarsazRank;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="archive", type="boolean", nullable=true, options={"default" : false })
+     * @Groups({"record.details"})
+     */
+    private $archive;
 
     /**
      * @var string
@@ -3093,5 +3101,28 @@ class Record
     public function getListRankFive()
     {
         return $this->listRankFive;
+    }
+
+    /**
+     * Set archive
+     *
+     * @param boolean $archive
+     * @return Record
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive
+     *
+     * @return boolean 
+     */
+    public function getArchive()
+    {
+        return $this->archive;
     }
 }

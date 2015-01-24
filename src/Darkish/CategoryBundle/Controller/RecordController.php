@@ -259,6 +259,9 @@ class RecordController extends Controller
         if(isset($data['message_validity_date'])) {
             $record->setMessageValidityDate($data['message_validity_date']);
         }
+        if(isset($data['archive'])) {
+            $record->setArchive($data['archive']);
+        }
         if(isset($data['safarsaz'])) {
             $record->setSafarsaz($data['safarsaz']);
         }

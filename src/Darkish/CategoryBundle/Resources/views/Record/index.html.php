@@ -118,7 +118,12 @@ RecordIndexCtrl<?php $view['slots']->stop() ?>
                 <div class="basic-info col col-md-12">
                     <div class="basic-info-left-col">
                         
-                       
+                        <div class="archive-wrapper">
+                            <label for="archive-checkbox" class="archive-label">
+                                آرشیو
+                            </label>
+                            <input ng-disabled="!RecordService.isEditing()" type="checkbox" id="archive-checkbox" ng-model="RecordService.currentRecord.archive" />
+                        </div>
                         <div class="record-number-wrapper">
                           <span class="record-number-title">شماره پرونده</span>
                           <span class="record-number" dir="ltr">

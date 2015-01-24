@@ -451,6 +451,12 @@ h3.block-title {
     margin-top: 15%;
 }
 
+.archive-wrapper {
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+
 
 
 .basic-info-left-col{
