@@ -2173,7 +2173,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     $scope.history.add({func: $scope.loadExternal, arg: url});
                     event.preventDefault();
                 });
-            }, 500);
+                
+                $('.body-preview-content img').css('width', '90%');
+                
+                $('.body-preview-content img').filter(function(){
+                    return $(this).css('border-width') == '1px';
+                }).css('border-width', '0').css('width', 'auto');
+                
+                
+            }, 200);
         }
         $scope.observeEvents();
         
