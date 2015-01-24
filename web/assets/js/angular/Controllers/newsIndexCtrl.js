@@ -1178,7 +1178,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             self.currentNews.verify = false;
             self.currentNews.active = false;
             self.currentNews.continual = true; 
-
+            self.currentNews.rate = 10; 
             /* initializing verify active --end  */
 
             
