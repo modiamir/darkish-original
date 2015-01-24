@@ -259,6 +259,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $safarsazRank;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="archive", type="boolean", nullable=true, options={"default" : true })
+     * @Groups({"record.details"})
+     */
+    private $archive;
 
     /**
      * @var string
@@ -3001,5 +3009,97 @@ class Record
     public function getHtmlLastUpdate()
     {
         return $this->htmlLastUpdate;
+    }
+
+    /**
+     * Set listRankTwo
+     *
+     * @param integer $listRankTwo
+     * @return Record
+     */
+    public function setListRankTwo($listRankTwo)
+    {
+        $this->listRankTwo = $listRankTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankTwo
+     *
+     * @return integer 
+     */
+    public function getListRankTwo()
+    {
+        return $this->listRankTwo;
+    }
+
+    /**
+     * Set listRankThree
+     *
+     * @param integer $listRankThree
+     * @return Record
+     */
+    public function setListRankThree($listRankThree)
+    {
+        $this->listRankThree = $listRankThree;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankThree
+     *
+     * @return integer 
+     */
+    public function getListRankThree()
+    {
+        return $this->listRankThree;
+    }
+
+    /**
+     * Set listRankFour
+     *
+     * @param integer $listRankFour
+     * @return Record
+     */
+    public function setListRankFour($listRankFour)
+    {
+        $this->listRankFour = $listRankFour;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankFour
+     *
+     * @return integer 
+     */
+    public function getListRankFour()
+    {
+        return $this->listRankFour;
+    }
+
+    /**
+     * Set listRankFive
+     *
+     * @param integer $listRankFive
+     * @return Record
+     */
+    public function setListRankFive($listRankFive)
+    {
+        $this->listRankFive = $listRankFive;
+
+        return $this;
+    }
+
+    /**
+     * Get listRankFive
+     *
+     * @return integer 
+     */
+    public function getListRankFive()
+    {
+        return $this->listRankFive;
     }
 }
