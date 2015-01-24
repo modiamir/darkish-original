@@ -1160,7 +1160,6 @@
                         <thead>
                         <tr>
                             <th>ردیف</th>
-                            <th>شماره پرونده</th>
                             <th>عنوان</th>
                             <th>عنوان فرعی</th>
                         </tr>
@@ -1168,7 +1167,6 @@
                         <tbody>
                         <tr st-select-row="row" ng-class="{selected: NewsService.isSelected(row)}" data-ng-click="NewsService.selectNews(row)" st-select-mode="single" ng-repeat="row in newsList()">
                             <td>{{row.id}}</td>
-                            <td>{{row.news_number}}</td>
                             <td>{{row.title}}</td>
                             <td>{{row.sub_title}}</td>
                         </tr>
