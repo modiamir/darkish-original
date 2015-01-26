@@ -5,6 +5,10 @@ namespace Darkish\UserBundle\Entity;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Role
@@ -18,16 +22,19 @@ class Role implements RoleInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"operator.list", "operator.details"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=30)
+     * @Groups({"operator.list", "operator.details"})
      */
     private $name;
 
     /**
      * @ORM\Column(name="role", type="string", length=20, unique=true)
+     * @Groups({"operator.list", "operator.details"})
      */
     private $role;
 

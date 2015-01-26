@@ -1,0 +1,18 @@
+body {
+    .st-sort-ascent:before {
+        content: '\25B2';
+    }
+    
+    .st-sort-descent:before {
+        content: '\25BC';
+    }
+    .operators-table {
+        tbody{
+            tr {
+                &.st-selected {
+                    background-color: #d9edf7;
+                }
+            }
+        }
+    }
+}

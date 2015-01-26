@@ -1,0 +1,12 @@
+/* line 2, ../../sass/operator/operator.scss */
+body .st-sort-ascent:before {
+  content: '\25B2';
+}
+/* line 6, ../../sass/operator/operator.scss */
+body .st-sort-descent:before {
+  content: '\25BC';
+}
+/* line 12, ../../sass/operator/operator.scss */
+body .operators-table tbody tr.st-selected {
+  background-color: #d9edf7;
+}

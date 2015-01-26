@@ -4,6 +4,10 @@ namespace Darkish\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -17,11 +21,13 @@ class Operator implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"operator.list", "operator.details"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
+     * @Groups({"operator.list", "operator.details"})
      */
     private $username;
 
@@ -32,19 +38,75 @@ class Operator implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Groups({"operator.list", "operator.details"})
      */
     private $email;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
+     * @Groups({"operator.list", "operator.details"})
      */
     private $isActive;
     
     /**
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="operators")
-     *
+     * @Groups({"operator.list", "operator.details"})
      */
     private $roles;
+    
+    
+    /**
+     *
+     * @ORM\Column(name="first_name", type="string", nullable=true)
+     * @Groups({"operator.list", "operator.details"})
+     */
+    private $firstName;
+    
+    /**
+     *
+     * @ORM\Column(name="last_name", type="string", nullable=true)
+     * @Groups({"operator.list", "operator.details"})
+     */
+    private $lastName;
+    
+    /**
+     *
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     * @Groups({"operator.details"})
+     */
+    private $phone;
+    
+    /**
+     *
+     * @ORM\Column(name="mobile", type="string", nullable=true)
+     * @Groups({"operator.details"})
+     */
+    private $mobile;
+        
+    /**
+     *
+     * @ORM\Column(name="secondary_mail", type="string", nullable=true)
+     * @Groups({"operator.details"})
+     */
+    private $secondaryMail;
+    
+    /**
+     *
+     * @ORM\Column(name="created", type="datetime", nullable=true)
+     * @Groups({"operator.details"})
+     */
+    private $created;
+    
+    /**
+     *
+     * @ORM\Column(name="access_level", type="integer", nullable=true)
+     * @Groups({"operator.details"})
+     */
+    private $accessLevel;
+    
+    private $photo;
+    
+    private $creator;
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
@@ -307,5 +369,199 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function getRecords()
     {
         return $this->records;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return Operator
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     * @return Operator
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Operator
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set mobile
+     *
+     * @param string $mobile
+     * @return Operator
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * Get mobile
+     *
+     * @return string 
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Set secondaryMail
+     *
+     * @param string $secondaryMail
+     * @return Operator
+     */
+    public function setSecondaryMail($secondaryMail)
+    {
+        $this->secondaryMail = $secondaryMail;
+
+        return $this;
+    }
+
+    /**
+     * Get secondaryMail
+     *
+     * @return string 
+     */
+    public function getSecondaryMail()
+    {
+        return $this->secondaryMail;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Operator
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set accessLevel
+     *
+     * @param integer $accessLevel
+     * @return Operator
+     */
+    public function setAccessLevel($accessLevel)
+    {
+        $this->accessLevel = $accessLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get accessLevel
+     *
+     * @return integer 
+     */
+    public function getAccessLevel()
+    {
+        return $this->accessLevel;
+    }
+
+    /**
+     * Add news
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $news
+     * @return Operator
+     */
+    public function addNews(\Darkish\CategoryBundle\Entity\News $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $news
+     */
+    public function removeNews(\Darkish\CategoryBundle\Entity\News $news)
+    {
+        $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNews()
+    {
+        return $this->news;
     }
 }
