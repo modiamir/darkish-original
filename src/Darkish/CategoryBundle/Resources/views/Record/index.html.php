@@ -17,8 +17,7 @@
 <?php $view['slots']->start('pagetitle') ?>مدیریت رکوردها<?php $view['slots']->stop() ?>
 <?php $view['slots']->start('ngapp') ?>RecordApp<?php $view['slots']->stop() ?>
 
-<?php $view['slots']->start('controller') ?>
-RecordIndexCtrl<?php $view['slots']->stop() ?>
+<?php $view['slots']->start('controller') ?>RecordIndexCtrl<?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('formname') ?>recordform<?php $view['slots']->stop() ?>
 

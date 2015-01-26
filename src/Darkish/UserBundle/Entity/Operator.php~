@@ -46,10 +46,62 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     private $roles;
     
+    
     /**
-     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="recordId")
+     *
+     * @ORM\Column(name="first_name", type="string", nullable=true)
+     */
+    private $firstName;
+    
+    /**
+     *
+     * @ORM\Column(name="last_name", type="string", nullable=true)
+     */
+    private $lastName;
+    
+    /**
+     *
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    private $phone;
+    
+    /**
+     *
+     * @ORM\Column(name="mobile", type="string", nullable=true)
+     */
+    private $mobile;
+        
+    /**
+     *
+     * @ORM\Column(name="secondary_mail", type="string", nullable=true)
+     */
+    private $secondaryMail;
+    
+    /**
+     *
+     * @ORM\Column(name="created", type="datetime", nullable=true)
+     */
+    private $created;
+    
+    /**
+     *
+     * @ORM\Column(name="access_level", type="integer", nullable=true)
+     */
+    private $accessLevel;
+    
+    private $photo;
+    
+    private $creator;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
      */
     protected $records;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\News", mappedBy="user")
+     */
+    protected $news;
 
     public function __construct()
     {
@@ -270,4 +322,37 @@ class Operator implements AdvancedUserInterface, \Serializable
     }
 
     
+
+    /**
+     * Add records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     * @return Operator
+     */
+    public function addRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records[] = $records;
+
+        return $this;
+    }
+
+    /**
+     * Remove records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     */
+    public function removeRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records->removeElement($records);
+    }
+
+    /**
+     * Get records
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecords()
+    {
+        return $this->records;
+    }
 }
