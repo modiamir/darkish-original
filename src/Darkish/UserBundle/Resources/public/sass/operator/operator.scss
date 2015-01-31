@@ -1,4 +1,85 @@
+@font-face {
+    font-family: yekan;
+    src: url("../../fonts/yekan/wYekan.eot");
+    src: url("../../fonts/yekan/wYekan.eot?#iefix") format("embedded-opentype"), url("../../fonts/yekan/yekan.woff") format("woff"), url("../../fonts/yekan/wYekan.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Mitra';
+    src: url('../../fonts/mitra/mitra.eot');
+    src: url('../../fonts/mitra/mitra.otf') format('opentype');
+    src: local('☺'),
+    local('B Mitra'),
+    url('../../fonts/mitra/mitra.woff') format('woff'),
+    url('../../fonts/mitra/mitra.ttf') format('truetype'),
+    url('../../fonts/mitra/mitra.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Mitra';
+    src: url('../../fonts/mitra/mitra-bold.eot');
+    src: url('../../fonts/mitra/mitra-bold.otf') format('opentype');
+    src: local('☺'),
+    local('B Mitra'),
+    url('../../fonts/mitra/mitra-bold.woff') format('woff'),
+    url('../../fonts/mitra/mitra-bold.ttf') format('truetype'),
+    url('../../fonts/mitra/mitra-bold.svg') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'B Lotus';
+    src: url('../../fonts/lotus/lotus.eot');
+    src: url('../../fonts/lotus/lotus.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../../fonts/lotus/lotus.woff') format('woff'),
+    url('../../fonts/lotus/lotus.ttf') format('truetype'),
+    url('../../fonts/lotus/lotus.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'B Koodak';
+    src: url('../../fonts/koodak/koodak.eot');
+    src: url('../../fonts/koodak/koodak.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../../fonts/koodak/koodak.woff') format('woff'),
+    url('../../fonts/koodak/koodak.ttf') format('truetype'),
+    url('../../fonts/koodak/koodak.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roya';
+    src: url('../../fonts/roya/roya.eot');
+    src: url('../../fonts/roya/roya.otf') format('opentype');
+    src: local('☺'),
+    local('B Lotus'),
+    url('../../fonts/roya/roya.woff') format('woff'),
+    url('../../fonts/roya/roya.ttf') format('truetype'),
+    url('../../fonts/roya/roya.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
+    
+    font-family: B Mitra;
+    font-size: 16px;
+    font-weight: normal;
+    h1, h2, h3, h4, h5, label {
+        font-family: yekan;
+    }
     .st-sort-ascent:before {
         content: '\25B2';
     }
@@ -14,5 +95,43 @@ body {
                 }
             }
         }
+    }
+    
+    form[name='operatorEdit'], form[name='operatorAdd'] {
+        .operator-photo-thumb {
+            max-width: 100%;
+            max-height: 300px;
+        }
+        .is-active {
+            label {
+                height: 30px;
+                line-height: 30px;
+                margin-left: 10px;
+                float: right;
+            }
+        }
+    }
+    
+    input {
+        &.ng-dirty {
+            &.ng-valid {
+                border: 1px solid green;
+            }
+            
+            &.ng-invalid {
+                border: 1px solid red;
+            }
+        }
+    }
+    .switch.is-active-switch {
+        background: rgb(255, 111, 111);
+        border-color: rgb(255, 111, 111);
+        &.checked {
+            background: #64bd63;
+            border-color: #64bd63;
+        }
+    }
+    .sweet-alert {
+        font-family: yekan;
     }
 }

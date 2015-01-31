@@ -5,16 +5,17 @@
 	<thead>
 	<tr>
 		<th st-sort="id" >شناسه</th>
-		<th st-sort="email" >پست الکترونیگ</th>
+		<th st-sort="email" >پست الکترونیک</th>
 		<th st-sort="username" >نام کاربری</th>
 		<th>نقش ها</th>
+                <th>سازنده</th>
                 <th>فعال</th>
                 <th>عملیات</th>
 	</tr>
         
 	</thead>
 	<tbody>
-	<tr st-select-row="operator" st-select-mode="multiple" ng-repeat="operator in displayedOperators">
+            <tr ng-dblclick="editOperator(operator)" st-select-row="operator" st-select-mode="single" ng-repeat="operator in displayedOperators">
 		<td>{{operator.id}}</td>
 		<td>{{operator.email}}</td>
 		<td>{{operator.username}}</td>
@@ -25,7 +26,10 @@
                         </li>
                     </ul>
                 </td>
-		<td>{{(operator.is_active)?'بله' : 'خیر'}}</td>
+                <td>{{operator.creator.username}}</td>
+                <td>
+                    <span ng-click="toggleIsActive(operator);$event.stopPropagation()"><switch id="enabled" name="enabled" ng-model="operator.is_active" class="is-active-switch"></switch></span>
+                </td>
                 <td>
                     <button type="button" ng-click="delete(operator, $index); $event.stopPropagation();" class="btn btn-sm btn-danger">
                         <i class="glyphicon glyphicon-remove-circle">
@@ -41,16 +45,17 @@
         <thead>
 	<tr>
 		<th>شناسه</th>
-		<th>پست الکترونیگ</th>
+		<th>پست الکترونیک</th>
 		<th>نام کاربری</th>
 		<th>نقش ها</th>
+                <th>سازنده</th>
                 <th>فعال</th>
                 <th>عملیات</th>
 	</tr>
 	</thead>
         <tfoot>
                 <tr>
-                        <td colspan="5" class="text-center">
+                        <td colspan="7" class="text-center">
                                 <div st-pagination="" st-items-by-page="itemsByPage"></div>
                         </td>
                 </tr>

@@ -6,6 +6,8 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') ?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/stylesheets/operator/operator.css') ?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/font-awesome/css/font-awesome.min.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch/angular-ui-switch.min.css') ?>" type="text/css" rel="stylesheet" />
     
 <?php $view['slots']->stop() ?>
 
@@ -21,7 +23,12 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-collection/angular-collection.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-prompt/dist/angular-prompt.min.js') ?>"></script>
-    
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-file-upload/angular-file-upload.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/humps/humps.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-validation-match/dist/angular-input-match.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-sweetalert/SweetAlert.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/sweetalert/lib/sweet-alert.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch//angular-ui-switch.min.js') ?>"></script>
     
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/js/operator/operator-index-app.js') ?>"></script>
 

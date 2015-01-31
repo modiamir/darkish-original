@@ -53,6 +53,12 @@ class ManagedFileController extends Controller
         if($request->request->has('uploadDir')){
             $file->setUploadDir($request->get('uploadDir'));
         }
+        
+        if($request->request->has('continual')) {
+            $file->setContinual($request->get('continual'));
+        } else {
+            $file->setContinual(false);
+        }
 
         $validator = $this->get('validator');
         $errors = $validator->validate($file);
