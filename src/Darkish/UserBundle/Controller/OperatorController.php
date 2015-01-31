@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Darkish\UserBundle\Entity\Operator;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Darkish\UserBundle\Form\OperatorType;
 
 
 class OperatorController extends Controller
@@ -65,7 +66,7 @@ class OperatorController extends Controller
         
         $res = $qb->getQuery()->getResult();
         $count = count($this->getDoctrine()->getRepository('DarkishUserBundle:Operator')->findAll());
-        $numOfPages = (int)($count/$data['pagination']['number']) + ($count%$data['pagination']['number']);
+        $numOfPages = ceil($count/$data['pagination']['number']);
         $searchRes = array('result' => $res, 'numOfPages' => $numOfPages);
         return new Response($this->get('jms_serializer')->serialize($searchRes, 'json', SerializationContext::create()->setGroups(array('operator.list'))));
     }
@@ -161,5 +162,114 @@ class OperatorController extends Controller
         return new JsonResponse($this->get('security.context')->isGranted('edit', $record));
         
         
+    }
+    
+    /**
+     * 
+     * @Route("admin/operator/ajax/create",defaults={"_format": "json"} )
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $operator = new Operator();
+//        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
+        $form = $this->createForm(new OperatorType, $operator);
+        
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $em->persist($operator);
+            $em->flush();
+            return new Response($this->get('jms_serializer')->serialize($operator, 'json', SerializationContext::create()->setGroups(array('operator.details'))));
+        }
+        return new Response($form->getErrorsAsString());
+    }
+    
+    
+    /**
+     * 
+     * @Route("admin/operator/ajax/update/{id}",defaults={"_format": "json"} )
+     * @Method({"POST"})
+     */
+    public function updateAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $operator = $em->getRepository('DarkishUserBundle:Operator')->find($id);
+//        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
+        $form = $this->createForm(new OperatorType, $operator);
+        
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $em->flush();
+            return new Response($this->get('jms_serializer')->serialize($operator, 'json', SerializationContext::create()->setGroups(array('operator.details'))));
+        }
+        return new Response($form->getErrorsAsString());
+    }
+    
+    /**
+     * 
+     * @Route("admin/operator/ajax/delete_record", defaults={"_format": "json"})
+     * @Method({"POST"})
+     */
+    public function deleteAction(Request $request) {
+        try {
+            
+            if (!$request->request->has('id')) {
+                throw new Exception('You should send an id to delete', 404);
+            }
+            $id = $request->request->get('id');
+            $em = $this->getDoctrine()->getManager();
+            $operator = $em->getRepository('DarkishUserBundle:Operator')->find($id);
+            if(!$operator) {
+                throw new Exception('Invalid operator id', '404');
+            }
+            $em->remove($operator);
+            $em->flush();
+            return new Response('removed');
+            
+        } catch (Exception $exc) {
+            return new Response($exc->getTraceAsString());
+        }
+
+    }
+    
+    
+    /**
+     * @Route("admin/operator/ajax/toggle_is_active", defaults={"_format":"json"})
+     * @Method({"POST"})
+     */
+    public function toggleIsActiveAction(Request $request) {
+        try {
+            
+            if (!$request->request->has('id')) {
+                throw new Exception('You should send an id to toggle active state', 404);
+            }
+            $id = $request->request->get('id');
+            $em = $this->getDoctrine()->getManager();
+            $operator = $em->getRepository('DarkishUserBundle:Operator')->find($id);
+            if(!$operator) {
+                throw new Exception('Invalid operator id', '404');
+            }
+            /* @var $operator Operator */
+            $operator->setIsActive(($operator->getIsActive())? false : true);
+            $em->persist($operator);
+            $em->flush();
+            return new Response('toggled');
+            
+        } catch (Exception $exc) {
+            return new Response($exc->getTraceAsString());
+        }
+    }
+    
+    /**
+     * @Route("admin/operator/ajax/get_roles", defaults={"_format": "json"})
+     * @Method({"GEt"})
+     */
+    public function getRolesAction() {
+        $em = $this->getDoctrine()->getManager();
+        $roles = $em->getRepository('DarkishUserBundle:Role')->findAll();
+        return new Response($this->get('jms_serializer')->serialize($roles, 'json',SerializationContext::create()->setGroups(array('role.list'))));
     }
 }

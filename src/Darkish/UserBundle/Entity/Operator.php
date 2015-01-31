@@ -36,6 +36,8 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     private $password;
 
+    private $newPassword;
+    
     /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @Groups({"operator.list", "operator.details"})
@@ -104,8 +106,22 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     private $accessLevel;
     
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     * @Groups({"operator.details"})
+     *
+     */
     private $photo;
     
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Operator")
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     * @Groups({"operator.details", "operator.list"})
+     *
+     */
     private $creator;
     
     /**
@@ -162,6 +178,11 @@ class Operator implements AdvancedUserInterface, \Serializable
         return $this->roles->toArray();
     }
     
+    public function getRolesCollection() {
+        //this returns a collection
+        return $this->roles;
+    }
+
     public function getRolesNames() {
         $roles = [];
         /* @var $this->roles \Doctrine\Common\Collections\ArrayCollection() */
@@ -266,6 +287,30 @@ class Operator implements AdvancedUserInterface, \Serializable
 
         return $this;
     }
+    
+    /**
+     * Set password
+     *
+     * @param string $newPassword
+     * @return Operator
+     */
+    public function setNewPassword($newPassword)
+    {
+        $this->newPassword = $newPassword;
+        $this->password = '';
+        return $this;
+    }
+    
+    /**
+     * Get newPassword
+     *
+     * @return string 
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+    
 
     /**
      * Set email
@@ -337,7 +382,6 @@ class Operator implements AdvancedUserInterface, \Serializable
     }
 
     
-
     /**
      * Add records
      *
@@ -563,5 +607,51 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function getNews()
     {
         return $this->news;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photo
+     * @return Operator
+     */
+    public function setPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \Darkish\UserBundle\Entity\Operator $creator
+     * @return Operator
+     */
+    public function setCreator(\Darkish\UserBundle\Entity\Operator $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \Darkish\UserBundle\Entity\Operator 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
     }
 }

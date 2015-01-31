@@ -32,7 +32,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $id;
 
@@ -42,7 +42,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $userId;
 
@@ -50,7 +50,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $fileName;
 
@@ -58,7 +58,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $path;
 
@@ -66,7 +66,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $filemime;
 
@@ -74,7 +74,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $filesize;
 
@@ -82,7 +82,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      *
      */
     private $status;
@@ -91,7 +91,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      *
      */
     private $continual;
@@ -100,7 +100,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      *
      */
     private $isThumbnail;
@@ -111,7 +111,7 @@ class ManagedFile
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $timestamp;
 
@@ -119,9 +119,9 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "record"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -133,7 +133,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $entityId;
 
@@ -146,7 +146,7 @@ class ManagedFile
      * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      */
     private $uploadDir;
 
@@ -155,7 +155,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      * 
      */
     private $uploadKey;
@@ -412,7 +412,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"record.details", "news.details"})
+     * @Groups({"record.details", "news.details", "operator.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */

@@ -1,12 +1,110 @@
-/* line 2, ../../sass/operator/operator.scss */
+@charset "UTF-8";
+@font-face {
+  font-family: yekan;
+  src: url("../../fonts/yekan/wYekan.eot");
+  src: url("../../fonts/yekan/wYekan.eot?#iefix") format("embedded-opentype"), url("../../fonts/yekan/yekan.woff") format("woff"), url("../../fonts/yekan/wYekan.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'B Mitra';
+  src: url("../../fonts/mitra/mitra.eot");
+  src: url("../../fonts/mitra/mitra.otf") format("opentype");
+  src: local("☺"), local("B Mitra"), url("../../fonts/mitra/mitra.woff") format("woff"), url("../../fonts/mitra/mitra.ttf") format("truetype"), url("../../fonts/mitra/mitra.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'B Mitra';
+  src: url("../../fonts/mitra/mitra-bold.eot");
+  src: url("../../fonts/mitra/mitra-bold.otf") format("opentype");
+  src: local("☺"), local("B Mitra"), url("../../fonts/mitra/mitra-bold.woff") format("woff"), url("../../fonts/mitra/mitra-bold.ttf") format("truetype"), url("../../fonts/mitra/mitra-bold.svg") format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'B Lotus';
+  src: url("../../fonts/lotus/lotus.eot");
+  src: url("../../fonts/lotus/lotus.otf") format("opentype");
+  src: local("☺"), local("B Lotus"), url("../../fonts/lotus/lotus.woff") format("woff"), url("../../fonts/lotus/lotus.ttf") format("truetype"), url("../../fonts/lotus/lotus.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'B Koodak';
+  src: url("../../fonts/koodak/koodak.eot");
+  src: url("../../fonts/koodak/koodak.otf") format("opentype");
+  src: local("☺"), local("B Lotus"), url("../../fonts/koodak/koodak.woff") format("woff"), url("../../fonts/koodak/koodak.ttf") format("truetype"), url("../../fonts/koodak/koodak.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roya';
+  src: url("../../fonts/roya/roya.eot");
+  src: url("../../fonts/roya/roya.otf") format("opentype");
+  src: local("☺"), local("B Lotus"), url("../../fonts/roya/roya.woff") format("woff"), url("../../fonts/roya/roya.ttf") format("truetype"), url("../../fonts/roya/roya.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 75, ../../sass/operator/operator.scss */
+body {
+  font-family: B Mitra;
+  font-size: 16px;
+  font-weight: normal;
+}
+/* line 80, ../../sass/operator/operator.scss */
+body h1, body h2, body h3, body h4, body h5, body label {
+  font-family: yekan;
+}
+/* line 83, ../../sass/operator/operator.scss */
 body .st-sort-ascent:before {
   content: '\25B2';
 }
-/* line 6, ../../sass/operator/operator.scss */
+/* line 87, ../../sass/operator/operator.scss */
 body .st-sort-descent:before {
   content: '\25BC';
 }
-/* line 12, ../../sass/operator/operator.scss */
+/* line 93, ../../sass/operator/operator.scss */
 body .operators-table tbody tr.st-selected {
   background-color: #d9edf7;
+}
+/* line 101, ../../sass/operator/operator.scss */
+body form[name='operatorEdit'] .operator-photo-thumb, body form[name='operatorAdd'] .operator-photo-thumb {
+  max-width: 100%;
+  max-height: 300px;
+}
+/* line 106, ../../sass/operator/operator.scss */
+body form[name='operatorEdit'] .is-active label, body form[name='operatorAdd'] .is-active label {
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  float: right;
+}
+/* line 117, ../../sass/operator/operator.scss */
+body input.ng-dirty.ng-valid {
+  border: 1px solid green;
+}
+/* line 121, ../../sass/operator/operator.scss */
+body input.ng-dirty.ng-invalid {
+  border: 1px solid red;
+}
+/* line 126, ../../sass/operator/operator.scss */
+body .switch.is-active-switch {
+  background: #ff6f6f;
+  border-color: #ff6f6f;
+}
+/* line 129, ../../sass/operator/operator.scss */
+body .switch.is-active-switch.checked {
+  background: #64bd63;
+  border-color: #64bd63;
+}
+/* line 134, ../../sass/operator/operator.scss */
+body .sweet-alert {
+  font-family: yekan;
 }

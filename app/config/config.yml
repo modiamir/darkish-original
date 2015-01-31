@@ -190,3 +190,9 @@ services:
         class: Darkish\CategoryBundle\EventListener\TreeSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+    my_user.manager:
+        class: Darkish\UserBundle\EventListener\UserManager
+        arguments:
+            - @security.encoder_factory
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
