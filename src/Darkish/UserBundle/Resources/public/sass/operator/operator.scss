@@ -134,4 +134,21 @@ body {
     .sweet-alert {
         font-family: yekan;
     }
+    
+    .user-box {
+        &.logged-out {
+            .fa-power-off{
+                color: red;
+                font-size: 20px;
+            }
+        }
+        
+        &.logged-in {
+            .fa-power-off{
+                color: green;
+                font-size: 20px;
+            }
+        }
+    }
+    
 }

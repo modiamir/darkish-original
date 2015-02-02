@@ -210,7 +210,7 @@ class OperatorController extends Controller
     
     /**
      * 
-     * @Route("admin/operator/ajax/delete_record", defaults={"_format": "json"})
+     * @Route("admin/operator/ajax/delete_operator", defaults={"_format": "json"})
      * @Method({"POST"})
      */
     public function deleteAction(Request $request) {
@@ -271,5 +271,17 @@ class OperatorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository('DarkishUserBundle:Role')->findAll();
         return new Response($this->get('jms_serializer')->serialize($roles, 'json',SerializationContext::create()->setGroups(array('role.list'))));
+    }
+    
+    /**
+     * 
+     * @Route("admin/operator/ajax/get_username", defaults={"_format": "json"})
+     * @Method({"GEt"})
+     */
+    public function getUsernameAction() {
+        /* @var $sc \Symfony\Component\Security\Core\SecurityContext */
+        $sc = $this->get('security.context');
+
+        return new Response($sc->getToken()->getUsername());
     }
 }

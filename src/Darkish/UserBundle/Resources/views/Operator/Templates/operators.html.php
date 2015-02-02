@@ -1,4 +1,7 @@
-<h2>لیست اپراتورها <a ui-sref="add" class="btn btn-default btn-xs">ایجاد جدید</a></h2>
+<div class="btn-group">
+    <button ui-sref="add" class="btn btn-info">جدید</button>
+</div>
+<h2>لیست اپراتورها </h2>
 <hr/>
 
 <table st-pipe="refresh" st-table="displayedOperators" st-safe-src="operators"  class="operators-table table table-striped">

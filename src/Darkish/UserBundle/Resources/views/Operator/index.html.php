@@ -28,7 +28,9 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-validation-match/dist/angular-input-match.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-sweetalert/SweetAlert.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/sweetalert/lib/sweet-alert.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch//angular-ui-switch.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch/angular-ui-switch.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/checklist-model/checklist-model.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js') ?>"></script>
     
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishuser/js/operator/operator-index-app.js') ?>"></script>
 

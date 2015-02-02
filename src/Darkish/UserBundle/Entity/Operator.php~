@@ -101,7 +101,7 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      *
-     * @ORM\Column(name="access_level", type="integer", nullable=true)
+     * @ORM\Column(name="access_level", type="json_array", nullable=true)
      * @Groups({"operator.details"})
      */
     private $accessLevel;
@@ -287,6 +287,30 @@ class Operator implements AdvancedUserInterface, \Serializable
 
         return $this;
     }
+    
+    /**
+     * Set password
+     *
+     * @param string $newPassword
+     * @return Operator
+     */
+    public function setNewPassword($newPassword)
+    {
+        $this->newPassword = $newPassword;
+        $this->password = '';
+        return $this;
+    }
+    
+    /**
+     * Get newPassword
+     *
+     * @return string 
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+    
 
     /**
      * Set email
@@ -529,28 +553,7 @@ class Operator implements AdvancedUserInterface, \Serializable
         return $this->created;
     }
 
-    /**
-     * Set accessLevel
-     *
-     * @param integer $accessLevel
-     * @return Operator
-     */
-    public function setAccessLevel($accessLevel)
-    {
-        $this->accessLevel = $accessLevel;
-
-        return $this;
-    }
-
-    /**
-     * Get accessLevel
-     *
-     * @return integer 
-     */
-    public function getAccessLevel()
-    {
-        return $this->accessLevel;
-    }
+    
 
     /**
      * Add news

@@ -1,14 +1,17 @@
-<a ui-sref="operators" class="btn btn-default btn-xs">بازگشت</a>
+<form name="operatorAdd">
+<div class="btn-group">
+    <button ui-sref="operators" type="button" class="btn btn-default" aria-label="Right Align">
+        بازگشت
+    </button>
+    <button ng-disabled="!operatorAdd.$valid" type="submit" ng-click="submit()" class="btn btn-success">ذخیره</button>
+
+</div>
 <h1>ایجاد اپراتور جدید</h1>
 <hr/>
-<form name="operatorAdd">
     <div class="container">
         <div class="row">
             <div class="col col-md-4 right">
-                <div class="form-group">
-                    <label for="operatorEmail">پست الکترونیک</label>
-                    <input ng-model="operator.email" type="email" class="form-control" id="operatorEmail" placeholder="پست الکترونیک">
-                </div>
+                
                 <div class="form-group">
                     <label for="operatorUsername">نام کاربری</label>
                     <input ng-model="operator.username" type="text" class="form-control" id="operatorUsername" placeholder="نام کاربری">
@@ -16,6 +19,11 @@
                 <div class="form-group">
                     <label for="operatorPassword">رمز عبور</label>
                     <input required="required" ng-pattern="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/" name="operatorPassword" ng-model="operator.newPassword" type="password" class="form-control" id="operatorPassword" placeholder="رمز عبور">
+                </div>
+                <div class="form-group">
+                    <label for="operatorPasswordConfirm">تکرار رمز عبور</label>
+                    <input required="required" name="operatorPasswordConfirm" match="operator.newPassword" ng-model="operator.new_password_confirm" type="password" class="form-control" id="operatorPasswordConfirm" placeholder="تکرار رمز عبور">
+                    <div ng-show="operatorEdit.operatorPasswordConfirm.$error.match">رمز های وارد شده باهم مطابقت ندارد</div>
                     <ul>
                         <li>
                             رمز عبور باید حداقل دارای یک حرف باشد.
@@ -29,9 +37,8 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <label for="operatorPasswordConfirm">تکرار رمز عبور</label>
-                    <input required="required" name="operatorPasswordConfirm" match="operator.newPassword" ng-model="operator.new_password_confirm" type="password" class="form-control" id="operatorPasswordConfirm" placeholder="تکرار رمز عبور">
-                    <div ng-show="operatorEdit.operatorPasswordConfirm.$error.match">رمز های وارد شده باهم مطابقت ندارد</div>
+                    <label for="operatorEmail">پست الکترونیک</label>
+                    <input ng-model="operator.email" type="email" class="form-control" id="operatorEmail" placeholder="پست الکترونیک">
                 </div>
                 
             </div>
@@ -44,11 +51,12 @@
                 </div>
                 <div class="form-group">
                     <label for="operatorAccessLevel">سطح دسترسی</label>
-                    <select ng-model="operator.access_level" class="form-control" id="operatorAccessLevel" placeholder="سطح دسترسی">
-                        <option ng-repeat="level in ValuesService.accessLevels" ng-value="{{level.value}}" value="{{level.value}}">
-                            {{level.label}}
-                        </option>
-                    </select>
+                    <div class="checkbox" ng-repeat="level in ValuesService.accessLevels">
+                        <label>
+                            <input type="checkbox" checklist-model="operator.access_level" checklist-value="level.value"> {{level.label}}
+                        </label>
+                    </div>
+                    
                 </div>
 
                 <div class="form-group">
@@ -121,9 +129,4 @@
         </div>
     </div>
     
-    
-    
-    
-    
-    <button ng-disabled="!operatorEdit.$valid" type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
 </form>

@@ -108,3 +108,13 @@ body .switch.is-active-switch.checked {
 body .sweet-alert {
   font-family: yekan;
 }
+/* line 140, ../../sass/operator/operator.scss */
+body .user-box.logged-out .fa-power-off {
+  color: red;
+  font-size: 20px;
+}
+/* line 147, ../../sass/operator/operator.scss */
+body .user-box.logged-in .fa-power-off {
+  color: green;
+  font-size: 20px;
+}
