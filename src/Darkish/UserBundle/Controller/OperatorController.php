@@ -13,13 +13,18 @@ use Darkish\UserBundle\Entity\Operator;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Darkish\UserBundle\Form\OperatorType;
+use Darkish\UserBundle\Entity\UserLog;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 
 class OperatorController extends Controller
 {
     
     /**
-     * @Route("/admin/operator/manage")
+     * @Route("/admin/operator/manage", name="operator")
      */
     public function manageAction() 
     {
@@ -95,6 +100,48 @@ class OperatorController extends Controller
         
     }
 
+    /**
+     * 
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     * @throws UsernameNotFoundException
+     * @Route("admin/operator/ajax/login")
+     */
+    public function ajaxLoginAction(Request $request) {
+        try{
+            $em = $this->getDoctrine();
+            $repo = $em->getRepository("DarkishUserBundle:Operator"); //Entity Repository
+            $username = ($request->request->has('username'))? $request->request->get('username') : NULL;
+            $password = ($request->request->has('password'))? $request->request->get('password') : NULL;
+            if(!$username || !$password) {
+                throw new Exception('Username or Password is missing!', 404);
+            }
+            $users = $repo->findByUsername($username);
+            if (count($users) == 0) {
+                throw new UsernameNotFoundException("User not found", 404);
+            } else {
+                $user = $users[0];
+                $token = new UsernamePasswordToken($user, null, "admin_area", $user->getRoles());
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+                /* @var $factory \Symfony\Component\Security\Core\Encoder\EncoderFactory */
+                $isPassValid = $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
+                if(!$isPassValid) {
+                    throw new \Exception('Password is wrong!', 404);
+                }
+                $this->get("security.context")->setToken($token); //now the user is logged in
+                $this->setLog('login');
+                $event = new InteractiveLoginEvent($request, $token);
+                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+                return new Response('logged in');
+            }
+        } catch(\Exception $ex) {
+            return new Response($ex->getMessage(), 404);
+        }
+        
+        
+    }
 
     /**
      * @Route("/admin/operator/login", name="login_route")
@@ -148,10 +195,35 @@ class OperatorController extends Controller
     }
     
     /**
-     * @Route("/admin/operator/logout", name="logout")
+     * @Route("/admin/operator/ajax/logout", name="logout")
      */
-    public function logoutAction()
+    public function ajaxLogoutAction()
     {
+        $this->setLog('logout');
+        
+        $this->get('security.context')->setToken(null);
+        $this->get('request')->getSession()->invalidate();
+        return new Response('logged out');
+    }
+    
+    /**
+     * 
+     * @return JsonResponse
+     * @Route("admin/operator/ajax/is_logged_in")
+     */
+    public function isLoggedInAction() {
+        $securityContext = $this->container->get('security.context');
+        /* @var $securityContext \Symfony\Component\Security\Core\SecurityContext */
+        $res = $securityContext->getToken()->isAuthenticated();
+        
+
+        
+        
+        return new JsonResponse(array(
+                $this->get('security.context')->isGranted(
+                    'ROLE_USER'
+                   ))
+        );
     }
     
     /**
@@ -283,5 +355,16 @@ class OperatorController extends Controller
         $sc = $this->get('security.context');
 
         return new Response($sc->getToken()->getUsername());
+    }
+    
+    public function setLog($operation) {
+        $operatorLog = new UserLog();
+        $operatorLog->setDate(new \DateTime());
+        $operatorLog->setOperation($operation);
+        $operator = $this->get('security.context')->getToken()->getUser();
+        $operatorLog->setOperator($operator);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($operatorLog);
+        $em->flush();
     }
 }

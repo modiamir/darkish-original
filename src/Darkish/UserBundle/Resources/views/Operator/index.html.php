@@ -47,13 +47,8 @@
 <?php $view['slots']->start('top-menu');?>
     <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">رکوردها<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print $view['router']->generate("offer"); ?>">پیشنهاد ویژه</a></li>
-                <li><a href="<?php print $view['router']->generate("classified"); ?>">نیازمندی ها</a></li>
-                <li><a href="<?php print $view['router']->generate("news"); ?>" >اخبار و سرگرمی</a></li>
-
-            </ul>
+            <a class="dropdown-toggle" data-toggle="dropdown">مدیریت اپراتورها<span class="caret"></span></a>
+            <?php print $view['knp_menu']->render('main') ?>
         </li>
     </ul>
 <?php $view['slots']->stop() ?>

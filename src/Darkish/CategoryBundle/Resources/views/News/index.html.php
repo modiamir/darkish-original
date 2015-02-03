@@ -27,6 +27,7 @@
         <div class="row main">
             <div class="col col-md-2 main-right main-cols">
                 <div class="main-tree-block">
+                    
                     <h3 class="block-title">
                         شاخه بندی خبر ها
                     </h3>
@@ -1209,12 +1210,7 @@
     <ul class="nav navbar-nav">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">اخبار و سرگرمی<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print $view['router']->generate("offer"); ?>">پیشنهاد ویژه</a></li>
-                <li><a href="<?php print $view['router']->generate("classified"); ?>">نیازمندی ها</a></li>
-                <li><a href="<?php print $view['router']->generate("record"); ?>" >مدیریت رکورد ها</a></li>
-
-            </ul>
+            <?php print $view['knp_menu']->render('main') ?>
         </li>
     </ul>
 <?php $view['slots']->stop() ?>

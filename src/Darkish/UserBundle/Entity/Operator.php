@@ -137,6 +137,11 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     protected $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserLog", mappedBy="operator")
+     **/
+    private $logs;
+    
     public function __construct()
     {
         $this->isActive = true;

@@ -36,7 +36,7 @@ operatorApp.controller('operatorIndexCtrl', ['$scope', '$interval', '$collection
         SecurityService.disconnectModalDisplayed = false;
 
         $scope.logout = function () {
-            $http.get('../operator/logout').then(
+            $http.get('../operator/ajax/logout').then(
                     function (response) {
                         $scope.loggedOut();
                     },
@@ -47,7 +47,7 @@ operatorApp.controller('operatorIndexCtrl', ['$scope', '$interval', '$collection
         }
 
         $scope.isLoggedIn = function () {
-            $http.get('../user/ajax/is_logged_in').then(
+            $http.get('../operator/ajax/is_logged_in').then(
                     function (response) {
 //                    console.log(response.data[0]);
                         SecurityService.connected = true;
@@ -549,24 +549,28 @@ operatorApp.factory('ValuesService', ['$http', function($http){
     self.accessLevels = [
         {
             label: 'رکوردها',
-            value: 1
+            value: "record"
         },
         {
             label: 'اخبار و سرگرمی',
-            value: 2
+            value: "news"
         },
         {
             label: 'پیشنهاد ویژه',
-            value: 3
+            value: "offer"
         },
         {
             label: 'نیازمندی ها',
-            value: 4
+            value: "classified"
         },
         {
             label: 'تالار گفتگو',
-            value: 5
-        }
+            value: "forum"
+        },
+        {
+            label: 'اپراتور ها',
+            value: "operator"
+        },
         
     ];
     
@@ -619,14 +623,14 @@ operatorApp.controller('loginModalCtrl', ['$scope', '$http', '$modalInstance','V
             if(approve) {
                 $http({
                     method: 'POST',
-                    url: '../user/ajax/login',
+                    url: '../operator/ajax/login',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param({username: $scope.username, password: $scope.password})
                 }).then(
                         function (response) {
                             SecurityService.loggedIn = true;
                             if(redirect) {
-                                window.location = "../../operator/manage";
+                                window.location = "../operator/manage";
                             } else {
                                 $modalInstance.close(true);
                             }
