@@ -799,10 +799,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.loggedOut = function() {
-            alert("" +
-            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
-            "");
-            window.location = "../record";
+            SecurityService.loggedIn = false;
         }
         
         $scope.checkConnectionSave = function(contin) {

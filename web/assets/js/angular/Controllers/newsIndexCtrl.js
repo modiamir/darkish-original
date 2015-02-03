@@ -777,10 +777,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         }
 
         $scope.loggedOut = function() {
-            alert("" +
-            "شما خارج شده اید. بر روی تایید کلیک کنید تا به صفحه ورود منتقل شوید." +
-            "");
-            window.location = "../news";
+            SecurityService.loggedIn = false;
         }
         
         $scope.checkConnectionSave = function(contin) {
