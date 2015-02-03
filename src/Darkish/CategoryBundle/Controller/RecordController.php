@@ -42,6 +42,12 @@ class RecordController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $al = $user->getAccessLevel();
+        $al = json_decode($al);
+        if(!in_array('record', $al)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
         $record = new Record();
 //        if (false === $this->get('security.context')->isGranted('view', $record)) {
 //            throw new AccessDeniedException('Unauthorised access!');

@@ -59,7 +59,6 @@ security:
         - { path: ^/admin/operator/ajax/is_logged_in, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/operator/ajax/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/operator/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/operator/manage, roles: [ROLE_SUPER_ADMIN] }
         - { path: ^/admin/, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_PUBLISHER, ROLE_EDITOR] }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/modi/, roles: ROLE_ADMIN }

@@ -28,6 +28,12 @@ class OperatorController extends Controller
      */
     public function manageAction() 
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $al = $user->getAccessLevel();
+        $al = json_decode($al);
+        if(!in_array('operator', $al)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
         return $this->render('DarkishUserBundle:Operator:index.html.php');
     }
     
