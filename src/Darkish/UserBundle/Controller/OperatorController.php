@@ -28,6 +28,10 @@ class OperatorController extends Controller
      */
     public function manageAction() 
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user->routeAccess('operator')) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
         return $this->render('DarkishUserBundle:Operator:index.html.php');
     }
     
@@ -115,7 +119,7 @@ class OperatorController extends Controller
             $username = ($request->request->has('username'))? $request->request->get('username') : NULL;
             $password = ($request->request->has('password'))? $request->request->get('password') : NULL;
             if(!$username || !$password) {
-                throw new Exception('Username or Password is missing!', 404);
+                throw new \Exception('Username or Password is missing!', 404);
             }
             $users = $repo->findByUsername($username);
             if (count($users) == 0) {
@@ -129,6 +133,9 @@ class OperatorController extends Controller
                 $isPassValid = $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
                 if(!$isPassValid) {
                     throw new \Exception('Password is wrong!', 404);
+                }
+                if(!$user->getIsActive()) {
+                    throw new \Exception('user is disabled!', 403);
                 }
                 $this->get("security.context")->setToken($token); //now the user is logged in
                 $this->setLog('login');

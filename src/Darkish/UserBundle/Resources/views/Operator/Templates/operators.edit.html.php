@@ -49,17 +49,19 @@
                 
             </div>
             <div class="col col-md-4 left">
-                <div class="checkbox is-active">
+                <div ng-show="operator.id !=1" class="checkbox is-active">
                     <label>
                         فعال
                     </label>
+                    
                     <switch id="is-active" name="is_active" ng-model="operator.is_active" class="is-active-switch"></switch>
+                    
                 </div>
                 <div class="form-group">
                     <label for="operatorAccessLevel">سطح دسترسی</label>
                     <div class="checkbox" ng-repeat="level in ValuesService.accessLevels">
                         <label>
-                            <input type="checkbox" checklist-model="operator.access_level" checklist-value="level.value"> {{level.label}}
+                            <input ng-disabled="operator.id == 1" type="checkbox" checklist-model="operator.access_level" checklist-value="level.value"> {{level.label}}
                         </label>
                     </div>
                     
@@ -67,7 +69,7 @@
 
                 <div class="form-group">
                     <label for="operatorRoles">نقش ها</label>
-                    <select  multiple ng-model="operator.roles" class="form-control" id="operatorRoles" 
+                    <select ng-disabled="operator.id == 1" multiple ng-model="operator.roles" class="form-control" id="operatorRoles" 
                              ng-options="role.id as role.name for role in ValuesService.roles">
                         <!--            <option ng-repeat="role in ValuesService.roles" value="{{role.id}}">
                                         {{role.name}}

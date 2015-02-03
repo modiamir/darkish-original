@@ -6,7 +6,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Darkish\UserBundle\Entity\Operator;
-
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class UserManager implements EventSubscriber
@@ -50,7 +50,7 @@ class UserManager implements EventSubscriber
             return;
         }
 
-        
+
         
         $this->updateOperator($operator);
 //        $event->setNewValue('password', $operator->getPassword());
@@ -60,11 +60,13 @@ class UserManager implements EventSubscriber
     {
         
         $operator = $event->getEntity();
-        if (!($operator instanceof \GamePlan\Bundle\UserBundle\Entity\Operator)) {
+        if (!($operator instanceof \Darkish\UserBundle\Entity\Operator)) {
             return;
         }
 
         $this->updateOperator($operator);
     }
+    
+    
 
 }

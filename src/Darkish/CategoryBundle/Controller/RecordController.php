@@ -42,6 +42,10 @@ class RecordController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user->routeAccess('record')) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
         $record = new Record();
 //        if (false === $this->get('security.context')->isGranted('view', $record)) {
 //            throw new AccessDeniedException('Unauthorised access!');

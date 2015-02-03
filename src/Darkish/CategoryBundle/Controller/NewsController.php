@@ -42,6 +42,10 @@ class NewsController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user->routeAccess('news')) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
         $news = new News();
 //        if (false === $this->get('security.context')->isGranted('view', $news)) {
 //            throw new AccessDeniedException('Unauthorised access!');

@@ -7,9 +7,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class OperatorType extends AbstractType
 {
+    
+    private $tokenStorage;
+    
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+    
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -38,6 +47,14 @@ class OperatorType extends AbstractType
             ->add('creator')
         ;
         
+        // grab the user, do a quick sanity check that one exists
+        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$user) {
+            throw new \LogicException(
+                'The FriendMessageFormType cannot be used without an authenticated user!'
+            );
+        }
+        
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $product = $event->getData();
             $form = $event->getForm();
@@ -45,6 +62,9 @@ class OperatorType extends AbstractType
             // If no data is passed to the form, the data is "null".
             // This should be considered a new "Product"
             $form->add('newPassword');
+            
+            
+            
         });
     }
     
