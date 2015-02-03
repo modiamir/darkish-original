@@ -45,6 +45,10 @@ operatorApp.controller('operatorIndexCtrl', ['$scope', '$interval', '$collection
                     }
             );
         }
+        
+        $scope.loggedOut = function() {
+            SecurityService.loggedIn = false;
+        }
 
         $scope.isLoggedIn = function () {
             $http.get('../operator/ajax/is_logged_in').then(
