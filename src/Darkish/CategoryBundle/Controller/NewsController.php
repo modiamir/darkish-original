@@ -43,9 +43,7 @@ class NewsController extends Controller
     public function indexAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $al = $user->getAccessLevel();
-        $al = json_decode($al);
-        if(!in_array('news', $al)) {
+        if(!$user->routeAccess('news')) {
             throw new AccessDeniedException('Unauthorised access!');
         }
         $news = new News();

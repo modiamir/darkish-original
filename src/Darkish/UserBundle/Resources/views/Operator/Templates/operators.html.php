@@ -31,10 +31,11 @@
                 </td>
                 <td>{{operator.creator.username}}</td>
                 <td>
-                    <span ng-click="toggleIsActive(operator);$event.stopPropagation()"><switch id="enabled" name="enabled" ng-model="operator.is_active" class="is-active-switch"></switch></span>
+                    <span ng-hide="operator.id == 1" ng-click="toggleIsActive(operator);$event.stopPropagation()"><switch id="enabled" name="enabled" ng-model="operator.is_active" class="is-active-switch"></switch></span>
+                    <span ng-show="operator.id == 1"><i class="fa fa-check-circle" style="color: #64bd63;font-size: 30px;"></i></span>
                 </td>
                 <td>
-                    <button type="button" ng-click="delete(operator, $index); $event.stopPropagation();" class="btn btn-sm btn-danger">
+                    <button ng-hide="operator.id == 1" type="button" ng-click="delete(operator, $index); $event.stopPropagation();" class="btn btn-sm btn-danger">
                         <i class="glyphicon glyphicon-remove-circle">
                         </i>
                     </button>

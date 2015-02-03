@@ -43,9 +43,7 @@ class RecordController extends Controller
     public function indexAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        $al = $user->getAccessLevel();
-        $al = json_decode($al);
-        if(!in_array('record', $al)) {
+        if(!$user->routeAccess('record')) {
             throw new AccessDeniedException('Unauthorised access!');
         }
         $record = new Record();

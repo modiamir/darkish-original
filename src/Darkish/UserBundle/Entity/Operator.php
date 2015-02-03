@@ -664,4 +664,9 @@ class Operator implements AdvancedUserInterface, \Serializable
     {
         return $this->accessLevel;
     }
+    
+    public function routeAccess($route) {
+        $al = json_decode($this->getAccessLevel());
+        return ($this->id == 1) || in_array($route, $al);
+    }
 }
