@@ -9,6 +9,17 @@ services:
         public:     false
         tags:
            - { name: security.voter }
+    app.menu_builder:
+        class: Darkish\CategoryBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory", "@security.context", "@service_container"]
+
+    app.main_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: app.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
     
 
 parameters:

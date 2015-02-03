@@ -8,6 +8,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
+
 
 /**
  * User
@@ -101,8 +103,9 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      *
-     * @ORM\Column(name="access_level", type="integer", nullable=true)
+     * @ORM\Column(name="access_level", type="json_array", nullable=true)
      * @Groups({"operator.details"})
+     * @Type("string")
      */
     private $accessLevel;
     
@@ -134,6 +137,11 @@ class Operator implements AdvancedUserInterface, \Serializable
      */
     protected $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserLog", mappedBy="operator")
+     **/
+    private $logs;
+    
     public function __construct()
     {
         $this->isActive = true;
@@ -553,28 +561,7 @@ class Operator implements AdvancedUserInterface, \Serializable
         return $this->created;
     }
 
-    /**
-     * Set accessLevel
-     *
-     * @param integer $accessLevel
-     * @return Operator
-     */
-    public function setAccessLevel($accessLevel)
-    {
-        $this->accessLevel = $accessLevel;
-
-        return $this;
-    }
-
-    /**
-     * Get accessLevel
-     *
-     * @return integer 
-     */
-    public function getAccessLevel()
-    {
-        return $this->accessLevel;
-    }
+    
 
     /**
      * Add news
@@ -653,5 +640,28 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Set accessLevel
+     *
+     * @param array $accessLevel
+     * @return Operator
+     */
+    public function setAccessLevel($accessLevel)
+    {
+        $this->accessLevel = $accessLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get accessLevel
+     *
+     * @return array 
+     */
+    public function getAccessLevel()
+    {
+        return $this->accessLevel;
     }
 }

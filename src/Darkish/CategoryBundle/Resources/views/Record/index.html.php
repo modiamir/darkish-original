@@ -27,6 +27,7 @@
         <div class="row main">
             <div class="col col-md-2 main-right main-cols">
                 <div class="main-tree-block">
+                    
                     <h3 class="block-title">
                         شاخه بندی رکورد ها
                     </h3>
@@ -1600,12 +1601,7 @@
     <ul class="nav navbar-nav">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">رکوردها<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print $view['router']->generate("offer"); ?>">پیشنهاد ویژه</a></li>
-                <li><a href="<?php print $view['router']->generate("classified"); ?>">نیازمندی ها</a></li>
-                <li><a href="<?php print $view['router']->generate("news"); ?>" >اخبار و سرگرمی</a></li>
-
-            </ul>
+            <?php print $view['knp_menu']->render('main') ?>
         </li>
     </ul>
 <?php $view['slots']->stop() ?>

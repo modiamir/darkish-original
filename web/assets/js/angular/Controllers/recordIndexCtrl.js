@@ -764,7 +764,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         SecurityService.disconnectModalDisplayed = false;
         
         $scope.logout = function() {
-            $http.get('../operator/logout').then(
+            $http.get('../operator/ajax/logout').then(
                 function(response){
                     $scope.loggedOut();
                 },
@@ -775,7 +775,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.isLoggedIn = function() {
-            $http.get('../user/ajax/is_logged_in').then(
+            $http.get('../operator/ajax/is_logged_in').then(
                 function(response){
 //                    console.log(response.data[0]);
                     SecurityService.connected = true;
@@ -2070,7 +2070,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             if(approve) {
                 $http({
                     method: 'POST',
-                    url: '../user/ajax/login',
+                    url: '../operator/ajax/login',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param({username: $scope.username, password: $scope.password})
                 }).then(

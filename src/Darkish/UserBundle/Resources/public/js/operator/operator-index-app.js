@@ -1,6 +1,6 @@
 var operatorApp = angular.module('operatorApp', ['ui.router', 'smart-table', 'ui.router',
     'ngCollection', 'ui.bootstrap', 'cgPrompt', 'angularFileUpload', 'validation.match', 'oitozero.ngSweetAlert',
-    'uiSwitch']);
+    'uiSwitch', 'checklist-model']);
 
 operatorApp.config(function($stateProvider, $urlRouterProvider){
    $urlRouterProvider.otherwise("/"); 
@@ -23,11 +23,97 @@ operatorApp.config(function($stateProvider, $urlRouterProvider){
     });
 });
 
-operatorApp.controller('operatorIndexCtrl', ['$scope', '$interval', '$collection', '$http',function($scope, $interval, $collection, $http){
-    $interval(function(){
-        $scope.loaded = true;
-    }, 3000);
-    $scope.operators = [];
+operatorApp.controller('operatorIndexCtrl', ['$scope', '$interval', '$collection', '$http', 'poollingFactory', 'SecurityService', 'SweetAlert', '$modal', 'ValuesService', function($scope, $interval, $collection, $http, poollingFactory, SecurityService, SweetAlert, $modal, ValuesService){
+    
+        /**
+         * 
+         * user authentication config
+         */
+        $scope.SecurityService = SecurityService;
+        $scope.ValuesService = ValuesService;
+        SecurityService.loggedIn = true;
+        SecurityService.connected = true;
+        SecurityService.disconnectModalDisplayed = false;
+
+        $scope.logout = function () {
+            $http.get('../operator/ajax/logout').then(
+                    function (response) {
+                        $scope.loggedOut();
+                    },
+                    function (responseErr) {
+                        console.log(responseErr);
+                    }
+            );
+        }
+
+        $scope.isLoggedIn = function () {
+            $http.get('../operator/ajax/is_logged_in').then(
+                    function (response) {
+//                    console.log(response.data[0]);
+                        SecurityService.connected = true;
+                        SecurityService.disconnectModalDisplayed = false;
+                        if (response.data[0] === false) {
+                            SecurityService.loggedIn = false;
+                        } else {
+                            SecurityService.loggedIn = true;
+                        }
+
+                    },
+                    function (responseErr) {
+                        SecurityService.connected = false;
+                        if (SecurityService.disconnectModalDisplayed == false) {
+                            SecurityService.disconnectModalDisplayed = true;
+                            SweetAlert.swal({
+                                title: "قطع ارتباط!",
+                                text: "ارتباط شما با سرور قطع شده است.",
+                                type: "warning",
+                                confirmButtonText: "بستن"
+                            });
+//                            $scope.openDisconnectModal();
+                        }
+
+                    }
+            );
+        }    
+        poollingFactory.callFnOnInterval(function() {
+            $scope.isLoggedIn();
+        });
+        
+        /**
+         * login modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLoginModal = function (size) {
+            
+            var loginModalInstance = $modal.open({
+                templateUrl: 'loginModal.html',
+                controller: 'loginModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            loginModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        $interval(function(){
+            $scope.loaded = true;
+        }, 3000);
+        $scope.operators = [];
 }]);
 
 operatorApp.controller('operatorsCtrl', ['$scope', '$collection', '$http', '$state', 'prompt', 'SweetAlert', function($scope, $collection, $http, $state, prompt, SweetAlert) {
@@ -81,7 +167,7 @@ operatorApp.controller('operatorsCtrl', ['$scope', '$collection', '$http', '$sta
             function(){
                 $http({
                     method: 'POST',
-                    url: './ajax/delete_record',
+                    url: './ajax/delete_operator',
                     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
                     data: $.param({id: operator.id})
                 }).then(
@@ -124,7 +210,7 @@ operatorApp.controller('operatorsAddCtrl', ['$scope', '$stateParams', '$state', 
             if($scope.operator.photo) {
                 data.photo = $scope.operator.photo.id;
             }
-            
+            data.accessLevel = JSON.stringify(data.accessLevel);
             if(!data.isActive) {
                 delete data.isActive;
             }
@@ -270,22 +356,20 @@ operatorApp.controller('operatorsEditCtrl', ['$scope', '$stateParams', '$state',
                     console.log(value);
                 });
                 $scope.operator.roles = angular.copy(roles);
+                $scope.operator.access_level = JSON.parse($scope.operator.access_level);
                 
             },
             function(errResponse){
                 
             }
         );
-
-        $scope.test = function() {
-            console.log($scope.operatorEdit);
-        }
         
         $scope.submit = function() {
             var data = humps.camelizeKeys($scope.operator);
             if($scope.operator.photo) {
                 data.photo = $scope.operator.photo.id;
             }
+            data.accessLevel = JSON.stringify(data.accessLevel);
             
             if(!data.isActive) {
                 delete data.isActive;
@@ -430,25 +514,63 @@ operatorApp.controller('operatorsEditCtrl', ['$scope', '$stateParams', '$state',
 }]);
 
 
+operatorApp.factory("poollingFactory", function ($timeout) {
+
+    var timeIntervalInSec = 10;
+
+    function callFnOnInterval(fn, timeInterval) {
+
+        var promise = $timeout(fn, 1000 * timeIntervalInSec);
+
+        return promise.then(function(){
+            callFnOnInterval(fn, timeInterval);
+        });
+    };
+
+    return {
+        callFnOnInterval: callFnOnInterval
+    };
+});
+
 operatorApp.factory('ValuesService', ['$http', function($http){
     self = {}
+    
+    if(!self.username) {
+        $http.get('ajax/get_username').then(
+            function(response){
+                self.username = response.data;
+            },
+            function(responseErr){
+                console.log(responseErr);
+            }
+        );
+    }
+    
     self.accessLevels = [
         {
-            label: 'سطح یک',
-            value: 1
+            label: 'رکوردها',
+            value: "record"
         },
         {
-            label: 'سطح دو',
-            value: 2
+            label: 'اخبار و سرگرمی',
+            value: "news"
         },
         {
-            label: 'سطح سه',
-            value: 3
+            label: 'پیشنهاد ویژه',
+            value: "offer"
         },
         {
-            label: 'سطح چهار',
-            value: 4
-        }
+            label: 'نیازمندی ها',
+            value: "classified"
+        },
+        {
+            label: 'تالار گفتگو',
+            value: "forum"
+        },
+        {
+            label: 'اپراتور ها',
+            value: "operator"
+        },
         
     ];
     
@@ -470,3 +592,56 @@ operatorApp.factory('ValuesService', ['$http', function($http){
     
     return self;
 }]);
+
+operatorApp.factory('SecurityService', ['$http', function($http){
+        var self={};
+        
+            
+        
+        
+        
+        
+        return self;
+        
+        
+        
+    } ]);
+
+operatorApp.controller('loginModalCtrl', ['$scope', '$http', '$modalInstance','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, ValuesService, SecurityService) {
+        $scope.close = function(){$modalInstance.close(false);}
+        $scope.cancel = function() {
+            $modalInstance.close(true);
+        }
+        $scope.login = function() {
+            var approve = true;
+            var redirect = false;
+            if(ValuesService.username != $scope.username) {
+                
+                approve = confirm("نام کاربری وارد شده با نام کاربری شناسایی شده از قبل متفاوت است. در صورت ادامه صفحه مجددا بارگزاری خواهد شد. آیا از ادامه اطمینان دارید؟");
+                redirect = true;
+            }
+            if(approve) {
+                $http({
+                    method: 'POST',
+                    url: '../operator/ajax/login',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param({username: $scope.username, password: $scope.password})
+                }).then(
+                        function (response) {
+                            SecurityService.loggedIn = true;
+                            if(redirect) {
+                                window.location = "../operator/manage";
+                            } else {
+                                $modalInstance.close(true);
+                            }
+                            
+                        },
+                        function (errResponse) {
+                            alert(errResponse.data);
+                        }
+                );
+            }
+            
+            
+        }
+    }])
