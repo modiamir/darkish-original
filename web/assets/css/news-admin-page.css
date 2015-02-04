@@ -6,7 +6,8 @@
 body{
     background-color: rgb(239, 239, 239);
     font-family: yekan;
-    min-width: 1260px;
+    width: 1260px;
+    margin: auto;
 }
 
 .navbar-nav > li > a {
@@ -34,13 +35,13 @@ body{
 .navbar {
     position: relative;
     min-height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     border: 1px solid transparent;
     height: 40px;
 }
 
 .container-fluid {
-    margin: 10px 10px;
+    margin: 0;
 }
 
 .crud-buttons, .search-block {
