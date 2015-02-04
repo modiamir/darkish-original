@@ -25,7 +25,7 @@
 
     <div class="container-fluid main-wrapper">
         <div class="row main">
-            <div class="col col-md-2 main-right main-cols">
+            <div class="col col-xs-2 main-right main-cols">
                 <div class="main-tree-block">
                     
                     <h3 class="block-title">
@@ -114,8 +114,8 @@
                     </label>
                 </div>
             </div>
-            <div class="col col-md-6 main-center main-cols">
-                <div class="basic-info col col-md-12">
+            <div class="col col-xs-6 main-center main-cols">
+                <div class="basic-info col col-xs-12">
                     
 
                     <div class="basic-info-left-col">
@@ -165,7 +165,7 @@
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
                                     <div class="tree-list-add-remove-button-wrapper">
-                                        <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!NewsService.isEditing()">شاخه</button>                                        
+                                        <button type="button" ng-click="openTreeModal()" id="tree-list-add-button"  ng-disabled="!NewsService.isEditing() || (NewsService.currentNews.treeList.length >= 5)">شاخه</button>                                        
                                         <button type="button" ng-click="NewsService.removeFromTreeList(secondTreeSelected)" id="tree-list-remove-button" ng-disabled="!NewsService.isEditing()">حذف</button>
                                     </div>
 
@@ -190,14 +190,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button class="btn btn-info pull-left" data-ng-click="NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 
                             </div>
                             
                             <div class="main-fields-dates-competition row">
-                                <div class="dates col col-md-6">
+                                <div class="dates col col-xs-6">
                                     <div class="publish-date-box">
                                         <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
                                         <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="immediate-rank-box col col-md-6">
+                                <div class="immediate-rank-box col col-xs-6">
                                     <div class="immediate-box">
                                         <label class="immedate-label" for="immediate-input">
                                             خبر فوری
@@ -235,7 +235,7 @@
                                     
                                 </div>
 
-                                <div class="competition-box col col-md-12">
+                                <div class="competition-box col col-xs-12">
                                     <div class="competition-head">
                                         <input id="is-competition-input" ng-model="NewsService.currentNews.is_competition" type="checkbox" ng-disabled="!NewsService.isEditing()" />
                                         <label class="is-competition-label" for="is-competition-input">
@@ -276,19 +276,19 @@
                 
             </div>
 
-            <div class="col col-md-4 main-left main-cols">
+            <div class="col col-xs-4 main-left main-cols">
                 <div class="row file-upload-row">
-                    <div class="col col-md-6 message-box">
+                    <div class="col col-xs-6 message-box">
                         <span class="uploader-msg" ng-bind="uploader.msg">
                             
                         </span>
                     </div>
-                    <div class="col col-md-4">
+                    <div class="col col-xs-4">
                         <div class="progress" style="">
                             <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
                     </div>
-                    <div class="col col-md-2 upload-cancel">
+                    <div class="col col-xs-2 upload-cancel">
                         <button ng-show="uploader.isUploading" ng-disabled="!NewsService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
                             X
                         </button>
@@ -297,7 +297,7 @@
                     
                 </div>
                 <div class="row attachements-wrapper">
-                    <div class="col-md-2 right">
+                    <div class="col-xs-2 right">
                         <ul class="tab-list" ng-init="ValuesService.activeTab = 'image'">
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'image'}"
@@ -321,7 +321,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-8 center">
+                    <div class="col-xs-8 center">
                         <div class="tab-content">
                             <div ng-switch="ValuesService.activeTab">
                                 <div ng-switch-when="image" class="image">
@@ -420,7 +420,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 left">
+                    <div class="col-xs-2 left">
 <!--                        <button class="btn btn-info add-attachment" ng-disabled="!NewsService.isEditing()" data-ng-click="showUploadModal()">
                             اضافه
                         </button>-->
@@ -446,13 +446,13 @@
 
                                             <div class="row">
 
-                                                <div class="col-md-12">
+                                                <div class="col-xs-12">
 
                                                     <input type="file" nv-file-select="" uploader="uploader" multiple="true"  /><br/>
 
                                                 </div>
 
-                                                <div class="col-md-12" style="margin-bottom: 40px">
+                                                <div class="col-xs-12" style="margin-bottom: 40px">
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
@@ -540,12 +540,12 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col col-md-7 center" style="text-align: center;
+                                    <div class="col col-xs-7 center" style="text-align: center;
                                                                             border-bottom: 1px solid rgb(110, 181, 95);
                                                                             padding-bottom: 5px;">
                                         خبر
                                     </div>
-                                    <div class="col col-md-5 center" style="text-align: center;
+                                    <div class="col col-xs-5 center" style="text-align: center;
                                                                             border-bottom: 1px solid rgb(117, 95, 181);
                                                                             padding-bottom: 5px;">
                                         صفحه HTML
@@ -774,7 +774,7 @@
                 </div>
 
                 <div class="row html-wrapper">
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                         <div class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>
@@ -820,7 +820,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-4 body-modal-right">
+                                    <div class="col-xs-4 body-modal-right">
                                         <div class="body-attachments">
                                             <div class="body-attachments-inner">
 
@@ -893,15 +893,15 @@
 
                                                     <div class="row">
 
-                                                        <div class="col-md-12" >
+                                                        <div class="col-xs-12" >
 
                                                             <div class="row file-upload-row">
-                                                                <div class="col col-md-8">
+                                                                <div class="col col-xs-8">
                                                                     <div class="progress" style="">
                                                                         <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col col-md-4">
+                                                                <div class="col col-xs-4">
                                                                     <button ng-show="uploader.isUploading" ng-disabled="!NewsService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
                                                                         انصراف
                                                                     </button>
@@ -914,12 +914,12 @@
 
 
                                                         </div>
-                                                        <div class="col col-md-12 message-box">
+                                                        <div class="col col-xs-12 message-box">
                                                             <span class="uploader-msg" ng-bind="uploader.msg">
 
                                                             </span>
                                                         </div>
-                                                        <div class="col-md-12 body-upload-buttons" >
+                                                        <div class="col-xs-12 body-upload-buttons" >
                                                             <label class="file-select" ng-class="{'disabled': !NewsService.isEditing()}">
                                                                 انتخاب فایل
                                                                 <input ng-disabled="!NewsService.isEditing() || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
@@ -953,7 +953,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-xs-8">
                                         <div class="body-editor">
                                             <textarea ckeditor="bodyEditorOptions" ng-model="NewsService.currentNews.body"></textarea>
 
@@ -1027,7 +1027,7 @@
                                     
                                     <div class="body-modal-content">
                                         <div class="row">
-                                            <div class="col-md-4 body-modal-right">
+                                            <div class="col-xs-4 body-modal-right">
                                                 <div class="body-attachments">
                                                     <div class="body-attachments-inner">
                                                         
@@ -1086,7 +1086,7 @@
 
                                                             <div class="row">
 
-                                                                <div class="col-md-12">
+                                                                <div class="col-xs-12">
                                                                     <button class="btn btn-danger" data-ng-click="NewsService.removeFromBodyAttachList()">
                                                                         حذف
                                                                     </button>
@@ -1100,20 +1100,20 @@
 
                                                                 </div>
 
-                                                                <div class="col-md-12">
+                                                                <div class="col-xs-12">
                                                                     
                                                                             <div class="row file-upload-row">
-                                                                                <div class="col col-md-4">
+                                                                                <div class="col col-xs-4">
                                                                                     <div class="progress" style="">
                                                                                         <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col col-md-2">
+                                                                                <div class="col col-xs-2">
                                                                                     <button ng-disabled="!NewsService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
                                                                                         انصراف
                                                                                     </button>
                                                                                 </div>
-                                                                                <div class="col col-md-6 message-box">
+                                                                                <div class="col col-xs-6 message-box">
                                                                                     <span class="uploader-msg" ng-bind="uploader.msg">
 
                                                                                     </span>
@@ -1133,7 +1133,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-xs-8">
                                                 <div class="body-editor">
                                                     <textarea ckeditor="bodyEditorOptions" ng-model="NewsService.currentNews.body"></textarea>
 
@@ -1218,7 +1218,7 @@
 <?php $view['slots']->start('top-actions');?>
     <div  class="news-top show-grid ">
 
-        <div class="col-md-4">
+        <div class="col-xs-5">
             <button ng-show="SecurityService.buttonsAccess.newButtonAccess()" ng-disabled="NewsService.isEditing()" type="button" class="btn btn-primary" ng-click="NewsService.editingNew()">
                 جدید
             </button>
@@ -1326,7 +1326,7 @@
 
 
         </div>
-        <div class="col-md-3">
+        <div class="col-xs-4">
             <button type="button" ng-disabled="!NewsService.currentNews.id || NewsService.isEditing() || !NewsService.previousable()" class="btn btn-primary" ng-click="NewsService.previousSelectedNews()">
                 قبلی
             </button>
@@ -1351,7 +1351,7 @@
             
         </div>
 
-        <div class="col-md-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn  && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn  && !SecurityService.connected)}" style="float: left"  >
+        <div class="col-xs-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn  && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn  && !SecurityService.connected)}" style="float: left"  >
             <label class="username-label">
             نام کاربری:
             </label>
