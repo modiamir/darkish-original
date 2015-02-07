@@ -15,11 +15,11 @@ body{
     padding-bottom: 5px;
 }
 
-.news-top {
+.classified-top {
     padding: 3px 0;
 }
 
-.news-top button{
+.classified-top button{
     font-size: 12px;
     padding: 6px 8px;
 }
@@ -96,22 +96,22 @@ body{
     color: white;
 }
 
-.news-number-block-wrapper {
+.classified-number-block-wrapper {
     padding-left: 0;
 }
 
-.news-number-block {
+.classified-number-block {
     border: 1px solid;
     height: 70px;
 }
 
-.news-number-block span {
+.classified-number-block span {
     width: 100%;
     text-align: center;
     display: inline-block;
 }
 
-.news-number-block .news-number-preview {
+.classified-number-block .classified-number-preview {
     height: 40px;
     width: 80%;
     display: inline-block;
@@ -123,7 +123,7 @@ body{
     font-weight: bold;
 }
 
-.news-teaser-preview-block {
+.classified-teaser-preview-block {
     background-color: white;
     border: 3px solid #000000;
     height: 70px;
@@ -147,24 +147,24 @@ body{
     width: 50px;
 }
 
-.news-basic-info-wrapper {
+.classified-basic-info-wrapper {
     margin-top: 20px;
 }
 
-.news-basic-info-wrapper .news-basic-info {
+.classified-basic-info-wrapper .classified-basic-info {
     display: inline-block;
     width: 100%;
     border: 1px dashed;
     padding: 10px;
 }
 
-.news-basic-info-wrapper .news-basic-info label{
+.classified-basic-info-wrapper .classified-basic-info label{
     width: 25%;
     float: right;
     text-align: left;
 }
 
-.news-basic-info-wrapper .news-basic-info input,.news-basic-info-wrapper .news-basic-info textarea{
+.classified-basic-info-wrapper .classified-basic-info input,.classified-basic-info-wrapper .classified-basic-info textarea{
     width: 70%;
     float: right;
     margin-right: 5%;
@@ -381,7 +381,7 @@ body{
     background-color: #CCCCCC;
 }
 
-.news-tree {
+.classified-tree {
     height: 200px;
     overflow: scroll;
 }
@@ -440,10 +440,11 @@ h3.block-title {
     background: red;
     border: solid 1px;
 }
-.news-number-wrapper{
+.classified-number-wrapper{
 
     width: 90px;
-    height: 45px;
+    height: 35px;
+    line-height: 35px;
     background-color: rgb(222,222,220);
     border: solid 1.5px;
     border-style: groove;
@@ -451,9 +452,10 @@ h3.block-title {
     margin-right: auto;
     margin-left: auto;
     margin-top: 15%;
+    color: red;
 }
 
-.news-number-wrapper .news-number {
+.classified-number-wrapper .classified-number {
     width: 100%;
     display: block;
 }
@@ -474,14 +476,14 @@ h3.block-title {
     height: 100%;
     padding: 10px;
 }
-.news-title, .news-subtitle {
+.classified-title, .classified-subtitle {
     width: 100%;
     padding-top: 5px;
 }
-.news-title .news-title-input{
+.classified-title .classified-title-input{
     width: 70%;
 }
-.news-title-lan {
+.classified-title-lan {
    /* float: left;*/
     background: rgb(134, 133, 132);
     width: 35px;
@@ -490,11 +492,11 @@ h3.block-title {
     text-align: center;
     color: white;
 }
-.news-title-input, .news-subtitle-input {
+.classified-title-input, .classified-subtitle-input {
     width: 70%;
 
 }
-.field-title.news-title-title {
+.field-title.classified-title-title {
     float: right;
     width: 15%;
     text-align: left;
@@ -507,6 +509,9 @@ h3.block-title {
     
     /*background: red;*/
 }
+#main-fields-wrapper {
+    overflow-y: scroll;
+}
 .capabilites{
 
     float: right;
@@ -515,16 +520,16 @@ h3.block-title {
     width: 20%
 
 }
-.news-searchkey-input, 
- .news-owner-input, 
- .news-legalname-input {
+.classified-searchkey-input, 
+ .classified-owner-input, 
+ .classified-legalname-input {
     width: 60%;
     float: left;
     padding-top: 5px;
     margin-left: 22px;
     margin-top: 7px;
 }
-.news-searchkey-title{
+.classified-searchkey-title{
     float: right;
     width: 34%;
     height: 30px;
@@ -538,12 +543,10 @@ h3.block-title {
     display: inline-block;
 }
 .main-fields-first-section{
-    height: 422px;
     padding-top: 10px;
     direction: rtl;
     margin: 10px 10px 0 10px;
     border: 1px solid #ccc;
-    border-bottom: 0;
 }
 .main-fields-search-key, .main-fields-owner, 
 .main-fields-legal-name, .main-fields-tree-list {
@@ -1107,27 +1110,27 @@ select#tree-list-input option {
     opacity: 0.7;
 }
 .capabilites-buttons-wrapper .favorit{
-    background-image: url(images/news/favorit.png);
+    background-image: url(images/classified/favorit.png);
     margin-top: 15px;
 }
 .capabilites-buttons-wrapper .like{
-    background-image: url(images/news/like.png);
+    background-image: url(images/classified/like.png);
 }
 .capabilites-buttons-wrapper .message{
-    background-image: url(images/news/message.png);
+    background-image: url(images/classified/message.png);
 }
 .capabilites-buttons-wrapper .safarname{
-    background-image: url(images/news/safarname.png);
+    background-image: url(images/classified/safarname.png);
 }
 .capabilites-buttons-wrapper .sound{
-    background-image: url(images/news/sound.png);
+    background-image: url(images/classified/sound.png);
 }
 .capabilites-buttons-wrapper .ticket{
-    background-image: url(images/news/ticket.png);
+    background-image: url(images/classified/ticket.png);
 }
 
 .capabilites-buttons-wrapper .video {
-    background-image: url(images/news/video.png);
+    background-image: url(images/classified/video.png);
 }
 .attachements-wrapper .video-tab{
     display: inline-block;
@@ -1222,7 +1225,7 @@ select#tree-list-input option {
 
 .attachements-wrapper .center .tab-content .video ul.video-list li {
     padding: 3px 5px;
-    background-image: url("images/news/video.jpg");
+    background-image: url("images/classified/video.jpg");
     background-position: right top;
     background-size: 20px;
     background-repeat: no-repeat;
@@ -1242,7 +1245,7 @@ select#tree-list-input option {
 
 .attachements-wrapper .center .tab-content .audio ul.audio-list li {
     padding: 3px 5px;
-    background-image: url("images/news/audio.jpg");
+    background-image: url("images/classified/audio.jpg");
     background-position: right top;
     background-size: 20px;
 
@@ -1434,7 +1437,7 @@ select#tree-list-input option {
 }
 .body-attachments-inner .video .file{
 
-     background-image: url(images/news/video.jpg);
+     background-image: url(images/classified/video.jpg);
      background-repeat: no-repeat;
      padding-top: 50px;
      background-position: center top;
@@ -1446,7 +1449,7 @@ select#tree-list-input option {
 }
 
 .body-attachments-inner .audio .file{
-    background-image: url(images/news/audio.jpg);
+    background-image: url(images/classified/audio.jpg);
     background-repeat: no-repeat;
     padding-top: 50px;
     background-position: center top;
@@ -1462,7 +1465,7 @@ select#tree-list-input option {
 }
 
 
-#tree-selectable-inactivator, #news-list-inactivator {
+#tree-selectable-inactivator, #classified-list-inactivator {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1775,23 +1778,23 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 }
 
 
-.news-insert-text-label, .link-insert-text-label {
+.classified-insert-text-label, .link-insert-text-label {
     width: 20%;
     margin-left: 10%;
 }
 
-#news-insert-text, #link-insert-text {
+#classified-insert-text, #link-insert-text {
     width: 60%;
     
 }
 
-.news-insert-id-label, .link-insert-link-label {
+.classified-insert-id-label, .link-insert-link-label {
     width: 20%;
     margin-left: 10%;
     margin-top: 20px;
 }
 
-#news-insert-id, #link-insert-link {
+#classified-insert-id, #link-insert-link {
     width: 60%;
     margin-top: 20px;
 }
@@ -2009,4 +2012,58 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 .top-menu-col .container-fluid {
     margin: 0;
+}
+
+
+
+
+.banner-box {
+    margin: auto;
+    width: 80%;
+    border: 1px dashed;
+}
+
+.banner-box .banner-head {
+    border-bottom: 1px dashed;
+    padding: 5px 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.banner-box .banner-head .banner-title {
+    float:right;
+}
+
+.banner-box .banner-head .banner-file-select {
+    float: left;
+    margin-left: 10px
+}   
+
+.banner-box .banner-head .banner-delete {
+    float: left;
+    
+}   
+
+.banner-box .banner-body img {
+    max-width: 90%;
+    margin: 10px auto;
+    display: inherit;
+}
+
+
+.classified-submiter-box {
+    border: 1px dashed;
+    padding: 5px 10px;
+    margin: 20px auto;
+    width: 80%;
+    display: table;
+}
+
+.classified-submiter-box label {
+    float: left;
+    margin-left: 10px;
+}
+
+.classified-submiter-box input {
+    float: left;
 }

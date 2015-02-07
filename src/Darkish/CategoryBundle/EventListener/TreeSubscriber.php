@@ -6,6 +6,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Darkish\CategoryBundle\Entity\MainTree;
 use Darkish\CategoryBundle\Entity\NewsTree;
+use Darkish\CategoryBundle\Entity\OfferTree;
+use Darkish\CategoryBundle\Entity\ClassifiedTree;
 
 class TreeSubscriber implements EventSubscriber
 {
@@ -32,6 +34,12 @@ class TreeSubscriber implements EventSubscriber
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
             } elseif($entity instanceof NewsTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:NewsTree');
+            }
+            elseif($entity instanceof OfferTree) {
+                $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:OfferTree');
+            }
+            elseif($entity instanceof ClassifiedTree) {
+                $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:ClassifiedTree');
             }
             $treeIndex = $entity->getTreeIndex();
             $parentTreeIndex = substr($treeIndex, 0, 4);

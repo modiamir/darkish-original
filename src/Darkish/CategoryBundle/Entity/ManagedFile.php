@@ -32,7 +32,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $id;
 
@@ -42,7 +42,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $userId;
 
@@ -50,7 +50,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $fileName;
 
@@ -58,7 +58,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $path;
 
@@ -66,7 +66,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $filemime;
 
@@ -74,7 +74,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $filesize;
 
@@ -82,7 +82,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      *
      */
     private $status;
@@ -91,7 +91,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      *
      */
     private $continual;
@@ -100,7 +100,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      *
      */
     private $isThumbnail;
@@ -111,7 +111,7 @@ class ManagedFile
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $timestamp;
 
@@ -119,7 +119,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      *
      * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator"}, message = "input a valid entity type.")
      *
@@ -133,7 +133,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $entityId;
 
@@ -143,10 +143,10 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_dir", type="string", nullable=true)
      *
-     * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc"}, message = "Input a valid uploadDir.")
+     * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc", "banner"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      */
     private $uploadDir;
 
@@ -155,7 +155,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      * 
      */
     private $uploadKey;
@@ -170,6 +170,25 @@ class ManagedFile
      */
     protected $iconForNews;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="icon")
+     */
+    protected $iconForOffer;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
+     */
+    protected $bannerForOffer;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Classified", mappedBy="icon")
+     */
+    protected $iconForClassified;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Classified", mappedBy="banner")
+     */
+    protected $bannerForClassified;
 
 
     /**
@@ -412,7 +431,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"record.details", "news.details", "operator.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -627,5 +646,104 @@ class ManagedFile
     public function getIconForRecord()
     {
         return $this->iconForRecord;
+    }
+
+    /**
+     * Add iconForNews
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $iconForNews
+     * @return ManagedFile
+     */
+    public function addIconForNews(\Darkish\CategoryBundle\Entity\News $iconForNews)
+    {
+        $this->iconForNews[] = $iconForNews;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForNews
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $iconForNews
+     */
+    public function removeIconForNews(\Darkish\CategoryBundle\Entity\News $iconForNews)
+    {
+        $this->iconForNews->removeElement($iconForNews);
+    }
+
+    /**
+     * Get iconForNews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForNews()
+    {
+        return $this->iconForNews;
+    }
+
+    /**
+     * Add iconForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $iconForOffer
+     * @return ManagedFile
+     */
+    public function addIconForOffer(\Darkish\CategoryBundle\Entity\Offer $iconForOffer)
+    {
+        $this->iconForOffer[] = $iconForOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $iconForOffer
+     */
+    public function removeIconForOffer(\Darkish\CategoryBundle\Entity\Offer $iconForOffer)
+    {
+        $this->iconForOffer->removeElement($iconForOffer);
+    }
+
+    /**
+     * Get iconForOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForOffer()
+    {
+        return $this->iconForOffer;
+    }
+
+    /**
+     * Add bannerForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $bannerForOffer
+     * @return ManagedFile
+     */
+    public function addBannerForOffer(\Darkish\CategoryBundle\Entity\Offer $bannerForOffer)
+    {
+        $this->bannerForOffer[] = $bannerForOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannerForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $bannerForOffer
+     */
+    public function removeBannerForOffer(\Darkish\CategoryBundle\Entity\Offer $bannerForOffer)
+    {
+        $this->bannerForOffer->removeElement($bannerForOffer);
+    }
+
+    /**
+     * Get bannerForOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBannerForOffer()
+    {
+        return $this->bannerForOffer;
     }
 }

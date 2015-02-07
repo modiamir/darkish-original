@@ -1816,6 +1816,7 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     margin-top: 98px;
     height: 588px;
     overflow-y: scroll;
+    padding-left: 15px;
 }
 
 .body-preview-modal-window .body-preview-box .body-preview-content.external-link {

@@ -445,6 +445,9 @@ class News
         $this->audios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bodyImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyVideos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyAudios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyDocs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

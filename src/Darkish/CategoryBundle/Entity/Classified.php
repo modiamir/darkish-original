@@ -3,15 +3,18 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\ExecutionContextInterface;
+
+
 /**
- * News
+ * Classified
  *
  * @ORM\Table(name="classified")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\ClassifiedRepository")
  */
 class Classified
 {
@@ -21,156 +24,400 @@ class Classified
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"classified.list", "classified.details"})
      */
     private $id;
 
+    
+
+
     /**
      * @var string
-     *
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="Title", type="string", length=255)
+     * @Groups({"classified.list", "classified.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "70",
+     *      maxMessage = "طول عنوان نمیتواند بیشتر از {{ limit }} کاراکتر باشد",
+     *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
      */
     private $title;
 
-
-
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @Assert\NotBlank()
+     * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
+     * @Groups({"classified.list", "classified.details"})
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "70",
+     *      maxMessage = "طول زیرعنوان نمیتواند بیشتر از {{ limit }} باشد",
+     *      minMessage = "طول زیرعنوان نمیتواند کمتر از {{ limit }} باشد"
+     * )
      *
-     * @ORM\Column(name="created_date", type="datetimetz", nullable=true)
      */
-    private $createdDate;
+    private $subTitle;
 
-
+    
     /**
-     * @var integer
+     * @var datetime
      *
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="publish_date", type="integer", nullable=true)
+     * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
+     * @Groups({"classified.details"})
      */
-    private $publishDate;
-
-    /**
-     * @var integer
-     *
-     * @Assert\NotNull()
-     *
-     * @ORM\Column(name="expire_date", type="integer", nullable=true)
-     */
-    private $expireDate;
+    private $creationDate;
+    
+    
+    
+    
 
     /**
      * @var string
      *
-     * @Assert\NotBlank()
+     * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
+     * @Groups({"classified.details"})
+     */
+    private $lastUpdate;
+    
+    
+    /**
+     * @var string
      *
-     * @ORM\Column(name="body", type="text", nullable=true)
+     * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
+     * @Groups({"classified.details"})
+     */
+    private $htmlLastUpdate;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $publishDate;
+    
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="ExpireDate", type="datetime", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $expireDate;
+    
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="Continual", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"classified.details"}) 
+     */
+    private $continual;
+    
+    
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="Immediate", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"classified.details"}) 
+     */
+    private $immediate;
+    
+    /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="ListRank", type="integer", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $listRank;
+    
+    
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="IsCompetition", type="boolean", nullable=true, options={"default":0})
+     * @Groups({"classified.details"}) 
+     */
+    private $isCompetition;
+    
+    /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="TrueAnswer", type="integer", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $trueAnswer;
+    
+    /**
+     *
+     * @var integer
+     * 
+     * @ORM\Column(name="Rate", type="integer", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $rate;
+    
+
+    
+    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Body", type="text", nullable=true)
+     * @Groups({"classified.details"})
      */
     private $body;
 
     /**
-     * @var integer
+     * @var boolean
      *
-     * @Assert\NotNull()
-     *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     * @ORM\Column(name="Audio", type="boolean", nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $userId;
+    private $audio;
 
     /**
      * @var boolean
      *
-     * @Assert\NotNull()
-     *
-     * @ORM\Column(name="status", type="boolean", nullable=true)
+     * @ORM\Column(name="Video", type="boolean", nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $status;
+    private $video;
+
+    
+
+    
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Active", type="boolean", nullable=false, options={"default":0})
+     * @Groups({"classified.details"})
+     */
+    private $active;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Verify", type="boolean", nullable=false, options={"default": 0})
+     * @Groups({"classified.details"})
+     */
+    private $verify;
+
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Address", type="string", length=255, nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $address;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $telNumberOne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="category", type="string", nullable=true)
-     *
+     * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $category;
-
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="classifiedtree_id", type="integer", nullable=true)
-     */
-    private $classifiedtreeId;
-
+    private $telNumberTwo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="first_phone", type="string", nullable=true)
-     *
+     * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $firstPhone;
-
+    private $telNumberThree;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="second_phone", type="string", nullable=true)
-     *
+     * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $secondPhone;
+    private $telNumberFour;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", nullable=true)
+     * @ORM\Column(name="FaxNumberOne", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $faxNumberOne;
+
+    /**
+     * @var string
      *
+     * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $faxNumberTwo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $mobileNumberOne;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
+     * @Groups({"classified.details"})
+     */
+    private $mobileNumberTwo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
+     * @Groups({"classified.details"})
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="unit_number", type="string", nullable=true)
-     *
+     * @ORM\Column(name="Website", type="string", length=255, nullable=true)
+     * @Groups({"classified.details"})
      */
-    private $unitNumber;
+    private $website;
+    
+    
 
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\ArrayCollection $trees
      *
-     * @ORM\Column(name="first_image", type="string", nullable=true)
+     * @Groups({"classified.details"})
      *
-     */
-    private $firstImage;
+     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\ClassifiedTree", inversedBy="classified")
+     * @ORM\JoinTable(name="classified_classifiedtrees",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="classifiedtree_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     **/
+    private $trees;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="second_image", type="string", nullable=true)
-     *
-     */
-    private $secondImage;
-
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_images",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $images;
+    
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="third_image", type="string", nullable=true)
-     *
-     */
-    private $thirdImage;
-
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForClassified")
+     * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
+     * @Groups({"classified.details"})
+     * 
+     **/
+    private $icon;
+    
+    
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="banner", type="string", nullable=true)
-     *
-     */
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="bannerForClassified")
+     * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id")
+     * @Groups({"classified.details"})
+     * 
+     **/
     private $banner;
+    
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_body_images",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $bodyImages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_videos",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $videos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_body_videos",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $bodyVideos;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_audios",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $audios;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_body_audios",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $bodyAudios;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="classified_body_docs",
+     *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @Groups({"classified.details"})
+     **/
+    private $bodyDocs;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Operator", inversedBy="classified")
+     * @ORM\JoinColumn(name="UserId", referencedColumnName="id")
+     * @Groups({"classified.details"})
+     */
+    private $user;
+
+
+
 
     /**
      * Get id
@@ -186,11 +433,12 @@ class Classified
      * Set title
      *
      * @param string $title
-     * @return News
+     * @return Classified
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -204,80 +452,218 @@ class Classified
         return $this->title;
     }
 
-
-
     /**
-     * Set createdDate
+     * Set subTitle
      *
-     * @param \DateTime $createdDate
-     * @return News
+     * @param string $subTitle
+     * @return Classified
      */
-    public function setCreatedDate($createdDate)
+    public function setSubTitle($subTitle)
     {
-        $this->createdDate = $createdDate;
+        $this->subTitle = $subTitle;
 
         return $this;
     }
 
     /**
-     * Get createdDate
+     * Get subTitle
      *
-     * @return integer
+     * @return string 
      */
-    public function getCreatedDate()
+    public function getSubTitle()
     {
-        /* @var $this->createdDate DateTime */
-        if($this->createdDate) {
-            return $this->createdDate->getTimestamp();
-        }
-
+        return $this->subTitle;
     }
 
+    
+
+    
 
     /**
-     * Get createdDate
+     * Set verify
      *
-     * @return \DateTime
+     * @param boolean $verify
+     * @return Classified
      */
-    public function getCreatedDateObject()
+    public function setVerify($verify)
     {
-        return $this->createdDate;
-    }
-
-
-    /**
-     * Set expireDate
-     *
-     * @param integer $expireDate
-     * @return News
-     */
-    public function setExpireDate($expireDate)
-    {
-        $this->expireDate = $expireDate;
+        $this->verify = $verify;
 
         return $this;
     }
 
     /**
-     * Get expireDate
+     * Get verify
      *
-     * @return integer 
+     * @return boolean 
      */
-    public function getExpireDate()
+    public function getVerify()
     {
-        return $this->expireDate;
+        return $this->verify;
     }
+
+
+    /**
+     * Add trees
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedTree $trees
+     * @return Classified
+     */
+    public function addTree(\Darkish\CategoryBundle\Entity\ClassifiedTree $tree)
+    {
+        $this->trees[] = $tree;
+
+        return $this;
+    }
+
+    /**
+     * Remove tree
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedTree $tree
+     */
+    public function removeTree(\Darkish\CategoryBundle\Entity\ClassifiedTree $tree)
+    {
+        $this->trees->removeElement($tree);
+    }
+
+    /**
+     * Get trees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTrees()
+    {
+        return $this->trees;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->trees = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->audios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyVideos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyAudios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyDocs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    
+
+    /**
+     * Add images
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $images
+     * @return Classified
+     */
+    public function addImage(\Darkish\CategoryBundle\Entity\ManagedFile $images)
+    {
+        $this->images[] = $images;
+    
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $images
+     */
+    public function removeImage(\Darkish\CategoryBundle\Entity\ManagedFile $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Add videos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $videos
+     * @return Classified
+     */
+    public function addVideo(\Darkish\CategoryBundle\Entity\ManagedFile $videos)
+    {
+        $this->videos[] = $videos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove videos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $videos
+     */
+    public function removeVideo(\Darkish\CategoryBundle\Entity\ManagedFile $videos)
+    {
+        $this->videos->removeElement($videos);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * Add audios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $audios
+     * @return Classified
+     */
+    public function addAudio(\Darkish\CategoryBundle\Entity\ManagedFile $audios)
+    {
+        $this->audios[] = $audios;
+    
+        return $this;
+    }
+
+    /**
+     * Remove audios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $audios
+     */
+    public function removeAudio(\Darkish\CategoryBundle\Entity\ManagedFile $audios)
+    {
+        $this->audios->removeElement($audios);
+    }
+
+    /**
+     * Get audios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAudios()
+    {
+        return $this->audios;
+    }
+
+
 
     /**
      * Set body
      *
      * @param string $body
-     * @return News
+     * @return Classified
      */
     public function setBody($body)
     {
         $this->body = $body;
-
+    
         return $this;
     }
 
@@ -292,106 +678,268 @@ class Classified
     }
 
     /**
-     * Set userId
+     * Add bodyImages
      *
-     * @param integer $userId
-     * @return News
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyImages
+     * @return Classified
      */
-    public function setUserId($userId)
+    public function addBodyImage(\Darkish\CategoryBundle\Entity\ManagedFile $bodyImages)
     {
-        $this->userId = $userId;
-
+        $this->bodyImages[] = $bodyImages;
+    
         return $this;
     }
 
     /**
-     * Get userId
+     * Remove bodyImages
      *
-     * @return integer 
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyImages
      */
-    public function getUserId()
+    public function removeBodyImage(\Darkish\CategoryBundle\Entity\ManagedFile $bodyImages)
     {
-        return $this->userId;
+        $this->bodyImages->removeElement($bodyImages);
     }
 
     /**
-     * Set status
+     * Get bodyImages
      *
-     * @param boolean $status
-     * @return News
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setStatus($status)
+    public function getBodyImages()
     {
-        $this->status = $status;
+        return $this->bodyImages;
+    }
 
+    /**
+     * Add bodyVideos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyVideos
+     * @return Classified
+     */
+    public function addBodyVideo(\Darkish\CategoryBundle\Entity\ManagedFile $bodyVideos)
+    {
+        $this->bodyVideos[] = $bodyVideos;
+    
         return $this;
     }
 
     /**
-     * Get status
+     * Remove bodyVideos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyVideos
+     */
+    public function removeBodyVideo(\Darkish\CategoryBundle\Entity\ManagedFile $bodyVideos)
+    {
+        $this->bodyVideos->removeElement($bodyVideos);
+    }
+
+    /**
+     * Get bodyVideos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyVideos()
+    {
+        return $this->bodyVideos;
+    }
+
+    /**
+     * Add bodyAudios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyAudios
+     * @return Classified
+     */
+    public function addBodyAudio(\Darkish\CategoryBundle\Entity\ManagedFile $bodyAudios)
+    {
+        $this->bodyAudios[] = $bodyAudios;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bodyAudios
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyAudios
+     */
+    public function removeBodyAudio(\Darkish\CategoryBundle\Entity\ManagedFile $bodyAudios)
+    {
+        $this->bodyAudios->removeElement($bodyAudios);
+    }
+
+    /**
+     * Get bodyAudios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyAudios()
+    {
+        return $this->bodyAudios;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Classified
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    
+        return $this;
+    }
+
+    /**
+     * Get active
      *
      * @return boolean 
      */
-    public function getStatus()
+    public function getActive()
     {
-        return $this->status;
+        return $this->active;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     * @return Classified
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     * @return Classified
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
 
+    
+
+    
 
     /**
-     * Set category
+     * Set icon
      *
-     * @param string $category
-     * @return News
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $icon
+     * @return Classified
      */
-    public function setCategory($category)
+    public function setIcon(\Darkish\CategoryBundle\Entity\ManagedFile $icon = null)
     {
-        $this->category = $category;
+        $this->icon = $icon;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Get icon
      *
-     * @return string 
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
      */
-    public function getCategory()
+    public function getIcon()
     {
-        return $this->category;
+        return $this->icon;
     }
 
+   
+
     /**
-     * Set newstreeId
+     * Add bodyDocs
      *
-     * @param integer $newstreeId
-     * @return News
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
+     * @return Classified
      */
-    public function setClassifiedtreeId($classifiedtreeId)
+    public function addBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
     {
-        $this->classifiedtreeId = $classifiedtreeId;
+        $this->bodyDocs[] = $bodyDocs;
 
         return $this;
     }
 
     /**
-     * Get newstreeId
+     * Remove bodyDocs
      *
-     * @return integer 
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs
      */
-    public function getClassifiedtreeId()
+    public function removeBodyDoc(\Darkish\CategoryBundle\Entity\ManagedFile $bodyDocs)
     {
-        return $this->classifiedtreeId;
+        $this->bodyDocs->removeElement($bodyDocs);
     }
 
+    /**
+     * Get bodyDocs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBodyDocs()
+    {
+        return $this->bodyDocs;
+    }
 
+    
+
+    
+
+    /**
+     * Set user
+     *
+     * @param \Darkish\UserBundle\Entity\Operator $user
+     * @return Classified
+     */
+    public function setUser(\Darkish\UserBundle\Entity\Operator $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Darkish\UserBundle\Entity\Operator 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
     /**
      * Set publishDate
      *
-     * @param integer $publishDate
-     * @return News
+     * @param \DateTime $publishDate
+     * @return Classified
      */
     public function setPublishDate($publishDate)
     {
@@ -403,7 +951,7 @@ class Classified
     /**
      * Get publishDate
      *
-     * @return integer 
+     * @return \DateTime 
      */
     public function getPublishDate()
     {
@@ -411,49 +959,463 @@ class Classified
     }
 
     /**
-     * Set firstPhone
+     * Set expireDate
      *
-     * @param string $firstPhone
+     * @param \DateTime $expireDate
      * @return Classified
      */
-    public function setFirstPhone($firstPhone)
+    public function setExpireDate($expireDate)
     {
-        $this->firstPhone = $firstPhone;
+        $this->expireDate = $expireDate;
 
         return $this;
     }
 
     /**
-     * Get firstPhone
+     * Get expireDate
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getFirstPhone()
+    public function getExpireDate()
     {
-        return $this->firstPhone;
+        return $this->expireDate;
     }
 
     /**
-     * Set secondPhone
+     * Set audio
      *
-     * @param string $secondPhone
+     * @param boolean $audio
      * @return Classified
      */
-    public function setSecondPhone($secondPhone)
+    public function setAudio($audio)
     {
-        $this->secondPhone = $secondPhone;
+        $this->audio = $audio;
 
         return $this;
     }
 
     /**
-     * Get secondPhone
+     * Get audio
+     *
+     * @return boolean 
+     */
+    public function getAudio()
+    {
+        return $this->audio;
+    }
+
+    /**
+     * Set video
+     *
+     * @param boolean $video
+     * @return Classified
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return boolean 
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * Set isCompetition
+     *
+     * @param boolean $isCompetition
+     * @return Classified
+     */
+    public function setIsCompetition($isCompetition)
+    {
+        $this->isCompetition = $isCompetition;
+
+        return $this;
+    }
+
+    /**
+     * Get isCompetition
+     *
+     * @return boolean 
+     */
+    public function getIsCompetition()
+    {
+        return $this->isCompetition;
+    }
+
+    /**
+     * Set trueAnswer
+     *
+     * @param integer $trueAnswer
+     * @return Classified
+     */
+    public function setTrueAnswer($trueAnswer)
+    {
+        $this->trueAnswer = $trueAnswer;
+
+        return $this;
+    }
+
+    /**
+     * Get trueAnswer
+     *
+     * @return integer 
+     */
+    public function getTrueAnswer()
+    {
+        return $this->trueAnswer;
+    }
+
+    /**
+     * Set rate
+     *
+     * @param integer $rate
+     * @return Classified
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return integer 
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * Set htmlLastUpdate
+     *
+     * @param \DateTime $htmlLastUpdate
+     * @return Classified
+     */
+    public function setHtmlLastUpdate($htmlLastUpdate)
+    {
+        $this->htmlLastUpdate = $htmlLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get htmlLastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getHtmlLastUpdate()
+    {
+        return $this->htmlLastUpdate;
+    }
+
+    /**
+     * Set continual
+     *
+     * @param boolean $continual
+     * @return Classified
+     */
+    public function setContinual($continual)
+    {
+        $this->continual = $continual;
+
+        return $this;
+    }
+
+    /**
+     * Get continual
+     *
+     * @return boolean 
+     */
+    public function getContinual()
+    {
+        return $this->continual;
+    }
+
+    /**
+     * Set immediate
+     *
+     * @param boolean $immediate
+     * @return Classified
+     */
+    public function setImmediate($immediate)
+    {
+        $this->immediate = $immediate;
+
+        return $this;
+    }
+
+    /**
+     * Get immediate
+     *
+     * @return boolean 
+     */
+    public function getImmediate()
+    {
+        return $this->immediate;
+    }
+
+    /**
+     * Set listRank
+     *
+     * @param integer $listRank
+     * @return Classified
+     */
+    public function setListRank($listRank)
+    {
+        $this->listRank = $listRank;
+
+        return $this;
+    }
+
+    /**
+     * Get listRank
+     *
+     * @return integer 
+     */
+    public function getListRank()
+    {
+        return $this->listRank;
+    }
+
+    /**
+     * Set banner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $banner
+     * @return Classified
+     */
+    public function setBanner(\Darkish\CategoryBundle\Entity\ManagedFile $banner = null)
+    {
+        $this->banner = $banner;
+
+        return $this;
+    }
+
+    /**
+     * Get banner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Classified
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
      *
      * @return string 
      */
-    public function getSecondPhone()
+    public function getAddress()
     {
-        return $this->secondPhone;
+        return $this->address;
+    }
+
+    /**
+     * Set telNumberOne
+     *
+     * @param string $telNumberOne
+     * @return Classified
+     */
+    public function setTelNumberOne($telNumberOne)
+    {
+        $this->telNumberOne = $telNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberOne
+     *
+     * @return string 
+     */
+    public function getTelNumberOne()
+    {
+        return $this->telNumberOne;
+    }
+
+    /**
+     * Set telNumberTwo
+     *
+     * @param string $telNumberTwo
+     * @return Classified
+     */
+    public function setTelNumberTwo($telNumberTwo)
+    {
+        $this->telNumberTwo = $telNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberTwo
+     *
+     * @return string 
+     */
+    public function getTelNumberTwo()
+    {
+        return $this->telNumberTwo;
+    }
+
+    /**
+     * Set telNumberThree
+     *
+     * @param string $telNumberThree
+     * @return Classified
+     */
+    public function setTelNumberThree($telNumberThree)
+    {
+        $this->telNumberThree = $telNumberThree;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberThree
+     *
+     * @return string 
+     */
+    public function getTelNumberThree()
+    {
+        return $this->telNumberThree;
+    }
+
+    /**
+     * Set telNumberFour
+     *
+     * @param string $telNumberFour
+     * @return Classified
+     */
+    public function setTelNumberFour($telNumberFour)
+    {
+        $this->telNumberFour = $telNumberFour;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFour
+     *
+     * @return string 
+     */
+    public function getTelNumberFour()
+    {
+        return $this->telNumberFour;
+    }
+
+    /**
+     * Set faxNumberOne
+     *
+     * @param string $faxNumberOne
+     * @return Classified
+     */
+    public function setFaxNumberOne($faxNumberOne)
+    {
+        $this->faxNumberOne = $faxNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get faxNumberOne
+     *
+     * @return string 
+     */
+    public function getFaxNumberOne()
+    {
+        return $this->faxNumberOne;
+    }
+
+    /**
+     * Set faxNumberTwo
+     *
+     * @param string $faxNumberTwo
+     * @return Classified
+     */
+    public function setFaxNumberTwo($faxNumberTwo)
+    {
+        $this->faxNumberTwo = $faxNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get faxNumberTwo
+     *
+     * @return string 
+     */
+    public function getFaxNumberTwo()
+    {
+        return $this->faxNumberTwo;
+    }
+
+    /**
+     * Set mobileNumberOne
+     *
+     * @param string $mobileNumberOne
+     * @return Classified
+     */
+    public function setMobileNumberOne($mobileNumberOne)
+    {
+        $this->mobileNumberOne = $mobileNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberOne
+     *
+     * @return string 
+     */
+    public function getMobileNumberOne()
+    {
+        return $this->mobileNumberOne;
+    }
+
+    /**
+     * Set mobileNumberTwo
+     *
+     * @param string $mobileNumberTwo
+     * @return Classified
+     */
+    public function setMobileNumberTwo($mobileNumberTwo)
+    {
+        $this->mobileNumberTwo = $mobileNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberTwo
+     *
+     * @return string 
+     */
+    public function getMobileNumberTwo()
+    {
+        return $this->mobileNumberTwo;
     }
 
     /**
@@ -480,117 +1442,25 @@ class Classified
     }
 
     /**
-     * Set unitNumber
+     * Set website
      *
-     * @param string $unitNumber
+     * @param string $website
      * @return Classified
      */
-    public function setUnitNumber($unitNumber)
+    public function setWebsite($website)
     {
-        $this->unitNumber = $unitNumber;
+        $this->website = $website;
 
         return $this;
     }
 
     /**
-     * Get unitNumber
+     * Get website
      *
      * @return string 
      */
-    public function getUnitNumber()
+    public function getWebsite()
     {
-        return $this->unitNumber;
-    }
-
-    /**
-     * Set firstImage
-     *
-     * @param string $firstImage
-     * @return Classified
-     */
-    public function setFirstImage($firstImage)
-    {
-        $this->firstImage = $firstImage;
-
-        return $this;
-    }
-
-    /**
-     * Get firstImage
-     *
-     * @return string 
-     */
-    public function getFirstImage()
-    {
-        return $this->firstImage;
-    }
-
-    /**
-     * Set secondImage
-     *
-     * @param string $secondImage
-     * @return Classified
-     */
-    public function setSecondImage($secondImage)
-    {
-        $this->secondImage = $secondImage;
-
-        return $this;
-    }
-
-    /**
-     * Get secondImage
-     *
-     * @return string 
-     */
-    public function getSecondImage()
-    {
-        return $this->secondImage;
-    }
-
-    /**
-     * Set thirdImage
-     *
-     * @param string $thirdImage
-     * @return Classified
-     */
-    public function setThirdImage($thirdImage)
-    {
-        $this->thirdImage = $thirdImage;
-
-        return $this;
-    }
-
-    /**
-     * Get thirdImage
-     *
-     * @return string 
-     */
-    public function getThirdImage()
-    {
-        return $this->thirdImage;
-    }
-
-    /**
-     * Set banner
-     *
-     * @param string $banner
-     * @return Classified
-     */
-    public function setBanner($banner)
-    {
-        $this->banner = $banner;
-
-        return $this;
-    }
-
-    /**
-     * Get banner
-     *
-     * @return string 
-     */
-    public function getBanner()
-    {
-        return $this->banner;
+        return $this->website;
     }
 }

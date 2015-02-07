@@ -21,7 +21,7 @@ class ManagedFile
 {
 
     /**
-     * @Assert\File(maxSize="200000000")
+     * 
      */
     private $file;
 
@@ -32,7 +32,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $id;
 
@@ -42,7 +42,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $userId;
 
@@ -50,7 +50,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $fileName;
 
@@ -58,7 +58,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $path;
 
@@ -66,7 +66,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $filemime;
 
@@ -74,7 +74,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $filesize;
 
@@ -82,7 +82,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      *
      */
     private $status;
@@ -91,7 +91,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      *
      */
     private $continual;
@@ -100,7 +100,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      *
      */
     private $isThumbnail;
@@ -111,7 +111,7 @@ class ManagedFile
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $timestamp;
 
@@ -119,9 +119,9 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "record"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -133,7 +133,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $entityId;
 
@@ -143,10 +143,10 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_dir", type="string", nullable=true)
      *
-     * @Assert\Choice(choices = {"image", "video", "audio", "icon"}, message = "Input a valid uploadDir.")
+     * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      */
     private $uploadDir;
 
@@ -155,7 +155,8 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * 
      */
     private $uploadKey;
     
@@ -163,7 +164,21 @@ class ManagedFile
      * @ORM\OneToMany(targetEntity="Record", mappedBy="icon")
      */
     protected $iconForRecord;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="News", mappedBy="icon")
+     */
+    protected $iconForNews;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="icon")
+     */
+    protected $iconForOffer;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
+     */
+    protected $bannerForOffer;
 
 
     /**
@@ -406,7 +421,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -581,5 +596,45 @@ class ManagedFile
     public function getContinual()
     {
         return $this->continual;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->iconForRecord = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add iconForRecord
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $iconForRecord
+     * @return ManagedFile
+     */
+    public function addIconForRecord(\Darkish\CategoryBundle\Entity\Record $iconForRecord)
+    {
+        $this->iconForRecord[] = $iconForRecord;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForRecord
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $iconForRecord
+     */
+    public function removeIconForRecord(\Darkish\CategoryBundle\Entity\Record $iconForRecord)
+    {
+        $this->iconForRecord->removeElement($iconForRecord);
+    }
+
+    /**
+     * Get iconForRecord
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForRecord()
+    {
+        return $this->iconForRecord;
     }
 }

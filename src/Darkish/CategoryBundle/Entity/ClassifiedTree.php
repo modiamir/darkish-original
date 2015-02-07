@@ -3,6 +3,12 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * ClassifiedTree
@@ -18,6 +24,7 @@ class ClassifiedTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "classified.details"})
      */
     private $id;
 
@@ -25,13 +32,21 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="up_tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "classified.details"})
      */
     private $upTreeIndex;
+    
+    /**
+     *
+     * @Groups({"list", "details", "classified.details"})
+     */
+    private $parentTreeTitle;
 
     /**
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "classified.details"})
      */
     private $treeIndex;
 
@@ -46,6 +61,7 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "classified.details"})
      */
     private $title;
 
@@ -53,6 +69,7 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "classified.details"})
      */
     private $subTitle;
 
@@ -60,6 +77,7 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="back_key_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "classified.details"})
      */
     private $backKeyTitle;
 
@@ -99,9 +117,9 @@ class ClassifiedTree
     private $iconFileName;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="icon_set_files_name", type="array", nullable=true)
+     * @ORM\Column(name="icon_set_files_name", type="string", nullable=true)
      */
     private $iconSetFilesName;
 
@@ -149,9 +167,11 @@ class ClassifiedTree
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Classified", mappedBy="classifiedtree")
+     * @var \Doctrine\Common\Collections\ArrayCollection $classified
+     *
+     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Classified", mappedBy="trees")
      */
-    //protected  $newsList;
+    protected $classified;
 
     /**
      * Get id
@@ -167,7 +187,7 @@ class ClassifiedTree
      * Set upTreeIndex
      *
      * @param string $upTreeIndex
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setUpTreeIndex($upTreeIndex)
     {
@@ -190,7 +210,7 @@ class ClassifiedTree
      * Set treeIndex
      *
      * @param string $treeIndex
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setTreeIndex($treeIndex)
     {
@@ -213,7 +233,7 @@ class ClassifiedTree
      * Set sort
      *
      * @param integer $sort
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSort($sort)
     {
@@ -236,7 +256,7 @@ class ClassifiedTree
      * Set title
      *
      * @param string $title
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setTitle($title)
     {
@@ -259,7 +279,7 @@ class ClassifiedTree
      * Set subTitle
      *
      * @param string $subTitle
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSubTitle($subTitle)
     {
@@ -282,7 +302,7 @@ class ClassifiedTree
      * Set backKeyTitle
      *
      * @param string $backKeyTitle
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setBackKeyTitle($backKeyTitle)
     {
@@ -305,7 +325,7 @@ class ClassifiedTree
      * Set searchKeywords
      *
      * @param string $searchKeywords
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSearchKeywords($searchKeywords)
     {
@@ -328,7 +348,7 @@ class ClassifiedTree
      * Set showSubtreeAsFilter
      *
      * @param boolean $showSubtreeAsFilter
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setShowSubtreeAsFilter($showSubtreeAsFilter)
     {
@@ -351,7 +371,7 @@ class ClassifiedTree
      * Set showSponsorBox
      *
      * @param boolean $showSponsorBox
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setShowSponsorBox($showSponsorBox)
     {
@@ -374,7 +394,7 @@ class ClassifiedTree
      * Set sponsorGroup
      *
      * @param string $sponsorGroup
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSponsorGroup($sponsorGroup)
     {
@@ -397,7 +417,7 @@ class ClassifiedTree
      * Set iconFileName
      *
      * @param string $iconFileName
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setIconFileName($iconFileName)
     {
@@ -419,8 +439,8 @@ class ClassifiedTree
     /**
      * Set iconSetFilesName
      *
-     * @param array $iconSetFilesName
-     * @return NewsTree
+     * @param strj g $iconSetFilesName
+     * @return ClassifiedTree
      */
     public function setIconSetFilesName($iconSetFilesName)
     {
@@ -432,7 +452,7 @@ class ClassifiedTree
     /**
      * Get iconSetFilesName
      *
-     * @return array 
+     * @return string 
      */
     public function getIconSetFilesName()
     {
@@ -443,7 +463,7 @@ class ClassifiedTree
      * Set fontColor
      *
      * @param string $fontColor
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setFontColor($fontColor)
     {
@@ -466,7 +486,7 @@ class ClassifiedTree
      * Set backColor
      *
      * @param string $backColor
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setBackColor($backColor)
     {
@@ -489,7 +509,7 @@ class ClassifiedTree
      * Set subPicShow
      *
      * @param boolean $subPicShow
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSubPicShow($subPicShow)
     {
@@ -512,7 +532,7 @@ class ClassifiedTree
      * Set subBackground
      *
      * @param string $subBackground
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSubBackground($subBackground)
     {
@@ -535,7 +555,7 @@ class ClassifiedTree
      * Set subUnitHeightScale
      *
      * @param string $subUnitHeightScale
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setSubUnitHeightScale($subUnitHeightScale)
     {
@@ -558,7 +578,7 @@ class ClassifiedTree
      * Set hiddenTree
      *
      * @param boolean $hiddenTree
-     * @return NewsTree
+     * @return ClassifiedTree
      */
     public function setHiddenTree($hiddenTree)
     {
@@ -577,43 +597,67 @@ class ClassifiedTree
         return $this->hiddenTree;
     }
 
-    public function __construct()
-    {
-        $this->newsList = new ArrayCollection();
-    }
+    
 
 
+
+    
 
     /**
-     * Add newsList
-     *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
-     * @return NewsTree
+     * Constructor
      */
-    public function addNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function __construct()
     {
-        $this->newsList[] = $newsList;
+        $this->classified = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add classified
+     *
+     * @param \Darkish\CategoryBundle\Entity\Classified $classified
+     * @return ClassifiedTree
+     */
+    public function addClassified(\Darkish\CategoryBundle\Entity\Classified $classified)
+    {
+        $this->classified[] = $classified;
 
         return $this;
     }
 
     /**
-     * Remove newsList
+     * Remove classified
      *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
+     * @param \Darkish\CategoryBundle\Entity\Classified $classified
      */
-    public function removeNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function removeClassified(\Darkish\CategoryBundle\Entity\Classified $classified)
     {
-        $this->newsList->removeElement($newsList);
+        $this->classified->removeElement($classified);
     }
 
     /**
-     * Get newsList
+     * Get classified
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getNewsList()
+    public function getClassified()
     {
-        return $this->newsList;
+        return $this->classified;
+    }
+    
+    public function setParentTreeTitle($title) {
+        $this->parentTreeTitle = $title;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     * @Groups({"list", "details", "classified.details"})
+     */
+    public function getParentTreeTitle() {
+        return $this->parentTreeTitle;
     }
 }
