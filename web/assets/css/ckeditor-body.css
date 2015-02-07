@@ -197,6 +197,7 @@ table.body-table th {
     color: #AC193D;
     padding: 3px 5px;
 }
+
 table.body-table thead tr {
     background-color: #DCDCDC;
 }
@@ -210,3 +211,11 @@ table.body-table td {
     padding: 3px 5px;
 }
 
+.body-preview-content table {
+    width: 95% !important;
+    margin:auto;
+}
+
+.body-preview-content table td{
+    padding: 2px 4px;
+}

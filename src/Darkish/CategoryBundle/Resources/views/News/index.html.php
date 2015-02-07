@@ -923,6 +923,7 @@
                                                             <label class="file-select" ng-class="{'disabled': !NewsService.isEditing()}">
                                                                 انتخاب فایل
                                                                 <input ng-disabled="!NewsService.isEditing() || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                                                                            
                                                             </label>
                                                             <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!NewsService.isReadyToInsert()">
                                                                 درج

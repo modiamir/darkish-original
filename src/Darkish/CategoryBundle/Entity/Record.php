@@ -187,7 +187,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="CenterUnitNumber", type="string", length=255, nullable=true)
+     * @ORM\Column(name="CenterUnitNumber", type="smallint", nullable=true)
      * @Groups({"record.details"})
      */
     private $centerUnitNumber;
@@ -271,7 +271,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberOne;
@@ -279,7 +279,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberTwo;
@@ -287,7 +287,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberThree", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberThree;
@@ -295,7 +295,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberFour", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberFour;
@@ -303,7 +303,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="FaxNumberOne", type="bigint",  nullable=true)
      * @Groups({"record.details"})
      */
     private $faxNumberOne;
@@ -311,7 +311,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $faxNumberTwo;
@@ -319,7 +319,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $mobileNumberOne;
@@ -327,7 +327,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
      * @Groups({"record.details"})
      */
     private $mobileNumberTwo;
@@ -347,6 +347,22 @@ class Record
      * @Groups({"record.details"})
      */
     private $website;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SmsNumber", type="bigint",  nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $smsNumber;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PostalCode", type="bigint",  nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $postalCode;
 
     /**
      * @var string
@@ -1916,6 +1932,9 @@ class Record
         $this->audios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bodyImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyVideos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyAudios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyDocs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -3124,5 +3143,51 @@ class Record
     public function getArchive()
     {
         return $this->archive;
+    }
+
+    /**
+     * Set smsNumber
+     *
+     * @param string $smsNumber
+     * @return Record
+     */
+    public function setSmsNumber($smsNumber)
+    {
+        $this->smsNumber = $smsNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get smsNumber
+     *
+     * @return string 
+     */
+    public function getSmsNumber()
+    {
+        return $this->smsNumber;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     * @return Record
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string 
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
     }
 }

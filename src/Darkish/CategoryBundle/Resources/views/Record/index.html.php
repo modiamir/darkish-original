@@ -218,18 +218,18 @@
 
                             <div class="main-fields-informations">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات یک:</label>
-                                <input type="text" name="info-one-input" id="info-two-input" class="first-section-input" ng-model="RecordService.currentRecord.info_one" ng-disabled="!RecordService.isEditing()">
+                                <input type="text" ng-maxlength="255" name="info-one-input" id="info-two-input" class="first-section-input" ng-model="RecordService.currentRecord.info_one" ng-disabled="!RecordService.isEditing()">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات دو:</label>
-                                <input type="text" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()">
+                                <input type="text" ng-maxlength="255" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()">
                             </div>
                             <div class="main-fields-search-key">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
-                                <input type="text" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords" ng-disabled="!RecordService.isEditing()">
+                                <input type="text" ng-maxlength="255" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords" ng-disabled="!RecordService.isEditing()">
                             </div>
 
                             <div class="main-fields-owner">
                                 <label class="main-fields-owner-title first-section-fields-title" for="owner-input">مالک/مدیر:</label>
-                                <input type="text" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner" ng-disabled="!RecordService.isEditing()">
+                                <input type="text" ng-maxlength="255" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner" ng-disabled="!RecordService.isEditing()">
                             </div>
 
 
@@ -360,7 +360,7 @@
                                 <input type="text" name="central-floor" id="central-floor-input" class="second-section-input" ng-model="RecordService.currentRecord.center_floor" ng-disabled="!RecordService.isEditing()">
 
                                <label class="central-unit-title second-section-fields-title" for="central-unit-input">واحد</label>
-                               <input type="text" name="central-unit" id="central-unit-input" class="second-section-input" ng-model="RecordService.currentRecord.center_unit_number" ng-disabled="!RecordService.isEditing()">
+                               <input type="number" ng-maxlength="4" name="central-unit" id="central-unit-input" class="second-section-input" ng-model="RecordService.currentRecord.center_unit_number" ng-disabled="!RecordService.isEditing()">
                             </div>
 
                             <div id="trip-maker-wrapper" class="main-fields-second-section-chk-wrapper">
@@ -543,29 +543,29 @@
                             <span> آدرس و تلفن</span>
                             <label for="address">آدرس</label>
                             <div class="form-item-wrapper address">
-                                <textarea id="address" ng-model="RecordService.currentRecord.address" ng-disabled="!RecordService.isEditing()">
+                                <textarea ng-maxlength="255" id="address" ng-model="RecordService.currentRecord.address" ng-disabled="!RecordService.isEditing()">
                                     
                                 </textarea>
                             </div>
 
                             <label for="phone-one">تلفن</label>
                             <div class="form-item-wrapper phone">
-                                <input type="text" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"/>
+                                <input type="number" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"/>
                             </div>
 
                             <label for="fax-one">فکس</label>
                             <div class="form-item-wrapper fax">
-                                <input type="text" id="fax-one" ng-model="RecordService.currentRecord.fax_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" id="fax-two" ng-model="RecordService.currentRecord.fax_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="fax-one" ng-model="RecordService.currentRecord.fax_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="fax-two" ng-model="RecordService.currentRecord.fax_number_two" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="mobile-one">همراه</label>
                             <div class="form-item-wrapper mobile">
-                                <input type="text" id="mobile-one" ng-model="RecordService.currentRecord.mobile_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" id="mobile-two" ng-model="RecordService.currentRecord.mobile_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="mobile-one" ng-model="RecordService.currentRecord.mobile_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="number" ng-maxlength="11" id="mobile-two" ng-model="RecordService.currentRecord.mobile_number_two" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="email">ایمیل</label>
@@ -576,6 +576,16 @@
                             <label for="website">سایت</label>
                             <div class="form-item-wrapper website">
                                 <input type="text" id="website" ng-model="RecordService.currentRecord.website" ng-disabled="!RecordService.isEditing()" />
+                            </div>
+                            
+                            <label for="sms-number">شماره پیام کوتاه</label>
+                            <div class="form-item-wrapper website">
+                                <input type="number" ng-maxlength="11" id="sms-number" ng-model="RecordService.currentRecord.sms_number" ng-disabled="!RecordService.isEditing()" />
+                            </div>
+                            
+                            <label for="postal-code">کد پستی</label>
+                            <div class="form-item-wrapper website">
+                                <input type="number" ng-maxlength="11" id="postal-code" ng-model="RecordService.currentRecord.postal_code" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="states"> محله </label>
@@ -1313,6 +1323,7 @@
                                                                 انتخاب فایل
                                                                 <input ng-disabled="!RecordService.isEditing() || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                                                             </label>
+                                                    {{SecurityService.connected}}
                                                             <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
                                                                 درج
                                                             </button>

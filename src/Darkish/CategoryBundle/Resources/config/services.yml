@@ -9,6 +9,16 @@ services:
         public:     false
         tags:
            - { name: security.voter }
+    security.access.offer_voter:
+        class:      Darkish\CategoryBundle\Security\Voter\OfferVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+    security.access.classified_voter:
+        class:      Darkish\CategoryBundle\Security\Voter\ClassifiedVoter
+        public:     false
+        tags:
+           - { name: security.voter }
     app.menu_builder:
         class: Darkish\CategoryBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory", "@security.context", "@service_container"]

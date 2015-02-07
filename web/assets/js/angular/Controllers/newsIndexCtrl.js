@@ -384,7 +384,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'bodyModalCtrl',
                 size: size,
                 resolve: {
-                    
+                    recordform: function(){
+                        return $scope.recordform;
+                    }
                 },
                 windowClass: 'body-modal-window'
             });
@@ -1940,6 +1942,25 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     $scope.history.add({func: $scope.loadExternal, arg: url});
                     event.preventDefault();
                 });
+                
+                $(".body-preview-content a[href]").filter(function(){
+                    var href = $(this).attr('href');
+                    return (href[0] == '#' && href.length > 1)
+                }).unbind('click').on('click', function(){
+                    var id = $(this).attr('href');
+                    
+                    $('.body-preview-box .body-preview-content').animate({
+                        scrollTop: $(id).offset().top
+                    },100);
+                    
+                });
+//                $('.body-preview-content img').css('width', '90%');
+                
+                $('.body-preview-content img').filter(function(){
+                    return $(this).css('border-width') == '0px';
+                    
+                }).css('border-width', '0').css('width', '90%');
+                
             }, 500);
         }
         $scope.observeEvents();
@@ -1966,11 +1987,13 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         }
         
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'FileUploader', '$modalInstance', '$modal', 
-        function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, FileUploader, $modalInstance, $modal) {
+    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'recordform', 
+        function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, SecurityService, FileUploader, $modalInstance, $modal, recordform) {
+        $scope.recordform = recordform;
         $scope.NewsService = NewsService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
+        $scope.SecurityService = SecurityService;
         $scope.bodyEditorOptions = {
             language: 'fa',
             height: '500px',

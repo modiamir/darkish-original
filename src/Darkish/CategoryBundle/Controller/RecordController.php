@@ -305,6 +305,12 @@ class RecordController extends Controller
         if(isset($data['website'])) {
             $record->setWebsite($data['website']);
         }
+        if(isset($data['sms_number'])) {
+            $record->setSmsNumber($data['sms_number']);
+        }
+        if(isset($data['postal_code'])) {
+            $record->setPostalCode($data['postal_code']);
+        }
         if(isset($data['address'])) {
             $record->setAddress($data['address']);
         }
@@ -845,7 +851,7 @@ class RecordController extends Controller
 
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
-        $categories = $repository->findAll();
+        $categories = $repository->findBy(array(), array('sort' => 'ASC' ));
         $tree = array();
         foreach($categories as $key => $product) {
             $node = array();
@@ -855,6 +861,7 @@ class RecordController extends Controller
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
             $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $node['sort'] = $product->getSort();
             $tree[$key] = $node;
         }
         $hierarchy = $this->buildTree($tree);
@@ -893,7 +900,7 @@ class RecordController extends Controller
     public function getTreeLinearAction() {
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
-        $categories = $repository->findAll();
+        $categories = $repository->findBy(array(), array('sort'=> 'ASC'));
         $tree = array();
         foreach($categories as $key => $product) {
             $node = array();
@@ -903,6 +910,7 @@ class RecordController extends Controller
             $node['upTreeIndex'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
             $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $node['sort'] = $product->getSort();
             $tree[$key] = $node;
         }
 
@@ -1421,6 +1429,7 @@ class RecordController extends Controller
     
     public function getTreeByIndexAction($index) {
         try {
+            /* @var $repo Doctrine\ORM\Repository\RepositoryFactory */
             $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
             $trees = $repo->findByTreeIndex($index);
             if(count($trees)) {

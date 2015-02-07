@@ -2,39 +2,6 @@ classified:
     path:     /
     defaults: { _controller: "DarkishCategoryBundle:Classified:index" }
 
-classified_show:
-    path:     /{id}/show
-    defaults: { _controller: "DarkishCategoryBundle:Classified:show" }
-
-classified_new:
-    path:     /new
-    defaults: { _controller: "DarkishCategoryBundle:Classified:new" }
-
-classified_create:
-    path:     /ajax/create
-    defaults: { _controller: "DarkishCategoryBundle:Classified:create" }
-    requirements: { _method: post }
-
-classified_edit:
-    path:     /ajax/edit/{id}
-    defaults: { _controller: "DarkishCategoryBundle:Classified:edit" }
-    requirements: { _method: put }
-
-classified_approve:
-    path:     /ajax/classified/approve/{id}
-    defaults: { _controller: "DarkishCategoryBundle:Classified:approve" }
-    requirements: { _method: put }
-
-classified_update:
-    path:     /{id}/update
-    defaults: { _controller: "DarkishCategoryBundle:Classified:update" }
-    requirements: { _method: post|put }
-
-classified_delete:
-    path:     /ajax/classified/delete/{id}
-    defaults: { _controller: "DarkishCategoryBundle:Classified:delete" }
-    requirements: { _method: post|delete }
-
 classified_get_tree:
     path:     /ajax/gettree
     defaults: { _controller: "DarkishCategoryBundle:Classified:getTree", _format: json}
@@ -43,26 +10,108 @@ classified_get_tree_linear:
     path:     /ajax/gettree_linear
     defaults: { _controller: "DarkishCategoryBundle:Classified:getTreeLinear", _format: json}
 
+classified_get_json:
+    path:     /ajax/getjson
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getJson", _format: json}
 
 
 classified_get_classified_for_category:
-    path:     /ajax/get_classified_for_cat/{cid}/{page}
-    defaults: { _controller: "DarkishCategoryBundle:Classified:getclassifiedForCategory", _format: json, page: 1}
+    path:     /ajax/get_classified_for_cat/{cid}/{count}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getClassifiedForCategory", _format: json, count: 0}
 
-classified_total_pages_for_category:
-    path:     /ajax/get_total_pages/{cid}
-    defaults: { _controller: "DarkishCategoryBundle:Classified:getTotalPagesForCat", _format: json}
+classified_search_classified:
+    path:     /ajax/search_classified/{search_by}/{sort_by}/{count}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:searchClassifieds", _format: json, keyword: "", search_by: 1, sort_by: 1}
 
-classified_get_generate_csrf:
-    path:     /ajax/generate_csrf/{intention}
-    defaults: {_controller: "DarkishCategoryBundle:Classified:generateCsrf", _format: json, intention: ""}
 
-classified_get_is_csrf_valid:
-    path:     /ajax/is_csrf_valid/{token}/{intention}
-    defaults: {_controller: "DarkishCategoryBundle:Classified:isCsrfValid", _format: json, intention: ""}
+classified_verify_classified:
+    path:     /ajax/verify_classified/{classifiedId}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:verifyClassified", _format: json }
+    requirements: { _method: post|put }
+
+classified_toggle_verify_classified:
+    path:     /ajax/toggle_verify_classified/{classifiedId}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:toggleVerifyClassified", _format: json }
+    requirements: { _method: post|put }
+
+classified_toggle_active_classified:
+    path:     /ajax/toggle_active_classified/{classifiedId}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:toggleActiveClassified", _format: json }
+    requirements: { _method: post|put }
+
+classified_delete_classified:
+    path:     /ajax/delete_classified/{classifiedId}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:deleteClassified", _format: json }
+    requirements: { _method: post|put }
 
 classified_get_classified:
     path:     /ajax/get_classified/{id}
-    defaults: {_controller: "DarkishCategoryBundle:Classified:getclassified", _format: json, intention: ""}
-    requirements:
-            id:  \d+
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getClassified", _format: json}
+
+classified_get_centers:
+    path:   /ajax/get_centers
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getCenters", _format: json }
+
+classified_get_safarsaz_types:
+    path:   /ajax/get_safarsaz_types
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getSafarsazTypes", _format: json }
+
+classified_get_dbase_types:
+    path:   /ajax/get_dbase_types
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getDbaseTypes", _format: json }
+
+classified_get_areas:
+    path:   /ajax/get_areas
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getAreas", _format: json }
+
+classified_update:
+    path:     ajax/{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:Classified:update" }
+    requirements: { _method: post|put }
+
+classified_create:
+    path:     ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:Classified:create" }
+    requirements: { _method: post }
+
+classified_get_generate_csrf:
+    path:     /ajax/generate_csrf
+    defaults: {_controller: "DarkishCategoryBundle:Classified:generateCsrf", _format: json}
+
+classified_contains_tree:
+    path:     /ajax/contains_tree/{classifiedId}/{treeId}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:containsTree", _format: json}
+
+classified_access_test:
+    path:     /ajax/access
+    defaults: { _controller: "DarkishCategoryBundle:Classified:access", _format: json}
+
+classified_get_username:
+    path:     /ajax/get_username
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getUsername", _format: json}
+
+classified_get_last_classifiednumber:
+    path:     /ajax/get_last_classifiednumber
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getLastClassifiedNumber", _format: json}
+
+classified_lock_classified_number:
+    path:     /ajax/lock_classified_number/{classifiedNumber}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:lockClassifiedNumber", _format: json}
+    requirements: { _method: post|put }
+
+
+classified_check_permission:
+    path:     /ajax/check_permission/{attribute}/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:checkPermission", _format: json, id: null}
+    
+classified_get_by_id:
+    path:     /ajax/get_classified_by_id/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getClassifiedById", _format: json}
+    
+classified_get_tree_by_index:
+    path:     /ajax/get_tree_by_index/{index}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTreeByIndex", _format: json}
+    
+classified_get_test_tree:
+    path:     /get_test_tree/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTestTree", _format: json}
