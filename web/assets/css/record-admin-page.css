@@ -1908,3 +1908,10 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .top-menu-col .container-fluid {
     margin: 0;
 }
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

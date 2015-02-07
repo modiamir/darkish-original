@@ -2067,3 +2067,10 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 .offer-submiter-box input {
     float: left;
 }
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
