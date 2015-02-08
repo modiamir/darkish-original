@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Darkish\UserBundle\DarkishUserBundle(),
+            new Darkish\CustomerBundle\DarkishCustomerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
