@@ -666,6 +666,13 @@ class Operator implements AdvancedUserInterface, \Serializable
     }
     
     public function routeAccess($route) {
+        if($route == 'operator') {
+            if($this->getId() == 1) {
+                return true; 
+            } else {
+                return false;
+            }
+        }
         $al = json_decode($this->getAccessLevel());
         return ($this->id == 1) || in_array($route, $al);
     }

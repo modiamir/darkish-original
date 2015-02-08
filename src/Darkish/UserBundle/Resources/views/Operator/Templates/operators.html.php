@@ -31,16 +31,17 @@
                 </td>
                 <td>{{operator.creator.username}}</td>
                 <td>
-                    <span ng-hide="operator.id == 1" ng-click="toggleIsActive(operator);$event.stopPropagation()"><switch id="enabled" name="enabled" ng-model="operator.is_active" class="is-active-switch"></switch></span>
-                    <span ng-show="operator.id == 1"><i class="fa fa-check-circle" style="color: #64bd63;font-size: 30px;"></i></span>
+                    <!--<span ng-hide="operator.id == 1" ng-click="toggleIsActive(operator);$event.stopPropagation()"><switch id="enabled" name="enabled" ng-model="operator.is_active" class="is-active-switch"></switch></span>-->
+                    <span ng-show="operator.is_active"><i class="fa fa-check-circle" style="color: #64bd63;font-size: 30px;"></i></span>
+                    <span ng-hide="operator.is_active"><i class="fa fa-times-circle" style="color: rgb(255, 104, 104);font-size: 30px;"></i></span>
                 </td>
                 <td>
-                    <button ng-hide="operator.id == 1" type="button" ng-click="delete(operator, $index); $event.stopPropagation();" class="btn btn-sm btn-danger">
-                        <i class="glyphicon glyphicon-remove-circle">
-                        </i>
-                    </button>
                     <button type="button" ng-click="$event.stopPropagation();" ui-sref="edit({ id: operator.id })" class="btn btn-sm btn-info">
                         <i class="glyphicon glyphicon-edit">
+                        </i>
+                    </button>
+                    <button ng-hide="operator.id == 1" type="button" ng-click="delete(operator, $index); $event.stopPropagation();" class="btn btn-sm btn-danger">
+                        <i class="glyphicon glyphicon-remove-circle">
                         </i>
                     </button>
                 </td>

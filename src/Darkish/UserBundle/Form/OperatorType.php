@@ -12,12 +12,6 @@ use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 class OperatorType extends AbstractType
 {
     
-    private $tokenStorage;
-    
-    public function __construct(TokenStorageInterface $tokenStorage)
-    {
-        $this->tokenStorage = $tokenStorage;
-    }
     
     /**
      * @param FormBuilderInterface $builder
@@ -45,27 +39,10 @@ class OperatorType extends AbstractType
                 'property' => 'id',
             ))
             ->add('creator')
+            ->add('newPassword')
         ;
         
-        // grab the user, do a quick sanity check that one exists
-        $user = $this->tokenStorage->getToken()->getUser();
-        if (!$user) {
-            throw new \LogicException(
-                'The FriendMessageFormType cannot be used without an authenticated user!'
-            );
-        }
         
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $product = $event->getData();
-            $form = $event->getForm();
-            // check if the Product object is "new"
-            // If no data is passed to the form, the data is "null".
-            // This should be considered a new "Product"
-            $form->add('newPassword');
-            
-            
-            
-        });
     }
     
     /**
