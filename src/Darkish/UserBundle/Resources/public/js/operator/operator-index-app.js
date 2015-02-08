@@ -570,11 +570,7 @@ operatorApp.factory('ValuesService', ['$http', function($http){
         {
             label: 'تالار گفتگو',
             value: "forum"
-        },
-        {
-            label: 'اپراتور ها',
-            value: "operator"
-        },
+        }
         
     ];
     

@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label for="operatorEmail">پست الکترونیک</label>
-                    <input ng-model="operator.email" ng-disabled="true" type="email" class="form-control" id="operatorEmail" placeholder="پست الکترونیک">
+                    <input dir="ltr" ng-model="operator.email" ng-disabled="true" type="email" class="form-control" id="operatorEmail" placeholder="پست الکترونیک">
                 </div>
                 
             </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-group">
                     <label for="operatorSecondaryEmail">پست الکترونیک ثانویه</label>
-                    <input ng-model="operator.secondary_mail" type="email" class="form-control" id="operatorSecondaryEmail" placeholder="پست الکترونیک ثانویه">
+                    <input dir="ltr" ng-model="operator.secondary_mail" type="email" class="form-control" id="operatorSecondaryEmail" placeholder="پست الکترونیک ثانویه">
                 </div>
             </div>
             <div class="col col-md-4 left">

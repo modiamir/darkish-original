@@ -1,0 +1,42 @@
+@font-face {
+    font-family: yekan;
+    src: url("../fonts/yekan/yekan.eot");
+    src: url("../fonts/yekan/yekan.eot?#iefix") format("embedded-opentype"), url("../fonts/yekan/yekan.woff") format("woff"), url("../fonts/yekan/yekan.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: yekan;
+    background-color: #1abc9c;
+    .form-control, .select2-search input[type=text] {
+        font-family: yekan;
+    }
+}
+
+.login-screen {
+    min-height: inherit;
+    min-width: 556px;
+    padding: inherit;
+    margin: auto;
+    display: table;
+    margin-top: 150px;
+    .login-icon {
+        float: left;
+        position: inherit;
+        margin-right: 10px;
+        h4 {
+            text-align: right;
+        }
+    }
+    form {
+        float: left;
+        width: 450px;
+    }
+    
+    
+    input {
+        direction: ltr;
+    }
+    
+}
