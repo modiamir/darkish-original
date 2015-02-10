@@ -154,4 +154,9 @@ body {
     .highlight {
         color: #ff0000;
     }
+    
+    div.angucomplete-dropdown {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
 }
