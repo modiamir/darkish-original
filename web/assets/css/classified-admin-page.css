@@ -1285,14 +1285,19 @@ select#tree-list-input option {
     position: static;
     margin: 10px 5px;
     height: 350px;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     width: 98%;
     overflow-wrap: break-word;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
 
 }
 .html-wrapper .col-md-12{
     width: 95%;
+}
+
+.html-wrapper textarea {
+    width: 100%;
+    height: 350px;
 }
 
 .html-wrapper .html-preview {
@@ -2066,4 +2071,10 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 .classified-submiter-box input {
     float: left;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

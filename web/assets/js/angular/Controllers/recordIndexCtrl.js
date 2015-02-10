@@ -82,6 +82,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
         });
         
+        
+        
 //        uploader.filters.push({
 //            name: 'imageSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -145,6 +147,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                  
             }
         });
+        
+        
         
 //        uploader.filters.push({
 //            name: 'videoSizeFilter',
