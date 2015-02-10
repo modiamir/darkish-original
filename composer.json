@@ -18,16 +18,11 @@
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
-        "sonata-project/jquery-bundle": "dev-master",
-        "sonata-project/easy-extends-bundle": "dev-master",
-        "sonata-project/user-bundle": "dev-master",
-        "sonata-project/datagrid-bundle": "2.2.*@dev",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "egeloen/ckeditor-bundle": "~2.0",
         "pulse00/ffmpeg-bundle": "dev-master",
-        "jms/serializer-bundle": "0.13.*@dev"
+        "jms/serializer-bundle": "0.13.*@dev",
+        "liip/imagine-bundle": "~1.2",
+        "knplabs/knp-menu-bundle": "~2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
