@@ -102,6 +102,7 @@
             
             <h4 ng-show="shared.currentRecord.id > 0">
                 دستیاران
+                <button type="button" class="btn btn-primary btn-xs" ng-click="add('assistant', shared.currentRecord.id)">افزودن دستیار</button>
             </h4>
             <hr ng-show="shared.currentRecord.id > 0"/>
             <table st-pipe="refresh" st-table="displayedCustomers" st-safe-src="customers"  class="customers-table table table-striped">
