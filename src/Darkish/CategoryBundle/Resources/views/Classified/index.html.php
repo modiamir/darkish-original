@@ -231,25 +231,7 @@
                                 
                             </div>
                             
-                            <div class="banner-box">
-                                <div class="banner-head">
-                                    <span class="banner-title">
-                                        تابلو
-                                    </span>
-                                    <button ng-click="ClassifiedService.removeBanner()" ng-disabled="!ClassifiedService.isEditing()" class="banner-delete btn-danger btn">
-                                        حذف
-                                    </button>
-                                    <label class="banner-file-select btn btn-info" ng-class="{'disabled': !ClassifiedService.isEditing()}">
-                                        انتخاب فایل
-                                        <input ng-disabled="!ClassifiedService.isEditing()  || !SecurityService.connected" type="file" nv-file-select="" uploader="bannerUploader" multiple="true" style="visibility: hidden;display: none"/>
-                                    </label>
-
-                                </div>
-                                <div class="banner-body">
-                                    <img ng-show="ClassifiedService.currentClassified.banner.id" width="80%" ng-src="{{ClassifiedService.currentClassified.banner.absolute_path}}" />
-                                </div>
-
-                            </div>
+                            
                             
                             <div class="classified-submiter-box">
                                 <input type="text" ng-disabled="!ClassifiedService.isEditing()" id="classified-submitter-input" ng-model="ClassifiedService.currentClassified.submitter" />
@@ -812,13 +794,16 @@
 
                 <div class="row html-wrapper">
                     <div class="col-xs-12">
-                        <div class="html-preview" ng-bind-html="trustedBody()">
+                        <textarea ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
+                        <div ng-hide="true" class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>
-                        <button data-ng-show="ClassifiedService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
+                        <button  
+                            data-ng-show="false"
+                                 id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
                             ویرایش صفحه
                         </button>
-                        <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
+                        <button ng-hide="true" id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
                             پیش نمایش صفحه
                         </button>
                         <script type="text/ng-template" id="bodyPreviewModal.html">

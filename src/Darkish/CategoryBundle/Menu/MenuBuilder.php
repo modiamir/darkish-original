@@ -29,6 +29,7 @@ class MenuBuilder
             'offer' => 'پیشنهاد ویژه',
             'classified' => 'نیازمندی ها',
             'operator' => 'اپراتور ها',
+            'manage_customer' => 'مدیریت مشتری ها'
 //            'forum' => 'تالار گفتگو',
         );
 
@@ -41,21 +42,21 @@ class MenuBuilder
         // ... add more children
         $al = $this->securityContext->getToken()->getUser()->getAccessLevel();
         
-        $al = json_decode($al);
         
         $request = $this->container->get('request');
         $currentRouteName = $request->get('_route');
         
         foreach($this->routes as $routeName => $value) {
-            $this->addChild($menu, $routeName, $al, $currentRouteName);
+            $this->addChild($menu, $routeName, $currentRouteName);
         }
         
         
         return $menu;
     }
     
-    private function addChild($menu, $routeName, $al, $currentRouteName) {
-        if(in_array($routeName, $al) && $routeName != $currentRouteName) {
+    private function addChild(&$menu, $routeName, $currentRouteName) {
+        $operator = $this->securityContext->getToken()->getUser();
+        if($operator->routeAccess($routeName) && $routeName != $currentRouteName) {
             $menu->addChild($this->routes[$routeName], array('route' => $routeName));
         }
     }

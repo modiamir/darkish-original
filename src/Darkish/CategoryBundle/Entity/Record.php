@@ -24,7 +24,7 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.list", "record.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
      */
     private $id;
 
@@ -32,7 +32,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="record_number", type="string", length=255, unique=true)
-     * @Groups({"record.list", "record.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
      */
     private $recordNumber;
 
@@ -40,7 +40,7 @@ class Record
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"record.list", "record.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -54,7 +54,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"record.list", "record.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -832,6 +832,11 @@ class Record
      */
     private $user;
 
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record")
+     */
+    private $customers;
 
 
 

@@ -114,16 +114,7 @@ class Classified
      */
     private $continual;
     
-    
-    /**
-     *
-     * @var boolean
-     * 
-     * @ORM\Column(name="Immediate", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"classified.details"}) 
-     */
-    private $immediate;
-    
+
     /**
      *
      * @var integer
@@ -132,36 +123,6 @@ class Classified
      * @Groups({"classified.details"})
      */
     private $listRank;
-    
-    
-    /**
-     *
-     * @var boolean
-     * 
-     * @ORM\Column(name="IsCompetition", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"classified.details"}) 
-     */
-    private $isCompetition;
-    
-    /**
-     *
-     * @var integer
-     * 
-     * @ORM\Column(name="TrueAnswer", type="integer", nullable=true)
-     * @Groups({"classified.details"})
-     */
-    private $trueAnswer;
-    
-    /**
-     *
-     * @var integer
-     * 
-     * @ORM\Column(name="Rate", type="integer", nullable=true)
-     * @Groups({"classified.details"})
-     */
-    private $rate;
-    
-
     
     
 
@@ -335,15 +296,6 @@ class Classified
     private $icon;
     
     
-    /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="bannerForClassified")
-     * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id")
-     * @Groups({"classified.details"})
-     * 
-     **/
-    private $banner;
     
 
     /**

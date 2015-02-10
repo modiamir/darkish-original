@@ -15,6 +15,17 @@ class DefaultController extends Controller
      * @Template("DarkishCustomerBundle:Default:index.html.php")
      */
     public function indexAction() {
-        return array('name' => 'test');
+        
+        return array();
+    }
+    
+    /**
+     * 
+     * @Route("/test")
+     * 
+     */
+    public function testAction() {
+        $customer = $this->getDoctrine()->getRepository('DarkishCustomerBundle:Customer')->find(1);
+        return new \Symfony\Component\HttpFoundation\Response($customer->getRoles()[0]->getName());
     }
 }
