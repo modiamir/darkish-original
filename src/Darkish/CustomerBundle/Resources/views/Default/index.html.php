@@ -52,7 +52,13 @@
                             <li class="dropdown-messages"><a>شماره رکورد: <span class="badge">R123456</span></a></li>
                             <li><a>آخرین بروزرسانی: <span class="badge">۲ دی ۱۳۹۳</span></a></li>
                             <li role="presentation" class="divider"></li>
-                            <li><a href="#">خروج </a></li>
+                            <li>
+                                <a href="<?php
+                                echo $view['router']->generate('customer_logout')
+                                ?>">
+                                    خروج
+                                </a>
+                            </li>
                             
                         </ul>
                     </li>

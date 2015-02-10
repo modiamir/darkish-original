@@ -30,6 +30,11 @@ services:
         arguments: ["@request_stack"]
         tags:
             - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+    my_file.subscriber:
+        class: Darkish\CategoryBundle\EventListener\FileSubscriber
+        arguments: ["@service_container", "@request_stack"]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
     
 
 parameters:

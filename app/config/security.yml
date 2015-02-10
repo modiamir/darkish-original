@@ -4,10 +4,11 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
         Darkish\UserBundle\Entity\Operator:
             algorithm: bcrypt
-        Darkish\CustomerBundle\Entity\Customer: plaintext
+        Darkish\CustomerBundle\Entity\Customer: 
+            algorithm: bcrypt
 
     role_hierarchy:
-        ROLE_CUSTOMRE:    [IS_AUTHENTICATED_ANONYMOUSLY]
+        ROLE_CUSTOMER:    [IS_AUTHENTICATED_ANONYMOUSLY]
         ROLE_USER:        [IS_AUTHENTICATED_ANONYMOUSLY]
         ROLE_PUBLISHER:   [ROLE_USER]
         ROLE_EDITOR:      [ROLE_PUBLISHER]
@@ -15,8 +16,6 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        fos_userbundle:
-            id: fos_user.user_manager
         operators:
             entity: { class: DarkishUserBundle:Operator, property: username }
         customers: 
@@ -94,6 +93,5 @@ security:
 
 parameters:
    # ... other parameters
-    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
     # optionally use a custom MaskBuilder
     #sonata.admin.security.mask.builder.class: Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder

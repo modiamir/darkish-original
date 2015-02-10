@@ -229,9 +229,7 @@ class ClassifiedController extends Controller
             $classified->setContinual($data['continual']);
         }
         
-        if(isset($data['immediate'])) {
-            $classified->setImmediate($data['immediate']);
-        }
+        
         
         if(isset($data['list_rank'])) {
             $classified->setListRank($data['list_rank']);
@@ -305,28 +303,6 @@ class ClassifiedController extends Controller
                 }
             } else {
                 $classified->setIcon();
-            }
-            
-        }
-        if(isset($data['banner'])) {
-            $bannerRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
-            $em = $this->getDoctrine()->getManager();
-            if(isset($data['banner']['id'])) {
-                $banner = $bannerRepo->find($data['banner']['id']);
-                if($banner) {
-                    $classified->setBanner($banner);
-                    if(isset($data['banner']['continual']) && $data['banner']['continual']) {
-                        $banner->setContinual(true);
-                        $em->persist($banner);
-                        $em->flush();
-                    } else {
-                        $banner->setContinual(false);
-                        $em->persist($banner);
-                        $em->flush();
-                    }
-                }
-            } else {
-                $classified->setBanner();
             }
             
         }
