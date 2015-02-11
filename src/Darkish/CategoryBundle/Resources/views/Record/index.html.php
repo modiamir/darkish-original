@@ -550,22 +550,22 @@
 
                             <label for="phone-one">تلفن</label>
                             <div class="form-item-wrapper phone">
-                                <input type="number" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="number" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
-                                <input type="number" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />
-                                <input type="number" ng-maxlength="11" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"/>
+                                <input type="text" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"/>
                             </div>
 
                             <label for="fax-one">فکس</label>
                             <div class="form-item-wrapper fax">
-                                <input type="number" ng-maxlength="11" id="fax-one" ng-model="RecordService.currentRecord.fax_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="number" ng-maxlength="11" id="fax-two" ng-model="RecordService.currentRecord.fax_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="fax-one" ng-model="RecordService.currentRecord.fax_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="fax-two" ng-model="RecordService.currentRecord.fax_number_two" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="mobile-one">همراه</label>
                             <div class="form-item-wrapper mobile">
-                                <input type="number" ng-maxlength="11" id="mobile-one" ng-model="RecordService.currentRecord.mobile_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="number" ng-maxlength="11" id="mobile-two" ng-model="RecordService.currentRecord.mobile_number_two" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="mobile-one" ng-model="RecordService.currentRecord.mobile_number_one" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="mobile-two" ng-model="RecordService.currentRecord.mobile_number_two" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="email">ایمیل</label>
@@ -580,12 +580,12 @@
                             
                             <label for="sms-number">شماره پیام کوتاه</label>
                             <div class="form-item-wrapper website">
-                                <input type="number" ng-maxlength="11" id="sms-number" ng-model="RecordService.currentRecord.sms_number" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="sms-number" ng-model="RecordService.currentRecord.sms_number" ng-disabled="!RecordService.isEditing()" />
                             </div>
                             
                             <label for="postal-code">کد پستی</label>
                             <div class="form-item-wrapper website">
-                                <input type="number" ng-maxlength="11" id="postal-code" ng-model="RecordService.currentRecord.postal_code" ng-disabled="!RecordService.isEditing()" />
+                                <input type="text" ng-maxlength="11" id="postal-code" ng-model="RecordService.currentRecord.postal_code" ng-disabled="!RecordService.isEditing()" />
                             </div>
 
                             <label for="states"> محله </label>

@@ -271,7 +271,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
+     * @ORM\Column(name="TelNumberOne", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberOne;
@@ -279,7 +279,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
+     * @ORM\Column(name="TelNumberTwo", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberTwo;
@@ -287,7 +287,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
+     * @ORM\Column(name="TelNumberThree", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberThree;
@@ -295,7 +295,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
+     * @ORM\Column(name="TelNumberFour", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $telNumberFour;
@@ -303,7 +303,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberOne", type="bigint",  nullable=true)
+     * @ORM\Column(name="FaxNumberOne", type="string",  nullable=true)
      * @Groups({"record.details"})
      */
     private $faxNumberOne;
@@ -311,7 +311,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
+     * @ORM\Column(name="FaxNumberTwo", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $faxNumberTwo;
@@ -319,7 +319,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
+     * @ORM\Column(name="MobileNumberOne", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $mobileNumberOne;
@@ -327,7 +327,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
+     * @ORM\Column(name="MobileNumberTwo", type="string", nullable=true)
      * @Groups({"record.details"})
      */
     private $mobileNumberTwo;
@@ -351,7 +351,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="SmsNumber", type="bigint",  nullable=true)
+     * @ORM\Column(name="SmsNumber", type="string",  nullable=true)
      * @Groups({"record.details"})
      */
     private $smsNumber;
@@ -359,7 +359,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="PostalCode", type="bigint",  nullable=true)
+     * @ORM\Column(name="PostalCode", type="string",  nullable=true)
      * @Groups({"record.details"})
      */
     private $postalCode;
