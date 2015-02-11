@@ -1240,7 +1240,7 @@
 <?php $view['slots']->start('top-actions');?>
     <div  class="classified-top show-grid ">
 
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <button ng-show="SecurityService.buttonsAccess.newButtonAccess()" ng-disabled="ClassifiedService.isEditing()" type="button" class="btn btn-primary" ng-click="ClassifiedService.editingNew()">
                 جدید
             </button>
@@ -1348,7 +1348,7 @@
 
 
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
             <button type="button" ng-disabled="!ClassifiedService.currentClassified.id || ClassifiedService.isEditing() || !ClassifiedService.previousable()" class="btn btn-primary" ng-click="ClassifiedService.previousSelectedClassified()">
                 قبلی
             </button>
@@ -1374,34 +1374,50 @@
         </div>
 
         <div class="col-xs-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn  && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn  && !SecurityService.connected)}" style="float: left"  >
-            <label class="username-label">
-            نام کاربری:
-            </label>
-            <i class="fa fa-power-off"></i>
-            <span class="username-value">
-            {{ValuesService.username}}
-            </span>
-            <button ng-show="SecurityService.loggedIn && SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="logout()">
-                خروج
-            </button>
-            <button ng-hide="SecurityService.loggedIn  || !SecurityService.connected" class="btn btn-warning logout-btn" data-ng-click="openLoginModal()">
-                ورود مجدد
-            </button>
-            <script type="text/ng-template" id="loginModal.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">ورود مجدد</h3>
-                </div>
-                <div class="modal-body">
-                    <label class="username" for="login-username" >نام کاربری</label>
-                    <input id="login-username" type="text" ng-model="username">
-                    <label class="password" for="login-password" >رمز عبور</label>
-                    <input id="login-password" type="text" ng-model="password">
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="login()">ورود</button>
-                    <button class="btn btn-warning" ng-click="close()">بستن</button>
-                </div>
-            </script>
+            <ul class="nav navbar-nav navbar-left user-pane">
+
+
+
+                <li class="dropdown open">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <i class="fa fa-power-off"></i>
+                    <span class="username-value">
+                    {{ValuesService.username}}
+                    </span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li ng-show="SecurityService.loggedIn && SecurityService.connected">
+                            <a  href="#" data-ng-click="logout()">
+                                خروج
+                            </a>
+                        </li>
+                        <li ng-hide="SecurityService.loggedIn  || !SecurityService.connected">
+                            <a href="#" data-ng-click="openLoginModal()">
+                                ورود مجدد
+                            </a>
+                            <script type="text/ng-template" id="loginModal.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">ورود مجدد</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="username" for="login-username" >نام کاربری</label>
+                                    <input id="login-username" type="text" ng-model="username">
+                                    <label class="password" for="login-password" >رمز عبور</label>
+                                    <input id="login-password" type="text" ng-model="password">
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="login()">ورود</button>
+                                    <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                </div>
+                            </script>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            
+            
+            
+            
 
         </div>
     </div>

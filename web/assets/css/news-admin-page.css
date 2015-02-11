@@ -5,7 +5,7 @@
 
 body{
     background-color: rgb(239, 239, 239);
-    font-family: yekan;
+    font-family: B Mitra;
     width: 1260px;
     margin: auto;
 }
@@ -1611,7 +1611,9 @@ form.loaded {
 .navbar .dropdown{
      margin-top: 6px;
 }
-
+.user-pane .dropdown {
+    margin-top: 0;
+}
 
 .logout-btn {
 
