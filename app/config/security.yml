@@ -41,6 +41,7 @@ security:
 #                domain:   ~ # Defaults to the current domain from $_SERVER
             logout:
                 path:   /admin/operator/logout
+                invalidate_session: false
         customer_area:
             pattern:    ^/customer
             http_basic: ~
@@ -51,6 +52,7 @@ security:
                 check_path: /customer/login_check
             logout:
                 path:   /customer/logout
+                invalidate_session: false
 #            remember_me:
 #                key:      "%secret%"
 #                lifetime: 31536000 # 365 days in seconds

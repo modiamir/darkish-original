@@ -37,7 +37,7 @@ customerApp.controller('customerIndexCtrl', ['$scope', '$interval', '$collection
         $scope.shared = {};
         $scope.shared.currentRecord = {id:-1, title: 'تمامی رکوردها'};
         $scope.logout = function () {
-            $http.get('../customer/ajax/logout').then(
+            $http.get('../operator/ajax/logout').then(
                     function (response) {
                         $scope.loggedOut();
                     },
@@ -144,7 +144,7 @@ customerApp.controller('customersCtrl', ['$scope', '$collection', '$http', '$sta
     
     $scope.tableState = {};
     
-    $scope.itemsByPage=3;
+    $scope.itemsByPage=10;
     $scope.displayedCustomers = $scope.customers;
     $scope.refresh = function(tableState) {
         $scope.isLoading = true;
@@ -675,7 +675,7 @@ customerApp.controller('loginModalCtrl', ['$scope', '$http', '$modalInstance','V
             if(approve) {
                 $http({
                     method: 'POST',
-                    url: '../customer/ajax/login',
+                    url: '../operator/ajax/login',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param({username: $scope.username, password: $scope.password})
                 }).then(

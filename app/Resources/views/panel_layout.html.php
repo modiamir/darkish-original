@@ -31,40 +31,25 @@
 <body ng-app="<?php $view['slots']->output('ngapp') ?>" ng-controller="<?php $view['slots']->output('controller') ?>"  >
 <form ng-cloak ng-class="{'loaded': loaded, 'notloaded': !loaded }" class="notloaded" name="<?php $view['slots']->output('formname') ?>" novalidate>
     <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid top-container">
-            <div class="row">
-                <div class="col col-xs-2 top-menu-col">
-                    <div class="container-fluid top-menu-container">
-                        <div class="row">
-                            <div class="col col-xs-4">
-                                <div class="navbar-header">
-                                    <a class="navbar-brand" href="#">درکیش</a>
-                                </div>
-                            </div>
-                            <div class="col  col-xs-8">
-                                <?php if ($view['slots']->has('top-menu')): ?>
-                                    <?php $view['slots']->output('top-menu') ?>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="col-xs-10">
-                    <div class="collapse container navbar-collapse" id="bs-example-navbar-collapse-6">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <?php if ($view['slots']->has('top-actions')): ?>
-                                    <?php $view['slots']->output('top-actions') ?>
-                                <?php endif; ?>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">درکیش</a>
             </div>
-            
-            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+                <?php if($view['slots']->has('top-menu')): ?>
+                    <?php $view['slots']->output('top-menu') ?>
+                <?php endif; ?>
+
+                <?php if($view['slots']->has('top-actions')): ?>
+                    <?php $view['slots']->output('top-actions') ?>
+                <?php endif; ?>
+            </div>
         </div>
     </nav>
 

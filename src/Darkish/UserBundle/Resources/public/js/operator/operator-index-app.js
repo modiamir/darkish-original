@@ -136,7 +136,7 @@ operatorApp.controller('operatorsCtrl', ['$scope', '$collection', '$http', '$sta
             }
         );
     }
-    $scope.itemsByPage=3;
+    $scope.itemsByPage=10;
     $scope.displayedOperators = $scope.operators;
     $scope.refresh = function(tableState) {
         $http({
@@ -570,6 +570,10 @@ operatorApp.factory('ValuesService', ['$http', function($http){
         {
             label: 'تالار گفتگو',
             value: "forum"
+        },
+        {
+            label: 'مدیریت مشتریها',
+            value: "manage_customer"
         }
         
     ];
