@@ -396,6 +396,14 @@ class RecordController extends Controller
         if(isset($data['online_enable'])) {
             $record->setOnlineEnable($data['online_enable']);
         }
+        if(isset($data['sell_service_page'])) {
+            $record->setSellServicePage($data['sell_service_page']);
+        }
+        if(isset($data['sell_service_page_title'])) {
+            $record->setSellServicePageTitle($data['sell_service_page_title']);
+        }
+        
+        
         if(isset($data['dbase_enable'])) {
             $record->setDbaseEnable($data['dbase_enable']);
         }
@@ -1070,7 +1078,7 @@ class RecordController extends Controller
                 , 200);
         }
 
-
+        
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
         /* @var $repository \Darkish\CategoryBundle\Entity\MainTreeRepository */
@@ -1096,11 +1104,19 @@ class RecordController extends Controller
 //
 //            $query = $queryBuilder->getQuery();
 //            $newsList =  $query->getResult();
+            
+            $children = $this->getTreeChildren($category);
+            
+            $treesIds = array();
+            $treesIds[] = $category->getId();
+            foreach($children as $child) {
+                $treesIds[] = $child->getId();
+            }
             /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:Record');
-            $qb = $repository->createQueryBuilder('r');
-            $qb->join('r.trees','t', 'WITH','t.id = '. $category->getId())->distinct();
+            $qb = $repository->createQueryBuilder('r'); 
+            $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $qb->orderBy('r.listRank', 'Asc');
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
@@ -1127,6 +1143,15 @@ class RecordController extends Controller
     }
 
 
+    private function getTreeChildren($category) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
+        /* @var $repo \Darkish\CategoryBundle\Entity\MainTree  */
+        $qb = $repo->createQueryBuilder('r');
+        /* @var $qb QueryBuilder */
+        $qb->where($qb->expr()->like('r.upTreeIndex', $qb->expr()->literal($category->getTreeIndex() . '%')));
+        return $qb->getQuery()->getResult();
+    }
+    
     public function searchRecordsAction($keyword, $search_by, $sort_by, $count = 0) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $qb = $repo->createQueryBuilder('r');
@@ -1446,5 +1471,236 @@ class RecordController extends Controller
     public function getTestTreeAction($id) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
         return new Response($this->get('jms_serializer')->serialize($repo->find($id), 'json'));
+    }
+    
+    public function totalSearchRecordsAction($keyword, $search_by, $sort_by) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+        $qb = $repo->createQueryBuilder('r');
+        /* @var $qb QueryBuilder */
+        $qb->select("count(r.id)");
+        switch($search_by) {
+            case '1':
+                $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            case '2':
+                $qb->where($qb->expr()->like('r.recordNumber', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            case '3':
+                $qb->orWhere($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.subTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.legalName', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.messageText', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.email', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.website', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.address', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.searchKeywords', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.body', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.englishTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.englishSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.arabicTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.arabicSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.turkishTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                $qb->orWhere($qb->expr()->like('r.turkishSubTitle', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
+            default:
+
+                break;
+        }
+
+        switch($sort_by) {
+            case '4':
+                $qb->orderBy('r.recordNumber', 'Asc');
+                break;
+            case '3':
+                $qb->orderBy('r.recordNumber', 'Desc');
+                break;
+            case '2':
+                $qb->orderBy('r.creationDate', 'Asc');
+                break;
+            default:
+                $qb->orderBy('r.creationDate', 'Desc');
+                break;
+        }
+
+        $qb->setFirstResult(0);
+        
+        $res = $qb->getQuery()->getSingleScalarResult();
+
+        return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list'))));
+    }
+    
+    
+    public function getTotalRecordForCategoryAction($cid) {
+        
+
+        if($cid == -1) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->where('n.verify= :verify')
+                ->setParameter('verify', false)
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == 0) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('category' => ""));
+
+            $queryBuilder = $repository->createQueryBuilder('r');
+            /* @var $queryBuilder QueryBuilder */
+            $recordWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $qb2 = $repository->createQueryBuilder('rr');
+            $recordWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$recordWithTree->getDQL()))
+                ->setFirstResult(0);
+            $serialized = $this->get('jms_serializer')->
+                serialize(count($recordWithoutTree->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+
+
+
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == -2) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->where('n.active= :active')
+                ->setParameter('active', false)
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+        
+        if($cid == -3) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->orderBy('n.creationDate', 'Desc')
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:MainTree');
+        /* @var $repository \Darkish\CategoryBundle\Entity\MainTreeRepository */
+        $category =  $repository->find($cid);
+
+        if(!$category) {
+            return new Response("Cid input is invalid", 404);
+
+        }
+        else {
+            /* @var $category NewsTree */
+//            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
+//            //$newsList = $repository->findBy(array('category' => $category->getTreeIndex()));
+//
+//            $queryBuilder = $repository->createQueryBuilder('n');
+//            /* @var $queryBuilder QueryBuilder */
+//            $queryBuilder->where('n.newstreeId = :ntid')
+//                ->setParameter('ntid', $category->getId())
+//                ->setFirstResult(($page-1) * $this->numPerPage)
+//                ->setMaxResults($this->numPerPage)
+//            ;
+//
+//
+//            $query = $queryBuilder->getQuery();
+//            $newsList =  $query->getResult();
+            
+            $children = $this->getTreeChildren($category);
+            
+            $treesIds = array();
+            $treesIds[] = $category->getId();
+            foreach($children as $child) {
+                $treesIds[] = $child->getId();
+            }
+            /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
+            $repository = $this->getDoctrine()
+                ->getRepository('DarkishCategoryBundle:Record');
+            $qb = $repository->createQueryBuilder('r'); 
+            $qb->select('count(r.id)');
+            $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
+            $qb->orderBy('r.listRank', 'Asc');
+            $res = $qb->setFirstResult(0)->getQuery()->getSingleScalarResult();
+            
+            $serialized = $this->get('jms_serializer')->
+                serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+
+
+
+//            $newsList = $category->getRecords();
+//            $encoders = array(new XmlEncoder(), new JsonEncoder());
+//            $normalizers = array(new GetSetMethodNormalizer());
+//
+//            $serializer = new Serializer($normalizers, $encoders);
+//
+//            $serialized = $serializer->serialize($newsList, 'json');
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
     }
 }

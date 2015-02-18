@@ -20,6 +20,11 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use JMS\Serializer\Serializer as JMSSerializer;
 use JMS\Serializer\SerializationContext;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Filters\Video\ResizeFilter;
+use FFMpeg\Format\Video\X264;
+use Alchemy\BinaryDriver\Listeners\DebugListener;
 
 class ManagedFileController extends Controller
 {
@@ -114,9 +119,33 @@ class ManagedFileController extends Controller
 
     }
 
+    
+    /**
+     * 
+     * @return Response
+     * @Template()
+     */
+    public function ffmpegTestAction() {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+        $file = $repo->find(308);
+        $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+
+        $video = $ffmpeg->open($file->getUploadRootDir());
+        $video
+            ->filters()
+            ->resize(new Dimension(1280, 720), ResizeFilter::RESIZEMODE_INSET)
+            ->synchronize();
+
+        // Start transcoding and save video
+        $video->save(new X264(), '/home/amir/Desktop/test.mp4');  
+        return array();
+        return new Response($this->get('jms_serializer')->serialize($file->getUploadRootDir(), 'json', SerializationContext::create()->setGroups(array('file.details'))));
+    }
+
+
     public function nervghAction(Request $request) {
         $serializer = $this->get('jms_serializer');
-        return new Response($serializer->serialize($request->files->get('file'), 'json'));
+        return new Response($serializer->serialize($request->files->get('file'), 'json', SerializationContext::create()->setGroups(array('file.details'))));
         
         
     }

@@ -732,6 +732,38 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
 
         /**
+         * logout modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLogoutModal = function (size) {
+            
+            var logoutModalInstance = $modal.open({
+                templateUrl: 'logoutModal.html',
+                controller: 'logoutModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            logoutModalInstance.result.then(
+            function () {
+                
+                $scope.logout();
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
+        /**
          * disconnect modal initialization
          */
         
@@ -853,6 +885,8 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             $http.get('../operator/ajax/logout').then(
                 function(response){
                     $scope.loggedOut();
+                    window.location = "../offer";
+
                 },
                 function(responseErr){
                     console.log(responseErr);
@@ -978,7 +1012,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         
         var treeOptions = {
             nodeChildren: "children",
-            dirSelectable: false,
+            dirSelectable: true,
             injectClasses: {
                 ul: "a1",
                 li: "a2",
@@ -1195,6 +1229,12 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
 
         self.getOfferForCat = function(cid, count) {
+            
+            $http.get('ajax/get_total_offer_for_cat/'+cid).then(function(response){
+                self.totalOffer = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/get_offer_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {offerList.removeAll();}
                 offerList.addAll(response.data);
@@ -1216,6 +1256,16 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             }
 
             var lastSep = (self.offerSearchCriteria.searchKeyword)?'/':'';
+            
+            $http.get('ajax/total_search_offer/'+
+                self.offerSearchCriteria.searchBy+'/'+
+                self.offerSearchCriteria.sortBy+'/'+
+                self.offerSearchCriteria.searchKeyword
+                ).then(function(response){
+                self.totalOffer = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/search_offer/'+
                 self.offerSearchCriteria.searchBy+'/'+
                 self.offerSearchCriteria.sortBy+'/'+
@@ -1967,6 +2017,16 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             }
             
             
+        }
+    }]).
+    controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'OfferService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, OfferService, ValuesService, SecurityService) {
+        $scope.OfferService = OfferService;
+        
+        $scope.cancel = function() {
+            $modalInstance.dismiss();
+        }
+        $scope.logout = function() {
+            $modalInstance.close();
         }
     }]).
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'OfferService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, OfferService, ValuesService, SecurityService) {

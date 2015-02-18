@@ -655,6 +655,40 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         ///////////////
         
+        
+        /**
+         * logout modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLogoutModal = function (size) {
+            
+            var logoutModalInstance = $modal.open({
+                templateUrl: 'logoutModal.html',
+                controller: 'logoutModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            logoutModalInstance.result.then(
+            function () {
+                
+                $scope.logout();
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+        
+        
         /**
          * disconnect modal initialization
          */
@@ -772,6 +806,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $http.get('../operator/ajax/logout').then(
                 function(response){
                     $scope.loggedOut();
+                    window.location = "../record";
                 },
                 function(responseErr){
                     console.log(responseErr);
@@ -901,7 +936,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         var treeOptions = {
             nodeChildren: "children",
-            dirSelectable: false,
+            dirSelectable: true,
             injectClasses: {
                 ul: "a1",
                 li: "a2",
@@ -1138,6 +1173,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
         self.getRecordsForCat = function(cid, count) {
+            $http.get('ajax/get_total_record_for_cat/'+cid).then(function(response){
+                self.totalRecord = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/get_record_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {recordList.removeAll();}
                 recordList.addAll(response.data);
@@ -1159,6 +1199,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
 
             var lastSep = (self.recordSearchCriteria.searchKeyword)?'/':'';
+            $http.get('ajax/total_search_record/'+
+                self.recordSearchCriteria.searchBy+'/'+
+                self.recordSearchCriteria.sortBy+'/'+
+                self.recordSearchCriteria.searchKeyword
+                ).then(function(response){
+                self.totalRecord = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/search_record/'+
                 self.recordSearchCriteria.searchBy+'/'+
                 self.recordSearchCriteria.sortBy+'/'+
@@ -2092,6 +2141,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
             
             
+        }
+    }]).
+    controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {
+        $scope.RecordService = RecordService;
+        
+        $scope.cancel = function() {
+            $modalInstance.dismiss();
+        }
+        $scope.logout = function() {
+            $modalInstance.close();
         }
     }]).
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {

@@ -625,6 +625,38 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
         
         ///////////////
+        
+        /**
+         * logout modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLogoutModal = function (size) {
+            
+            var logoutModalInstance = $modal.open({
+                templateUrl: 'logoutModal.html',
+                controller: 'logoutModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            logoutModalInstance.result.then(
+            function () {
+                
+                $scope.logout();
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
 
         /**
@@ -749,6 +781,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             $http.get('../operator/ajax/logout').then(
                 function(response){
                     $scope.loggedOut();
+                    window.location = "../news";
                 },
                 function(responseErr){
                     console.log(responseErr);
@@ -874,7 +907,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         var treeOptions = {
             nodeChildren: "children",
-            dirSelectable: false,
+            dirSelectable: true,
             injectClasses: {
                 ul: "a1",
                 li: "a2",
@@ -1087,6 +1120,12 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
 
         self.getNewsForCat = function(cid, count) {
+            
+            $http.get('ajax/get_total_news_for_cat/'+cid).then(function(response){
+                self.totalNews = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/get_news_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {newsList.removeAll();}
                 newsList.addAll(response.data);
@@ -1108,6 +1147,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             }
 
             var lastSep = (self.newsSearchCriteria.searchKeyword)?'/':'';
+            
+            $http.get('ajax/total_search_news/'+
+                self.newsSearchCriteria.searchBy+'/'+
+                self.newsSearchCriteria.sortBy+'/'+
+                self.newsSearchCriteria.searchKeyword
+                ).then(function(response){
+                self.totalNews = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/search_news/'+
                 self.newsSearchCriteria.searchBy+'/'+
                 self.newsSearchCriteria.sortBy+'/'+
@@ -1861,6 +1910,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             
         }
     }]).
+    controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
+        $scope.NewsService = NewsService;
+        
+        $scope.cancel = function() {
+            $modalInstance.dismiss();
+        }
+        $scope.logout = function() {
+            $modalInstance.close();
+        }
+    }]).
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
         $scope.NewsService = NewsService;
         $scope.close = function(){$modalInstance.close(false);}
@@ -2109,6 +2168,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
         
         ///////////////
+        
+        
         
         /**
          * disconnect modal initialization

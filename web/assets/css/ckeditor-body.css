@@ -105,6 +105,11 @@
     background-position: 97% 2px;
     background-size: 6px;
     background-repeat: no-repeat;
+    display: table;
+    margin: auto;
+    padding-right: 15px;
+    background-position: center right;
+    background-image: url(images/bullet.png);
 }
 
 .body.little-text {

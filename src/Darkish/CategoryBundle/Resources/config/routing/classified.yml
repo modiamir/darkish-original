@@ -115,3 +115,11 @@ classified_get_tree_by_index:
 classified_get_test_tree:
     path:     /get_test_tree/{id}
     defaults: { _controller: "DarkishCategoryBundle:Classified:getTestTree", _format: json}
+    
+classified_get_total_classified_for_category:
+    path:     /ajax/get_total_classified_for_cat/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:getTotalClassifiedForCategory"}
+    
+classified_total_search_classified:
+    path:     /ajax/total_search_classified/{search_by}/{sort_by}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Classified:totalSearchClassifieds",  keyword: "", search_by: 1, sort_by: 1}
