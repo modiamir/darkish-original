@@ -43,14 +43,14 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-01">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><span class="navbar-text">ویزیت <span class="badge">42</span></span></li>
-                    <li><span class="navbar-text">لایک <span class="badge">0</span></span></li>
-                    <li><span class="navbar-text">مورد علاقه <span class="badge">3</span></span></li>
+                    <li><span class="navbar-text">ویزیت <span class="badge"><?php echo $app->getUser()->getRecord()->getVisitCount(); ?></span></span></li>
+                    <li><span class="navbar-text">لایک <span class="badge"><?php echo $app->getUser()->getRecord()->getLikeCount(); ?></span></span></li>
+                    <li><span class="navbar-text">مورد علاقه <span class="badge"><?php echo $app->getUser()->getRecord()->getFavoriteCount(); ?></span></span></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">نام کاربر <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $app->getUser()->getUsername() ?><span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                            <li class="dropdown-messages"><a>شماره رکورد: <span class="badge">R123456</span></a></li>
-                            <li><a>آخرین بروزرسانی: <span class="badge">۲ دی ۱۳۹۳</span></a></li>
+                            <li class="dropdown-messages"><a>شماره رکورد: <span class="badge">R<?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span></a></li>
+                            <li><a>آخرین بروزرسانی: <span class="badge"><?php $lastUpdate = $app->getUser()->getRecord()->getLastUpdate(); echo $lastUpdate->format('Y-m-d H:i:s'); ?></span></a></li>
                             <li role="presentation" class="divider"></li>
                             <li>
                                 <a href="<?php

@@ -118,12 +118,12 @@
                 <div class="basic-info col col-xs-12">
                     <div class="basic-info-left-col">
                         
-                        <div class="archive-wrapper">
+<!--                        <div class="archive-wrapper">
                             <label for="archive-checkbox" class="archive-label">
                                 آرشیو
                             </label>
                             <input ng-disabled="!RecordService.isEditing()" type="checkbox" id="archive-checkbox" ng-model="RecordService.currentRecord.archive" />
-                        </div>
+                        </div>-->
                         <div class="record-number-wrapper">
                           <span class="record-number-title">شماره پرونده</span>
                           <span class="record-number" dir="ltr">
@@ -385,6 +385,19 @@
                                      <option ng-repeat="safarsazRank in ValuesService.safarsazRanks" value="{{safarsazRank.id}}" > {{safarsazRank.name}} </option>
 
                                 </select>
+                            </div>
+                            <div class="sell-service-box">
+                                <div class="">
+                                    <input type="checkbox" id="sell-service-page" name="info-bank-chk" class="second-section-chk" ng-model="RecordService.currentRecord.sell_service_page" ng-disabled="!RecordService.isEditing()" >
+                                    <label id="sell-service-page-label" class="info-bank-chk-label" for="sell-service-page">صفحه فروش/خدمات</label>
+                                </div>
+                                <div class="">
+                                    <label id="sell-service-page-title-label" class="info-bank-chk-label" for="sell-service-page-title">عنوان صفحه خدمات/فروش</label>
+                                    <input type="text" id="sell-service-page-title" name="info-bank-chk" class="second-section-chk" ng-model="RecordService.currentRecord.sell_service_page_title" ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.sell_service_page" >
+                                    
+                                </div>
+                                
+                                
                             </div>
                             <div id="info-bank-wrapper" class="main-fields-second-section-chk-wrapper">
                                 <div class="info-bank-chk-wrapper">
@@ -1554,9 +1567,12 @@
         </div>
         <div class="row list">
             <div class="col col-lg-12 grid-block-wrapper">
-                
-
+                <h4 class="text-center">
+                {{recordList().length}} از
+                {{RecordService.totalRecord}}
+                </h4>
                 <div class="grid-block">
+                    
                     <table st-table="recordList()" class="table table-striped">
                         <thead>
                         <tr>
@@ -1766,10 +1782,22 @@
                     </span> <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-left" role="menu">
                         <li ng-show="SecurityService.loggedIn && SecurityService.connected">
-                            <a  href="#" data-ng-click="logout()">
+                            <a  href="#" data-ng-click="openLogoutModal()">
                                 خروج
                             </a>
                         </li>
+                        <script type="text/ng-template" id="logoutModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">خروج</h3>
+                            </div>
+                            <div class="modal-body">
+                                آیا از خروج اطمینان دارید؟
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="logout()">خروج</button>
+                                <button class="btn btn-warning" ng-click="cancel()">بستن</button>
+                            </div>
+                        </script>
                         <li ng-hide="SecurityService.loggedIn  || !SecurityService.connected">
                             <a href="#" data-ng-click="openLoginModal()">
                                 ورود مجدد

@@ -1156,7 +1156,10 @@
         <div class="row list">
             <div class="col col-lg-12 grid-block-wrapper">
                 
-
+                <h4 class="text-center">
+                {{newsList().length}} از
+                {{NewsService.totalNews}}
+                </h4>
                 <div class="grid-block">
                     <table st-table="newsList()" class="table table-striped">
                         <thead>
@@ -1365,10 +1368,22 @@
                     </span> <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-left" role="menu">
                         <li ng-show="SecurityService.loggedIn && SecurityService.connected">
-                            <a  href="#" data-ng-click="logout()">
+                            <a  href="#" data-ng-click="openLogoutModal()">
                                 خروج
                             </a>
                         </li>
+                        <script type="text/ng-template" id="logoutModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">خروج</h3>
+                            </div>
+                            <div class="modal-body">
+                                آیا از خروج اطمینان دارید؟
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="logout()">خروج</button>
+                                <button class="btn btn-warning" ng-click="cancel()">بستن</button>
+                            </div>
+                        </script>
                         <li ng-hide="SecurityService.loggedIn  || !SecurityService.connected">
                             <a href="#" data-ng-click="openLoginModal()">
                                 ورود مجدد

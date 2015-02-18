@@ -115,3 +115,11 @@ news_get_tree_by_index:
 news_get_test_tree:
     path:     /get_test_tree/{id}
     defaults: { _controller: "DarkishCategoryBundle:News:getTestTree", _format: json}
+    
+news_get_total_news_for_category:
+    path:     /ajax/get_total_news_for_cat/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:News:getTotalNewsForCategory"}
+    
+news_total_search_news:
+    path:     /ajax/total_search_news/{search_by}/{sort_by}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:News:totalSearchNewss",  keyword: "", search_by: 1, sort_by: 1}

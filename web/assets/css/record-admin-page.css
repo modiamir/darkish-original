@@ -770,8 +770,14 @@ select#tree-list-input option {
 }
 #info-bank-wrapper {
     
-    background: chartreuse;
 }
+
+.sell-service-box {
+    width: 100%;
+    display: table;
+    margin-bottom: 15px;
+}
+
 .trip-maker-id {
     width: 22%;
     background: rgb(199, 187, 187);

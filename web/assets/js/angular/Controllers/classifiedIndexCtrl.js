@@ -728,8 +728,41 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             });
         };
         
+        
         ///////////////
 
+
+        /**
+         * logout modal initialization
+         */
+        
+                
+    
+            
+        $scope.openLogoutModal = function (size) {
+            
+            var logoutModalInstance = $modal.open({
+                templateUrl: 'logoutModal.html',
+                controller: 'logoutModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'login-modal-window'
+            });
+
+            logoutModalInstance.result.then(
+            function () {
+                
+                $scope.logout();
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
         /**
          * disconnect modal initialization
@@ -853,6 +886,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             $http.get('../operator/ajax/logout').then(
                 function(response){
                     $scope.loggedOut();
+                    window.location = "../classified";
                 },
                 function(responseErr){
                     console.log(responseErr);
@@ -978,7 +1012,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         
         var treeOptions = {
             nodeChildren: "children",
-            dirSelectable: false,
+            dirSelectable: true,
             injectClasses: {
                 ul: "a1",
                 li: "a2",
@@ -1195,6 +1229,12 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         };
 
         self.getClassifiedForCat = function(cid, count) {
+            
+            $http.get('ajax/get_total_classified_for_cat/'+cid).then(function(response){
+                self.totalClassified = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/get_classified_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {classifiedList.removeAll();}
                 classifiedList.addAll(response.data);
@@ -1216,6 +1256,16 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             }
 
             var lastSep = (self.classifiedSearchCriteria.searchKeyword)?'/':'';
+            
+            $http.get('ajax/total_search_classified/'+
+                self.classifiedSearchCriteria.searchBy+'/'+
+                self.classifiedSearchCriteria.sortBy+'/'+
+                self.classifiedSearchCriteria.searchKeyword
+                ).then(function(response){
+                self.totalClassified = response.data;
+            },function(errResponse){
+            });
+            
             $http.get('ajax/search_classified/'+
                 self.classifiedSearchCriteria.searchBy+'/'+
                 self.classifiedSearchCriteria.sortBy+'/'+
@@ -1969,6 +2019,17 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             
         }
     }]).
+        
+    controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'ClassifiedService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, ClassifiedService, ValuesService, SecurityService) {
+        $scope.ClassifiedService = ClassifiedService;
+        
+        $scope.cancel = function() {
+            $modalInstance.dismiss();
+        }
+        $scope.logout = function() {
+            $modalInstance.close();
+        }
+    }]).
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'ClassifiedService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, ClassifiedService, ValuesService, SecurityService) {
         $scope.ClassifiedService = ClassifiedService;
         $scope.close = function(){$modalInstance.close(false);}
@@ -2217,6 +2278,8 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         };
         
         ///////////////
+        
+        
         
         /**
          * disconnect modal initialization

@@ -32,7 +32,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $id;
 
@@ -42,7 +42,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $userId;
 
@@ -50,7 +50,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $fileName;
 
@@ -58,7 +58,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $path;
 
@@ -66,7 +66,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filemime;
 
@@ -74,7 +74,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filesize;
 
@@ -82,7 +82,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $status;
@@ -91,7 +91,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $continual;
@@ -100,7 +100,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $isThumbnail;
@@ -108,7 +108,7 @@ class ManagedFile
     /**
      *
      * @var string 
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $resizedAbsolutePath;
     
@@ -116,7 +116,7 @@ class ManagedFile
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $timestamp;
 
@@ -124,7 +124,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer"}, message = "input a valid entity type.")
      *
@@ -138,7 +138,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $entityId;
 
@@ -151,7 +151,7 @@ class ManagedFile
      * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc", "banner"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $uploadDir;
 
@@ -160,7 +160,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * 
      */
     private $uploadKey;
@@ -190,10 +190,7 @@ class ManagedFile
      */
     protected $iconForClassified;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Classified", mappedBy="banner")
-     */
-    protected $bannerForClassified;
+
 
 
     /**
@@ -305,7 +302,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -453,7 +450,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -472,12 +469,12 @@ class ManagedFile
             : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
 
-        return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir().'/'.$this->path;
     }
 
     public function getUploadDir()

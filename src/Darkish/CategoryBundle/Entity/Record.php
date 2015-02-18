@@ -591,7 +591,26 @@ class Record
      * @Groups({"record.details"})
      */
     private $onlineEnable;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SellServicePageTitle", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $sellServicePageTitle;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="SellServicePage", type="boolean", nullable=true, options={"default": 0})
+     * @Groups({"record.details"})
+     */
+    private $sellServicePage;
 
+    
+    
+    
     /**
      * @var boolean
      *
@@ -3194,5 +3213,84 @@ class Record
     public function getPostalCode()
     {
         return $this->postalCode;
+    }
+
+    /**
+     * Set sellServicePageTitle
+     *
+     * @param string $sellServicePageTitle
+     * @return Record
+     */
+    public function setSellServicePageTitle($sellServicePageTitle)
+    {
+        $this->sellServicePageTitle = $sellServicePageTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get sellServicePageTitle
+     *
+     * @return string 
+     */
+    public function getSellServicePageTitle()
+    {
+        return $this->sellServicePageTitle;
+    }
+
+    /**
+     * Set sellServicePage
+     *
+     * @param boolean $sellServicePage
+     * @return Record
+     */
+    public function setSellServicePage($sellServicePage)
+    {
+        $this->sellServicePage = $sellServicePage;
+
+        return $this;
+    }
+
+    /**
+     * Get sellServicePage
+     *
+     * @return boolean 
+     */
+    public function getSellServicePage()
+    {
+        return $this->sellServicePage;
+    }
+
+    /**
+     * Add customers
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customers
+     * @return Record
+     */
+    public function addCustomer(\Darkish\CustomerBundle\Entity\Customer $customers)
+    {
+        $this->customers[] = $customers;
+
+        return $this;
+    }
+
+    /**
+     * Remove customers
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customers
+     */
+    public function removeCustomer(\Darkish\CustomerBundle\Entity\Customer $customers)
+    {
+        $this->customers->removeElement($customers);
+    }
+
+    /**
+     * Get customers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomers()
+    {
+        return $this->customers;
     }
 }

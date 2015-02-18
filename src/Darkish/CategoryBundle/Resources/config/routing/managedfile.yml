@@ -16,3 +16,8 @@ managedfile_set_temporary_tuhmbnail:
     path:     /ajax/set_temporary_thumbnail
     defaults: {_controller: "DarkishCategoryBundle:ManagedFile:setTemporaryThumbnail"}
     requirements: { _method: post}
+    
+    
+managedfile_ffmpeg_test:
+    path:     /ffmpegtest
+    defaults:  { _controller: "DarkishCategoryBundle:ManagedFile:ffmpegTest"}

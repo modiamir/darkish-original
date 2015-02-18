@@ -18,6 +18,7 @@ record_get_json:
 record_get_record_for_category:
     path:     /ajax/get_record_for_cat/{cid}/{count}
     defaults: { _controller: "DarkishCategoryBundle:Record:getRecordForCategory", _format: json, count: 0}
+    
 
 record_search_record:
     path:     /ajax/search_record/{search_by}/{sort_by}/{count}/{keyword}
@@ -115,3 +116,11 @@ record_get_tree_by_index:
 record_get_test_tree:
     path:     /get_test_tree/{id}
     defaults: { _controller: "DarkishCategoryBundle:Record:getTestTree", _format: json}
+    
+record_get_total_record_for_category:
+    path:     /ajax/get_total_record_for_cat/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTotalRecordForCategory"}
+    
+record_total_search_record:
+    path:     /ajax/total_search_record/{search_by}/{sort_by}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Record:totalSearchRecords",  keyword: "", search_by: 1, sort_by: 1}

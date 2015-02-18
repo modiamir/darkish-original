@@ -115,3 +115,11 @@ offer_get_tree_by_index:
 offer_get_test_tree:
     path:     /get_test_tree/{id}
     defaults: { _controller: "DarkishCategoryBundle:Offer:getTestTree", _format: json}
+    
+offer_get_total_offer_for_category:
+    path:     /ajax/get_total_offer_for_cat/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:getTotalOfferForCategory"}
+    
+offer_total_search_offer:
+    path:     /ajax/total_search_offer/{search_by}/{sort_by}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Offer:totalSearchOffers",  keyword: "", search_by: 1, sort_by: 1}
