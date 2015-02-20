@@ -1923,3 +1923,7 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.tree-modal-tree-rank {
+    margin-left: 10px;
+}

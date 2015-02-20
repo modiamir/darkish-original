@@ -762,6 +762,12 @@ class Record
     private $trees;
 
     /**
+     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record")
+     * @Groups({"record.details"})
+     **/
+    private $maintrees;
+    
+    /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="records_images",
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
@@ -3292,5 +3298,38 @@ class Record
     public function getCustomers()
     {
         return $this->customers;
+    }
+
+    /**
+     * Add maintrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $maintrees
+     * @return Record
+     */
+    public function addMaintree(\Darkish\CategoryBundle\Entity\RecordMainTree $maintrees)
+    {
+        $this->maintrees[] = $maintrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove maintrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $maintrees
+     */
+    public function removeMaintree(\Darkish\CategoryBundle\Entity\RecordMainTree $maintrees)
+    {
+        $this->maintrees->removeElement($maintrees);
+    }
+
+    /**
+     * Get maintrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMaintrees()
+    {
+        return $this->maintrees;
     }
 }

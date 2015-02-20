@@ -3,6 +3,7 @@
 namespace Darkish\CategoryBundle\Controller;
 
 use Darkish\CategoryBundle\Entity\RecordLock;
+use Darkish\CategoryBundle\Entity\RecordMainTree;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -476,7 +477,7 @@ class RecordController extends Controller
             }
             
         }
-        if(isset($data['trees'])) {
+        if(false && isset($data['trees'])) {
             $currentTrees = $record->getTrees();
             $newTrees = new ArrayCollection();
             $eCollec = new ArrayCollection();
@@ -515,6 +516,76 @@ class RecordController extends Controller
 
             //$record->setTrees($data['trees']);
         }
+        
+        if(isset($data['maintrees'])) {
+            // die($this->get('jms_serializer')->serialize($data['maintrees'], 'json'));
+            $currentMaintrees = $record->getMaintrees();
+            $currentTrees = new ArrayCollection();
+            $newTrees = new ArrayCollection();
+            $eCollec = new ArrayCollection();
+            $neCollec = new ArrayCollection();
+            $rCollec = new ArrayCollection();
+
+            $currentMaintreesIterator = $currentMaintrees->getIterator();
+            while ($currentMaintreesIterator->valid()) {
+                $cur = $currentMaintreesIterator->current();
+                $currentTrees->add(array('tree'=> $cur->getTree(), 'sort' => $cur->getSort()));
+                $currentMaintreesIterator->next();
+            }
+
+            
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
+            foreach($data['maintrees'] as $tree) {
+                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+            }
+
+
+            $newTreesIterator = $newTrees->getIterator();
+            while($newTreesIterator->valid()) {
+                $cur = $newTreesIterator->current();
+                if($currentTrees->contains($cur)) {
+                    $eCollec->add($cur);
+                } else {
+                    $neCollec->add($cur);
+                }
+                $newTreesIterator->next();
+            }
+
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordMainTree');
+            $em = $this->getDoctrine()->getManager();
+            
+            $currentTreesIterator = $currentTrees->getIterator();
+            while($currentTreesIterator->valid()) {
+                if(!$eCollec->contains($currentTreesIterator->current()) && !$neCollec->contains($currentTreesIterator->current())) {
+                    $cur = $currentTreesIterator->current();
+                    $tmp = $rep->findBy(array('record'=>$record->getId(), 'tree' => $cur['tree']->getId()));
+                    $tmp = $tmp[0];
+                    $em->remove($tmp);
+                    // $currentTrees->removeElement($currentTreesIterator->current());
+                }
+                $currentTreesIterator->next();
+            }
+            $em->flush();
+
+            $neCollecIterator = $neCollec->getIterator();
+            while($neCollecIterator->valid()) {
+                $cur = $neCollecIterator->current();
+                $tmp = new RecordMainTree();
+                $tmp->setRecord($record);
+                $tmp->setTree($cur['tree']);
+                $tmp->setSort($cur['sort']);
+                $em->persist($tmp);
+                $neCollecIterator->next();
+            }
+            $em->flush();
+
+
+
+            //$record->setTrees($data['trees']);
+        }
+        
+        
+        
         if(isset($data['images'])) {
 
             $currentImages = $record->getImages();

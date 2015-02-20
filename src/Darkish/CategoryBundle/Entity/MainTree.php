@@ -293,6 +293,11 @@ class MainTree
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Record", mappedBy="trees")
      */
     protected $records;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="tree")
+     **/
+    private $mainrecords;
 
     /**
      * Get id
@@ -1164,5 +1169,38 @@ class MainTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainrecords
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords
+     * @return MainTree
+     */
+    public function addMainrecord(\Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords)
+    {
+        $this->mainrecords[] = $mainrecords;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainrecords
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords
+     */
+    public function removeMainrecord(\Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords)
+    {
+        $this->mainrecords->removeElement($mainrecords);
+    }
+
+    /**
+     * Get mainrecords
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainrecords()
+    {
+        return $this->mainrecords;
     }
 }
