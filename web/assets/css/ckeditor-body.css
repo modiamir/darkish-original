@@ -76,14 +76,14 @@
 
 
 .body.primary-header {
-    color: #C00000;
+    color: #00A0B1;
     font-family: yekan;
     font-size: 20px;
     text-align: center
 }
 
 .body.secondary-header {
-    color: #2E74B5;
+    color: #FF5757;
     font-family: yekan;
     font-size: 18px;
     text-align: center
@@ -106,7 +106,6 @@
     background-size: 6px;
     background-repeat: no-repeat;
     display: table;
-    margin: auto;
     padding-right: 15px;
     background-position: center right;
     background-image: url(images/bullet.png);
@@ -208,6 +207,9 @@ table.body-table tbody tr {
 table.body-table td {
     color: #094AB2;
     padding: 3px 5px;
+    text-align: center;
+    line-height: 1.9em;
+    font-size: 1em;
 }
 
 .body-preview-content table {

@@ -262,17 +262,17 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!RecordService.isEditing()"
-                                        ng-options="(tree.parent_tree_title + '-->' +tree.title) for tree in RecordService.currentRecord.treeList.all()">
+                                        ng-options="(tree.tree.parent_tree_title + '-->' +tree.tree.title + '(' + tree.sort + ')' ) for tree in RecordService.currentRecord.treeList.all()">
                                         <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
 
 
 
                                 </select>
                                 <div class="tree-ranks">
-                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank" ng-disabled="!RecordService.isEditing()">
-                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                    <select class="ranklist-combo" ng-repeat="tree in RecordService.currentRecord.treeList.array" ng-model="tree.sort" ng-disabled="!RecordService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
                                     </select>
-                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_two" ng-disabled="!RecordService.isEditing()">
+                                    <!-- <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_two" ng-disabled="!RecordService.isEditing()">
                                         <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
                                     </select>
                                     <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_three" ng-disabled="!RecordService.isEditing()">
@@ -283,7 +283,7 @@
                                     </select>
                                     <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_five" ng-disabled="!RecordService.isEditing()">
                                         <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                    </select>
+                                    </select> -->
                                 </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
@@ -299,7 +299,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <select class="tree-modal-tree-rank pull-left" ng-model="list_rank">
+                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                        </select>
+                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5 || !list_rank" class="btn btn-info pull-left" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode, list_rank)">اضافه</button>
                                     </div>
                                 </script>
                                 

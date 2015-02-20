@@ -1505,7 +1505,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     
 
                     self.currentRecord.treeList = Collection.getInstance();
-                    self.currentRecord.treeList.addAll(self.currentRecord.trees);
+                    self.currentRecord.treeList.addAll(self.currentRecord.maintrees);
 
                     self.currentRecord.imagesList = Collection.getInstance();
                     self.currentRecord.imagesList.addAll(self.currentRecord.images);
@@ -1725,9 +1725,18 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-        self.addToTreeList = function(obj)  {
-            self.currentRecord.treeList.add(obj);
-            self.currentRecord.trees = self.currentRecord.treeList.all() ;
+        self.addToTreeList = function(obj, sort)  {
+            angular.forEach(self.currentRecord.treeList.array, function(value, key){
+                if(obj.id == value.tree.id) {
+                    self.currentRecord.treeList.remove(value);
+                }
+            });
+            obj.sort = sort;
+            var tree = {};
+            tree.tree = obj;
+            tree.sort = sort;
+            self.currentRecord.treeList.update(tree);
+            self.currentRecord.maintrees = self.currentRecord.treeList.all() ;
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1735,7 +1744,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 self.currentRecord.treeList.remove(tree);
             });
 
-            self.currentRecord.trees = self.currentRecord.treeList.all() ;
+            self.currentRecord.maintrees = self.currentRecord.treeList.all() ;
         }
 
         self.updateCurrentRecord = function() {
@@ -1856,9 +1865,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         });
     }).
 
-    controller('treeModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
+    controller('treeModalCtrl', ['$scope', 'RecordService','TreeService', 'ValuesService', '$modalInstance', function ($scope, RecordService, TreeService, ValuesService, $modalInstance) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
+        $scope.ValuesService = ValuesService;
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
