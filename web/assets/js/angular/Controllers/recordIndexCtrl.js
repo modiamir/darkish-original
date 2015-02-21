@@ -1734,9 +1734,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             obj.sort = sort;
             var tree = {};
             tree.tree = obj;
-            tree.sort = sort;
+            tree.sort = (sort)?sort:60;
             self.currentRecord.treeList.update(tree);
             self.currentRecord.maintrees = self.currentRecord.treeList.all() ;
+            return obj.title+" به رکورد اضافه شد.";
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1874,8 +1875,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.treeOptions = function() {
+            
             return $scope.TreeService.treeOptions();
         }
+        $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
+        $scope.tOptions.dirSelectable = false;
         
         $scope.close = function () {
             $modalInstance.close();
@@ -2390,6 +2394,35 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         //////////////
         
+        /**
+         * body preview modal initialization
+         */
+        
+                
+    
+            
+        $scope.openBodyPreviewModal = function (size) {
+            var bodyPreviewModalInstance = $modal.open({
+                templateUrl: 'bodyPreviewModal.html',
+                controller: 'bodyPreviewModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'body-preview-modal-window'
+            });
+
+            bodyPreviewModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         
         

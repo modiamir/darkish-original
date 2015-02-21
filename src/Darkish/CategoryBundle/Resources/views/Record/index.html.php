@@ -287,12 +287,12 @@
                                 </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
-                                        <h3 class="modal-title">انتخاب شاخه ها</h3>
+                                        <h3 class="modal-title">انتخاب شاخه ها<span ng-show="message">({{message}})</span></h3>
                                     </div>
                                     <div class="modal-body">
                                         <treecontrol class="tree-classic"
                                                     tree-model="tree()"
-                                                    options="treeOptions()"
+                                                    options="tOptions"
                                                     selected-node="TreeService.currentSecondTreeNode">
                                            {{node.title}}
                                         </treecontrol>
@@ -302,7 +302,7 @@
                                         <select class="tree-modal-tree-rank pull-left" ng-model="list_rank">
                                             <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
                                         </select>
-                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5 || !list_rank" class="btn btn-info pull-left" data-ng-click="RecordService.addToTreeList(TreeService.currentSecondTreeNode, list_rank)">اضافه</button>
+                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="message = RecordService.addToTreeList(TreeService.currentSecondTreeNode, list_rank)">اضافه</button>
                                     </div>
                                 </script>
                                 
@@ -1225,6 +1225,9 @@
                                 <button class=" close-button btn btn-primary pull-right" ng-click="close()">بستن</button>
                                 <button ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="checkConnectionSave(true);recordform.$setPristine()">
                                     ذخیره و ادامه
+                                </button>
+                                <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
+                                    پیش نمایش صفحه
                                 </button>
                                 <span class="body-save-continue-message" ng-show="RecordService.saved">
                                     <ul>

@@ -1716,10 +1716,16 @@ label.file-select.disabled {
     left: 80px;
 }
 
+.body-modal-window .modal-dialog  #body-preview-modal-button {
+    position: absolute;
+    top: 10px;
+    left: 190px;
+}
+
 .body-save-continue-message {
      position: absolute;
-    left: 200px;
-    top: 12px;
+    left: 340px;
+    top: 17px;
     list-style: none;
 }
 
