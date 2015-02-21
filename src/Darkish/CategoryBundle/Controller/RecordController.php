@@ -1077,7 +1077,7 @@ class RecordController extends Controller
 
             $queryBuilder = $repository->createQueryBuilder('r');
             /* @var $queryBuilder QueryBuilder */
-            $recordWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $recordWithTree = $queryBuilder->select('r.id')->join('r.maintrees','rt')->join('rt.tree', 't', 'WITH')->distinct();
             $qb2 = $repository->createQueryBuilder('rr');
             $recordWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$recordWithTree->getDQL()))
                 ->setFirstResult($count)
@@ -1187,7 +1187,9 @@ class RecordController extends Controller
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:Record');
             $qb = $repository->createQueryBuilder('r'); 
-            $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
+            /* @var $qb QueryBuilder */
+            $qb->join('r.maintrees', 'rt');
+            $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $qb->orderBy('r.listRank', 'Asc');
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
@@ -1212,6 +1214,7 @@ class RecordController extends Controller
         }
 
     }
+
 
 
     private function getTreeChildren($category) {
