@@ -520,6 +520,9 @@ class RecordController extends Controller
         if(isset($data['maintrees'])) {
             // die($this->get('jms_serializer')->serialize($data['maintrees'], 'json'));
             $currentMaintrees = $record->getMaintrees();
+            if(!$currentMaintrees) {
+                $currentMaintrees = new ArrayCollection();
+            }
             $currentTrees = new ArrayCollection();
             $newTrees = new ArrayCollection();
             $eCollec = new ArrayCollection();
@@ -537,7 +540,7 @@ class RecordController extends Controller
             $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
             foreach($data['maintrees'] as $tree) {
                 $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
-            }
+            }   
 
 
             $newTreesIterator = $newTrees->getIterator();
@@ -565,8 +568,7 @@ class RecordController extends Controller
                 }
                 $currentTreesIterator->next();
             }
-            $em->flush();
-
+            
             $neCollecIterator = $neCollec->getIterator();
             while($neCollecIterator->valid()) {
                 $cur = $neCollecIterator->current();
@@ -577,7 +579,7 @@ class RecordController extends Controller
                 $em->persist($tmp);
                 $neCollecIterator->next();
             }
-            $em->flush();
+            // $em->flush();
 
 
 
