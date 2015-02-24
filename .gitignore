@@ -1,4 +1,5 @@
 /web/bundles/
+/web/uploads/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -14,6 +15,7 @@ dev
 
 
 \web\bundles\
+\web\uploads\
 \app\bootstrap.php.cache
 \app\cache\*
 \app\config\parameters.yml
