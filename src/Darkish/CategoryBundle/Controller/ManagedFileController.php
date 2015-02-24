@@ -16,6 +16,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use JMS\Serializer\Serializer as JMSSerializer;
@@ -25,6 +26,9 @@ use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Filters\Video\ResizeFilter;
 use FFMpeg\Format\Video\X264;
 use Alchemy\BinaryDriver\Listeners\DebugListener;
+use \GetId3\GetId3Core as GetId3;
+use FFMpeg\FFProbe;
+
 
 class ManagedFileController extends Controller
 {
@@ -41,7 +45,85 @@ class ManagedFileController extends Controller
 
 
         if($request->files->has('file')) {
-            $file->setFile($request->files->get('file'));
+            $ufile = $request->files->get('file');
+            
+            if(substr($ufile->getMimeType(), 0, 5) != 'image') {
+                $tmpName = time().'-'.rand(100000,999999).'.'.$ufile->getClientOriginalExtension();
+                $ufile->move('/tmp', $tmpName);
+                $ufile = new File('/tmp/'.$tmpName, true);
+
+                $ffprobe = FFProbe::create();
+
+
+                if($ffprobe->streams($ufile->getRealPath())->first()->isVideo()) {
+                    
+                    $duration = $ffprobe
+                        ->format($ufile->getRealPath()) // extracts file informations
+                        ->get('duration');             // returns the duration property
+
+                    if( $duration > 300) {
+                        return new Response("طول فایل بارگذاری شده نباید بیشتر از ۵ دقیقه باشد.", 500);
+                    }
+
+
+
+
+
+                    
+                    $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+                    $video = $ffmpeg->open('/tmp'.'/'.$tmpName);
+                    if($ffprobe->streams($ufile->getRealPath())->first()->get('width') > 480 ||
+                        $ffprobe->streams($ufile->getRealPath())->first()->get('height') > 320
+                    ) {
+                        $video
+                            ->filters()
+                            ->resize(new Dimension(480, 320), ResizeFilter::RESIZEMODE_INSET)
+                            ->synchronize();
+                        // Start transcoding and save video
+                        $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
+                        if($video->save(new X264(), '/tmp/'.$newTmpName)) {
+                            $ufile = new File('/tmp/'.$newTmpName, true);
+                                
+                        }    
+                    }
+                    
+
+                }
+
+                if($ffprobe->streams($ufile->getRealPath())->first()->isAudio()) {
+                    
+                    
+                    $ffprobe = FFProbe::create();
+                    $duration = $ffprobe
+                        ->format($ufile->getRealPath()) // extracts file informations
+                        ->get('duration');             // returns the duration property
+
+                    if( $duration > 600) {
+                        return new Response("طول فایل بارگذاری شده نباید بیشتر از ۱۰ دقیقه باشد.", 500);
+                    }
+
+
+
+                    $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+                    $audio = $ffmpeg->open('/tmp'.'/'.$tmpName);
+
+                    $format = new \FFMpeg\Format\Audio\Mp3();
+                    $format
+                        -> setAudioChannels(2)
+                        -> setAudioKiloBitrate(64);
+                    $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
+                    if($audio->save($format, '/tmp/'.$newTmpName)) {
+                        $ufile = new File('/tmp/'.$newTmpName, true);
+                            
+                    }  
+
+                    
+
+                }
+            }
+            
+
+            $file->setFile($ufile);
         }
 
         if($request->request->has('type')){
@@ -127,19 +209,22 @@ class ManagedFileController extends Controller
      */
     public function ffmpegTestAction() {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
-        $file = $repo->find(308);
-        $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+        $file = $repo->find(440);
+        $mp3File = $file->getUploadRootDir().'/'.$file->getFileName();
+        $getId3 = new GetId3();
+        $audio = $getId3
+            ->setOptionMD5Data(true)
+            ->setOptionMD5DataSource(true)
+            ->setEncoding('UTF-8')
+            ->analyze($mp3File)
+        ;
 
-        $video = $ffmpeg->open($file->getUploadRootDir());
-        $video
-            ->filters()
-            ->resize(new Dimension(1280, 720), ResizeFilter::RESIZEMODE_INSET)
-            ->synchronize();
+        if (isset($audio['error'])) {
+            throw new \RuntimeException(sprintf('Error at reading audio properties from "%s" with GetId3: %s.', $mp3File, $audio['error']));
+        }           
+        // ...
 
-        // Start transcoding and save video
-        $video->save(new X264(), '/home/amir/Desktop/test.mp4');  
-        return array();
-        return new Response($this->get('jms_serializer')->serialize($file->getUploadRootDir(), 'json', SerializationContext::create()->setGroups(array('file.details'))));
+        return new Response(print_r($audio['playtime_seconds'],true));
     }
 
 

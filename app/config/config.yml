@@ -105,13 +105,31 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        my_thumb:
-            quality: 75
+        web_thumb:
+            quality: 60
             filters:
-                thumbnail: { size: [120, 90], mode: outbound }
+                thumbnail: { size: [1280, 960], mode: inset }
+        mobile_thumb:
+            quality: 60
+            filters:
+                thumbnail: { size: [640, 480], mode: inset }
+        icon_thumb:
+            quality: 60
+            filters:
+                thumbnail: { size: [128, 128], mode: outbound }
 
 dubture_f_fmpeg:
     ffmpeg_binary: /usr/local/bin/ffmpeg
     ffprobe_binary: /usr/local/bin/ffprobe
     binary_timeout: 0
     threads_count: 4
+
+oodle_krumo:
+    skin:
+        selected: schabalon.com
+    css:
+        url: /krumo/
+    display:
+        show_version: true
+        show_call_info: true
+        cascade: [5,10]
