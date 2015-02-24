@@ -320,6 +320,7 @@
                                 صدا
                             </li>
                         </ul>
+                        
                     </div>
                     <div class="col-xs-8 center">
                         <div class="tab-content">
