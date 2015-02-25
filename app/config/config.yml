@@ -119,8 +119,8 @@ liip_imagine:
                 thumbnail: { size: [128, 128], mode: outbound }
 
 dubture_f_fmpeg:
-    ffmpeg_binary: /usr/local/bin/ffmpeg
-    ffprobe_binary: /usr/local/bin/ffprobe
+    ffmpeg_binary: ffmpeg
+    ffprobe_binary: ffprobe
     binary_timeout: 0
     threads_count: 4
 
