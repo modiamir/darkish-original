@@ -22,7 +22,9 @@
         "pulse00/ffmpeg-bundle": "dev-master",
         "jms/serializer-bundle": "0.13.*@dev",
         "liip/imagine-bundle": "~1.2",
-        "knplabs/knp-menu-bundle": "~2"
+        "knplabs/knp-menu-bundle": "~2",
+        "phansys/getid3": "2.1.*@dev",
+        "oodle/krumo-bundle": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

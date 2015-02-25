@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile as UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\SerializedName;
@@ -110,7 +111,21 @@ class ManagedFile
      * @var string 
      * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
-    private $resizedAbsolutePath;
+    private $webAbsolutePath;
+
+    /**
+     *
+     * @var string 
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     */
+    private $mobileAbsolutePath;
+
+    /**
+     *
+     * @var string 
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     */
+    private $iconAbsolutePath;
     
     /**
      * @var \DateTime
@@ -198,7 +213,7 @@ class ManagedFile
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)
+    public function setFile(File $file = null)
     {
         $this->file = $file;
     }
@@ -206,7 +221,7 @@ class ManagedFile
     /**
      * Get file.
      *
-     * @return UploadedFile
+     * @return File
      */
     public function getFile()
     {
@@ -293,8 +308,8 @@ class ManagedFile
         return $this->path;
     }
 
-    public function setResizedAbsolutePath($path) {
-        $this->resizedAbsolutePath = $path;
+    public function setWebAbsolutePath($path) {
+        $this->webAbsolutePath = $path;
         
         return $this;
     }
@@ -306,8 +321,44 @@ class ManagedFile
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
-    public function getResizedAbsolutePath() { 
-        return $this->resizedAbsolutePath;
+    public function getWebAbsolutePath() { 
+        return $this->webAbsolutePath;
+    }
+
+
+    public function setMobileAbsolutePath($path) {
+        $this->mobileAbsolutePath = $path;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
+    public function getMobileAbsolutePath() { 
+        return $this->mobileAbsolutePath;
+    }
+
+
+    public function setIconAbsolutePath($path) {
+        $this->iconAbsolutePath = $path;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
+    public function getIconAbsolutePath() { 
+        return $this->iconAbsolutePath;
     }
     
     /**
@@ -474,7 +525,7 @@ class ManagedFile
         // the absolute directory path where uploaded
         // documents should be saved
 
-        return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir().'/'.$this->path;
+        return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
     }
 
     public function getUploadDir()
@@ -561,8 +612,12 @@ class ManagedFile
 
         // move takes the target directory and then the
         // target filename to move to
-
-        $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getClientOriginalExtension();
+        if( $this->getFile() instanceof UploadedFile) {
+            $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getClientOriginalExtension();    
+        } else  {
+            $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getExtension();    
+        }
+        
         $this->fileName = $fileName;
         $newFile = $this->getFile()->move(
             $this->getUploadRootDir(),

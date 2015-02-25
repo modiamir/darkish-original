@@ -320,6 +320,7 @@
                                 صدا
                             </li>
                         </ul>
+                        
                     </div>
                     <div class="col-xs-8 center">
                         <div class="tab-content">
@@ -327,7 +328,7 @@
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in NewsService.currentNews.images" style="float: right"  ng-class="{'selected' : NewsService.selectedImage.id == image.id}">
-                                            <img ng-click="NewsService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.absolute_path}}"  />
+                                            <img ng-click="NewsService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.icno_absolute_path}}"  />
                                             <input
                                                 type="checkbox"
                                                 checklist-model="NewsService.selectedImages"
@@ -338,7 +339,7 @@
                                     <script type="text/ng-template" id="imageModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{currentImage.absolute_path}}" />
+                                            <img width="100%" ng-src="{{currentImage.web_absolute_path}}" />
                                         </div>
                                         <div class="modal-footer">
                                             <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">

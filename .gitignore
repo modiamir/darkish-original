@@ -1,4 +1,5 @@
 /web/bundles/
+/web/uploads/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -11,9 +12,12 @@
 /composer.phar
 prod
 dev
-
+app/bootstrap.php.cache
+app/config/parameters.yml
+app/config/parameters.yml.dist
 
 \web\bundles\
+\web\uploads\
 \app\bootstrap.php.cache
 \app\cache\*
 \app\config\parameters.yml
@@ -26,3 +30,6 @@ dev
 \composer.phar
 prod
 dev
+app\bootstrap.php.cache
+app\config\parameters.yml
+app\config\parameters.yml.dist

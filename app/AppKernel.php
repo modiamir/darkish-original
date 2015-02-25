@@ -25,6 +25,9 @@ class AppKernel extends Kernel
             new Darkish\CustomerBundle\DarkishCustomerBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Dubture\FFmpegBundle\DubtureFFmpegBundle(),
+            new Oodle\KrumoBundle\OodleKrumoBundle(),
+
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -610,10 +610,7 @@ class FrameworkExtension extends Extension
         // Use the "real" translator instead of the identity default
         $container->setAlias('translator', 'translator.default');
         $translator = $container->findDefinition('translator.default');
-        if (!is_array($config['fallback'])) {
-            $config['fallback'] = array($config['fallback']);
-        }
-        $translator->addMethodCall('setFallbackLocales', array($config['fallback']));
+        $translator->addMethodCall('setFallbackLocales', array($config['fallbacks']));
 
         // Discover translation directories
         $dirs = array();
@@ -716,7 +713,7 @@ class FrameworkExtension extends Extension
                 'validator_'.hash('sha256', $container->getParameter('kernel.root_dir'))
             );
 
-            $validatorBuilder->addMethodCall('setMetadataCache', array(new Reference('validator.mapping.cache.'.$config['cache'])));
+            $validatorBuilder->addMethodCall('setMetadataCache', array(new Reference($config['cache'])));
         }
 
         switch ($config['api']) {

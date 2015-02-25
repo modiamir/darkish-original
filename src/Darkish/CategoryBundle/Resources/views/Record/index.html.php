@@ -742,7 +742,7 @@
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-click="RecordService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.absolute_path}}"  />
+                                            <img ng-click="RecordService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.icon_absolute_path}}"  />
                                             <input
                                                 type="checkbox"
                                                 checklist-model="RecordService.selectedImages"
@@ -753,7 +753,7 @@
                                     <script type="text/ng-template" id="imageModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{currentImage.absolute_path}}" />
+                                            <img width="100%" ng-src="{{currentImage.web_absolute_path}}" />
                                         </div>
                                         <div class="modal-footer">
                                             <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
