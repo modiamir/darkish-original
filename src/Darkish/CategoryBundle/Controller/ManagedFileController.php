@@ -81,7 +81,9 @@ class ManagedFileController extends Controller
                             ->synchronize();
                         // Start transcoding and save video
                         $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
-                        if($video->save(new X264(), '/tmp/'.$newTmpName)) {
+                        $format = new X264();
+                        $format->setAudioCodec('libmp3lame');
+                        if($video->save($format, '/tmp/'.$newTmpName)) {
                             $ufile = new File('/tmp/'.$newTmpName, true);
                                 
                         }    
