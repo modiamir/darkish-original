@@ -260,6 +260,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
@@ -366,6 +367,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
         bannerUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         bannerUploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
@@ -2563,6 +2565,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
