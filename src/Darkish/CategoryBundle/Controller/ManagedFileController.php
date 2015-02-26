@@ -198,7 +198,7 @@ class ManagedFileController extends Controller
 
         }
         catch (\Exception $e) {
-            return new Response( $e->getMessage());
+            return new Response( $e->getMessage(), 401);
         }
 
         

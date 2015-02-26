@@ -260,6 +260,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
@@ -366,6 +367,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         };
         bannerUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         bannerUploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
@@ -2566,6 +2568,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
