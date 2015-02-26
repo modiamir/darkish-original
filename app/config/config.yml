@@ -120,7 +120,7 @@ liip_imagine:
 
 dubture_f_fmpeg:
     ffmpeg_binary: ffmpeg
-    ffprobe_binary: /usr/bin/ffprobe
+    ffprobe_binary: ffprobe
     binary_timeout: 0
     threads_count: 4
 
