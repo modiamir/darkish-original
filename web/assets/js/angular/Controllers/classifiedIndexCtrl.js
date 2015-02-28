@@ -1734,7 +1734,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             tree.sort = (sort)?sort:60;
             self.currentClassified.treeList.update(tree);
             self.currentClassified.classifiedtrees = self.currentClassified.treeList.all() ;
-            return obj.title+" به رکورد اضافه شد.";
+            return obj.title+" به نیازمندی اضافه شد.";
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1862,7 +1862,8 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
-        
+        $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
+        $scope.tOptions.dirSelectable = false;
         $scope.close = function () {
             $modalInstance.close();
         };
@@ -2813,7 +2814,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
 
 
         self.treeRanks = [];
-        for(var i = 1; i<=30; i++) {
+        for(var i = 1; i<=60; i++) {
             self.treeRanks.push({
                 id: i,
                 name: i

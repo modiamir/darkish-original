@@ -571,12 +571,15 @@ h3.block-title {
    height: 32px;
     background: white;
     border: groove 1px;
-    margin-left: 2.6%;
     width: 70%;
-    float: left;
+    float: right;
     font-size: 10px;
     overflow-y: auto;
 
+}
+.tree-ranks {
+    float: right;
+    width: 10%;
 }
 select#tree-list-input option {
     height: 30px;

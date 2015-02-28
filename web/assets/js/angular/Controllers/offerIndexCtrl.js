@@ -1862,6 +1862,8 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
+        $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
+        $scope.tOptions.dirSelectable = false;
         
         $scope.close = function () {
             $modalInstance.close();
@@ -2810,7 +2812,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
 
         self.treeRanks = [];
-        for(var i = 1; i<=30; i++) {
+        for(var i = 1; i<=60; i++) {
             self.treeRanks.push({
                 id: i,
                 name: i
