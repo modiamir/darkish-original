@@ -139,7 +139,7 @@
 
                         <div class="offer-subtitle">
                             <div class="field-title offer-title-title">زیر عنوان:</div>
-                            <input  type="text" ng-maxlength="70" name="offer-subtitle" class="offer-subtitle-input" ng-model="OfferService.currentOffer.sub_title" ng-disabled="!OfferService.isEditing()" required>
+                            <input  type="text" ng-maxlength="70" name="offer-subtitle" class="offer-subtitle-input" ng-model="OfferService.currentOffer.sub_title" ng-disabled="!OfferService.isEditing()">
                         </div>
                         
                         

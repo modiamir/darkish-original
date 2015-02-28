@@ -218,9 +218,9 @@
 
                             <div class="main-fields-informations">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات یک:</label>
-                                <input type="text" ng-maxlength="255" name="info-one-input" id="info-two-input" class="first-section-input" ng-model="RecordService.currentRecord.info_one" ng-disabled="!RecordService.isEditing()">
+                                <textarea ng-maxlength="255" name="info-one-input" id="info-two-input" class="first-section-input" ng-model="RecordService.currentRecord.info_one" ng-disabled="!RecordService.isEditing()"></textarea>
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات دو:</label>
-                                <input type="text" ng-maxlength="255" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()">
+                                <textarea ng-maxlength="255" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()"></textarea>
                             </div>
                             <div class="main-fields-search-key">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
