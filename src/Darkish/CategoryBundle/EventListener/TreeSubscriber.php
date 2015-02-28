@@ -28,7 +28,7 @@ class TreeSubscriber implements EventSubscriber
 //        /* @var $entity MainTree */
 //        $test = $repo->find();
         
-        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree) {
+        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof ClassifiedTree) {
             // die('asd');
             if($entity instanceof MainTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
