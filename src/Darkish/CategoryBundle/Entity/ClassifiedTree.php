@@ -174,6 +174,11 @@ class ClassifiedTree
     protected $classified;
 
     /**
+     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="tree")
+     **/
+    private $mainclassifieds;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -659,5 +664,38 @@ class ClassifiedTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainclassifieds
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $mainclassifieds
+     * @return ClassifiedTree
+     */
+    public function addMainclassified(\Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $mainclassifieds)
+    {
+        $this->mainclassifieds[] = $mainclassifieds;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainclassifieds
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $mainclassifieds
+     */
+    public function removeMainclassified(\Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $mainclassifieds)
+    {
+        $this->mainclassifieds->removeElement($mainclassifieds);
+    }
+
+    /**
+     * Get mainclassifieds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainclassifieds()
+    {
+        return $this->mainclassifieds;
     }
 }

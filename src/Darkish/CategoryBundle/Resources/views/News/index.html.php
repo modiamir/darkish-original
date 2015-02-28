@@ -119,7 +119,14 @@
                     
 
                     <div class="basic-info-left-col">
-                        
+                        <div class="immediate-box">
+                            <input type="checkbox" id="immediate-input" ng-model="NewsService.currentNews.immediate" ng-disabled="!NewsService.isEditing()" />
+                            <label class="immedate-label" for="immediate-input">
+                                خبر فوری
+                            </label>
+                        </div>
+                                    
+                                
                         <div class="news-number-wrapper">
                           <span class="news-number-title">شماره خبر</span>
                           <span class="news-number" dir="ltr">
@@ -172,10 +179,15 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!NewsService.isEditing()"
-                                            ng-options="(tree.parent_tree_title + '-->' + tree.title ) for tree in NewsService.currentNews.treeList.all()">
+                                            ng-options="(tree.tree.parent_tree_title + '-->' + tree.tree.title  + '(' + tree.sort + ')') for tree in NewsService.currentNews.treeList.all()">
                                         
 
                                 </select>
+                                <div class="tree-ranks">
+                                    <select class="ranklist-combo" ng-repeat="tree in NewsService.currentNews.treeList.array" ng-model="tree.sort" ng-disabled="!NewsService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
+                                    </select>
+                                </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
                                         <h3 class="modal-title">انتخاب شاخه ها</h3>
@@ -190,50 +202,37 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 
                             </div>
                             
                             <div class="main-fields-dates-competition row">
-                                <div class="dates col col-xs-6">
+                                <div class="dates col col-xs-5">
                                     <div class="publish-date-box">
                                         <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
                                         <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing()" close-text="بستن" />
                                     </div>
 
-                                    
+                                </div>
+                                <div class="col col-xs-2">
+                                    <div class="continual-box">
+                                        <label for="continual-checkbox" class="continual-label">
+                                            اعتبار دائمی
+                                        </label>
+                                        <input type="checkbox" id="continual-checkbox" ng-model="NewsService.currentNews.continual" ng-disabled="!NewsService.isEditing()"  />
+                                    </div>
+                                </div>
+                                <div class="col col-xs-5">
                                     <div class="expire-date-box">
-                                        <div class="continual-box">
-                                            <label for="continual-checkbox" class="continual-label">
-                                                دائمی
-                                            </label>
-                                            <input type="checkbox" id="continual-checkbox" ng-model="NewsService.currentNews.continual" ng-disabled="!NewsService.isEditing()"  />
-                                        </div>
+                                        
                                         <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
                                         <input  ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="NewsService.currentNews.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!NewsService.isEditing() || NewsService.currentNews.continual" close-text="بستن" />
                                     </div>
                                 </div>
                                 
-                                <div class="immediate-rank-box col col-xs-6">
-                                    <div class="immediate-box">
-                                        <label class="immedate-label" for="immediate-input">
-                                            خبر فوری
-                                        </label>
-                                        <input type="checkbox" id="immediate-input" ng-model="NewsService.currentNews.immediate" ng-disabled="!NewsService.isEditing()" />
-                                    </div>
-                                    <div class="listrank-box">
-                                        <label for="listrank-select" class="listrank-label">
-                                            رتبه در لیست
-                                        </label>
-                                        <select id="listrank-select" ng-model="NewsService.currentNews.list_rank" ng-disabled="!NewsService.isEditing()">
-                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                        </select>
-                                    </select>
-                                    </div>
-                                    
-                                </div>
+                                
 
                                 <div class="competition-box col col-xs-12">
                                     <div class="competition-head">
@@ -358,7 +357,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="NewsService.currentNews.icon.id" ng-click="openIconModal('lg',icon)" ng-src="{{NewsService.currentNews.icon.absolute_path}}"  />
+                                    <img ng-show="NewsService.currentNews.icon.id" ng-click="openIconModal('sm',NewsService.currentNews.icon)" ng-src="{{NewsService.currentNews.icon.absolute_path}}"  />
+                                    <img ng-show="!NewsService.currentNews.icon.id &&  NewsService.currentNews.images.length >= 1 " ng-click="openIconModal('sm',NewsService.currentNews.images[0])" ng-src="{{NewsService.currentNews.images[0].absolute_path}}"  />
                                     <input
                                         ng-show="NewsService.currentNews.icon.id"
                                         type="checkbox"
@@ -369,7 +369,7 @@
                                     <script type="text/ng-template" id="iconModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{icon.absolute_path}}" />
+                                            <img ng-src="{{icon.icon_absolute_path}}" />
                                         </div>
                                         
                                     </script>
@@ -413,10 +413,26 @@
                                                 checklist-model="NewsService.selectedAudios"
                                                 checklist-value="audio"
                                             />
-                                            <span ng-bind="audio.file_name" ng-click="NewsService.selectedAudio = audio" >  </span>
+                                            <span ng-bind="audio.file_name" ng-click="NewsService.selectedAudio = audio; openAudioModal('md',audio, $index)" >  </span>
                                         </li>
                                     </ul>
-
+                                    <script type="text/ng-template" id="audioModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <audio id="modal-audio-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentAudio.absolute_path}}" type="{{currentAudio.filemime}}"></audio>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalAudio">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
+                                        </div>
+                                    </script>
                                 </div>
                             </div>
                         </div>

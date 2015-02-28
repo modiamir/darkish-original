@@ -10,12 +10,12 @@ use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * RecordMainTree
+ * ClassifiedClassifiedTree
  *
- * @ORM\Table(name="record_trees")
+ * @ORM\Table(name="classified_trees")
  * @ORM\Entity
  */
-class RecordMainTree
+class ClassifiedClassifiedTree
 {
     /**
      * @var integer
@@ -38,16 +38,16 @@ class RecordMainTree
     }
     
     /**
-     * @ORM\ManyToOne(targetEntity="Record",  inversedBy="maintrees")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
-     * @Groups({ "maintree.list", "maintree.details"})
+     * @ORM\ManyToOne(targetEntity="Classified",  inversedBy="classifiedtrees")
+     * @ORM\JoinColumn(name="classified_id", referencedColumnName="id")
+     * @Groups({ "classifiedtree.list", "classifiedtree.details"})
      **/
-    private $record;
+    private $classified;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="mainrecords")
+     * @ORM\ManyToOne(targetEntity="ClassifiedTree",  inversedBy="mainclassifieds")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details"})
      **/
     private $tree;
     
@@ -55,40 +55,40 @@ class RecordMainTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details"})
      */
     private $sort;
 
     /**
-     * Set record
+     * Set classified
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\Classified $classified
+     * @return ClassifiedClassifiedTree
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setClassified(\Darkish\CategoryBundle\Entity\Classified $classified = null)
     {
-        $this->record = $record;
+        $this->classified = $classified;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get classified
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return \Darkish\CategoryBundle\Entity\Classified 
      */
-    public function getRecord()
+    public function getClassified()
     {
-        return $this->record;
+        return $this->classified;
     }
 
     /**
      * Set tree
      *
-     * @param \Darkish\CategoryBundle\Entity\MainTree $tree
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedTree $tree
+     * @return ClassifiedClassifiedTree
      */
-    public function setTree(\Darkish\CategoryBundle\Entity\MainTree $tree = null)
+    public function setTree(\Darkish\CategoryBundle\Entity\ClassifiedTree $tree = null)
     {
         $this->tree = $tree;
 
@@ -98,7 +98,7 @@ class RecordMainTree
     /**
      * Get tree
      *
-     * @return \Darkish\CategoryBundle\Entity\MainTree 
+     * @return \Darkish\CategoryBundle\Entity\ClassifiedTree 
      */
     public function getTree()
     {
@@ -109,7 +109,7 @@ class RecordMainTree
      * Set sort
      *
      * @param string $sort
-     * @return RecordMainTree
+     * @return ClassifiedClassifiedTree
      */
     public function setSort($sort)
     {

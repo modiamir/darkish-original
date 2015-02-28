@@ -566,25 +566,23 @@ h3.block-title {
 }
 .main-fields-tree-list-commands-wrapper{
     float: right;
-    width: 10%;
+    width: 20%;
     height: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
 
 }
 #tree-list-input {
-   height: 102px;
+   height: 32px;
     background: white;
     border: groove 1px;
-    margin-left: 2.6%;
-    width: 80%;
+    width: 70%;
     float: left;
     font-size: 10px;
-
+    overflow: auto;
 }
 select#tree-list-input option {
-    height: 20px;
-    border-bottom: 1px solid #cccccc;
+    height: 30px;
 }
 .main-fields-tree-list{
     display: inline-block;

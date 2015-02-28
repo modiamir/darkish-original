@@ -13,6 +13,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolation;
 use Darkish\CategoryBundle\Entity\Offer;
 use Darkish\CategoryBundle\Entity\OfferTree;
+use Darkish\CategoryBundle\Entity\OfferOfferTree;
 use Darkish\CategoryBundle\Form\OfferType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -330,7 +331,7 @@ class OfferController extends Controller
             }
             
         }
-        if(isset($data['trees'])) {
+        if(false && isset($data['trees'])) {
             $currentTrees = $offer->getTrees();
             $newTrees = new ArrayCollection();
             $eCollec = new ArrayCollection();
@@ -369,6 +370,76 @@ class OfferController extends Controller
 
             //$offer->setTrees($data['trees']);
         }
+
+        if(isset($data['offertrees'])) {
+            // die($this->get('jms_serializer')->serialize($data['offertrees'], 'json'));
+            $currentMaintrees = $offer->getOffertrees();
+            if(!$currentMaintrees) {
+                $currentMaintrees = new ArrayCollection();
+            }
+            $currentTrees = new ArrayCollection();
+            $newTrees = new ArrayCollection();
+            $eCollec = new ArrayCollection();
+            $neCollec = new ArrayCollection();
+            $rCollec = new ArrayCollection();
+
+            $currentMaintreesIterator = $currentMaintrees->getIterator();
+            while ($currentMaintreesIterator->valid()) {
+                $cur = $currentMaintreesIterator->current();
+                $currentTrees->add(array('tree'=> $cur->getTree(), 'sort' => $cur->getSort()));
+                $currentMaintreesIterator->next();
+            }
+
+            
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:OfferTree');
+            foreach($data['offertrees'] as $tree) {
+                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+            }   
+
+
+            $newTreesIterator = $newTrees->getIterator();
+            while($newTreesIterator->valid()) {
+                $cur = $newTreesIterator->current();
+                if($currentTrees->contains($cur)) {
+                    $eCollec->add($cur);
+                } else {
+                    $neCollec->add($cur);
+                }
+                $newTreesIterator->next();
+            }
+
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:OfferOfferTree');
+            $em = $this->getDoctrine()->getManager();
+            
+            $currentTreesIterator = $currentTrees->getIterator();
+            while($currentTreesIterator->valid()) {
+                if(!$eCollec->contains($currentTreesIterator->current()) && !$neCollec->contains($currentTreesIterator->current())) {
+                    $cur = $currentTreesIterator->current();
+                    $tmp = $rep->findBy(array('offer'=>$offer->getId(), 'tree' => $cur['tree']->getId()));
+                    $tmp = $tmp[0];
+                    $em->remove($tmp);
+                    // $currentTrees->removeElement($currentTreesIterator->current());
+                }
+                $currentTreesIterator->next();
+            }
+            
+            $neCollecIterator = $neCollec->getIterator();
+            while($neCollecIterator->valid()) {
+                $cur = $neCollecIterator->current();
+                $tmp = new OfferOfferTree();
+                $tmp->setOffer($offer);
+                $tmp->setTree($cur['tree']);
+                $tmp->setSort($cur['sort']);
+                $em->persist($tmp);
+                $neCollecIterator->next();
+            }
+            // $em->flush();
+
+
+
+            //$offer->setTrees($data['trees']);
+        }
+
         if(isset($data['images'])) {
 
             $currentImages = $offer->getImages();
@@ -858,7 +929,7 @@ class OfferController extends Controller
 
             $queryBuilder = $repository->createQueryBuilder('r');
             /* @var $queryBuilder QueryBuilder */
-            $offerWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $offerWithTree = $queryBuilder->select('r.id')->join('r.offertrees','rt')->join('rt.tree','t', 'WITH')->distinct();
             $qb2 = $repository->createQueryBuilder('rr');
             $offerWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$offerWithTree->getDQL()))
                 ->setFirstResult($count)
@@ -969,7 +1040,8 @@ class OfferController extends Controller
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:Offer');
             $qb = $repository->createQueryBuilder('r');
-            $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
+            $qb->join('r.offertrees', 'rt');
+            $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
             

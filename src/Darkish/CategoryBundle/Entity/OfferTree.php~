@@ -3,6 +3,12 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * OfferTree
@@ -18,6 +24,7 @@ class OfferTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "offer.details"})
      */
     private $id;
 
@@ -25,13 +32,21 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="up_tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "offer.details"})
      */
     private $upTreeIndex;
+    
+    /**
+     *
+     * @Groups({"list", "details", "offer.details"})
+     */
+    private $parentTreeTitle;
 
     /**
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "offer.details"})
      */
     private $treeIndex;
 
@@ -46,6 +61,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "offer.details"})
      */
     private $title;
 
@@ -53,6 +69,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "offer.details"})
      */
     private $subTitle;
 
@@ -60,6 +77,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="back_key_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "offer.details"})
      */
     private $backKeyTitle;
 
@@ -99,9 +117,9 @@ class OfferTree
     private $iconFileName;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="icon_set_files_name", type="array", nullable=true)
+     * @ORM\Column(name="icon_set_files_name", type="string", nullable=true)
      */
     private $iconSetFilesName;
 
@@ -149,9 +167,16 @@ class OfferTree
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Offer", mappedBy="offertree")
+     * @var \Doctrine\Common\Collections\ArrayCollection $offer
+     *
+     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Offer", mappedBy="trees")
      */
-    //protected  $newsList;
+    protected $offer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="tree")
+     **/
+    private $mainoffers;
 
     /**
      * Get id
@@ -167,7 +192,7 @@ class OfferTree
      * Set upTreeIndex
      *
      * @param string $upTreeIndex
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setUpTreeIndex($upTreeIndex)
     {
@@ -190,7 +215,7 @@ class OfferTree
      * Set treeIndex
      *
      * @param string $treeIndex
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setTreeIndex($treeIndex)
     {
@@ -213,7 +238,7 @@ class OfferTree
      * Set sort
      *
      * @param integer $sort
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSort($sort)
     {
@@ -236,7 +261,7 @@ class OfferTree
      * Set title
      *
      * @param string $title
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setTitle($title)
     {
@@ -259,7 +284,7 @@ class OfferTree
      * Set subTitle
      *
      * @param string $subTitle
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSubTitle($subTitle)
     {
@@ -282,7 +307,7 @@ class OfferTree
      * Set backKeyTitle
      *
      * @param string $backKeyTitle
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setBackKeyTitle($backKeyTitle)
     {
@@ -305,7 +330,7 @@ class OfferTree
      * Set searchKeywords
      *
      * @param string $searchKeywords
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSearchKeywords($searchKeywords)
     {
@@ -328,7 +353,7 @@ class OfferTree
      * Set showSubtreeAsFilter
      *
      * @param boolean $showSubtreeAsFilter
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setShowSubtreeAsFilter($showSubtreeAsFilter)
     {
@@ -351,7 +376,7 @@ class OfferTree
      * Set showSponsorBox
      *
      * @param boolean $showSponsorBox
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setShowSponsorBox($showSponsorBox)
     {
@@ -374,7 +399,7 @@ class OfferTree
      * Set sponsorGroup
      *
      * @param string $sponsorGroup
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSponsorGroup($sponsorGroup)
     {
@@ -397,7 +422,7 @@ class OfferTree
      * Set iconFileName
      *
      * @param string $iconFileName
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setIconFileName($iconFileName)
     {
@@ -419,8 +444,8 @@ class OfferTree
     /**
      * Set iconSetFilesName
      *
-     * @param array $iconSetFilesName
-     * @return NewsTree
+     * @param strj g $iconSetFilesName
+     * @return OfferTree
      */
     public function setIconSetFilesName($iconSetFilesName)
     {
@@ -432,7 +457,7 @@ class OfferTree
     /**
      * Get iconSetFilesName
      *
-     * @return array 
+     * @return string 
      */
     public function getIconSetFilesName()
     {
@@ -443,7 +468,7 @@ class OfferTree
      * Set fontColor
      *
      * @param string $fontColor
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setFontColor($fontColor)
     {
@@ -466,7 +491,7 @@ class OfferTree
      * Set backColor
      *
      * @param string $backColor
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setBackColor($backColor)
     {
@@ -489,7 +514,7 @@ class OfferTree
      * Set subPicShow
      *
      * @param boolean $subPicShow
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSubPicShow($subPicShow)
     {
@@ -512,7 +537,7 @@ class OfferTree
      * Set subBackground
      *
      * @param string $subBackground
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSubBackground($subBackground)
     {
@@ -535,7 +560,7 @@ class OfferTree
      * Set subUnitHeightScale
      *
      * @param string $subUnitHeightScale
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setSubUnitHeightScale($subUnitHeightScale)
     {
@@ -558,7 +583,7 @@ class OfferTree
      * Set hiddenTree
      *
      * @param boolean $hiddenTree
-     * @return NewsTree
+     * @return OfferTree
      */
     public function setHiddenTree($hiddenTree)
     {
@@ -577,43 +602,67 @@ class OfferTree
         return $this->hiddenTree;
     }
 
-    public function __construct()
-    {
-        $this->newsList = new ArrayCollection();
-    }
+    
 
 
+
+    
 
     /**
-     * Add newsList
-     *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
-     * @return NewsTree
+     * Constructor
      */
-    public function addNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function __construct()
     {
-        $this->newsList[] = $newsList;
+        $this->offer = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add offer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $offer
+     * @return OfferTree
+     */
+    public function addOffer(\Darkish\CategoryBundle\Entity\Offer $offer)
+    {
+        $this->offer[] = $offer;
 
         return $this;
     }
 
     /**
-     * Remove newsList
+     * Remove offer
      *
-     * @param \Darkish\CategoryBundle\Entity\News $newsList
+     * @param \Darkish\CategoryBundle\Entity\Offer $offer
      */
-    public function removeNewsList(\Darkish\CategoryBundle\Entity\News $newsList)
+    public function removeOffer(\Darkish\CategoryBundle\Entity\Offer $offer)
     {
-        $this->newsList->removeElement($newsList);
+        $this->offer->removeElement($offer);
     }
 
     /**
-     * Get newsList
+     * Get offer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getNewsList()
+    public function getOffer()
     {
-        return $this->newsList;
+        return $this->offer;
+    }
+    
+    public function setParentTreeTitle($title) {
+        $this->parentTreeTitle = $title;
+        
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return type
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     * @Groups({"list", "details", "offer.details"})
+     */
+    public function getParentTreeTitle() {
+        return $this->parentTreeTitle;
     }
 }

@@ -276,6 +276,12 @@ class Classified
     private $trees;
 
     /**
+     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified")
+     * @Groups({"classified.details"})
+     **/
+    private $classifiedtrees;
+
+    /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="classified_images",
      *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
@@ -1414,5 +1420,38 @@ class Classified
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    /**
+     * Add classifiedtrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $classifiedtrees
+     * @return Classified
+     */
+    public function addClassifiedtree(\Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $classifiedtrees)
+    {
+        $this->classifiedtrees[] = $classifiedtrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove classifiedtrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $classifiedtrees
+     */
+    public function removeClassifiedtree(\Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree $classifiedtrees)
+    {
+        $this->classifiedtrees->removeElement($classifiedtrees);
+    }
+
+    /**
+     * Get classifiedtrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClassifiedtrees()
+    {
+        return $this->classifiedtrees;
     }
 }

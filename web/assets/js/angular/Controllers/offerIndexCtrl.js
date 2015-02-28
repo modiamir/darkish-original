@@ -602,7 +602,36 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         
         ///////////////
 
+        /**
+         * icon modal initialization
+         */
+        
+                
+        
+            
+        $scope.openIconModal = function (size, icon) {
+            ValuesService.currentIconModal = {};
+            ValuesService.currentIconModal.image = icon;
+            console.log(icon);
+            var iconModalInstance = $modal.open({
+                templateUrl: 'iconModal.html',
+                controller: 'iconModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'image-modal-window'
+            });
 
+            iconModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
    
         /**
          * video modal initialization
@@ -635,7 +664,38 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         
         ///////////////
         
+        /**
+         * audio modal initialization
+         */
         
+                
+    
+            
+        $scope.openAudioModal = function (size, audio, index) {
+            ValuesService.currentAudioModal = {}
+            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.index = index;
+
+            var audioModalInstance = $modal.open({
+                templateUrl: 'audioModal.html',
+                controller: 'audioModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'audio-modal-window'
+            });
+
+            audioModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+
         /**
          * cancel modal initialization
          */
@@ -1442,7 +1502,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
                     
                     self.currentOffer.treeList = Collection.getInstance();
-                    self.currentOffer.treeList.addAll(self.currentOffer.trees);
+                    self.currentOffer.treeList.addAll(self.currentOffer.offertrees);
 
                     self.currentOffer.imagesList = Collection.getInstance();
                     self.currentOffer.imagesList.addAll(self.currentOffer.images);
@@ -1662,9 +1722,19 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
 
 
-        self.addToTreeList = function(obj)  {
-            self.currentOffer.treeList.add(obj);
-            self.currentOffer.trees = self.currentOffer.treeList.all() ;
+        self.addToTreeList = function(obj, sort)  {
+            angular.forEach(self.currentOffer.treeList.array, function(value, key){
+                if(obj.id == value.tree.id) {
+                    self.currentOffer.treeList.remove(value);
+                }
+            });
+            obj.sort = sort;
+            var tree = {};
+            tree.tree = obj;
+            tree.sort = (sort)?sort:60;
+            self.currentOffer.treeList.update(tree);
+            self.currentOffer.offertrees = self.currentOffer.treeList.all() ;
+            return obj.title+" به پیشنهاد ویژه اضافه شد.";
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1672,7 +1742,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
                 self.currentOffer.treeList.remove(tree);
             });
 
-            self.currentOffer.trees = self.currentOffer.treeList.all() ;
+            self.currentOffer.offertrees = self.currentOffer.treeList.all() ;
         }
 
         self.updateCurrentOffer = function() {
@@ -1947,6 +2017,16 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
 
     }]).
+    controller('iconModalCtrl', ['$scope', '$modalInstance', 'OfferService','TreeService', 'ValuesService', function ($scope, $modalInstance, OfferService, TreeService, ValuesService) {
+        $scope.OfferService = OfferService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
+        $scope.icon = ValuesService.currentIconModal.image;
+        
+
+
+
+    }]).
     controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'OfferService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, OfferService, TreeService, ValuesService) {
         $scope.OfferService = OfferService;
         $scope.ValuesService = ValuesService;
@@ -1971,6 +2051,33 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             videoPlayer.src = $scope.currentVideo.absolute_path;
             videoPlayer.load();
             videoPlayer.play();
+        }
+
+    }]).
+    controller('audioModalCtrl', ['$scope', '$sce', '$modalInstance', 'OfferService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, OfferService, TreeService, ValuesService) {
+        $scope.OfferService = OfferService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentAudioModal = {}; $modalInstance.close();}
+        $scope.currentAudio = OfferService.currentOffer.audios[ValuesService.currentAudioModal.index];
+        $scope.totalAudio = OfferService.currentOffer.audios.length;
+        $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index + 1;
+            $scope.currentAudio = OfferService.currentOffer.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+        $scope.prev = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index -1;
+            $scope.currentAudio = OfferService.currentOffer.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
         }
 
     }]).

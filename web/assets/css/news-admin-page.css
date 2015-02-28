@@ -442,7 +442,6 @@ h3.block-title {
 }
 .news-number-wrapper{
 
-    width: 90px;
     height: 45px;
     background-color: rgb(222,222,220);
     border: solid 1.5px;
@@ -450,7 +449,6 @@ h3.block-title {
     text-align: center;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 15%;
 }
 
 .news-number-wrapper .news-number {
@@ -563,25 +561,26 @@ h3.block-title {
 }
 .main-fields-tree-list-commands-wrapper{
     float: right;
-    width: 10%;
+    width: 20%;
     height: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
 
 }
 #tree-list-input {
-   height: 102px;
+   height: 32px;
     background: white;
     border: groove 1px;
     margin-left: 2.6%;
-    width: 80%;
+    width: 70%;
     float: left;
     font-size: 10px;
+    overflow-y: auto;
 
 }
 select#tree-list-input option {
-    height: 20px;
-    border-bottom: 1px solid #cccccc;
+    height: 30px;
+    
 }
 .main-fields-tree-list{
     display: inline-block;
@@ -1807,11 +1806,11 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 }
 
 .publish-date-box label#publish-date-label, .expire-date-box label#expire-date-label {
-    width: 100px;
+    width: 80px;
 }
 
 .publish-date-box input#publish-date-picker, .expire-date-box input#expire-date-picker {
-    width: 150px;
+    width: 130px;
 }
 
 .expire-date-box .continual-box {
@@ -1829,20 +1828,17 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     float: right;
 }
 
-.immediate-rank-box .immediate-box, .immediate-rank-box .listrank-box {
+.immediate-box {
+    padding: 0px 10px;
     width: 100%;
-    clear: both;
-    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid rgb(252, 215, 215);
+}
+.immediate-box label {
+    margin-right: 3px;
 }
 
-.immediate-rank-box .immediate-box .immedate-label, .immediate-rank-box .listrank-box .listrank-label{
-    float: right;
-    width: 100px;
-}
-
-.immediate-rank-box .immediate-box #immediate-input {
-    float: right;
-}
 
 .competition-box {
     padding: 10px;

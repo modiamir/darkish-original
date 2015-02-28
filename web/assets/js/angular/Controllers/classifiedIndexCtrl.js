@@ -602,8 +602,37 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         
         ///////////////
 
+        /**
+         * icon modal initialization
+         */
+        
+                
+        
+            
+        $scope.openIconModal = function (size, icon) {
+            ValuesService.currentIconModal = {};
+            ValuesService.currentIconModal.image = icon;
+            console.log(icon);
+            var iconModalInstance = $modal.open({
+                templateUrl: 'iconModal.html',
+                controller: 'iconModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'image-modal-window'
+            });
 
-   
+            iconModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
+    
         /**
          * video modal initialization
          */
@@ -635,6 +664,37 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
         
         ///////////////
         
+        /**
+         * audio modal initialization
+         */
+        
+                
+    
+            
+        $scope.openAudioModal = function (size, audio, index) {
+            ValuesService.currentAudioModal = {}
+            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.index = index;
+
+            var audioModalInstance = $modal.open({
+                templateUrl: 'audioModal.html',
+                controller: 'audioModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'audio-modal-window'
+            });
+
+            audioModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         /**
          * cancel modal initialization
@@ -1442,7 +1502,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
 
                     
                     self.currentClassified.treeList = Collection.getInstance();
-                    self.currentClassified.treeList.addAll(self.currentClassified.trees);
+                    self.currentClassified.treeList.addAll(self.currentClassified.classifiedtrees);
 
                     self.currentClassified.imagesList = Collection.getInstance();
                     self.currentClassified.imagesList.addAll(self.currentClassified.images);
@@ -1662,9 +1722,19 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
 
 
 
-        self.addToTreeList = function(obj)  {
-            self.currentClassified.treeList.add(obj);
-            self.currentClassified.trees = self.currentClassified.treeList.all() ;
+        self.addToTreeList = function(obj, sort)  {
+            angular.forEach(self.currentClassified.treeList.array, function(value, key){
+                if(obj.id == value.tree.id) {
+                    self.currentClassified.treeList.remove(value);
+                }
+            });
+            obj.sort = sort;
+            var tree = {};
+            tree.tree = obj;
+            tree.sort = (sort)?sort:60;
+            self.currentClassified.treeList.update(tree);
+            self.currentClassified.classifiedtrees = self.currentClassified.treeList.all() ;
+            return obj.title+" به رکورد اضافه شد.";
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1672,7 +1742,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
                 self.currentClassified.treeList.remove(tree);
             });
 
-            self.currentClassified.trees = self.currentClassified.treeList.all() ;
+            self.currentClassified.classifiedtrees = self.currentClassified.treeList.all() ;
         }
 
         self.updateCurrentClassified = function() {
@@ -1947,6 +2017,16 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
 
 
     }]).
+    controller('iconModalCtrl', ['$scope', '$modalInstance', 'ClassifiedService','TreeService', 'ValuesService', function ($scope, $modalInstance, ClassifiedService, TreeService, ValuesService) {
+        $scope.ClassifiedService = ClassifiedService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
+        $scope.icon = ValuesService.currentIconModal.image;
+        
+
+
+
+    }]).
     controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'ClassifiedService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, ClassifiedService, TreeService, ValuesService) {
         $scope.ClassifiedService = ClassifiedService;
         $scope.ValuesService = ValuesService;
@@ -1971,6 +2051,33 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             videoPlayer.src = $scope.currentVideo.absolute_path;
             videoPlayer.load();
             videoPlayer.play();
+        }
+
+    }]).
+    controller('audioModalCtrl', ['$scope', '$sce', '$modalInstance', 'ClassifiedService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, ClassifiedService, TreeService, ValuesService) {
+        $scope.ClassifiedService = ClassifiedService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentAudioModal = {}; $modalInstance.close();}
+        $scope.currentAudio = ClassifiedService.currentClassified.audios[ValuesService.currentAudioModal.index];
+        $scope.totalAudio = ClassifiedService.currentClassified.audios.length;
+        $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index + 1;
+            $scope.currentAudio = ClassifiedService.currentClassified.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+        $scope.prev = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index -1;
+            $scope.currentAudio = ClassifiedService.currentClassified.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
         }
 
     }]).

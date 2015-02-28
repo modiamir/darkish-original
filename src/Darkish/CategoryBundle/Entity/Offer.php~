@@ -222,7 +222,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $telNumberOne;
@@ -230,7 +230,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $telNumberTwo;
@@ -238,7 +238,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberThree", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $telNumberThree;
@@ -246,7 +246,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="TelNumberFour", type="string", length=255, nullable=true)
+     * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $telNumberFour;
@@ -254,7 +254,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="FaxNumberOne", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $faxNumberOne;
@@ -262,7 +262,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="FaxNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $faxNumberTwo;
@@ -270,7 +270,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $mobileNumberOne;
@@ -278,7 +278,7 @@ class Offer
     /**
      * @var string
      *
-     * @ORM\Column(name="MobileNumberTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
      * @Groups({"offer.details"})
      */
     private $mobileNumberTwo;
@@ -313,6 +313,12 @@ class Offer
      *      )
      **/
     private $trees;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer")
+     * @Groups({"offer.details"})
+     **/
+    private $offertrees;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -1209,5 +1215,258 @@ class Offer
     public function getBanner()
     {
         return $this->banner;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Offer
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set telNumberOne
+     *
+     * @param string $telNumberOne
+     * @return Offer
+     */
+    public function setTelNumberOne($telNumberOne)
+    {
+        $this->telNumberOne = $telNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberOne
+     *
+     * @return string 
+     */
+    public function getTelNumberOne()
+    {
+        return $this->telNumberOne;
+    }
+
+    /**
+     * Set telNumberTwo
+     *
+     * @param string $telNumberTwo
+     * @return Offer
+     */
+    public function setTelNumberTwo($telNumberTwo)
+    {
+        $this->telNumberTwo = $telNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberTwo
+     *
+     * @return string 
+     */
+    public function getTelNumberTwo()
+    {
+        return $this->telNumberTwo;
+    }
+
+    /**
+     * Set telNumberThree
+     *
+     * @param string $telNumberThree
+     * @return Offer
+     */
+    public function setTelNumberThree($telNumberThree)
+    {
+        $this->telNumberThree = $telNumberThree;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberThree
+     *
+     * @return string 
+     */
+    public function getTelNumberThree()
+    {
+        return $this->telNumberThree;
+    }
+
+    /**
+     * Set telNumberFour
+     *
+     * @param string $telNumberFour
+     * @return Offer
+     */
+    public function setTelNumberFour($telNumberFour)
+    {
+        $this->telNumberFour = $telNumberFour;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFour
+     *
+     * @return string 
+     */
+    public function getTelNumberFour()
+    {
+        return $this->telNumberFour;
+    }
+
+    /**
+     * Set faxNumberOne
+     *
+     * @param string $faxNumberOne
+     * @return Offer
+     */
+    public function setFaxNumberOne($faxNumberOne)
+    {
+        $this->faxNumberOne = $faxNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get faxNumberOne
+     *
+     * @return string 
+     */
+    public function getFaxNumberOne()
+    {
+        return $this->faxNumberOne;
+    }
+
+    /**
+     * Set faxNumberTwo
+     *
+     * @param string $faxNumberTwo
+     * @return Offer
+     */
+    public function setFaxNumberTwo($faxNumberTwo)
+    {
+        $this->faxNumberTwo = $faxNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get faxNumberTwo
+     *
+     * @return string 
+     */
+    public function getFaxNumberTwo()
+    {
+        return $this->faxNumberTwo;
+    }
+
+    /**
+     * Set mobileNumberOne
+     *
+     * @param string $mobileNumberOne
+     * @return Offer
+     */
+    public function setMobileNumberOne($mobileNumberOne)
+    {
+        $this->mobileNumberOne = $mobileNumberOne;
+
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberOne
+     *
+     * @return string 
+     */
+    public function getMobileNumberOne()
+    {
+        return $this->mobileNumberOne;
+    }
+
+    /**
+     * Set mobileNumberTwo
+     *
+     * @param string $mobileNumberTwo
+     * @return Offer
+     */
+    public function setMobileNumberTwo($mobileNumberTwo)
+    {
+        $this->mobileNumberTwo = $mobileNumberTwo;
+
+        return $this;
+    }
+
+    /**
+     * Get mobileNumberTwo
+     *
+     * @return string 
+     */
+    public function getMobileNumberTwo()
+    {
+        return $this->mobileNumberTwo;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Offer
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return Offer
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 }

@@ -527,7 +527,36 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         ///////////////
 
+        /**
+         * icon modal initialization
+         */
+        
+                
+        
+            
+        $scope.openIconModal = function (size, icon) {
+            ValuesService.currentIconModal = {};
+            ValuesService.currentIconModal.image = icon;
+            console.log(icon);
+            var iconModalInstance = $modal.open({
+                templateUrl: 'iconModal.html',
+                controller: 'iconModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'image-modal-window'
+            });
 
+            iconModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
    
         /**
          * video modal initialization
@@ -560,6 +589,37 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         ///////////////
         
+        /**
+         * audio modal initialization
+         */
+        
+                
+    
+            
+        $scope.openAudioModal = function (size, audio, index) {
+            ValuesService.currentAudioModal = {}
+            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.index = index;
+
+            var audioModalInstance = $modal.open({
+                templateUrl: 'audioModal.html',
+                controller: 'audioModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'audio-modal-window'
+            });
+
+            audioModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         /**
          * cancel modal initialization
@@ -2084,6 +2144,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
     }]).
+    controller('iconModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $modalInstance, RecordService, TreeService, ValuesService) {
+        $scope.RecordService = RecordService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
+        $scope.icon = ValuesService.currentIconModal.image;
+        
+
+
+
+    }]).
     controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
@@ -2108,6 +2178,33 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             videoPlayer.src = $scope.currentVideo.absolute_path;
             videoPlayer.load();
             videoPlayer.play();
+        }
+
+    }]).
+    controller('audioModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService) {
+        $scope.RecordService = RecordService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentAudioModal = {}; $modalInstance.close();}
+        $scope.currentAudio = RecordService.currentRecord.audios[ValuesService.currentAudioModal.index];
+        $scope.totalAudio = RecordService.currentRecord.audios.length;
+        $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index + 1;
+            $scope.currentAudio = RecordService.currentRecord.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+        $scope.prev = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index -1;
+            $scope.currentAudio = RecordService.currentRecord.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
         }
 
     }]).

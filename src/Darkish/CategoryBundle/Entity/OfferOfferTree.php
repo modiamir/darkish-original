@@ -10,12 +10,12 @@ use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * RecordMainTree
+ * OfferOfferTree
  *
- * @ORM\Table(name="record_trees")
+ * @ORM\Table(name="offer_trees")
  * @ORM\Entity
  */
-class RecordMainTree
+class OfferOfferTree
 {
     /**
      * @var integer
@@ -38,16 +38,16 @@ class RecordMainTree
     }
     
     /**
-     * @ORM\ManyToOne(targetEntity="Record",  inversedBy="maintrees")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
-     * @Groups({ "maintree.list", "maintree.details"})
+     * @ORM\ManyToOne(targetEntity="Offer",  inversedBy="offertrees")
+     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
+     * @Groups({ "offertree.list", "offertree.details"})
      **/
-    private $record;
+    private $offer;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="mainrecords")
+     * @ORM\ManyToOne(targetEntity="OfferTree",  inversedBy="mainoffers")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details"})
      **/
     private $tree;
     
@@ -55,40 +55,40 @@ class RecordMainTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details"})
      */
     private $sort;
 
     /**
-     * Set record
+     * Set offer
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\Offer $offer
+     * @return OfferOfferTree
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setOffer(\Darkish\CategoryBundle\Entity\Offer $offer = null)
     {
-        $this->record = $record;
+        $this->offer = $offer;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get offer
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return \Darkish\CategoryBundle\Entity\Offer 
      */
-    public function getRecord()
+    public function getOffer()
     {
-        return $this->record;
+        return $this->offer;
     }
 
     /**
      * Set tree
      *
-     * @param \Darkish\CategoryBundle\Entity\MainTree $tree
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\OfferTree $tree
+     * @return OfferOfferTree
      */
-    public function setTree(\Darkish\CategoryBundle\Entity\MainTree $tree = null)
+    public function setTree(\Darkish\CategoryBundle\Entity\OfferTree $tree = null)
     {
         $this->tree = $tree;
 
@@ -98,7 +98,7 @@ class RecordMainTree
     /**
      * Get tree
      *
-     * @return \Darkish\CategoryBundle\Entity\MainTree 
+     * @return \Darkish\CategoryBundle\Entity\OfferTree 
      */
     public function getTree()
     {
@@ -109,7 +109,7 @@ class RecordMainTree
      * Set sort
      *
      * @param string $sort
-     * @return RecordMainTree
+     * @return OfferOfferTree
      */
     public function setSort($sort)
     {
