@@ -28,8 +28,8 @@ class TreeSubscriber implements EventSubscriber
 //        /* @var $entity MainTree */
 //        $test = $repo->find();
         
-        if( $entity instanceof MainTree || $entity instanceof NewsTree) {
-//            die('asd');
+        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree) {
+            // die('asd');
             if($entity instanceof MainTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
             } elseif($entity instanceof NewsTree) {
@@ -43,7 +43,7 @@ class TreeSubscriber implements EventSubscriber
             }
             $treeIndex = $entity->getTreeIndex();
             $parentTreeIndex = substr($treeIndex, 0, 4);
-//            die($parentTreeIndex);
+            // die($parentTreeIndex);
             $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
             $entity->setParentTreeTitle($parentTree->getTitle());
         }

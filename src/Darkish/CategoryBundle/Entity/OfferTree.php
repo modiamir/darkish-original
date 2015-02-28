@@ -174,6 +174,11 @@ class OfferTree
     protected $offer;
 
     /**
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="tree")
+     **/
+    private $mainoffers;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -659,5 +664,38 @@ class OfferTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainoffers
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $mainoffers
+     * @return OfferTree
+     */
+    public function addMainoffer(\Darkish\CategoryBundle\Entity\OfferOfferTree $mainoffers)
+    {
+        $this->mainoffers[] = $mainoffers;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainoffers
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $mainoffers
+     */
+    public function removeMainoffer(\Darkish\CategoryBundle\Entity\OfferOfferTree $mainoffers)
+    {
+        $this->mainoffers->removeElement($mainoffers);
+    }
+
+    /**
+     * Get mainoffers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainoffers()
+    {
+        return $this->mainoffers;
     }
 }

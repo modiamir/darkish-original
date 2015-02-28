@@ -497,6 +497,36 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         ///////////////
 
+        /**
+         * icon modal initialization
+         */
+        
+                
+        
+            
+        $scope.openIconModal = function (size, icon) {
+            ValuesService.currentIconModal = {};
+            ValuesService.currentIconModal.image = icon;
+            console.log(icon);
+            var iconModalInstance = $modal.open({
+                templateUrl: 'iconModal.html',
+                controller: 'iconModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'image-modal-window'
+            });
+
+            iconModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
 
    
         /**
@@ -530,6 +560,37 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         ///////////////
         
+        /**
+         * audio modal initialization
+         */
+        
+                
+    
+            
+        $scope.openAudioModal = function (size, audio, index) {
+            ValuesService.currentAudioModal = {}
+            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.index = index;
+
+            var audioModalInstance = $modal.open({
+                templateUrl: 'audioModal.html',
+                controller: 'audioModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'audio-modal-window'
+            });
+
+            audioModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         /**
          * cancel modal initialization
@@ -1332,7 +1393,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
                     
                     self.currentNews.treeList = Collection.getInstance();
-                    self.currentNews.treeList.addAll(self.currentNews.trees);
+                    self.currentNews.treeList.addAll(self.currentNews.newstrees);
 
                     self.currentNews.imagesList = Collection.getInstance();
                     self.currentNews.imagesList.addAll(self.currentNews.images);
@@ -1552,9 +1613,23 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
 
 
-        self.addToTreeList = function(obj)  {
-            self.currentNews.treeList.add(obj);
-            self.currentNews.trees = self.currentNews.treeList.all() ;
+        self.addToTreeList = function(obj, sort)  {
+
+            angular.forEach(self.currentNews.treeList.array, function(value, key){
+                if(obj.id == value.tree.id) {
+                    self.currentNews.treeList.remove(value);
+                }
+            });
+
+            obj.sort = sort;
+            var tree = {};
+            tree.tree = obj;
+            tree.sort = (sort)?sort:60;
+            self.currentNews.treeList.update(tree);
+            self.currentNews.newstrees = self.currentNews.treeList.all() ;
+            return obj.title+" به خبر اضافه شد.";
+
+            
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1562,7 +1637,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 self.currentNews.treeList.remove(tree);
             });
 
-            self.currentNews.trees = self.currentNews.treeList.all() ;
+            self.currentNews.newstrees = self.currentNews.treeList.all() ;
         }
 
         self.updateCurrentNews = function() {
@@ -1837,6 +1912,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
 
     }]).
+    controller('iconModalCtrl', ['$scope', '$modalInstance', 'NewsService','TreeService', 'ValuesService', function ($scope, $modalInstance, NewsService, TreeService, ValuesService) {
+        $scope.NewsService = NewsService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
+        $scope.icon = ValuesService.currentIconModal.image;
+        
+
+
+
+    }]).
     controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'NewsService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, NewsService, TreeService, ValuesService) {
         $scope.NewsService = NewsService;
         $scope.ValuesService = ValuesService;
@@ -1861,6 +1946,33 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             videoPlayer.src = $scope.currentVideo.absolute_path;
             videoPlayer.load();
             videoPlayer.play();
+        }
+
+    }]).
+    controller('audioModalCtrl', ['$scope', '$sce', '$modalInstance', 'NewsService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, NewsService, TreeService, ValuesService) {
+        $scope.NewsService = NewsService;
+        $scope.ValuesService = ValuesService;
+        $scope.close = function(){ValuesService.currentAudioModal = {}; $modalInstance.close();}
+        $scope.currentAudio = NewsService.currentNews.audios[ValuesService.currentAudioModal.index];
+        $scope.totalAudio = NewsService.currentNews.audios.length;
+        $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+        $scope.next = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index + 1;
+            $scope.currentAudio = NewsService.currentNews.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+        $scope.prev = function() {
+            ValuesService.currentAudioModal.index = ValuesService.currentAudioModal.index -1;
+            $scope.currentAudio = NewsService.currentNews.audios[ValuesService.currentAudioModal.index];
+            $scope.currentIndex = ValuesService.currentAudioModal.index + 1;
+            var audioPlayer = document.getElementById('modal-audio-player');
+            audioPlayer.src = $scope.currentAudio.absolute_path;
+            audioPlayer.load();
+            audioPlayer.play();
         }
 
     }]).

@@ -226,6 +226,14 @@ class News
      **/
     private $trees;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="news")
+     * @Groups({"news.details"})
+     **/
+    private $newstrees;
+
+
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="news_images",
@@ -1086,5 +1094,38 @@ class News
     public function getListRank()
     {
         return $this->listRank;
+    }
+
+    /**
+     * Add newstrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees
+     * @return News
+     */
+    public function addNewstree(\Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees)
+    {
+        $this->newstrees[] = $newstrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove newstrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees
+     */
+    public function removeNewstree(\Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees)
+    {
+        $this->newstrees->removeElement($newstrees);
+    }
+
+    /**
+     * Get newstrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNewstrees()
+    {
+        return $this->newstrees;
     }
 }

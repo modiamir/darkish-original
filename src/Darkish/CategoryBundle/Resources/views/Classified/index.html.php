@@ -122,7 +122,7 @@
                         
                         <div class="classified-number-wrapper">
                           <span class="classified-number" dir="ltr">
-                              O{{ClassifiedService.currentClassified.id}}
+                              A{{ClassifiedService.currentClassified.id}}
                           </span>
                           
                         </div>
@@ -171,7 +171,7 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!ClassifiedService.isEditing()"
-                                            ng-options="(tree.parent_tree_title + '-->' + tree.title ) for tree in ClassifiedService.currentClassified.treeList.all()">
+                                            ng-options="(tree.tree.parent_tree_title + '-->' + tree.tree.title) for tree in ClassifiedService.currentClassified.treeList.all()">
                                         
 
                                 </select>
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="ClassifiedService.currentClassified.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="ClassifiedService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="ClassifiedService.currentClassified.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="ClassifiedService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 
@@ -203,43 +203,18 @@
                                     </div>
 
                                     
-                                    <div class="expire-date-box">
-                                        <div class="continual-box">
-                                            <label for="continual-checkbox" class="continual-label">
-                                                دائمی
-                                            </label>
-                                            <input type="checkbox" id="continual-checkbox" ng-model="ClassifiedService.currentClassified.continual" ng-disabled="!ClassifiedService.isEditing()"  />
-                                        </div>
-                                        <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
-                                        <input  ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="ClassifiedService.currentClassified.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!ClassifiedService.isEditing() || ClassifiedService.currentClassified.continual" close-text="بستن" />
-                                    </div>
-                                </div>
-                                
-                                <div class="immediate-rank-box col col-xs-6">
-                                    <div class="listrank-box">
-                                        <label for="listrank-select" class="listrank-label">
-                                            رتبه در لیست
-                                        </label>
-                                        <select id="listrank-select" ng-model="ClassifiedService.currentClassified.list_rank" ng-disabled="!ClassifiedService.isEditing()">
-                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                        </select>
-                                    </select>
-                                    </div>
                                     
+                                </div>
+                                <div class="dates col col-xs-6">
+                                    <div class="expire-date-box">
+                                        <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
+                                        <input required ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="ClassifiedService.currentClassified.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!ClassifiedService.isEditing()" close-text="بستن" />
+                                    </div>
                                 </div>
 
                                 
                             </div>
                             
-                            
-                            
-                            <div class="classified-submiter-box">
-                                <input type="text" ng-disabled="!ClassifiedService.isEditing()" id="classified-submitter-input" ng-model="ClassifiedService.currentClassified.submitter" />
-                                <label for="classified-submitter-input">
-                                    شماره رکورد آگهی کننده
-                                </label>
-                                
-                            </div>
                             
                             
                             
@@ -376,7 +351,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="ClassifiedService.currentClassified.icon.id" ng-click="openIconModal('lg',icon)" ng-src="{{ClassifiedService.currentClassified.icon.absolute_path}}"  />
+                                    <img ng-show="ClassifiedService.currentClassified.icon.id" ng-click="openIconModal('sm',ClassifiedService.currentClassified.icon)" ng-src="{{ClassifiedService.currentClassified.icon.absolute_path}}"  />
+                                    <img ng-show="!ClassifiedService.currentClassified.icon.id &&  ClassifiedService.currentClassified.images.length >= 1 " ng-click="openIconModal('sm',ClassifiedService.currentClassified.images[0])" ng-src="{{ClassifiedService.currentClassified.images[0].absolute_path}}"  />
                                     <input
                                         ng-show="ClassifiedService.currentClassified.icon.id"
                                         type="checkbox"
@@ -387,7 +363,7 @@
                                     <script type="text/ng-template" id="iconModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{icon.absolute_path}}" />
+                                            <img  ng-src="{{icon.icon_absolute_path}}" />
                                         </div>
                                         
                                     </script>
@@ -431,10 +407,26 @@
                                                 checklist-model="ClassifiedService.selectedAudios"
                                                 checklist-value="audio"
                                             />
-                                            <span ng-bind="audio.file_name" ng-click="ClassifiedService.selectedAudio = audio" >  </span>
+                                            <span ng-bind="audio.file_name" ng-click="ClassifiedService.selectedAudio = audio;openAudioModal('lg',audio, $index)" >  </span>
                                         </li>
                                     </ul>
-
+                                    <script type="text/ng-template" id="audioModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <audio id="modal-audio-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentAudio.absolute_path}}" type="{{currentAudio.filemime}}"></audio>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalAudio">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
+                                        </div>
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -794,6 +786,9 @@
 
                 <div class="row html-wrapper">
                     <div class="col-xs-12">
+                        <label>
+                            متن آگهی
+                        </label>
                         <textarea ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
                         <div ng-hide="true" class="html-preview" ng-bind-html="trustedBody()">
 

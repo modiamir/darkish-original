@@ -13,6 +13,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolation;
 use Darkish\CategoryBundle\Entity\News;
 use Darkish\CategoryBundle\Entity\NewsTree;
+use Darkish\CategoryBundle\Entity\NewsNewsTree;
 use Darkish\CategoryBundle\Form\NewsType;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -320,6 +321,76 @@ class NewsController extends Controller
 
             //$news->setTrees($data['trees']);
         }
+
+        if(isset($data['newstrees'])) {
+            // die($this->get('jms_serializer')->serialize($data['newstrees'], 'json'));
+            $currentNewstrees = $news->getNewstrees();
+            if(!$currentNewstrees) {
+                $currentNewstrees = new ArrayCollection();
+            }
+            $currentTrees = new ArrayCollection();
+            $newTrees = new ArrayCollection();
+            $eCollec = new ArrayCollection();
+            $neCollec = new ArrayCollection();
+            $rCollec = new ArrayCollection();
+
+            $currentNewstreesIterator = $currentNewstrees->getIterator();
+            while ($currentNewstreesIterator->valid()) {
+                $cur = $currentNewstreesIterator->current();
+                $currentTrees->add(array('tree'=> $cur->getTree(), 'sort' => $cur->getSort()));
+                $currentNewstreesIterator->next();
+            }
+
+
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+            foreach($data['newstrees'] as $tree) {
+                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+            }   
+
+
+            $newTreesIterator = $newTrees->getIterator();
+            while($newTreesIterator->valid()) {
+                $cur = $newTreesIterator->current();
+                if($currentTrees->contains($cur)) {
+                    $eCollec->add($cur);
+                } else {
+                    $neCollec->add($cur);
+                }
+                $newTreesIterator->next();
+            }
+
+            $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsNewsTree');
+            $em = $this->getDoctrine()->getManager();
+
+            $currentTreesIterator = $currentTrees->getIterator();
+            while($currentTreesIterator->valid()) {
+                if(!$eCollec->contains($currentTreesIterator->current()) && !$neCollec->contains($currentTreesIterator->current())) {
+                    $cur = $currentTreesIterator->current();
+                    $tmp = $rep->findBy(array('news'=>$news->getId(), 'tree' => $cur['tree']->getId()));
+                    $tmp = $tmp[0];
+                    $em->remove($tmp);
+                    // $currentTrees->removeElement($currentTreesIterator->current());
+                }
+                $currentTreesIterator->next();
+            }
+
+            $neCollecIterator = $neCollec->getIterator();
+            while($neCollecIterator->valid()) {
+                $cur = $neCollecIterator->current();
+                $tmp = new NewsNewsTree();
+                $tmp->setNews($news);
+                $tmp->setTree($cur['tree']);
+                $tmp->setSort($cur['sort']);
+                $em->persist($tmp);
+                $neCollecIterator->next();
+            }
+            // $em->flush();
+
+
+
+            //$news->setTrees($data['trees']);
+            }
+
         if(isset($data['images'])) {
 
             $currentImages = $news->getImages();
@@ -809,7 +880,7 @@ class NewsController extends Controller
 
             $queryBuilder = $repository->createQueryBuilder('r');
             /* @var $queryBuilder QueryBuilder */
-            $newsWithTree = $queryBuilder->select('r.id')->join('r.trees','t', 'WITH')->distinct();
+            $newsWithTree = $queryBuilder->select('r.id')->join('r.newstrees','rt')->join('rt.tree','t', 'WITH')->distinct();
             $qb2 = $repository->createQueryBuilder('rr');
             $newsWithoutTree = $qb2->where($queryBuilder->expr()->notIn('rr.id',$newsWithTree->getDQL()))
                 ->setFirstResult($count)
@@ -920,7 +991,8 @@ class NewsController extends Controller
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:News');
             $qb = $repository->createQueryBuilder('r');
-            $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
+            $qb->join('r.newstrees', 'rt');
+            $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
             

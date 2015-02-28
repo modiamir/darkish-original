@@ -171,10 +171,15 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!OfferService.isEditing()"
-                                            ng-options="(tree.parent_tree_title + '-->' + tree.title ) for tree in OfferService.currentOffer.treeList.all()">
+                                            ng-options="(tree.tree.parent_tree_title + '-->' + tree.tree.title  + '(' + tree.sort + ')') for tree in OfferService.currentOffer.treeList.all()">
                                         
 
                                 </select>
+                                <div class="tree-ranks">
+                                    <select class="ranklist-combo" ng-repeat="tree in OfferService.currentOffer.treeList.array" ng-model="tree.sort" ng-disabled="!OfferService.isEditing()">
+                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
+                                    </select>
+                                </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
                                         <h3 class="modal-title">انتخاب شاخه ها</h3>
@@ -189,7 +194,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="OfferService.currentOffer.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="OfferService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="OfferService.currentOffer.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="OfferService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 
@@ -202,30 +207,12 @@
                                         <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="OfferService.currentOffer.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!OfferService.isEditing()" close-text="بستن" />
                                     </div>
 
-                                    
-                                    <div class="expire-date-box">
-                                        <div class="continual-box">
-                                            <label for="continual-checkbox" class="continual-label">
-                                                دائمی
-                                            </label>
-                                            <input type="checkbox" id="continual-checkbox" ng-model="OfferService.currentOffer.continual" ng-disabled="!OfferService.isEditing()"  />
-                                        </div>
-                                        <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
-                                        <input  ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="OfferService.currentOffer.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!OfferService.isEditing() || OfferService.currentOffer.continual" close-text="بستن" />
-                                    </div>
                                 </div>
-                                
-                                <div class="immediate-rank-box col col-xs-6">
-                                    <div class="listrank-box">
-                                        <label for="listrank-select" class="listrank-label">
-                                            رتبه در لیست
-                                        </label>
-                                        <select id="listrank-select" ng-model="OfferService.currentOffer.list_rank" ng-disabled="!OfferService.isEditing()">
-                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                        </select>
-                                    </select>
+                                <div class="dates col col-xs-6">
+                                    <div class="expire-date-box">
+                                        <label id="expire-date-label" class="third-section-label " for="expire-date-picker">پایان اعتبار</label>
+                                        <input required ng-click="openExpireDate($event)" type="text" id="expire-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="OfferService.currentOffer.expire_date" is-open="expireDateIsOpen"  datepicker-options="expireDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!OfferService.isEditing()" close-text="بستن" />
                                     </div>
-                                    
                                 </div>
 
                                 
@@ -394,7 +381,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="OfferService.currentOffer.icon.id" ng-click="openIconModal('lg',icon)" ng-src="{{OfferService.currentOffer.icon.absolute_path}}"  />
+                                    <img ng-show="OfferService.currentOffer.icon.id" ng-click="openIconModal('sm',OfferService.currentOffer.icon)" ng-src="{{OfferService.currentOffer.icon.absolute_path}}"  />
+                                    <img ng-show="!OfferService.currentOffer.icon.id &&  OfferService.currentOffer.images.length >= 1 " ng-click="openIconModal('sm',OfferService.currentOffer.images[0])" ng-src="{{OfferService.currentOffer.images[0].absolute_path}}"  />
                                     <input
                                         ng-show="OfferService.currentOffer.icon.id"
                                         type="checkbox"
@@ -405,7 +393,7 @@
                                     <script type="text/ng-template" id="iconModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{icon.absolute_path}}" />
+                                            <img  ng-src="{{icon.icon_absolute_path}}" />
                                         </div>
                                         
                                     </script>
@@ -449,10 +437,26 @@
                                                 checklist-model="OfferService.selectedAudios"
                                                 checklist-value="audio"
                                             />
-                                            <span ng-bind="audio.file_name" ng-click="OfferService.selectedAudio = audio" >  </span>
+                                            <span ng-bind="audio.file_name" ng-click="OfferService.selectedAudio = audio; openAudioModal('md',audio, $index)" >  </span>
                                         </li>
                                     </ul>
-
+                                    <script type="text/ng-template" id="audioModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <audio id="modal-audio-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentAudio.absolute_path}}" type="{{currentAudio.filemime}}"></audio>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalAudio">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
+                                        </div>
+                                    </script>
                                 </div>
                             </div>
                         </div>

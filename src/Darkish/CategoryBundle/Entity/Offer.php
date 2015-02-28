@@ -315,6 +315,12 @@ class Offer
     private $trees;
 
     /**
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer")
+     * @Groups({"offer.details"})
+     **/
+    private $offertrees;
+
+    /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_images",
      *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
@@ -1462,5 +1468,38 @@ class Offer
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    /**
+     * Add offertrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees
+     * @return Offer
+     */
+    public function addOffertree(\Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees)
+    {
+        $this->offertrees[] = $offertrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove offertrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees
+     */
+    public function removeOffertree(\Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees)
+    {
+        $this->offertrees->removeElement($offertrees);
+    }
+
+    /**
+     * Get offertrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOffertrees()
+    {
+        return $this->offertrees;
     }
 }

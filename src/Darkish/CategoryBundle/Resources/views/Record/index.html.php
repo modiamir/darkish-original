@@ -272,18 +272,6 @@
                                     <select class="ranklist-combo" ng-repeat="tree in RecordService.currentRecord.treeList.array" ng-model="tree.sort" ng-disabled="!RecordService.isEditing()">
                                         <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
                                     </select>
-                                    <!-- <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_two" ng-disabled="!RecordService.isEditing()">
-                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                    </select>
-                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_three" ng-disabled="!RecordService.isEditing()">
-                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                    </select>
-                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_four" ng-disabled="!RecordService.isEditing()">
-                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                    </select>
-                                    <select class="ranklist-combo" ng-model="RecordService.currentRecord.list_rank_five" ng-disabled="!RecordService.isEditing()">
-                                        <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
-                                    </select> -->
                                 </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
@@ -772,7 +760,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="RecordService.currentRecord.icon.id" ng-click="openIconModal('lg',icon)" ng-src="{{RecordService.currentRecord.icon.absolute_path}}"  />
+                                    <img ng-show="RecordService.currentRecord.icon.id" ng-click="openIconModal('sm',RecordService.currentRecord.icon)" ng-src="{{RecordService.currentRecord.icon.absolute_path}}"  />
+                                    <img ng-show="!RecordService.currentRecord.icon.id &&  RecordService.currentRecord.images.length >= 1 " ng-click="openIconModal('sm',RecordService.currentRecord.images[0])" ng-src="{{RecordService.currentRecord.images[0].absolute_path}}"  />
                                     <input
                                         ng-show="RecordService.currentRecord.icon.id"
                                         type="checkbox"
@@ -783,7 +772,7 @@
                                     <script type="text/ng-template" id="iconModal.html">
                                         
                                         <div class="modal-body">
-                                            <img width="100%" ng-src="{{icon.absolute_path}}" />
+                                            <img ng-src="{{icon.icon_absolute_path}}" />
                                         </div>
                                         
                                     </script>
@@ -827,10 +816,26 @@
                                                 checklist-model="RecordService.selectedAudios"
                                                 checklist-value="audio"
                                             />
-                                            <span ng-bind="audio.file_name" ng-click="RecordService.selectedAudio = audio" >  </span>
+                                            <span ng-bind="audio.file_name" ng-click="RecordService.selectedAudio = audio; openAudioModal('md',audio, $index)" >  </span>
                                         </li>
                                     </ul>
-
+                                    <script type="text/ng-template" id="audioModal.html">
+                                        
+                                        <div class="modal-body">
+                                            <audio id="modal-audio-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentAudio.absolute_path}}" type="{{currentAudio.filemime}}"></audio>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button data-ng-click="prev()" class="btn btn-info pull-left" ng-disabled="currentIndex <= 1">
+                                                قبلی
+                                            </button>
+                                            <button data-ng-click="next()" class="btn btn-info pull-left" ng-disabled="currentIndex >= totalAudio">
+                                                بعدی
+                                            </button>
+                                            <button class="btn btn-warning" data-ng-click="close()">
+                                                بستن
+                                            </button>
+                                        </div>
+                                    </script>
                                 </div>
                             </div>
                         </div>

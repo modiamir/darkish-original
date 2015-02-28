@@ -226,6 +226,14 @@ class News
      **/
     private $trees;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="news")
+     * @Groups({"news.details"})
+     **/
+    private $newstrees;
+
+
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="news_images",
@@ -445,6 +453,9 @@ class News
         $this->audios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bodyImages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyVideos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyAudios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bodyDocs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -1037,5 +1048,51 @@ class News
     public function getContinual()
     {
         return $this->continual;
+    }
+
+    /**
+     * Set immediate
+     *
+     * @param boolean $immediate
+     * @return News
+     */
+    public function setImmediate($immediate)
+    {
+        $this->immediate = $immediate;
+
+        return $this;
+    }
+
+    /**
+     * Get immediate
+     *
+     * @return boolean 
+     */
+    public function getImmediate()
+    {
+        return $this->immediate;
+    }
+
+    /**
+     * Set listRank
+     *
+     * @param integer $listRank
+     * @return News
+     */
+    public function setListRank($listRank)
+    {
+        $this->listRank = $listRank;
+
+        return $this;
+    }
+
+    /**
+     * Get listRank
+     *
+     * @return integer 
+     */
+    public function getListRank()
+    {
+        return $this->listRank;
     }
 }

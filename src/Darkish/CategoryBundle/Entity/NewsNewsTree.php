@@ -10,12 +10,12 @@ use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * RecordMainTree
+ * NewsNewsTree
  *
- * @ORM\Table(name="record_trees")
+ * @ORM\Table(name="news_trees")
  * @ORM\Entity
  */
-class RecordMainTree
+class NewsNewsTree
 {
     /**
      * @var integer
@@ -38,16 +38,16 @@ class RecordMainTree
     }
     
     /**
-     * @ORM\ManyToOne(targetEntity="Record",  inversedBy="maintrees")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
-     * @Groups({ "maintree.list", "maintree.details"})
+     * @ORM\ManyToOne(targetEntity="News",  inversedBy="newstrees")
+     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @Groups({ "newstree.list", "newstree.details"})
      **/
-    private $record;
+    private $news;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="mainrecords")
+     * @ORM\ManyToOne(targetEntity="NewsTree",  inversedBy="mainnews")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details"})
      **/
     private $tree;
     
@@ -55,40 +55,40 @@ class RecordMainTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details"})
      */
     private $sort;
 
     /**
-     * Set record
+     * Set news
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\News $news
+     * @return NewsNewsTree
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setNews(\Darkish\CategoryBundle\Entity\News $news = null)
     {
-        $this->record = $record;
+        $this->news = $news;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get news
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return \Darkish\CategoryBundle\Entity\News 
      */
-    public function getRecord()
+    public function getNews()
     {
-        return $this->record;
+        return $this->news;
     }
 
     /**
      * Set tree
      *
-     * @param \Darkish\CategoryBundle\Entity\MainTree $tree
-     * @return RecordMainTree
+     * @param \Darkish\CategoryBundle\Entity\NewsTree $tree
+     * @return NewsNewsTree
      */
-    public function setTree(\Darkish\CategoryBundle\Entity\MainTree $tree = null)
+    public function setTree(\Darkish\CategoryBundle\Entity\NewsTree $tree = null)
     {
         $this->tree = $tree;
 
@@ -98,7 +98,7 @@ class RecordMainTree
     /**
      * Get tree
      *
-     * @return \Darkish\CategoryBundle\Entity\MainTree 
+     * @return \Darkish\CategoryBundle\Entity\NewsTree 
      */
     public function getTree()
     {
@@ -109,7 +109,7 @@ class RecordMainTree
      * Set sort
      *
      * @param string $sort
-     * @return RecordMainTree
+     * @return NewsNewsTree
      */
     public function setSort($sort)
     {

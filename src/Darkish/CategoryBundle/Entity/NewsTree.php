@@ -174,6 +174,11 @@ class NewsTree
     protected $news;
 
     /**
+     * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="tree")
+     **/
+    private $mainnews;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -659,5 +664,38 @@ class NewsTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainnews
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews
+     * @return NewsTree
+     */
+    public function addMainnews(\Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews)
+    {
+        $this->mainnews[] = $mainnews;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainnews
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews
+     */
+    public function removeMainnews(\Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews)
+    {
+        $this->mainnews->removeElement($mainnews);
+    }
+
+    /**
+     * Get mainnews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainnews()
+    {
+        return $this->mainnews;
     }
 }
