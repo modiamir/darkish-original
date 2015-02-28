@@ -178,31 +178,32 @@
 
 
                                 </div>
-                                <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!NewsService.isEditing()"
-                                            ng-options="(tree.tree.parent_tree_title + '-->' + tree.tree.title  + '(' + tree.sort + ')') for tree in NewsService.currentNews.treeList.all()">
-                                        
-
-                                </select>
                                 <div class="tree-ranks">
                                     <select class="ranklist-combo" ng-repeat="tree in NewsService.currentNews.treeList.array" ng-model="tree.sort" ng-disabled="!NewsService.isEditing()">
                                         <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
                                     </select>
                                 </div>
+                                <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!NewsService.isEditing()"
+                                            ng-options="(tree.tree.parent_tree_title + '-->' + tree.tree.title  + '(' + tree.sort + ')') for tree in NewsService.currentNews.treeList.all()">
+                                        
+
+                                </select>
+                                
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
-                                        <h3 class="modal-title">انتخاب شاخه ها</h3>
+                                        <h3 class="modal-title">انتخاب شاخه ها<span ng-show="message">({{message}})</span></h3>
                                     </div>
                                     <div class="modal-body">
                                         <treecontrol class="tree-classic"
                                                     tree-model="tree()"
-                                                    options="treeOptions()"
+                                                    options="tOptions"
                                                     selected-node="TreeService.currentSecondTreeNode">
                                            {{node.title}}
                                         </treecontrol>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="message = NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 

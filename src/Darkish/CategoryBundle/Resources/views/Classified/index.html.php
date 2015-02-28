@@ -177,19 +177,19 @@
                                 </select>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
-                                        <h3 class="modal-title">انتخاب شاخه ها</h3>
+                                        <h3 class="modal-title">انتخاب شاخه ها<span ng-show="message">({{message}})</span></h3>
                                     </div>
                                     <div class="modal-body">
                                         <treecontrol class="tree-classic"
                                                     tree-model="tree()"
-                                                    options="treeOptions()"
+                                                    options="tOptions"
                                                     selected-node="TreeService.currentSecondTreeNode">
                                            {{node.title}}
                                         </treecontrol>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="ClassifiedService.currentClassified.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="ClassifiedService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <button ng-disabled="ClassifiedService.currentClassified.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="message = ClassifiedService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
                                     </div>
                                 </script>
                                 
@@ -303,7 +303,7 @@
                                 ng-click="selectTab('icon')">
                                 آیکون
                             </li>
-                            <li class="pure-button"
+                            <!-- <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'video'}"
                                 ng-click="selectTab('video')">
                                 فیلم
@@ -312,7 +312,7 @@
                                 ng-class="{'tab-active': ValuesService.activeTab === 'audio'}"
                                 ng-click="selectTab('audio')">
                                 صدا
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="col-xs-8 center">
@@ -370,7 +370,7 @@
                                     
 
                                 </div>
-                                <div ng-switch-when="video" class="video">
+                                <!-- <div ng-switch-when="video" class="video">
                                     <ul class="video-list">
                                         <li ng-repeat="video in ClassifiedService.currentClassified.videos" style="float: right"  ng-class="{'selected' : ClassifiedService.selectedVideo.id == video.id}">
                                             <input
@@ -427,7 +427,7 @@
                                             </button>
                                         </div>
                                     </script>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -439,7 +439,7 @@
                         
                         <label class="file-select" ng-class="{'disabled': !ClassifiedService.isEditing()}">
                             انتخاب فایل
-                            <input ng-disabled="!ClassifiedService.isEditing()  || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+                            <input ng-disabled="!ClassifiedService.isEditing()  || !SecurityService.connected || (ValuesService.activeTab == 'image' && ClassifiedService.currentClassified.images.length >= 3)" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                         </label>
                         
                         <script type="text/ng-template" id="upload-modal.html">
@@ -789,7 +789,7 @@
                         <label>
                             متن آگهی
                         </label>
-                        <textarea ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
+                        <textarea ng-maxlength="300" ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
                         <div ng-hide="true" class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>
