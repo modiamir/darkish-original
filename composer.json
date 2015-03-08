@@ -24,7 +24,8 @@
         "liip/imagine-bundle": "~1.2",
         "knplabs/knp-menu-bundle": "~2",
         "phansys/getid3": "2.1.*@dev",
-        "oodle/krumo-bundle": "*"
+        "oodle/krumo-bundle": "*",
+        "friendsofsymfony/comment-bundle": "~2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
