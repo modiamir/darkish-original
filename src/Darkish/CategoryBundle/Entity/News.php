@@ -24,7 +24,7 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"news.list", "news.details"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class News
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"news.list", "news.details"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -324,6 +324,11 @@ class News
      */
     private $user;
 
+    /**
+     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\NewsThread", mappedBy="target")
+     * @Exclude
+     */
+    private $thread;
 
 
 
@@ -1127,5 +1132,28 @@ class News
     public function getNewstrees()
     {
         return $this->newstrees;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\NewsThread $thread
+     * @return News
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\NewsThread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\NewsThread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }

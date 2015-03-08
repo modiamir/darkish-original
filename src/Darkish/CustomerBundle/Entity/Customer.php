@@ -36,12 +36,13 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @Assert\Email(
      *     message = "The username '{{ value }}' is not a valid email."
      * )
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"none"})
      */
     private $password;
     
@@ -122,7 +123,8 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details"})
+     * 
      *
      */
     private $photo;
@@ -140,6 +142,11 @@ class Customer implements AdvancedUserInterface, \Serializable
      */
     private $roles;
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\CustomerComment", mappedBy="owner")
+     * @Groups({"customer.list", "customer.details"})
+     */
+    private $comments;
 
     /**
      * @inheritDoc

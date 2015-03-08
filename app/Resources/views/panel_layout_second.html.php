@@ -62,7 +62,7 @@
 
 </div>
 <div id="loading" ng-hide="loaded" ng-cloak ng-class="{'loaded': loaded }">
-<i class="fa fa-circle-o-notch fa-spin"></i>
+<i class="fa fa-spinner fa-pulse"></i>
 </div>
 </body>
 </html>

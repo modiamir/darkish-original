@@ -29,12 +29,13 @@ class Operator implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
-     * @Groups({"operator.list", "operator.details"})
+     * @Groups({"operator.list", "operator.details", "comment.details"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"none"})
      */
     private $password;
 
@@ -42,7 +43,7 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\Column(type="string", length=60, unique=true)
-     * @Groups({"operator.list", "operator.details"})
+     * @Groups({"operator.list", "operator.details", "comment.details"})
      */
     private $email;
 
@@ -113,7 +114,7 @@ class Operator implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"operator.details"})
+     * @Groups({"operator.details", "comment.details"})
      *
      */
     private $photo;
@@ -129,18 +130,27 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
+     * @Groups({"operator.details"})
      */
     protected $records;
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\News", mappedBy="user")
+     * @Groups({"operator.details"})
      */
     protected $news;
 
     /**
      * @ORM\OneToMany(targetEntity="UserLog", mappedBy="operator")
+     * @Groups({"operator.details"})
      **/
     private $logs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\OperatorComment", mappedBy="owner")
+     * @Groups({"operator.details"})
+     */
+    private $comments;
     
     public function __construct()
     {

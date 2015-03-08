@@ -8,6 +8,7 @@ use Darkish\CategoryBundle\Entity\MainTree;
 use Darkish\CategoryBundle\Entity\NewsTree;
 use Darkish\CategoryBundle\Entity\OfferTree;
 use Darkish\CategoryBundle\Entity\ClassifiedTree;
+use Darkish\CategoryBundle\Entity\ForumTree;
 
 class TreeSubscriber implements EventSubscriber
 {
@@ -28,7 +29,7 @@ class TreeSubscriber implements EventSubscriber
 //        /* @var $entity MainTree */
 //        $test = $repo->find();
         
-        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof ClassifiedTree) {
+        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof ClassifiedTree|| $entity instanceof ForumTree) {
             // die('asd');
             if($entity instanceof MainTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
@@ -40,6 +41,9 @@ class TreeSubscriber implements EventSubscriber
             }
             elseif($entity instanceof ClassifiedTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:ClassifiedTree');
+            }
+            elseif($entity instanceof ForumTree) {
+                $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:ForumTree');
             }
             $treeIndex = $entity->getTreeIndex();
             $parentTreeIndex = substr($treeIndex, 0, 4);

@@ -1,0 +1,6 @@
+FOS\CommentBundle\Entity\Comment:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [comment]

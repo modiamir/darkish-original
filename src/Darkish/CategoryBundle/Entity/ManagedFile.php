@@ -109,21 +109,21 @@ class ManagedFile
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $webAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $mobileAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $iconAbsolutePath;
     
@@ -182,26 +182,31 @@ class ManagedFile
     
     /**
      * @ORM\OneToMany(targetEntity="Record", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForRecord;
     
     /**
      * @ORM\OneToMany(targetEntity="News", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForNews;
 
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForOffer;
     
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
+     * @Groups({"file.details"})
      */
     protected $bannerForOffer;
     
     /**
      * @ORM\OneToMany(targetEntity="Classified", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForClassified;
     
@@ -317,7 +322,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -335,7 +340,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -353,7 +358,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */

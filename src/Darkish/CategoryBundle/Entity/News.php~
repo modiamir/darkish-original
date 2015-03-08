@@ -24,7 +24,7 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"news.list", "news.details"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class News
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"news.list", "news.details"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -324,6 +324,11 @@ class News
      */
     private $user;
 
+    /**
+     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\NewsThread", mappedBy="target")
+     * @Exclude
+     */
+    private $thread;
 
 
 
@@ -1094,5 +1099,38 @@ class News
     public function getListRank()
     {
         return $this->listRank;
+    }
+
+    /**
+     * Add newstrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees
+     * @return News
+     */
+    public function addNewstree(\Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees)
+    {
+        $this->newstrees[] = $newstrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove newstrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees
+     */
+    public function removeNewstree(\Darkish\CategoryBundle\Entity\NewsNewsTree $newstrees)
+    {
+        $this->newstrees->removeElement($newstrees);
+    }
+
+    /**
+     * Get newstrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNewstrees()
+    {
+        return $this->newstrees;
     }
 }
