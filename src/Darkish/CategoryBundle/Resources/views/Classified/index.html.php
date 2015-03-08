@@ -139,7 +139,7 @@
 
                         <div class="classified-subtitle">
                             <div class="field-title classified-title-title">زیر عنوان:</div>
-                            <input  type="text" ng-maxlength="70" name="classified-subtitle" class="classified-subtitle-input" ng-model="ClassifiedService.currentClassified.sub_title" ng-disabled="!ClassifiedService.isEditing()" required>
+                            <input  type="text" ng-maxlength="70" name="classified-subtitle" class="classified-subtitle-input" ng-model="ClassifiedService.currentClassified.sub_title" ng-disabled="!ClassifiedService.isEditing()">
                         </div>
                         
                         
