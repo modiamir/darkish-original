@@ -26,8 +26,9 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Dubture\FFmpegBundle\DubtureFFmpegBundle(),
             new Oodle\KrumoBundle\OodleKrumoBundle(),
-
-
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new Darkish\CommentBundle\DarkishCommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

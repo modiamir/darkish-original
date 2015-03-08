@@ -1,0 +1,5 @@
+FOS\CommentBundle\Model\Comment:
+  exclusion_policy: all
+  prorperties:
+    depth:
+      expose: true

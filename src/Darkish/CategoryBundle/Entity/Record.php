@@ -24,7 +24,7 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list"})
      */
     private $id;
 
@@ -40,7 +40,7 @@ class Record
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -858,8 +858,15 @@ class Record
     private $user;
 
     /**
+     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\RecordThread", mappedBy="target")
+     *  @Groups({"record.details"})
+     */
+    private $thread;
+
+    /**
      *
      * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record")
+     * @Groups({"record.details"})
      */
     private $customers;
 
@@ -3331,5 +3338,28 @@ class Record
     public function getMaintrees()
     {
         return $this->maintrees;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\RecordThread $thread
+     * @return Record
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\RecordThread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\RecordThread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }

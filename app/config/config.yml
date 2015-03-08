@@ -5,6 +5,7 @@ imports:
 framework:
     #esi:             ~
     #translator:      { fallback: "%locale%" }
+    translator: ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -33,7 +34,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles: [ "FOSCommentBundle" ]    
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -133,3 +134,19 @@ oodle_krumo:
         show_version: true
         show_call_info: true
         cascade: [5,10]
+
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Darkish\CommentBundle\Entity\Comment
+            thread: Darkish\CommentBundle\Entity\Thread
+
+# jms_serializer:
+#     metadata:
+#         directories:
+#             FOSCB:
+#                 namespace_prefix: "FOS\\CommentBundle"
+#                 path: "%kernel.root_dir%/Resources/serializer/FOSCB"
+
+
