@@ -574,7 +574,12 @@ operatorApp.factory('ValuesService', ['$http', function($http){
         {
             label: 'مدیریت مشتریها',
             value: "manage_customer"
+        },
+        {
+            label: 'مدیریت نظرات',
+            value: "forum"
         }
+
         
     ];
     

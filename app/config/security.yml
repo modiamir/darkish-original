@@ -20,6 +20,8 @@ security:
             entity: { class: DarkishUserBundle:Operator, property: username }
         customers: 
             entity: { class: DarkishCustomerBundle:Customer, property: username }
+        client_user_provider:
+            id: client_user_provider
 
     firewalls:
         dev:
@@ -58,7 +60,12 @@ security:
 #                lifetime: 31536000 # 365 days in seconds
 #                path:     /
 #                domain:   ~ # Defaults to the current domain from $_SERVER
-            
+        api_area:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: client_authenticator
+
 #        admin:
 #            pattern:            /admin(.*)
 #            context:            user

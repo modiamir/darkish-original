@@ -162,7 +162,22 @@ class News
     private $rate;
     
 
-    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
+     * @Groups({"news.details", "news.list"})
+     */
+    private $commentable;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CommentDefaultState", type="integer", nullable=false, options={"default":3})
+     * @Groups({"news.details"})
+     */
+    private $commentDefaultState;
     
 
     /**
@@ -1155,5 +1170,51 @@ class News
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set commentable
+     *
+     * @param boolean $commentable
+     * @return News
+     */
+    public function setCommentable($commentable)
+    {
+        $this->commentable = $commentable;
+
+        return $this;
+    }
+
+    /**
+     * Get commentable
+     *
+     * @return boolean 
+     */
+    public function getCommentable()
+    {
+        return $this->commentable;
+    }
+
+    /**
+     * Set commentDefaultState
+     *
+     * @param integer $commentDefaultState
+     * @return News
+     */
+    public function setCommentDefaultState($commentDefaultState)
+    {
+        $this->commentDefaultState = $commentDefaultState;
+
+        return $this;
+    }
+
+    /**
+     * Get commentDefaultState
+     *
+     * @return integer 
+     */
+    public function getCommentDefaultState()
+    {
+        return $this->commentDefaultState;
     }
 }

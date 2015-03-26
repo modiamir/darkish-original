@@ -13,6 +13,8 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/font-awesome/css/font-awesome.min.css') ?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch/angular-ui-switch.min.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/css/tree-control.css') ?>" rel="stylesheet" type="text/css" >
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/css/tree-control-attribute.css') ?>" rel="stylesheet" type="text/css" >
     
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
     
@@ -33,6 +35,7 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/moment/locale/fa.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/angular-tree-control.js') ?>" type="text/javascript" ></script>
 
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/js/comment/comment-index-app.js') ?>"></script>
 
@@ -49,7 +52,7 @@
 <?php $view['slots']->start('top-menu');?>
     <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a class="dropdown-toggle" >مدیریت اپراتورها<span class="caret"></span></a>
+            <a class="dropdown-toggle" >مدیریت نظرات<span class="caret"></span></a>
             <?php print $view['knp_menu']->render('main') ?>
         </li>
     </ul>
@@ -101,11 +104,26 @@
                 </div>
         	</div>
             <div class="content-wrapper col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                <h2 ng-show="globalValues.currentEntity.id">{{globalValues.currentEntity.title}}</h2>
+                <h2 ng-show="globalValues.currentEntity.id && isCommentable(globalValues.currentEntity)">{{globalValues.currentEntity.title}}<button ng-click="globalValues.currentEntity.form = (globalValues.currentEntity.form)? false : true" type="button" class="btn btn-success btn-xs post-comment-button">ارسال نظر</button></h2>
+                <div collapse="!globalValues.currentEntity.form">
+                    <div class="well well-lg">
+                        <label for="comment-body">متن پاسخ</label>
+                            <textarea id="comment-body" class="form-control" ng-model="commentBody" rows="3"></textarea>
+                          
+                            <button type="submit" ng-click="postComment(commentBody);commentBody=''" class="btn btn-default">ارسال</button>
+                    </div>
+                </div>
                 <hr ng-show="globalValues.currentEntity.id"/>
                 <div ui-view="content" class="content"></div>
-                
-            	
+                <div class="row">
+                    <div class="col-xs-3">
+                        test
+                    </div>
+                    <div class="col-xs-6">
+                        <i class="fa fa-thumbs-up fa-flip-horizontal" style="font-size:30px;"></i>
+                    </div>
+                    <div class="col-xs-">
+                </div>
             </div>
         </div>
     </div>

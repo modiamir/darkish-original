@@ -38,4 +38,27 @@ class RecordThread extends Thread
     {
         return $this->id;
     }
+
+    /**
+     * Set target
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $target
+     * @return RecordThread
+     */
+    public function setTarget(\Darkish\CategoryBundle\Entity\Record $target = null)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return \Darkish\CategoryBundle\Entity\Record 
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
 }

@@ -29,6 +29,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\CommentBundle\FOSCommentBundle(),
             new Darkish\CommentBundle\DarkishCommentBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new Pierrre\EncrypterBundle\PierrreEncrypterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -88,6 +88,40 @@ class CustomerSubscriber implements EventSubscriber
             $role->setName('مشتری');
             $role->setRole('ROLE_CUSTOMER');
             $entity->addRole($role);
+
+            if($entity->getType() == 'owner') {
+                /* @var $col \Doctrine\ORM\PersistentCollection */
+                $record = $entity->getRecord();
+                if($record) {
+                    $col = $record->getAccessClass()->getCustomerRoles();
+
+                    $entity->clearAssistantAccess();
+                    foreach($col->toArray() as $value) {
+                        $entity->addAssistantAccess($value);
+                    }    
+                }
+                
+
+                
+            } else {
+                $record = $entity->getRecord();
+                if($record) {
+                    /* @var $record \Darkish\CategoryBundle\Entity\Record */
+                    $ral = $record->getAccessClass();
+                    /* @var $ral \Darkish\CategoryBundle\Entity\RecordAccessLevel */
+                    /* @var $col \Doctrine\ORM\PersistentCollection */
+                    $col = $ral->getCustomerRoles();
+                    
+                    
+                    $assistantAccess = $entity->getAssistantAccess();
+                    $entity->clearAssistantAccess();
+                    foreach($assistantAccess->toArray() as $value) {
+                        if($col->contains($value)) {
+                            $entity->addAssistantAccess($value);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -1,0 +1,52 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RecordLike
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class RecordLike
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @ORM\Column(name="user_type", type="string")
+     * 
+     */
+    private $user_type;
+
+    /**
+     * @ORM\Column(name="user_id", type="integer")
+     * 
+     */
+    private $user_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Record")
+     */
+    private $target;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

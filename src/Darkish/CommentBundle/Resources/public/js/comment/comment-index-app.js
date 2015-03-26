@@ -5,7 +5,8 @@ var commentApp = angular.module('commentApp',
 		'oitozero.ngSweetAlert',
 		'angularMoment',
 		'ui.bootstrap.dropdown',
-		'angucomplete-alt'
+		'angucomplete-alt',
+		'treeControl'
 	]
 );
 
@@ -66,13 +67,15 @@ commentApp.controller('commentIndexCtrl', [
 	'SearchService',
 	'$stateParams',
 	'globalValues',
+	'$http',
 	function(
 		$scope,
 		$interval,
 		$state,
 		SearchService,
 		$stateParams,
-		globalValues
+		globalValues,
+		$http
 	)
 	{
 		
@@ -100,6 +103,24 @@ commentApp.controller('commentIndexCtrl', [
 		      		return 'تالار گفتگو';
 		      		break;
 		    }
+        }
+
+        $scope.isCommentable = function(entity) {
+        	switch($stateParams.type) {
+		      	case 'record':
+		      		if(entity.commentable) {return true; } else {return false;}
+		      		break;
+	      		case 'news':
+		      		if(entity.commentable) {return true; } else {return false;}
+		      		break;
+	      		case 'safarsaz':
+	      			return true;
+	      			break;
+				case 'forum':
+		      		return true;
+		      		break;
+		    }	
+        	return true;
         }
 
         
@@ -131,6 +152,27 @@ commentApp.controller('commentIndexCtrl', [
         	$scope.SearchService.search();	
 
         }
+
+        $scope.postComment = function(body) {
+        	
+			var data = {};
+			data.body = body;
+			$http({
+                method: "post",
+                url: "comment/ajax/post_comment/"+ $stateParams.type+'/'+globalValues.currentEntity.id,
+                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                data: $.param({_method: 'POST', darkish_commentbundle_comment: data})
+            }).then(
+            	function(response){
+            		SearchService.comments.unshift(response.data);
+            		SearchService.count = (SearchService.count)? SearchService.count+1 : 1;
+            	}, 
+            	function(errResponse){
+            		console.log(errResponse.data);
+            	}
+        	);
+			
+		}
 	}
 ]);
 
@@ -142,20 +184,52 @@ commentApp.controller('sidebarCtrl', [
 	'$state', 
 	'globalValues',
 	'SearchService',
+	'$http',
 	function(
 		$scope,
 		$stateParams,
 		$state,
 		globalValues,
-		SearchService
+		SearchService,
+		$http
 	){
 		$scope.stateParams = $stateParams;
 		$scope.selectEntityCallback = function(selected) {
+
 			globalValues.currentEntity = selected.originalObject;
 			$scope.$broadcast('angucomplete-alt:clearInput');
 			SearchService.getEntityComments($stateParams.type, selected.originalObject);
 
 		}
+
+		$scope.selectForumTreeEntity = function(selected) {
+			globalValues.currentEntity = selected;
+			SearchService.getEntityComments($stateParams.type, selected);			
+		}
+
+		$scope.forumTreeOptions = {
+		    nodeChildren: "children",
+		    dirSelectable: true,
+		    injectClasses: {
+		        ul: "a1",
+		        li: "a2",
+		        liSelected: "a7",
+		        iExpanded: "a3",
+		        iCollapsed: "a4",
+		        iLeaf: "a5",
+		        label: "a6",
+		        labelSelected: "a8"
+		    }
+		}
+		$scope.forumTrees =	[];
+
+		$http.get('comment/ajax/get_forum_tree').then(
+			function(response){
+				$scope.forumTrees = response.data;
+			}, 
+			function(errResponse){
+				console.log(errResponse);
+			});
 	}
 ])
 
@@ -206,6 +280,10 @@ commentApp.controller('contentCtrl', [
 				label: 'نوع سه'
 			}
 		];
+
+		$http.get('comment/ajax/get_claim_types').then(function(response){
+			$scope.claimTypes = response.data;
+		});
 		
 		$scope.collapsed = 0;
 		
@@ -247,6 +325,77 @@ commentApp.controller('contentCtrl', [
             	}
         	);
 			
+		}
+
+
+		$scope.like = function(comment) {
+			$http({
+	            method: "post",
+	            url: "comment/ajax/like/"+comment.comment.id,
+	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+	            data: $.param({_method: 'POST'})
+	        }).then(
+	        	function(response){
+	        		if(comment.comment.like_count && comment.comment.like_count > 0) {
+	        			comment.comment.like_count = comment.comment.like_count +  1;
+	        		} else {
+	        			comment.comment.like_count = 1;
+	        		}
+	        	}, 
+	        	function(errResponse){
+	        		console.log(errResponse.data);
+	        	}
+	    	);
+		}
+
+
+		$scope.setClaim = function(comment, claimType) {
+			$http({
+	            method: "put",
+	            url: "comment/ajax/set_claim/"+comment.comment.id+'/'+claimType.id,
+	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+	            data: $.param({_method: 'PUT'})
+	        }).then(
+	        	function(response){
+	        		comment.comment.claim_type = claimType.id;
+	        	}, 
+	        	function(errResponse){
+	        		console.log(errResponse.data);
+	        	}
+	    	);
+		}
+
+		$scope.setState = function(comment, state) {
+			$http({
+	            method: "put",
+	            url: "comment/ajax/set_state/"+comment.comment.id+'/'+state,
+	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+	            data: $.param({_method: 'PUT'})
+	        }).then(
+	        	function(response){
+	        		comment.comment.state = state;
+	        	}, 
+	        	function(errResponse){
+	        		console.log(errResponse.data);
+	        	}
+	    	);
+		}
+
+
+		$scope.clearClaim = function(comment) {
+			$http({
+	            method: "put",
+	            url: "comment/ajax/clear_claim/"+comment.comment.id,
+	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+	            data: $.param({_method: 'PUT'})
+	        }).then(
+	        	function(response){
+	        		comment.comment.claim_type = 0;
+	        	}, 
+	        	function(errResponse){
+	        		console.log(errResponse.data);
+	        	}
+	    	);
 		}
 		
 		$scope.remove = function(comment, array, index) {

@@ -405,6 +405,11 @@ class Customer implements AdvancedUserInterface, \Serializable
     {
         return $this->assistantAccess;
     }
+
+    public function clearAssistantAccess() {
+        $this->assistantAccess = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Constructor
      */

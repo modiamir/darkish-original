@@ -1,2 +1,7 @@
 services:
-    
+    client_user_provider:
+        class: Darkish\UserBundle\Security\ClientUserProvider
+        arguments: ["@doctrine.orm.entity_manager"]
+    client_authenticator:
+        class:     Darkish\UserBundle\Security\ClientAuthenticator
+        arguments: ["@client_user_provider"]
