@@ -1365,7 +1365,6 @@
                                                                 انتخاب فایل
                                                                 <input ng-disabled="!RecordService.isEditing() || !SecurityService.connected" type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
                                                             </label>
-                                                    {{SecurityService.connected}}
                                                             <button class="btn btn-info" data-ng-click="CkeditorInsert()" ng-disabled="!RecordService.isReadyToInsert()">
                                                                 درج
                                                             </button>
