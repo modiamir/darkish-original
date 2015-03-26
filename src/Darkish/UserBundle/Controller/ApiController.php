@@ -58,6 +58,15 @@ class ApiController extends FOSRestController
      *  parameters={
      *      {"name"="phone", "dataType"="string", "required"=true, "description"="phone number"},
      *      {"name"="deviceـid", "dataType"="string", "required"=true, "description"="device id"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      403="Returned when the user is not capable to send request because of his multiple request in last hour",
+     *      400={
+     *          "Returned when the device id is not exist",
+     *      	"Returned when the phone is not exist",
+     *       	"Returned when the phone or device id has invalid format",
+     *  	}
      *  }
      * )
      * 
@@ -222,9 +231,10 @@ class ApiController extends FOSRestController
     		$this->disableApproveCodes($deviceId, $username);
     		$em = $this->getDoctrine()->getManager();
     		$q = $em->createQuery('delete from Darkish\UserBundle\Entity\ApiToken at 
-    		WHERE at.username = :username
+    		WHERE at.username = :username OR at.deviceId = :deviceid
     		');
     		$q->setParameter('username', $username);
+    		$q->setParameter('deviceid', $deviceId);
     		$q->execute();
 
 
