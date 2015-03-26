@@ -181,6 +181,16 @@ class ApiController extends FOSRestController
      *      {"name"="phone", "dataType"="string", "required"=true, "description"="phone number"},
      *      {"name"="deviceـid", "dataType"="string", "required"=true, "description"="device id"},
      *      {"name"="approve_code", "dataType"="string", "required"=true, "description"="approve code"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400={
+     *          "Returned when the device id is not exist",
+     *      	"Returned when the phone is not exist",
+     *       	"Returned when the approve code is not exist",
+     *       	"Returned when the phone or device id has invalid format",
+     *  	},
+     *   	404="Returned when the approve code is invalid"
      *  }
      * )
      * 
@@ -266,7 +276,7 @@ class ApiController extends FOSRestController
 			return $this->view($encryptedData , 200);
 
     	} else {
-    		throw new HttpException(400, "Your sent approve code is invalid.");
+    		throw new HttpException(404, "Your sent approve code is invalid.");
     	}
 
     }
