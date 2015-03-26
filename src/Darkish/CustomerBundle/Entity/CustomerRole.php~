@@ -22,23 +22,31 @@ class CustomerRole implements RoleInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"customer.list", "customer.details", "role.list"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=30)
+     * @Groups({"customer.list", "customer.details", "role.list"})
      */
     private $name;
 
     /**
-     * @ORM\Column(name="role", type="string", length=20, unique=true)
+     * @ORM\Column(name="role", type="string", length=30, unique=true)
+     * @Groups({"customer.list", "customer.details", "role.list"})
      */
     private $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Customer", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="Customer", mappedBy="assistantAccess")
      */
-    private $customers;
+    private $assistants;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\RecordAccessLevel", mappedBy="assistantAccess")
+     */
+    private $recordLevels;    
 
     public function __construct()
     {

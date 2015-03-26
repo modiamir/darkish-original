@@ -244,7 +244,15 @@ customerApp.controller('customersAddCtrl', ['$scope', '$stateParams', '$state', 
         $scope.customer.record.id = $stateParams.id;
 
         
-        
+        $scope.roles = [];
+        $http.get('ajax/get_roles/'+$scope.customer.record.id).then(
+            function(response) {
+                $scope.roles = response.data;
+            },
+            function(errResponse) {
+            }
+        );
+            
         $scope.submit = function() {
             var data = humps.camelizeKeys($scope.customer);
             if($scope.customer.photo) {
@@ -395,7 +403,7 @@ customerApp.controller('customersAddCtrl', ['$scope', '$stateParams', '$state', 
 
 customerApp.controller('customersEditCtrl', ['$scope', '$stateParams', '$state', 'SweetAlert', '$http', 'ValuesService', 'FileUploader', function($scope, $stateParams, $state, SweetAlert, $http, ValuesService, FileUploader){
         $scope.ValuesService = ValuesService;
-        
+        $scope.roles = [];
         $http.get('./ajax/get_customer/'+$stateParams.id).then(
             function(response){
                 $scope.customer = response.data;
@@ -404,12 +412,23 @@ customerApp.controller('customersEditCtrl', ['$scope', '$stateParams', '$state',
                     assistantAccess[index] = value.id;
                 });
                 $scope.customer.assistant_access = angular.copy(assistantAccess);
+
+                
+                $http.get('ajax/get_roles/'+$scope.customer.record.id).then(
+                    function(response) {
+                        $scope.roles = response.data;
+                    },
+                    function(errResponse) {
+                    }
+                );
             },
             function(errResponse){
                 
             }
         );
         
+
+
         $scope.submit = function() {
             var data = humps.camelizeKeys($scope.customer);
             if($scope.customer.photo) {
@@ -625,21 +644,8 @@ customerApp.factory('ValuesService', ['$http', function($http){
         
     ];
     
-    var roles;
-    if(!roles) {
-
-        $http.get('ajax/get_roles').then(
-            function(response) {
-                self.roles = response.data;
-
-            },
-            function(errResponse) {
-            }
-        );
-
-
-
-    }
+    
+    
     
     
     return self;

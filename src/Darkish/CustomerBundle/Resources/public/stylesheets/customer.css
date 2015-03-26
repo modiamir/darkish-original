@@ -16,3 +16,38 @@ body {
 body .form-control, body .select2-search input[type=text] {
   font-family: yekan;
 }
+/* line 17, ../sass/customer.scss */
+body .img-circle {
+  border: 3px solid;
+}
+/* line 21, ../sass/customer.scss */
+body label.image-upload {
+  cursor: pointer;
+  margin-top: 10px;
+}
+/* line 27, ../sass/customer.scss */
+body .profile-edit img.avatar {
+  margin-bottom: 10px;
+}
+/* line 32, ../sass/customer.scss */
+body .profile-edit .file-upload-row .col {
+  margin-top: 10px;
+}
+/* line 40, ../sass/customer.scss */
+body input.ng-dirty.ng-valid, body .form-control.ng-dirty.ng-valid {
+  border: 2px solid green;
+}
+/* line 43, ../sass/customer.scss */
+body input.ng-dirty.ng-invalid, body .form-control.ng-dirty.ng-invalid {
+  border: 2px solid red;
+}
+
+/* line 53, ../sass/customer.scss */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: yekan;
+}
+
+/* line 57, ../sass/customer.scss */
+.dropdown-toggle {
+  cursor: pointer;
+}

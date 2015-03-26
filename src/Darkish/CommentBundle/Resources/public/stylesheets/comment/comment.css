@@ -59,11 +59,15 @@ body .sidebar-wrapper .search-entity-box h3 {
 body .sidebar-wrapper .search-entity-box .angucomplete-holder {
   margin-bottom: 10px;
 }
-/* line 62, ../../sass/comment/comment.scss */
+/* line 57, ../../sass/comment/comment.scss */
+body .sidebar-wrapper .search-entity-box .tree-classic li {
+  padding: 0 20px 0 0;
+}
+/* line 67, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .right {
   text-align: center;
 }
-/* line 64, ../../sass/comment/comment.scss */
+/* line 69, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .right .owner-photo {
   width: 60px;
   height: 60px;
@@ -72,55 +76,79 @@ body .content-wrapper .content .comments .media.comment .right .owner-photo {
   overflow: hidden;
   margin: auto;
 }
-/* line 71, ../../sass/comment/comment.scss */
+/* line 76, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .right .owner-photo i.fa-user {
   font-size: 50px;
   color: #bdbdbd;
   margin-top: 15px;
 }
-/* line 76, ../../sass/comment/comment.scss */
+/* line 81, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .right .owner-photo img {
   width: 60px;
   height: 60px;
   border-radius: 30px 30px 0 0;
 }
-/* line 83, ../../sass/comment/comment.scss */
+/* line 88, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .right .owner-username {
   font-size: 10px;
   color: #808080;
   margin-top: 5px;
 }
-/* line 92, ../../sass/comment/comment.scss */
+/* line 95, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .center {
+  padding: 5px 10px;
+}
+/* line 97, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .center .body hr.divider {
   margin-bottom: 5px;
 }
-/* line 99, ../../sass/comment/comment.scss */
+/* line 104, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .center .operations {
   text-align: left;
 }
-/* line 101, ../../sass/comment/comment.scss */
+/* line 106, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .center .operations button {
   font-size: 14px;
 }
-/* line 105, ../../sass/comment/comment.scss */
-body .content-wrapper .content .comments .media.comment .center .center-left {
-  text-align: center;
-}
-/* line 107, ../../sass/comment/comment.scss */
-body .content-wrapper .content .comments .media.comment .center .center-left .claim-type {
-  color: red;
-  display: block;
-  margin-top: 5px;
-}
-/* line 113, ../../sass/comment/comment.scss */
+/* line 112, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .center .reply {
   margin-top: 10px;
 }
-/* line 115, ../../sass/comment/comment.scss */
+/* line 114, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment .center .reply textarea {
   margin-bottom: 10px;
 }
-/* line 120, ../../sass/comment/comment.scss */
+/* line 119, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .center.pending {
+  background-color: #fff5f5;
+}
+/* line 123, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .left {
+  text-align: center;
+}
+/* line 125, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .left .claim-type {
+  color: red;
+  display: block;
+  margin-bottom: 5px;
+}
+/* line 130, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .left .btn-group {
+  margin-bottom: 5px;
+  display: table;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* line 136, ../../sass/comment/comment.scss */
+body .content-wrapper .content .comments .media.comment .left .comment-number {
+  display: block;
+  margin-bottom: 5px;
+}
+/* line 141, ../../sass/comment/comment.scss */
 body .content-wrapper .content .comments .media.comment hr.comment-divider {
   border-color: #cfcfcf;
+}
+/* line 148, ../../sass/comment/comment.scss */
+body .post-comment-button {
+  margin-right: 10px;
 }

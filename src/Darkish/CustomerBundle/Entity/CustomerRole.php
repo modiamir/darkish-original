@@ -43,6 +43,11 @@ class CustomerRole implements RoleInterface
      */
     private $assistants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\RecordAccessLevel", mappedBy="assistantAccess")
+     */
+    private $recordLevels;    
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -133,5 +138,71 @@ class CustomerRole implements RoleInterface
     public function getCustomers()
     {
         return $this->customers;
+    }
+
+    /**
+     * Add assistants
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $assistants
+     * @return CustomerRole
+     */
+    public function addAssistant(\Darkish\CustomerBundle\Entity\Customer $assistants)
+    {
+        $this->assistants[] = $assistants;
+
+        return $this;
+    }
+
+    /**
+     * Remove assistants
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $assistants
+     */
+    public function removeAssistant(\Darkish\CustomerBundle\Entity\Customer $assistants)
+    {
+        $this->assistants->removeElement($assistants);
+    }
+
+    /**
+     * Get assistants
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAssistants()
+    {
+        return $this->assistants;
+    }
+
+    /**
+     * Add recordLevels
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordAccessLevel $recordLevels
+     * @return CustomerRole
+     */
+    public function addRecordLevel(\Darkish\CategoryBundle\Entity\RecordAccessLevel $recordLevels)
+    {
+        $this->recordLevels[] = $recordLevels;
+
+        return $this;
+    }
+
+    /**
+     * Remove recordLevels
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordAccessLevel $recordLevels
+     */
+    public function removeRecordLevel(\Darkish\CategoryBundle\Entity\RecordAccessLevel $recordLevels)
+    {
+        $this->recordLevels->removeElement($recordLevels);
+    }
+
+    /**
+     * Get recordLevels
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecordLevels()
+    {
+        return $this->recordLevels;
     }
 }

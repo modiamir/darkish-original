@@ -367,13 +367,13 @@ class ManageCustomerController extends Controller
     }
     
     /**
-     * @Route("admin/customer/ajax/get_roles", defaults={"_format": "json"})
+     * @Route("admin/customer/ajax/get_roles/{record}", defaults={"_format": "json"})
      * @Method({"GEt"})
      */
-    public function getRolesAction() {
+    public function getRolesAction(\Darkish\CategoryBundle\Entity\Record $record) {
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository('DarkishCustomerBundle:CustomerRole')->findAll();
-        return new Response($this->get('jms_serializer')->serialize($roles, 'json',SerializationContext::create()->setGroups(array('role.list'))));
+        return new Response($this->get('jms_serializer')->serialize($record->getAccessClass()->getCustomerRoles(), 'json',SerializationContext::create()->setGroups(array('role.list'))));
     }
     
     /**

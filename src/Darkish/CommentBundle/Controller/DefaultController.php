@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/admin/comment")
+     * @Route("/admin/comment" , name="forum")
      */
     public function indexAction()
     {
@@ -389,11 +389,43 @@ class DefaultController extends Controller
                     break;
 
                 case 'safarsaz':
-                    # code...
+                    $safarsaz = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
+                    if(!$safarsaz) {
+                        return new Response('Safarsaz not found', 404);
+                    }
+                    $thread = $safarsaz->getThread();
+                    if(!$thread) {
+                        $result['comments'] = [];
+                        $result['count'] = 0 ;
+                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                    }
+                    $commentMan = $this->get('fos_comment.manager.comment');
+                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
+                    $comments = $commentMan->findCommentsByThread($thread);
+                    $count = count($comments);
+                    $result['comments'] = $this->organiseComments($comments);
+                    $result['count'] = $count;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
                     break;
 
                 case 'forum':
-                    # code...
+                    $forum = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ForumTree')->find($id);
+                    if(!$forum) {
+                        return new Response('Forum not found', 404);
+                    }
+                    $thread = $forum->getThread();
+                    if(!$thread) {
+                        $result['comments'] = [];
+                        $result['count'] = 0 ;
+                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                    }
+                    $commentMan = $this->get('fos_comment.manager.comment');
+                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
+                    $comments = $commentMan->findCommentsByThread($thread);
+                    $count = count($comments);
+                    $result['comments'] = $this->organiseComments($comments);
+                    $result['count'] = $count;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
                     break;
 
                 default:
@@ -432,7 +464,106 @@ class DefaultController extends Controller
         $comment->setOwner($this->get('security.context')->getToken()->getUser());
         $comment->setThread($thread);
         $comment->setParent($parent);
-        $comment->setState(true);
+        $comment->setState($comment::STATE_PENDING);
+
+        $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
+        $form->handleRequest($request);
+        
+
+        if ($form->isValid()) {
+            if ($commentManager->saveComment($comment) !== false) {
+                return new Response($this->get('jms_serializer')->serialize(array('comment'=> $comment, 'children'=>[]), 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+            }
+        }
+
+        return new Response($this->get('jms_serializer')->serialize(array($form->getErrors()->__toString(),$request->request), 'json'));
+    }
+
+
+    /**
+     * @Route(
+     *      "/admin/comment/ajax/post_comment/{type}/{id}",
+     *      defaults={"_format" = "json"}
+     * )
+     * @Method({"POST"})
+     * 
+     */
+    public function postCommentAction($type, $id, Request $request) {
+        switch ($type) {
+            case 'record':
+                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
+                if(!$entity->getCommentable()) {
+                    return new Response("This record is not commentable", 401);
+                }
+                $state = $entity->getCommentDefaultState();
+
+                break;
+            
+            case 'news':
+                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
+                if(!$entity->getCommentable()) {
+                    return new Response("This news is not commentable", 401);
+                }
+                $state = $entity->getCommentDefaultState();
+                break;
+
+            case 'safarsaz':
+                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
+                $state = 0;
+                break;
+
+            case 'forum':
+                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ForumTree')->find($id);
+                $state = 0;
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        if(!$entity) {
+            throw new NotFoundHttpException(sprintf('Entity of type "%s" with identifier of "%s" does not exist', $type, $id));
+        }
+
+        $thread = $entity->getThread();
+        if (!$thread) {
+            switch ($type) {
+                case 'record':
+                    $thread = new \Darkish\CommentBundle\Entity\RecordThread();
+                    break;
+
+                case 'news':
+                    $thread = new \Darkish\CommentBundle\Entity\NewsThread();
+                    break;
+
+                case 'safarsaz':
+                    $thread = new \Darkish\CommentBundle\Entity\SafarsazThread();
+                    break;
+
+                case 'forum':
+                    $thread = new \Darkish\CommentBundle\Entity\ForumTreeThread();
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        
+        $thread->setCommentable(true);
+        $thread->setPermalink($entity->getId());
+        $thread->setTarget($entity);
+        if (!$thread->isCommentable()) {
+            throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
+        }
+        
+        $commentManager = $this->container->get('fos_comment.manager.comment');
+        // $comment = $commentManager->createComment($thread, $parent);
+        $comment = new \Darkish\CommentBundle\Entity\OperatorComment();
+        $comment->setOwner($this->get('security.context')->getToken()->getUser());
+        $comment->setThread($thread);
+        $comment->setState($state);
 
         $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
         $form->handleRequest($request);
@@ -489,5 +620,173 @@ class DefaultController extends Controller
         $em->flush();
         return new Response($this->get('jms_serializer')->serialize('ok', 'json'));
 
+    }
+
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/set_claim/{comment}/{claim}",
+     *     defaults={"_format" = "json"}
+     * )
+     * @Method({"PUT"})
+     * 
+     */
+    public function setClaimAction(\Darkish\CommentBundle\Entity\Comment $comment, $claim) {
+        try {
+            $comment->setClaimType($claim);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return new Response('done');
+        } catch(\Exception $e) {
+            return new Response($e->getMessage());
+        }
+    }   
+
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/get_claim_types",
+     *     defaults={"_format" = "json"}
+     * )
+     */
+    public function getClaimTypes() {
+        return new Response($this->get('jms_serializer')->serialize($this->getDoctrine()->getRepository('DarkishCommentBundle:ClaimTypes')->findAll(), 'json'));
+    }
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/clear_claim/{comment}",
+     *     defaults={"_format" = "json"}
+     * )
+     */
+    public function clearClaim(\Darkish\CommentBundle\Entity\Comment $comment) {
+        try {
+            $comment->setClaimType(0);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return new Response('done');
+        }catch(\Exception $e)  {
+            return new Response($e->getMessage());   
+        }
+    }
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/set_state/{comment}/{state}",
+     *     defaults={"_format" = "json"}
+     * )
+     * @Method({"PUT"})
+     * 
+     */
+    public function setState(\Darkish\CommentBundle\Entity\Comment $comment, $state) {
+        try {
+            $comment->setState($state);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+            return new Response('done');
+        } catch(\Exception $e) {
+            return new Response($e->getMessage());
+        }
+    }
+
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/get_forum_tree",
+     *     defaults={"_format" = "json"}
+     * )
+     * 
+     */
+    public function getForumTreeAction() {
+
+
+
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:ForumTree');
+        $categories = $repository->findAll();
+        $tree = array();
+        foreach($categories as $key => $product) {
+            $node = array();
+            /* @var $product ForumTree */
+            $node['id'] = $product->getId();
+            $node['treeIndex'] = $product->getTreeIndex();
+            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $tree[$key] = $node;
+        }
+        $hierarchy = $this->buildTree($tree);
+        return new Response(
+            json_encode($hierarchy),
+            200
+        );
+    }
+
+
+    private function buildTree(array $elements, $parentId = "00") {
+        $branch = array();
+
+        foreach ($elements as $element) {
+            if ($element['upTreeIndex'] === $parentId) {
+                $children = $this->buildTree($elements, $element['treeIndex']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[] = $element;
+            }
+        }
+
+        return $branch;
+    }
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/has_liked/{cid}",
+     *     defaults={"_format" = "json"}
+     *     
+     * )
+     */
+    public function hasLikedAction($cid) {
+        
+        return new Response($this->hasLiked($cid));
+
+    }
+
+    private function hasLiked($cid) {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:CommentLike');
+        $qb = $repo->createQueryBuilder('cl');
+        $qb->where("cl.userType = :userType")->andWhere('cl.userId = :userId')->andWhere('cl.target = :cid');
+        $qb->setParameter('userType', 'operator');
+        $qb->setParameter('userId', $this->get('security.context')->getToken()->getUser()->getId());
+        $qb->setParameter('cid', $cid);
+        $result = $qb->getQuery()->getResult();
+        return count($result) > 0 ;
+    }
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/like/{comment}"
+     * )
+     * @Method({"POST"})
+     * 
+     */
+    public function likeCommentAction(\Darkish\CommentBundle\Entity\Comment $comment) {
+        if(true || !$this->hasLiked($comment->getId())) {
+            $em = $this->getDoctrine()->getManager();
+            $cl = new \Darkish\CategoryBundle\Entity\CommentLike();
+            $cl->setUserType('operator');
+            $cl->setUserId($this->get('security.context')->getToken()->getUser()->getId());
+            $cl->setTarget($comment);
+            $em->persist($cl);
+            $comment->setLikeCount($comment->getLikeCount() + 1);
+            $em->persist($comment);
+            $em->flush();
+            return new Response('done');
+
+        } 
+        return new Response('You have liked before', 403);
     }
 }

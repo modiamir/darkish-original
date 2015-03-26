@@ -162,7 +162,22 @@ class News
     private $rate;
     
 
-    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
+     * @Groups({"record.details"})
+     */
+    private $commentable;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CommentDefaultState", type="integer", nullable=false, options={"default":3})
+     * @Groups({"record.details"})
+     */
+    private $commentDefaultState;
     
 
     /**
@@ -1132,5 +1147,28 @@ class News
     public function getNewstrees()
     {
         return $this->newstrees;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\NewsThread $thread
+     * @return News
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\NewsThread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\NewsThread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
     }
 }

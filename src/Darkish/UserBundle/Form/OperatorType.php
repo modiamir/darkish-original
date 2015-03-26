@@ -38,7 +38,10 @@ class OperatorType extends AbstractType
                 'class' => 'DarkishCategoryBundle:ManagedFile',
                 'property' => 'id',
             ))
-            ->add('creator')
+            ->add('creator', 'entity', array(
+                'class' => 'DarkishUserBundle:Operator',
+                'property' => 'id',  
+                ))
             ->add('newPassword')
         ;
         

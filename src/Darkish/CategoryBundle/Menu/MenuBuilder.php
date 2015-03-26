@@ -29,8 +29,8 @@ class MenuBuilder
             'offer' => 'پیشنهاد ویژه',
             'classified' => 'نیازمندی ها',
             'operator' => 'اپراتور ها',
-            'manage_customer' => 'مدیریت مشتری ها'
-//            'forum' => 'تالار گفتگو',
+            'manage_customer' => 'مدیریت مشتری ها',
+            'forum' => 'مدیریت نظرات',
         );
 
     }

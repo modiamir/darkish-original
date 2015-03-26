@@ -660,6 +660,22 @@ class Record
      */
     private $hostelry;
     
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
+     * @Groups({"record.details", "record.list"})
+     */
+    private $commentable;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CommentDefaultState", type="integer", nullable=false, options={"default":3})
+     * @Groups({"record.details"})
+     */
+    private $commentDefaultState;
 
     /**
      * @var string
@@ -743,7 +759,8 @@ class Record
 
     /**
      * @var integer
-     * @ORM\Column(name="AccessClass", type="integer", options={"default": 1})
+     * @ORM\ManyToOne(targetEntity="RecordAccessLevel")
+     * @ORM\JoinColumn(name="AccessClass", referencedColumnName="id")
      * @Groups({"record.details"})
      */
     private $accessClass;
@@ -2819,28 +2836,7 @@ class Record
         return $this->turkishSubTitle;
     }
 
-    /**
-     * Set accessClass
-     *
-     * @param integer $accessClass
-     * @return Record
-     */
-    public function setAccessClass($accessClass)
-    {
-        $this->accessClass = $accessClass;
-
-        return $this;
-    }
-
-    /**
-     * Get accessClass
-     *
-     * @return integer 
-     */
-    public function getAccessClass()
-    {
-        return $this->accessClass;
-    }
+    
 
     
 
@@ -3361,5 +3357,74 @@ class Record
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set commentDefaultState
+     *
+     * @param boolean $commentDefaultState
+     * @return Record
+     */
+    public function setCommentDefaultState($commentDefaultState)
+    {
+        $this->commentDefaultState = $commentDefaultState;
+
+        return $this;
+    }
+
+    /**
+     * Get commentDefaultState
+     *
+     * @return boolean 
+     */
+    public function getCommentDefaultState()
+    {
+        return $this->commentDefaultState;
+    }
+
+    /**
+     * Set commentable
+     *
+     * @param boolean $commentable
+     * @return Record
+     */
+    public function setCommentable($commentable)
+    {
+        $this->commentable = $commentable;
+
+        return $this;
+    }
+
+    /**
+     * Get commentable
+     *
+     * @return boolean 
+     */
+    public function getCommentable()
+    {
+        return $this->commentable;
+    }
+
+    /**
+     * Set accessClass
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordAccessLevel $accessClass
+     * @return Record
+     */
+    public function setAccessClass(\Darkish\CategoryBundle\Entity\RecordAccessLevel $accessClass = null)
+    {
+        $this->accessClass = $accessClass;
+
+        return $this;
+    }
+
+    /**
+     * Get accessClass
+     *
+     * @return \Darkish\CategoryBundle\Entity\RecordAccessLevel 
+     */
+    public function getAccessClass()
+    {
+        return $this->accessClass;
     }
 }

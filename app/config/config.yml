@@ -149,4 +149,79 @@ fos_comment:
 #                 namespace_prefix: "FOS\\CommentBundle"
 #                 path: "%kernel.root_dir%/Resources/serializer/FOSCB"
 
+sensio_framework_extra:
+    request: { converters: true }
 
+
+fos_rest:
+    disable_csrf_role: ROLE_API
+    param_fetcher_listener: true
+    view:
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
+        view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+        templating_formats:
+            html: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+        media_type:
+            version_regex: '/(v|version)=(?P<version>[0-9\.]+)/'
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    body_listener: true
+
+
+# fos_rest:
+#     body_converter:
+#         enabled: true
+#     param_fetcher_listener: true
+#     body_listener: true
+#     format_listener: true
+#     disable_csrf_role: ROLE_API
+#     view:
+#         formats:
+#             rss: true
+#             xml: false
+#             json: true
+#         templating_formats:
+#             html: true
+#         force_redirects:
+#             html: true
+#         failed_validation: HTTP_BAD_REQUEST
+#         default_engine: twig
+#         view_response_listener: 'force'
+#         exception_wrapper_handler:  null
+
+#     routing_loader:
+#         default_format: json
+#     exception:
+#         enabled: true
+#     service:
+#         exception_handler:    fos_rest.view.exception_wrapper_handler
+
+
+nelmio_api_doc: ~
+
+pierrre_encrypter:
+    encrypters: #Encrypters list, requires at least one encrypter.
+        my_encrypter: #Encrypter name
+            key: "@kernel.secret" #The secret that is used to encrypt data. By default, it will use the kernel secret.
+            algorithm: "rijndael-128" #Encryption algorithm
+            mode: "cbc" #Encryption mode
+            random_initialization_vector: true #If you set it to false, it will use a blank string as initialization vector.
+            base64: true #Encode the encrypted data with the base64 algorithm.
+            base64_url_safe: true #Replace "+" and "/" characters by "-" and "_".
+    twig: #Twig extension
+        enabled: false #Enable extension
+        default_encrypter: null #Default encrypter. By default, it's the first encrypter

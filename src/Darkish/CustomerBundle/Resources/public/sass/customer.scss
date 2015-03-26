@@ -13,4 +13,47 @@ body {
     .form-control, .select2-search input[type=text] {
         font-family: yekan;
     }
+
+    .img-circle {
+        border: 3px solid;
+    }
+
+    label.image-upload {
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .profile-edit {
+        img.avatar {
+            margin-bottom: 10px;
+        } 
+
+        .file-upload-row {
+            .col {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    input, .form-control  {
+        &.ng-dirty {
+            &.ng-valid {
+                border: 2px solid green;        
+            }
+            &.ng-invalid {
+                border: 2px solid red;           
+            }
+        }
+
+
+        
+    }
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: yekan;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
 }

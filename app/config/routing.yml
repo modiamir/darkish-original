@@ -23,6 +23,11 @@ darkish_category:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     
+darkish_api:
+    resource: "Darkish\UserBundle\Controller\ApiController"
+    type:     rest
+    prefix:   api/rest
+
 darkish_user:
     resource: "@DarkishUserBundle/Controller/"
     type:     annotation
@@ -41,3 +46,7 @@ fos_comment_api:
     resource: "@FOSCommentBundle/Resources/config/routing.yml"
     prefix: /api
     defaults: { _format: html }
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

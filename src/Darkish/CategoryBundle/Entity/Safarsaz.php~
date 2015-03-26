@@ -24,9 +24,16 @@ class Safarsaz
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $name;
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sub_title", type="string", length=255)
+     */
+    private $subTitle;
 
     /**
      * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\SafarsazThread", mappedBy="target")
@@ -45,28 +52,7 @@ class Safarsaz
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Safarsaz
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+    
 
     /**
      * Set thread

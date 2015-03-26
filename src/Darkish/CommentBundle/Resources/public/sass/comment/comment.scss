@@ -53,6 +53,11 @@ body {
 			.angucomplete-holder {
 				margin-bottom: 10px;
 			}
+			.tree-classic {
+				 li {
+				 	padding: 0 20px 0 0;
+				 }
+			}
 		}
 	}
 	.content-wrapper {
@@ -102,19 +107,35 @@ body {
 								font-size: 14px;
 							}
 						}
-						.center-left {
-							text-align: center;
-							.claim-type {
-								color: red;
-								display: block;
-								margin-top: 5px;
-							}
-						}
+						
+						
 						.reply {
 							margin-top: 10px;
 							textarea {
 								margin-bottom: 10px;
 							}
+						}
+						padding: 5px 10px;
+						&.pending {
+							background-color: rgb(255, 245, 245);
+						}
+					}
+					.left {
+						text-align: center;
+						.claim-type {
+							color: red;
+							display: block;
+							margin-bottom: 5px;
+						}
+						.btn-group {
+							margin-bottom: 5px;
+							display: table;
+							margin-right: auto;
+							margin-left: auto;
+						}
+						.comment-number {
+							display: block;
+							margin-bottom: 5px;
 						}
 					}
 					hr.comment-divider {
@@ -124,6 +145,8 @@ body {
 			}
 		}
 	}
-
+	.post-comment-button {
+		margin-right: 10px;
+	}
 	
 }

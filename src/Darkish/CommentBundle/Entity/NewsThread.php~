@@ -27,14 +27,10 @@ class NewsThread extends Thread
 
     /**
      * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\News", inversedBy="thread")
-     * @ORM\JoinColumn(name="news_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
     private $target;
 
-    /**
-     * @ORM\Column(name="test")
-     */
-    private $test;
 
     /**
      * Get id
@@ -67,5 +63,28 @@ class NewsThread extends Thread
     public function getTarget()
     {
         return $this->target;
+    }
+
+    /**
+     * Set test
+     *
+     * @param string $test
+     * @return NewsThread
+     */
+    public function setTest($test)
+    {
+        $this->test = $test;
+
+        return $this;
+    }
+
+    /**
+     * Get test
+     *
+     * @return string 
+     */
+    public function getTest()
+    {
+        return $this->test;
     }
 }

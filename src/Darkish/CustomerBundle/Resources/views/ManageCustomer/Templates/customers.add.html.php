@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label for="customerAccessLevel">سطح دسترسی</label>
-                    <div class="checkbox" ng-repeat="role in ValuesService.roles">
+                    <div class="checkbox" ng-repeat="role in roles">
                         <label>
                             <input type="checkbox" checklist-model="customer.assistant_access" checklist-value="role.id"> {{role.name}}
                         </label>
