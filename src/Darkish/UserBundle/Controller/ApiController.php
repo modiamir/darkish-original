@@ -57,7 +57,7 @@ class ApiController extends FOSRestController
      *  description="This is the login request  API method",
      *  parameters={
      *      {"name"="phone", "dataType"="string", "required"=true, "description"="phone number"},
-     *      {"name"="device id", "dataType"="string", "required"=true, "description"="device id"}
+     *      {"name"="deviceـid", "dataType"="string", "required"=true, "description"="device id"}
      *  }
      * )
      * 
@@ -124,12 +124,13 @@ class ApiController extends FOSRestController
 		$expireDate->modify('1 hour');
     	$ac->setExpire($expireDate);
     	$ac->setStatus(1);
-    	$ac->setCode(rand(100000, 999999));
+    	$code = rand(100000, 999999);
+    	$ac->setCode($code);
 
     	$em = $this->getDoctrine()->getManager();
     	$em->persist($ac);
     	$em->flush();
-    	return $this->view("The approve code created and sent you via sms.", 200);
+    	return $this->view("The approve code created and sent you via sms. (This is code: $code )", 200);
     	
     }
 
@@ -169,7 +170,7 @@ class ApiController extends FOSRestController
      *  description="This is the approve login code request API method",
      *  parameters={
      *      {"name"="phone", "dataType"="string", "required"=true, "description"="phone number"},
-     *      {"name"="device id", "dataType"="string", "required"=true, "description"="device id"},
+     *      {"name"="deviceـid", "dataType"="string", "required"=true, "description"="device id"},
      *      {"name"="approve_code", "dataType"="string", "required"=true, "description"="approve code"}
      *  }
      * )
