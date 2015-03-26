@@ -2017,3 +2017,13 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+.autocomplete-entity-search {
+    margin-top: 10px;
+}
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px; // your preference
+}

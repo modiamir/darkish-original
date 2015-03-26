@@ -1933,3 +1933,13 @@ input[type=number]::-webkit-outer-spin-button {
 .tree-modal-tree-rank {
     margin-left: 10px;
 }
+
+
+.autocomplete-entity-search {
+    margin-top: 10px;
+}
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px; // your preference
+}
