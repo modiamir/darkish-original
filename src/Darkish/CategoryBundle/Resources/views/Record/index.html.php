@@ -11,6 +11,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
+<link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
 
 <?php $view['slots']->stop() ?>
 
@@ -243,10 +244,11 @@
                                     سطح دسترسی
                                 </label>
                                 <select id="trip-maker-combo" ng-model="RecordService.currentRecord.access_class" ng-disabled="!RecordService.isEditing()" class="first-section-input">
-                                    <option ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
+                                    <option ng-selected="class.value == RecordService.currentRecord.access_class.id" ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
 
                                 </select>
                             </div>
+                            
 
                             <div class="main-fields-tree-list">
                                 <div class="main-fields-tree-list-commands-wrapper">
@@ -406,6 +408,22 @@
 
                                 </select>
                             </div>
+
+                            <div id="just-html-chk-wrapper" class="main-fields-second-section-chk-wrapper">
+                                <input type="checkbox" id="commentable" name="just-html-chk" class="second-section-chk" ng-model="RecordService.currentRecord.commentable" ng-disabled="!RecordService.isEditing()">
+                                <label id="just-html-chk-label" class="second-section-chk-label" for="commentable"> فعال کردن نظرات </label>
+                            </div>
+
+                            <div class="main-fields-owner">
+                                <label class="trip-maker-title first-section-fields-title" for="comment-default-state">
+                                    مقدار پیشفرض وضعیت نظرات
+                                </label>
+                                <select id="comment-default-state" ng-model="RecordService.currentRecord.comment_default_state" ng-disabled="!RecordService.isEditing()" class="first-section-input">
+                                    <option ng-selected="state.value == RecordService.currentRecord.comment_default_state" ng-repeat="state in ValuesService.commentDefaultStates" value="{{state.value}}" > {{state.label}} </option>
+
+                                </select>
+                            </div>
+                            
                          </div>
 
                          <div class="main-fields-third-section" >
@@ -1410,16 +1428,74 @@
                                 <h3 class="modal-title">درج رکورد</h3>
                             </div>
                             <div class="modal-body">
-                                <label class="record-insert-text-label" for="record-insert-text">متن</label>
+
+                                <label class="record-insert-link-type" for="record-insert-link-type">متن</label>
+                                <select ng-init="linkType = 'record'" ng-model="linkType" required>
+                                    <option value="record">رکورد</option>
+                                    <option value="news">خبر</option>
+                                </select>
+                                <div ng-show="linkType == 'record'"  > 
+                                    <angucomplete-alt  id="records"
+                                              placeholder="عنوان رکورد"
+                                              pause="400"
+                                              selected-object="selectedEntity"
+                                              remote-url="ajax/get_entity_list/record/name/"
+                                              remote-url-data-field="results"
+                                              title-field="record_number,title"
+                                              minlength="1"
+                                              input-class="form-control form-control-small autocomplete-entity-search"/>
+                                </div>
+
+                                <div ng-show="linkType == 'record'" class="autocomplete-entity-search" >
+                                    <angucomplete-alt  id="records"
+                                              placeholder="شماره رکورد"
+                                              pause="400"
+                                              selected-object="selectedEntity"
+                                              remote-url="ajax/get_entity_list/record/number/"
+                                              remote-url-data-field="results"
+                                              title-field="record_number,title"
+                                              minlength="1"
+                                              input-class="form-control form-control-small autocomplete-entity-search"/>
+                                </div>  
+
+                                <div ng-show="linkType == 'news'">
+                                    <angucomplete-alt  id="news"
+                                              placeholder="عنوان خبر"
+                                              pause="400"
+                                              selected-object="selectedEntity"
+                                              remote-url="ajax/get_entity_list/news/name/"
+                                              remote-url-data-field="results"
+                                              title-field="id,title"
+                                              minlength="1"
+                                              input-class="form-control form-control-small autocomplete-entity-search"/>
+                                </div>
+
+                                <div ng-show="linkType == 'news'">
+                                    <angucomplete-alt  id="news"
+                                              placeholder="شماره خبر"
+                                              pause="400"
+                                              selected-object="selectedEntity"
+                                              remote-url="ajax/get_entity_list/news/number/"
+                                              remote-url-data-field="results"
+                                              title-field="id,title"
+                                              minlength="1"
+                                              input-class="form-control form-control-small autocomplete-entity-search"/>
+                                </div>  
+
+                                
+
+                                <!--<label class="record-insert-text-label" for="record-insert-text">متن</label>
                                 <input id="record-insert-text" type="text" ng-model="text" />
                                 
                                 <label class="record-insert-id-label" for="record-insert-id">شماره رکورد</label>
-                                <input id="record-insert-id" type="text" ng-model="recordId" />
+                                <input id="record-insert-id" type="text" ng-model="recordId" />-->
+                                
                                 
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                <button class="btn btn-info pull-left" data-ng-click="insertRecord()">اضافه</button>
+                                <button ng-show="linkType == 'record'" class="btn btn-info pull-left" data-ng-click="insertRecord(selectedEntity)">اضافه</button>
+                                <button ng-show="linkType == 'news'" class="btn btn-info pull-left" data-ng-click="insertNews(selectedEntity)">اضافه</button>
                             </div>
                         </script>
                         <script type="text/ng-template" id="insertLinkModal.html">
@@ -1876,6 +1952,8 @@
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js') ?>"></script>
     
 <!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 

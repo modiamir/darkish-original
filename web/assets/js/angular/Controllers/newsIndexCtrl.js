@@ -9,7 +9,7 @@
 //        }]);
 
 angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
-                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll'
+                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll', 'angucomplete-alt'
     ])
     .config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
         GoogleMapApi.configure({
@@ -1808,10 +1808,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
         
-        $scope.insertNews = function() {
+        $scope.insertRecord = function(record) {
             
             console.log($scope.currentBodyTreeNode);
-            CkInstance.insertHtml('<a href="#" class="body inner-link " news-id="'+$scope.newsId+'">'+$scope.text+'</a>');
+            CkInstance.insertHtml('<a href="#" class="body inner-link " record-id="'+record.originalObject.record_number+'">'+record.originalObject.title+'</a>');
+            $scope.close();
+        }
+        $scope.insertNews = function(news) {
+            
+            console.log($scope.currentBodyTreeNode);
+            CkInstance.insertHtml('<a href="#" class="body inner-link " news-id="N'+news.originalObject.id+'">'+news.originalObject.title+'</a>');
             $scope.close();
         }
     }]).
@@ -2683,7 +2689,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         
 
-
+        self.commentDefaultStates = [
+            {
+                value: 0,
+                label: "تایید"
+            },
+            {
+                value: 3,
+                label: "در انتظار تایید"
+            }
+        ];
 
         self.activeTab = 'image';
         self.bodyAttachmentActiveTab = 'image';

@@ -124,3 +124,7 @@ record_get_total_record_for_category:
 record_total_search_record:
     path:     /ajax/total_search_record/{search_by}/{sort_by}/{keyword}
     defaults: { _controller: "DarkishCategoryBundle:Record:totalSearchRecords",  keyword: "", search_by: 1, sort_by: 1}
+
+record_get_entities: 
+    path:     /ajax/get_entity_list/{type}/{field}/{value}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getEntityList", _format: json}

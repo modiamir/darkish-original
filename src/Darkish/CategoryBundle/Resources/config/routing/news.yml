@@ -123,3 +123,8 @@ news_get_total_news_for_category:
 news_total_search_news:
     path:     /ajax/total_search_news/{search_by}/{sort_by}/{keyword}
     defaults: { _controller: "DarkishCategoryBundle:News:totalSearchNewss",  keyword: "", search_by: 1, sort_by: 1}
+
+
+news_get_entities: 
+    path:     /ajax/get_entity_list/{type}/{field}/{value}
+    defaults: { _controller: "DarkishCategoryBundle:News:getEntityList", _format: json}

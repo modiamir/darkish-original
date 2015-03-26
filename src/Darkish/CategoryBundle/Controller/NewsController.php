@@ -250,6 +250,13 @@ class NewsController extends Controller
             $news->setRate($data['rate']);
         }
         
+        if(isset($data['commentable'])) {
+            $news->setCommentable($data['commentable']);
+        }
+        if(isset($data['comment_default_state'])) {
+            $news->setCommentDefaultState($data['comment_default_state']);
+        }
+
         if(isset($data['verify'])) {
             $news->setVerify($data['verify']);
         } else {
@@ -1450,6 +1457,58 @@ class NewsController extends Controller
                 , 200);
         }
 
+    }
+
+
+    public function getEntityListAction($type, $field, $value) {
+        switch ($type) {
+            case 'record':
+                $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+                $qb = $repo->createQueryBuilder('r');
+                switch ($field) {
+                    case 'name':
+                        $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $value . '%')));
+                        break;
+                    
+                    case 'number':
+                        $qb->where($qb->expr()->like('r.recordNumber', $qb->expr()->literal('%' . $value . '%')));
+                        break;
+                }
+                break;
+            
+            case 'news':
+                $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+                $qb = $repo->createQueryBuilder('n');
+                switch ($field) {
+                    case 'name':
+                        $qb->where($qb->expr()->like('n.title', $qb->expr()->literal('%' . $value . '%')));
+                        break;
+                    
+                    case 'number':
+                        $qb->where($qb->expr()->like('n.id', $qb->expr()->literal('%' . $value . '%')));
+                        break;
+                }
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $qb->setMaxResults(50);
+        $results = $qb->getQuery()->getResult();
+
+        switch ($type) {
+            case 'record':
+                $serialized = $this->get('jms_serializer')->serialize(array('results' => $results), 'json', SerializationContext::create()->setGroups(array('record.list')));
+                break;
+
+            case 'news':
+                $serialized = $this->get('jms_serializer')->serialize(array('results' => $results), 'json', SerializationContext::create()->setGroups(array('news.list')));
+                break;
+            
+        }
+
+        return new Response($serialized);
     }
 }
             
