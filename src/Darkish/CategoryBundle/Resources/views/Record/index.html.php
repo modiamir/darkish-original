@@ -410,15 +410,15 @@
                             </div>
 
                             <div id="just-html-chk-wrapper" class="main-fields-second-section-chk-wrapper">
-                                <input type="checkbox" id="commentable" name="just-html-chk" class="second-section-chk" ng-model="RecordService.currentRecord.commentable" ng-disabled="!RecordService.isEditing()">
+                                <input type="checkbox" id="commentable" name="just-html-chk"  class="second-section-chk" ng-model="RecordService.currentRecord.commentable" ng-init="RecordService.currentRecord.commentable=true" ng-disabled="!RecordService.isEditing()">
                                 <label id="just-html-chk-label" class="second-section-chk-label" for="commentable"> فعال کردن نظرات </label>
                             </div>
 
                             <div class="main-fields-owner">
                                 <label class="trip-maker-title first-section-fields-title" for="comment-default-state">
-                                    مقدار پیشفرض وضعیت نظرات
+                                    وضعیت پیشفرض
                                 </label>
-                                <select id="comment-default-state" ng-model="RecordService.currentRecord.comment_default_state" ng-disabled="!RecordService.isEditing()" class="first-section-input">
+                                <select id="comment-default-state" ng-model="RecordService.currentRecord.comment_default_state" ng-disabled="!RecordService.isEditing() || !RecordService.currentRecord.commentable" class="">
                                     <option ng-selected="state.value == RecordService.currentRecord.comment_default_state" ng-repeat="state in ValuesService.commentDefaultStates" value="{{state.value}}" > {{state.label}} </option>
 
                                 </select>

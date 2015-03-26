@@ -1343,6 +1343,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                                         self.currentRecord.bodyAudiosList = Collection.getInstance();
                                         self.currentRecord.bodyDocsList = Collection.getInstance();
 
+
                                         /**
                                          * initializing working time variables -- begin
                                          *
@@ -1395,6 +1396,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                                         /* initializing access class --end  */
 
+
+                                        self.currentRecord.commentable = true;
+                                        self.currentRecord.comment_default_state = 3;
 
                                         editing = true;
                                         ValuesService.getRandUploadKey(true);

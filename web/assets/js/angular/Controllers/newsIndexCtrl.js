@@ -1291,6 +1291,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             self.currentNews.rate = 10; 
             /* initializing verify active --end  */
 
+            self.currentNews.commentable = true;
+            self.currentNews.comment_default_state = 3;
             
 
             editing = true;

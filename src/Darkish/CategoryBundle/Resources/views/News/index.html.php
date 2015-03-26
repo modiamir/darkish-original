@@ -241,9 +241,9 @@
 
                                 <div class="main-fields-owner">
                                     <label class="trip-maker-title first-section-fields-title" for="comment-default-state">
-                                        مقدار پیشفرض وضعیت نظرات
+                                        وضعیت پیشفرض
                                     </label>
-                                    <select id="comment-default-state" ng-model="NewsService.currentNews.comment_default_state" ng-disabled="!NewsService.isEditing()" class="first-section-input">
+                                    <select id="comment-default-state" ng-model="NewsService.currentNews.comment_default_state" ng-disabled="!NewsService.isEditing()" class="">
                                         <option ng-selected="state.value == NewsService.currentNews.comment_default_state" ng-repeat="state in ValuesService.commentDefaultStates" value="{{state.value}}" > {{state.label}} </option>
 
                                     </select>
