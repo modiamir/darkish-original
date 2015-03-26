@@ -1786,7 +1786,7 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 #news-insert-text, #link-insert-text {
     width: 60%;
-    
+    display: inline-block;
 }
 
 .news-insert-id-label, .link-insert-link-label {

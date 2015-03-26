@@ -1428,11 +1428,12 @@
                             </div>
                             <div class="modal-body">
 
-                                <label class="record-insert-link-type" for="record-insert-link-type">متن</label>
+                                <label class="record-insert-link-type" for="record-insert-link-type">نوع لینک</label>
                                 <select ng-init="linkType = 'record'" ng-model="linkType" required>
                                     <option value="record">رکورد</option>
                                     <option value="news">خبر</option>
                                 </select>
+                                <input id="record-insert-text" type="text" ng-model="text" class="form-control" placeholder="عنوان لینک" />
                                 <div ng-show="linkType == 'record'"  > 
                                     <angucomplete-alt  id="records"
                                               placeholder="عنوان رکورد"

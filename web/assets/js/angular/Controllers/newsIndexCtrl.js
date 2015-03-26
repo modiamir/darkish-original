@@ -1809,15 +1809,15 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
         
         $scope.insertRecord = function(record) {
-            
+            var text = ($scope.text) ? $scope.text : record.originalObject.title;   
             console.log($scope.currentBodyTreeNode);
-            CkInstance.insertHtml('<a href="#" class="body inner-link " record-id="'+record.originalObject.record_number+'">'+record.originalObject.title+'</a>');
+            CkInstance.insertHtml('<a href="#" class="body inner-link " record-id="'+record.originalObject.record_number+'">'+text+'</a>');
             $scope.close();
         }
         $scope.insertNews = function(news) {
-            
+            var text = ($scope.text) ? $scope.text : news.originalObject.title;
             console.log($scope.currentBodyTreeNode);
-            CkInstance.insertHtml('<a href="#" class="body inner-link " news-id="N'+news.originalObject.id+'">'+news.originalObject.title+'</a>');
+            CkInstance.insertHtml('<a href="#" class="body inner-link " news-id="N'+news.originalObject.id+'">'+text+'</a>');
             $scope.close();
         }
     }]).

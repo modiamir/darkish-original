@@ -1766,7 +1766,7 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
 
 #record-insert-text, #link-insert-text {
     width: 60%;
-    
+    display: inline-block;
 }
 
 .record-insert-id-label, .link-insert-link-label {
