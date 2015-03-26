@@ -25,11 +25,32 @@
         "knplabs/knp-menu-bundle": "~2",
         "phansys/getid3": "2.1.*@dev",
         "oodle/krumo-bundle": "*",
-        "friendsofsymfony/comment-bundle": "~2.0"
+        "friendsofsymfony/comment-bundle": "~2.0",
+        "noiselabs/nusoap-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "~1.5",
+        "nelmio/api-doc-bundle": "~2.8",
+        "pierrre/encrypter-bundle": "dev-master"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "nusphere/nusoap",
+                "version": "0.9.5",
+                "dist": {
+                    "url": "http://downloads.sourceforge.net/project/nusoap/nusoap/0.9.5/nusoap-0.9.5.zip",
+                    "type": "zip"
+                },
+                "autoload": {
+                    "classmap": ["lib/"]
+                }
+            }
+        }
+    ],
     "scripts": {
         "post-root-package-install": [
             "SymfonyStandard\\Composer::hookRootPackageInstall"
