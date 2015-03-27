@@ -158,7 +158,7 @@ customerApp.controller('customersCtrl', ['$scope', '$collection', '$http', '$sta
                 $scope.customers = response.data.result;
                 $scope.displayedCustomers = $scope.customers;
                 $scope.owner = response.data.owner[0];
-                tableState.pagination.numOfPages = response.data.numOfPages;
+                tableState.pagination.numberOfPages = response.data.numOfPages;
                 $scope.isLoading = false;
                 $scope.tableState = tableState;
             },
