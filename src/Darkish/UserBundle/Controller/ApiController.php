@@ -44,10 +44,12 @@ class ApiController extends FOSRestController
     public function getTimeAction()
     {
     	$user = $this->get('security.context')->getToken()->getUser();
+    	date_default_timezone_set('Asia/Tehran');
+    	$date = date('m/d/Y h:i:s a', time());
     	if($user instanceof \Darkish\UserBundle\Entity\Client) {
-    		return $this->view('time', 200);
+    		return $this->view($date, 200);
     	} 
-    	return $this->view('time', 401);
+    	return $this->view($date, 401);
 
     }
 
