@@ -34,7 +34,7 @@ class ApiController extends FOSRestController
      *  statusCodes={
      *      200="Returned when user is logged in",
      *      401="Returned when the user is not logged in",
-     *      402="Returned when the user apikey is invalid"
+     *      403="Returned when the user apikey is invalid"
      *  }
      * 
      * )
