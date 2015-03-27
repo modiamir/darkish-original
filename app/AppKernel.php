@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Darkish\CommentBundle\DarkishCommentBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Pierrre\EncrypterBundle\PierrreEncrypterBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
