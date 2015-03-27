@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class ClientAuthenticator implements SimplePreAuthenticatorInterface 
+class ClientAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {    
     protected $userProvider;
 
@@ -78,8 +78,8 @@ class ClientAuthenticator implements SimplePreAuthenticatorInterface
         return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
     }
 
-    // public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
-    // {
-    //     return new Response("Authentication Failed.", 403);
-    // }
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
+        return new Response("Authentication Failed.", 403);
+    }
 }
