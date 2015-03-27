@@ -279,8 +279,16 @@ customerApp.controller('MessagesCtrl', ['$scope', function($scope){
 	
 }])
 
-customerApp.controller('CommentsCtrl', ['$scope', function($scope){
-	
+customerApp.controller('CommentsCtrl', ['$scope', '$http', function($scope, $http){
+	$scope.corstest = function() {
+    $http.get("http://178.62.236.24/n-darkish/web/api/rest/time.json").then(
+      function(response){
+        console.log(response);
+      }, 
+      function(responseErr){
+        console.log(responseErr);
+      });
+  }
 }])
 
 customerApp.controller('AttachmentsCtrl', ['$scope', function($scope){
