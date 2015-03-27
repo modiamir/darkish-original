@@ -29,21 +29,25 @@ class ApiController extends FOSRestController
     /**
      *
      * @ApiDoc(
-     *  description="Create a new Object",
-     *  input="Your\Namespace\Form\Type\YourType",
-     *  output="Your\Namespace\Class",
-     *  resource="User"
+     *  description="Get time request",
+     *  resource="User",
+     *  statusCodes={
+     *      200="Returned when user is logged in",
+     *      401="Returned when the user is not logged in",
+     *      402="Returned when the user apikey is invalid"
+     *  }
+     * 
      * )
      * 
      * @View()
      */
-    public function getTestAction()
+    public function getTimeAction()
     {
-    	$data = 'asd';
-
-        $view = $this->view($data, 200);
-        $view->setTemplateVar('products');
-        return $view;
+    	$user = $this->get('security.context')->getToken()->getUser();
+    	if($user instanceof \Darkish\UserBundle\Entity\Client) {
+    		return $this->view('time', 200);
+    	} 
+    	return $this->view('time', 401);
 
     }
 
