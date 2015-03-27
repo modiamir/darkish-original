@@ -29,7 +29,8 @@
         "noiselabs/nusoap-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "~1.5",
         "nelmio/api-doc-bundle": "~2.8",
-        "pierrre/encrypter-bundle": "dev-master"
+        "pierrre/encrypter-bundle": "dev-master",
+        "nelmio/cors-bundle": "~1.4"
 
     },
     "require-dev": {
