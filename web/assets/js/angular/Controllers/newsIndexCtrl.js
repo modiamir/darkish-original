@@ -385,8 +385,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'bodyModalCtrl',
                 size: size,
                 resolve: {
-                    recordform: function(){
-                        return $scope.recordform;
+                    newsform: function(){
+                        return $scope.newsform;
                     }
                 },
                 windowClass: 'body-modal-window'
@@ -789,9 +789,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
 
         // Disable weekend selection
-        $scope.disabled = function(date, mode) {
-            return ( mode === 'day' &&date.getDay() === 5  );
-        };
+        // $scope.disabled = function(date, mode) {
+        //     return ( mode === 'day' &&date.getDay() === 5  );
+        // };
 
         $scope.toggleMin = function() {
             $scope.minDate = $scope.minDate ? null : new Date();
@@ -2168,9 +2168,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         }
         
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'recordform', 
-        function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, SecurityService, FileUploader, $modalInstance, $modal, recordform) {
-        $scope.recordform = recordform;
+    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'newsform', 
+        function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, SecurityService, FileUploader, $modalInstance, $modal, newsform) {
+        $scope.newsform = newsform;
         $scope.NewsService = NewsService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
