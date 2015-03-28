@@ -131,7 +131,8 @@
                         <li><span class="navbar-text likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span></li>
                         <li><span class="navbar-text favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $app->getUser()->getPhoto()->getIconAbsolutePath(); ?>" /> <!-- <span class="caret"></span> --></a>
+                            <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                             <ul class="dropdown-menu dropdown-menu-left" role="menu">
                                 <li><a ui-sref="profile">پروفایل</a></li>
                                 <li><a ui-sref="editprofile">ویرایش پروفایل</a></li>
