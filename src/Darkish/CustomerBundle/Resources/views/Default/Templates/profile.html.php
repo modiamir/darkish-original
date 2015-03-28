@@ -11,7 +11,7 @@
     	<div class="record-number">
     		شماره رکورد: <span class="">R<?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span>
     	</div>
-	    <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img ng-src="{{user.photo.icon_absolute_path}}" name="aboutme" width="140" height="140" class="img-circle"></a>
+	    <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img ng-src="{{user.photo.icon_absolute_path ? user.photo.icon_absolute_path : 'http://localhost/n-darkish/web/bundles/darkishcustomer/images/default_profile.jpg'}}" name="aboutme" width="140" height="140" class="img-circle"></a>
 	    <h3 ng-bind="user.full_name"></h4>
 	    <h4 ng-bind="user.username"></h4>
 	    <div class="access">
