@@ -26,28 +26,130 @@ body label.image-upload {
   margin-top: 10px;
 }
 /* line 27, ../sass/customer.scss */
+body .profile-page .last-update, body .profile-page .record-number {
+  margin-bottom: 20px;
+}
+/* line 30, ../sass/customer.scss */
+body .profile-page .access {
+  margin-top: 30px;
+}
+/* line 39, ../sass/customer.scss */
 body .profile-edit img.avatar {
   margin-bottom: 10px;
 }
-/* line 32, ../sass/customer.scss */
+/* line 44, ../sass/customer.scss */
 body .profile-edit .file-upload-row .col {
   margin-top: 10px;
 }
-/* line 40, ../sass/customer.scss */
+/* line 52, ../sass/customer.scss */
 body input.ng-dirty.ng-valid, body .form-control.ng-dirty.ng-valid {
   border: 2px solid green;
 }
-/* line 43, ../sass/customer.scss */
+/* line 55, ../sass/customer.scss */
 body input.ng-dirty.ng-invalid, body .form-control.ng-dirty.ng-invalid {
   border: 2px solid red;
 }
+/* line 66, ../sass/customer.scss */
+body .large-display-nav ul.nav .photo-icon {
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+}
+/* line 71, ../sass/customer.scss */
+body .large-display-nav ul.nav > li, body .large-display-nav ul.nav > a, body .large-display-nav ul.nav > li.dropdown > a.main-menu {
+  line-height: 28px;
+}
+/* line 77, ../sass/customer.scss */
+body .large-display-nav .record-title h4 {
+  text-align: center;
+  line-height: 46px;
+  color: white;
+}
+/* line 84, ../sass/customer.scss */
+body .large-display-nav .logo {
+  border-left: 1px solid white;
+  padding: 0;
+}
+/* line 87, ../sass/customer.scss */
+body .large-display-nav .logo > a {
+  padding: 0;
+  line-height: 67px;
+  height: 67px;
+  width: 100%;
+  text-align: center;
+}
+/* line 93, ../sass/customer.scss */
+body .large-display-nav .logo > a:hover {
+  color: white;
+}
+/* line 96, ../sass/customer.scss */
+body .large-display-nav .logo > a .icon {
+  font-size: 70px;
+  font-size: 5vw;
+  height: 67px;
+}
+/* line 100, ../sass/customer.scss */
+body .large-display-nav .logo > a .icon:before {
+  line-height: 67px;
+}
+/* line 110, ../sass/customer.scss */
+body .large-display-nav .user-menu li.dropdown {
+  border-right: 1px solid white;
+  margin-right: 10px;
+}
+/* line 113, ../sass/customer.scss */
+body .large-display-nav .user-menu li.dropdown > a {
+  padding-top: 13.5px;
+  padding-bottom: 13.5px;
+}
+/* line 118, ../sass/customer.scss */
+body .large-display-nav .user-menu .online-status {
+  height: 67px;
+  text-align: center;
+  padding: 15px 5px;
+}
+/* line 123, ../sass/customer.scss */
+body .large-display-nav .user-menu .online-status .glyphicon {
+  font-size: 20px;
+  display: block;
+}
+/* line 127, ../sass/customer.scss */
+body .large-display-nav .user-menu .online-status .status-text {
+  font-size: 10px;
+  display: block;
+}
+/* line 133, ../sass/customer.scss */
+body .large-display-nav .user-menu .online-status .online {
+  color: green;
+}
+/* line 136, ../sass/customer.scss */
+body .large-display-nav .user-menu .online-status .offline {
+  color: #eb5d5d;
+}
+/* line 142, ../sass/customer.scss */
+body .large-display-nav .user-menu .navbar-text {
+  margin: 8px 5px;
+  text-align: center;
+}
+/* line 146, ../sass/customer.scss */
+body .large-display-nav .user-menu .navbar-text .icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+/* line 151, ../sass/customer.scss */
+body .large-display-nav .user-menu .navbar-text .count {
+  font-size: 13px;
+  display: block;
+  line-height: 20px;
+}
 
-/* line 53, ../sass/customer.scss */
+/* line 172, ../sass/customer.scss */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: yekan;
 }
 
-/* line 57, ../sass/customer.scss */
+/* line 176, ../sass/customer.scss */
 .dropdown-toggle {
   cursor: pointer;
 }

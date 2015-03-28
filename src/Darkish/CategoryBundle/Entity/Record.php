@@ -1853,6 +1853,17 @@ class Record
     }
 
     /**
+     * Get formattedVisitCount
+     *
+     * @return integer 
+     */
+    public function getFormattedVisitCount()
+    {
+        return $this->getFormattedCount($this->visitCount);
+    }
+
+
+    /**
      * Set favoriteCount
      *
      * @param integer $favoriteCount
@@ -1873,6 +1884,16 @@ class Record
     public function getFavoriteCount()
     {
         return $this->favoriteCount;
+    }
+
+    /**
+     * Get formattedFavoriteCount
+     *
+     * @return integer 
+     */
+    public function getFormattedFavoriteCount()
+    {
+        return $this->getFormattedCount($this->favoriteCount);
     }
 
     /**
@@ -1897,6 +1918,28 @@ class Record
     {
         return $this->likeCount;
     }
+
+    /**
+     * Get formattedLikeCount
+     *
+     * @return integer 
+     */
+    public function getFormattedLikeCount()
+    {
+        return $this->getFormattedCount($this->likeCount);
+    }
+
+    private function getFormattedCount($count) {
+        if(!$count) {
+            return "0";
+        } elseif($count <1000) {
+            return "".$count;
+        } else {
+            $divided = (float)$count/1000;
+            return round($divided, 1)."K";    
+        }
+    }
+
 
     /**
      * Set verify

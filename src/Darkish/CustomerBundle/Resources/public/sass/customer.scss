@@ -23,6 +23,18 @@ body {
         margin-top: 10px;
     }
 
+    .profile-page {
+        .last-update, .record-number {
+            margin-bottom: 20px;
+        }
+        .access {
+            margin-top: 30px;   
+        }
+    }
+
+
+
+
     .profile-edit {
         img.avatar {
             margin-bottom: 10px;
@@ -48,6 +60,113 @@ body {
 
         
     }
+
+    .large-display-nav {
+        ul.nav {
+            .photo-icon {
+                border-radius: 20px;
+                width: 40px;
+                height: 40px;
+            }
+            &>li, &>a, &>li.dropdown > a.main-menu {
+                line-height: 28px;
+            }
+            
+        }
+        .record-title {
+            h4 {
+                text-align: center;
+                line-height: 46px;
+                color: white;
+            }
+        }
+
+        .logo {
+            border-left: 1px solid white;
+            padding: 0;
+            &>a {
+                padding: 0;
+                line-height: 67px;
+                height: 67px;
+                width: 100%;
+                text-align: center;
+                &:hover {
+                    color: white;
+                }
+                .icon {
+                    font-size: 70px;
+                    font-size: 5vw;
+                    height: 67px;
+                    &:before {
+                        line-height: 67px;
+                    }
+                }
+            }
+        }
+
+        
+
+        .user-menu {
+            li.dropdown {
+                border-right: 1px solid white;
+                margin-right: 10px;
+                &>a {
+                    padding-top: 13.5px;
+                    padding-bottom: 13.5px;
+                }
+            }
+            .online-status {
+                height: 67px;
+                text-align: center;
+                padding: 15px 5px;
+
+                .glyphicon {
+                    font-size: 20px;
+                    display: block;
+                }
+                .status-text {
+                    font-size: 10px;
+                    display: block;
+
+                    
+                }   
+                .online {
+                    color: green;    
+                }
+                .offline {
+                    color: rgb(235, 93, 93);
+                }    
+
+                
+            }
+            .navbar-text {
+                margin: 8px 5px;
+                text-align: center;
+
+                .icon {
+                    font-size: 30px;
+                    width: 30px;
+                    height: 30px;
+                }
+                .count {
+                    font-size: 13px;
+                    display: block;
+                    line-height: 20px;
+                }
+                &.visitcount {
+
+                }
+                &.likecount {
+
+                }
+                &.favoritecount {
+
+                }
+            }
+        }
+    }
+
+    
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
