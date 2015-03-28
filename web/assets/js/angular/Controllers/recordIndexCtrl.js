@@ -818,9 +818,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
         // Disable weekend selection
-        $scope.disabled = function(date, mode) {
-            return ( mode === 'day' &&date.getDay() === 5  );
-        };
+        // $scope.disabled = function(date, mode) {
+        //     return ( mode === 'day' &&date.getDay() === 5  );
+        // };
 
         $scope.toggleMin = function() {
             $scope.minDate = $scope.minDate ? null : new Date();
