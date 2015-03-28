@@ -36,43 +36,25 @@
     <div class="container">
 
         <!-- navigation for small display -->
-        <nav class="navbar navbar-inverse visible-xs" role="navigation" >
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-01">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">کوچک</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse-01">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{state.current.data.label}}<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="profile">پروفایل</a></li>
+        <nav class="navbar navbar-inverse visible-xs small-display-nav" role="navigation" >
+            <div class="row first-row">
+                <div class="col col-xs-2 logo">
+                    <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
+                </div>
+                <div class="col col-xs-8 record-title">
+                    <h4>
+                        <?php print $app->getUser()->getRecord()->getTitle(); ?>
+                    </h4>
+                </div>
+                <div class="col col-xs-2 user-menu-button">
+                    <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
+                    <a href="#" class="collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
+                    
+                </div>
+                <div class="col col-xs-12 user-menu">
+                    <div class="collapse navbar-collapse" id="navbar-collapse-user-menu">
+                        <ul class="nav navbar-nav">
                             <li><a ui-sref="editprofile">ویرایش پروفایل</a></li>
-                            <li><a ui-sref="htmlpage">صفحه آنلاین</a></li>
-                            <li><a ui-sref="messages">پیام ها</a></li>
-                            <li><a ui-sref="comments">نظرات</a></li>
-                            <li><a ui-sref="attachments">فایل ها</a></li>
-                            <li><a ui-sref="database">دیتابیس</a></li>
-                            <li><a ui-sref="store">فروشگاه آنلاین</a></li>
-                            <li><a ui-sref="users">کاربران</a></li>
-                            
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a><span class="navbar-text">ویزیت <span class="badge"><?php echo $app->getUser()->getRecord()->getVisitCount(); ?></span></span></a></li>
-                    <li><a><span class="navbar-text">لایک <span class="badge"><?php echo $app->getUser()->getRecord()->getLikeCount(); ?></span></span></a></li>
-                    <li><a><span class="navbar-text">مورد علاقه <span class="badge"><?php echo $app->getUser()->getRecord()->getFavoriteCount(); ?></span></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $app->getUser()->getUsername() ?><span class="caret"></span></a>
-                        <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                            <li class="dropdown-messages"><a>شماره رکورد: <span class="badge">R<?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span></a></li>
-                            <li><a>آخرین بروزرسانی: <span class="badge"><?php $lastUpdate = $app->getUser()->getRecord()->getLastUpdate(); echo $lastUpdate->format('Y-m-d H:i:s'); ?></span></a></li>
                             <li role="presentation" class="divider"></li>
                             <li>
                                 <a href="<?php
@@ -83,10 +65,51 @@
                             </li>
                             
                         </ul>
-                    </li>
-                </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row second-row">
+                <div class="col col-xs-3 main-menu-link">
+                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="col col-xs-6 col-xs-offset-3 centered-align">
+                    <div class="navbar-text favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></div>
+                    <div class="navbar-text likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></div>
+                    <div class="navbar-text visitcount"><div class="icon icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></div>                    
+                    <div class="online-status">
+                        <span class="glyphicon glyphicon-off" ng-class="{'online': isOnline(), 'offline': !isOnline()}" aria-hidden="true"></span>
+                        <span ng-show="isOnline()" class="online status-text" >Online</span>
+                        <span ng-show="!isOnline()" class="offline status-text" >Offline</span>
+                    </div>
+                </div>
                 
-            </div><!-- /.navbar-collapse -->
+
+                <div class="col col-xs-12">
+                    <div class="collapse navbar-collapse" id="navbar-collapse-main-menu">
+                        <ul class="nav navbar-nav">
+                            <li><a ui-sref="profile">پروفایل</a></li>
+                            <li><a ui-sref="htmlpage">صفحه آنلاین</a></li>
+                            <li><a ui-sref="messages">پیام ها</a></li>
+                            <li><a ui-sref="comments">نظرات</a></li>
+                            <li><a ui-sref="attachments">فایل ها</a></li>
+                            <li><a ui-sref="database">دیتابیس</a></li>
+                            <li><a ui-sref="store">فروشگاه آنلاین</a></li>
+                            <li><a ui-sref="users">کاربران</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                
+            </div>
+            
         </nav><!-- /navbar -->
 
 
@@ -94,13 +117,14 @@
         <nav class="navbar navbar-inverse visible-lg visible-md visible-sm " role="navigation" >
             <div class="collapse navbar-collapse row large-display-nav" id="navbar-collapse-01">
                 <div class="col col-sm-1 col-md-1 col-lg-1 logo">
-                    <a class="navbar-brand" href="#"><div class="icon icon-logo"></div></a>
+                    <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
                 </div>
-                <div class="col col-sm-2 col-md-3 col-lg-3 primary-menu">
+                <div class="col col-sm-3 col-md-3 col-lg-3 primary-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a class="dropdown-toggle main-menu" data-toggle="dropdown" role="button" aria-expanded="false">{{state.current.data.label}}<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a ui-sref="profile">پروفایل</a></li>
                                 <li><a ui-sref="htmlpage">صفحه آنلاین</a></li>
                                 <li><a ui-sref="messages">پیام ها</a></li>
                                 <li><a ui-sref="comments">نظرات</a></li>
@@ -113,7 +137,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col col-sm-4 col-md-4 col-lg-4 record-title">
+                <div class="col col-sm-3 col-md-4 col-lg-4 record-title">
                     <h4>
                         <?php print $app->getUser()->getRecord()->getTitle(); ?>
                     </h4>
@@ -134,7 +158,6 @@
                             <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                             <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                                <li><a ui-sref="profile">پروفایل</a></li>
                                 <li><a ui-sref="editprofile">ویرایش پروفایل</a></li>
                                 <li role="presentation" class="divider"></li>
                                 <li>
