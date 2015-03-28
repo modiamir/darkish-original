@@ -89,6 +89,9 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', function($s
     $scope.pageTitle = 'پنل مشتریان';
     $http.get('customer/get_user').then(function(response){
 		$scope.user = response.data;
+    $scope.isOnline = function() {
+      return true;
+    }
 	}); 
 	$scope.state = $state;
 }]);
