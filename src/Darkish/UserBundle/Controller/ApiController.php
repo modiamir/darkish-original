@@ -145,7 +145,8 @@ class ApiController extends FOSRestController
     	$em = $this->getDoctrine()->getManager();
     	$em->persist($ac);
     	$em->flush();
-    	return $this->view("The approve code created and sent you via sms. (This is code: $code )", 200);
+    	// return $this->view("The approve code created and sent you via sms. (This is code: $code )", 200);
+    	return $this->view($code, 200);
     	
     }
 
