@@ -288,8 +288,8 @@ class ManageCustomerController extends Controller
             // perform some action, such as saving the task to the database
             if($photoId) {
                 $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
-                $operator->setPhoto($photo);
-                $em->persist($operator);
+                $customer->setPhoto($photo);
+                $em->persist($customer);
             }
             $em->persist($customer);
             $em->flush();
@@ -317,8 +317,8 @@ class ManageCustomerController extends Controller
         if ($form->isValid()) {
             if($photoId) {
                 $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
-                $operator->setPhoto($photo);
-                $em->persist($operator);
+                $customer->setPhoto($photo);
+                $em->persist($customer);
             }
             // perform some action, such as saving the task to the database
             $em->flush();
