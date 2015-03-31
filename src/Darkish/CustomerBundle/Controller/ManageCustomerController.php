@@ -279,10 +279,18 @@ class ManageCustomerController extends Controller
         $customer = new Customer();
 //        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
         $form = $this->createForm(new CustomerType, $customer);
-        
+        $photoId = $request->request->get('darkish_customerbundle_customer[photo]', null, true);
+        $darkish_userbundle_operator = $request->request->get('darkish_customerbundle_customer');
+        unset($darkish_userbundle_operator['photo']);
+        $request->request->set('darkish_customerbundle_customer', $darkish_userbundle_operator);
         $form->handleRequest($request);
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
+            if($photoId) {
+                $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
+                $operator->setPhoto($photo);
+                $em->persist($operator);
+            }
             $em->persist($customer);
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
@@ -301,9 +309,17 @@ class ManageCustomerController extends Controller
         $customer = $em->getRepository('DarkishCustomerBundle:Customer')->find($id);
 //        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
         $form = $this->createForm(new CustomerType, $customer);
-        
+        $photoId = $request->request->get('darkish_customerbundle_customer[photo]', null, true);
+        $darkish_userbundle_operator = $request->request->get('darkish_customerbundle_customer');
+        unset($darkish_userbundle_operator['photo']);
+        $request->request->set('darkish_customerbundle_customer', $darkish_userbundle_operator);
         $form->handleRequest($request);
         if ($form->isValid()) {
+            if($photoId) {
+                $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
+                $operator->setPhoto($photo);
+                $em->persist($operator);
+            }
             // perform some action, such as saving the task to the database
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
