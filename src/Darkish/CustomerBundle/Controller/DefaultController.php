@@ -79,9 +79,17 @@ class DefaultController extends Controller
         $customer = $em->getRepository('DarkishCustomerBundle:Customer')->find($id);
 //        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
         $form = $this->createForm(new CustomerEditProfileType, $customer);
-        
+        $photoId = $request->request->get('customer_edit_profile[photo]', null, true);
+        $darkish_userbundle_operator = $request->request->get('customer_edit_profile');
+        unset($darkish_userbundle_operator['photo']);
+        $request->request->set('customer_edit_profile', $darkish_userbundle_operator);
         $form->handleRequest($request);
         if ($form->isValid()) {
+            if($photoId) {
+                $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
+                $customer->setPhoto($photo);
+                $em->persist($customer);
+            }
             // perform some action, such as saving the task to the database
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
