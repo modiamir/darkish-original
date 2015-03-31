@@ -254,10 +254,18 @@ class OperatorController extends Controller
         $operator = new Operator();
 //        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
         $form = $this->createForm(new OperatorType, $operator);
-        
+        $photoId = $request->request->get('darkish_userbundle_operator[photo]', null, true);
+        $darkish_userbundle_operator = $request->request->get('darkish_userbundle_operator');
+        unset($darkish_userbundle_operator['photo']);
+        $request->request->set('darkish_userbundle_operator', $darkish_userbundle_operator);
         $form->handleRequest($request);
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
+            if($photoId) {
+                $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($photoId);
+                $operator->setPhoto($photo);
+                $em->persist($operator);
+            }
             $em->persist($operator);
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($operator, 'json', SerializationContext::create()->setGroups(array('operator.details'))));
