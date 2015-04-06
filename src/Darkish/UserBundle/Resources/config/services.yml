@@ -5,3 +5,4 @@ services:
     client_authenticator:
         class:     Darkish\UserBundle\Security\ClientAuthenticator
         arguments: ["@client_user_provider"]
+

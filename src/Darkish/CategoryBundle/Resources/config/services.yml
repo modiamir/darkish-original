@@ -35,7 +35,10 @@ services:
         arguments: ["@service_container", "@request_stack"]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
-    
+    message_thread.subscriber:
+        class: Darkish\CategoryBundle\EventListener\MessageThreadSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
 
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example
