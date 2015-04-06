@@ -5,4 +5,8 @@ services:
             - @security.encoder_factory
         tags:
             - { name: doctrine.event_subscriber, connection: default }
-    
+    security.access.customer_voter:
+        class:      Darkish\CustomerBundle\Security\Voter\CustomerVoter
+        public:     false
+        tags:
+           - { name: security.voter }

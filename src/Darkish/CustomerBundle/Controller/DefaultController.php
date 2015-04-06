@@ -31,10 +31,17 @@ use FFMpeg\Format\Video\X264;
 use Alchemy\BinaryDriver\Listeners\DebugListener;
 use \GetId3\GetId3Core as GetId3;
 use FFMpeg\FFProbe;
+use Darkish\CustomerBundle\Entity\Customer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Darkish\CategoryBundle\Entity\Message;
+use Darkish\CategoryBundle\Entity\MessageThread;
 
 
 class DefaultController extends Controller
 {
+
+    private $messageLoadNumber = 5;
     
     /**
      * 
@@ -53,7 +60,87 @@ class DefaultController extends Controller
      * )
      */
     public function getTemplateAction($name) {
-        return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        switch ($name) {
+            case 'profile.html':
+                return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                break;
+            
+            case 'profile-edit.html':
+                return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                break;
+
+            case 'html-page.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(2);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'messages.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'comments.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'attachments.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(5);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'database.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'store.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'users.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        
     }
 
 
@@ -70,13 +157,284 @@ class DefaultController extends Controller
     }
 
     /**
-     * 
-     * @Route("customer/ajax/update/{id}",defaults={"_format": "json"} )
+     * @Route("customer/ajax/get_message_threads", defaults={"_format" = "json"})
+     * @Method({"GET"})
+     */
+    public function getMessageThreads() {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $threads = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MessageThread')->findBy(array('record'=>$user->getRecord()->getId()));
+        $oldLastMessageId = $user->getRecord()->getLastMessageRecieve();
+        $lastMessageId = 0;
+        foreach($threads as $thread) {
+            $lastMessageId = ($thread->getLastMessage()->getId() > $lastMessageId) ? $thread->getLastMessage()->getId() : $lastMessageId;
+        }
+
+        $user->getRecord()->setLastMessageRecieve($lastMessageId);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user->getRecord());
+        $em->flush();
+
+        return new Response($this->get('jms_serializer')->serialize(
+            array('threads' => $threads, 'last_message' => $oldLastMessageId)
+            , 'json'
+            ,SerializationContext::create()->setGroups(array('thread.list'))
+        ));
+    }
+
+    /**
+     * @Route("customer/ajax/get_messages_for_thread/{thread}/{lastMessage}", 
+     *         defaults={"lastMessage" = 0, "_format": "json"})
+     * @Method({"GET"})
+     */
+    public function getMessagesForThreadAction(\Darkish\CategoryBundle\Entity\MessageThread $thread, $lastMessage) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+            throw new AccessDeniedException();   
+        }
+
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Message');
+        $qb = $repo->createQueryBuilder('m');
+        $qb->where('m.thread = :thid')->setParameter('thid', $thread->getId());
+        if($lastMessage) {
+            // $qb->where('m.id < :lastMessage')->setParameter('lastMessage', $lastMessage);
+            $qb->setFirstResult($lastMessage);
+        }
+        $qb->setMaxResults($this->messageLoadNumber);
+        $qb->orderBy('m.created', 'DESC');
+        $qb->orderBy('m.id', 'DESC');
+
+        $res = $qb->getQuery()->getResult();
+
+
+
+        $serialized = $this->get('jms_serializer')->serialize($res, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.list')));
+
+        return new Response($serialized);
+        
+
+    }
+
+    /**
+     * @Route("customer/ajax/post_message/{thread}")
+     * @Method({"PUT"})
+     */
+    public function submitMessage(\Darkish\CategoryBundle\Entity\MessageThread $thread, Request $request) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+            throw new AccessDeniedException();   
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $msg = new \Darkish\CategoryBundle\Entity\Message();
+        $msg->setCreated(new \DateTime());
+        $msg->setThread($thread);
+        $msg->setFrom('record');
+        $msg->setText($request->get('text'));
+
+        $em->persist($msg);
+
+        $em->flush();
+
+        $serialized = $this->get('jms_serializer')->serialize($msg, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.list')));
+
+        return new Response($serialized);
+    }
+
+
+    /**
+     * @Route("customer/ajax/post_group_message", defaults={"_format" = "json"})
      * @Method({"POST"})
      */
-    public function updateAction(Request $request, $id) {
+    public function submitGroupMessage(Request $request) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        
         $em = $this->getDoctrine()->getManager();
-        $customer = $em->getRepository('DarkishCustomerBundle:Customer')->find($id);
+        $thread = new \Darkish\CategoryBundle\Entity\GroupMessageThread();
+
+        $message = new \Darkish\CategoryBundle\Entity\Message();
+        $message->setCreated(new \DateTime());
+        $message->setThread($thread);
+        $message->setFrom('record');
+        $message->setText($request->get('text'));
+
+        $clients = $user->getRecord()->getClientsFavorited();
+
+        $thread->setRecord($user->getRecord());
+        $thread->setLastMessage($message);
+
+        $clientsIterator = $clients->getIterator();
+        while($clientsIterator->valid()) {
+            $thread->addClient($clientsIterator->current());
+            $clientsIterator->next();
+        }
+
+        $em->persist($thread);
+        $em->persist($message);
+
+        $em->flush();
+
+        return new Response($this->get('jms_serializer')->serialize($thread, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.details'))));
+        
+
+    }
+
+    /**
+     * @Route("/customer/ajax/set_last_delivered/{thread}/{message}")
+     * @Method({"PUT"})
+     */
+    public function setLastDelivered(MessageThread $thread, $message, Request $request) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $data = $request->get('data');
+        $em = $this->getDoctrine()->getManager();
+        $thread->setLastRecordDelivered($message);
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+
+    }
+
+
+    /**
+     * @Route("/customer/ajax/set_last_seen/{thread}/{message}")
+     * @Method({"PUT"})
+     */
+    public function setLastSeen(MessageThread $thread, $message, Request $request) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $data = $request->get('data');
+        $em = $this->getDoctrine()->getManager();
+        $thread->setLastRecordSeen($message);
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+
+    }
+
+
+    /**
+     * @Route("customer/ajax/manual/post_message/{client}/{record}", defaults={"_format" = "json"})
+     * @Method({"PUT"})
+     */
+    public function submitManualMessage(\Darkish\UserBundle\Entity\Client $client, \Darkish\CategoryBundle\Entity\Record $record, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $qb = $this->getDoctrine()
+                   ->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+                   ->createQueryBuilder('pmt');
+
+        $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
+        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+
+        $qb->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+        
+        // return new Response($this->get('jms_serializer')->serialize($res, 'json'
+        //     ,SerializationContext::create()->setGroups(array('thread.details'))));
+
+        if(count($res)){
+            $thread = $res[0];
+        } else{
+            $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
+            $thread->setRecord($record);
+            $thread->setClient($client);
+        
+        }
+
+        $message = new \Darkish\CategoryBundle\Entity\Message();
+        $message->setCreated(new \DateTime());
+        $message->setThread($thread);
+        $message->setFrom('client');
+        $message->setText($request->get('text'));
+
+        $thread->setLastMessage($message);
+
+        $em->persist($thread);
+        $em->persist($message);
+
+        $em->flush();
+
+        return new Response($this->get('jms_serializer')->serialize($thread, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.details'))));
+        
+    }
+
+    /**
+     * @Route("customer/ajax/refresh_messages/{last}")
+     */
+    public function refreshMessages($last) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+
+        $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Message')
+                   ->createQueryBuilder('m');
+        $qb->join('m.thread', 'th');
+        $qb->join('th.record', 'r', 'WITH', 'r.id = :rid')
+           ->setParameter('rid', $user->getRecord()->getId());
+        $qb->where('m.id > :last')->setParameter('last', $last);
+
+        $res = $qb->getQuery()->getResult();
+
+        return new Response($this->get('jms_serializer')->serialize($res, 'json'
+            ,SerializationContext::create()->setGroups(array('message.list'))));
+
+    }
+
+
+
+    /**
+     * 
+     * @Route("customer/ajax/update/{customer}",defaults={"_format": "json"} )
+     * @Method({"POST"})
+     * @Security("is_granted('edit', customer)")
+     */
+    public function updateAction(Request $request, Customer $customer) {
+        // return new Response($this->get('jms_serializer')->serialize($id->getId(), 'json'));
+        // die('asd');
+        $em = $this->getDoctrine()->getManager();
+        // $customer = $em->getRepository('DarkishCustomerBundle:Customer')->find($id);
 //        return new Response($this->get('jms_serializer')->serialize($request->request, 'json'));
         $form = $this->createForm(new CustomerEditProfileType, $customer);
         $photoId = $request->request->get('customer_edit_profile[photo]', null, true);
@@ -96,6 +454,7 @@ class DefaultController extends Controller
         }
         return new Response($form->getErrorsAsString(), 500);
     }
+
 
 
     /**

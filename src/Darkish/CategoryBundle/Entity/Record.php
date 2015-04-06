@@ -888,6 +888,22 @@ class Record
     private $customers;
 
 
+    /**
+     * ORM\OneToMany(targetEntity="MessageThread", mappedBy="record")
+     */
+    private $messageThreads;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Darkish\UserBundle\Entity\Client", mappedBy="favoriteRecords")
+     * @Groups({"client.details", "record.details"})
+     */
+    private $clientsFavorited;
+
+    /**
+     * @ORM\Column(name="lastMessage", type="integer")
+     */
+    private $lastMessageRecieve;
 
     /**
      * Get id
@@ -2032,6 +2048,7 @@ class Record
         $this->bodyVideos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bodyAudios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bodyDocs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->messageThreads = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -3469,5 +3486,96 @@ class Record
     public function getAccessClass()
     {
         return $this->accessClass;
+    }
+
+    /**
+     * Add clientsFavorited
+     *
+     * @param \Darkish\UserBundle\Entity\Client $clientsFavorited
+     * @return Record
+     */
+    public function addClientsFavorited(\Darkish\UserBundle\Entity\Client $clientsFavorited)
+    {
+        $this->clientsFavorited[] = $clientsFavorited;
+
+        return $this;
+    }
+
+    /**
+     * Remove clientsFavorited
+     *
+     * @param \Darkish\UserBundle\Entity\Client $clientsFavorited
+     */
+    public function removeClientsFavorited(\Darkish\UserBundle\Entity\Client $clientsFavorited)
+    {
+        $this->clientsFavorited->removeElement($clientsFavorited);
+    }
+
+    /**
+     * Get clientsFavorited
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClientsFavorited()
+    {
+        return $this->clientsFavorited;
+    }
+
+
+
+    /**
+     * Add messageThreads
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThreads
+     * @return MessageThread
+     */
+    public function addMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThreads)
+    {
+        $this->messageThreads[] = $messageThreads;
+
+        return $this;
+    }
+
+    /**
+     * Remove messageThreads
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThreads
+     */
+    public function removeMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThreads)
+    {
+        $this->messageThreads->removeElement($messageThreads);
+    }
+
+    /**
+     * Get messageThreads
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessageThreads()
+    {
+        return $this->messageThreads;
+    }
+
+    /**
+     * Set lastMessageRecieve
+     *
+     * @param integer $lastMessageRecieve
+     * @return Record
+     */
+    public function setLastMessageRecieve($lastMessageRecieve)
+    {
+        $this->lastMessageRecieve = $lastMessageRecieve;
+
+        return $this;
+    }
+
+    /**
+     * Get lastMessageRecieve
+     *
+     * @return integer 
+     */
+    public function getLastMessageRecieve()
+    {
+        return $this->lastMessageRecieve;
     }
 }

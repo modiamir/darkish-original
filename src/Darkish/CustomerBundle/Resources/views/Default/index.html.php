@@ -5,10 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>
-        درکیش  |
-        {{pageTitle}} |
-        {{state.current.data.label}}
+    <title ng-bind="pagetitle()">
+        
     </title>
 
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/screen.css') ?>" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -49,13 +47,13 @@
                 </div>
                 <div class="col col-xs-2 user-menu-button">
                     <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
-                    <a href="#" class="collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
+                    <a ng-src="{{user.photo.icon_absolute_path}}" href="#" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                     
                 </div>
                 <div class="col col-xs-12 user-menu">
                     <div class="collapse navbar-collapse" id="navbar-collapse-user-menu">
                         <ul class="nav navbar-nav">
-                            <li><a ui-sref="editprofile">ویرایش پروفایل</a></li>
+                            <li ng-class="{'active': (state.current.name == 'editprofile')}"><a ui-sref="editprofile">ویرایش پروفایل</a></li>
                             <li role="presentation" class="divider"></li>
                             <li>
                                 <a href="<?php
@@ -94,14 +92,28 @@
                 <div class="col col-xs-12">
                     <div class="collapse navbar-collapse" id="navbar-collapse-main-menu">
                         <ul class="nav navbar-nav">
-                            <li><a ui-sref="profile">پروفایل</a></li>
-                            <li><a ui-sref="htmlpage">صفحه آنلاین</a></li>
-                            <li><a ui-sref="messages">پیام ها</a></li>
-                            <li><a ui-sref="comments">نظرات</a></li>
-                            <li><a ui-sref="attachments">فایل ها</a></li>
-                            <li><a ui-sref="database">دیتابیس</a></li>
-                            <li><a ui-sref="store">فروشگاه آنلاین</a></li>
-                            <li><a ui-sref="users">کاربران</a></li>
+                            <li ng-class="{'active': (state.current.name == 'profile')}"><a ui-sref="profile">پروفایل</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'htmlpage')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_HTML') > -1"><a ui-sref="htmlpage">صفحه آنلاین</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'messages')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_MESSAGE') > -1"><a ui-sref="messages">پیام ها</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'comments')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments">نظرات</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'attachments')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'database')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1"><a ui-sref="database">دیتابیس</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'store')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'users')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="users">کاربران</a></li>
                         </ul>
                     </div>
                 </div>
@@ -115,7 +127,7 @@
 
 
         <!-- Navigation for large display -->
-        <nav class="navbar navbar-inverse visible-lg visible-md visible-sm " role="navigation" >
+        <nav class="navbar navbar-inverse visible-lg visible-md visible-sm" role="navigation" >
             <div class="collapse navbar-collapse row large-display-nav" id="navbar-collapse-01">
                 <div class="col col-sm-1 col-md-1 col-lg-1 logo">
                     <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
@@ -125,14 +137,28 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle main-menu" data-toggle="dropdown" role="button" aria-expanded="false">{{state.current.data.label}}<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a ui-sref="profile">پروفایل</a></li>
-                                <li><a ui-sref="htmlpage">صفحه آنلاین</a></li>
-                                <li><a ui-sref="messages">پیام ها</a></li>
-                                <li><a ui-sref="comments">نظرات</a></li>
-                                <li><a ui-sref="attachments">فایل ها</a></li>
-                                <li><a ui-sref="database">دیتابیس</a></li>
-                                <li><a ui-sref="store">فروشگاه آنلاین</a></li>
-                                <li><a ui-sref="users">کاربران</a></li>
+                                <li ng-class="{'active': (state.current.name == 'profile')}"><a ui-sref="profile">پروفایل</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'htmlpage')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_HTML') > -1"><a ui-sref="htmlpage">صفحه آنلاین</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'messages')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_MESSAGE') > -1"><a ui-sref="messages">پیام ها</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'comments')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments">نظرات</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'attachments')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'database')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1"><a ui-sref="database">دیتابیس</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'store')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
+                                
+                                <li ng-class="{'active': (state.current.name == 'users')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="users">کاربران</a></li>
                                 
                             </ul>
                         </li>
@@ -159,7 +185,7 @@
                             <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                             <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                                <li><a ui-sref="editprofile">ویرایش پروفایل</a></li>
+                                <li ng-class="{'active': (state.current.name == 'editprofile')}"><a ui-sref="editprofile">ویرایش پروفایل</a></li>
                                 <li role="presentation" class="divider"></li>
                                 <li>
                                     <a href="<?php
@@ -176,7 +202,7 @@
                 
             </div><!-- /.navbar-collapse -->
         </nav><!-- /navbar -->
-        <div class="" ui-view>
+        <div class="main-view" ui-view>
         </div>
 
     </div>
@@ -203,7 +229,10 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-file-upload/angular-file-upload.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-password-strength/dist/scripts/ng-password-strength.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-validation-match/dist/angular-input-match.js') ?>"></script>
-
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/moment/moment.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/moment-jalaali/build/moment-jalaali.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/moment/locale/fa.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
 
     
     

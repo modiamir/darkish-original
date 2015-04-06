@@ -1,6 +1,17 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
-								'ngPasswordStrength', 'validation.match']);
+								'ngPasswordStrength', 'validation.match', 'angularMoment']);
 
+customerApp.run(function(amMoment) {
+    amMoment.changeLocale('fa');
+});
+
+
+
+customerApp.filter('toDate', function() {
+  return function(input) {
+    return new Date(input);
+  }
+})
 
 customerApp.config(function($stateProvider, $urlRouterProvider) {
   //
@@ -39,6 +50,15 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       controller: "MessagesCtrl",
       data: {
       	label: 'پیام ها'
+      },
+      resolve: {
+        threads: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_message_threads'})
+             .then (function (response) {
+                return response.data;
+             });
+
+        }
       }
     })
     .state('comments', {
@@ -84,16 +104,49 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', function($scope, $state, $http){
+customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', function($scope, $state, $http, $rootScope){
 	// console.log($state);
-    $scope.pageTitle = 'پنل مشتریان';
-    $http.get('customer/get_user').then(function(response){
-		$scope.user = response.data;
-    $scope.isOnline = function() {
-      return true;
+  $http.get('customer/get_user').then(
+    function(response){
+		  $scope.user = response.data;
+      $scope.access = $scope.getAccess();
+      
+	});
+
+  $scope.isOnline = function() {
+    return true;
+  }
+
+  $scope.getAccess = function() {
+    var access = [];
+    angular.forEach($scope.user.assistant_access, function(value, key){
+      access.push(value.role);
+    });
+    return access;
+  }
+
+  $scope.state = $state;
+
+  $rootScope.$on('$stateChangeSuccess', 
+  function(event, toState, toParams, fromState, fromParams){
+    if(toState.name == "editprofile") {
+      if($('#navbar-collapse-user-menu').hasClass('in')) {
+        $('#navbar-collapse-user-menu').collapse('hide');  
+      }
+    } else {
+      if($('#navbar-collapse-main-menu').hasClass('in')) {
+        $('#navbar-collapse-main-menu').collapse('hide');  
+      }  
     }
-	}); 
-	$scope.state = $state;
+  });
+
+
+
+
+  $scope.pagetitle = function() {
+    return "درکیش  | پنل مشتریان | " + (($state.current.data) ? $state.current.data.label:"");
+  }
+  
 }]);
 
 
@@ -115,7 +168,6 @@ customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAle
 
     $scope.saveProfile = function(user) {
     	var data = humps.camelizeKeys(user);
-    	console.log(user);
     	if(user.photo) {
     	    data.photo = user.photo.id;
     	}
@@ -160,11 +212,10 @@ customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAle
     	            
     	    },
     	    function(responseErr){
-    	        console.log(responseErr);
     	        SweetAlert.swal(
     	            {
     	                title: "ویرایش با خطا مواجه شد", 
-    	                text: responseErr.data,
+    	                text: responseErr.data.error.message,
     	                type: "warning"
     	            }
     	        );
@@ -275,23 +326,168 @@ customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAle
 }])
 
 customerApp.controller('HtmlPageCtrl', ['$scope', function($scope){
-	
+	 
 }])
 
-customerApp.controller('MessagesCtrl', ['$scope', function($scope){
-	
+customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http', '$timeout', '$filter',
+  '$interval', function($scope, $window, threads, $http, $timeout, $filter, $interval){
+  $scope.threads = threads.threads;
+  $scope.lastMessage = threads.last_message;
+  $scope.selectedThread = {};
+
+  $scope.setLastMessageDelivered = function(thread, message) {
+      $http({
+          method: 'PUT',
+          url: './customer/ajax/set_last_delivered/'+thread.id+'/'+message,
+          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+          data: $.param({_method: 'PUT'})
+      }).then(
+        function(response) {
+          
+          thread.last_record_delivered = message;
+          console.log($scope.threads);
+          
+        }
+      )
+  }
+
+  $scope.setLastMessageSeen = function(thread, message) {
+      $http({
+          method: 'PUT',
+          url: './customer/ajax/set_last_seen/'+thread.id+'/'+message,
+          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+          data: $.param({_method: 'PUT'})
+      }).then(
+        function(response) {
+          thread.last_record_seen = message;
+          
+          
+        }
+      )
+  }
+  
+  angular.forEach($scope.threads, function(value, key){
+    if(value.last_message.id > value.last_record_delivered) {
+      $scope.setLastMessageDelivered(value, value.last_message.id);  
+    }
+    
+  });
+
+  $scope.currentMessages = [];
+  $scope.selectThread = function(thread) {
+    if(!angular.equals($scope.selectedThread, thread)) {
+      $scope.selectedThread = thread;
+      $scope.hasNotMore = false;
+      $scope.groupMessageForm = false;
+      $http.get('./customer/ajax/get_messages_for_thread/'+thread.id+'/0').then(
+        function(response) {
+          
+          $scope.currentMessages = response.data;
+          $scope.setLastMessageSeen(thread, thread.last_message.id);
+        },
+        function(responseErr) {
+        }
+      );
+    }
+  }
+
+  $scope.loadMore = function() {
+    $http.get('./customer/ajax/get_messages_for_thread/'+$scope.selectedThread.id+'/'+$scope.currentMessages.length).then(
+      function(response) {
+        $scope.currentMessages = $scope.currentMessages.concat(response.data);
+        if(response.data.length < 5) {
+          $scope.hasNotMore = true;
+        }
+      },
+      function(responseErr) {
+      }
+    );
+  }
+
+  $scope.postMessage = function() {
+    if($scope.messageForm) {
+      $http({
+          method: 'PUT',
+          url: './customer/ajax/post_message/'+$scope.selectedThread.id,
+          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+          data: $.param({_method: 'PUT', text: $scope.messageForm})
+      }).then(
+        function(response) {
+          $scope.currentMessages.unshift(response.data);
+          $scope.messageForm = null;
+          $scope.selectedThread.last_message = response.data;
+          $scope.setLastMessageSeen($scope.selectedThread, $scope.selectedThread.last_message.id);
+          $scope.setLastMessageDelivered($scope.selectedThread, $scope.selectedThread.last_message.id);
+          $timeout(function(){
+            $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+          }, 100)
+          
+          
+          
+        }
+      );
+    }
+  }
+
+  $interval(function(){
+    var latest = 0;
+    angular.forEach($scope.threads, function(value, key){
+      latest = (latest < value.last_message.id) ? value.last_message.id : latest;
+    });
+    $http.get('./customer/ajax/refresh_messages/'+ latest).then(
+      function(response) {
+        angular.forEach(response.data, function(value, key){
+          var th = $filter('filter')($scope.threads, {id: value.thread.id})[0];
+          if($scope.selectedThread.id == th.id) {
+            th.last_message.id = value.id;
+            th.last_message.created = value.created;
+            th.last_message.from = value.from;
+            th.last_message.text = value.text;
+            th.last_record_seen = value.id;
+            th.last_record_delivered = value.id;
+            $scope.currentMessages.push(value);
+          } else {
+            th.last_message.id = value.id;
+            th.last_message.created = value.created;
+            th.last_message.from = value.from;
+            th.last_message.text = value.text;
+            th.last_record_delivered = value.id;
+          }
+        });
+      },
+      function(responseErr) {
+
+      }
+    );
+  }, 10000);
+  
+  $scope.showGroupMessageForm = function() {
+    $scope.selectedThread = {};
+    $scope.groupMessageForm = true;
+  }
+
+  $scope.submitGroupMessage = function() {
+    $http({
+        method: 'POST',
+        url: './customer/ajax/post_group_message',
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param({_method: 'POST', text: $scope.groupText})
+    }).then(
+      function(response) {
+        $scope.groupText = null;
+        $scope.threads.push(response.data);
+        $scope.selectThread(response.data);
+        
+        
+        
+      }
+    );
+  }
+
 }])
 
 customerApp.controller('CommentsCtrl', ['$scope', '$http', function($scope, $http){
-	$scope.corstest = function() {
-    $http.get("http://178.62.236.24/n-darkish/web/api/rest/time.json").then(
-      function(response){
-        console.log(response);
-      }, 
-      function(responseErr){
-        console.log(responseErr);
-      });
-  }
+	
 }])
 
 customerApp.controller('AttachmentsCtrl', ['$scope', function($scope){

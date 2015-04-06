@@ -1,4 +1,4 @@
-    <h2>ویرایش پروفایل</h2>
+    <h2 class="page-title">ویرایش پروفایل</h2>
   	<hr>
 	<div class="row profile-edit">
       <!-- left column -->
@@ -112,11 +112,11 @@
           <div class="form-group">
             <label class="col-md-2 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="ذخیره"
+              <input type="button" class="btn btn-primary save-btn" value="ذخیره"
                      ng-click="saveProfile(editinguser)"
                      ng-disabled="profileeditform.$invalid || isUnchanged(editinguser)"
               >
-              <input type="reset" class="btn btn-default" value="انصراف"
+              <input type="reset" class="btn btn-default cancel-btn" value="انصراف"
                      ng-click="state.go('profile')"
 
               >
