@@ -348,6 +348,43 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/customer/ajax/set_last_client_delivered/{thread}/{message}")
+     * @Method({"PUT"})
+     */
+    public function setLastClientDelivered(MessageThread $thread, $message, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $thread->setLastClientDelivered($message);
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+    }
+
+    /**
+     * @Route("/customer/ajax/set_last_client_seen/{thread}/{message}")
+     * @Method({"PUT"})
+     */
+    public function setLastClientSeen(MessageThread $thread, $message, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $thread->setLastClientSeen($message);
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+    }
+
+
+    /**
+     * @Route("/customer/ajax/fetch_last_seen_delivered/{thread}", defaults={"_foramt" = "json"})
+     * @Method({"GET"})
+     */
+    public function fetchLastSeenDelivered(MessageThread $thread) {
+        return new Response($this->get('jms_serializer')->serialize(
+            array(
+                'seen' => $thread->getLastClientSeen(),
+                'delivered' => $thread->getLastClientDelivered()
+            ),
+         'json'));
+    }
 
     /**
      * @Route("customer/ajax/manual/post_message/{client}/{record}", defaults={"_format" = "json"})
@@ -418,7 +455,7 @@ class DefaultController extends Controller
         $res = $qb->getQuery()->getResult();
 
         return new Response($this->get('jms_serializer')->serialize($res, 'json'
-            ,SerializationContext::create()->setGroups(array('message.list'))));
+            ,SerializationContext::create()->setGroups(array('message.list', 'thread.list'))));
 
     }
 
