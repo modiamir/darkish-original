@@ -334,6 +334,20 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.threads = threads.threads;
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
+  $scope.window = $window;
+
+
+  $scope.fetchDeliveredSeen = function() {
+    if($scope.selectedThread.id) {
+      var thread = $scope.selectedThread;
+      $http.get('./customer/ajax/fetch_last_seen_delivered/'+ thread.id).then(
+        function(response) {
+          thread.last_client_seen = response.data.seen;
+          thread.last_client_delivered = response.data.delivered;
+        }
+      );
+    }
+  }
 
   $scope.setLastMessageDelivered = function(thread, message) {
       $http({
@@ -381,9 +395,12 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       $scope.groupMessageForm = false;
       $http.get('./customer/ajax/get_messages_for_thread/'+thread.id+'/0').then(
         function(response) {
-          
+          $timeout(function(){
+            $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+          }, 100);
           $scope.currentMessages = response.data;
           $scope.setLastMessageSeen(thread, thread.last_message.id);
+          $scope.fetchDeliveredSeen();
         },
         function(responseErr) {
         }
@@ -438,27 +455,41 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       function(response) {
         angular.forEach(response.data, function(value, key){
           var th = $filter('filter')($scope.threads, {id: value.thread.id})[0];
-          if($scope.selectedThread.id == th.id) {
-            th.last_message.id = value.id;
-            th.last_message.created = value.created;
-            th.last_message.from = value.from;
-            th.last_message.text = value.text;
-            th.last_record_seen = value.id;
-            th.last_record_delivered = value.id;
-            $scope.currentMessages.push(value);
+          if(th) {
+            if($scope.selectedThread.id == th.id) {
+              th.last_message.id = value.id;
+              th.last_message.created = value.created;
+              th.last_message.from = value.from;
+              th.last_message.text = value.text;
+              th.last_record_seen = value.id;
+              th.last_record_delivered = value.id;
+              $scope.currentMessages.push(value);
+            } else {
+              th.last_message.id = value.id;
+              th.last_message.created = value.created;
+              th.last_message.from = value.from;
+              th.last_message.text = value.text;
+              th.last_record_delivered = value.id;
+            }
           } else {
-            th.last_message.id = value.id;
-            th.last_message.created = value.created;
-            th.last_message.from = value.from;
-            th.last_message.text = value.text;
-            th.last_record_delivered = value.id;
+            var newThread = value.thread;
+            newThread.last_message = {};
+            newThread.last_message.id = value.id;
+            newThread.last_message.created = value.created;
+            newThread.last_message.from = value.from;
+            newThread.last_message.text = value.text;
+            newThread.last_record_delivered = value.id;
+            $scope.threads.push(newThread);
           }
+          
         });
       },
       function(responseErr) {
 
       }
     );
+
+    $scope.fetchDeliveredSeen();
   }, 10000);
   
   $scope.showGroupMessageForm = function() {

@@ -1,10 +1,11 @@
 <div class="row messages-page">
-	<div class="col col-xs-12 col-sm-5 col-md-4 threads">
+	<div class="col col-xs-12 col-sm-5 col-md-4 threads"
+		 ng-hide="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
 		<button ng-click="showGroupMessageForm()" 
-				class="btn btn-success group-message-button">ارسال پیام گروهی</button>
+				class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
 		<div class="well inner">
 			<ul ng-show="threads.length">
-				<li ng-repeat="thread in threads | orderBy: 'thread.last_message.id'" class="thread" ng-click="selectThread(thread)"
+				<li ng-repeat="thread in threads | orderBy: '-last_record_delivered'" class="thread" ng-click="selectThread(thread)"
 					ng-class="{'selected': selectedThread.id == thread.id}">
 					<div class="private" ng-show="thread.thread_type == 'private'">
 						<img ng-src="{{thread.client.photo ? thread.client.photo.icon_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>'}}" name="aboutme" width="48" height="48" class="img-circle">
@@ -47,8 +48,10 @@
 		
 	</div>
 	<div class="col col-xs-12 col-sm-7 col-md-8 messages">
+		<button ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)"
+				class="btn btn-default btn-xs return-button" ng-click="groupMessageForm = false ; selectedThread = {}">بازگشت</button>
 		<div ng-show="selectedThread.id" class="messages-inner" id="message-container" scroll-glue>
-			<button class="btn btn-info btn-xs center-block" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
+			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
 				<li class="message" ng-repeat="message in currentMessages | orderBy:'id'"
 					ng-class="
@@ -67,11 +70,19 @@
 					<span class="time">
 					{{message.created | toDate | amDateFormat:'jYYYY/jM/jD, h:mm'}}
 					</span>
+					<span class="delivered" 
+						  ng-show="message.from == 'record' && selectedThread.last_client_delivered == message.id ">
+						دریافت شده
+					</span>
+					<span class="seen"
+						  ng-show="message.from == 'record' && selectedThread.last_client_seen == message.id">
+						دیده شده
+					</span>
 
 				</li>
 			</ul>
 		</div>
-		<div ng-show="selectedThread.id" class="message-submit">
+		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit">
 			<form>
 				<div class="message-text col col-xs-10 col-sm-10 col-md-11">
 					<input class="form-control" ng-model="messageForm"/>
@@ -93,7 +104,7 @@
 			</h3>
 			<form>
 				<textarea class="form-control" ng-model="groupText"></textarea>
-				<button ng-disabled="!groupText" ng-click="submitGroupMessage()">ارسال</button>
+				<button class="btn btn-success btn-sm" ng-disabled="!groupText" ng-click="submitGroupMessage()">ارسال</button>
 			</form>
 			
 		</div>

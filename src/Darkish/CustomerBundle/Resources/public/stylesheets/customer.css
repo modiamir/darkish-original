@@ -273,16 +273,17 @@ body .large-display-nav .user-menu .navbar-text .count {
 /* line 292, ../sass/customer.scss */
 body .main-view .messages-page .threads .group-message-button {
   margin-bottom: 10px;
+  width: 100%;
 }
-/* line 295, ../sass/customer.scss */
+/* line 296, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner {
   padding: 5px;
 }
-/* line 297, ../sass/customer.scss */
+/* line 298, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul {
   margin-bottom: 0;
 }
-/* line 300, ../sass/customer.scss */
+/* line 301, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread {
   min-height: 70px;
   padding: 5px 10px;
@@ -291,70 +292,80 @@ body .main-view .messages-page .threads .inner ul li.thread {
   position: relative;
   cursor: pointer;
 }
-/* line 307, ../sass/customer.scss */
+/* line 308, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread:hover {
   background: #E0E6E8;
 }
-/* line 311, ../sass/customer.scss */
+/* line 312, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread.selected {
   background: #f4f4f4;
 }
-/* line 315, ../sass/customer.scss */
+/* line 316, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread:first-child {
   border-radius: 4px 4px 0 0;
 }
-/* line 319, ../sass/customer.scss */
+/* line 320, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread:last-child {
   border-radius: 0 0 4px 4px;
   border-bottom: none;
 }
-/* line 323, ../sass/customer.scss */
+/* line 324, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread img {
   float: right;
 }
-/* line 326, ../sass/customer.scss */
+/* line 327, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread .middle {
   margin-right: 60px;
 }
-/* line 328, ../sass/customer.scss */
+/* line 329, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread .middle .username, body .main-view .messages-page .threads .inner ul li.thread .middle .group-label {
   display: block;
 }
-/* line 331, ../sass/customer.scss */
+/* line 332, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread .middle .group-label {
   color: green;
 }
-/* line 334, ../sass/customer.scss */
+/* line 335, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread .middle .last-message {
   display: block;
   font-size: 13px;
   color: #b3b3b3;
 }
-/* line 341, ../sass/customer.scss */
+/* line 342, ../sass/customer.scss */
 body .main-view .messages-page .threads .inner ul li.thread .datetime {
   position: absolute;
   top: 10px;
   left: 5px;
   font-size: 11px;
 }
-/* line 354, ../sass/customer.scss */
+/* line 356, ../sass/customer.scss */
+body .main-view .messages-page .messages .return-button {
+  margin-bottom: 10px;
+}
+/* line 360, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner {
-  padding: 10px 20px;
+  padding: 10px 0;
   background: #ecf0f1;
   border-radius: 4px 4px 0 0;
   max-height: 400px;
   overflow-y: scroll;
 }
-/* line 360, ../sass/customer.scss */
+/* line 366, ../sass/customer.scss */
+body .main-view .messages-page .messages .messages-inner .load-more {
+  width: 100%;
+  margin-top: -25px;
+  border-radius: 4px 4px 0 0;
+}
+/* line 371, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list {
   display: inline-block;
   width: 100%;
 }
-/* line 363, ../sass/customer.scss */
+/* line 374, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message {
   clear: both;
 }
-/* line 365, ../sass/customer.scss */
+/* line 376, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message .text {
   color: white;
   padding: 10px 5px;
@@ -364,53 +375,68 @@ body .main-view .messages-page .messages .messages-inner .message-list .message 
   min-width: 100px;
   max-width: 300px;
 }
-/* line 374, ../sass/customer.scss */
+/* line 385, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message .time {
   clear: both;
   font-size: 12px;
 }
-/* line 378, ../sass/customer.scss */
+/* line 389, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message img {
   margin: 10px 0 0;
   width: 40px;
   height: 40px;
   border-width: 2px;
 }
-/* line 385, ../sass/customer.scss */
+/* line 395, ../sass/customer.scss */
+body .main-view .messages-page .messages .messages-inner .message-list .message.record {
+  margin-right: 20px;
+}
+/* line 397, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.record .text {
   background-color: rgba(24, 148, 124, 0.65);
   border-color: #18947c;
   float: right;
   margin-right: 10px;
 }
-/* line 391, ../sass/customer.scss */
+/* line 403, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.record img {
   float: right;
 }
-/* line 394, ../sass/customer.scss */
+/* line 406, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.record .time {
   float: left;
 }
-/* line 400, ../sass/customer.scss */
+/* line 411, ../sass/customer.scss */
+body .main-view .messages-page .messages .messages-inner .message-list .message.client {
+  margin-left: 20px;
+}
+/* line 413, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.client .text {
   background-color: rgba(63, 129, 174, 0.65);
   border-color: #3f81ae;
   float: left;
   margin-left: 10px;
 }
-/* line 406, ../sass/customer.scss */
+/* line 419, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.client img {
   float: left;
 }
-/* line 409, ../sass/customer.scss */
+/* line 422, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message.client .time {
   float: right;
 }
-/* line 413, ../sass/customer.scss */
+/* line 426, ../sass/customer.scss */
 body .main-view .messages-page .messages .messages-inner .message-list .message .time {
   display: block;
 }
-/* line 419, ../sass/customer.scss */
+/* line 429, ../sass/customer.scss */
+body .main-view .messages-page .messages .messages-inner .message-list .message .delivered, body .main-view .messages-page .messages .messages-inner .message-list .message .seen {
+  float: right;
+  clear: both;
+  font-size: 10px;
+  color: gray;
+}
+/* line 441, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit {
   border: 2px solid #ecf0f1;
   border-radius: 0 0 4px 4px;
@@ -419,11 +445,11 @@ body .main-view .messages-page .messages .message-submit {
   height: 55px;
   background-color: #F7F8F8;
 }
-/* line 426, ../sass/customer.scss */
+/* line 448, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .message-text {
   height: 53px;
 }
-/* line 428, ../sass/customer.scss */
+/* line 450, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .message-text input {
   border: 1px solid #e0e0e0;
   background: white;
@@ -431,12 +457,12 @@ body .main-view .messages-page .messages .message-submit .message-text input {
   margin-top: 8px;
   font-size: 12px;
 }
-/* line 436, ../sass/customer.scss */
+/* line 458, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button {
   height: 53px;
   line-height: 53px;
 }
-/* line 439, ../sass/customer.scss */
+/* line 461, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button button {
   padding: 0;
   margin: 0;
@@ -444,7 +470,7 @@ body .main-view .messages-page .messages .message-submit .submit-button button {
   border: none;
   background: transparent;
 }
-/* line 445, ../sass/customer.scss */
+/* line 467, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button button .glyphicon {
   font-size: 20px;
   height: 53px;
@@ -452,61 +478,65 @@ body .main-view .messages-page .messages .message-submit .submit-button button .
   color: gray;
   cursor: pointer;
 }
-/* line 451, ../sass/customer.scss */
+/* line 473, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button button .glyphicon:hover {
   color: #404040;
 }
-/* line 454, ../sass/customer.scss */
+/* line 476, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button button .glyphicon.disable {
   color: #c9c9c9;
   cursor: auto;
 }
-/* line 457, ../sass/customer.scss */
+/* line 479, ../sass/customer.scss */
 body .main-view .messages-page .messages .message-submit .submit-button button .glyphicon.disable:hover {
   color: gray;
   color: #c9c9c9;
 }
+/* line 490, ../sass/customer.scss */
+body .main-view .messages-page .messages .group-message-form-wrapper .btn {
+  margin-top: 10px;
+}
 @media (max-width: 767px) {
-  /* line 471, ../sass/customer.scss */
+  /* line 498, ../sass/customer.scss */
   body .main-view .profile-page {
     margin: -14px;
   }
-  /* line 476, ../sass/customer.scss */
+  /* line 503, ../sass/customer.scss */
   body .main-view .profile-edit .save-btn {
     width: 49%;
   }
-  /* line 479, ../sass/customer.scss */
+  /* line 506, ../sass/customer.scss */
   body .main-view .profile-edit .cancel-btn {
     width: 49%;
     float: left;
   }
-  /* line 487, ../sass/customer.scss */
+  /* line 514, ../sass/customer.scss */
   body .main-view .messages-page .threads .inner {
     margin-right: -12px;
     margin-left: -12px;
   }
-  /* line 494, ../sass/customer.scss */
+  /* line 521, ../sass/customer.scss */
   body .main-view .messages-page .messages .inner {
     margin-right: -12px;
     margin-left: -12px;
   }
-  /* line 501, ../sass/customer.scss */
+  /* line 528, ../sass/customer.scss */
   body .main-view .page-title {
     text-align: center;
   }
 }
 
-/* line 512, ../sass/customer.scss */
+/* line 539, ../sass/customer.scss */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: yekan;
 }
 
-/* line 516, ../sass/customer.scss */
+/* line 543, ../sass/customer.scss */
 .dropdown-toggle {
   cursor: pointer;
 }
 
-/* line 521, ../sass/customer.scss */
+/* line 548, ../sass/customer.scss */
 .gly-spin {
   -webkit-animation: spin 2s infinite linear;
   -moz-animation: spin 2s infinite linear;
@@ -515,56 +545,56 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @-moz-keyframes spin {
-  /* line 528, ../sass/customer.scss */
+  /* line 555, ../sass/customer.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 531, ../sass/customer.scss */
+  /* line 558, ../sass/customer.scss */
   100% {
     -moz-transform: rotate(359deg);
   }
 }
 
 @-webkit-keyframes spin {
-  /* line 536, ../sass/customer.scss */
+  /* line 563, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 539, ../sass/customer.scss */
+  /* line 566, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
 
 @-o-keyframes spin {
-  /* line 544, ../sass/customer.scss */
+  /* line 571, ../sass/customer.scss */
   0% {
     -o-transform: rotate(0deg);
   }
 
-  /* line 547, ../sass/customer.scss */
+  /* line 574, ../sass/customer.scss */
   100% {
     -o-transform: rotate(359deg);
   }
 }
 
 @keyframes spin {
-  /* line 552, ../sass/customer.scss */
+  /* line 579, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
-  /* line 556, ../sass/customer.scss */
+  /* line 583, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
-/* line 561, ../sass/customer.scss */
+/* line 588, ../sass/customer.scss */
 .gly-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
@@ -574,7 +604,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(90deg);
 }
 
-/* line 569, ../sass/customer.scss */
+/* line 596, ../sass/customer.scss */
 .gly-rotate-180 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   -webkit-transform: rotate(180deg);
@@ -584,7 +614,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(180deg);
 }
 
-/* line 577, ../sass/customer.scss */
+/* line 604, ../sass/customer.scss */
 .gly-rotate-270 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   -webkit-transform: rotate(270deg);
@@ -594,7 +624,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(270deg);
 }
 
-/* line 585, ../sass/customer.scss */
+/* line 612, ../sass/customer.scss */
 .gly-flip-horizontal {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
   -webkit-transform: scale(-1, 1);
@@ -604,7 +634,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: scale(-1, 1);
 }
 
-/* line 593, ../sass/customer.scss */
+/* line 620, ../sass/customer.scss */
 .gly-flip-vertical {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
   -webkit-transform: scale(1, -1);

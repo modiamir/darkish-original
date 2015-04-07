@@ -291,6 +291,7 @@ body {
             .threads {
                 .group-message-button {
                     margin-bottom: 10px;
+                    width: 100%;
                 }
                 .inner {
                     padding: 5px;
@@ -351,12 +352,22 @@ body {
             }
 
             .messages {
+
+                .return-button {
+                    margin-bottom: 10px;
+                }
+
                 .messages-inner {
-                    padding: 10px 20px;
+                    padding: 10px 0;
                     background: #ecf0f1;
                     border-radius: 4px 4px 0 0 ;
                     max-height: 400px;
                     overflow-y: scroll;
+                    .load-more {
+                        width: 100%;
+                        margin-top: -25px;
+                        border-radius: 4px 4px 0 0;
+                    }
                     .message-list {
                         display: inline-block;
                         width: 100%;
@@ -382,6 +393,7 @@ body {
                                 border-width: 2px;
                             }
                             &.record {
+                                margin-right: 20px;
                                 .text{
                                     background-color: rgba(24, 148, 124, 0.65);
                                     border-color: rgb(24, 148, 124);
@@ -397,6 +409,7 @@ body {
                             }
 
                             &.client {
+                                margin-left: 20px;
                                 .text{
                                     background-color: rgba(63, 129, 174, 0.65);
                                     border-color: rgb(63, 129, 174);
@@ -412,6 +425,15 @@ body {
                             }
                             .time {
                                 display: block;
+                            }
+                            .delivered, .seen {
+                                float: right;
+                                clear: both;
+                                font-size: 10px;
+                                color: gray;
+                            }
+                            .seen {
+
                             }
                         }
                     }    
@@ -462,6 +484,11 @@ body {
                             }
                         }
                         
+                    }
+                }
+                .group-message-form-wrapper {
+                    .btn {
+                        margin-top: 10px;
                     }
                 }
             }
