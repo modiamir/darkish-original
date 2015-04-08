@@ -360,10 +360,28 @@ body {
             }
 
             .messages {
+                #return-box {
+                    background-color: rgb(247, 247, 247);
+                    height: 40px;
+                    .return-button {
+                        margin-top: 5px;
+                        margin-right: 10px;
+                        float: right;
+                    }
 
-                .return-button {
-                    margin-bottom: 10px;
+                    .thread-name {
+                        margin-right: 30px;
+                        float: right;
+                        margin-top: 5px;
+                    }
+                    &.fixed {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                    }
                 }
+                
 
                 .messages-inner {
                     padding: 10px 0;

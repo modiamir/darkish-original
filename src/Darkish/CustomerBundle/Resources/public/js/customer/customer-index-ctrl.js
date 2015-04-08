@@ -1,5 +1,5 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
-								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils']);
+								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -105,7 +105,6 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', function($scope, $state, $http, $rootScope){
-	// console.log($state);
   $http.get('customer/get_user').then(
     function(response){
 		  $scope.user = response.data;
@@ -330,11 +329,19 @@ customerApp.controller('HtmlPageCtrl', ['$scope', function($scope){
 }])
 
 customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http', '$timeout', '$filter',
-  '$interval', 'SweetAlert', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert){
+  '$interval', 'SweetAlert', '$document', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert, $document){
   $scope.threads = threads.threads;
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
   $scope.window = $window;
+
+  $document.on('scroll', function() {
+        if($document.scrollTop() > 160) {
+          $('#return-box').addClass('fixed');
+        } else {
+          $('#return-box').removeClass('fixed');
+        }
+   });
 
 
   $scope.fetchDeliveredSeen = function() {
@@ -359,7 +366,6 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
         function(response) {
           
           thread.last_record_delivered = message;
-          console.log($scope.threads);
           
         }
       )
@@ -459,8 +465,8 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     });
     $http.get('./customer/ajax/refresh_messages/'+ latest).then(
       function(response) {
+        var tmpScrollHeight = $('#message-container')[0].scrollHeight;
         angular.forEach(response.data, function(value, key){
-          console.log(value);
           var th = $filter('filter')($scope.threads, {id: value.thread.id})[0];
           if(th) {
             if($scope.selectedThread.id == th.id) {
@@ -476,9 +482,14 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
               msg.text = value.text;
               msg.from = value.from;
               $scope.currentMessages.push(msg);
-              $timeout(function(){
-                $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
-              }, 100);
+              console.log($('#message-container').scrollTop());
+              console.log(tmpScrollHeight);
+              if( (tmpScrollHeight - $('#message-container').scrollTop() ) < 420) {
+                $timeout(function(){
+                  $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+                }, 100);
+              }
+              
             } else {
               th.last_message.id = value.id;
               th.last_message.created = value.created;
@@ -498,7 +509,6 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           }
           
         });
-        console.log($scope.currentMessages);
       },
       function(responseErr) {
 
@@ -533,7 +543,6 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
         function(response) {
           var index = $scope.threads.indexOf(thread);
           $scope.threads.splice(index, 1);
-          console.log($scope.threads);
           if($scope.selectedThread.id == thread.id) {
             $scope.selectedThread = {};
           }
