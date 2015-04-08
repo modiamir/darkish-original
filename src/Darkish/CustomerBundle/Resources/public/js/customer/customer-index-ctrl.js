@@ -454,6 +454,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     $http.get('./customer/ajax/refresh_messages/'+ latest).then(
       function(response) {
         angular.forEach(response.data, function(value, key){
+          console.log(value);
           var th = $filter('filter')($scope.threads, {id: value.thread.id})[0];
           if(th) {
             if($scope.selectedThread.id == th.id) {
