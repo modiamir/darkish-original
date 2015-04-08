@@ -520,6 +520,9 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
         function(response) {
           var index = $scope.threads.indexOf(thread);
           delete($scope.threads[index]);
+          if($scope.selectedThread.id == thread.id) {
+            $scope.selectedThread = {};
+          }
           SweetAlert.swal("حذف انجام شد.", "", "success");   
         }
       )
