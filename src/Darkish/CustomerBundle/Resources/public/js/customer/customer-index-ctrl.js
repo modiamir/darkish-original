@@ -519,7 +519,8 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       }).then(
         function(response) {
           var index = $scope.threads.indexOf(thread);
-          delete($scope.threads[index]);
+          $scope.threads.splice(index, 1);
+          console.log($scope.threads);
           if($scope.selectedThread.id == thread.id) {
             $scope.selectedThread = {};
           }
