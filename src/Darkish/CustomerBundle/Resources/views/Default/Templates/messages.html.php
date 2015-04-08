@@ -51,8 +51,10 @@
 		
 	</div>
 	<div class="col col-xs-12 col-sm-7 col-md-8 messages">
-		<button ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)"
-				class="btn btn-default btn-xs return-button" ng-click="groupMessageForm = false ; selectedThread = {}">بازگشت</button>
+		<div id="return-box" ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
+			<button class="btn btn-default btn-xs return-button" ng-click="groupMessageForm = false ; selectedThread = {}">بازگشت</button>
+			<span class="thread-name">امیر مدرسی</span>
+		</div>
 		<div ng-show="selectedThread.id" class="messages-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
@@ -115,5 +117,4 @@
 		
 	</div>
 </div>
-
 
