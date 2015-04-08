@@ -430,7 +430,12 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           data: $.param({_method: 'PUT', text: $scope.messageForm})
       }).then(
         function(response) {
-          $scope.currentMessages.unshift(response.data);
+          var msg = {};
+          msg.id = response.data.id;
+          msg.text = response.data.text;
+          msg.from = response.data.from;
+          msg.created = response.data.created;
+          $scope.currentMessages.push(msg);
           $scope.messageForm = null;
           $scope.selectedThread.last_message = response.data;
           $scope.setLastMessageSeen($scope.selectedThread, $scope.selectedThread.last_message.id);
@@ -464,7 +469,12 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
               th.last_message.text = value.text;
               th.last_record_seen = value.id;
               th.last_record_delivered = value.id;
-              $scope.currentMessages.push(value);
+              var msg = {}
+              msg.id = value.id;
+              msg.created = value.created;
+              msg.text = value.text;
+              msg.from = value.from;
+              $scope.currentMessages.push(msg);
               $timeout(function(){
                 $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
               }, 100);
