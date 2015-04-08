@@ -423,11 +423,13 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
 
   $scope.postMessage = function() {
     if($scope.messageForm) {
+      var text = angular.copy($scope.messageForm);
+      $scope.messageForm = null;
       $http({
           method: 'PUT',
           url: './customer/ajax/post_message/'+$scope.selectedThread.id,
           headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-          data: $.param({_method: 'PUT', text: $scope.messageForm})
+          data: $.param({_method: 'PUT', text: text})
       }).then(
         function(response) {
           var msg = {};
@@ -436,7 +438,6 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           msg.from = response.data.from;
           msg.created = response.data.created;
           $scope.currentMessages.push(msg);
-          $scope.messageForm = null;
           $scope.selectedThread.last_message = response.data;
           $scope.setLastMessageSeen($scope.selectedThread, $scope.selectedThread.last_message.id);
           $scope.setLastMessageDelivered($scope.selectedThread, $scope.selectedThread.last_message.id);
