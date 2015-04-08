@@ -22,7 +22,7 @@ class MessageThread
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     protected $id;
 
@@ -45,24 +45,38 @@ class MessageThread
 
     /**
      * @ORM\Column(name="last_record_seen", type="integer")
+     * @Groups({"thread.list", "thread.details"})
      */
-    protected $lastRecordSeen;
+    protected $lastRecordSeen = 0;
 
     /**
      * @ORM\Column(name="last_record_delivered", type="integer")
+     * @Groups({"thread.list", "thread.details"})
      */
-    protected $lastRecordDelivered;
+    protected $lastRecordDelivered = 0;
 
     /**
      * @ORM\Column(name="last_client_seen", type="integer")
+     * @Groups({"thread.list", "thread.details"})
      */
-    protected $lastClientSeen;
+    protected $lastClientSeen = 0;
 
     /**
      * @ORM\Column(name="last_client_delivered", type="integer")
+     * @Groups({"thread.list", "thread.details"})
      */
-    protected $lastClientDelivered;
+    protected $lastClientDelivered = 0;
 
+
+    /**
+     * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
+     */
+    protected $deletedByRecord = false;
+
+    /**
+     * @ORM\Column(name="deleted_by_client", type="boolean", options={"default"=false})
+     */
+    protected $deletedByClient = false;
 
 
     /**
@@ -144,5 +158,97 @@ class MessageThread
 
     public function setLastMessage(\Darkish\CategoryBundle\Entity\Message $message) {
         $this->lastMessage = $message;
+    }
+
+    /**
+     * Set lastRecordSeen
+     *
+     * @param integer $lastRecordSeen
+     * @return MessageThread
+     */
+    public function setLastRecordSeen($lastRecordSeen)
+    {
+        $this->lastRecordSeen = $lastRecordSeen;
+
+        return $this;
+    }
+
+    /**
+     * Get lastRecordSeen
+     *
+     * @return integer 
+     */
+    public function getLastRecordSeen()
+    {
+        return $this->lastRecordSeen;
+    }
+
+    /**
+     * Set lastRecordDelivered
+     *
+     * @param integer $lastRecordDelivered
+     * @return MessageThread
+     */
+    public function setLastRecordDelivered($lastRecordDelivered)
+    {
+        $this->lastRecordDelivered = $lastRecordDelivered;
+
+        return $this;
+    }
+
+    /**
+     * Get lastRecordDelivered
+     *
+     * @return integer 
+     */
+    public function getLastRecordDelivered()
+    {
+        return $this->lastRecordDelivered;
+    }
+
+    /**
+     * Set lastClientSeen
+     *
+     * @param integer $lastClientSeen
+     * @return MessageThread
+     */
+    public function setLastClientSeen($lastClientSeen)
+    {
+        $this->lastClientSeen = $lastClientSeen;
+
+        return $this;
+    }
+
+    /**
+     * Get lastClientSeen
+     *
+     * @return integer 
+     */
+    public function getLastClientSeen()
+    {
+        return $this->lastClientSeen;
+    }
+
+    /**
+     * Set lastClientDelivered
+     *
+     * @param integer $lastClientDelivered
+     * @return MessageThread
+     */
+    public function setLastClientDelivered($lastClientDelivered)
+    {
+        $this->lastClientDelivered = $lastClientDelivered;
+
+        return $this;
+    }
+
+    /**
+     * Get lastClientDelivered
+     *
+     * @return integer 
+     */
+    public function getLastClientDelivered()
+    {
+        return $this->lastClientDelivered;
     }
 }

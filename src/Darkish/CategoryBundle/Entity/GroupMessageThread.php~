@@ -14,14 +14,6 @@ use JMS\Serializer\Annotation\Groups;
  */
 class GroupMessageThread extends MessageThread
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity="Darkish\UserBundle\Entity\Client", inversedBy="groupMessageThreads")
@@ -32,17 +24,8 @@ class GroupMessageThread extends MessageThread
     /**
      * @Groups({"thread.list", "thread.details"})
      */
-    protected $type = 'group';
+    protected $threadType = 'group';
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     /**
      * Constructor
      */
@@ -82,5 +65,202 @@ class GroupMessageThread extends MessageThread
     public function getClients()
     {
         return $this->clients;
+    }
+
+    public function getThreadType() {
+        return $this->threadType;
+    }
+    /**
+     * @var integer
+     */
+    protected $id;
+
+    /**
+     * @var integer
+     */
+    protected $lastRecordSeen;
+
+    /**
+     * @var integer
+     */
+    protected $lastRecordDelivered;
+
+    /**
+     * @var integer
+     */
+    protected $lastClientSeen;
+
+    /**
+     * @var integer
+     */
+    protected $lastClientDelivered;
+
+    /**
+     * @var \Darkish\CategoryBundle\Entity\Record
+     */
+    protected $record;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $messages;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set lastRecordSeen
+     *
+     * @param integer $lastRecordSeen
+     * @return GroupMessageThread
+     */
+    public function setLastRecordSeen($lastRecordSeen)
+    {
+        $this->lastRecordSeen = $lastRecordSeen;
+
+        return $this;
+    }
+
+    /**
+     * Get lastRecordSeen
+     *
+     * @return integer 
+     */
+    public function getLastRecordSeen()
+    {
+        return $this->lastRecordSeen;
+    }
+
+    /**
+     * Set lastRecordDelivered
+     *
+     * @param integer $lastRecordDelivered
+     * @return GroupMessageThread
+     */
+    public function setLastRecordDelivered($lastRecordDelivered)
+    {
+        $this->lastRecordDelivered = $lastRecordDelivered;
+
+        return $this;
+    }
+
+    /**
+     * Get lastRecordDelivered
+     *
+     * @return integer 
+     */
+    public function getLastRecordDelivered()
+    {
+        return $this->lastRecordDelivered;
+    }
+
+    /**
+     * Set lastClientSeen
+     *
+     * @param integer $lastClientSeen
+     * @return GroupMessageThread
+     */
+    public function setLastClientSeen($lastClientSeen)
+    {
+        $this->lastClientSeen = $lastClientSeen;
+
+        return $this;
+    }
+
+    /**
+     * Get lastClientSeen
+     *
+     * @return integer 
+     */
+    public function getLastClientSeen()
+    {
+        return $this->lastClientSeen;
+    }
+
+    /**
+     * Set lastClientDelivered
+     *
+     * @param integer $lastClientDelivered
+     * @return GroupMessageThread
+     */
+    public function setLastClientDelivered($lastClientDelivered)
+    {
+        $this->lastClientDelivered = $lastClientDelivered;
+
+        return $this;
+    }
+
+    /**
+     * Get lastClientDelivered
+     *
+     * @return integer 
+     */
+    public function getLastClientDelivered()
+    {
+        return $this->lastClientDelivered;
+    }
+
+    /**
+     * Set record
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $record
+     * @return GroupMessageThread
+     */
+    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    {
+        $this->record = $record;
+
+        return $this;
+    }
+
+    /**
+     * Get record
+     *
+     * @return \Darkish\CategoryBundle\Entity\Record 
+     */
+    public function getRecord()
+    {
+        return $this->record;
+    }
+
+    /**
+     * Add messages
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $messages
+     * @return GroupMessageThread
+     */
+    public function addMessage(\Darkish\CategoryBundle\Entity\Message $messages)
+    {
+        $this->messages[] = $messages;
+
+        return $this;
+    }
+
+    /**
+     * Remove messages
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $messages
+     */
+    public function removeMessage(\Darkish\CategoryBundle\Entity\Message $messages)
+    {
+        $this->messages->removeElement($messages);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

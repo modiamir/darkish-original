@@ -345,6 +345,14 @@ body {
                                     left: 5px;
                                     font-size: 11px;
                                 }
+                                .delete-button {
+                                    background-color: transparent;
+                                    border:none;
+                                    position: absolute;
+                                    left: 0;
+                                    bottom: 0;
+                                    color: rgb(166, 97, 97);
+                                }
                             }
                         }
                     }

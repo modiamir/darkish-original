@@ -52,6 +52,17 @@ class Message
 
 
     /**
+     * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
+     */
+    protected $deletedByRecord = false;
+
+    /**
+     * @ORM\Column(name="deleted_by_client", type="boolean", options={"default"=false})
+     */
+    protected $deletedByClient = false;
+
+
+    /**
      * Get id
      *
      * @return integer 
