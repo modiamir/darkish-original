@@ -74,7 +74,7 @@
 					{{message.created | toDate | amDateFormat:'jYYYY/jM/jD, h:mm'}}
 					</span>
 					<span class="delivered" 
-						  ng-show="message.from == 'record' && selectedThread.last_client_delivered == message.id ">
+						  ng-show="message.from == 'record' && selectedThread.last_client_delivered == message.id && selectedThread.last_client_seen != message.id">
 						دریافت شده
 					</span>
 					<span class="seen"
