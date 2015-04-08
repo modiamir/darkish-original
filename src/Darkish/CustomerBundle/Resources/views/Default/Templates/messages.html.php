@@ -56,7 +56,7 @@
 		<div ng-show="selectedThread.id" class="messages-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
-				<li class="message" ng-repeat="message in currentMessages | orderBy:'id'"
+				<li class="message" ng-repeat="message in currentMessages | unique:id |orderBy:'id'"
 					ng-class="
 					{
 						'pull-right': message.from == 'record',

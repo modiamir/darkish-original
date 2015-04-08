@@ -1,5 +1,5 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
-								'ngPasswordStrength', 'validation.match', 'angularMoment']);
+								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
