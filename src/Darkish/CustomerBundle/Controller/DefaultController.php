@@ -168,7 +168,18 @@ class DefaultController extends Controller
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }
-        $threads = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MessageThread')->findBy(array('record'=>$user->getRecord()->getId()));
+        // $threads = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MessageThread')->findBy(array('record'=>$user->getRecord()->getId()));
+        // $qb =  $this->getDoctrine()
+        //             ->getRepository('DarkishCategoryBundle:MessageThread')
+        //             ->createQueryBuilder('th');
+        // $qb->where('th.record = :rid')->setParameter('rid', $user->getRecord()->getId());
+        // $threads = $qb->getQuery()->getResult();
+        // 
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT th from \Darkish\CategoryBundle\Entity\MessageThread th 
+            WHERE th.record = :rid AND  th.deletedByRecord = 0");
+        $query->setParameter('rid', $user->getRecord()->getId());
+        $threads = $query->getResult();
         $oldLastMessageId = $user->getRecord()->getLastMessageRecieve();
         $lastMessageId = 0;
         foreach($threads as $thread) {
@@ -207,6 +218,7 @@ class DefaultController extends Controller
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Message');
         $qb = $repo->createQueryBuilder('m');
         $qb->where('m.thread = :thid')->setParameter('thid', $thread->getId());
+        $qb->andWhere('m.deletedByRecord = :f')->setParameter('f', false);
         if($lastMessage) {
             // $qb->where('m.id < :lastMessage')->setParameter('lastMessage', $lastMessage);
             $qb->setFirstResult($lastMessage);
@@ -408,6 +420,8 @@ class DefaultController extends Controller
 
         if(count($res)){
             $thread = $res[0];
+            $thread->setDeletedByRecord(false);
+            $thread->setDeletedByClient(false);
         } else{
             $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
             $thread->setRecord($record);
@@ -451,6 +465,8 @@ class DefaultController extends Controller
         $qb->join('th.record', 'r', 'WITH', 'r.id = :rid')
            ->setParameter('rid', $user->getRecord()->getId());
         $qb->where('m.id > :last')->setParameter('last', $last);
+        $qb->andWhere('th.deletedByRecord = :f')->setParameter('f', false);
+        $qb->andWhere('m.deletedByRecord = :f')->setParameter('f', false);
 
         $res = $qb->getQuery()->getResult();
 
@@ -459,6 +475,37 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("customer/ajax/delete/{thread}", defaults={"_format" = "json"})
+     * @Method({"DELETE"})
+     */
+    public function deleteThread(MessageThread $thread) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+            throw new AccessDeniedException();   
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            "UPDATE \Darkish\CategoryBundle\Entity\Message m SET m.deletedByRecord = 1 WHERE m.thread = :thid"
+        );
+        $query->setParameter('thid', $thread->getId());
+
+        $query->execute();
+
+        $thread->setDeletedByRecord(true);
+        $em->persist($thread);
+        $em->flush();
+
+        return new JsonResponse(array('Done'));
+
+    }
 
 
     /**

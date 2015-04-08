@@ -21,6 +21,9 @@
 						<span ng-show="thread.last_message.id > thread.last_record_seen" class="hasnew">
 							جدید
 						</span>
+						<button class="delete-button" ng-click="delete(thread);$event.stopPropagation();">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
 					</div>
 
 					<div class="group" ng-show="thread.thread_type == 'group'">
@@ -78,6 +81,7 @@
 						  ng-show="message.from == 'record' && selectedThread.last_client_seen == message.id">
 						دیده شده
 					</span>
+					
 
 				</li>
 			</ul>

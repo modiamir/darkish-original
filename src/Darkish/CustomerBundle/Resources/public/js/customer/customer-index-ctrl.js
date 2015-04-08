@@ -330,7 +330,7 @@ customerApp.controller('HtmlPageCtrl', ['$scope', function($scope){
 }])
 
 customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http', '$timeout', '$filter',
-  '$interval', function($scope, $window, threads, $http, $timeout, $filter, $interval){
+  '$interval', 'SweetAlert', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert){
   $scope.threads = threads.threads;
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
@@ -464,6 +464,9 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
               th.last_record_seen = value.id;
               th.last_record_delivered = value.id;
               $scope.currentMessages.push(value);
+              $timeout(function(){
+                $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+              }, 100);
             } else {
               th.last_message.id = value.id;
               th.last_message.created = value.created;
@@ -495,6 +498,34 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.showGroupMessageForm = function() {
     $scope.selectedThread = {};
     $scope.groupMessageForm = true;
+  }
+
+  $scope.delete = function(thread) {
+    SweetAlert.swal({
+       title: "آیا از حذف اطمینان دارید؟",
+       text: "این عملیات قابل برگشت نیست!",
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "بله, حذف کن!",
+       cancelButtonText: "انصراف",
+       closeOnConfirm: false}, 
+    function(){ 
+      $http({
+        method: 'DELETE',
+        url: './customer/ajax/delete/'+thread.id,
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param({_method: 'DELETE'})
+      }).then(
+        function(response) {
+          var index = $scope.threads.indexOf(thread);
+          delete($scope.threads[index]);
+          SweetAlert.swal("حذف انجام شد.", "", "success");   
+        }
+      )
+
+       
+    });
   }
 
   $scope.submitGroupMessage = function() {

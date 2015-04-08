@@ -68,6 +68,16 @@ class MessageThread
     protected $lastClientDelivered = 0;
 
 
+    /**
+     * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
+     */
+    protected $deletedByRecord = false;
+
+    /**
+     * @ORM\Column(name="deleted_by_client", type="boolean", options={"default"=false})
+     */
+    protected $deletedByClient = false;
+
 
     /**
      * Get id
@@ -240,5 +250,51 @@ class MessageThread
     public function getLastClientDelivered()
     {
         return $this->lastClientDelivered;
+    }
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return MessageThread
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return MessageThread
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
     }
 }
