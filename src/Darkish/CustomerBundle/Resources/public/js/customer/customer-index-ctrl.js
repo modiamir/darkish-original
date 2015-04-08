@@ -487,6 +487,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           }
           
         });
+        console.log($scope.currentMessages);
       },
       function(responseErr) {
 
