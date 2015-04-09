@@ -709,6 +709,31 @@ class Record
      */
     private $onlineMarket;
 
+
+    /**
+     * @ORM\Column(name="MarketDescription", type="text", nullable=true)
+     */
+    private $marketDescription;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="recordForMarketBanner")
+     * @ORM\JoinColumn(name="MarketBanner", referencedColumnName="id")
+     */
+    private $marketBanner;
+
+    /**
+     * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record")
+     */
+    private $marketGroups;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Template")
+     * @ORM\JoinColumn(name="MarketTemplate", referencedColumnName="id")
+     */
+    private $marketTemplate;
+
+
     /**
      * @var boolean
      *
@@ -2897,7 +2922,7 @@ class Record
     }
 
     
-
+    
     
 
     
@@ -3554,5 +3579,130 @@ class Record
     public function getMessageThreads()
     {
         return $this->messageThreads;
+    }
+
+    /**
+     * Set lastMessageRecieve
+     *
+     * @param integer $lastMessageRecieve
+     * @return Record
+     */
+    public function setLastMessageRecieve($lastMessageRecieve)
+    {
+        $this->lastMessageRecieve = $lastMessageRecieve;
+
+        return $this;
+    }
+
+    /**
+     * Get lastMessageRecieve
+     *
+     * @return integer 
+     */
+    public function getLastMessageRecieve()
+    {
+        return $this->lastMessageRecieve;
+    }
+
+    /**
+     * Set marketDescription
+     *
+     * @param string $marketDescription
+     * @return Record
+     */
+    public function setMarketDescription($marketDescription)
+    {
+        $this->marketDescription = $marketDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get marketDescription
+     *
+     * @return string 
+     */
+    public function getMarketDescription()
+    {
+        return $this->marketDescription;
+    }
+
+    /**
+     * Set marketBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $marketBanner
+     * @return Record
+     */
+    public function setMarketBanner(\Darkish\CategoryBundle\Entity\ManagedFile $marketBanner = null)
+    {
+        $this->marketBanner = $marketBanner;
+
+        return $this;
+    }
+
+    /**
+     * Get marketBanner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getMarketBanner()
+    {
+        return $this->marketBanner;
+    }
+
+    /**
+     * Set marketTemplate
+     *
+     * @param \Darkish\CategoryBundle\Entity\Template $marketTemplate
+     * @return Record
+     */
+    public function setMarketTemplate(\Darkish\CategoryBundle\Entity\Template $marketTemplate = null)
+    {
+        $this->marketTemplate = $marketTemplate;
+
+        return $this;
+    }
+
+    /**
+     * Get marketTemplate
+     *
+     * @return \Darkish\CategoryBundle\Entity\Template 
+     */
+    public function getMarketTemplate()
+    {
+        return $this->marketTemplate;
+    }
+
+    /**
+     * Add marketGroups
+     *
+     * @param \Darkish\CategoryBundle\Entity\StoreGroup $marketGroups
+     * @return Record
+     */
+    public function addMarketGroup(\Darkish\CategoryBundle\Entity\StoreGroup $marketGroups)
+    {
+        $this->marketGroups[] = $marketGroups;
+
+        return $this;
+    }
+
+    /**
+     * Remove marketGroups
+     *
+     * @param \Darkish\CategoryBundle\Entity\StoreGroup $marketGroups
+     */
+    public function removeMarketGroup(\Darkish\CategoryBundle\Entity\StoreGroup $marketGroups)
+    {
+        $this->marketGroups->removeElement($marketGroups);
+    }
+
+    /**
+     * Get marketGroups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMarketGroups()
+    {
+        return $this->marketGroups;
     }
 }
