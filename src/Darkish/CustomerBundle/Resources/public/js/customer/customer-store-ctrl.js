@@ -46,9 +46,10 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
   		})
   	}).then(
   		function(response){
-  			$scope.storeData.market_description = $scope.store.market_description;
-  			$scope.storeData.market_banner = $scope.store.market_banner;
-  			$scope.storeData.market_template = $scope.store.market_template;
+  			$scope.storeData.market_description = response.data.market_description;
+  			$scope.storeData.market_banner = response.data.market_banner;
+  			$scope.storeData.market_template = response.data.market_template;
+  			$scope.storeData.market_groups = response.data.market_groups;
   			SweetAlert.swal({
   				title: "ذخیره انجام شد.",
   				text: "",

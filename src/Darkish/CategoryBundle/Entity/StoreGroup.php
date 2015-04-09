@@ -47,28 +47,7 @@ class StoreGroup
         return $this->id;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return StoreGroup
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
+    
 
     /**
      * Set record
@@ -91,5 +70,28 @@ class StoreGroup
     public function getRecord()
     {
         return $this->record;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return StoreGroup
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
