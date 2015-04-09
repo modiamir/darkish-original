@@ -1,4 +1,6 @@
 <div class="store-edit">
+	<h4>ویرایش مشخصات فروشگاه</h4>
+	<hr/>
 	<form>
 		<label for="store-description">توضیحات</label>
 		<textarea id="store-description" ng-model="store.market_description" 

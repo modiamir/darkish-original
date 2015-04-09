@@ -2,8 +2,10 @@
 <div class="store-page">
 	<div class="row links-row">
 		<div class="col-xs-12">
-			<a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
-			<a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
+			<div class="well"> 
+				<a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
+				<a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
+			</div>
 		</div>
 	</div>
 	<div class="row main-row">
@@ -15,6 +17,8 @@
 			<a ng-hide="state.current.name == 'store'" class="btn btn-primary btn-sm return-button" 
 				ui-sref="store">بازگشت</a>
 			<div ng-show="state.current.name == 'store'" class="well store-details">
+				<h4>مشخصات فروشگاه</h4>
+				<hr/>
 				<label>توضیحات</label>
 				<span class="store-description" ng-bind="storeData.market_description"></span>
 				<label>بنر فروشگاه</label>
