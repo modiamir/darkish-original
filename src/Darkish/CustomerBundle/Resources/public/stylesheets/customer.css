@@ -542,55 +542,57 @@ body .main-view .store-page .main-row .child-states .return-button {
 body .main-view .store-page .main-row .child-states .store-details .banner-image {
   width: 100%;
   margin-bottom: 10px;
+  border: 2px solid #dce4ec;
+  border-radius: 4px;
 }
-/* line 549, ../sass/customer.scss */
+/* line 551, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-details .store-description {
   display: block;
   margin-bottom: 10px;
 }
-/* line 560, ../sass/customer.scss */
+/* line 562, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-details .store-groups {
   display: inline-block;
   width: 100%;
 }
-/* line 563, ../sass/customer.scss */
+/* line 565, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-details .store-groups li {
   float: right;
   margin: 5px 0;
   display: inline-block;
   clear: both;
 }
-/* line 571, ../sass/customer.scss */
+/* line 573, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-details .store-template {
   display: block;
 }
-/* line 578, ../sass/customer.scss */
+/* line 580, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-groups .decipher-tags {
   margin: 0;
   background: white;
   border: 2px solid #dce4ec;
   border-radius: 4px;
 }
-/* line 584, ../sass/customer.scss */
+/* line 586, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-groups .decipher-tags .decipher-tags-input {
   margin-top: 10px;
   border: 1px solid #c8c8c8;
   border-radius: 4px;
 }
-/* line 597, ../sass/customer.scss */
+/* line 599, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-banner .file-select {
   padding: 0;
   border: 2px solid #dce4ec;
   margin-bottom: 10px;
   position: relative;
 }
-/* line 602, ../sass/customer.scss */
+/* line 604, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-banner .file-select .banner-image {
   width: 100%;
   margin: auto;
   border-radius: 4px;
 }
-/* line 607, ../sass/customer.scss */
+/* line 609, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-banner .file-select .image-upload-tip {
   position: absolute;
   right: 10px;
@@ -599,63 +601,63 @@ body .main-view .store-page .main-row .child-states .store-edit .store-banner .f
   background-color: rgba(120, 120, 120, 0.5);
   color: white;
 }
-/* line 620, ../sass/customer.scss */
+/* line 622, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-group-hint {
   display: block;
   color: gray;
   font-size: 12px;
 }
-/* line 626, ../sass/customer.scss */
+/* line 628, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit .store-groups {
   margin-bottom: 10px;
 }
-/* line 630, ../sass/customer.scss */
+/* line 632, ../sass/customer.scss */
 body .main-view .store-page .main-row .child-states .store-edit #store-template {
   padding-top: 0;
   padding-bottom: 0;
   margin-bottom: 10px;
 }
 @media (max-width: 767px) {
-  /* line 641, ../sass/customer.scss */
+  /* line 643, ../sass/customer.scss */
   body .main-view .profile-page {
     margin: -14px;
   }
-  /* line 646, ../sass/customer.scss */
+  /* line 648, ../sass/customer.scss */
   body .main-view .profile-edit .save-btn {
     width: 49%;
   }
-  /* line 649, ../sass/customer.scss */
+  /* line 651, ../sass/customer.scss */
   body .main-view .profile-edit .cancel-btn {
     width: 49%;
     float: left;
   }
-  /* line 657, ../sass/customer.scss */
+  /* line 659, ../sass/customer.scss */
   body .main-view .messages-page .threads .inner {
     margin-right: -12px;
     margin-left: -12px;
   }
-  /* line 664, ../sass/customer.scss */
+  /* line 666, ../sass/customer.scss */
   body .main-view .messages-page .messages .inner {
     margin-right: -12px;
     margin-left: -12px;
   }
-  /* line 671, ../sass/customer.scss */
+  /* line 673, ../sass/customer.scss */
   body .main-view .page-title {
     text-align: center;
   }
 }
 
-/* line 682, ../sass/customer.scss */
+/* line 684, ../sass/customer.scss */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: yekan;
 }
 
-/* line 686, ../sass/customer.scss */
+/* line 688, ../sass/customer.scss */
 .dropdown-toggle {
   cursor: pointer;
 }
 
-/* line 691, ../sass/customer.scss */
+/* line 693, ../sass/customer.scss */
 .gly-spin {
   -webkit-animation: spin 2s infinite linear;
   -moz-animation: spin 2s infinite linear;
@@ -664,56 +666,56 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @-moz-keyframes spin {
-  /* line 698, ../sass/customer.scss */
+  /* line 700, ../sass/customer.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 701, ../sass/customer.scss */
+  /* line 703, ../sass/customer.scss */
   100% {
     -moz-transform: rotate(359deg);
   }
 }
 
 @-webkit-keyframes spin {
-  /* line 706, ../sass/customer.scss */
+  /* line 708, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 709, ../sass/customer.scss */
+  /* line 711, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
 
 @-o-keyframes spin {
-  /* line 714, ../sass/customer.scss */
+  /* line 716, ../sass/customer.scss */
   0% {
     -o-transform: rotate(0deg);
   }
 
-  /* line 717, ../sass/customer.scss */
+  /* line 719, ../sass/customer.scss */
   100% {
     -o-transform: rotate(359deg);
   }
 }
 
 @keyframes spin {
-  /* line 722, ../sass/customer.scss */
+  /* line 724, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
-  /* line 726, ../sass/customer.scss */
+  /* line 728, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
-/* line 731, ../sass/customer.scss */
+/* line 733, ../sass/customer.scss */
 .gly-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
@@ -723,7 +725,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(90deg);
 }
 
-/* line 739, ../sass/customer.scss */
+/* line 741, ../sass/customer.scss */
 .gly-rotate-180 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   -webkit-transform: rotate(180deg);
@@ -733,7 +735,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(180deg);
 }
 
-/* line 747, ../sass/customer.scss */
+/* line 749, ../sass/customer.scss */
 .gly-rotate-270 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   -webkit-transform: rotate(270deg);
@@ -743,7 +745,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(270deg);
 }
 
-/* line 755, ../sass/customer.scss */
+/* line 757, ../sass/customer.scss */
 .gly-flip-horizontal {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
   -webkit-transform: scale(-1, 1);
@@ -753,7 +755,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: scale(-1, 1);
 }
 
-/* line 763, ../sass/customer.scss */
+/* line 765, ../sass/customer.scss */
 .gly-flip-vertical {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
   -webkit-transform: scale(1, -1);
