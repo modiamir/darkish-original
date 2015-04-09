@@ -555,13 +555,21 @@ body {
 
                         }
 
+
+
                         .store-groups {
                             display: inline-block;
                             width: 100%;
                             li {
                                 float: right;
-                                margin: 5px;
+                                margin: 5px 0;
+                                display: inline-block;
+                                clear: both;
                             }
+                        }
+
+                        .store-template {
+                            display: block;
                         }
                     }
 
@@ -606,6 +614,17 @@ body {
                                 }
                             }
                             
+                        }
+
+
+                        .store-group-hint {
+                            display: block;
+                            color: gray;
+                            font-size: 12px;
+                        }
+
+                        .store-groups {
+                            margin-bottom: 10px;
                         }
 
                         #store-template {
