@@ -799,6 +799,15 @@ class DefaultController extends Controller
             $record->setMarketBanner($banner);
         }
 
+        if($request->get('template')) {
+            $templateReq = $request->get('template');
+            $template = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Template')->find($templateReq['id']);
+            if(!$template) {
+                throw new \Exception("Template is not valid", 404);
+            }
+            $record->setMarketTemplate($template);   
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($record);
         $em->flush();

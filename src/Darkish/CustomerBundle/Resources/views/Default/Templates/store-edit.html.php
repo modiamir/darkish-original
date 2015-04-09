@@ -1,15 +1,11 @@
 <div class="store-edit">
 	<form>
-		<label for="store-description"></label>
+		<label for="store-description">توضیحات</label>
 		<textarea id="store-description" ng-model="store.market_description" 
 				  class="form-control"> </textarea>
 
-		<label for="store-groups"></label>
-		<div class="store-groups">
-			<tags model="store.market_groups"></tags>
-		</div>
 
-		<label for="store-banner"></label>
+		<label for="store-banner">بنر</label>
 		<div class="store-banner">
 			<div class="text-center">
 			  <label class="file-select btn">
@@ -39,10 +35,18 @@
 
 			</div>
 		</div>
-		
 
 		<label for="store-template">قالب</label>
 	    <select id="store-template" class="form-control" ng-model="store.market_template" ng-options="template.title for template in templates"></select>
+
+		<label for="store-groups">گروه ها</label>
+		<span class="store-group-hint">برای افزودن گروه در فضای خالی باکس زیر کلیک کنید.</span>
+		<div class="store-groups">
+			<tags model="store.market_groups"></tags>
+		</div>
+
+
+
 
 	    <button ng-click="saveStoreDetails()" class="btn btn-default btn-sm">ذخیره</button>
     </form>
