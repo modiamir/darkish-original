@@ -36,6 +36,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Darkish\CategoryBundle\Entity\Message;
 use Darkish\CategoryBundle\Entity\MessageThread;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 class DefaultController extends Controller
@@ -784,7 +785,7 @@ class DefaultController extends Controller
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }
-
+        $em = $this->getDoctrine()->getManager();
         $record = $user->getRecord();
 
         if($request->get('description')) {
@@ -808,12 +809,62 @@ class DefaultController extends Controller
             $record->setMarketTemplate($template);   
         }
 
+        if($request->get('groups')) {
+            $groupsReq = $request->get('groups');
+            $currentGroups = $record->getMarketGroups();
+            if($currentGroups) {
+                $newGroups = new ArrayCollection();
+                $eCollec = new ArrayCollection();
+                $neCollec = new ArrayCollection();
+                $remainCollec = new ArrayCollection();
+                
+                foreach ($groupsReq as $key => $value) {
+                    if(isset($value['id'])) {
+                        $group = $this->getDoctrine()->getRepository('DarkishCategoryBundle:StoreGroup')->find($value['id']);
+                        $newGroups->add($group);
+                        $eCollec->add($group);
+                    } else {
+                        $group = new \Darkish\CategoryBundle\Entity\StoreGroup();
+                        $group->setName($value['name']);
+                        $group->setRecord($record);
+                        $em->persist($group);
+                        $newGroups->add($group);
+                        $neCollec->add($group);
+                    }
+                }
+
+                $currentGroupsIterator = $currentGroups->getIterator();
+                while($currentGroupsIterator->valid()) {
+                    if(!$eCollec->contains($currentGroupsIterator->current())) {
+                        $currentGroups->removeElement($currentGroupsIterator->current());
+                        $em->remove($currentGroupsIterator->current());
+                    }
+                    $currentGroupsIterator->next();
+                }
+
+                $neCollecIterator = $neCollec->getIterator();
+                while($neCollecIterator->valid()) {
+                    $currentGroups->add($neCollecIterator->current());
+                    $neCollecIterator->next();
+                }
+
+            }
+
+
+
+            
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($record);
         $em->flush();
         
+        $storeData['market_description'] = $record->getMarketDescription();
+        $storeData['market_banner'] = $record->getMarketBanner();
+        $storeData['market_template'] = $record->getMarketTemplate();
+        $storeData['market_groups'] = $record->getMarketGroups();
 
-        return new Response($this->get('jms_serializer')->serialize(array("done"), 'json'));
+        return new Response($this->get('jms_serializer')->serialize($storeData, 'json', SerializationContext::create()->setGroups(array('record.store'))));
 
     }
 }
