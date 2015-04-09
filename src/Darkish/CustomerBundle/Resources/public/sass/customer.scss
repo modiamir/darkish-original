@@ -323,6 +323,7 @@ body {
                                 }
                                 img {
                                     float: right;
+                                    border-width: 2px;
                                 }
                                 .middle {
                                     margin-right: 60px;
@@ -421,13 +422,15 @@ body {
                             &.record {
                                 margin-right: 20px;
                                 .text{
-                                    background-color: rgba(24, 148, 124, 0.65);
-                                    border-color: rgb(24, 148, 124);
+                                    background-color: rgba(24, 148, 124, 0.19);
+                                    border-color: #18947c;
                                     float: right;
                                     margin-right: 10px;
+                                    color: rgb(60, 60, 60);
                                 }
                                 img {
                                     float: right;
+                                    border-width: 1px;
                                 }
                                 .time {
                                     float: left;
@@ -437,13 +440,15 @@ body {
                             &.client {
                                 margin-left: 20px;
                                 .text{
-                                    background-color: rgba(63, 129, 174, 0.65);
-                                    border-color: rgb(63, 129, 174);
+                                    background-color: rgba(63, 129, 174, 0.29);
+                                    border-color: #3f81ae;
                                     float: left;
                                     margin-left: 10px;
+                                    color: rgb(60,60,60);
                                 }
                                 img {
                                     float: left;
+                                    border-width: 1px;
                                 }
                                 .time {
                                     float: right;
@@ -520,9 +525,102 @@ body {
             }
         }
 
+        .store-page {
+            .links-row {
+                margin-bottom: 20px;
+            }
+
+            .main-row {
+
+                .products-list {
+                }
+
+                .child-states {
+                    .return-button {
+                        margin-bottom: 5px;
+                    }
+
+                    .store-details {
+                        .banner-image {
+                            width: 100%;
+                            margin-bottom: 10px;
+                        }
+
+                        .store-description {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+
+                        .store-groups-label {
+
+                        }
+
+                        .store-groups {
+                            display: inline-block;
+                            width: 100%;
+                            li {
+                                float: right;
+                                margin: 5px;
+                            }
+                        }
+                    }
+
+                    .store-edit {
+                        .store-groups {
+                            .decipher-tags {
+                                margin: 0;
+                                background: white;
+                                border: 2px solid #dce4ec;
+                                border-radius: 4px;
+
+                                .decipher-tags-input {
+                                    margin-top: 10px;
+                                    border: 1px solid rgb(200, 200, 200);
+                                    border-radius: 4px;
+
+                                    &.ng-valid, &.ng-dirty.ng-valid {
+                                        // border: 2px solid green;
+                                    }
+                                }
+                            }
+                        }
+
+                        .store-banner {
+                            .file-select {
+                                padding: 0;
+                                border: 2px solid #dce4ec;
+                                margin-bottom: 10px;
+                                position: relative;
+                                .banner-image {
+                                    width: 100%;
+                                    margin: auto;
+                                    border-radius: 4px;
+                                }    
+                                .image-upload-tip {
+                                    position: absolute;
+                                    right: 10px;
+                                    bottom: 10px;
+                                    padding: 3px 10px;
+                                    background-color: rgba(120,120,120, 0.5);
+                                    color: white;
+                                }
+                            }
+                            
+                        }
+
+                        #store-template {
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
         @media (max-width: $screen-xs-max) {
             .profile-page {
-                margin: -14px;    
+                margin: -14px;
             }
             
             .profile-edit {

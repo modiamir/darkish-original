@@ -126,6 +126,30 @@ class DefaultController extends Controller
                 }
                 break;
 
+            case 'store-product-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+            case 'store-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+            case 'store-create.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
             case 'users.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
                 if($assistantAccess->contains($role)) {
@@ -712,5 +736,75 @@ class DefaultController extends Controller
         catch (\Exception $e) {
             return new Response( $e->getMessage(), 401);
         }
+    }
+
+    /**
+     * @Route("customer/ajax/get_store_data", defaults={"_format" = "json"})
+     * @Method({"GET"})
+     */
+    public function getStoreData() {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+
+        $record = $user->getRecord();
+
+        $storeData = array();
+        $storeData['market_description'] = $record->getMarketDescription();
+        $storeData['market_banner'] = $record->getMarketBanner();
+        $storeData['market_template'] = $record->getMarketTemplate();
+        $storeData['market_groups'] = $record->getMarketGroups();
+
+
+        return new Response($this->get('jms_serializer')->serialize($storeData, 'json', SerializationContext::create()->setGroups(array('record.store'))));
+    }
+
+    /**
+     * @Route("customer/ajax/get_templates", defaults={"_format" = "json"})
+     */
+    public function getTemplates() {
+        $templates = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Template')->findAll();
+        return new Response($this->get('jms_serializer')->serialize($templates, 'json', SerializationContext::create()->setGroups(array('template.details'))));
+    }
+
+
+    /**
+     * @Route("customer/ajax/save_store_details", defaults={"_format" = "json"})
+     * @Method({"POST"})
+     */
+    public function saveStoreDetails(Request $request) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+
+        $record = $user->getRecord();
+
+        if($request->get('description')) {
+            $record->setMarketDescription($request->get('description'));    
+        }
+        if($request->get('banner')) {
+            $bannerReq = $request->get('banner');
+            $banner = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($bannerReq['id']);
+            if(!$banner) {
+                throw new \Exception("Banner is not valid", 404);
+            }
+            $record->setMarketBanner($banner);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($record);
+        $em->flush();
+        
+
+        return new Response($this->get('jms_serializer')->serialize(array("done"), 'json'));
+
     }
 }

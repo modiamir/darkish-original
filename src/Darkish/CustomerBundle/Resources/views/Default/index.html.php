@@ -25,6 +25,10 @@
     <!-- Bootstrap-rtl CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') ?>" rel="stylesheet" type="text/css" />
 
+    <!-- Angular-tags CSS -->
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.css') ?>" rel="stylesheet" type="text/css" />
+
+
     <!-- Custom styles for this template -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/darkish-font.css') ?>" rel="stylesheet">
@@ -235,10 +239,15 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-utils/ui-utils.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
-
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
     
     
     
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-index-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
 </body>
 </html>
