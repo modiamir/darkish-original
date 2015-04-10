@@ -1,0 +1,20 @@
+md-checkbox .md-container {
+	float: right;
+}
+
+md-checkbox .md-label {
+	margin-right: 10px;
+	margin-left: inherit;
+}
+
+md-input-container .md-placeholder, md-input-container label:not(.md-no-float) {
+	padding-left: inherit;
+	padding-right: 2px;
+	transform-origin: right top;
+}
+
+
+md-select {
+	display: inline-block;
+	margin-top: 2.1em;
+}

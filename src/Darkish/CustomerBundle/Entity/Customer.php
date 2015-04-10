@@ -27,7 +27,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "product.list", "product.details"})
      */
     private $id;
 

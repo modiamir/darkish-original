@@ -1,0 +1,129 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Product
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Product
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="code", type="string")
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(name="title", type="string")
+     */
+    private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="StoreGroup")
+     */
+    private $group;
+
+    /**
+     * @ORM\Column(name="sort", type="integer", options={"default" = 0})
+     */
+    private $sort = 0;
+
+    /**
+     * @ORM\Column(name="special_sort", type="string")
+     */
+    private $specialText;
+
+    /**
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(name="price", type="bigint")
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(name="discount_percent", type="smallint")
+     */
+    private $discountPercent;
+
+    /**
+     * @ORM\Column(name="availability", type="smallint")
+     */
+    private $availability;
+
+    /**
+     * @ORM\Column(name="special_tag", type="smallint")
+     */
+    private $specialTag;    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Record")
+     */
+    private $record;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     */
+    private $customer;
+
+    /**
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     */
+    private $firstPhoto;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     */
+    private $secondPhoto;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     */
+    private $thirdPhoto;
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

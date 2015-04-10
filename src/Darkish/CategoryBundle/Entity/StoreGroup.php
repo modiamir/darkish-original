@@ -19,7 +19,7 @@ class StoreGroup
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"storegroup.list", "storegroup.details", "record.store"})
+     * @Groups({"storegroup.list", "storegroup.details", "record.store", "product.list", "product.details"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class StoreGroup
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Groups({"storegroup.list", "storegroup.details", "record.store"})
+     * @Groups({"storegroup.list", "storegroup.details", "record.store", "product.list", "product.details"})
      */
     private $name;
 

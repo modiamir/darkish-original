@@ -21,6 +21,12 @@ body {
         font-family: yekan;
     }
 
+    .well {
+        // padding: 5px 10px;
+        margin-bottom: 10px;
+        
+    }
+
     .img-circle {
         border: 3px solid;
     }
@@ -59,15 +65,22 @@ body {
     input, .form-control  {
         &.ng-dirty {
             &.ng-valid {
-                border: 2px solid green;        
+                border-bottom: 2px solid green;        
             }
             &.ng-invalid {
-                border: 2px solid red;           
+                border-bottom: 2px solid red;           
             }
         }
 
 
         
+    }
+
+    nav.navbar {
+        margin-bottom: 10px;
+        &.small-display-nav {
+            margin-bottom: 5px;
+        }
     }
 
     .small-display-nav {
@@ -287,248 +300,88 @@ body {
     }
 
     .main-view {
-        .messages-page {
-            .threads {
-                .group-message-button {
-                    margin-bottom: 10px;
-                    width: 100%;
+        .page {
+            .master {
+                .master-buttons {
+                    padding: 5px;   
                 }
-                .inner {
+                .master-inner {
                     padding: 5px;
-                    ul {
-                        margin-bottom: 0;
-                        li {
-                            &.thread {
-                                min-height: 70px;
-                                padding: 5px 10px;
-                                background: white;
-                                border-bottom: 1px solid #ecf0f1;
-                                position: relative;
-                                cursor: pointer;
-                                &:hover {
-                                    background: #E0E6E8;
-                                }
-
-                                &.selected {
-                                    background: rgb(244, 244, 244);
-                                }
-
-                                &:first-child {
-                                    border-radius: 4px 4px 0 0;
-                                }
-
-                                &:last-child {
-                                    border-radius: 0 0 4px 4px;
-                                    border-bottom: none;
-                                }
-                                img {
-                                    float: right;
-                                    border-width: 2px;
-                                }
-                                .middle {
-                                    margin-right: 60px;
-                                    .username, .group-label {
-                                        display: block;
-                                    }
-                                    .group-label {
-                                        color: green;
-                                    }
-                                    .last-message {
-                                        display: block;
-                                        font-size: 13px;
-                                        color: rgb(179, 179, 179);
-                                    }
-                                    
-                                }
-                                .datetime {
-                                    position: absolute;
-                                    top: 10px;
-                                    left: 5px;
-                                    font-size: 11px;
-                                }
-                                .delete-button {
-                                    background-color: transparent;
-                                    border:none;
-                                    position: absolute;
-                                    left: 0;
-                                    bottom: 0;
-                                    color: rgb(166, 97, 97);
-                                }
-                            }
-                        }
-                    }
                 }
             }
-
-            .messages {
-                #return-box {
-                    background-color: rgb(247, 247, 247);
+            .details {
+                #details-header {
+                    background-color: #ecf0f1;
                     height: 40px;
+                    border-radius: 4px 4px 0 0;
+                    height: 55px;
+                    border-bottom: 1px solid #2c3e50;
                     .return-button {
                         margin-top: 5px;
                         margin-right: 10px;
                         float: right;
+                        background: transparent;
+                        border: 0;
+                        font-size: 25px;
+                        margin: 0;
+                        height: 100%;
+                        line-height: 55px;
+                        padding: 0;
+                        .icon {
+                            height: 100%;
+                            padding-top: 5px;
+                            line-height: 55px;
+                            width: 40px;
+                            text-align: center;
+                            border-radius: 0 4px 0 0;
+                            &:hover {
+                                background-color: rgb(224, 224, 224);
+                            }
+                        }
+                        &[disabled] {
+                            .icon {
+                                color: rgb(207, 207, 207);
+                                &:hover {
+                                    background-color: transparent;
+                                }
+                            }
+                            
+                        }
                     }
 
-                    .thread-name {
+                    .details-header-title {
                         margin-right: 30px;
                         float: right;
-                        margin-top: 5px;
+                        height: 55px;
+                        line-height: 50px;
                     }
+
+                    .details-header-button {
+                        float: left;
+                        margin-top: 11px;
+                        margin-left: 10px;
+                    }
+
                     &.fixed {
                         position: fixed;
                         top: 0;
                         left: 0;
                         right: 0;
-                    }
-                }
-                
-
-                .messages-inner {
-                    padding: 10px 0;
-                    background: #ecf0f1;
-                    border-radius: 4px 4px 0 0 ;
-                    max-height: 400px;
-                    overflow-y: scroll;
-                    .load-more {
-                        width: 100%;
-                        margin-top: -25px;
-                        border-radius: 4px 4px 0 0;
-                    }
-                    .message-list {
-                        display: inline-block;
-                        width: 100%;
-                        .message {
-                            clear: both;
-                            .text {
-                                color: white;
-                                padding: 10px 5px;
-                                border-radius: 4px;
-                                margin: 10px 0 0;
-                                font-size: 13px;
-                                min-width: 100px;
-                                max-width: 300px;
-                            }
-                            .time {
-                                clear: both;
-                                font-size: 12px;
-                            }
-                            img {
-                                margin: 10px 0 0;
-                                width: 40px;
-                                height: 40px;
-                                border-width: 2px;
-                            }
-                            &.record {
-                                margin-right: 20px;
-                                .text{
-                                    background-color: rgba(24, 148, 124, 0.19);
-                                    border-color: #18947c;
-                                    float: right;
-                                    margin-right: 10px;
-                                    color: rgb(60, 60, 60);
-                                }
-                                img {
-                                    float: right;
-                                    border-width: 1px;
-                                }
-                                .time {
-                                    float: left;
-                                }
-                            }
-
-                            &.client {
-                                margin-left: 20px;
-                                .text{
-                                    background-color: rgba(63, 129, 174, 0.29);
-                                    border-color: #3f81ae;
-                                    float: left;
-                                    margin-left: 10px;
-                                    color: rgb(60,60,60);
-                                }
-                                img {
-                                    float: left;
-                                    border-width: 1px;
-                                }
-                                .time {
-                                    float: right;
-                                }
-                            }
-                            .time {
-                                display: block;
-                            }
-                            .delivered, .seen {
-                                float: right;
-                                clear: both;
-                                font-size: 10px;
-                                color: gray;
-                            }
-                            .seen {
-
+                        z-index: 10;
+                        box-shadow: 0 2px 9px -4px black;
+                        .return-button {
+                            .icon {
+                                border-radius: 0;
                             }
                         }
-                    }    
+                    }
                 }
-                .message-submit {
-                    border: 2px solid #ecf0f1;
+
+                .details-inner {
                     border-radius: 0 0 4px 4px;
-                    display: inline-block;
-                    width: 100%;
-                    height: 55px;
-                    background-color: #F7F8F8;
-                    .message-text {
-                        height: 53px;
-                        input {
-                            border: 1px solid rgb(224, 224, 224);
-                            background: white;
-                            height: 36px;
-                            margin-top: 8px;
-                            font-size: 12px;
-                        }
-                    }
-                    .submit-button {
-                        height: 53px;
-                        line-height: 53px;
-                        button {
-                            padding: 0;
-                            margin: 0;
-                            height: inherit;
-                            border: none;
-                            background: transparent;
-                            .glyphicon {
-                                font-size: 20px;
-                                height: 53px;
-                                line-height: 53px;
-                                color: gray;
-                                cursor: pointer;
-                                &:hover {
-                                    color: rgb(64, 64, 64);
-                                }
-                                &.disable {
-                                    color: rgb(201, 201, 201);
-                                    cursor: auto;
-                                    &:hover {
-                                        color: gray;
-                                        color: rgb(201, 201, 201);
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-                .group-message-form-wrapper {
-                    .btn {
-                        margin-top: 10px;
-                    }
                 }
             }
-        }
 
-        .store-page {
-            .links-row {
-                margin-bottom: 20px;
-            }
 
             label {
                 color: rgb(72, 198, 169);
@@ -538,15 +391,239 @@ body {
                 border-color: rgb(205, 205, 205);
             }
 
-            .main-row {
+            &.messages-page {
 
+                .threads {
+                    .group-message-button {
+                        width: 100%;
+                    }
+                    .inner {
+                        ul {
+                            margin-bottom: 0;
+                            li {
+                                &.thread {
+                                    min-height: 70px;
+                                    padding: 5px 10px;
+                                    background: white;
+                                    border-bottom: 1px solid #ecf0f1;
+                                    position: relative;
+                                    cursor: pointer;
+                                    &:hover {
+                                        background: #E0E6E8;
+                                    }
+
+                                    &.selected {
+                                        background: rgb(244, 244, 244);
+                                    }
+
+                                    &:first-child {
+                                        border-radius: 4px 4px 0 0;
+                                    }
+
+                                    &:last-child {
+                                        border-radius: 0 0 4px 4px;
+                                        border-bottom: none;
+                                    }
+                                    img {
+                                        float: right;
+                                        border-width: 2px;
+                                    }
+                                    .middle {
+                                        margin-right: 60px;
+                                        .username, .group-label {
+                                            display: block;
+                                        }
+                                        .group-label {
+                                            color: green;
+                                        }
+                                        .last-message {
+                                            display: block;
+                                            font-size: 13px;
+                                            color: rgb(179, 179, 179);
+                                        }
+                                        
+                                    }
+                                    .datetime {
+                                        position: absolute;
+                                        top: 10px;
+                                        left: 5px;
+                                        font-size: 11px;
+                                    }
+                                    .delete-button {
+                                        background-color: transparent;
+                                        border:none;
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+                                        color: rgb(166, 97, 97);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .messages {
+                    
+                    
+
+                    .messages-inner {
+                        padding: 10px 0;
+                        background: #ecf0f1;
+                        border-radius: 0;
+                        max-height: 400px;
+                        overflow-y: scroll;
+                        .load-more {
+                            width: 100%;
+                            margin-top: -25px;
+                            border-radius: 0;
+                        }
+                        .message-list {
+                            display: inline-block;
+                            width: 100%;
+                            .message {
+                                clear: both;
+                                .text {
+                                    color: white;
+                                    padding: 10px 5px;
+                                    border-radius: 4px;
+                                    margin: 10px 0 0;
+                                    font-size: 13px;
+                                    min-width: 100px;
+                                    max-width: 300px;
+                                }
+                                .time {
+                                    clear: both;
+                                    font-size: 12px;
+                                }
+                                img {
+                                    margin: 10px 0 0;
+                                    width: 40px;
+                                    height: 40px;
+                                    border-width: 2px;
+                                }
+                                &.record {
+                                    margin-right: 20px;
+                                    .text{
+                                        background-color: rgba(24, 148, 124, 0.19);
+                                        border-color: #18947c;
+                                        float: right;
+                                        margin-right: 10px;
+                                        color: rgb(60, 60, 60);
+                                    }
+                                    img {
+                                        float: right;
+                                        border-width: 1px;
+                                    }
+                                    .time {
+                                        float: left;
+                                    }
+                                }
+
+                                &.client {
+                                    margin-left: 20px;
+                                    .text{
+                                        background-color: rgba(63, 129, 174, 0.29);
+                                        border-color: #3f81ae;
+                                        float: left;
+                                        margin-left: 10px;
+                                        color: rgb(60,60,60);
+                                    }
+                                    img {
+                                        float: left;
+                                        border-width: 1px;
+                                    }
+                                    .time {
+                                        float: right;
+                                    }
+                                }
+                                .time {
+                                    display: block;
+                                }
+                                .delivered, .seen {
+                                    float: right;
+                                    clear: both;
+                                    font-size: 10px;
+                                    color: gray;
+                                }
+                                .seen {
+
+                                }
+                            }
+                        }    
+                    }
+                    .message-submit {
+                        border: 2px solid #ecf0f1;
+                        border-radius: 0 0 4px 4px;
+                        display: inline-block;
+                        width: 100%;
+                        height: 55px;
+                        background-color: #F7F8F8;
+                        .message-text {
+                            height: 53px;
+                            input {
+                                border: 1px solid rgb(224, 224, 224);
+                                background: white;
+                                height: 36px;
+                                margin-top: 8px;
+                                font-size: 12px;
+                            }
+                        }
+                        .submit-button {
+                            height: 53px;
+                            line-height: 53px;
+                            button {
+                                padding: 0;
+                                margin: 0;
+                                height: inherit;
+                                border: none;
+                                background: transparent;
+                                .glyphicon {
+                                    font-size: 20px;
+                                    height: 53px;
+                                    line-height: 53px;
+                                    color: gray;
+                                    cursor: pointer;
+                                    &:hover {
+                                        color: rgb(64, 64, 64);
+                                    }
+                                    &.disable {
+                                        color: rgb(201, 201, 201);
+                                        cursor: auto;
+                                        &:hover {
+                                            color: gray;
+                                            color: rgb(201, 201, 201);
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                    .group-message-form-wrapper {
+                        .btn {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+
+            &.store-page {
+                .master {
+                    .master-buttons {
+                        a {
+                            width: 49%;
+                            &:last-child {
+                                float: left;
+                            }
+                        }
+                    }
+                }
                 .products-list {
                 }
 
                 .child-states {
-                    .return-button {
-                        margin-bottom: 5px;
-                    }
+                    
 
                     .store-details {
                         .banner-image {
@@ -568,13 +645,9 @@ body {
 
 
                         .store-groups {
-                            display: inline-block;
-                            width: 100%;
                             li {
-                                float: right;
-                                margin: 5px 0;
-                                display: inline-block;
-                                clear: both;
+                                background-color: rgba(24, 188, 156, 0.16);
+                                color: rgb(100, 100, 100);
                             }
                         }
 
@@ -646,11 +719,14 @@ body {
                 }
             }
         }
+        
+
+        
 
         @media (max-width: $screen-xs-max) {
-            .profile-page {
-                margin: -14px;
-            }
+            // .profile-page {
+            //     margin: -14px;
+            // }
             
             .profile-edit {
                 .save-btn {
@@ -665,15 +741,15 @@ body {
             .messages-page {
                 .threads {
                     .inner {
-                        margin-right: -12px;
-                        margin-left: -12px;
+                        // margin-right: -12px;
+                        // margin-left: -12px;
                     }
                 }
 
                 .messages {
                     .inner {
-                        margin-right: -12px;
-                        margin-left: -12px;
+                        // margin-right: -12px;
+                        // margin-left: -12px;
                     }
                 }
             }
@@ -777,4 +853,44 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   -ms-transform: scale(1, -1);
   -o-transform: scale(1, -1);
   transform: scale(1, -1);
+}
+
+
+@media (max-width: $screen-xs-max) {
+    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+    
+    .container {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .form-horizontal .form-group {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .nav-container {
+        &.container, .container {
+            padding-left: 15px;
+            padding-right: 15px;       
+        }
+
+        .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .row {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+    }
 }

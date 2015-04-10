@@ -1,6 +1,6 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead']);
+                'ui.bootstrap.typeahead', 'ngMaterial']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -14,7 +14,12 @@ customerApp.filter('toDate', function() {
   }
 })
 
-customerApp.config(function($stateProvider, $urlRouterProvider) {
+customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+  
+  $mdThemingProvider.theme('default')
+    .primaryPalette('teal')
+    .accentPalette('blue')
+    .warnPalette('red');
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/profile");
@@ -116,6 +121,7 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/create",
       templateUrl: "customer/template/store-create.html",
       controller: "StoreCreateCtrl"
+
     })
     .state('users', {
       url: "/users",
@@ -128,13 +134,22 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', function($scope, $state, $http, $rootScope){
+customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', '$document', '$window', function($scope, $state, $http, $rootScope, $document, $window){
   $http.get('customer/get_user').then(
     function(response){
 		  $scope.user = response.data;
       $scope.access = $scope.getAccess();
       
 	});
+
+
+  $document.on('scroll', function() {
+        if($document.scrollTop() > 160 && $window.outerWidth < 768) {
+          $('.details-header').addClass('fixed');
+        } else {
+          $('.details-header').removeClass('fixed');
+        }
+   });
 
   $scope.isOnline = function() {
     return true;

@@ -1,9 +1,11 @@
-<div class="row messages-page">
-	<div class="col col-xs-12 col-sm-5 col-md-4 threads"
+<div class="row page messages-page">
+	<div class="col col-xs-12 col-sm-5 threads master"
 		 ng-hide="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
-		<button ng-click="showGroupMessageForm()" 
-				class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
-		<div class="well inner">
+		<div class="well master-buttons">
+			<button ng-click="showGroupMessageForm()" 
+					class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
+		</div>
+		<div class="well inner master-inner">
 			<ul ng-show="threads.length">
 				<li ng-repeat="thread in threads | orderBy: '-last_record_delivered'" class="thread" ng-click="selectThread(thread)"
 					ng-class="{'selected': selectedThread.id == thread.id}">
@@ -50,12 +52,19 @@
 		</div>
 		
 	</div>
-	<div class="col col-xs-12 col-sm-7 col-md-8 messages">
-		<div id="return-box" ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
-			<button class="btn btn-default btn-xs return-button" ng-click="groupMessageForm = false ; selectedThread = {}">بازگشت</button>
-			<span class="thread-name">امیر مدرسی</span>
+	<div class="col col-xs-12 col-sm-7 messages details">
+		<div class="details-header" id="details-header" 
+			ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)"
+			>
+			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {}">
+				<div class="icon icon-arrow-right"></div>
+			</button>
+			<span class="details-header-title"> {{(selectedThread.thread_type == 'group') ? 'پیام گروهی' : selectedThread.client.full_name}}</span>
+			<button class="details-header-button btn btn-sm btn-primary">
+				دکمه بالا
+			</button>
 		</div>
-		<div ng-show="selectedThread.id" class="messages-inner" id="message-container" scroll-glue>
+		<div ng-show="selectedThread.id" class="messages-inner details-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
 				<li class="message" ng-repeat="message in currentMessages | orderBy:'id'"
