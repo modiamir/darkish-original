@@ -54,7 +54,7 @@
 	</div>
 	<div class="col col-xs-12 col-sm-7 messages details">
 		<div class="details-header" id="details-header" 
-			ng-show="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)"
+			ng-show="(selectedThread.id || groupMessageForm)"
 			>
 			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {}">
 				<div class="icon icon-arrow-right"></div>
