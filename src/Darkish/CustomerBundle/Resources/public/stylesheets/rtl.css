@@ -1,0 +1,11 @@
+/* line 1, ../sass/rtl.scss */
+.radio label, .checkbox label {
+  padding-right: initial;
+  padding-left: initial;
+}
+
+/* line 6, ../sass/rtl.scss */
+h4, .h4, h5, .h5, h6, .h6 {
+  margin-top: 10.5px;
+  margin-bottom: 10.5px;
+}

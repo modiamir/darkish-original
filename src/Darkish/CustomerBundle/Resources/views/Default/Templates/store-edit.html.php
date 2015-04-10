@@ -1,12 +1,20 @@
-<div class="store-edit">
-	<h4>ویرایش مشخصات فروشگاه</h4>
-	<hr/>
+<div class="details-header" id="details-header">
+	<button ng-disabled="state.current.name == 'store'" class="return-button" 
+		ui-sref="store">
+		<div class="icon icon-arrow-right"></div>
+	</button>
+	<span class="details-header-title">ویرایش مشخصات فروشگاه</span>
+	<!-- <button class="details-header-button btn btn-sm btn-primary">
+		مشخصات فروشگاه
+	</button> -->
+</div>
+<div class="store-edit details-inner well">
 	<form>
 		<label for="store-description">توضیحات</label>
 		<textarea id="store-description" ng-model="store.market_description" 
 				  class="form-control"> </textarea>
 
-
+		<hr/>
 		<label for="store-banner">بنر</label>
 		<div class="store-banner">
 			<div class="text-center">
@@ -37,10 +45,10 @@
 
 			</div>
 		</div>
-
+		<hr/>
 		<label for="store-template">قالب</label>
 	    <select id="store-template" class="form-control" ng-model="store.market_template" ng-options="template.title for template in templates"></select>
-
+	    <hr/>
 		<label for="store-groups">گروه ها</label>
 		<span class="store-group-hint">برای افزودن گروه در فضای خالی باکس زیر کلیک کنید.</span>
 		<div class="store-groups">

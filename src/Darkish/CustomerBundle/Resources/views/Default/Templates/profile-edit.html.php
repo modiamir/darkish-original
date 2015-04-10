@@ -2,7 +2,7 @@
   	<hr>
 	<div class="row profile-edit">
       <!-- left column -->
-      <div class="col-md-3">
+      <div class="col  col-xs-12 col-sm-3">
         <div class="text-center">
           <img width="130" src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>" ng-src="{{editinguser.photo.icon_absolute_path}}" class="avatar img-circle" alt="avatar">
           <label class="file-select btn btn-success">
@@ -33,7 +33,7 @@
       </div>
       
       <!-- edit form column -->
-      <div class="col-md-9 personal-info">
+      <div class="col col-xs-12 col-sm-9 personal-info">
         
         
         <form class="form-horizontal" name="profileeditform" role="form">

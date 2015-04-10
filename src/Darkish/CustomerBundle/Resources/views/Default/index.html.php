@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="CustomerApp" ng-controller="CustomerCtrl" >
+<html lang="fa" ng-app="CustomerApp" ng-controller="CustomerCtrl" >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,16 +28,22 @@
     <!-- Angular-tags CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.css') ?>" rel="stylesheet" type="text/css" />
 
+    <!-- angular material CSS -->
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.css') ?>" rel="stylesheet" type="text/css" />
+
+
 
     <!-- Custom styles for this template -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/rtl.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/angular-material-rtl.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/darkish-font.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="container">
 
+    <div class="container nav-container">
         <!-- navigation for small display -->
         <nav class="navbar navbar-inverse visible-xs small-display-nav" role="navigation" >
             <div class="row first-row">
@@ -206,6 +212,10 @@
                 
             </div><!-- /.navbar-collapse -->
         </nav><!-- /navbar -->
+    </div>
+    <div class="container">
+
+        
         <div class="main-view" ui-view>
         </div>
 
@@ -224,6 +234,8 @@
     </div>
     
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular/angular.min.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-animate/angular-animate.min.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-aria/angular-aria.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-router/release/angular-ui-router.min.js') ?>" type="text/javascript"></script>
@@ -243,6 +255,7 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.js') ?>"></script>
     
     
     

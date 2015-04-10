@@ -33,7 +33,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $id;
 
@@ -43,7 +43,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $userId;
 
@@ -51,7 +51,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $fileName;
 
@@ -59,7 +59,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $path;
 
@@ -67,7 +67,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filemime;
 
@@ -75,7 +75,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filesize;
 
@@ -83,7 +83,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $status;
@@ -92,7 +92,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $continual;
@@ -101,7 +101,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $isThumbnail;
@@ -109,21 +109,21 @@ class ManagedFile
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $webAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $mobileAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      */
     private $iconAbsolutePath;
     
@@ -131,7 +131,7 @@ class ManagedFile
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $timestamp;
 
@@ -139,9 +139,9 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer", "store"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer", "store", "product"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -153,7 +153,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $entityId;
 
@@ -166,7 +166,7 @@ class ManagedFile
      * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc", "banner"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $uploadDir;
 
@@ -175,7 +175,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * 
      */
     private $uploadKey;
@@ -326,7 +326,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -344,7 +344,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -362,7 +362,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -510,7 +510,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"file.details", "record.details", "record.store", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */

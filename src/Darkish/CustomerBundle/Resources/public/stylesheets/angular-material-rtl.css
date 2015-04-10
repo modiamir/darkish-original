@@ -1,0 +1,23 @@
+/* line 1, ../sass/angular-material-rtl.scss */
+md-checkbox .md-container {
+  float: right;
+}
+
+/* line 5, ../sass/angular-material-rtl.scss */
+md-checkbox .md-label {
+  margin-right: 10px;
+  margin-left: inherit;
+}
+
+/* line 10, ../sass/angular-material-rtl.scss */
+md-input-container .md-placeholder, md-input-container label:not(.md-no-float) {
+  padding-left: inherit;
+  padding-right: 2px;
+  transform-origin: right top;
+}
+
+/* line 17, ../sass/angular-material-rtl.scss */
+md-select {
+  display: inline-block;
+  margin-top: 2.1em;
+}

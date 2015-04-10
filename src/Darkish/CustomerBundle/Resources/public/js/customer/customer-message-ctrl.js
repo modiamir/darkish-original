@@ -5,13 +5,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.selectedThread = {};
   $scope.window = $window;
 
-  $document.on('scroll', function() {
-        if($document.scrollTop() > 160) {
-          $('#return-box').addClass('fixed');
-        } else {
-          $('#return-box').removeClass('fixed');
-        }
-   });
+  
 
 
   $scope.fetchDeliveredSeen = function() {

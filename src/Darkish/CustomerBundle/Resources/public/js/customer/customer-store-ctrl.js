@@ -168,5 +168,5 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
 }])
 
 customerApp.controller('StoreCreateCtrl', ['$scope', function($scope){
-  $scope.edit = "create";
+  $scope.product = {};
 }])
