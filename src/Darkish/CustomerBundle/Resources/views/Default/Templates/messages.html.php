@@ -113,7 +113,7 @@
 
 			
 		</div>
-		<div ng-show="groupMessageForm" class="group-message-form-wrapper">
+		<div ng-show="groupMessageForm" class="group-message-form-wrapper details-inner well">
 			<h3>
 				ارسال پیام گروهی
 			</h3>
