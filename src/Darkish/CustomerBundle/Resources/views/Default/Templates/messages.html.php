@@ -59,7 +59,7 @@
 			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {}">
 				<div class="icon icon-arrow-right"></div>
 			</button>
-			<span class="details-header-title"> {{(selectedThread.thread_type == 'group') ? 'پیام گروهی' : selectedThread.client.full_name}}</span>
+			<span class="details-header-title"> {{(selectedThread.thread_type == 'group') ? 'پیام گروهی' : (selectedThread.client.full_name ? selectedThread.client.full_name : selectedThread.client.username )}}</span>
 			<button class="details-header-button btn btn-sm btn-primary">
 				دکمه بالا
 			</button>
