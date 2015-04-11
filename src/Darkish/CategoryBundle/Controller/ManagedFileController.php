@@ -47,8 +47,7 @@ class ManagedFileController extends Controller
 
             if($request->files->has('file')) {
                 $ufile = $request->files->get('file');
-                
-                if(substr($ufile->getMimeType(), 0, 5) != 'image') {
+                if(substr($ufile->getMimeType(), 0, 5) != 'image' && substr($ufile->getMimeType(), 0, 11) != 'application') {
                     $tmpName = time().'-'.rand(100000,999999).'.'.$ufile->getClientOriginalExtension();
                     $ufile->move('/tmp', $tmpName);
                     $ufile = new File('/tmp/'.$tmpName, true);
