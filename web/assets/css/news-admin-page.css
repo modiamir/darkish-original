@@ -1831,6 +1831,13 @@ span.body-save-continue-message ul, span.body-save-continue-message-bottom ul {
     float: right;
 }
 
+.body-modal-window .modal-dialog #body-preview-modal-button {
+position: absolute;
+top: 10px;
+left: 190px;
+}
+
+
 .immediate-box {
     padding: 0px 10px;
     width: 100%;

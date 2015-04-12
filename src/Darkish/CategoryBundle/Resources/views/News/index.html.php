@@ -844,6 +844,9 @@
                                 <button ng-disabled="!NewsService.isEditing() || newsform.$invalid" type="button" class="save-continue-button btn btn-success" ng-click="checkConnectionSave(true);newsform.$setPristine()">
                                     ذخیره و ادامه
                                 </button>
+                                <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
+                                    پیش نمایش صفحه
+                                </button>
                                 <span class="body-save-continue-message" ng-show="NewsService.saved">
                                     <ul>
                                         <li ng-repeat="msg in NewsService.savingMessages" ng-bind="msg">
