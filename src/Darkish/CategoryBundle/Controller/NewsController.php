@@ -1001,6 +1001,8 @@ class NewsController extends Controller
             $qb->join('r.newstrees', 'rt');
             $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $qb->orderBy('r.publishDate', 'Desc');
+            $qb->addOrderBy('rt.sort', 'Asc');
+
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
             
