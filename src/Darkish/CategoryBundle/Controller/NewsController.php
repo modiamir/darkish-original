@@ -1000,7 +1000,7 @@ class NewsController extends Controller
             $qb = $repository->createQueryBuilder('r');
             $qb->join('r.newstrees', 'rt');
             $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
-            $qb->orderBy('r.creationDate', 'Desc');
+            $qb->orderBy('r.publishDate', 'Desc');
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
             
