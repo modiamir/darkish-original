@@ -761,7 +761,11 @@ class ClassifiedController extends Controller
 
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:ClassifiedTree');
-        $categories = $repository->findAll();
+        // $categories = $repository->findAll();
+        $qb = $repository->createQueryBuilder('t');
+        $qb->orderBy('t.upTreeIndex', 'Asc');
+        $qb->addOrderBy('t.sort', 'Asc');
+        $categories = $qb->getQuery()->getResult();
         $tree = array();
         foreach($categories as $key => $product) {
             $node = array();

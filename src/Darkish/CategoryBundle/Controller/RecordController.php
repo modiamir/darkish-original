@@ -940,7 +940,12 @@ class RecordController extends Controller
 
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
-        $categories = $repository->findBy(array(), array('sort' => 'ASC' ));
+        // $categories = $repository->findBy(array(), array('sort' => 'ASC' ));
+        
+        $qb = $repository->createQueryBuilder('t');
+        $qb->orderBy('t.upTreeIndex', 'Asc');
+        $qb->addOrderBy('t.sort', 'Asc');
+        $categories = $qb->getQuery()->getResult();
         $tree = array();
         foreach($categories as $key => $product) {
             $node = array();
