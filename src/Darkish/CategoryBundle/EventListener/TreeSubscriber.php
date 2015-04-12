@@ -31,25 +31,54 @@ class TreeSubscriber implements EventSubscriber
         
         if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof ClassifiedTree|| $entity instanceof ForumTree) {
             // die('asd');
+            $treeIndex = $entity->getTreeIndex();
+            $parentTreeIndex = substr($treeIndex, 0, 4);
             if($entity instanceof MainTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
             } elseif($entity instanceof NewsTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:NewsTree');
+                // $parentTreeIndex = substr($treeIndex, 0, strlen($treeIndex) - 2);
+                // $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $parents = array();
+                $parentTreeIndex = substr($treeIndex, 0, strlen($treeIndex) - 2);
+                while($parentTreeIndex != '00') {
+                    $parents[] = $parentTreeIndex;
+                    $parentTreeIndex = substr($parentTreeIndex, 0, strlen($parentTreeIndex) - 2);
+                }
+
+                $query = $args->getEntityManager()->createQuery('SELECT nt FROM \Darkish\CategoryBundle\Entity\NewsTree nt WHERE nt.treeIndex IN (:tindexes)');
+                $query->setParameter('tindexes', $parents);
+                $trees = $query->getResult();
+
+                $parents = array();
+                foreach ($trees as $key => $value) {
+                    $parents[] = $value->getTitle();
+                }
+
+                $entity->setParentTreeTitle(implode('-->', $parents));
             }
             elseif($entity instanceof OfferTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:OfferTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
             }
             elseif($entity instanceof ClassifiedTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:ClassifiedTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
             }
             elseif($entity instanceof ForumTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:ForumTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
             }
-            $treeIndex = $entity->getTreeIndex();
-            $parentTreeIndex = substr($treeIndex, 0, 4);
+            
+            
             // die($parentTreeIndex);
-            $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
-            $entity->setParentTreeTitle($parentTree->getTitle());
+            
+            
         }
         
         
