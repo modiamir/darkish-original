@@ -2073,6 +2073,22 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
             );
         }
+
+        $scope.loadRecord = function(recordId) {
+            $scope.innerLink = true;
+            $scope.externalLink = false;
+            $http.get('../record/ajax/get_record_by_number/' + recordId).then(
+                    function (response) {
+                        $scope.rtTitle = response.data.title;
+                        $scope.trustedBody = $scope.getTrustedBody(response.data.body);
+                        $scope.observeEvents();
+                    },
+                    function (errResponse) {
+                        $scope.rtTitle = '<span style="color:red">ناموجود</span>'
+                    }
+            );
+        }
+
         $scope.loadTree = function(treeIndex) {
             $http.get('ajax/get_tree_by_index/' + treeIndex).then(
                     function (response) {
@@ -2100,8 +2116,17 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 angular.element(document.querySelectorAll('.body-preview-content a[news-id]')).unbind('click');
                 angular.element(document.querySelectorAll('.body-preview-content a[news-id]')).on('click', function (event) {
                     newsId = event.toElement.getAttribute('news-id');
+                    newsId = newsId.substr(1, newsId.length - 1);
                     $scope.loadNews(newsId);
                     $scope.history.add({func: $scope.loadNews, arg: newsId});
+                    event.preventDefault();
+                });
+
+                angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).unbind('click');
+                angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).on('click', function (event) {
+                    recordId = event.toElement.getAttribute('record-id');
+                    $scope.loadRecord(recordId);
+                    $scope.history.add({func: $scope.loadRecord, arg: recordId});
                     event.preventDefault();
                 });
 
@@ -2259,6 +2284,36 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         
         //////////////
         
+
+        /**
+         * body preview modal initialization
+         */
+        
+                
+        
+            
+        $scope.openBodyPreviewModal = function (size) {
+            var bodyPreviewModalInstance = $modal.open({
+                templateUrl: 'bodyPreviewModal.html',
+                controller: 'bodyPreviewModalCtrl',
+                size: size,
+                resolve: {
+                    
+                },
+                windowClass: 'body-preview-modal-window'
+            });
+
+            bodyPreviewModalInstance.result.then(
+            function () {
+                
+                
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         /**
          * login modal initialization
