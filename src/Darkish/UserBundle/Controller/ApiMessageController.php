@@ -142,6 +142,8 @@ class ApiMessageController extends FOSRestController
             $thread->setLastRecordDelivered(0);
             $thread->setLastClientSeen(0);
             $thread->setLastClientDelivered(0);
+            $thread->setDeletedByClient(false);
+            $thread->setDeletedByRecord(false);
 
         
         }
