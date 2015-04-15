@@ -289,7 +289,20 @@ class ApiController extends FOSRestController
 
     }
 
-
+    /**
+     * This method is for refresh messages to get new messages. 
+     * 
+     * @ApiDoc(
+     *  resource=true,
+     *  description="This is for refresh messages to get new messages.",
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      500="Returned when the approve code is invalid"
+     *  }
+     * )
+     * 
+     * @View()
+     */
     public function getNewMessagesAction($lastMessageId) {
         $user = $this->get('security.context')->getToken()->getUser();
         /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
@@ -340,7 +353,6 @@ class ApiController extends FOSRestController
 
         $messages = $messagesQuery->getResult();
 
-        
         return new Response($this->get('jms_serializer')->serialize($messages, 'json'
             ,SerializationContext::create()->setGroups(array('message.list', 'thread.list', 'file.details'))));
     }
