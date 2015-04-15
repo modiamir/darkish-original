@@ -163,7 +163,7 @@ fos_rest:
         formats:
             json: true
         templating_formats:
-            html: false
+            html: true
     format_listener:
         rules:
             - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
