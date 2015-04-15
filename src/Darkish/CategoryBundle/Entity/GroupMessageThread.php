@@ -103,6 +103,7 @@ class GroupMessageThread extends MessageThread
 
     /**
      * @var \Darkish\CategoryBundle\Entity\Record
+     * @Groups({"thread.list", "thread.details"})
      */
     protected $record;
 

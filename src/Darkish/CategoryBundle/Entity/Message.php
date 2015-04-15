@@ -46,7 +46,7 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="MessageThread", inversedBy="messages")
      * @ORM\JoinColumn(name="thread", referencedColumnName="id", onDelete="CASCADE")
-     * @Groups({"message.list", "message.details"})
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
      */
     private $thread;
 

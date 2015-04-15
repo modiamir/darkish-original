@@ -24,7 +24,7 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list"})
      */
     private $id;
 
