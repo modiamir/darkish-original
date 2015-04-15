@@ -138,6 +138,11 @@ class ApiMessageController extends FOSRestController
             $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
             $thread->setRecord($record);
             $thread->setClient($client);
+            $thread->setLastRecordSeen(0);
+            $thread->setLastRecordDelivered(0);
+            $thread->setLastClientSeen(0);
+            $thread->setLastClientDelivered(0);
+
         
         }
 
