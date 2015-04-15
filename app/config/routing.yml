@@ -28,6 +28,11 @@ darkish_api:
     type:     rest
     prefix:   api/rest
 
+darkish_api_message:
+    resource: "Darkish\UserBundle\Controller\ApiMessageController"
+    type:     rest
+    prefix:   api/rest/message
+
 darkish_user:
     resource: "@DarkishUserBundle/Controller/"
     type:     annotation
