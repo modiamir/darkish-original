@@ -172,4 +172,73 @@ class Message
     {
         return $this->from;
     }
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return Message
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return Message
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     * @return Message
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
 }

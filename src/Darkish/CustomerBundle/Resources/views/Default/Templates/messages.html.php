@@ -1,5 +1,5 @@
 <div class="row page messages-page">
-	<div class="col col-xs-12 col-sm-5 threads master"
+	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-3 threads master"
 		 ng-hide="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
 		<div class="well master-buttons">
 			<button ng-click="showGroupMessageForm()" 
@@ -52,7 +52,7 @@
 		</div>
 		
 	</div>
-	<div class="col col-xs-12 col-sm-7 messages details">
+	<div class="col col-xs-12 col-sm-7 col-md-8 col-lg-9 messages details">
 		<div class="details-header" id="details-header" 
 			ng-show="(selectedThread.id || groupMessageForm)"
 			>

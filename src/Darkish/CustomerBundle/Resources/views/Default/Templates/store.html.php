@@ -1,6 +1,6 @@
 
 <div class="row store-page page">
-	<div class="col col-xs-12 col-sm-5 products-list master">
+	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-4 products-list master">
 		<div class="well master-buttons"> 
 			<a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
 			<a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
@@ -11,7 +11,7 @@
 		
 	</div>
 
-	<div class="col col-xs-12 col-sm-7 details child-states">
+	<div class="col col-xs-12 col-sm-7  col-md-8 col-lg-8 details child-states">
 		<div ng-show="state.current.name == 'store'" class="details-header" id="details-header">
 			<button ng-disabled="state.current.name == 'store'" class="return-button" 
 				ui-sref="store">
