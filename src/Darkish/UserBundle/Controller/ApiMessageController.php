@@ -92,7 +92,7 @@ class ApiMessageController extends FOSRestController
         $messages = $messagesQuery->getResult();
 
         return new Response($this->get('jms_serializer')->serialize($messages, 'json'
-            ,SerializationContext::create()->setGroups(array('message.list', 'thread.list', 'file.details'))));
+            ,SerializationContext::create()->setGroups(array('message.list', 'thread.list', 'file.details', 'record.list'))));
     }
 
     

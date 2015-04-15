@@ -29,7 +29,7 @@ class MessageThread
     /**
      * @ORM\ManyToOne(targetEntity="Record", inversedBy="messageThreads")
      * @ORM\JoinColumn(name="record", referencedColumnName="id")
-     * 
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     protected $record;
 
