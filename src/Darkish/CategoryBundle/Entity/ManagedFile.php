@@ -109,21 +109,21 @@ class ManagedFile
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      */
     private $webAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      */
     private $mobileAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      */
     private $iconAbsolutePath;
     
@@ -344,7 +344,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -362,7 +362,7 @@ class ManagedFile
     
     /**
      * 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -510,7 +510,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "message.list", "message.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
