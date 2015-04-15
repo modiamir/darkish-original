@@ -44,25 +44,25 @@ class MessageThread
     protected $lastMessage;
 
     /**
-     * @ORM\Column(name="last_record_seen", type="integer")
+     * @ORM\Column(name="last_record_seen", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordSeen = 0;
 
     /**
-     * @ORM\Column(name="last_record_delivered", type="integer")
+     * @ORM\Column(name="last_record_delivered", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordDelivered = 0;
 
     /**
-     * @ORM\Column(name="last_client_seen", type="integer")
+     * @ORM\Column(name="last_client_seen", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientSeen = 0;
 
     /**
-     * @ORM\Column(name="last_client_delivered", type="integer")
+     * @ORM\Column(name="last_client_delivered", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientDelivered = 0;

@@ -27,11 +27,19 @@
 			    </md-input-container>
 		    
 		</div>
-		<div layout="row">
+		<div layout="column">
 			<md-input-container flex>
 			      <label>عنوان محصول</label>
 			      <input ng-model="product.title">
 			    </md-input-container>
+		    <md-input-container flex>
+			      <label>متن ویژه</label>
+			      <input ng-model="product.special_text" md-maxlength="150">
+			    </md-input-container>
+		    <md-input-container flex>
+		            <label>توضیحات</label>
+		            <textarea ng-model="product.description" columns="1"></textarea>
+		          </md-input-container>
 		</div>
 		<div layout="row">
 			<md-select flex ng-model="product.group">
