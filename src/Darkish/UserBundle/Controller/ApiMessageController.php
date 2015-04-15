@@ -111,25 +111,51 @@ class ApiMessageController extends FOSRestController
      * )
      */
     public function postAction(\Darkish\CategoryBundle\Entity\Record $record, Request $request) {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $client = $this->get('security.context')->getToken()->getUser();
         /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
         
         
         $em = $this->getDoctrine()->getManager();
-        $msg = new \Darkish\CategoryBundle\Entity\Message();
-        $msg->setCreated(new \DateTime());
-        $msg->setThread($thread);
-        $msg->setFrom('record');
-        $msg->setText($request->get('text'));
+        
+        $qb = $this->getDoctrine()
+                   ->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+                   ->createQueryBuilder('pmt');
 
-        $em->persist($msg);
+        $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
+        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+
+        $qb->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+        
+        // return new Response($this->get('jms_serializer')->serialize($res, 'json'
+        //     ,SerializationContext::create()->setGroups(array('thread.details'))));
+
+        if(count($res)){
+            $thread = $res[0];
+            $thread->setDeletedByRecord(false);
+            $thread->setDeletedByClient(false);
+        } else{
+            $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
+            $thread->setRecord($record);
+            $thread->setClient($client);
+        
+        }
+
+        $message = new \Darkish\CategoryBundle\Entity\Message();
+        $message->setCreated(new \DateTime());
+        $message->setThread($thread);
+        $message->setFrom('client');
+        $message->setText($request->get('text'));
+
+        $thread->setLastMessage($message);
+
+        $em->persist($thread);
+        $em->persist($message);
 
         $em->flush();
 
-        $serialized = $this->get('jms_serializer')->serialize($msg, 'json'
-            ,SerializationContext::create()->setGroups(array('thread.list')));
-
-        return new Response($serialized);
+        return new Response($this->get('jms_serializer')->serialize($message, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.details'))));
     }
 
 }
