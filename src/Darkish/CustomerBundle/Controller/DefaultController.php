@@ -286,7 +286,7 @@ class DefaultController extends Controller
         $msg->setThread($thread);
         $msg->setFrom('record');
         $msg->setText($request->get('text'));
-
+        $msg->setCustomer($user);
         $em->persist($msg);
 
         $em->flush();

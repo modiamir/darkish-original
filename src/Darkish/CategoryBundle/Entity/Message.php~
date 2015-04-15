@@ -19,34 +19,54 @@ class Message
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $id;
 
 
     /**
      * @ORM\Column(name="text", type="string")
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $text;
 
 
     /**
-     * @ORM\Column(name="from", type="string")
-     * @Groups({"thread.list", "thread.details"})
+     * @ORM\Column(name="sender", type="string")
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $from;
 
     /**
      * @ORM\Column(name="created", type="datetime")
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $created;
 
     /**
      * @ORM\ManyToOne(targetEntity="MessageThread", inversedBy="messages")
-     * @ORM\JoinColumn(name="thread", referencedColumnName="id")
+     * @ORM\JoinColumn(name="thread", referencedColumnName="id", onDelete="CASCADE")
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
      */
     private $thread;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id")
+     * @Groups({"message.list", "message.details"})
+     */
+    private $customer;
+
+
+    /**
+     * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
+     */
+    protected $deletedByRecord = false;
+
+    /**
+     * @ORM\Column(name="deleted_by_client", type="boolean", options={"default"=false})
+     */
+    protected $deletedByClient = false;
 
 
     /**
@@ -128,5 +148,28 @@ class Message
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set from
+     *
+     * @param string $from
+     * @return Message
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * Get from
+     *
+     * @return string 
+     */
+    public function getFrom()
+    {
+        return $this->from;
     }
 }
