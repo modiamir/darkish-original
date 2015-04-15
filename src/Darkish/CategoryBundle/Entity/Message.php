@@ -50,6 +50,13 @@ class Message
      */
     private $thread;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id")
+     * @Groups({"message.list", "message.details"})
+     */
+    private $customer;
+
 
     /**
      * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})

@@ -27,7 +27,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"customer.list", "customer.details", "product.list", "product.details"})
+     * @Groups({"customer.list", "customer.details", "product.list", "product.details", "message.details", "message.list"})
      */
     private $id;
 
@@ -36,7 +36,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @Assert\Email(
      *     message = "The username '{{ value }}' is not a valid email."
      * )
-     * @Groups({"customer.list", "customer.details", "comment.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list"})
      */
     private $username;
 
@@ -123,7 +123,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"customer.list", "customer.details", "comment.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list"})
      * 
      *
      */

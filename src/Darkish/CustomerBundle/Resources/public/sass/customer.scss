@@ -37,6 +37,15 @@ body {
     }
 
     .profile-page {
+        .icons {
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            .icon {
+                margin: auto;
+
+            }
+        }
         .last-update, .record-number {
             margin-bottom: 20px;
         }
@@ -90,7 +99,6 @@ body {
         .first-row {
             margin:0;
             height: 60px;
-            border-bottom: 1px solid white;
             &>.col {
                 padding: 0;
                 &.logo {
@@ -141,11 +149,7 @@ body {
                     }
                 }
             }
-        }
 
-        .second-row {
-            margin:0;
-            height: 60px;
             &>.col {
                 padding: 0;
                 &.centered-align {
@@ -188,7 +192,14 @@ body {
                 &.main-menu-link {
                     padding-right: 5px;
                 }
+
             }
+        }
+
+        .second-row {
+            margin:0;
+            height: 60px;
+            
         }
     }
 

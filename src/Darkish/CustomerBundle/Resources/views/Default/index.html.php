@@ -47,7 +47,15 @@
         <!-- navigation for small display -->
         <nav class="navbar navbar-inverse visible-xs small-display-nav" role="navigation" >
             <div class="row first-row">
-                <div class="col col-xs-2 logo">
+                <div class="col col-xs-1 main-menu-link">
+                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="col col-xs-1 logo">
                     <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
                 </div>
                 <div class="col col-xs-8 record-title">
@@ -55,7 +63,15 @@
                         <?php print $app->getUser()->getRecord()->getTitle(); ?>
                     </h4>
                 </div>
-                <div class="col col-xs-2 user-menu-button">
+                <div class="col col-xs-1 centered-align">
+                    <!--                      -->
+                    <div class="online-status">
+                        <span class="glyphicon glyphicon-off" ng-class="{'online': isOnline(), 'offline': !isOnline()}" aria-hidden="true"></span>
+                        <span ng-show="isOnline()" class="online status-text" >Online</span>
+                        <span ng-show="!isOnline()" class="offline status-text" >Offline</span>
+                    </div>
+                </div>
+                <div class="col col-xs-1 user-menu-button">
                     <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
                     <a ng-src="{{user.photo.icon_absolute_path}}" href="#" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                     
@@ -77,29 +93,7 @@
                     </div>
                     
                 </div>
-            </div>
-            <div class="row second-row">
-                <div class="col col-xs-3 main-menu-link">
-                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-main-menu">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="col col-xs-6 col-xs-offset-3 centered-align">
-                    <div class="navbar-text favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></div>
-                    <div class="navbar-text likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></div>
-                    <div class="navbar-text visitcount"><div class="icon icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></div>                    
-                    <div class="online-status">
-                        <span class="glyphicon glyphicon-off" ng-class="{'online': isOnline(), 'offline': !isOnline()}" aria-hidden="true"></span>
-                        <span ng-show="isOnline()" class="online status-text" >Online</span>
-                        <span ng-show="!isOnline()" class="offline status-text" >Offline</span>
-                    </div>
-                </div>
-                
-
-                <div class="col col-xs-12">
+                <div class="col col-xs-12 main-menu">
                     <div class="collapse navbar-collapse" id="navbar-collapse-main-menu">
                         <ul class="nav navbar-nav">
                             <li ng-class="{'active': (state.current.name == 'profile')}"><a ui-sref="profile">پروفایل</a></li>
@@ -127,10 +121,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-
-                
             </div>
             
         </nav><!-- /navbar -->

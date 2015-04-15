@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\Serializer\SerializationContext;
 
 
 /**
@@ -286,6 +287,62 @@ class ApiController extends FOSRestController
     		throw new HttpException(404, "Your sent approve code is invalid.");
     	}
 
+    }
+
+
+    public function getNewMessagesAction($lastMessageId) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        
+        // $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Message')
+        //            ->createQueryBuilder('m');
+        //            
+        $em = $this->getDoctrine()->getManager();
+
+        $privateThreadQuery = $em->createQuery(
+            "SELECT pmth.id from \Darkish\CategoryBundle\Entity\PrivateMessageThread pmth 
+                join pmth.client c where c.id = :cid
+            ");
+        $privateThreadQuery->setParameter('cid', $user->getId());
+
+
+        $groupThreadQuery = $em->createQuery(
+            "SELECT pmth.id from \Darkish\CategoryBundle\Entity\GroupMessageThread pmth 
+                join pmth.clients c where c.id = :cid
+            ");
+        $groupThreadQuery->setParameter('cid', $user->getId());
+        // $query = $em->createQuery(
+        //     "SELECT m FROM \Darkish\CategoryBundle\Entity\Message m join m.thread th 
+        //         where th INSTANCE OF \Darkish\CategoryBundle\Entity\PrivateMessageThread && th.client"
+        // );
+        
+
+        $privateThreads = $privateThreadQuery->getResult();
+        $privateThreasIds = array();
+        foreach ($privateThreads as $key => $value) {
+            $privateThreasIds[] = $value['id'];
+        }
+
+
+        $groupThreads = $groupThreadQuery->getResult();
+        $groupThreasIds = array();
+        foreach ($groupThreads as $key => $value) {
+            $groupThreasIds[] = $value['id'];
+        }
+
+
+        $threadsIds = array_merge($groupThreasIds, $privateThreasIds);
+
+
+        $messagesQuery = $em->createQuery("SELECT m from \Darkish\CategoryBundle\Entity\Message m join m.thread th where th.id in (:thids) and m.id > :last");
+        $messagesQuery->setParameter('thids', $threadsIds);
+        $messagesQuery->setParameter('last', $lastMessageId);
+
+        $messages = $messagesQuery->getResult();
+
+        
+        return new Response($this->get('jms_serializer')->serialize($messages, 'json'
+            ,SerializationContext::create()->setGroups(array('message.list', 'thread.list', 'file.details'))));
     }
 
 
