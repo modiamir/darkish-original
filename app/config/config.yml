@@ -161,10 +161,9 @@ fos_rest:
             json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
         view_response_listener: 'force'
         formats:
-            xml:  true
             json: true
         templating_formats:
-            html: true
+            html: false
     format_listener:
         rules:
             - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
