@@ -40,7 +40,7 @@ class Record
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
