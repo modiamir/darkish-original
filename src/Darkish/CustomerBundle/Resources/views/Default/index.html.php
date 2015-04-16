@@ -31,6 +31,11 @@
     <!-- angular material CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.css') ?>" rel="stylesheet" type="text/css" />
 
+    <!-- ng-scroll CSS -->
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.css') ?>" rel="stylesheet" type="text/css" />
+
+
+
 
 
     <!-- Custom styles for this template -->
@@ -45,36 +50,37 @@
 
     <div class="container nav-container">
         <!-- navigation for small display -->
-        <nav class="navbar navbar-inverse visible-xs small-display-nav" role="navigation" >
+        <nav class="navbar navbar-inverse visible-xs small-display-nav navbar-fixed-top" role="navigation" >
             <div class="row first-row">
-                <div class="col col-xs-1 main-menu-link">
-                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-main-menu">
+                <div class="col col-xs-3 main-menu-link logo">
+                    <button type="button" class="navbar-toggle collapsed pull-center" data-toggle="collapse" data-target="#navbar-collapse-main-menu">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
-                <div class="col col-xs-1 logo">
                     <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
                 </div>
-                <div class="col col-xs-8 record-title">
+                <!-- <div class="col col-xs-2 logo">
+                    
+                </div> -->
+                <div class="col col-xs-6 record-title">
                     <h4>
-                        <?php print $app->getUser()->getRecord()->getTitle(); ?>
+                        {{state.current.data.label}}
                     </h4>
                 </div>
-                <div class="col col-xs-1 centered-align">
-                    <!--                      -->
+                <!-- <div class="col col-xs-2 ">
+                                        
+                    
+                </div> -->
+                <div class="col col-xs-3 user-menu-button centered-align">
+                    <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
+                    <a ng-src="{{user.photo.icon_absolute_path}}" href="#" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                     <div class="online-status">
                         <span class="glyphicon glyphicon-off" ng-class="{'online': isOnline(), 'offline': !isOnline()}" aria-hidden="true"></span>
                         <span ng-show="isOnline()" class="online status-text" >Online</span>
                         <span ng-show="!isOnline()" class="offline status-text" >Offline</span>
-                    </div>
-                </div>
-                <div class="col col-xs-1 user-menu-button">
-                    <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
-                    <a ng-src="{{user.photo.icon_absolute_path}}" href="#" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
-                    
+                    </div>                    
                 </div>
                 <div class="col col-xs-12 user-menu">
                     <div class="collapse navbar-collapse" id="navbar-collapse-user-menu">
@@ -246,6 +252,9 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-elastic/elastic.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-resize/ngresize.js') ?>"></script>
     
     
     

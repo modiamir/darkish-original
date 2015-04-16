@@ -1,6 +1,6 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead', 'ngMaterial']);
+                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -15,7 +15,8 @@ customerApp.filter('toDate', function() {
 })
 
 customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
-  
+
+
   $mdThemingProvider.theme('default')
     .primaryPalette('teal')
     .accentPalette('blue')
@@ -139,17 +140,25 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
     function(response){
 		  $scope.user = response.data;
       $scope.access = $scope.getAccess();
-      
+      $scope.window = $window;
+      $scope.isXSmall = function() {
+        if($window.outerWidth < 768) {
+          return true;
+        }
+        return false;
+      }
 	});
 
 
   $document.on('scroll', function() {
-        if($document.scrollTop() > 160 && $window.outerWidth < 768) {
+        if($document.scrollTop() > 10 && $window.outerWidth < 768) {
           $('.details-header').addClass('fixed');
         } else {
           $('.details-header').removeClass('fixed');
         }
    });
+
+
 
   $scope.isOnline = function() {
     return true;
