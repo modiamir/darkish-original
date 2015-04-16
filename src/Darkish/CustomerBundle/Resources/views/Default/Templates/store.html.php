@@ -7,8 +7,9 @@
 			  <a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
 			</div>
 		</div>
-		<div class="master-inner well">
+		<div class="master-inner well" ng-class="{'scrollable': !isXSmall()}">
 			list of products
+
 		</div>
 		
 	</div>

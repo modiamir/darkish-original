@@ -5,7 +5,7 @@
 			<button ng-click="showGroupMessageForm()" 
 					class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
 		</div>
-		<div class="well inner master-inner">
+		<div class="well inner master-inner" ng-class="{'scrollable': !isXSmall()}">
 			<ul ng-show="threads.length">
 				<li ng-repeat="thread in threads | orderBy: '-last_record_delivered'" class="thread" ng-click="selectThread(thread)"
 					ng-class="{'selected': selectedThread.id == thread.id}">
@@ -14,7 +14,7 @@
 						<div class="middle">
 							<span class="username" ng-bind="thread.client.full_name ? thread.client.full_name : thread.client.username">
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text">
+							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -23,8 +23,9 @@
 						<span ng-show="thread.last_message.id > thread.last_record_seen" class="hasnew">
 							جدید
 						</span>
-						<button class="delete-button" ng-click="delete(thread);$event.stopPropagation();">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						<button class="delete-button btn-danger btn-xs" ng-click="delete(thread);$event.stopPropagation();">
+							<!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
+							حذف
 						</button>
 					</div>
 
@@ -34,7 +35,7 @@
 							<span class="group-label">
 								پیام گروهی
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text">
+							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -97,16 +98,20 @@
 				</li>
 			</ul>
 		</div>
-		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit details-bottom" ng-class="{'fixed' : isXSmall()}">
+		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit details-bottom" ng-class="{'fixed' : isXSmall()}"
+			ng-resize="resizeForm($event)">
 			<form>
 				<div class="message-text col col-xs-10 col-sm-10 col-md-11">
-					<input class="form-control" ng-model="messageForm"/>
+					<!-- <input class="form-control" ng-model="messageForm"/> -->
+					<textarea class="msd-elastic form-control" ng-model="messageForm">
+					</textarea>
 				</div>
 				<div class="submit-button col col-xs-2 col-sm-2 col-md-1">
 					<button ng-click="postMessage()" ng-disabled="!messageForm"> 
 						<span class="glyphicon glyphicon-send gly-flip-horizontal disable"  
 							  aria-hidden="true" ng-class="{'disable': !messageForm}"
 						  	></span>
+					  	<span class="text hidden-xs" ng-class="{'disable': !messageForm}">ارسال</span>
 					</button>
 				</div>
 			</form>

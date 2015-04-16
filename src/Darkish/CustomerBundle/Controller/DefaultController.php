@@ -42,7 +42,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class DefaultController extends Controller
 {
 
-    private $messageLoadNumber = 5;
+    private $messageLoadNumber = 10;
     
     /**
      * 

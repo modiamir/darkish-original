@@ -31,6 +31,11 @@
     <!-- angular material CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.css') ?>" rel="stylesheet" type="text/css" />
 
+    <!-- ng-scroll CSS -->
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.css') ?>" rel="stylesheet" type="text/css" />
+
+
+
 
 
     <!-- Custom styles for this template -->
@@ -247,6 +252,9 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-elastic/elastic.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-resize/ngresize.js') ?>"></script>
     
     
     

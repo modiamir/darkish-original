@@ -6,7 +6,28 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   // $scope.window = $window;
 
   
+  $scope.resizeForm = function(event) {
+    console.log(event);
+  }
 
+  $scope.$watch('messageForm', function(){
+    $scope.setDetailsInnerMarginBottom();
+    
+  })
+
+  $scope.setDetailsInnerMarginBottom = function()   {
+    if($scope.isXSmall()) {
+      var height = angular.element($('.message-submit'))[0].offsetHeight;
+      $('body .main-view .page .details .details-inner').css('margin-bottom', height);  
+      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+    } else {
+      $('body .main-view .page .details .details-inner').css('margin-bottom', 0);  
+    }
+  }
+
+  angular.element($('.message-submit .message-text textarea')).bind('click', function(){
+    console.log($scope.textarea);
+  });
 
   $scope.fetchDeliveredSeen = function() {
     if($scope.selectedThread.id) {
@@ -82,7 +103,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     $http.get('./customer/ajax/get_messages_for_thread/'+$scope.selectedThread.id+'/'+$scope.currentMessages.length).then(
       function(response) {
         $scope.currentMessages = $scope.currentMessages.concat(response.data);
-        if(response.data.length < 5) {
+        if(response.data.length < 10) {
           $scope.hasNotMore = true;
         }
       },
@@ -113,6 +134,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           $scope.setLastMessageDelivered($scope.selectedThread, $scope.selectedThread.last_message.id);
           $timeout(function(){
             $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+            $scope.setDetailsInnerMarginBottom();
           }, 100)
           
           
@@ -152,7 +174,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
               if( (tmpScrollHeight - $('#message-container').scrollTop() ) < 420) {
                 $timeout(function(){
                   $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
-                }, 100);
+                }, 30);
               }
               
             } else {

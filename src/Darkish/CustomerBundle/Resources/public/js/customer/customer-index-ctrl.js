@@ -1,6 +1,6 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead', 'ngMaterial']);
+                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -15,7 +15,8 @@ customerApp.filter('toDate', function() {
 })
 
 customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
-  
+
+
   $mdThemingProvider.theme('default')
     .primaryPalette('teal')
     .accentPalette('blue')

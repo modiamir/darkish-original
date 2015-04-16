@@ -28,7 +28,7 @@ body {
     }
 
     .img-circle {
-        border: 3px solid;
+        border: 3px solid rgb(109, 109, 109);
     }
 
     label.image-upload {
@@ -337,6 +337,10 @@ body {
                 }
                 .master-inner {
                     padding: 5px;
+                    &.scrollable {
+                        max-height: 450px;
+                        overflow-y: scroll;
+                    }
                 }
                 .master-bottom {
 
@@ -529,7 +533,7 @@ body {
                                         .last-message {
                                             display: block;
                                             font-size: 13px;
-                                            color: rgb(179, 179, 179);
+                                            color: #808080;
                                         }
                                         
                                     }
@@ -540,12 +544,11 @@ body {
                                         font-size: 11px;
                                     }
                                     .delete-button {
-                                        background-color: transparent;
-                                        border:none;
+                                        border: none;
                                         position: absolute;
-                                        left: 0;
-                                        bottom: 0;
-                                        color: rgb(166, 97, 97);
+                                        left: 3px;
+                                        bottom: 3px;
+                                        font-size: 11px;
                                     }
                                 }
                             }
@@ -558,7 +561,7 @@ body {
                     
 
                     .messages-inner {
-                        padding: 10px 0;
+                        padding: 0  0 10px 0;
                         background: #ecf0f1;
                         border-radius: 0;
                         &.scrollable {
@@ -567,8 +570,10 @@ body {
                         }
                         .load-more {
                             width: 100%;
-                            margin-top: -25px;
                             border-radius: 0;
+                            height: 35px;
+                            background-color: rgb(204, 204, 204);
+                            border: 0;
                         }
                         .message-list {
                             display: inline-block;
@@ -649,33 +654,56 @@ body {
                         border-radius: 0 0 4px 4px;
                         display: inline-block;
                         width: 100%;
-                        height: 55px;
+                        // height: 55px;
                         background-color: #F7F8F8;
                         .message-text {
-                            height: 53px;
-                            input {
+                            // height: 53px;
+                            input, textarea {
                                 border: 1px solid rgb(224, 224, 224);
                                 background: white;
                                 height: 36px;
                                 margin-top: 8px;
                                 font-size: 12px;
+                                margin-bottom: 5px;
+                                max-height: 100px !important;
+                                overflow-y: scroll !important;
                             }
                         }
                         .submit-button {
-                            height: 53px;
+                            // height: 53px;
                             line-height: 53px;
+                            padding: 0;
                             button {
                                 padding: 0;
-                                margin: 0;
+                                margin: auto;
                                 height: inherit;
                                 border: none;
                                 background: transparent;
+                                display: flex;
                                 .glyphicon {
                                     font-size: 20px;
                                     height: 53px;
                                     line-height: 53px;
                                     color: gray;
                                     cursor: pointer;
+                                    &:hover {
+                                        color: rgb(64, 64, 64);
+                                    }
+                                    &.disable {
+                                        color: rgb(201, 201, 201);
+                                        cursor: auto;
+                                        &:hover {
+                                            color: gray;
+                                            color: rgb(201, 201, 201);
+                                        }
+                                    }
+                                }
+                                .text {
+                                    height: 53px;
+                                    line-height: 53px;
+                                    margin-right: 5px;
+                                    font-size: 10px;
+                                    color: gray;
                                     &:hover {
                                         color: rgb(64, 64, 64);
                                     }
