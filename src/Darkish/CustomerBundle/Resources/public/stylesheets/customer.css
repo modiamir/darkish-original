@@ -549,24 +549,40 @@ body .main-view .page.messages-page .messages .messages-inner .message-list .mes
   font-size: 13px;
   min-width: 100px;
   max-width: 300px;
+  white-space: pre;
+  /* CSS 2.0 */
+  white-space: pre-wrap;
+  /* CSS 2.1 */
+  white-space: pre-line;
+  /* CSS 3.0 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla */
+  white-space: -hp-pre-wrap;
+  /* HP Printers */
+  word-wrap: break-word;
+  /* IE 5+ */
 }
-/* line 592, ../sass/customer.scss */
+/* line 601, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message .time {
   clear: both;
   font-size: 12px;
 }
-/* line 596, ../sass/customer.scss */
+/* line 605, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message img {
   margin: 10px 0 0;
   width: 40px;
   height: 40px;
   border-width: 2px;
 }
-/* line 602, ../sass/customer.scss */
+/* line 611, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.record {
   margin-right: 20px;
 }
-/* line 604, ../sass/customer.scss */
+/* line 613, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.record .text {
   background-color: rgba(24, 148, 124, 0.19);
   border-color: #18947c;
@@ -574,20 +590,20 @@ body .main-view .page.messages-page .messages .messages-inner .message-list .mes
   margin-right: 10px;
   color: #3c3c3c;
 }
-/* line 611, ../sass/customer.scss */
+/* line 620, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.record img {
   float: right;
   border-width: 1px;
 }
-/* line 615, ../sass/customer.scss */
+/* line 624, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.record .time {
   float: left;
 }
-/* line 620, ../sass/customer.scss */
+/* line 629, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.client {
   margin-left: 20px;
 }
-/* line 622, ../sass/customer.scss */
+/* line 631, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.client .text {
   background-color: rgba(63, 129, 174, 0.29);
   border-color: #3f81ae;
@@ -595,27 +611,27 @@ body .main-view .page.messages-page .messages .messages-inner .message-list .mes
   margin-left: 10px;
   color: #3c3c3c;
 }
-/* line 629, ../sass/customer.scss */
+/* line 638, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.client img {
   float: left;
   border-width: 1px;
 }
-/* line 633, ../sass/customer.scss */
+/* line 642, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message.client .time {
   float: right;
 }
-/* line 637, ../sass/customer.scss */
+/* line 646, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message .time {
   display: block;
 }
-/* line 640, ../sass/customer.scss */
+/* line 649, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .messages-inner .message-list .message .delivered, body .main-view .page.messages-page .messages .messages-inner .message-list .message .seen {
   float: right;
   clear: both;
   font-size: 10px;
   color: gray;
 }
-/* line 652, ../sass/customer.scss */
+/* line 661, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit {
   border: 2px solid #ecf0f1;
   border-radius: 0 0 4px 4px;
@@ -623,7 +639,7 @@ body .main-view .page.messages-page .messages .message-submit {
   width: 100%;
   background-color: #F7F8F8;
 }
-/* line 661, ../sass/customer.scss */
+/* line 670, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .message-text input, body .main-view .page.messages-page .messages .message-submit .message-text textarea {
   border: 1px solid #e0e0e0;
   background: white;
@@ -634,12 +650,12 @@ body .main-view .page.messages-page .messages .message-submit .message-text inpu
   max-height: 100px !important;
   overflow-y: scroll !important;
 }
-/* line 672, ../sass/customer.scss */
+/* line 681, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button {
   line-height: 53px;
   padding: 0;
 }
-/* line 676, ../sass/customer.scss */
+/* line 685, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button {
   padding: 0;
   margin: auto;
@@ -648,7 +664,7 @@ body .main-view .page.messages-page .messages .message-submit .submit-button but
   background: transparent;
   display: flex;
 }
-/* line 683, ../sass/customer.scss */
+/* line 692, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .glyphicon {
   font-size: 20px;
   height: 53px;
@@ -656,21 +672,21 @@ body .main-view .page.messages-page .messages .message-submit .submit-button but
   color: gray;
   cursor: pointer;
 }
-/* line 689, ../sass/customer.scss */
+/* line 698, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .glyphicon:hover {
   color: #404040;
 }
-/* line 692, ../sass/customer.scss */
+/* line 701, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .glyphicon.disable {
   color: #c9c9c9;
   cursor: auto;
 }
-/* line 695, ../sass/customer.scss */
+/* line 704, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .glyphicon.disable:hover {
   color: gray;
   color: #c9c9c9;
 }
-/* line 701, ../sass/customer.scss */
+/* line 710, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .text {
   height: 53px;
   line-height: 53px;
@@ -678,72 +694,72 @@ body .main-view .page.messages-page .messages .message-submit .submit-button but
   font-size: 10px;
   color: gray;
 }
-/* line 707, ../sass/customer.scss */
+/* line 716, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .text:hover {
   color: #404040;
 }
-/* line 710, ../sass/customer.scss */
+/* line 719, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .text.disable {
   color: #c9c9c9;
   cursor: auto;
 }
-/* line 713, ../sass/customer.scss */
+/* line 722, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .message-submit .submit-button button .text.disable:hover {
   color: gray;
   color: #c9c9c9;
 }
-/* line 724, ../sass/customer.scss */
+/* line 733, ../sass/customer.scss */
 body .main-view .page.messages-page .messages .group-message-form-wrapper .btn {
   margin-top: 10px;
 }
-/* line 744, ../sass/customer.scss */
+/* line 753, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-details .banner-image {
   width: 100%;
   margin-bottom: 10px;
   border: 2px solid #dce4ec;
   border-radius: 4px;
 }
-/* line 751, ../sass/customer.scss */
+/* line 760, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-details .store-description {
   display: block;
   margin-bottom: 10px;
 }
-/* line 763, ../sass/customer.scss */
+/* line 772, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-details .store-groups li {
   background-color: rgba(24, 188, 156, 0.16);
   color: #646464;
 }
-/* line 769, ../sass/customer.scss */
+/* line 778, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-details .store-template {
   display: block;
 }
-/* line 776, ../sass/customer.scss */
+/* line 785, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-groups .decipher-tags {
   margin: 0;
   background: white;
   border: 2px solid #dce4ec;
   border-radius: 4px;
 }
-/* line 782, ../sass/customer.scss */
+/* line 791, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-groups .decipher-tags .decipher-tags-input {
   margin-top: 10px;
   border: 1px solid #c8c8c8;
   border-radius: 4px;
 }
-/* line 795, ../sass/customer.scss */
+/* line 804, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-banner .file-select {
   padding: 0;
   border: 2px solid #dce4ec;
   margin-bottom: 10px;
   position: relative;
 }
-/* line 800, ../sass/customer.scss */
+/* line 809, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-banner .file-select .banner-image {
   width: 100%;
   margin: auto;
   border-radius: 4px;
 }
-/* line 805, ../sass/customer.scss */
+/* line 814, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-banner .file-select .image-upload-tip {
   position: absolute;
   right: 10px;
@@ -752,49 +768,49 @@ body .main-view .page.store-page .child-states .store-edit .store-banner .file-s
   background-color: rgba(120, 120, 120, 0.5);
   color: white;
 }
-/* line 818, ../sass/customer.scss */
+/* line 827, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-group-hint {
   display: block;
   color: gray;
   font-size: 12px;
 }
-/* line 824, ../sass/customer.scss */
+/* line 833, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit .store-groups {
   margin-bottom: 10px;
 }
-/* line 828, ../sass/customer.scss */
+/* line 837, ../sass/customer.scss */
 body .main-view .page.store-page .child-states .store-edit #store-template {
   padding-top: 0;
   padding-bottom: 0;
   margin-bottom: 10px;
 }
 @media (max-width: 767px) {
-  /* line 847, ../sass/customer.scss */
+  /* line 856, ../sass/customer.scss */
   body .main-view .profile-edit .save-btn {
     width: 49%;
   }
-  /* line 850, ../sass/customer.scss */
+  /* line 859, ../sass/customer.scss */
   body .main-view .profile-edit .cancel-btn {
     width: 49%;
     float: left;
   }
-  /* line 872, ../sass/customer.scss */
+  /* line 881, ../sass/customer.scss */
   body .main-view .page-title {
     text-align: center;
   }
 }
 
-/* line 883, ../sass/customer.scss */
+/* line 892, ../sass/customer.scss */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: yekan;
 }
 
-/* line 887, ../sass/customer.scss */
+/* line 896, ../sass/customer.scss */
 .dropdown-toggle {
   cursor: pointer;
 }
 
-/* line 892, ../sass/customer.scss */
+/* line 901, ../sass/customer.scss */
 .gly-spin {
   -webkit-animation: spin 2s infinite linear;
   -moz-animation: spin 2s infinite linear;
@@ -803,56 +819,56 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @-moz-keyframes spin {
-  /* line 899, ../sass/customer.scss */
+  /* line 908, ../sass/customer.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 902, ../sass/customer.scss */
+  /* line 911, ../sass/customer.scss */
   100% {
     -moz-transform: rotate(359deg);
   }
 }
 
 @-webkit-keyframes spin {
-  /* line 907, ../sass/customer.scss */
+  /* line 916, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 910, ../sass/customer.scss */
+  /* line 919, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
 
 @-o-keyframes spin {
-  /* line 915, ../sass/customer.scss */
+  /* line 924, ../sass/customer.scss */
   0% {
     -o-transform: rotate(0deg);
   }
 
-  /* line 918, ../sass/customer.scss */
+  /* line 927, ../sass/customer.scss */
   100% {
     -o-transform: rotate(359deg);
   }
 }
 
 @keyframes spin {
-  /* line 923, ../sass/customer.scss */
+  /* line 932, ../sass/customer.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
-  /* line 927, ../sass/customer.scss */
+  /* line 936, ../sass/customer.scss */
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
-/* line 932, ../sass/customer.scss */
+/* line 941, ../sass/customer.scss */
 .gly-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
@@ -862,7 +878,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(90deg);
 }
 
-/* line 940, ../sass/customer.scss */
+/* line 949, ../sass/customer.scss */
 .gly-rotate-180 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
   -webkit-transform: rotate(180deg);
@@ -872,7 +888,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(180deg);
 }
 
-/* line 948, ../sass/customer.scss */
+/* line 957, ../sass/customer.scss */
 .gly-rotate-270 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
   -webkit-transform: rotate(270deg);
@@ -882,7 +898,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: rotate(270deg);
 }
 
-/* line 956, ../sass/customer.scss */
+/* line 965, ../sass/customer.scss */
 .gly-flip-horizontal {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
   -webkit-transform: scale(-1, 1);
@@ -892,7 +908,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   transform: scale(-1, 1);
 }
 
-/* line 964, ../sass/customer.scss */
+/* line 973, ../sass/customer.scss */
 .gly-flip-vertical {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
   -webkit-transform: scale(1, -1);
@@ -903,46 +919,46 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @media (max-width: 767px) {
-  /* line 975, ../sass/customer.scss */
+  /* line 984, ../sass/customer.scss */
   body {
     padding-top: 70px;
   }
 
-  /* line 979, ../sass/customer.scss */
+  /* line 988, ../sass/customer.scss */
   .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 984, ../sass/customer.scss */
+  /* line 993, ../sass/customer.scss */
   .row {
     margin-left: -5px;
     margin-right: -5px;
   }
 
-  /* line 989, ../sass/customer.scss */
+  /* line 998, ../sass/customer.scss */
   .container {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 994, ../sass/customer.scss */
+  /* line 1003, ../sass/customer.scss */
   .form-horizontal .form-group {
     margin-left: -5px;
     margin-right: -5px;
   }
 
-  /* line 1000, ../sass/customer.scss */
+  /* line 1009, ../sass/customer.scss */
   .nav-container.container, .nav-container .container {
     padding-left: 15px;
     padding-right: 15px;
   }
-  /* line 1005, ../sass/customer.scss */
+  /* line 1014, ../sass/customer.scss */
   .nav-container .col-xs-1, .nav-container .col-sm-1, .nav-container .col-md-1, .nav-container .col-lg-1, .nav-container .col-xs-2, .nav-container .col-sm-2, .nav-container .col-md-2, .nav-container .col-lg-2, .nav-container .col-xs-3, .nav-container .col-sm-3, .nav-container .col-md-3, .nav-container .col-lg-3, .nav-container .col-xs-4, .nav-container .col-sm-4, .nav-container .col-md-4, .nav-container .col-lg-4, .nav-container .col-xs-5, .nav-container .col-sm-5, .nav-container .col-md-5, .nav-container .col-lg-5, .nav-container .col-xs-6, .nav-container .col-sm-6, .nav-container .col-md-6, .nav-container .col-lg-6, .nav-container .col-xs-7, .nav-container .col-sm-7, .nav-container .col-md-7, .nav-container .col-lg-7, .nav-container .col-xs-8, .nav-container .col-sm-8, .nav-container .col-md-8, .nav-container .col-lg-8, .nav-container .col-xs-9, .nav-container .col-sm-9, .nav-container .col-md-9, .nav-container .col-lg-9, .nav-container .col-xs-10, .nav-container .col-sm-10, .nav-container .col-md-10, .nav-container .col-lg-10, .nav-container .col-xs-11, .nav-container .col-sm-11, .nav-container .col-md-11, .nav-container .col-lg-11, .nav-container .col-xs-12, .nav-container .col-sm-12, .nav-container .col-md-12, .nav-container .col-lg-12 {
     padding-left: 15px;
     padding-right: 15px;
   }
-  /* line 1010, ../sass/customer.scss */
+  /* line 1019, ../sass/customer.scss */
   .nav-container .row {
     margin-left: -15px;
     margin-right: -15px;
