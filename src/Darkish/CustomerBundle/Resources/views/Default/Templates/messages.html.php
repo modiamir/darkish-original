@@ -1,6 +1,6 @@
 <div class="row page messages-page">
 	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-3 threads master"
-		 ng-hide="(window.outerWidth < 768) && (selectedThread.id || groupMessageForm)">
+		 ng-hide="isXSmall() && (selectedThread.id || groupMessageForm)">
 		<div class="well master-buttons">
 			<button ng-click="showGroupMessageForm()" 
 					class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
@@ -64,7 +64,7 @@
 				دکمه بالا
 			</button>
 		</div>
-		<div ng-show="selectedThread.id" class="messages-inner details-inner" id="message-container" scroll-glue>
+		<div ng-class="{'has-details-bottom': isXSmall() && selectedThread.id, 'scrollable': !isXSmall()}" ng-show="selectedThread.id" class="messages-inner details-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
 				<li class="message" ng-repeat="message in currentMessages | orderBy:'id'"
@@ -97,7 +97,7 @@
 				</li>
 			</ul>
 		</div>
-		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit">
+		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit details-bottom" ng-class="{'fixed' : isXSmall()}">
 			<form>
 				<div class="message-text col col-xs-10 col-sm-10 col-md-11">
 					<input class="form-control" ng-model="messageForm"/>

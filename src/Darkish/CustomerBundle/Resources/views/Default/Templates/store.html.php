@@ -1,9 +1,11 @@
 
 <div class="row store-page page">
-	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-4 products-list master">
+	<div ng-hide="isXSmall() && state.current.name != 'store'" class="col col-xs-12 col-sm-5 col-md-4 col-lg-4 products-list master">
 		<div class="well master-buttons"> 
-			<a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
-			<a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
+			<div class="btn-group btn-group-justified">
+			  <a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
+			  <a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
+			</div>
 		</div>
 		<div class="master-inner well">
 			list of products

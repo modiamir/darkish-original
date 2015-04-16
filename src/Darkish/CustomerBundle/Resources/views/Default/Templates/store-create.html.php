@@ -2,50 +2,25 @@
 	<button ng-disabled="state.current.name == 'store'" class="return-button" 
 		ui-sref="store">
 		<div class="icon icon-arrow-right"></div>
+		<span class="hidden-xs">بازگشت</span>
 	</button>
 	<span class="details-header-title">ایجاد محصول</span>
-	<!-- <button class="details-header-button btn btn-sm btn-primary">
-		مشخصات فروشگاه
-	</button> -->
+	<button class="details-header-button btn btn-sm btn-primary">
+		<span class="hidden-xs">ادامه</span>
+		<div class="icon icon-arrow-left"></div>
+	</button>
 </div>
 <div class="store-create-product details-inner well">
 	<form>
 		<div layout="row" layout-sm="column">
-			<md-input-container flex>
-			      <label>کد آیتم</label>
-			      <input ng-model="product.code">
-			    </md-input-container>
-
-			<md-input-container flex>
-			      <label>قیمت</label>
-			      <input ng-model="product.price">
-			    </md-input-container>		    
-
-		    <md-input-container flex>
-			      <label>درصد تخفیف</label>
-			      <input ng-model="product.discount_percent">
-			    </md-input-container>
+			
 		    
 		</div>
 		<div layout="column">
-			<md-input-container flex>
-			      <label>عنوان محصول</label>
-			      <input ng-model="product.title">
-			    </md-input-container>
-		    <md-input-container flex>
-			      <label>متن ویژه</label>
-			      <input ng-model="product.special_text" md-maxlength="150">
-			    </md-input-container>
-		    <md-input-container flex>
-		            <label>توضیحات</label>
-		            <textarea ng-model="product.description" columns="1"></textarea>
-		          </md-input-container>
+			
 		</div>
 		<div layout="row">
-			<md-select flex ng-model="product.group">
-		          <md-select-label>گروه {{ product.group.id ? ' : '+product.group.name : '' }}</md-select-label>
-		          <md-option ng-value="group" ng-repeat="group in storeData.market_groups">{{group.name}}</md-option>
-		        </md-select>
+			
 		</div>
 
 		

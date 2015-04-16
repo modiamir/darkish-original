@@ -6,7 +6,8 @@
 	<div class="col-xs-12">
 		<div ng-show="user" class="span3 well profile-page">
 		    <center>
-
+		    	<h3 class="record-title"><?php print $app->getUser()->getRecord()->getTitle(); ?>
+                        </h3>
 			    <div class="icons">
 			    	<span class="icon favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span>
 	                <span class="icon likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span>

@@ -3,7 +3,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.threads = threads.threads;
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
-  $scope.window = $window;
+  // $scope.window = $window;
 
   
 
