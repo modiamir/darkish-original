@@ -1,7 +1,7 @@
 
 
-customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploader', 
-  function($scope, $state, storeData, FileUploader){
+customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploader', '$window', 
+  function($scope, $state, storeData, FileUploader, $window){
 	$scope.store = "mrzsss";
 	$scope.state = $state;
 
@@ -18,8 +18,8 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', function($scope){
   $scope.edit = "edit product";
 }])
 
-customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$filter', 'SweetAlert', '$state', 
-	function($scope, FileUploader, $http, $filter, SweetAlert, $state){
+customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$filter', 'SweetAlert', '$state', '$window', 
+	function($scope, FileUploader, $http, $filter, SweetAlert, $state, $window){
   $scope.store = angular.copy($scope.storeData);
 
   $scope.templates = [];

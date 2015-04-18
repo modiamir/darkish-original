@@ -85,7 +85,7 @@ class ApiMessageController extends FOSRestController
         $threadsIds = array_merge($groupThreasIds, $privateThreasIds);
 
 
-        $messagesQuery = $em->createQuery("SELECT m from \Darkish\CategoryBundle\Entity\Message m join m.thread th where th.id in (:thids) and m.id > :last and m.sender = :sender");
+        $messagesQuery = $em->createQuery("SELECT m from \Darkish\CategoryBundle\Entity\Message m join m.thread th where th.id in (:thids) and m.id > :last and m.sender = 'record'");
         $messagesQuery->setParameter('thids', $threadsIds);
         $messagesQuery->setParameter('last', $lastMessageId);
         $messagesQuery->setParameter('sender', 'record');

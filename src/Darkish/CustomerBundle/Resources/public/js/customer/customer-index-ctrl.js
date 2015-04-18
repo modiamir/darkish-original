@@ -1,6 +1,6 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic']);
+                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -150,13 +150,15 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
 	});
 
 
-  $document.on('scroll', function() {
-        if($document.scrollTop() > 10 && $window.outerWidth < 768) {
-          $('.details-header').addClass('fixed');
-        } else {
-          $('.details-header').removeClass('fixed');
-        }
-   });
+  // $document.on('scroll', function() {
+  //       if($window.outerWidth < 768) {
+  //         $('.details-header').addClass('fixed');
+  //         $('.master-buttons').addClass('fixed');
+  //       } else {
+  //         $('.details-header').removeClass('fixed');
+  //         $('.master-buttons').removeClass('fixed');
+  //       }
+  //  });
 
 
 

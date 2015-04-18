@@ -926,7 +926,7 @@ class Record
     private $clientsFavorited;
 
     /**
-     * @ORM\Column(name="lastMessage", type="integer", nullable=true)
+     * @ORM\Column(name="lastMessage", type="integer", nullable=true )
      */
     private $lastMessageRecieve;
 

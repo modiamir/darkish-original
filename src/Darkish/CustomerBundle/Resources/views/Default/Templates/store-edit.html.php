@@ -1,4 +1,4 @@
-<div class="details-header" id="details-header">
+<div class="details-header" id="details-header" ng-class="{'fixed': isXSmall()}">
 	<button ng-disabled="state.current.name == 'store'" class="return-button" 
 		ui-sref="store">
 		<div class="icon icon-arrow-right"></div>

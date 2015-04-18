@@ -1,7 +1,7 @@
 <div class="row page messages-page">
 	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-3 threads master"
 		 ng-hide="isXSmall() && (selectedThread.id || groupMessageForm)">
-		<div class="well master-buttons">
+		<div class="well master-buttons" ng-class="{'fixed': isXSmall()}">
 			<button ng-click="showGroupMessageForm()" 
 					class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
 		</div>
@@ -14,7 +14,7 @@
 						<div class="middle">
 							<span class="username" ng-bind="thread.client.full_name ? thread.client.full_name : thread.client.username">
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text | limitTo:30">
+							<span class="last-message" ng-show="thread.last_message" ng-bind-html="thread.last_message.text | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -35,7 +35,7 @@
 							<span class="group-label">
 								پیام گروهی
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind="thread.last_message.text | limitTo:30">
+							<span class="last-message" ng-show="thread.last_message" ng-bind-html="thread.last_message.text | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -56,6 +56,7 @@
 	<div class="col col-xs-12 col-sm-7 col-md-8 col-lg-9 messages details">
 		<div class="details-header" id="details-header" 
 			ng-show="(selectedThread.id || groupMessageForm)"
+			ng-class="{'fixed': isXSmall()}"
 			>
 			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {}">
 				<div class="icon icon-arrow-right"></div>
@@ -79,8 +80,7 @@
 					 ">
 					<img ng-show="message.from == 'client'" ng-src="{{thread.client.photo ? thread.client.photo.icon_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>'}}" name="aboutme" width="48" height="48" class="img-circle">
 					<img ng-show="message.from == 'record'" ng-src="{{user.photo.icon_absolute_path ? user.photo.icon_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>'}}" name="aboutme" width="48" height="48" class="img-circle">
-					<span class="text">
-						{{message.text}}
+					<span class="text" ng-bind-html="getTrustedMessage(message.text)">
 					</span>
 					<span class="time">
 					{{message.created | toDate | amDateFormat:'jYYYY/jM/jD, h:mm'}}
