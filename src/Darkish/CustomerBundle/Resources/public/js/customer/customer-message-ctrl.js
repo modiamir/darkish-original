@@ -1,5 +1,5 @@
 customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http', '$timeout', '$filter',
-  '$interval', 'SweetAlert', '$document', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert, $document){
+  '$interval', 'SweetAlert', '$sce', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert, $sce){
   $scope.threads = threads.threads;
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
@@ -10,10 +10,11 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     console.log(event);
   }
 
-  $scope.$watch('messageForm', function(){
-    $scope.setDetailsInnerMarginBottom();
-    
-  })
+  
+
+  $scope.getTrustedMessage = function(text) {
+    return $sce.trustAsHtml(text);
+  }
 
   $scope.setDetailsInnerMarginBottom = function()   {
     if($scope.isXSmall()) {
@@ -25,8 +26,13 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     }
   }
 
-  angular.element($('.message-submit .message-text textarea')).bind('click', function(){
-    console.log($scope.textarea);
+  
+
+  angular.element($('.message-submit .message-text textarea')).bind('keypress', function(e){
+    // if(e.keyCode == 13 || e.keyCode == 8 || e.keyCode == 46){
+        
+    // }
+    $scope.setDetailsInnerMarginBottom();
   });
 
   $scope.fetchDeliveredSeen = function() {
@@ -92,6 +98,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
           $scope.currentMessages = response.data;
           $scope.setLastMessageSeen(thread, thread.last_message.id);
           $scope.fetchDeliveredSeen();
+          $scope.setDetailsInnerMarginBottom();
         },
         function(responseErr) {
         }
@@ -114,7 +121,8 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
 
   $scope.postMessage = function() {
     if($scope.messageForm) {
-      var text = angular.copy($scope.messageForm);
+      // var text = angular.copy($scope.messageForm);
+      var text = $scope.messageForm.replace(/\n/g, '<br/>')
       $scope.messageForm = null;
       $http({
           method: 'PUT',

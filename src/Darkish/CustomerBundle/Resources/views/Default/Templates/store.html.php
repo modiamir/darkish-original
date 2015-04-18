@@ -1,7 +1,7 @@
 
 <div class="row store-page page">
 	<div ng-hide="isXSmall() && state.current.name != 'store'" class="col col-xs-12 col-sm-5 col-md-4 col-lg-4 products-list master">
-		<div class="well master-buttons"> 
+		<div class="well master-buttons" ng-class="{'fixed': isXSmall()}"> 
 			<div class="btn-group btn-group-justified">
 			  <a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.edit">ویرایش فروشگاه</a>
 			  <a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">ایجاد محصول جدید</a>
@@ -15,7 +15,8 @@
 	</div>
 
 	<div class="col col-xs-12 col-sm-7  col-md-8 col-lg-8 details child-states">
-		<div ng-show="state.current.name == 'store'" class="details-header" id="details-header">
+		<div ng-show="state.current.name == 'store'" class="details-header" id="details-header"
+			ng-hide="isXSmall()">
 			<button ng-disabled="state.current.name == 'store'" class="return-button" 
 				ui-sref="store">
 				<div class="icon icon-arrow-right"></div>
@@ -25,7 +26,8 @@
 				مشخصات فروشگاه
 			</button> -->
 		</div>
-		<div ng-show="state.current.name == 'store'" class="well store-details details-inner">
+		<div ng-show="state.current.name == 'store'" class="well store-details details-inner"
+			ng-hide="isXSmall()">
 			<label>توضیحات</label>
 			<span class="store-description" ng-bind="storeData.market_description"></span>
 			<hr/>
