@@ -475,7 +475,7 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
         data.group = $scope.product.group.id;
         console.info('$scope.products',$scope.products);
         console.info('$scope.product.group', $scope.product.group);
-        data.sort = $scope.products[$scope.product.group.id][0].sort - 1;
+        data.sort = ($scope.products[$scope.product.group.id][0])? $scope.products[$scope.product.group.id][0].sort - 1 : 0;
 
         $http({
           method: 'POST',
