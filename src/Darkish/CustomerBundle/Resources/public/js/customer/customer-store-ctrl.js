@@ -473,7 +473,8 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
           data.photos.push(photo.id);
         });
         data.group = $scope.product.group.id;
-        console.info('inja',$scope.products[$scope.product.group.id]);
+        console.info('$scope.products',$scope.products);
+        console.lngo('$scope.product.group', $scope.product.group);
         data.sort = $scope.products[$scope.product.group.id][0].sort - 1;
 
         $http({
