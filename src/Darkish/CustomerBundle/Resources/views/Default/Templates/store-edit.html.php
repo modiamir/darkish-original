@@ -1,7 +1,7 @@
 <div class="details-header" id="details-header" ng-class="{'fixed': isXSmall()}">
 	<button ng-disabled="state.current.name == 'store'" class="return-button" 
-		ui-sref="store">
-		<div class="icon icon-arrow-right"></div>
+		ui-sref="store.details">
+		<div class="dk icon-arrow-right"></div>
 	</button>
 	<span class="details-header-title">ویرایش مشخصات فروشگاه</span>
 	<!-- <button class="details-header-button btn btn-sm btn-primary">

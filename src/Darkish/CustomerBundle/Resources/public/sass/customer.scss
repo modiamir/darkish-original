@@ -41,7 +41,7 @@ body {
             width: 100%;
             display: inline-block;
             text-align: center;
-            .icon {
+            .dk {
                 margin: 20px 5px;
                 display: inline-block;
 
@@ -75,10 +75,10 @@ body {
     input, .form-control  {
         &.ng-dirty {
             &.ng-valid {
-                border-bottom: 2px solid green;        
+                border: 2px solid green;        
             }
             &.ng-invalid {
-                border-bottom: 2px solid red;           
+                border: 2px solid red;           
             }
         }
 
@@ -113,7 +113,7 @@ body {
                         float: left;
                         margin-right: 0;
                         margin-left: 5%;
-                        .icon {
+                        .dk {
                             font-size: 50px;
                             height: 60px;
                             line-height: 78px;
@@ -256,7 +256,7 @@ body {
                 &:hover {
                     color: white;
                 }
-                .icon {
+                .dk {
                     font-size: 70px;
                     font-size: 5vw;
                     height: 67px;
@@ -350,6 +350,7 @@ body {
                     &.scrollable {
                         max-height: 450px;
                         overflow-y: scroll;
+                        padding-left: 15px;
                     }
                 }
                 .master-bottom {
@@ -379,9 +380,8 @@ body {
                         &:hover {
                             background-color: rgb(224, 224, 224);
                         }
-                        .icon {
+                        .dk {
                             height: 100%;
-                            padding-top: 5px;
                             line-height: 55px;
                             // width: 100%px;
                             text-align: center;
@@ -430,9 +430,8 @@ body {
                         &:hover {
                             background-color: rgb(224, 224, 224);
                         }
-                        .icon {
+                        .dk {
                             height: 100%;
-                            padding-top: 5px;
                             line-height: 55px;
                             // width: 100%px;
                             text-align: center;
@@ -442,7 +441,7 @@ body {
                             margin: auto;
                         }
                         &[disabled] {
-                            .icon {
+                            .dk {
                                 color: rgb(207, 207, 207);
                                 
                             }
@@ -461,7 +460,7 @@ body {
                         z-index: 10;
                         box-shadow: 0 2px 9px -4px black;
                         .return-button {
-                            .icon {
+                            .dk {
                                 border-radius: 0;
                             }
                         }
@@ -489,6 +488,9 @@ body {
 
             label {
                 color: rgb(72, 198, 169);
+                &.btn {
+                    color: white;
+                }
             }
 
             hr {
@@ -754,6 +756,56 @@ body {
                     }
                 }
                 .products-list {
+                    .accordion {
+                        .accordion-inner {
+                            .collapsible-item {
+                                .title {
+
+                                }
+                                .body {
+                                    
+                                }
+                                &.open {
+                                    .body {
+                                        max-height: inherit;    
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    .accordion-wrapper {
+                        .accordion-list {
+                            .collapsible {
+                                &:first-child {
+                                    .header {
+                                        margin-top: 0;
+                                        
+                                    }
+                                }
+                                .header {
+                                    background-color: rgb(217, 217, 217);
+                                    padding: 5px 10px;
+                                    margin-top: 10px;
+                                    padding-right: 15px;
+                                    .dk {
+                                        font-size: 16px;
+                                        margin-top: 3px;
+                                        float: right;
+                                        margin-left: 5px;
+                                    }
+                                    &:hover {
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .as-sortable-item {
+                        background: inherit;
+                        border: none;
+                    }
+
                 }
 
                 .child-states {
@@ -782,6 +834,10 @@ body {
                             li {
                                 background-color: rgba(24, 188, 156, 0.16);
                                 color: rgb(100, 100, 100);
+                                position: relative;
+                                padding: 10px 5px;
+                                border-radius: 0;
+                                border: 0;
                             }
                         }
 
@@ -849,6 +905,10 @@ body {
                             padding-bottom: 0;
                             margin-bottom: 10px;
                         }
+                    }
+
+                    .store-create {
+                        
                     }
                 }
             }
@@ -1031,4 +1091,158 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
             margin-right: -15px;
         }
     }
+}
+
+input.form-control {
+    line-height: 43px;
+}
+
+.radio-box {
+    background: white;
+    padding: 5px 10px;
+    border: 1px solid #dce4ec;
+    border-radius: 4px;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.collapsible-item.open .body {
+    
+} 
+
+.product-sort-buttons {
+    position: absolute;
+    left: 5px;
+    top: 0;
+    width: 77px;
+    height: 29px;
+    padding: 2px;
+    background-color: rgba(128, 128, 128, 0.52);
+    .as-sortable-item-handle {
+        float: right;
+        width: 25px;
+        margin: 0 5px;
+        text-align: center;
+        background-color: rgb(205, 205, 205);
+        color: white;
+        font-size: 20px;
+        height: 22px;
+        margin-top: 1px;
+    }
+    button {
+        float: right;
+        width: 28px;
+        text-align: center;
+        margin: 0 5px;
+        background-color: #cdcdcd;
+        border: 0;
+        color: red;
+        border-radius: 0;
+        font-size: 18px;
+        height: 22px;
+        margin-top: 1px;
+        &:hover {
+            background-color: rgb(226, 226, 226);
+        }
+    }
+
+}
+
+.product-item {
+
+    .product-teaser {
+        position: relative;
+        border: 1px solid rgb(210, 210, 210);
+        background: white;
+        .row {
+            margin: 0;
+        }
+        .top-row {
+            .right-col {
+                .product-title {
+                    text-align: center;
+                    color: rgb(12, 159, 12);
+                    border-left: 1px solid white;
+                }
+
+                .product-special-text {
+                    text-align: center;
+                    color: gray;
+                    margin-bottom: 5px;
+                }
+            }
+            .left-col {
+                padding: 0;
+                border-right: 1px solid white;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .bottom-row {
+            background: rgb(231, 231, 231);
+            font-size: 12px;
+            line-height: 2;
+            .right-col {
+                text-align: center;
+                border-left: 1px solid white;
+                .product-price {
+                    color: #0c9f0c;
+                    &.discounted {
+                        color: red;
+                        text-decoration: line-through;
+                    }
+                }
+                .product-discounted-price {
+                    color: #0c9f0c;
+                }
+            }
+
+            .left-col {
+                border-right: 1px solid white;
+                text-align: center;
+                padding: 0;
+            }
+        }
+        .product-special-tag {
+            position: absolute;
+            top: 0;
+            right: 3px;
+
+            span {
+                display: inline-block;
+                text-indent: -1000px;
+                width: 32px;
+                height: 44px;
+                background-size: 100%;
+                background-repeat: no-repeat;
+            }
+            .new {
+                background-image: url(../images/Over-New.png);
+            }
+
+            .special {
+                background-image: url(../images/Over-Offer.png);
+            }
+
+            .discount {
+                background-image: url(../images/Over-Discount.png);
+            }
+        }
+        &.clickable {
+            cursor: pointer;
+        }
+    }
+    
 }
