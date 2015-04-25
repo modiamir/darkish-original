@@ -474,6 +474,7 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
         });
         data.group = $scope.product.group.id;
         data.sort = $scope.products[$scope.product.group.id][0].sort - 1;
+        console.info('inja',$scope.products[$scope.product.group.id]);
         $http({
           method: 'POST',
           url: './customer/ajax/product',
