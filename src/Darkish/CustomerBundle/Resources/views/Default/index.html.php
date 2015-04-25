@@ -34,6 +34,14 @@
     <!-- ng-scroll CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.css') ?>" rel="stylesheet" type="text/css" />
 
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ang-accordion/css/ang-accordion.css') ?>" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.style.min.css') ?>" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css') ?>" rel="stylesheet" type="text/css" />
+
 
 
 
@@ -42,7 +50,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/rtl.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/angular-material-rtl.css') ?>" rel="stylesheet">
-    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/darkish-font.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/font-darkish.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
 
 </head>
@@ -59,7 +67,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
+                    <a class="navbar-brand"><div class="dk icon-logo-farsi"></div></a>
                 </div>
                 <!-- <div class="col col-xs-2 logo">
                     
@@ -136,7 +144,7 @@
         <nav class="navbar navbar-inverse visible-lg visible-md visible-sm" role="navigation" >
             <div class="collapse navbar-collapse row large-display-nav" id="navbar-collapse-01">
                 <div class="col col-sm-1 col-md-1 col-lg-1 logo">
-                    <a class="navbar-brand"><div class="icon icon-logo-farsi"></div></a>
+                    <a class="navbar-brand"><div class="dk icon-logo-farsi"></div></a>
                 </div>
                 <div class="col col-sm-3 col-md-3 col-lg-3 primary-menu">
                     <ul class="nav navbar-nav">
@@ -184,9 +192,9 @@
                                 <span ng-show="!isOnline()" class="offline status-text" >Offline</span>
                             </div>
                         </li>
-                        <li><span class="navbar-text visitcount"><div class="icon icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></span></li>
-                        <li><span class="navbar-text likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span></li>
-                        <li><span class="navbar-text favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span></li>
+                        <li><span class="navbar-text visitcount"><div class="dk icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></span></li>
+                        <li><span class="navbar-text likecount"><div class="dk icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span></li>
+                        <li><span class="navbar-text favoritcount"><div class="dk icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span></li>
                         <li class="dropdown">
                             <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
@@ -228,12 +236,12 @@
     <div id="loading" ng-hide="loaded" ng-cloak ng-class="{'loaded': loaded }">
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>
-    
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery-ui/jquery-ui.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular/angular.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-sanitize/angular-sanitize.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-animate/angular-animate.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-aria/angular-aria.min.js') ?>" type="text/javascript"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-router/release/angular-ui-router.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/humps/humps.js') ?>"></script>
@@ -248,7 +256,6 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-utils/ui-utils.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
@@ -256,10 +263,20 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-elastic/elastic.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-resize/ngresize.js') ?>"></script>
-    
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-validation/dist/angular-validation.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-validation/dist/angular-validation-rule.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-virtual-scroll/angular-virtual-scroll.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ang-accordion/js/ang-accordion.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js') ?>"></script>
+
     
     
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-index-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-directives.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
 </body>

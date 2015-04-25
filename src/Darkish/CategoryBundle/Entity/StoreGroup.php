@@ -32,6 +32,12 @@ class StoreGroup
     private $name;
 
     /**
+     * @ORM\Column(name="sort", type="integer")
+     * @Groups({"storegroup.list", "storegroup.details","record.store"})
+     */
+    private $sort;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Record", inversedBy="marketGroups")
      */
     private $record;
@@ -93,5 +99,28 @@ class StoreGroup
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set sort
+     *
+     * @param integer $sort
+     * @return StoreGroup
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * Get sort
+     *
+     * @return integer 
+     */
+    public function getSort()
+    {
+        return $this->sort;
     }
 }

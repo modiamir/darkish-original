@@ -4,6 +4,8 @@ namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Product
@@ -26,6 +28,7 @@ class Product
     /**
      * @ORM\Column(name="code", type="string")
      * @Groups({"product.list", "product.details"})
+     * @Type("integer")
      */
     private $code;
 
@@ -44,17 +47,18 @@ class Product
     /**
      * @ORM\Column(name="sort", type="integer", options={"default" = 0})
      * @Groups({"product.list", "product.details"})
+     * @Type("integer")
      */
     private $sort = 0;
 
     /**
-     * @ORM\Column(name="special_sort", type="string")
+     * @ORM\Column(name="special_text", type="string", nullable= true)
      * @Groups({"product.list", "product.details"})
      */
     private $specialText;
 
     /**
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable= true)
      * @Groups({"product.list", "product.details"})
      */
     private $description;
@@ -66,10 +70,10 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(name="discount_percent", type="smallint")
+     * @ORM\Column(name="discounted_price", type="smallint", nullable= true)
      * @Groups({"product.list", "product.details"})
      */
-    private $discountPercent;
+    private $discountedPrice;
 
     /**
      * @ORM\Column(name="availability", type="smallint")
@@ -107,31 +111,22 @@ class Product
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\JoinTable(name="product_photos",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
+     *      )
      * @Groups({"product.list", "product.details"})
-     */
-    private $firstPhoto;
+     **/
+    private $photos;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="ManagedFile")
-     * @Groups({"product.list", "product.details"})
-     */
-    private $secondPhoto;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="ManagedFile")
-     * @Groups({"product.list", "product.details"})
-     */
-    private $thirdPhoto;
+    
 
 
 
 
-
-
-
-
-
+    
 
 
 
@@ -467,72 +462,82 @@ class Product
         return $this->customer;
     }
 
+    
     /**
-     * Set firstPhoto
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->availability = 1;
+        $this->specialTag = 1;
+    }
+
+    /**
+     * Add photos
      *
-     * @param \Darkish\CategoryBundle\Entity\ManagedFile $firstPhoto
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
      * @return Product
      */
-    public function setFirstPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $firstPhoto = null)
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
     {
-        $this->firstPhoto = $firstPhoto;
+        $this->photos[] = $photos;
 
         return $this;
     }
 
     /**
-     * Get firstPhoto
+     * Remove photos
      *
-     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
      */
-    public function getFirstPhoto()
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
     {
-        return $this->firstPhoto;
+        $this->photos->removeElement($photos);
     }
 
     /**
-     * Set secondPhoto
+     * Get photos
      *
-     * @param \Darkish\CategoryBundle\Entity\ManagedFile $secondPhoto
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * @VirtualProperty
+     * @Groups({"product.details", "product.list"})
+     */
+    public function getGroupId() {
+        if(!$this->group) {
+            return 0;
+        } else {
+            return $this->group->getId();
+        }
+    }
+
+    /**
+     * Set discountedPrice
+     *
+     * @param integer $discountedPrice
      * @return Product
      */
-    public function setSecondPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $secondPhoto = null)
+    public function setDiscountedPrice($discountedPrice)
     {
-        $this->secondPhoto = $secondPhoto;
+        $this->discountedPrice = $discountedPrice;
 
         return $this;
     }
 
     /**
-     * Get secondPhoto
+     * Get discountedPrice
      *
-     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     * @return integer 
      */
-    public function getSecondPhoto()
+    public function getDiscountedPrice()
     {
-        return $this->secondPhoto;
-    }
-
-    /**
-     * Set thirdPhoto
-     *
-     * @param \Darkish\CategoryBundle\Entity\ManagedFile $thirdPhoto
-     * @return Product
-     */
-    public function setThirdPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $thirdPhoto = null)
-    {
-        $this->thirdPhoto = $thirdPhoto;
-
-        return $this;
-    }
-
-    /**
-     * Get thirdPhoto
-     *
-     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
-     */
-    public function getThirdPhoto()
-    {
-        return $this->thirdPhoto;
+        return $this->discountedPrice;
     }
 }

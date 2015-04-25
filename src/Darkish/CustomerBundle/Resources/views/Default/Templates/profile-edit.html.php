@@ -7,7 +7,7 @@
           <img width="130" src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>" ng-src="{{editinguser.photo.icon_absolute_path}}" class="avatar img-circle" alt="avatar">
           <label class="file-select btn btn-success">
               تصویر دیگری آپلود کنید...
-              <input  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+              <input ng-init="photo = editinguser.photo"  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
           </label>
           
         </div>

@@ -1,6 +1,7 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize']);
+                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
+                , 'angAccordion', 'ui.sortable', 'bootstrapLightbox']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -14,7 +15,10 @@ customerApp.filter('toDate', function() {
   }
 })
 
-customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, LightboxProvider) {
+
+
+
 
 
   $mdThemingProvider.theme('default')
@@ -106,17 +110,45 @@ customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvid
                 return response.data;
              });  
         }
+
+      }
+    })
+    .state('store.productdetails', {
+      url: "/product/{pid:int}",
+      templateUrl: "customer/template/store-product-details.html",
+      controller: "StoreProductDetailsCtrl",
+      resolve: {
+        product: function($http, $stateParams) {
+          return $http({method: 'GET', url: 'customer/ajax/product/get/'+$stateParams.pid})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+
       }
     })
     .state('store.editproduct', {
-      url: "/product/edit",
+      url: "/product/{pid:int}/edit",
       templateUrl: "customer/template/store-product-edit.html",
-      controller: "StoreProductEditCtrl"
+      controller: "StoreProductEditCtrl",
+      resolve: {
+        product: function($http, $stateParams) {
+          return $http({method: 'GET', url: 'customer/ajax/product/get/'+$stateParams.pid})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+      }
     })
     .state('store.edit', {
       url: "/edit",
       templateUrl: "customer/template/store-edit.html",
       controller: "StoreEditCtrl"
+    })
+    .state('store.details', {
+      url: "/details",
+      templateUrl: "customer/template/store-details.html",
+      controller: "StoreDetailsCtrl"
     })
     .state('store.create', {
       url: "/create",

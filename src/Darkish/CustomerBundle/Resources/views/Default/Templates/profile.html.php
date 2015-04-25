@@ -9,9 +9,9 @@
 		    	<h3 class="record-title"><?php print $app->getUser()->getRecord()->getTitle(); ?>
                         </h3>
 			    <div class="icons">
-			    	<span class="icon favoritcount"><div class="icon icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span>
-	                <span class="icon likecount"><div class="icon icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span>
-	                <span class="icon visitcount"><div class="icon icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></span>
+			    	<span class="icon favoritcount"><div class="dk icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span>
+	                <span class="icon likecount"><div class="dk icon-like"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedLikeCount(); ?></span></span>
+	                <span class="icon visitcount"><div class="dk icon-eye"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedVisitCount(); ?></span></span>
 			    </div>
 			    <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img ng-src="{{user.photo.icon_absolute_path ? user.photo.icon_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>'}}" name="aboutme" width="140" height="140" class="img-circle"></a>
 			    <h3 ng-bind="user.full_name"></h4>
