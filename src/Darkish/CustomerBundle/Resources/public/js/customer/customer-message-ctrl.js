@@ -36,7 +36,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     if($scope.isXSmall()) {
       var height = angular.element($('.message-submit'))[0].offsetHeight;
       $('body .main-view .page .details .details-inner').css('margin-bottom', height);  
-      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+      $("html, body").animate({ scrollTop: $(document).height() }, 5);
     } else {
       $('body .main-view .page .details .details-inner').css('margin-bottom', 0);  
     }
@@ -108,7 +108,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       $http.get('./customer/ajax/get_messages_for_thread/'+thread.id+'/0').then(
         function(response) {
           $timeout(function(){
-            $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+            $('#message-container').scrollTop($('#message-container')[0].scrollHeight, 0);  
           }, 5);
           $scope.selectedThread = thread;
           $scope.currentMessages = response.data;
