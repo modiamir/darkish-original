@@ -122,6 +122,9 @@
 	&.emot-sick{
 		background-image:url("../images/emotions/(sick).png");
 	}
+	&.emot-dollar{
+		background-image:url("../images/emotions/(dollar).png");
+	}
 	&.emot-sleeping{
 		background-image:url("../images/emotions/(sleeping).png");
 	}
@@ -177,6 +180,7 @@ button.dk-emot {
 
 .emotions-list, .emotions-list .open {
 	line-height: 53px;
+	text-align: left;
 	button.emotion-add-icon {
 		background-image:url("../images/emotions/emotions-add.png");
 		background-color: transparent;
@@ -196,6 +200,33 @@ button.dk-emot {
 		li {
 			float: right;
 			margin: 3px;
+		}
+	}
+
+	&.group-message {
+		&.open {
+			button.emotion-add-icon {
+				background-image:url("../images/emotions/emotions-add.png");
+				background-color: transparent;
+				border: 0;
+				padding: 0;
+				width: 32px;
+				height: 32px;
+				background-size:  32px 32px;
+				line-height: 1;
+				margin-top: 0 !important;
+			}
+
+			ul {
+				width: 245px;
+				right: 0;
+				left: auto;
+				line-height: 1;
+				li {
+					float: right;
+					margin: 3px;
+				}
+			}			
 		}
 	}
 }

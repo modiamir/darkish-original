@@ -11,9 +11,49 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   }
 
 
+  $scope.setCaretPosition = function(ctrl, pos)
+  {
+   
+    if(ctrl.setSelectionRange)
+    {
+      ctrl.focus();
+      ctrl.setSelectionRange(pos,pos);
+      
+    }
+    else if (ctrl.createTextRange) {
+      var range = ctrl.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', pos);
+      range.moveStart('character', pos);
+      range.select();
+    }
+  }
 
+
+  $scope.doGetCaretPosition =  function(ctrl) {
+   
+    var CaretPos = 0;
+    // IE Support
+    if (document.selection) {
+   
+      ctrl.focus ();
+      var Sel = document.selection.createRange ();
+   
+      Sel.moveStart ('character', -ctrl.value.length);
+   
+      CaretPos = Sel.text.length;
+    }
+    // Firefox support
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+      CaretPos = ctrl.selectionStart;
+   
+    return (CaretPos);
+   
+  }
 
   $scope.insertEmotion = function(emotionName) {
+    
+    var pos =$scope.doGetCaretPosition(document.getElementById('message-text-area'));
 
     var emotionTag = '('+emotionName+')';
     var start = $('#message-text-area').prop("selectionStart");
@@ -22,6 +62,37 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     $scope.messageForm = ($scope.messageForm) ? $scope.messageForm : "";
 
     $scope.messageForm = $scope.messageForm.slice(0, start)+emotionTag+$scope.messageForm.slice(end);
+    el = document.getElementById('message-text-area');
+    if(el.setSelectionRange)
+    {
+      $timeout(function(){
+        $scope.setCaretPosition(el, end);
+      }, 5);
+      
+      
+    }
+    
+  }
+
+
+  $scope.insertEmotionGroup = function(emotionName) {
+
+    var emotionTag = '('+emotionName+')';
+    var start = $('#group-text-area').prop("selectionStart");
+    var end   = $('#group-text-area').prop("selectionEnd");
+
+    $scope.groupText = ($scope.groupText) ? $scope.groupText : "";
+
+    $scope.groupText = $scope.groupText.slice(0, start)+emotionTag+$scope.groupText.slice(end);
+    el = document.getElementById('group-text-area');
+    if(el.setSelectionRange)
+    {
+      $timeout(function(){
+        $scope.setCaretPosition(el, end);
+      }, 5);
+      
+      
+    }
   }
 
   ////////////////////////////////
@@ -43,12 +114,12 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   }
 
   
+  angular.element($('.message-submit .message-text textarea')).bind('keydown', function(e){
+    $scope.setDetailsInnerMarginBottom();
+  });
 
   angular.element($('.message-submit .message-text textarea')).bind('keypress', function(e){
-    // if(e.keyCode == 13 || e.keyCode == 8 || e.keyCode == 46){
-        
-    // }
-    $scope.setDetailsInnerMarginBottom();
+    
   });
 
   $scope.fetchDeliveredSeen = function() {
@@ -105,6 +176,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     if(!angular.equals($scope.selectedThread, thread)) {
       $scope.hasNotMore = false;
       $scope.groupMessageForm = false;
+      $scope.messageForm = "";
       $http.get('./customer/ajax/get_messages_for_thread/'+thread.id+'/0').then(
         function(response) {
           $timeout(function(){
@@ -236,6 +308,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   });
   
   $scope.showGroupMessageForm = function() {
+    $scope.groupText = "";
     $scope.selectedThread = {};
     $scope.groupMessageForm = true;
   }

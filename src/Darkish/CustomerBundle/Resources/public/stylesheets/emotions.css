@@ -164,47 +164,51 @@
   background-image: url("../images/emotions/(sick).png");
 }
 /* line 125, ../sass/emotions.scss */
+.dk-emot.emot-dollar {
+  background-image: url("../images/emotions/(dollar).png");
+}
+/* line 128, ../sass/emotions.scss */
 .dk-emot.emot-sleeping {
   background-image: url("../images/emotions/(sleeping).png");
 }
-/* line 128, ../sass/emotions.scss */
+/* line 131, ../sass/emotions.scss */
 .dk-emot.emot-smiley {
   background-image: url("../images/emotions/(smiley).png");
 }
-/* line 131, ../sass/emotions.scss */
+/* line 134, ../sass/emotions.scss */
 .dk-emot.emot-soccer {
   background-image: url("../images/emotions/(soccer).png");
 }
-/* line 134, ../sass/emotions.scss */
+/* line 137, ../sass/emotions.scss */
 .dk-emot.emot-sun {
   background-image: url("../images/emotions/(sun).png");
 }
-/* line 137, ../sass/emotions.scss */
+/* line 140, ../sass/emotions.scss */
 .dk-emot.emot-surprised {
   background-image: url("../images/emotions/(surprised).png");
 }
-/* line 140, ../sass/emotions.scss */
+/* line 143, ../sass/emotions.scss */
 .dk-emot.emot-teeth {
   background-image: url("../images/emotions/(teeth).png");
 }
-/* line 143, ../sass/emotions.scss */
+/* line 146, ../sass/emotions.scss */
 .dk-emot.emot-time {
   background-image: url("../images/emotions/(time).png");
 }
-/* line 146, ../sass/emotions.scss */
+/* line 149, ../sass/emotions.scss */
 .dk-emot.emot-tongue {
   background-image: url("../images/emotions/(tongue).png");
 }
-/* line 149, ../sass/emotions.scss */
+/* line 152, ../sass/emotions.scss */
 .dk-emot.emot-wink {
   background-image: url("../images/emotions/(wink).png");
 }
-/* line 152, ../sass/emotions.scss */
+/* line 155, ../sass/emotions.scss */
 .dk-emot.emot-yummi {
   background-image: url("../images/emotions/(yummi).png");
 }
 
-/* line 157, ../sass/emotions.scss */
+/* line 160, ../sass/emotions.scss */
 img.dk-emot {
   display: inline-block;
   text-indent: -100000px;
@@ -215,7 +219,7 @@ img.dk-emot {
   float: none !important;
 }
 
-/* line 167, ../sass/emotions.scss */
+/* line 170, ../sass/emotions.scss */
 button.dk-emot {
   border: 0;
   background-size: 24px 24px;
@@ -223,16 +227,17 @@ button.dk-emot {
   width: 24px;
   height: 24px;
 }
-/* line 173, ../sass/emotions.scss */
+/* line 176, ../sass/emotions.scss */
 button.dk-emot:hover {
   background-color: #dfdfdf;
 }
 
-/* line 178, ../sass/emotions.scss */
+/* line 181, ../sass/emotions.scss */
 .emotions-list, .emotions-list .open {
   line-height: 53px;
+  text-align: left;
 }
-/* line 180, ../sass/emotions.scss */
+/* line 184, ../sass/emotions.scss */
 .emotions-list button.emotion-add-icon, .emotions-list .open button.emotion-add-icon {
   background-image: url("../images/emotions/emotions-add.png");
   background-color: transparent;
@@ -243,15 +248,39 @@ button.dk-emot:hover {
   background-size: 32px 32px;
   line-height: 1;
 }
-/* line 191, ../sass/emotions.scss */
+/* line 195, ../sass/emotions.scss */
 .emotions-list ul, .emotions-list .open ul {
   width: 245px;
   left: 0;
   right: auto;
   line-height: 1;
 }
-/* line 196, ../sass/emotions.scss */
+/* line 200, ../sass/emotions.scss */
 .emotions-list ul li, .emotions-list .open ul li {
+  float: right;
+  margin: 3px;
+}
+/* line 208, ../sass/emotions.scss */
+.emotions-list.group-message.open button.emotion-add-icon, .emotions-list .open.group-message.open button.emotion-add-icon {
+  background-image: url("../images/emotions/emotions-add.png");
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+  line-height: 1;
+  margin-top: 0 !important;
+}
+/* line 220, ../sass/emotions.scss */
+.emotions-list.group-message.open ul, .emotions-list .open.group-message.open ul {
+  width: 245px;
+  right: 0;
+  left: auto;
+  line-height: 1;
+}
+/* line 225, ../sass/emotions.scss */
+.emotions-list.group-message.open ul li, .emotions-list .open.group-message.open ul li {
   float: right;
   margin: 3px;
 }
