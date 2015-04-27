@@ -149,7 +149,7 @@
                 <div class="col col-sm-1 col-md-1 col-lg-1 logo">
                     <a class="navbar-brand"><div class="dk icon-logo-farsi"></div></a>
                 </div>
-                <div class="col col-sm-3 col-md-3 col-lg-3 primary-menu">
+                <div class="col col-sm-2 col-md-3 col-lg-3 primary-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a class="dropdown-toggle main-menu" data-toggle="dropdown" role="button" aria-expanded="false">{{state.current.data.label}}<span class="caret"></span></a>
@@ -181,12 +181,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col col-sm-3 col-md-4 col-lg-4 record-title">
+                <div class="col col-sm-5 col-md-4 col-lg-4 record-title">
                     <h4>
                         <?php print $app->getUser()->getRecord()->getTitle(); ?>
                     </h4>
                 </div>
-                <div class="col col-sm-5 col-md-4 col-lg-4 user-menu">
+                <div class="col col-sm-4 col-md-4 col-lg-4 user-menu">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <div class="online-status">
@@ -277,6 +277,8 @@
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js') ?>"></script> -->
 
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-contenteditable/angular-contenteditable.js') ?>"></script> -->
+
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script>
 
     
     
