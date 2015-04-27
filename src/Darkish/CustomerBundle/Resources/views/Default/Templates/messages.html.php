@@ -14,7 +14,7 @@
 						<div class="middle">
 							<span class="username" ng-bind="thread.client.full_name ? thread.client.full_name : thread.client.username">
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind-html="thread.last_message.text | limitTo:30">
+							<span class="last-message" ng-show="thread.last_message" ng-bind-html="getTrustedMessage(thread.last_message.text) | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -35,7 +35,7 @@
 							<span class="group-label">
 								پیام گروهی
 							</span>
-							<span class="last-message" ng-show="thread.last_message" ng-bind-html="thread.last_message.text | limitTo:30">
+							<span class="last-message" ng-show="thread.last_message" ng-bind-html="getTrustedMessage(thread.last_message.text) | limitTo:30">
 							</span>
 						</div>
 						<span class="datetime">
@@ -58,7 +58,7 @@
 			ng-show="(selectedThread.id || groupMessageForm)"
 			ng-class="{'fixed': isXSmall()}"
 			>
-			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {}">
+			<button class="return-button" ng-click="groupMessageForm = false ; selectedThread = {};">
 				<div class="dk icon-arrow-right"></div>
 			</button>
 			<span class="details-header-title"> {{(selectedThread.thread_type == 'group') ? 'پیام گروهی' : (selectedThread.client.full_name ? selectedThread.client.full_name : selectedThread.client.username )}}</span>
@@ -116,54 +116,55 @@
 					  <button type="button" class="btn btn-default dropdown-toggle emotion-add-icon" data-toggle="dropdown" aria-expanded="false">
 					  </button>
 					  <ul class="dropdown-menu" role="menu">
-					    		<li><button ng-click="insertEmotion('airplane')" class="raw-btn dk-emot emot-airplane"></button></li>
-			                    <li><button ng-click="insertEmotion('angry')" class="raw-btn dk-emot emot-angry"></button></li>
-			                    <li><button ng-click="insertEmotion('baseball')" class="raw-btn dk-emot emot-baseball"></button></li>
-			                    <li><button ng-click="insertEmotion('basketball')" class="raw-btn dk-emot emot-basketball"></button></li>
-			                    <li><button ng-click="insertEmotion('bicycle')" class="raw-btn dk-emot emot-bicycle"></button></li>
-			                    <li><button ng-click="insertEmotion('burger')" class="raw-btn dk-emot emot-burger"></button></li>
-			                    <li><button ng-click="insertEmotion('car')" class="raw-btn dk-emot emot-car"></button></li>
-			                    <li><button ng-click="insertEmotion('clap')" class="raw-btn dk-emot emot-clap"></button></li>
-			                    <li><button ng-click="insertEmotion('cloud')" class="raw-btn dk-emot emot-cloud"></button></li>
-			                    <li><button ng-click="insertEmotion('coffee')" class="raw-btn dk-emot emot-coffee"></button></li>
-			                    <li><button ng-click="insertEmotion('confused')" class="raw-btn dk-emot emot-confused"></button></li>
-			                    <li><button ng-click="insertEmotion('cool')" class="raw-btn dk-emot emot-cool"></button></li>
-			                    <li><button ng-click="insertEmotion('crazy')" class="raw-btn dk-emot emot-crazy"></button></li>
-			                    <li><button ng-click="insertEmotion('cry')" class="raw-btn dk-emot emot-cry"></button></li>
-			                    <li><button ng-click="insertEmotion('cupcake')" class="raw-btn dk-emot emot-cupcake"></button></li>
-			                    <li><button ng-click="insertEmotion('depressed')" class="raw-btn dk-emot emot-depressed"></button></li>
-			                    <li><button ng-click="insertEmotion('exclam')" class="raw-btn dk-emot emot-exclam"></button></li>
-			                    <li><button ng-click="insertEmotion('fire')" class="raw-btn dk-emot emot-fire"></button></li>
-			                    <li><button ng-click="insertEmotion('flower')" class="raw-btn dk-emot emot-flower"></button></li>
-			                    <li><button ng-click="insertEmotion('happy')" class="raw-btn dk-emot emot-happy"></button></li>
-			                    <li><button ng-click="insertEmotion('koala')" class="raw-btn dk-emot emot-koala"></button></li>
-			                    <li><button ng-click="insertEmotion('ladybug')" class="raw-btn dk-emot emot-ladybug"></button></li>
-			                    <li><button ng-click="insertEmotion('laugh')" class="raw-btn dk-emot emot-laugh"></button></li>
-			                    <li><button ng-click="insertEmotion('light_bulb')" class="raw-btn dk-emot emot-light_bulb"></button></li>
-			                    <li><button ng-click="insertEmotion('mad')" class="raw-btn dk-emot emot-mad"></button></li>
-			                    <li><button ng-click="insertEmotion('money')" class="raw-btn dk-emot emot-money"></button></li>
-			                    <li><button ng-click="insertEmotion('music')" class="raw-btn dk-emot emot-music"></button></li>
-			                    <li><button ng-click="insertEmotion('nerd')" class="raw-btn dk-emot emot-nerd"></button></li>
-			                    <li><button ng-click="insertEmotion('not_sure')" class="raw-btn dk-emot emot-not_sure"></button></li>
-			                    <li><button ng-click="insertEmotion('Q')" class="raw-btn dk-emot emot-Q"></button></li>
-			                    <li><button ng-click="insertEmotion('rain')" class="raw-btn dk-emot emot-rain"></button></li>
-			                    <li><button ng-click="insertEmotion('relax')" class="raw-btn dk-emot emot-relax"></button></li>
-			                    <li><button ng-click="insertEmotion('run')" class="raw-btn dk-emot emot-run"></button></li>
-			                    <li><button ng-click="insertEmotion('sad')" class="raw-btn dk-emot emot-sad"></button></li>
-			                    <li><button ng-click="insertEmotion('scream')" class="raw-btn dk-emot emot-scream"></button></li>
-			                    <li><button ng-click="insertEmotion('shy')" class="raw-btn dk-emot emot-shy"></button></li>
-			                    <li><button ng-click="insertEmotion('sick')" class="raw-btn dk-emot emot-sick"></button></li>
-			                    <li><button ng-click="insertEmotion('sleeping')" class="raw-btn dk-emot emot-sleeping"></button></li>
-			                    <li><button ng-click="insertEmotion('smiley')" class="raw-btn dk-emot emot-smiley"></button></li>
-			                    <li><button ng-click="insertEmotion('soccer')" class="raw-btn dk-emot emot-soccer"></button></li>
-			                    <li><button ng-click="insertEmotion('sun')" class="raw-btn dk-emot emot-sun"></button></li>
-			                    <li><button ng-click="insertEmotion('surprised')" class="raw-btn dk-emot emot-surprised"></button></li>
-			                    <li><button ng-click="insertEmotion('teeth')" class="raw-btn dk-emot emot-teeth"></button></li>
-			                    <li><button ng-click="insertEmotion('time')" class="raw-btn dk-emot emot-time"></button></li>
-			                    <li><button ng-click="insertEmotion('tongue')" class="raw-btn dk-emot emot-tongue"></button></li>
-			                    <li><button ng-click="insertEmotion('wink')" class="raw-btn dk-emot emot-wink"></button></li>
-			                    <li><button ng-click="insertEmotion('yummi')" class="raw-btn dk-emot emot-yummi"></button></li>
-			                    <li><button ng-click="insertEmotion('darkish_logo')" class="raw-btn dk-emot emot-darkish_logo"></button></li>
+			                    <li><button ng-click="insertEmotion('angry'); $event.stopPropagation();" class="raw-btn dk-emot emot-angry"></button></li>
+			                    <li><button ng-click="insertEmotion('confused'); $event.stopPropagation();" class="raw-btn dk-emot emot-confused"></button></li>
+			                    <li><button ng-click="insertEmotion('cool'); $event.stopPropagation();" class="raw-btn dk-emot emot-cool"></button></li>
+			                    <li><button ng-click="insertEmotion('crazy'); $event.stopPropagation();" class="raw-btn dk-emot emot-crazy"></button></li>
+			                    <li><button ng-click="insertEmotion('depressed'); $event.stopPropagation();" class="raw-btn dk-emot emot-depressed"></button></li>
+			                    <li><button ng-click="insertEmotion('wink'); $event.stopPropagation();" class="raw-btn dk-emot emot-wink"></button></li>
+			                    <li><button ng-click="insertEmotion('teeth'); $event.stopPropagation();" class="raw-btn dk-emot emot-teeth"></button></li>
+			                    <li><button ng-click="insertEmotion('shy'); $event.stopPropagation();" class="raw-btn dk-emot emot-shy"></button></li>
+			                    <li><button ng-click="insertEmotion('sleeping'); $event.stopPropagation();" class="raw-btn dk-emot emot-sleeping"></button></li>
+			                    <li><button ng-click="insertEmotion('money'); $event.stopPropagation();" class="raw-btn dk-emot emot-money"></button></li>
+			                    <li><button ng-click="insertEmotion('nerd'); $event.stopPropagation();" class="raw-btn dk-emot emot-nerd"></button></li>
+			                    <li><button ng-click="insertEmotion('not_sure'); $event.stopPropagation();" class="raw-btn dk-emot emot-not_sure"></button></li>
+			                    <li><button ng-click="insertEmotion('mad'); $event.stopPropagation();" class="raw-btn dk-emot emot-mad"></button></li>
+			                    <li><button ng-click="insertEmotion('laugh'); $event.stopPropagation();" class="raw-btn dk-emot emot-laugh"></button></li>
+			                    <li><button ng-click="insertEmotion('surprised'); $event.stopPropagation();" class="raw-btn dk-emot emot-surprised"></button></li>
+			                    <li><button ng-click="insertEmotion('sad'); $event.stopPropagation();" class="raw-btn dk-emot emot-sad"></button></li>
+			                    <li><button ng-click="insertEmotion('tongue'); $event.stopPropagation();" class="raw-btn dk-emot emot-tongue"></button></li>
+			                    <li><button ng-click="insertEmotion('happy'); $event.stopPropagation();" class="raw-btn dk-emot emot-happy"></button></li>
+			                    <li><button ng-click="insertEmotion('sick'); $event.stopPropagation();" class="raw-btn dk-emot emot-sick"></button></li>
+			                    <li><button ng-click="insertEmotion('smiley'); $event.stopPropagation();" class="raw-btn dk-emot emot-smiley"></button></li>
+			                    <li><button ng-click="insertEmotion('cry'); $event.stopPropagation();" class="raw-btn dk-emot emot-cry"></button></li>
+			                    <li><button ng-click="insertEmotion('yummi'); $event.stopPropagation();" class="raw-btn dk-emot emot-yummi"></button></li>
+			                    <li><button ng-click="insertEmotion('scream'); $event.stopPropagation();" class="raw-btn dk-emot emot-scream"></button></li>
+			                    <li><button ng-click="insertEmotion('Q'); $event.stopPropagation();" class="raw-btn dk-emot emot-Q"></button></li>
+			                    <li><button ng-click="insertEmotion('exclam'); $event.stopPropagation();" class="raw-btn dk-emot emot-exclam"></button></li>
+			                    <li><button ng-click="insertEmotion('dollar'); $event.stopPropagation();" class="raw-btn dk-emot emot-dollar"></button></li>
+			                    <li><button ng-click="insertEmotion('burger'); $event.stopPropagation();" class="raw-btn dk-emot emot-burger"></button></li>
+			                    <li><button ng-click="insertEmotion('coffee'); $event.stopPropagation();" class="raw-btn dk-emot emot-coffee"></button></li>
+			                    <li><button ng-click="insertEmotion('cupcake'); $event.stopPropagation();" class="raw-btn dk-emot emot-cupcake"></button></li>
+					    		<li><button ng-click="insertEmotion('airplane'); $event.stopPropagation();" class="raw-btn dk-emot emot-airplane"></button></li>
+			                    <li><button ng-click="insertEmotion('car'); $event.stopPropagation();" class="raw-btn dk-emot emot-car"></button></li>
+			                    <li><button ng-click="insertEmotion('cloud'); $event.stopPropagation();" class="raw-btn dk-emot emot-cloud"></button></li>
+			                    <li><button ng-click="insertEmotion('rain'); $event.stopPropagation();" class="raw-btn dk-emot emot-rain"></button></li>
+			                    <li><button ng-click="insertEmotion('sun'); $event.stopPropagation();" class="raw-btn dk-emot emot-sun"></button></li>
+			                    <li><button ng-click="insertEmotion('flower'); $event.stopPropagation();" class="raw-btn dk-emot emot-flower"></button></li>
+			                    <li><button ng-click="insertEmotion('music'); $event.stopPropagation();" class="raw-btn dk-emot emot-music"></button></li>
+			                    <li><button ng-click="insertEmotion('fire'); $event.stopPropagation();" class="raw-btn dk-emot emot-fire"></button></li>
+			                    <li><button ng-click="insertEmotion('koala'); $event.stopPropagation();" class="raw-btn dk-emot emot-koala"></button></li>
+			                    <li><button ng-click="insertEmotion('ladybug'); $event.stopPropagation();" class="raw-btn dk-emot emot-ladybug"></button></li>
+			                    <li><button ng-click="insertEmotion('relax'); $event.stopPropagation();" class="raw-btn dk-emot emot-relax"></button></li>
+			                    <li><button ng-click="insertEmotion('basketball'); $event.stopPropagation();" class="raw-btn dk-emot emot-basketball"></button></li>
+			                    <li><button ng-click="insertEmotion('soccer'); $event.stopPropagation();" class="raw-btn dk-emot emot-soccer"></button></li>
+			                    <li><button ng-click="insertEmotion('baseball'); $event.stopPropagation();" class="raw-btn dk-emot emot-baseball"></button></li>
+			                    <li><button ng-click="insertEmotion('time'); $event.stopPropagation();" class="raw-btn dk-emot emot-time"></button></li>
+			                    <li><button ng-click="insertEmotion('bicycle'); $event.stopPropagation();" class="raw-btn dk-emot emot-bicycle"></button></li>
+			                    <li><button ng-click="insertEmotion('clap'); $event.stopPropagation();" class="raw-btn dk-emot emot-clap"></button></li>
+			                    <li><button ng-click="insertEmotion('run'); $event.stopPropagation();" class="raw-btn dk-emot emot-run"></button></li>
+			                    <li><button ng-click="insertEmotion('light_bulb'); $event.stopPropagation();" class="raw-btn dk-emot emot-light_bulb"></button></li>
+			                    
 					  </ul>
 					</div>
 				</div>
@@ -185,8 +186,63 @@
 				ارسال پیام گروهی
 			</h3>
 			<form>
-				<textarea class="form-control" ng-model="groupText"></textarea>
+				<textarea class="form-control" id="group-text-area" ng-model="groupText"></textarea>
 				<button class="btn btn-success btn-sm" ng-disabled="!groupText" ng-click="submitGroupMessage()">ارسال</button>
+				<div class="btn-group dropup emotions-list group-message">
+				  <button type="button" class="btn btn-default dropdown-toggle emotion-add-icon" data-toggle="dropdown" aria-expanded="false">
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+		                    <li><button ng-click="insertEmotionGroup('angry'); $event.stopPropagation();" class="raw-btn dk-emot emot-angry"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('confused'); $event.stopPropagation();" class="raw-btn dk-emot emot-confused"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('cool'); $event.stopPropagation();" class="raw-btn dk-emot emot-cool"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('crazy'); $event.stopPropagation();" class="raw-btn dk-emot emot-crazy"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('depressed'); $event.stopPropagation();" class="raw-btn dk-emot emot-depressed"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('wink'); $event.stopPropagation();" class="raw-btn dk-emot emot-wink"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('teeth'); $event.stopPropagation();" class="raw-btn dk-emot emot-teeth"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('shy'); $event.stopPropagation();" class="raw-btn dk-emot emot-shy"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('sleeping'); $event.stopPropagation();" class="raw-btn dk-emot emot-sleeping"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('money'); $event.stopPropagation();" class="raw-btn dk-emot emot-money"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('nerd'); $event.stopPropagation();" class="raw-btn dk-emot emot-nerd"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('not_sure'); $event.stopPropagation();" class="raw-btn dk-emot emot-not_sure"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('mad'); $event.stopPropagation();" class="raw-btn dk-emot emot-mad"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('laugh'); $event.stopPropagation();" class="raw-btn dk-emot emot-laugh"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('surprised'); $event.stopPropagation();" class="raw-btn dk-emot emot-surprised"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('sad'); $event.stopPropagation();" class="raw-btn dk-emot emot-sad"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('tongue'); $event.stopPropagation();" class="raw-btn dk-emot emot-tongue"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('happy'); $event.stopPropagation();" class="raw-btn dk-emot emot-happy"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('sick'); $event.stopPropagation();" class="raw-btn dk-emot emot-sick"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('smiley'); $event.stopPropagation();" class="raw-btn dk-emot emot-smiley"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('cry'); $event.stopPropagation();" class="raw-btn dk-emot emot-cry"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('yummi'); $event.stopPropagation();" class="raw-btn dk-emot emot-yummi"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('scream'); $event.stopPropagation();" class="raw-btn dk-emot emot-scream"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('Q'); $event.stopPropagation();" class="raw-btn dk-emot emot-Q"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('exclam'); $event.stopPropagation();" class="raw-btn dk-emot emot-exclam"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('dollar'); $event.stopPropagation();" class="raw-btn dk-emot emot-dollar"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('burger'); $event.stopPropagation();" class="raw-btn dk-emot emot-burger"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('coffee'); $event.stopPropagation();" class="raw-btn dk-emot emot-coffee"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('cupcake'); $event.stopPropagation();" class="raw-btn dk-emot emot-cupcake"></button></li>
+				    		<li><button ng-click="insertEmotionGroup('airplane'); $event.stopPropagation();" class="raw-btn dk-emot emot-airplane"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('car'); $event.stopPropagation();" class="raw-btn dk-emot emot-car"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('cloud'); $event.stopPropagation();" class="raw-btn dk-emot emot-cloud"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('rain'); $event.stopPropagation();" class="raw-btn dk-emot emot-rain"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('sun'); $event.stopPropagation();" class="raw-btn dk-emot emot-sun"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('flower'); $event.stopPropagation();" class="raw-btn dk-emot emot-flower"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('music'); $event.stopPropagation();" class="raw-btn dk-emot emot-music"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('fire'); $event.stopPropagation();" class="raw-btn dk-emot emot-fire"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('koala'); $event.stopPropagation();" class="raw-btn dk-emot emot-koala"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('ladybug'); $event.stopPropagation();" class="raw-btn dk-emot emot-ladybug"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('relax'); $event.stopPropagation();" class="raw-btn dk-emot emot-relax"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('basketball'); $event.stopPropagation();" class="raw-btn dk-emot emot-basketball"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('soccer'); $event.stopPropagation();" class="raw-btn dk-emot emot-soccer"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('baseball'); $event.stopPropagation();" class="raw-btn dk-emot emot-baseball"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('time'); $event.stopPropagation();" class="raw-btn dk-emot emot-time"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('bicycle'); $event.stopPropagation();" class="raw-btn dk-emot emot-bicycle"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('clap'); $event.stopPropagation();" class="raw-btn dk-emot emot-clap"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('run'); $event.stopPropagation();" class="raw-btn dk-emot emot-run"></button></li>
+		                    <li><button ng-click="insertEmotionGroup('light_bulb'); $event.stopPropagation();" class="raw-btn dk-emot emot-light_bulb"></button></li>
+		                    
+				  </ul>
+				</div>
 			</form>
 			
 		</div>

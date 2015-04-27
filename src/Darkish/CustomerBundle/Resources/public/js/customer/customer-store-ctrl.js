@@ -249,14 +249,14 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
   }
 }])
 
-customerApp.controller('StoreProductDetailsCtrl', ['$scope', '$stateParams', 'product', 'Lightbox', function($scope, $stateParams, product, Lightbox){
+customerApp.controller('StoreProductDetailsCtrl', ['$scope', '$stateParams', 'product', function($scope, $stateParams, product){
   $scope.edit = "edit product";
   $scope.stateParams = $stateParams;
   $scope.product = product;
   
 
   $scope.openLightboxModal = function (index) {
-    Lightbox.openModal($scope.product.photos, index);
+    // Lightbox.openModal($scope.product.photos, index);
   };
 }])
 

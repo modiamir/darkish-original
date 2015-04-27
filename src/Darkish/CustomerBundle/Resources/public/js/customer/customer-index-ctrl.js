@@ -1,7 +1,7 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'bootstrapLightbox', 'angular-loading-bar']);
+                , 'angAccordion', 'ui.sortable', 'angular-loading-bar']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -21,6 +21,10 @@ customerApp.filter('smilies', function() {
       {
         regex: /\(wink\)/g,
         name: 'wink'
+      }, 
+      {
+        regex: /\(dollar\)/g,
+        name: 'dollar'
       }, 
       {
         regex: /\(happy\)/g,
@@ -229,7 +233,7 @@ customerApp.filter('smilies', function() {
   }
 })
 
-customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, LightboxProvider) {
+customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 
 
 
