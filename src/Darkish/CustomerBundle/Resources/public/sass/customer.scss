@@ -109,16 +109,16 @@ body {
                         text-align: center;
                         height: 60px;
                         padding: 0;
-                        width: 45%;
-                        float: left;
+                        width: 100%;
+                        // float: left;
                         margin-right: 0;
-                        margin-left: 5%;
+                        // margin-left: 5%;
+                        border-left: 1px solid white;
                         .dk {
                             font-size: 50px;
                             height: 60px;
-                            line-height: 78px;
-                            border-left: 1px solid white;
-                            border-right: 1px solid white;
+                            line-height: 60px;
+                            // border-right: 1px solid white;
                             &:hover {
                                 color: white;
                             }
@@ -143,7 +143,7 @@ body {
                         width: 60px;
                         height: 60px;
                         display: inline-block;
-                        float: left;
+                        // float: left;
                         img {
                             width: 50px;
                             height: 50px;
@@ -175,7 +175,7 @@ body {
                         padding-left: 15px;
                         height: 60px;
                         padding-right: 15px;
-                        float: left;
+                        // float: left;
                         border-right: 1px solid white;
                         padding-top: 8px;
                         border-left: 1px solid white;
@@ -197,11 +197,12 @@ body {
                 }
 
                 &.main-menu-link {
+                    border-left: 1px solid white;
                     button {
                         // width: 40%;
-                        margin-right: 10%;
+                        margin-right: 0;
                         margin-left: 0;
-                        float: right;
+                        float: none;
                         .icon-bar {
                             // width: 100%;
                         }
@@ -628,6 +629,7 @@ body {
                                         float: right;
                                         margin-right: 10px;
                                         color: rgb(60, 60, 60);
+                                        line-height: 24px;
                                     }
                                     img {
                                         float: right;
@@ -1245,4 +1247,14 @@ input[type=number] {
         }
     }
     
+}
+
+
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    margin:20px 0;
 }

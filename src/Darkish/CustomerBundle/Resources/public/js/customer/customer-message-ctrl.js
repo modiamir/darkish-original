@@ -10,10 +10,26 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     console.log(event);
   }
 
+
+
+
+  $scope.insertEmotion = function(emotionName) {
+
+    var emotionTag = '('+emotionName+')';
+    var start = $('#message-text-area').prop("selectionStart");
+    var end   = $('#message-text-area').prop("selectionEnd");
+
+    $scope.messageForm = ($scope.messageForm) ? $scope.messageForm : "";
+
+    $scope.messageForm = $scope.messageForm.slice(0, start)+emotionTag+$scope.messageForm.slice(end);
+  }
+
+  ////////////////////////////////
   
 
   $scope.getTrustedMessage = function(text) {
-    return $sce.trustAsHtml(text);
+    txt = $filter('smilies')(text);
+    return $sce.trustAsHtml(txt);
   }
 
   $scope.setDetailsInnerMarginBottom = function()   {
@@ -87,14 +103,14 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.currentMessages = [];
   $scope.selectThread = function(thread) {
     if(!angular.equals($scope.selectedThread, thread)) {
-      $scope.selectedThread = thread;
       $scope.hasNotMore = false;
       $scope.groupMessageForm = false;
       $http.get('./customer/ajax/get_messages_for_thread/'+thread.id+'/0').then(
         function(response) {
           $timeout(function(){
             $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
-          }, 100);
+          }, 5);
+          $scope.selectedThread = thread;
           $scope.currentMessages = response.data;
           $scope.setLastMessageSeen(thread, thread.last_message.id);
           $scope.fetchDeliveredSeen();
@@ -158,7 +174,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     angular.forEach($scope.threads, function(value, key){
       latest = (latest < value.last_message.id) ? value.last_message.id : latest;
     });
-    $http.get('./customer/ajax/refresh_messages/'+ latest).then(
+    $http.get('./customer/ajax/refresh_messages/'+ latest, {ignoreLoadingBar: true}).then(
       function(response) {
         var tmpScrollHeight = $('#message-container')[0].scrollHeight;
         angular.forEach(response.data, function(value, key){
