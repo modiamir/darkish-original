@@ -1,0 +1,201 @@
+.dk-emot {
+	width:35px;
+	height:35px;
+	&.emot-cool{
+		background-image:url("../images/emotions/(cool).png");
+	}
+	&.emot-eskenas{
+		background-image:url("../images/emotions/(eskenas).png");
+	}
+	&.emot-airplane{
+		background-image:url("../images/emotions/(airplane).png");
+	}
+	&.emot-angry{
+		background-image:url("../images/emotions/(angry).png");
+	}
+	&.emot-baseball{
+		background-image:url("../images/emotions/(baseball).png");
+	}
+	&.emot-basketball{
+		background-image:url("../images/emotions/(basketball).png");
+	}
+	&.emot-bicycle{
+		background-image:url("../images/emotions/(bicycle).png");
+	}
+	&.emot-burger{
+		background-image:url("../images/emotions/(burger).png");
+	}
+	&.emot-car{
+		background-image:url("../images/emotions/(car).png");
+	}
+	&.emot-clap{
+		background-image:url("../images/emotions/(clap).png");
+	}
+	&.emot-cloud{
+		background-image:url("../images/emotions/(cloud).png");
+	}
+	&.emot-coffee{
+		background-image:url("../images/emotions/(coffee).png");
+	}
+	&.emot-confused{
+		background-image:url("../images/emotions/(confused).png");
+	}
+	&.emot-crazy{
+		background-image:url("../images/emotions/(crazy).png");
+	}
+	&.emot-cry{
+		background-image:url("../images/emotions/(cry).png");
+	}
+	&.emot-cupcake{
+		background-image:url("../images/emotions/(cupcake).png");
+	}
+	&.emot-darkish_logo{
+		background-image:url("../images/emotions/(darkish_logo).png");
+		width: 74px;
+		height: 35px;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+	&.emot-depressed{
+		background-image:url("../images/emotions/(depressed).png");
+	}
+	&.emot-exclam{
+		background-image:url("../images/emotions/(exclam).png");
+	}
+	&.emot-fire{
+		background-image:url("../images/emotions/(fire).png");
+	}
+	&.emot-flower{
+		background-image:url("../images/emotions/(flower).png");
+	}
+	&.emot-happy{
+		background-image:url("../images/emotions/(happy).png");
+	}
+	&.emot-koala{
+		background-image:url("../images/emotions/(koala).png");
+	}
+	&.emot-ladybug{
+		background-image:url("../images/emotions/(ladybug).png");
+	}
+	&.emot-laugh{
+		background-image:url("../images/emotions/(laugh).png");
+	}
+	&.emot-light_bulb{
+		background-image:url("../images/emotions/(light_bulb).png");
+	}
+	&.emot-mad{
+		background-image:url("../images/emotions/(mad).png");
+	}
+	&.emot-money{
+		background-image:url("../images/emotions/(money).png");
+	}
+	&.emot-music{
+		background-image:url("../images/emotions/(music).png");
+	}
+	&.emot-nerd{
+		background-image:url("../images/emotions/(nerd).png");
+	}
+	&.emot-not_sure{
+		background-image:url("../images/emotions/(not_sure).png");
+	}
+	&.emot-Q{
+		background-image:url("../images/emotions/(Q).png");
+	}
+	&.emot-rain{
+		background-image:url("../images/emotions/(rain).png");
+	}
+	&.emot-relax{
+		background-image:url("../images/emotions/(relax).png");
+	}
+	&.emot-run{
+		background-image:url("../images/emotions/(run).png");
+	}
+	&.emot-sad{
+		background-image:url("../images/emotions/(sad).png");
+	}
+	&.emot-scream{
+		background-image:url("../images/emotions/(scream).png");
+	}
+	&.emot-shy{
+		background-image:url("../images/emotions/(shy).png");
+	}
+	&.emot-sick{
+		background-image:url("../images/emotions/(sick).png");
+	}
+	&.emot-sleeping{
+		background-image:url("../images/emotions/(sleeping).png");
+	}
+	&.emot-smiley{
+		background-image:url("../images/emotions/(smiley).png");
+	}
+	&.emot-soccer{
+		background-image:url("../images/emotions/(soccer).png");
+	}
+	&.emot-sun{
+		background-image:url("../images/emotions/(sun).png");
+	}
+	&.emot-surprised{
+		background-image:url("../images/emotions/(surprised).png");
+	}
+	&.emot-teeth{
+		background-image:url("../images/emotions/(teeth).png");
+	}
+	&.emot-time{
+		background-image:url("../images/emotions/(time).png");
+	}
+	&.emot-tongue{
+		background-image:url("../images/emotions/(tongue).png");
+	}
+	&.emot-wink{
+		background-image:url("../images/emotions/(wink).png");
+	}
+	&.emot-yummi{
+		background-image:url("../images/emotions/(yummi).png");
+	}
+}
+
+img.dk-emot {
+	display: inline-block;
+	text-indent: -100000px;
+	width: 24px !important;
+	height: 24px !important;
+	background-size: 24px 24px;
+	margin-top: 0 !important;
+	float: none !important;
+}
+
+button.dk-emot {
+	border: 0;
+	background-size: 24px 24px;
+	background-color: transparent;
+	width: 24px;
+	height: 24px;
+	&:hover {
+		background-color: rgb(223, 223, 223);
+	}
+}
+
+.emotions-list, .emotions-list .open {
+	line-height: 53px;
+	button.emotion-add-icon {
+		background-image:url("../images/emotions/emotions-add.png");
+		background-color: transparent;
+		border: 0;
+		padding: 0;
+		width: 32px;
+		height: 32px;
+		background-size:  32px 32px;
+		line-height: 1;
+	}
+
+	ul {
+		width: 245px;
+		left: 0;
+		right: auto;
+		line-height: 1;
+		li {
+			float: right;
+			margin: 3px;
+		}
+	}
+}

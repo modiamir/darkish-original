@@ -1,7 +1,7 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'bootstrapLightbox']);
+                , 'angAccordion', 'ui.sortable', 'bootstrapLightbox', 'angular-loading-bar']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -12,6 +12,220 @@ customerApp.run(function(amMoment) {
 customerApp.filter('toDate', function() {
   return function(input) {
     return new Date(input);
+  }
+})
+
+customerApp.filter('smilies', function() {
+  return function(input) {
+    var smilies = [
+      {
+        regex: /\(wink\)/g,
+        name: 'wink'
+      }, 
+      {
+        regex: /\(happy\)/g,
+        name: 'happy'
+      },
+      {
+        regex: /\(airplane\)/g,
+        name: 'airplane'
+      },
+      {
+        regex: /\(angry\)/g,
+        name: 'angry'
+      },
+      {
+        regex: /\(baseball\)/g,
+        name: 'baseball'
+      },
+      {
+        regex: /\(basketball\)/g,
+        name: 'basketball'
+      },
+      {
+        regex: /\(bicycle\)/g,
+        name: 'bicycle'
+      },
+      {
+        regex: /\(burger\)/g,
+        name: 'burger'
+      },
+      {
+        regex: /\(car\)/g,
+        name: 'car'
+      },
+      {
+        regex: /\(clap\)/g,
+        name: 'clap'
+      },
+      {
+        regex: /\(cloud\)/g,
+        name: 'cloud'
+      },
+      {
+        regex: /\(coffee\)/g,
+        name: 'coffee'
+      },
+      {
+        regex: /\(confused\)/g,
+        name: 'confused'
+      },
+      {
+        regex: /\(cool\)/g,
+        name: 'cool'
+      },
+      {
+        regex: /\(crazy\)/g,
+        name: 'crazy'
+      },
+      {
+        regex: /\(cry\)/g,
+        name: 'cry'
+      },
+      {
+        regex: /\(cupcake\)/g,
+        name: 'cupcake'
+      },
+      {
+        regex: /\(depressed\)/g,
+        name: 'depressed'
+      },
+      {
+        regex: /\(exclam\)/g,
+        name: 'exclam'
+      },
+      {
+        regex: /\(fire\)/g,
+        name: 'fire'
+      },
+      {
+        regex: /\(flower\)/g,
+        name: 'flower'
+      },
+      {
+        regex: /\(happy\)/g,
+        name: 'happy'
+      },
+      {
+        regex: /\(koala\)/g,
+        name: 'koala'
+      },
+      {
+        regex: /\(ladybug\)/g,
+        name: 'ladybug'
+      },
+      {
+        regex: /\(laugh\)/g,
+        name: 'laugh'
+      },
+      {
+        regex: /\(light_bulb\)/g,
+        name: 'light_bulb'
+      },
+      {
+        regex: /\(mad\)/g,
+        name: 'mad'
+      },
+      {
+        regex: /\(money\)/g,
+        name: 'money'
+      },
+      {
+        regex: /\(music\)/g,
+        name: 'music'
+      },
+      {
+        regex: /\(nerd\)/g,
+        name: 'nerd'
+      },
+      {
+        regex: /\(not_sure\)/g,
+        name: 'not_sure'
+      },
+      {
+        regex: /\(Q\)/g,
+        name: 'Q'
+      },
+      {
+        regex: /\(rain\)/g,
+        name: 'rain'
+      },
+      {
+        regex: /\(relax\)/g,
+        name: 'relax'
+      },
+      {
+        regex: /\(run\)/g,
+        name: 'run'
+      },
+      {
+        regex: /\(sad\)/g,
+        name: 'sad'
+      },
+      {
+        regex: /\(scream\)/g,
+        name: 'scream'
+      },
+      {
+        regex: /\(shy\)/g,
+        name: 'shy'
+      },
+      {
+        regex: /\(sick\)/g,
+        name: 'sick'
+      },
+      {
+        regex: /\(sleeping\)/g,
+        name: 'sleeping'
+      },
+      {
+        regex: /\(smiley\)/g,
+        name: 'smiley'
+      },
+      {
+        regex: /\(soccer\)/g,
+        name: 'soccer'
+      },
+      {
+        regex: /\(sun\)/g,
+        name: 'sun'
+      },
+      {
+        regex: /\(surprised\)/g,
+        name: 'surprised'
+      },
+      {
+        regex: /\(teeth\)/g,
+        name: 'teeth'
+      },
+      {
+        regex: /\(time\)/g,
+        name: 'time'
+      },
+      {
+        regex: /\(tongue\)/g,
+        name: 'tongue'
+      },
+      {
+        regex: /\(wink\)/g,
+        name: 'wink'
+      },
+      {
+        regex: /\(yummi\)/g,
+        name: 'yummi'
+      },
+      {
+        regex: /\(darkish_logo\)/g,
+        name: 'darkish_logo'
+      } 
+
+    ];
+    angular.forEach(smilies, function(value, key){
+      input = input.replace(value.regex, 
+      '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="dk-emot emot-'+value.name+'" alt="'+value.name+'" />');
+    });
+    
+    return input;
   }
 })
 
