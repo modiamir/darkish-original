@@ -25,7 +25,7 @@ class Message
 
 
     /**
-     * @ORM\Column(name="text", type="string")
+     * @ORM\Column(name="text", type="text")
      * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $text;
