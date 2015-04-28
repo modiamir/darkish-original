@@ -20,6 +20,9 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\Serializer\SerializationContext;
+use Darkish\CategoryBundle\Entity\MessageThread;
+use Darkish\CategoryBundle\Entity\Message;
+use Darkish\CustomerBundle\Entity\Customer;
 
 
 /**
@@ -165,5 +168,91 @@ class ApiMessageController extends FOSRestController
         return new Response($this->get('jms_serializer')->serialize($message, 'json'
             ,SerializationContext::create()->setGroups(array('thread.details'))));
     }
+
+
+    /**
+     * @ApiDoc(
+     *  resource=true
+     * )
+     */
+    public function postLastClientDeliveredAction(Customer $customer, Message $message, Request $request) {
+        
+
+        $record = $customer->getRecord();
+        $client = $this->get('security.context')->getToken()->getUser();
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $qb = $this->getDoctrine()
+                   ->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+                   ->createQueryBuilder('pmt');
+
+        $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
+        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+
+        $qb->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+        
+        // return new Response($this->get('jms_serializer')->serialize($res, 'json'
+        //     ,SerializationContext::create()->setGroups(array('thread.details'))));
+
+        if(count($res)){
+            $thread = $res[0];
+            // $thread->setDeletedByRecord(false);
+            // $thread->setDeletedByClient(false);
+        } else{
+            throw HttpException('Invalid MessageThread', 404);
+            
+        }
+
+
+
+        $thread->setLastClientDelivered($message->getId());
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+    }
+
+    /**
+     *  @ApiDoc(
+     *      resource=true
+     * )
+     */
+    public function postLastClientSeenAction(Customer $customer, Message $message, Request $request) {
+        $record = $customer->getRecord();
+        $client = $this->get('security.context')->getToken()->getUser();
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $qb = $this->getDoctrine()
+                   ->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+                   ->createQueryBuilder('pmt');
+
+        $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
+        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+
+        $qb->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+        
+        // return new Response($this->get('jms_serializer')->serialize($res, 'json'
+        //     ,SerializationContext::create()->setGroups(array('thread.details'))));
+
+        if(count($res)){
+            $thread = $res[0];
+            // $thread->setDeletedByRecord(false);
+            // $thread->setDeletedByClient(false);
+        } else{
+            throw HttpException('Invalid MessageThread', 404);
+        }
+        $thread->setLastClientSeen($message);
+        $em->persist($thread);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+    }
+
 
 }
