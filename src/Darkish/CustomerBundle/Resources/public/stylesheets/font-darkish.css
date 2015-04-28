@@ -170,6 +170,11 @@
   color: #ffffff;
 }
 
+
+
+
+
+
 .icon-add:before {
   content: "a";
 }
@@ -205,9 +210,6 @@
 }
 .icon-cache-empty:before {
   content: "l";
-}
-.icon-cancel:before {
-  content: "m";
 }
 .icon-cancel-small:before {
   content: "n";
@@ -356,9 +358,6 @@
 .icon-upload:before {
   content: "!";
 }
-.icon-verify:before {
-  content: "\"";
-}
 .icon-verify-small:before {
   content: "#";
 }
@@ -374,12 +373,6 @@
 .icon-spin-dot:before {
   content: "1";
 }
-.icon-map-location:before {
-  content: "'";
-}
-.icon-map-location2:before {
-  content: "(";
-}
 .icon-map-menu:before {
   content: ")";
 }
@@ -389,6 +382,21 @@
 .icon-map-search:before {
   content: "+";
 }
+.icon-verify:before {
+  content: "m";
+}
+.icon-cancel:before {
+  content: "\"";
+}
+.icon-map-location-2:before {
+  content: "'";
+}
 .icon-map-location-1:before {
+  content: "(";
+}
+.icon-map-location-3:before {
   content: ",";
+}
+.icon-smiley:before {
+  content: "-";
 }

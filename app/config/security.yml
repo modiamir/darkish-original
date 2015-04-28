@@ -55,6 +55,7 @@ security:
             logout:
                 path:   /customer/logout
                 invalidate_session: false
+                target: /customer
 #            remember_me:
 #                key:      "%secret%"
 #                lifetime: 31536000 # 365 days in seconds

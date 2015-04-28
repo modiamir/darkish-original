@@ -239,7 +239,6 @@ button.dk-emot:hover {
 }
 /* line 184, ../sass/emotions.scss */
 .emotions-list button.emotion-add-icon, .emotions-list .open button.emotion-add-icon {
-  background-image: url("../images/emotions/emotions-add.png");
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -248,21 +247,29 @@ button.dk-emot:hover {
   background-size: 32px 32px;
   line-height: 1;
 }
-/* line 195, ../sass/emotions.scss */
+/* line 192, ../sass/emotions.scss */
+.emotions-list button.emotion-add-icon .dk, .emotions-list .open button.emotion-add-icon .dk {
+  color: #c00000;
+  font-size: 30px;
+}
+/* line 198, ../sass/emotions.scss */
 .emotions-list ul, .emotions-list .open ul {
   width: 245px;
   left: 0;
   right: auto;
   line-height: 1;
 }
-/* line 200, ../sass/emotions.scss */
+/* line 203, ../sass/emotions.scss */
 .emotions-list ul li, .emotions-list .open ul li {
   float: right;
   margin: 3px;
 }
-/* line 208, ../sass/emotions.scss */
+/* line 209, ../sass/emotions.scss */
+.emotions-list.group-message, .emotions-list .open.group-message {
+  margin-right: 15px;
+}
+/* line 212, ../sass/emotions.scss */
 .emotions-list.group-message.open button.emotion-add-icon, .emotions-list .open.group-message.open button.emotion-add-icon {
-  background-image: url("../images/emotions/emotions-add.png");
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -272,14 +279,19 @@ button.dk-emot:hover {
   line-height: 1;
   margin-top: 0 !important;
 }
-/* line 220, ../sass/emotions.scss */
+/* line 221, ../sass/emotions.scss */
+.emotions-list.group-message.open button.emotion-add-icon .dk, .emotions-list .open.group-message.open button.emotion-add-icon .dk {
+  color: #c00000;
+  font-size: 30px;
+}
+/* line 227, ../sass/emotions.scss */
 .emotions-list.group-message.open ul, .emotions-list .open.group-message.open ul {
   width: 245px;
   right: 0;
   left: auto;
   line-height: 1;
 }
-/* line 225, ../sass/emotions.scss */
+/* line 232, ../sass/emotions.scss */
 .emotions-list.group-message.open ul li, .emotions-list .open.group-message.open ul li {
   float: right;
   margin: 3px;
