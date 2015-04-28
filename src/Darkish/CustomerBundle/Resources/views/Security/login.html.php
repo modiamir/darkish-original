@@ -26,6 +26,8 @@
         <!-- Custom styles for this template -->
         <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/login.css') ?>" rel="stylesheet">
 
+        <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/font-darkish.css') ?>" rel="stylesheet">
+
 
 
     </head>
@@ -41,28 +43,37 @@
 <?php endif ?>
 
     
-    <div class="login-screen">
-        <h4>
-            ورود مشتریان
-        </h4>
-        <div class="login-icon">
-            <h4>به <small>درکیش</small>خوش آمدید</h4>
-            
+    <div class="login-page container">
+        <div class="row">
+            <div class="col col-xs-offset-1 col-xs-10 col-md-3 col-md-offset-3 ">
+                <h4 class="page-title">
+                    ورود مشتریان
+                </h4>
+            </div>
+            <div class="col col-xs-offset-1 col-xs-10 col-md-3 col-md-offset-0">
+                <h3 class="logo">
+                    <div class="dk icon-logo"></div>
+                </h3>
+            </div>
         </div>
+        
         <form action="<?php echo $view['router']->generate('customer_login_check') ?>" method="post">
-        <div class="login-form">
-            <div class="form-group">
-                <input type="text" value="<?php echo $last_username ?>" class="form-control login-field" name="_username" placeholder="پست الکترونیکی" id="username">
-                <label class="login-field-icon fui-user" for="login-name"></label>
-            </div>
+        <div class="row">
+            <div class="login-form login-form col col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
 
-            <div class="form-group">
-                <input type="password" id="password" name="_password" class="form-control login-field" value="" placeholder="رمز عبور" >
-                <label class="login-field-icon fui-lock" for="login-pass"></label>
-            </div>
+                <div class="form-group">
+                    <input type="text" value="<?php echo $last_username ?>" class="form-control login-field" name="_username" placeholder="پست الکترونیکی" id="username">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
 
-            <input type="submit" class="btn btn-primary btn-lg btn-block" value="ورود" />
-            <a class="login-link" href="#">رمز عبور خود را فراموش کردید؟</a>
+                <div class="form-group">
+                    <input type="password" id="password" name="_password" class="form-control login-field" value="" placeholder="رمز عبور" >
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="ورود" />
+                <a class="login-link" href="#">رمز عبور خود را فراموش کردید؟</a>
+            </div>
         </div>
         </form>
     </div>

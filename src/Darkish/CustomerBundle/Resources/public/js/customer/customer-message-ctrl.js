@@ -103,6 +103,12 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     return $sce.trustAsHtml(txt);
   }
 
+  $scope.getLastMessageTrusted = function(text) {
+     // lastMessageText = $scope.getTrustedMessage(text);
+     lastMessageTrustedText = $filter('limitTo')(text, 30)
+     return $sce.trustAsHtml($filter('smilies')(lastMessageTrustedText));
+  }
+
   $scope.setDetailsInnerMarginBottom = function()   {
     if($scope.isXSmall()) {
       var height = angular.element($('.message-submit'))[0].offsetHeight;
@@ -322,6 +328,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
        confirmButtonColor: "#DD6B55",
        confirmButtonText: "بله, حذف کن!",
        cancelButtonText: "انصراف",
+       imageSize: "40x40",
        closeOnConfirm: false}, 
     function(){ 
       $http({

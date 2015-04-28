@@ -11,36 +11,68 @@ body {
   font-family: yekan;
   background-color: #1abc9c;
 }
-/* line 12, ../sass/login.scss */
+/* line 13, ../sass/login.scss */
 body .form-control, body .select2-search input[type=text] {
   font-family: yekan;
 }
 
-/* line 17, ../sass/login.scss */
-.login-screen {
-  min-height: inherit;
-  min-width: 556px;
-  padding: inherit;
-  margin: auto;
-  display: table;
-  margin-top: 150px;
+/* line 18, ../sass/login.scss */
+.login-page {
+  padding-top: 8%;
 }
-/* line 24, ../sass/login.scss */
-.login-screen .login-icon {
+/* line 26, ../sass/login.scss */
+.login-page .login-icon {
   float: left;
   position: inherit;
   margin-right: 10px;
 }
-/* line 28, ../sass/login.scss */
-.login-screen .login-icon h4 {
+/* line 30, ../sass/login.scss */
+.login-page .login-icon h4 {
   text-align: right;
 }
-/* line 32, ../sass/login.scss */
-.login-screen form {
-  float: left;
-  width: 450px;
-}
-/* line 38, ../sass/login.scss */
-.login-screen input {
+/* line 40, ../sass/login.scss */
+.login-page input {
   direction: ltr;
+}
+/* line 44, ../sass/login.scss */
+.login-page .page-title {
+  height: 40px;
+  margin-bottom: 10px;
+}
+@media (max-width: 992px) {
+  /* line 44, ../sass/login.scss */
+  .login-page .page-title {
+    text-align: center;
+  }
+}
+@media (min-width: 994px) {
+  /* line 44, ../sass/login.scss */
+  .login-page .page-title {
+    text-align: right;
+  }
+}
+/* line 55, ../sass/login.scss */
+.login-page .logo {
+  margin: 0;
+}
+@media (max-width: 992px) {
+  /* line 55, ../sass/login.scss */
+  .login-page .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+@media (min-width: 993px) {
+  /* line 55, ../sass/login.scss */
+  .login-page .logo {
+    text-align: left;
+  }
+}
+/* line 66, ../sass/login.scss */
+.login-page .logo .dk {
+  color: white;
+  height: 80px;
+  margin-top: -40px;
+  margin-bottom: 10px;
+  font-size: 130px;
 }

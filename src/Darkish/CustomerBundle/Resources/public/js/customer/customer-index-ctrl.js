@@ -226,7 +226,7 @@ customerApp.filter('smilies', function() {
     ];
     angular.forEach(smilies, function(value, key){
       input = input.replace(value.regex, 
-      '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="dk-emot emot-'+value.name+'" alt="'+value.name+'" />');
+      '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="dk-emot emot-'+value.name+'" alt="('+value.name+')" />');
     });
     
     return input;

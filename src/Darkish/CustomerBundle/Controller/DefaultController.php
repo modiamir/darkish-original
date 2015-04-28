@@ -358,6 +358,12 @@ class DefaultController extends Controller
 
         $thread->setRecord($user->getRecord());
         $thread->setLastMessage($message);
+        $thread->setLastClientDelivered(0);
+        $thread->setLastClientSeen(0);
+        $thread->setLastRecordDelivered(0);
+        $thread->setLastRecordSeen(0);
+        $thread->setDeletedByClient(0);
+        $thread->setDeletedByRecord(0);
 
         $clientsIterator = $clients->getIterator();
         while($clientsIterator->valid()) {

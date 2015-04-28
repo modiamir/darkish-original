@@ -182,7 +182,6 @@ button.dk-emot {
 	line-height: 53px;
 	text-align: left;
 	button.emotion-add-icon {
-		background-image:url("../images/emotions/emotions-add.png");
 		background-color: transparent;
 		border: 0;
 		padding: 0;
@@ -190,6 +189,10 @@ button.dk-emot {
 		height: 32px;
 		background-size:  32px 32px;
 		line-height: 1;
+		.dk {
+			color: rgb(192, 0, 0);
+			font-size: 30px;
+		}
 	}
 
 	ul {
@@ -204,9 +207,9 @@ button.dk-emot {
 	}
 
 	&.group-message {
+		margin-right: 15px;
 		&.open {
 			button.emotion-add-icon {
-				background-image:url("../images/emotions/emotions-add.png");
 				background-color: transparent;
 				border: 0;
 				padding: 0;
@@ -215,6 +218,10 @@ button.dk-emot {
 				background-size:  32px 32px;
 				line-height: 1;
 				margin-top: 0 !important;
+				.dk {
+					color: rgb(192, 0, 0);
+					font-size: 30px;
+				}
 			}
 
 			ul {
