@@ -2465,6 +2465,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             'Roya;'+
             'Tahoma;',
             contentsCss : '../../assets/css/ckeditor-body.css',
+            smiley_path: CKEDITOR.basePath+'plugins/smiley/images/darkish/',
+            smiley_images: ['(smiley).png','(sad).png','(wink).png','(angry).png','(yummi).png','(laugh).png','(surprised).png','(happy).png','(cry).png','(sick).png','(shy).png','(teeth).png','(tongue).png','(money).png','(mad).png','(crazy).png','(confused).png','(depressed).png','(scream).png','(nerd).png','(not_sure).png','(cool).png','(sleeping).png','(Q).png','(!).png','($).png','(burger).png','(coffee).png','(cupcake).png','(airplane).png','(car).png','(cloud).png','(rain).png','(sun).png','(flower).png','(music).png','(fire).png','(koala).png','(ladybug).png','(relax).png','(basketball).png','(soccer).png','(baseball).png','(time).png','(bicycle).png','(clap).png','(run).png','(light_bulb).png'],
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
