@@ -385,10 +385,10 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       function(response) {
         $scope.groupText = null;
         $scope.groupMessageApprove = false;
-        $scope.threads.push(response.data);
+        $scope.threads.unshift(response.data);
         $scope.selectThread(response.data);
         
-        
+        console.log($scope.threads);
         
       }
     );

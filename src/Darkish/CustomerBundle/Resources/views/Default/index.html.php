@@ -241,7 +241,6 @@
     </div>
 
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/fastclick/lib/fastclick.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery-ui/jquery-ui.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular/angular.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-sanitize/angular-sanitize.min.js') ?>" type="text/javascript"></script>
@@ -274,7 +273,7 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ang-accordion/js/ang-accordion.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.min.js') ?>"></script>
 
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script>
+    <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script> -->
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.js') ?>"></script>
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js') ?>"></script> -->
 
