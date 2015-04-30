@@ -219,32 +219,42 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
       // var text = angular.copy($scope.messageForm);
       var text = $scope.messageForm.replace(/\n/g, '<br/>')
       $scope.messageForm = null;
-      $http({
-          method: 'PUT',
-          url: './customer/ajax/post_message/'+$scope.selectedThread.id,
-          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-          data: $.param({_method: 'PUT', text: text})
-      }).then(
-        function(response) {
-          var msg = {};
-          msg.id = response.data.id;
-          msg.text = response.data.text;
-          msg.from = response.data.from;
-          msg.created = response.data.created;
-          $scope.currentMessages.push(msg);
-          $scope.selectedThread.last_message = response.data;
-          $scope.setLastMessageSeen($scope.selectedThread, $scope.selectedThread.last_message.id);
-          $scope.setLastMessageDelivered($scope.selectedThread, $scope.selectedThread.last_message.id);
-          $timeout(function(){
-            $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
-            $scope.setDetailsInnerMarginBottom();
-          }, 100)
-          
-          
-          
-        }
-      );
+      $scope.sendMessageRequest(text);
+      
     }
+  }
+
+
+  $scope.sendMessageRequest = function(text) {
+    $http({
+        method: 'PUT',
+        url: './customer/ajax/post_message/'+$scope.selectedThread.id,
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param({_method: 'PUT', text: text})
+    }).then(
+      function(response) {
+        var msg = {};
+        msg.id = response.data.id;
+        msg.text = response.data.text;
+        msg.from = response.data.from;
+        msg.created = response.data.created;
+        $scope.currentMessages.push(msg);
+        $scope.selectedThread.last_message = response.data;
+        $scope.setLastMessageSeen($scope.selectedThread, $scope.selectedThread.last_message.id);
+        $scope.setLastMessageDelivered($scope.selectedThread, $scope.selectedThread.last_message.id);
+        $timeout(function(){
+          $('#message-container').scrollTop($('#message-container')[0].scrollHeight);  
+          $scope.setDetailsInnerMarginBottom();
+        }, 100)
+        
+      }, 
+      function(responseErr) {
+        var contin = confirm('پیام شما ارسال نشد. آیا مجددا ارسال شود؟');
+        if(contin) {
+          $scope.sendMessageRequest(text);
+        }
+      }
+    );
   }
 
   var intervalPromise;
@@ -352,39 +362,36 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     });
   }
 
+  $scope.groupMessageApprove = false;
+
+  $scope.presubmitGroupMessage = function() {
+    $scope.groupMessageApprove = true;    
+  }
+
+  $scope.cancelGroupMessage = function() {
+    $scope.groupMessageApprove = false;
+  }
+
   $scope.submitGroupMessage = function() {
 
 
 
-    SweetAlert.swal({
-       title: "آیا از ارسلا این پیام اطمینان دارید؟",
-       text: $scope.groupText,
-       type: "warning",
-       showCancelButton: true,
-       confirmButtonColor: "#DD6B55",
-       confirmButtonText: "بله, ارسال کن!",
-       cancelButtonText: "انصراف",
-       imageSize: "40x40",
-       closeOnConfirm: false}, 
-    function(){ 
-      $http({
-          method: 'POST',
-          url: './customer/ajax/post_group_message',
-          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-          data: $.param({_method: 'POST', text: $scope.groupText})
-      }).then(
-        function(response) {
-          $scope.groupText = null;
-          $scope.threads.push(response.data);
-          $scope.selectThread(response.data);
-          
-          
-          
-        }
-      );
-
-       
-    });
+    $http({
+        method: 'POST',
+        url: './customer/ajax/post_group_message',
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param({_method: 'POST', text: $scope.groupText})
+    }).then(
+      function(response) {
+        $scope.groupText = null;
+        $scope.groupMessageApprove = false;
+        $scope.threads.push(response.data);
+        $scope.selectThread(response.data);
+        
+        
+        
+      }
+    );
     // $http({
     //     method: 'POST',
     //     url: './customer/ajax/post_group_message',

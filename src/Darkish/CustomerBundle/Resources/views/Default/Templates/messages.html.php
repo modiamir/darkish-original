@@ -191,9 +191,9 @@
 				ارسال پیام گروهی
 			</h3>
 			<form>
-				<textarea maxlength="3000" class="form-control" id="group-text-area" ng-model="groupText"></textarea>
-				<button  class="btn btn-success btn-sm" ng-disabled="!groupText" ng-click="submitGroupMessage()">ارسال</button>
-				<div class="btn-group dropup emotions-list group-message">
+				<textarea ng-disabled="groupMessageApprove" maxlength="3000" class="form-control" id="group-text-area" ng-model="groupText"></textarea>
+				<button ng-hide="groupMessageApprove"  class="btn btn-success btn-sm" ng-disabled="!groupText" ng-click="presubmitGroupMessage()">پیش نمایش</button>
+				<div ng-hide="groupMessageApprove" class="btn-group dropup emotions-list group-message">
 				  <button type="button" class="btn btn-default dropdown-toggle emotion-add-icon" data-toggle="dropdown" aria-expanded="false">
 				  	<span class="dk icon-smiley"></span>
 				  </button>
@@ -249,6 +249,14 @@
 		                    
 				  </ul>
 				</div>
+				<hr/>
+				<div ng-show="groupMessageApprove">
+					<div class="col col-xs 12" ng-bind-html="getTrustedMessage(groupText)">
+
+					</div>
+					<button class="btn btn-danger btn-sm" ng-click="cancelGroupMessage()">انصراف</button>
+					<button class="btn btn-success btn-sm" ng-click="submitGroupMessage()">ارسال</button>
+				</div>	
 			</form>
 			
 		</div>
