@@ -5,7 +5,7 @@ var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetA
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
-    FastClick.attach(document.body);
+    // FastClick.attach(document.body);
 });
 
 
@@ -217,9 +217,13 @@ customerApp.filter('smilies', function() {
       } 
 
     ];
+      
     angular.forEach(smilies, function(value, key){
-      input = input.replace(value.regex, 
-      '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="dk-emot emot-'+value.name+'" alt="('+value.name+')" />');
+      if(input){
+        input = input.replace(value.regex, 
+      '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="dk-emot emot-'+value.name+'" alt="('+value.name+')" />');  
+      }
+      
     });
     
     return input;

@@ -7,7 +7,7 @@
 		</div>
 		<div class="well inner master-inner" ng-class="{'scrollable': !isXSmall()}">
 			<ul ng-show="threads.length">
-				<li ng-repeat="thread in threads | orderBy: '-last_record_delivered'" class="thread" ng-click="selectThread(thread)"
+				<li ng-repeat="thread in threads | orderBy: '-last_message.id'" class="thread" ng-click="selectThread(thread)"
 					ng-class="{'selected': selectedThread.id == thread.id}">
 					<div class="private" ng-show="thread.thread_type == 'private'">
 						<img ng-src="{{thread.client.photo ? thread.client.photo.icon_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>'}}" name="aboutme" width="48" height="48" class="img-circle">
@@ -250,12 +250,12 @@
 				  </ul>
 				</div>
 				<hr/>
-				<div ng-show="groupMessageApprove">
-					<div class="col col-xs 12" ng-bind-html="getTrustedMessage(groupText)">
+				<div ng-show="groupMessageApprove" style="display: table;width: 100%;">
+					<div style="background: white; padding: 10px 5px; border-radius: 4px;" class="col col-xs-12" ng-bind-html="getTrustedMessage(groupText)">
 
 					</div>
-					<button class="btn btn-danger btn-sm" ng-click="cancelGroupMessage()">انصراف</button>
-					<button class="btn btn-success btn-sm" ng-click="submitGroupMessage()">ارسال</button>
+					<button class="col col-xs-6 col-sm-2 btn btn-danger btn-sm" ng-click="cancelGroupMessage()">انصراف</button>
+					<button class="col col-xs-6 col-sm-2 btn btn-success btn-sm" ng-click="submitGroupMessage()">ارسال</button>
 				</div>	
 			</form>
 			
