@@ -248,7 +248,7 @@ class ApiMessageController extends FOSRestController
         } else{
             throw HttpException('Invalid MessageThread', 404);
         }
-        $thread->setLastClientSeen($message);
+        $thread->setLastClientSeen($message->getId());
         $em->persist($thread);
         $em->flush();
         return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));

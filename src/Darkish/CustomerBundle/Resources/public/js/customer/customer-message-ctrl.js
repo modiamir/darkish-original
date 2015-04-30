@@ -56,6 +56,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     var pos =$scope.doGetCaretPosition(document.getElementById('message-text-area'));
 
     var emotionTag = '('+emotionName+')';
+    
     var start = $('#message-text-area').prop("selectionStart");
     var end   = $('#message-text-area').prop("selectionEnd");
 
@@ -66,7 +67,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     if(el.setSelectionRange)
     {
       $timeout(function(){
-        $scope.setCaretPosition(el, end);
+        $scope.setCaretPosition(el, end + emotionTag.length);
       }, 5);
       
       
@@ -352,21 +353,53 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   }
 
   $scope.submitGroupMessage = function() {
-    $http({
-        method: 'POST',
-        url: './customer/ajax/post_group_message',
-        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-        data: $.param({_method: 'POST', text: $scope.groupText})
-    }).then(
-      function(response) {
-        $scope.groupText = null;
-        $scope.threads.push(response.data);
-        $scope.selectThread(response.data);
+
+
+
+    SweetAlert.swal({
+       title: "آیا از ارسلا این پیام اطمینان دارید؟",
+       text: $scope.groupText,
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "بله, ارسال کن!",
+       cancelButtonText: "انصراف",
+       imageSize: "40x40",
+       closeOnConfirm: false}, 
+    function(){ 
+      $http({
+          method: 'POST',
+          url: './customer/ajax/post_group_message',
+          headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+          data: $.param({_method: 'POST', text: $scope.groupText})
+      }).then(
+        function(response) {
+          $scope.groupText = null;
+          $scope.threads.push(response.data);
+          $scope.selectThread(response.data);
+          
+          
+          
+        }
+      );
+
+       
+    });
+    // $http({
+    //     method: 'POST',
+    //     url: './customer/ajax/post_group_message',
+    //     headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+    //     data: $.param({_method: 'POST', text: $scope.groupText})
+    // }).then(
+    //   function(response) {
+    //     $scope.groupText = null;
+    //     $scope.threads.push(response.data);
+    //     $scope.selectThread(response.data);
         
         
         
-      }
-    );
+    //   }
+    // );
   }
 
 }])

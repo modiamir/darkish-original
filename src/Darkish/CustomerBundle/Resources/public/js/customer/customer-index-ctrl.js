@@ -1,10 +1,11 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ngTouch']);
+                , 'angAccordion', 'ui.sortable', 'angular-loading-bar']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
+    FastClick.attach(document.body);
 });
 
 
@@ -107,10 +108,6 @@ customerApp.filter('smilies', function() {
         name: 'flower'
       },
       {
-        regex: /\(happy\)/g,
-        name: 'happy'
-      },
-      {
         regex: /\(koala\)/g,
         name: 'koala'
       },
@@ -209,10 +206,6 @@ customerApp.filter('smilies', function() {
       {
         regex: /\(tongue\)/g,
         name: 'tongue'
-      },
-      {
-        regex: /\(wink\)/g,
-        name: 'wink'
       },
       {
         regex: /\(yummi\)/g,
@@ -390,6 +383,7 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
     function(response){
 		  $scope.user = response.data;
       $scope.access = $scope.getAccess();
+      $scope.state = $state;
       $scope.window = $window;
       $scope.isXSmall = function() {
         if($window.outerWidth < 768) {

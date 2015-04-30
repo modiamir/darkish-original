@@ -44,6 +44,10 @@
 						<span ng-show="thread.last_message.id > thread.last_record_seen" class="hasnew">
 							جدید
 						</span>
+						<button class="delete-button btn-danger btn-xs" ng-click="delete(thread);$event.stopPropagation();">
+							<!-- <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> -->
+							<div class="dk icon-trash"></div>
+						</button>
 					</div>
 				</li>
 			</ul>
@@ -62,9 +66,9 @@
 				<div class="dk icon-arrow-right"></div>
 			</button>
 			<span class="details-header-title"> {{(selectedThread.thread_type == 'group') ? 'پیام گروهی' : (selectedThread.client.full_name ? selectedThread.client.full_name : selectedThread.client.username )}}</span>
-			<button class="details-header-button btn btn-sm btn-primary">
+			<!-- <button class="details-header-button btn btn-sm btn-primary">
 				دکمه بالا
-			</button>
+			</button> -->
 		</div>
 		<div ng-class="{'has-details-bottom': isXSmall() && selectedThread.id, 'scrollable': !isXSmall()}" ng-show="selectedThread.id" class="messages-inner details-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>

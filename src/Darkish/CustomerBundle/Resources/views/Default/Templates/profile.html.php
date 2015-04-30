@@ -22,10 +22,10 @@
 	        	<div class="record-number">
 	        		شماره رکورد: <span class="">R<?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span>
 	        	</div>
-			    <div class="access">
+			    <!-- <div class="access">
 				    <span><strong>دسترسی ها: </strong></span>
 				    <span ng-repeat="access in user.assistant_access" style="margin-left: 3px; margin-right: 3px;" class="label label-warning" ng-bind="access.name"></span>
-			    </div>
+			    </div> -->
 			    
 			</center>
 		</div>			

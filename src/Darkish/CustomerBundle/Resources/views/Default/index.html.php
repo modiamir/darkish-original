@@ -55,7 +55,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
 
 </head>
-<body>
+<body ng-class="state.current.name">
 
     <div class="container nav-container">
         <!-- navigation for small display -->
@@ -239,7 +239,9 @@
     <div id="loading" ng-hide="loaded" ng-cloak ng-class="{'loaded': loaded }">
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>
+
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/fastclick/lib/fastclick.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery-ui/jquery-ui.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular/angular.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-sanitize/angular-sanitize.min.js') ?>" type="text/javascript"></script>
@@ -278,7 +280,6 @@
 
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-contenteditable/angular-contenteditable.js') ?>"></script> -->
 
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script>
 
     
     
@@ -286,5 +287,19 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-directives.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).keydown(function(e) {
+            var nodeName = e.target.nodeName.toLowerCase();
+
+            if (e.which === 8) {
+                if ((nodeName === 'input' && e.target.type === 'text') ||
+                    nodeName === 'textarea') {
+                    // do nothing
+                } else {
+                    e.preventDefault();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
