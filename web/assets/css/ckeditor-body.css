@@ -94,7 +94,7 @@
     font-family: yekan;
     font-size: 16px;
     text-align: right;
-    line-height: 1.5em
+    line-height: 35px;
 }
 
 .body.secondary-text {
@@ -107,8 +107,9 @@
     background-repeat: no-repeat;
     display: table;
     padding-right: 15px;
-    background-position: center right;
+    background-position: right 13px;
     background-image: url(images/bullet.png);
+    line-height: 30px;
 }
 
 .body.little-text {
