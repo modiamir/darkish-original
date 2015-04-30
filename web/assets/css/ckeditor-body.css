@@ -119,6 +119,11 @@
     text-align: right;
 }
 
+a.cke_smile img {
+    width: 24px;
+    height: 24px;
+}
+
 .body.subtitle-text {
     font-family: yekan;
     font-size: 11px;
