@@ -326,6 +326,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   
   $scope.showGroupMessageForm = function() {
     $scope.groupText = "";
+    $scope.groupMessageApprove = false;
     $scope.selectedThread = {};
     $scope.groupMessageForm = true;
   }

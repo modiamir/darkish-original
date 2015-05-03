@@ -1,5 +1,4 @@
-<div class="details-header" id="details-header"
-	ng-hide="isXSmall()">
+<div class="details-header" id="details-header">
 	<button ng-disabled="state.current.name == 'store'" class="return-button" 
 		ui-sref="store">
 		<div class="dk icon-arrow-right"></div>
@@ -9,8 +8,7 @@
 		ویرایش فروشگاه
 	</button>
 </div>
-<div class="well store-details details-inner"
-	ng-hide="isXSmall()">
+<div class="well store-details details-inner">
 	<label>توضیحات</label>
 	<span class="store-description" ng-bind="storeData.market_description"></span>
 	<hr/>

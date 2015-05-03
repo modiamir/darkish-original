@@ -10,7 +10,11 @@
 		
 	</div>
 	<div class="col col-xs-3 left-col">
-		<img ng-src="{{product.photos[0].icon_absolute_path}}" />
+		<div ng-init="imageUrl = product.photos[0].icon_absolute_path ? product.photos[0].icon_absolute_path : null" 
+			class="image-wrapper" 
+			ng-style="(imageUrl) ? {'background-image': 'url('+imageUrl+')'} : null">
+			<!-- <img ng-src="{{imageUrl}}" > -->
+		</div>
 	</div>
 	
 </div>
