@@ -5,7 +5,7 @@
 			<div class="btn-group btn-group-justified">
 			  <a ng-disabled="state.current.name != 'store' || sortable" class="btn btn-info" ui-sref="store.details">فروشگاه</a>
 			  <a ng-show="!sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default edit-sort" ng-click="sortable= !sortable; collapseFirstGroup()"><div class="dk icon-edit"></div> ویرایش</a>
-			  <a ng-show="sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default finish-sort" ng-click="saveSort()">اتمام</a>
+			  <a ng-show="sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default finish-sort" ng-click="saveSort()"><div class="dk icon-verify-small"></div>اتمام</a>
 			  <a ng-disabled="state.current.name != 'store' || sortable" class="btn btn-default add-product" ui-sref="store.create"><div class="dk icon-add"></div>جدید</a>
 			</div>
 		</div>

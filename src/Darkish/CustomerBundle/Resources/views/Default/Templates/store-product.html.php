@@ -14,6 +14,14 @@
 			class="image-wrapper" 
 			ng-style="(imageUrl) ? {'background-image': 'url('+imageUrl+')'} : null">
 			<!-- <img ng-src="{{imageUrl}}" > -->
+			<div ng-show="sortable" class="product-sort-buttons">
+				<div class="" data-as-sortable-item-handle>
+					<div class="dk icon-sort"></div>
+			  	</div>
+			  	<button class="btn btn-xs btn-danger">
+			  		<div class="dk icon-remove"></div>
+			  	</button>
+			</div>
 		</div>
 	</div>
 	
@@ -40,11 +48,3 @@
 	
 </div>
 
-<div ng-show="sortable" class="product-sort-buttons">
-	<div data-as-sortable-item-handle>
-		<div class="dk icon-sort"></div>
-  	</div>
-  	<button class="btn btn-xs btn-danger">
-  		<div class="dk icon-remove"></div>
-  	</button>
-</div>
