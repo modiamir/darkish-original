@@ -65,12 +65,70 @@ class ProductController extends Controller
         $entity->setCustomer($user);
 
         $form = $this->createForm(new \Darkish\CategoryBundle\Form\ProductType(), $entity);
+
+        $photoId = $request->request->get('product[photos]', null, true);
+        $productForm = $request->request->get('product');
+        $producPhotos = (isset($productForm['photos']))? $productForm['photos'] : null;
+        unset($productForm['photos']);
+        $request->request->set('product', $productForm);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            if($producPhotos) {
+                
+                
+                $currentImages = $entity->getPhotos();
+                if($currentImages) {
+                    $newImages = new ArrayCollection();
+                    $eCollec = new ArrayCollection();
+                    $neCollec = new ArrayCollection();
+                    $rCollec = new ArrayCollection();
+                    $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                    foreach($producPhotos as $image) {
+                        $newImages->add($rep->find($image));
+                    }
+
+                    $newImagesIterator = $newImages->getIterator();
+                    while($newImagesIterator->valid()) {
+                        if($currentImages->contains($newImagesIterator->current())) {
+                            $eCollec->add($newImagesIterator->current());
+                        } else {
+                            $neCollec->add($newImagesIterator->current());
+                        }
+                        $newImagesIterator->next();
+                    }
+
+                    $currentImagesIterator = $currentImages->getIterator();
+                    while($currentImagesIterator->valid()) {
+                        if(!$eCollec->contains($currentImagesIterator->current()) && !$neCollec->contains($currentImagesIterator->current())) {
+                            $currentImages->removeElement($currentImagesIterator->current());
+                        }
+                        $currentImagesIterator->next();
+                    }
+
+                    $neCollecIterator = $neCollec->getIterator();
+                    while($neCollecIterator->valid()) {
+                        $currentImages->add($neCollecIterator->current());
+                        $neCollecIterator->next();
+                    }
+                }
+
+
+
+
+
+
+                
+            }
             $em->flush();
+
+
+            
+
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('product.details', 'file.details'))));
         }
 
@@ -100,12 +158,65 @@ class ProductController extends Controller
         $entity = $product;
         
         $form = $this->createForm(new \Darkish\CategoryBundle\Form\ProductType(), $entity);
+        
+        $photoId = $request->request->get('product[photos]', null, true);
+        $productForm = $request->request->get('product');
+        $producPhotos = (isset($productForm['photos']))? $productForm['photos'] : null;
+        unset($productForm['photos']);
+        $request->request->set('product', $productForm);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            if($producPhotos) {
+                
+                
+                $currentImages = $entity->getPhotos();
+                if($currentImages) {
+                    $newImages = new ArrayCollection();
+                    $eCollec = new ArrayCollection();
+                    $neCollec = new ArrayCollection();
+                    $rCollec = new ArrayCollection();
+                    $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+                    foreach($producPhotos as $image) {
+                        $newImages->add($rep->find($image));
+                    }
+
+                    $newImagesIterator = $newImages->getIterator();
+                    while($newImagesIterator->valid()) {
+                        if($currentImages->contains($newImagesIterator->current())) {
+                            $eCollec->add($newImagesIterator->current());
+                        } else {
+                            $neCollec->add($newImagesIterator->current());
+                        }
+                        $newImagesIterator->next();
+                    }
+
+                    $currentImagesIterator = $currentImages->getIterator();
+                    while($currentImagesIterator->valid()) {
+                        if(!$eCollec->contains($currentImagesIterator->current()) && !$neCollec->contains($currentImagesIterator->current())) {
+                            $currentImages->removeElement($currentImagesIterator->current());
+                        }
+                        $currentImagesIterator->next();
+                    }
+
+                    $neCollecIterator = $neCollec->getIterator();
+                    while($neCollecIterator->valid()) {
+                        $currentImages->add($neCollecIterator->current());
+                        $neCollecIterator->next();
+                    }
+                }
+
+
+
+
+
+
+                
+            }
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('product.details', 'file.details'))));
         }

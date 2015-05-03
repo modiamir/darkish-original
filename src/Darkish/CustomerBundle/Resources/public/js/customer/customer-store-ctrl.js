@@ -21,6 +21,7 @@ customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploa
 
 	$scope.log = function(item) {
 		console.log(item);
+
 	}
 
 
@@ -49,7 +50,42 @@ customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploa
 
   
 
-  
+  $scope.collapsedGroups = {}
+
+  $scope.collapseFirstGroup = function() {
+    var isAnyOpen = false;
+    angular.forEach($scope.collapsedGroups, function(value, key){
+      if(value) {
+        isAnyOpen = true;
+      }
+    });
+
+    if(isAnyOpen) {
+      return;
+    }
+
+
+    var first = null;
+    var found = false;
+    angular.forEach($scope.storeData.market_groups, function(value, key){
+      if(!found) {
+        if(!first) {
+          first = key;
+          firstEnable = true;
+        }
+        if($scope.products[value.id].length) {
+          $scope.collapsedGroups[value.id] = true;
+          found = true;
+        }
+      }
+    });
+    if(!found) {
+      $scope.collapsedGroups[first] = true;  
+    }
+    
+
+
+  }
 
     
 
@@ -561,7 +597,10 @@ customerApp.controller('StoreGroupProductsCtrl', ['$scope', '$filter', '$state',
   };
 
   $scope.selectProduct = function(product) {
-    $state.go('store.productdetails', {pid: product.id});
+    if(!$scope.sortable) {
+      $state.go('store.productdetails', {pid: product.id});  
+    }
+    
 
   }
 

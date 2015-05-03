@@ -1053,6 +1053,9 @@ class NewsController extends Controller
             case '1':
                 $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
                 break;
+            case '2':
+                $qb->where($qb->expr()->like('r.id', $qb->expr()->literal('%' . $keyword . '%')));
+                break;
             case '3':
                 $qb->orWhere($qb->expr()->like('r.title', $qb->expr()->literal('%' . $keyword . '%')));
                 $qb->orWhere($qb->expr()->like('r.subTitle', $qb->expr()->literal('%' . $keyword . '%')));

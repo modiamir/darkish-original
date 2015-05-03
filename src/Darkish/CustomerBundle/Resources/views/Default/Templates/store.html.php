@@ -3,10 +3,10 @@
 	<div ng-hide="isXSmall() && state.current.name != 'store'" class="col col-xs-12 col-sm-5 col-md-4 col-lg-4 products-list master">
 		<div class="well master-buttons" ng-class="{'fixed': isXSmall()}"> 
 			<div class="btn-group btn-group-justified">
-			  <a ng-disabled="state.current.name != 'store'" class="btn btn-info" ui-sref="store.details">فروشگاه</a>
-			  <a ng-show="!sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default" ng-click="sortable= !sortable">ویرایش</a>
-			  <a ng-show="sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default" ng-click="saveSort()">اتمام</a>
-			  <a ng-disabled="state.current.name != 'store'" class="btn btn-default" ui-sref="store.create">محصول جدید</a>
+			  <a ng-disabled="state.current.name != 'store' || sortable" class="btn btn-info" ui-sref="store.details">فروشگاه</a>
+			  <a ng-show="!sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default edit-sort" ng-click="sortable= !sortable; collapseFirstGroup()"><div class="dk icon-edit"></div> ویرایش</a>
+			  <a ng-show="sortable" ng-disabled="state.current.name != 'store'" class="btn btn-default finish-sort" ng-click="saveSort()">اتمام</a>
+			  <a ng-disabled="state.current.name != 'store' || sortable" class="btn btn-default add-product" ui-sref="store.create"><div class="dk icon-add"></div>جدید</a>
 			</div>
 		</div>
 		<div class="master-inner well" ng-class="{'scrollable': !isXSmall()}">
@@ -25,12 +25,12 @@
 				<div class="accordion-wrapper">
 					<ul class="accordion-list" ng-init="currentGroup = 0">
 						<li class="collapsible" ng-repeat="group in storeData.market_groups | orderBy:'sort'">
-							<div ng-class="{'active': group.id == currentGroup}" ng-click="currentGroup = (currentGroup == group.id) ? 0 : group.id" class="header">
-								<div ng-hide="group.id == currentGroup" class="dk icon-add"></div>
-								<div ng-show="group.id == currentGroup" class="dk icon-remove"></div>
+							<div ng-class="{'active': group.id == currentGroup}" ng-click="collapsedGroups[group.id] = (collapsedGroups[group.id] == true) ? false : true" class="header">
+								<div ng-hide="collapsedGroups[group.id] == true" class="dk icon-add"></div>
+								<div ng-show="collapsedGroups[group.id] == true" class="dk icon-remove"></div>
 								{{group.name}}
 							</div>
-							<div ng-show="group.id == currentGroup" class="body">
+							<div ng-show="collapsedGroups[group.id] == true" class="body">
 								<div class="group-products-wrapper" ng-controller="StoreGroupProductsCtrl" ng-include="'customer/template/store-group-products.html'" scope="" onload="">
 						        </div>
 
