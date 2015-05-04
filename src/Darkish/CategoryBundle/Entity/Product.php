@@ -70,7 +70,7 @@ class Product
     private $price;
 
     /**
-     * @ORM\Column(name="discounted_price", type="smallint", nullable= true)
+     * @ORM\Column(name="discounted_price", type="bigint", nullable= true)
      * @Groups({"product.list", "product.details"})
      */
     private $discountedPrice;

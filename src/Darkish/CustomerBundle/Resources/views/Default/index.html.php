@@ -55,7 +55,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
 
 </head>
-<body ng-class="state.current.name">
+<body ng-class="state.current.name | dotToDash">
 
     <div class="container nav-container">
         <!-- navigation for small display -->
@@ -291,7 +291,8 @@
             var nodeName = e.target.nodeName.toLowerCase();
 
             if (e.which === 8) {
-                if ((nodeName === 'input' && e.target.type === 'text') ||
+                if ((nodeName === 'input' && e.target.type === 'text') || 
+                    (nodeName === 'input' && e.target.type === 'number') || 
                     nodeName === 'textarea') {
                     // do nothing
                 } else {

@@ -16,6 +16,12 @@ customerApp.filter('toDate', function() {
   }
 })
 
+customerApp.filter('dotToDash', function() {
+  return function(input) {
+    return input.replace(/\./g,'-');
+  }
+});
+
 customerApp.filter('smilies', function() {
   return function(input) {
     var smilies = [

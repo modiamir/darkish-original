@@ -733,6 +733,11 @@ class Record
      */
     private $marketTemplate;
 
+    /**
+     * @ORM\Column(name="MarketOnlineOrder", type="smallint", options={"default":0})
+     */
+    private $marketOnlineOrder;
+
 
     /**
      * @var boolean
@@ -3704,5 +3709,30 @@ class Record
     public function getMarketGroups()
     {
         return $this->marketGroups;
+    }
+
+
+
+    /**
+     * Set marketOnlineOrder
+     *
+     * @param integer $marketOnlineOrder
+     * @return Record
+     */
+    public function setMarketOnlineOrder($marketOnlineOrder)
+    {
+        $this->marketOnlineOrder = $marketOnlineOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get marketOnlineOrder
+     *
+     * @return integer 
+     */
+    public function getMarketOnlineOrder()
+    {
+        return $this->marketOnlineOrder;
     }
 }

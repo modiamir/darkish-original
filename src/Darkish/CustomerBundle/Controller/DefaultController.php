@@ -799,6 +799,7 @@ class DefaultController extends Controller
         $storeData['market_banner'] = $record->getMarketBanner();
         $storeData['market_template'] = $record->getMarketTemplate();
         $storeData['market_groups'] = $record->getMarketGroups();
+        $storeData['market_online_order'] = $record->getMarketOnlineOrder();
 
 
         return new Response($this->get('jms_serializer')->serialize($storeData, 'json', SerializationContext::create()->setGroups(array('record.store'))));
@@ -838,6 +839,8 @@ class DefaultController extends Controller
                 throw new \Exception("Banner is not valid", 404);
             }
             $record->setMarketBanner($banner);
+        } else {
+            $record->setMarketBanner(null);
         }
 
         if($request->get('template')) {
@@ -847,6 +850,11 @@ class DefaultController extends Controller
                 throw new \Exception("Template is not valid", 404);
             }
             $record->setMarketTemplate($template);   
+        }
+
+        if($request->get('online_order')) {
+            $val = ($request->get('online_order') == false) ? 0 : 1;
+            $record->setMarketOnlineOrder($val);    
         }
 
         if($request->get('groups')) {
@@ -903,6 +911,7 @@ class DefaultController extends Controller
         $storeData['market_banner'] = $record->getMarketBanner();
         $storeData['market_template'] = $record->getMarketTemplate();
         $storeData['market_groups'] = $record->getMarketGroups();
+        $storeData['market_online_order'] = $record->getMarketOnlineOrder();
 
         return new Response($this->get('jms_serializer')->serialize($storeData, 'json', SerializationContext::create()->setGroups(array('record.store'))));
 

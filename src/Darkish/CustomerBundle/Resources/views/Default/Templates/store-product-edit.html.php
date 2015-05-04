@@ -1,11 +1,11 @@
-<div class="store-create">
+<div class="store-edit">
 	<div class="details-header" id="details-header" ng-class="{'fixed': isXSmall()}">
 		<button ng-disabled="state.current.name == 'store'" class="return-button" 
 			ui-sref="store.productdetails({pid:product.id})">
 			<div class="dk icon-arrow-right"></div>
 			<span class="hidden-xs">بازگشت</span>
 		</button>
-		<span class="details-header-title">ویرایش محصول</span>
+		ویرایش محصول
 		<button ng-disabled="productcreate.$invalid" ng-click="saveProduct()" class="details-header-button btn btn-sm btn-primary">
 			<span class="hidden-xs">ذخیره</span>
 			<div class="dk icon-arrow-left"></div>
@@ -17,7 +17,7 @@
 				<div class="col col-sm-6 form-group">
 				  <label class="control-label" for="product-code">کد آیتم</label>
 				  <input class="form-control" id="product-code" type="number"
-				  		 minlength="6" maxlength="6" placeholder="شماره آیتم" ng-model="product.code"
+				  		 minlength="1" maxlength="4" placeholder="شماره آیتم" ng-model="product.code"
 				  		 required>
 				</div>
 
@@ -39,9 +39,9 @@
 				</div>
 				<div class="col col-sm-6 form-group">
 				  <label class="control-label" for="product-special-text">متن ویژه</label>
-				  <input class="form-control" id="product-special-text" type="text"
+				  <textarea rows="5" class="form-control" id="product-special-text" 
 				  		 placeholder="متن ویژه" ng-model="product.special_text"
-				  		 maxlength="50">
+				  		 maxlength="255"></textarea>
 				</div>
 			    
 			</div>
@@ -60,16 +60,19 @@
 
 
 			    <div class="col col-sm-6 form-group">
-			      <label class="control-label" for="product-discount-percent">قیمت با تخفیف</label>
-			      <input class="form-control" id="product-discount-percent" type="number"
-			      		 placeholder="درصد تخفیف" ng-model="product.discounted_price"
-			      		 maxlength="2">
+			      	<label class="control-label" for="product-discount-percent">قیمت با تخفیف</label>
+			      	<div class="input-group">
+			      		<input class="form-control" id="product-discount-percent" type="number"
+			      			 placeholder="قیمت با تخفیف" ng-model="product.discounted_price"
+			      			 maxlength="12">
+		      			<span class="input-group-addon">تومان</span>
+			      	</div>
 			    </div>
 			    
 			</div>
 
 			<div class="row">
-				<div class="col col-xs-3">
+				<div class="col col-md-3">
 					<div class="form-group">
 				      	<label class="control-label">وضعیت</label>
 				      	<div class="radio-box">
@@ -100,7 +103,7 @@
 				      	</div>
 				    </div>
 				</div>
-				<div class="col col-xs-3">
+				<div class="col col-md-3">
 					<div class="form-group">
 				      	<label class="control-label">برچسب ویژه</label>
 				      	<div class="radio-box">
@@ -139,7 +142,7 @@
 				      	</div>
 				    </div>
 				</div>
-				<div class="col col-xs-6">
+				<div class="col col-md-6">
 					<div class="form-group">
 				        <label for="product-description" class="control-label">توضیحات</label>
 			    	    <textarea class="form-control" rows="7" id="product-description"
@@ -147,21 +150,29 @@
 				    </div>
 				</div>
 			</div>
-			<hr ng-show="product.photos"/>
-			<div class="row" ng-show="product.photos">
-				<div class="col col-xs-4" ng-repeat="photo in product.photos">
-					<img ng-src="{{photo.icon_absolute_path}}" />
-					<button class="btn btn-danger btn-xs" ng-click="removePhoto($index)">حذف</button>
-				</div>
-			</div>
 			<hr/>
 			<div class="row">
 
 	            <div class="col-md-12" style="margin-bottom: 40px">
-	                <h2>بارگذاری تصاویر (فقط سه تصویر)</h2>
-	                <p>تعداد تصاویر: {{ uploader.queue.length }}</p>
-
-	                <table class="table">
+	                <h2>بارگذاری تصویر (پنج تصویر)
+		                <label ng-disabled="product.photos.length >= 5" class="btn btn-info btn-sm">
+		                	انتخاب فایل
+		                	<input type="file" ng-show="false" nv-file-select="" uploader="uploader" multiple  /><br/>
+		                </label>
+	                </h2>
+	                <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                    <hr ng-show="product.photos"/>
+                    <div class="row" ng-show="product.photos">
+                    	<div class="col col-xs-12 col-sm-6 col-md-3" ng-repeat="photo in product.photos">
+                    		<div class="image-thumb">
+	                    		<img ng-src="{{photo.icon_absolute_path}}" />
+	                    		<button class="thumbnail-remove btn btn-danger btn-xs" ng-click="removePhoto($index)"><div class="dk icon-remove"></div></button>
+                    		</div>
+                    	</div>
+                    </div>
+	                <!-- <table class="table">
 	                    <thead>
 	                        <tr>
 	                            <th width="30%">نا‍م</th>
@@ -175,13 +186,7 @@
 	                        <tr ng-repeat="item in uploader.queue">
 	                            <td width="30%">
 	                                <strong>{{ item.file.name }}</strong>
-	                                <!-- Image preview -->
-	                                <!--auto height-->
-	                                <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-	                                <!--auto width-->
 	                                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-	                                <!--fixed width and height -->
-	                                <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
 	                            </td>
 	                            <td width="20%" ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
 	                            <td width="10%" ng-show="uploader.isHTML5">
@@ -207,19 +212,16 @@
 	                            </td>
 	                        </tr>
 	                    </tbody>
-	                </table>
+	                </table> -->
 
-	                <div>
+	                <!-- <div>
 	                    <div>
 	                        صف بارگذاری:
 	                        <div class="progress" style="">
 	                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
 	                        </div>
 	                    </div>
-	                    <label class="btn btn-info">
-	                    	انتخاب فایل
-	                    	<input type="file" ng-show="false" nv-file-select="" uploader="uploader" multiple  /><br/>
-	                    </label>
+	                    
 	                    <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
 	                        <span class="glyphicon glyphicon-upload"></span> بارگذاری همه
 	                    </button>
@@ -229,8 +231,8 @@
 	                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
 	                        <span class="glyphicon glyphicon-trash"></span> حذف همه
 	                    </button>
-	                    
-	                </div>
+	                    <button ng-click="logUploader()">asd</button>
+	                </div> -->
 
 	            </div>
 

@@ -19,7 +19,7 @@
 					<div class="dk icon-sort"></div>
 			  	</div>
 			  	<button class="btn btn-xs btn-danger">
-			  		<div class="dk icon-remove"></div>
+			  		<div class="dk icon-trash"></div>
 			  	</button>
 			</div>
 		</div>
