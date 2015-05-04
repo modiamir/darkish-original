@@ -18,7 +18,7 @@
 				<div class="" data-as-sortable-item-handle>
 					<div class="dk icon-sort"></div>
 			  	</div>
-			  	<button class="btn btn-xs btn-danger">
+			  	<button ng-click="deleteProduct(group.id, product)" class="btn btn-xs btn-danger">
 			  		<div class="dk icon-trash"></div>
 			  	</button>
 			</div>

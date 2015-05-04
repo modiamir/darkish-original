@@ -940,6 +940,7 @@ body {
                             }
                         }
                         .banner-remove {
+                            height: 33px;
                             .dk {
                                 font-size: 23px;
                                 float: right;
@@ -1133,7 +1134,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 @media (max-width: $screen-xs-max) {
     body {
         padding-top: 70px;
-        &.messages, &.store, &.store-edit, &.store-details {
+        &.messages, &.store, &.store-edit, &.store-details,
+        &.store-productdetails, &.store-editproduct, &.store-create {
             padding-top: 120px;    
         }
 
@@ -1237,9 +1239,9 @@ input[type=number] {
         width: 48%;
         text-align: center;
         margin-bottom: 5px;
-        background-color: rgba(255, 255 , 255, 0.2);
+        // background-color: rgba(255, 255 , 255, 0.2);
         border: 0;
-        color: red;
+        // color: red;
         border-radius: 0;
         font-size: 24px;
         height: 100%;
@@ -1248,7 +1250,7 @@ input[type=number] {
         margin-left: 1%;
         padding-top: 5px;
         &:hover {
-            background-color: rgba(226, 226, 226, 0.4);
+            // background-color: rgba(226, 226, 226, 0.4);
         }
     }
 
@@ -1280,9 +1282,9 @@ input[type=number] {
         float: right;
         width: 41px;
         text-align: center;
-        background-color: rgba(255, 255 , 255, 0.2);
+        // background-color: rgba(255, 255 , 255, 0.2);
         border: 0;
-        color: red;
+        // color: red;
         border-radius: 0;
         font-size: 29px;
         height: 100%;
@@ -1291,7 +1293,7 @@ input[type=number] {
         margin-left: 1%;
         padding-top: 1px;
         &:hover {
-            background-color: rgba(226, 226, 226, 0.4);
+            // background-color: rgba(226, 226, 226, 0.4);
         }
     }
 

@@ -7,7 +7,7 @@
 		</button>
 		ویرایش محصول
 		<button ng-disabled="productcreate.$invalid" ng-click="saveProduct()" class="details-header-button btn btn-sm btn-primary">
-			<span class="hidden-xs">ذخیره</span>
+			<span class="">ذخیره</span>
 			<div class="dk icon-arrow-left"></div>
 		</button>
 	</div>
@@ -51,7 +51,7 @@
 			      <div class="input-group">
 				      <input class="form-control" id="product-price" type="number"
 				      		 placeholder="قیمت" ng-model="product.price"
-				      		 maxlength="12" required>
+				      		 maxlength="12">
 		      		  <span class="input-group-addon">تومان</span>
 	      		  </div>
 	      		  
@@ -87,7 +87,7 @@
 				        	<div class="">
 				          		<label>
 				            		<input type="radio"
-			            				value="0" ng-checked="true"
+			            				value="0" 
 			            				ng-model="product.availability">
 		            				ناموجود
 				          		</label>
@@ -154,12 +154,12 @@
 			<div class="row">
 
 	            <div class="col-md-12" style="margin-bottom: 40px">
-	                <h2>بارگذاری تصویر (پنج تصویر)
+	                <h3>بارگذاری تصویر (پنج تصویر)
 		                <label ng-disabled="product.photos.length >= 5" class="btn btn-info btn-sm">
 		                	انتخاب فایل
 		                	<input type="file" ng-show="false" nv-file-select="" uploader="uploader" multiple  /><br/>
 		                </label>
-	                </h2>
+	                </h3>
 	                <div class="progress" style="">
                         <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                     </div>

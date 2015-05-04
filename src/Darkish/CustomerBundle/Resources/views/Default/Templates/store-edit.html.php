@@ -15,41 +15,43 @@
 				  class="form-control"> </textarea>
 
 		<hr/>
-		<label for="store-banner">بنر</label>
+		<h3>
+			<label for="store-banner">بنر</label>
+			<label class="file-select btn btn-info btn-sm">
+		    	<input  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+		    	<span class="image-upload-tip">بنر جدید</span>
+			</label>
+			<button ng-show="store.market_banner" class="btn btn-danger btn-sm banner-remove" ng-click="removeBanner();"><div class="dk icon-trash"></div>حذف بنر</button>
+		</h3>
+		<div class="row file-upload-row">
+		    <div ng-show="uploader.isUploading" class="col col-xs-12 col-sm-8">
+		        <div class="progress" style="">
+		            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+		        </div>
+		    </div>
+		    <div ng-show="uploader.isUploading" class="col col-xs-12  col-sm-4 upload-cancel">
+		        <button  ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
+		            X
+		        </button>
+		    </div>
+		    <!-- <div class="col col-md-8 col-md-offset-2 message-box">
+		        <span class="uploader-msg" ng-bind="uploader.msg">
+
+		        </span>
+		    </div> -->
+
+
+		</div>
 		<div class="store-banner">
 			<div class="text-center">
-			  <label class="file-select btn">
-			      <input  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
-			      <img  ng-src="{{store.market_banner.mobile_absolute_path ? store.market_banner.mobile_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_banner.jpg') ?>'}}" class="banner-image">
-			      <span class="image-upload-tip">بنر جدید</span>
-
-			  </label>
-			  <button ng-show="store.market_banner" class="btn btn-danger  banner-remove" ng-click="removeBanner();"><div class="dk icon-trash"></div>حذف بنر</button>
+			  <img width="100%" ng-src="{{store.market_banner.mobile_absolute_path ? store.market_banner.mobile_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_banner.jpg') ?>'}}" class="banner-image">
 			</div>
-			<div class="row file-upload-row">
-			    <div ng-show="uploader.isUploading" class="col col-md-8 col-md-offset-2">
-			        <div class="progress" style="">
-			            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-			        </div>
-			    </div>
-			    <div ng-show="uploader.isUploading" class="col col-md-8 col-md-offset-2 upload-cancel">
-			        <button  ng-disabled="!RecordService.isEditing()" class="btn btn-danger" ng-click="uploader.cancelAll()">
-			            X
-			        </button>
-			    </div>
-			    <div class="col col-md-8 col-md-offset-2 message-box">
-			        <span class="uploader-msg" ng-bind="uploader.msg">
-
-			        </span>
-			    </div>
-
-
-			</div>
+			
 		</div>
 		<hr/>
 		<label for="store-template">قالب</label>
 	    <select id="store-template" class="form-control" ng-model="store.market_template" ng-options="template.title for template in templates"></select>
-
+	    <hr/>
 	    <label for="store-online-order">امکان سفارش آنلاین</label>
 	    <input id="store-online-order" type="checkbox" ng-model="store.market_online_order">
 	    
