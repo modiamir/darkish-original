@@ -158,7 +158,7 @@ class ProductController extends Controller
         $entity = $product;
         
         $form = $this->createForm(new \Darkish\CategoryBundle\Form\ProductType(), $entity);
-        
+
         $photoId = $request->request->get('product[photos]', null, true);
         $productForm = $request->request->get('product');
         $producPhotos = (isset($productForm['photos']))? $productForm['photos'] : null;
@@ -323,6 +323,15 @@ class ProductController extends Controller
         $record = $user->getRecord();
 
         $group = $request->get('group');
+
+        $groups = $this->getDoctrine()->getRepository('DarkishCategoryBundle:StoreGroup')
+                ->findBy(['name' => $group['name'], 'record' => $record->getId()]);
+
+        if(count($groups)) {
+            return new JsonResponse(['Cant add group. There is other groop with same name!'], 403);
+        }
+
+        
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:StoreGroup');
         $groupEntity = new \Darkish\CategoryBundle\Entity\StoreGroup();
         $groupEntity->setSort($group['sort']);
@@ -347,6 +356,12 @@ class ProductController extends Controller
         $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
+        }
+
+        $products = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Product')
+                ->findBy(['group' => $group->getId()]);
+        if(count($products)) {
+            return new JsonResponse(['Cant delete group. This group has products!'], 403);
         }
 
         $record = $user->getRecord();

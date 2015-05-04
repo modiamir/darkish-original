@@ -5,7 +5,7 @@
 			<div class="dk icon-arrow-right"></div>
 			<span class="hidden-xs">بازگشت</span>
 		</button>
-		<span class="details-header-title">ایجاد محصول</span>
+		آیتم جدید
 		<button ng-disabled="productcreate.$invalid" ng-click="saveProduct()" class="details-header-button btn btn-sm btn-primary">
 			<span class="hidden-xs">ذخیره</span>
 			<div class="dk icon-arrow-left"></div>
@@ -17,7 +17,7 @@
 				<div class="col col-sm-6 form-group">
 				  <label class="control-label" for="product-code">کد آیتم</label>
 				  <input class="form-control" id="product-code" type="number"
-				  		 minlength="6" maxlength="6" placeholder="شماره آیتم" ng-model="product.code"
+				  		 minlength="1" maxlength="4" placeholder="شماره آیتم" ng-model="product.code"
 				  		 required>
 				</div>
 
@@ -39,9 +39,9 @@
 				</div>
 				<div class="col col-sm-6 form-group">
 				  <label class="control-label" for="product-special-text">متن ویژه</label>
-				  <input class="form-control" id="product-special-text" type="text"
+				  <textarea rows="5" class="form-control" id="product-special-text" 
 				  		 placeholder="متن ویژه" ng-model="product.special_text"
-				  		 maxlength="50">
+				  		 maxlength="255"></textarea>
 				</div>
 			    
 			</div>
@@ -60,16 +60,20 @@
 
 
 			    <div class="col col-sm-6 form-group">
-			      <label class="control-label" for="product-discount-percent">قیمت با تخفیف</label>
-			      <input class="form-control" id="product-discount-percent" type="number"
-			      		 placeholder="درصد تخفیف" ng-model="product.discounted_price"
-			      		 maxlength="2">
+			      	<label class="control-label" for="product-discount-percent">قیمت با تخفیف</label>
+			      	<div class="input-group">
+			      		<input class="form-control" id="product-discount-percent" type="number"
+			      			 placeholder="قیمت با تخفیف" ng-model="product.discounted_price"
+			      			 maxlength="12">
+		      			<span class="input-group-addon">تومان</span>
+			      	</div>
+			      
 			    </div>
 			    
 			</div>
 
 			<div class="row">
-				<div class="col col-xs-3">
+				<div class="col col-md-3">
 					<div class="form-group">
 				      	<label class="control-label">وضعیت</label>
 				      	<div class="radio-box">
@@ -100,7 +104,7 @@
 				      	</div>
 				    </div>
 				</div>
-				<div class="col col-xs-3">
+				<div class="col col-md-3">
 					<div class="form-group">
 				      	<label class="control-label">برچسب ویژه</label>
 				      	<div class="radio-box">
@@ -139,7 +143,7 @@
 				      	</div>
 				    </div>
 				</div>
-				<div class="col col-xs-6">
+				<div class="col col-md-6">
 					<div class="form-group">
 				        <label for="product-description" class="control-label">توضیحات</label>
 			    	    <textarea class="form-control" rows="7" id="product-description"
@@ -154,7 +158,7 @@
 					<button class="btn btn-danger btn-xs" ng-click="removePhoto($index)">حذف</button>
 				</div>
 			</div>
-			<hr/>
+			<!-- <hr/>
 			<div class="row">
 
 	            <div class="col-md-12" style="margin-bottom: 40px">
@@ -175,13 +179,8 @@
 	                        <tr ng-repeat="item in uploader.queue">
 	                            <td width="30%">
 	                                <strong>{{ item.file.name }}</strong>
-	                                <!-- Image preview -->
-	                                <!--auto height-->
-	                                <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-	                                <!--auto width-->
 	                                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
-	                                <!--fixed width and height -->
-	                                <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+	                                
 	                            </td>
 	                            <td width="20%" ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
 	                            <td width="10%" ng-show="uploader.isHTML5">
@@ -234,7 +233,7 @@
 
 	            </div>
 
-	        </div>
+	        </div> -->
 
 			
 		</form>

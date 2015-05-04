@@ -3,10 +3,10 @@
 		ui-sref="store.details">
 		<div class="dk icon-arrow-right"></div>
 	</button>
-	<span class="details-header-title">ویرایش مشخصات فروشگاه</span>
-	<!-- <button class="details-header-button btn btn-sm btn-primary">
-		مشخصات فروشگاه
-	</button> -->
+	ویرایش مشخصات فروشگاه
+	<button ng-click="saveStoreDetails()" class="details-header-button btn btn-sm btn-primary">
+		<div class="dk icon-verify-small"></div>ذخیره
+	</button>
 </div>
 <div class="store-edit details-inner well">
 	<form>
@@ -20,10 +20,11 @@
 			<div class="text-center">
 			  <label class="file-select btn">
 			      <input  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
-			      <img src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_banner.jpg') ?>" ng-src="{{store.market_banner.mobile_absolute_path}}" class="banner-image">
-			      <span class="image-upload-tip">برای بارگزاری کلیک کنید</span>
+			      <img  ng-src="{{store.market_banner.mobile_absolute_path ? store.market_banner.mobile_absolute_path : '<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_banner.jpg') ?>'}}" class="banner-image">
+			      <span class="image-upload-tip">بنر جدید</span>
+
 			  </label>
-			  
+			  <button ng-show="store.market_banner" class="btn btn-danger  banner-remove" ng-click="removeBanner();"><div class="dk icon-trash"></div>حذف بنر</button>
 			</div>
 			<div class="row file-upload-row">
 			    <div ng-show="uploader.isUploading" class="col col-md-8 col-md-offset-2">
@@ -48,16 +49,22 @@
 		<hr/>
 		<label for="store-template">قالب</label>
 	    <select id="store-template" class="form-control" ng-model="store.market_template" ng-options="template.title for template in templates"></select>
-	    <hr/>
-		<label for="store-groups">گروه ها</label>
+
+	    <label for="store-online-order">امکان سفارش آنلاین</label>
+	    <input id="store-online-order" type="checkbox" ng-model="store.market_online_order">
+	    
+
+
+	    <!-- <hr/> -->
+		<!-- <label for="store-groups">گروه ها</label>
 		<span class="store-group-hint">برای افزودن گروه در فضای خالی باکس زیر کلیک کنید.</span>
 		<div class="store-groups">
 			<tags model="store.market_groups"></tags>
-		</div>
+		</div> -->
 
 
 
 
-	    <button ng-click="saveStoreDetails()" class="btn btn-default btn-sm">ذخیره</button>
+	    
     </form>
 </div>

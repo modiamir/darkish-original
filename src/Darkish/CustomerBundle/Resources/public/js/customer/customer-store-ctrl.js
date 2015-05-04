@@ -93,7 +93,7 @@ customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploa
 
 }])
 
-customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', function($scope, $http, $filter){
+customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', 'SweetAlert' , function($scope, $http, $filter, SweetAlert){
     $scope.tempGroups = angular.copy($scope.storeData.market_groups);
     $scope.tempGroups = $filter('orderBy')($scope.tempGroups, 'sort');
     $scope.finish = function() {
@@ -133,7 +133,15 @@ customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', functi
         $scope.tempGroups.unshift(response.data);
         $scope.addingGroup = "";
         $scope.storeData.market_groups = angular.copy($scope.tempGroups);
-      }, function(responseErr){});
+      }, function(responseErr){
+        if(responseErr.status == 403) {
+          SweetAlert.swal({
+            title: "افزودن گروه انجام نشد.",
+            text: "گروه دیگری با همین نام موجود است.",
+            type: "success"
+          });
+        }
+      });
 
       
     }
@@ -146,7 +154,15 @@ customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', functi
         data: $.param({_method: 'DELETE'})
       }).then(function(response){
         $scope.tempGroups.splice(index, 1);
-      }, function(responseErr){});
+      }, function(responseErr){
+        if(responseErr.status == 403) {
+          SweetAlert.swal({
+            title: "حذف انجام نشد.",
+            text: "این گروه دارای محصول است و قابل حذف نیست",
+            type: "success"
+          });
+        }
+      });
     }
 
     $scope.dragControlListeners = {
@@ -203,12 +219,10 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
       url: './customer/ajax/upload'
   });
   uploader.withCredentials = true;
-  $scope.queueLimit = function() {
-    return ($scope.product.photos) ? (3 - $scope.product.photos.length) : 3 ;
-  }
-  uploader.queueLimit = $scope.queueLimit();
+  
+  uploader.queueLimit = 5;
 
-  uploader.autoUpload = false;
+  uploader.autoUpload = true;
   uploader.removeAfterUpload = true;
   uploader.formData.push({uploadDir : 'image'});
   uploader.formData.push({continual : true});
@@ -216,7 +230,9 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
   uploader.msg = "";
   
   // FILTERS
-
+  $scope.logUploader = function() {
+    console.log(uploader);
+  }
 
   uploader.filters.push({
       name: 'imageFilter',
@@ -229,7 +245,9 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
   uploader.filters.push({
         name: 'photoLimits',
         fn: function(item, photo) {
-            if($scope.product.photos && ($scope.product.photos.length + uploader.queue.length) >= 3) {
+            var photocount = (($scope.product.photos) ? $scope.product.photos.length : 0) + uploader.queue.length;
+            console.log(photocount);
+            if( photocount >= 5) {
               return false;
             }
             return true;
@@ -285,10 +303,11 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
   }
 }])
 
-customerApp.controller('StoreProductDetailsCtrl', ['$scope', '$stateParams', 'product', function($scope, $stateParams, product){
+customerApp.controller('StoreProductDetailsCtrl', ['$scope', '$stateParams', 'product', '$filter', function($scope, $stateParams, product, $filter){
   $scope.edit = "edit product";
   $scope.stateParams = $stateParams;
   $scope.product = product;
+  $scope.product.group = $filter('filter')($scope.storeData.market_groups, {id: $scope.product.group.id})[0];
   
 
   $scope.openLightboxModal = function (index) {
@@ -309,6 +328,9 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
 	function(responseErr){}
   )
 
+  $scope.removeBanner = function() {
+    $scope.store.market_banner = null;
+  }
 
   $scope.saveStoreDetails = function() {
   	$http({
@@ -320,7 +342,8 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
   			description: $scope.store.market_description,
   			groups: $scope.store.market_groups,
   			banner: $scope.store.market_banner,
-  			template: $scope.store.market_template
+  			template: $scope.store.market_template,
+        online_order: $scope.store.market_online_order
   		})
   	}).then(
   		function(response){
@@ -328,6 +351,7 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
   			$scope.storeData.market_banner = response.data.market_banner;
   			$scope.storeData.market_template = response.data.market_template;
   			$scope.storeData.market_groups = response.data.market_groups;
+        $scope.store.market_online_order = response.data.market_online_order;
   			SweetAlert.swal({
   				title: "ذخیره انجام شد.",
   				text: "",
@@ -453,52 +477,52 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
        * uploader
        */
 
-      var uploader = $scope.uploader = new FileUploader({
-          url: './customer/ajax/upload'
-      });
-      uploader.withCredentials = true;
-      $scope.queueLimit = function() {
-        return ($scope.product.photos) ? (3 - $scope.product.photos.length) : 3 ;
-      }
-      uploader.queueLimit = $scope.queueLimit();
+      // var uploader = $scope.uploader = new FileUploader({
+      //     url: './customer/ajax/upload'
+      // });
+      // uploader.withCredentials = true;
+      // $scope.queueLimit = function() {
+      //   return ($scope.product.photos) ? (3 - $scope.product.photos.length) : 3 ;
+      // }
+      // uploader.queueLimit = $scope.queueLimit();
 
-      uploader.autoUpload = false;
-      uploader.removeAfterUpload = true;
-      uploader.formData.push({uploadDir : 'image'});
-      uploader.formData.push({continual : true});
-      uploader.formData.push({type : 'product'});
-      uploader.msg = "";
+      // uploader.autoUpload = false;
+      // uploader.removeAfterUpload = true;
+      // uploader.formData.push({uploadDir : 'image'});
+      // uploader.formData.push({continual : true});
+      // uploader.formData.push({type : 'product'});
+      // uploader.msg = "";
       
       // FILTERS
 
 
-      uploader.filters.push({
-          name: 'imageFilter',
-          fn: function(item /*{File|FileLikeObject}*/, options) {
-              var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-              return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-          }
-      });
+      // uploader.filters.push({
+      //     name: 'imageFilter',
+      //     fn: function(item /*{File|FileLikeObject}*/, options) {
+      //         var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+      //         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      //     }
+      // });
 
-      uploader.filters.push({
-            name: 'photoLimits',
-            fn: function(item, photo) {
-                if($scope.product.photos && ($scope.product.photos.length + uploader.queue.length) >= 3) {
-                  return false;
-                }
-                return true;
-            }
-        });
+      // uploader.filters.push({
+      //       name: 'photoLimits',
+      //       fn: function(item, photo) {
+      //           if($scope.product.photos && ($scope.product.photos.length + uploader.queue.length) >= 3) {
+      //             return false;
+      //           }
+      //           return true;
+      //       }
+      //   });
       
       
-      uploader.onSuccessItem = function(fileItem, response, status, headers) {
-          console.info('onSuccessItem', fileItem, response, status, headers);
-          if(!$scope.product.photos) {
-              $scope.product.photos = [];
-          }
-          $scope.product.photos.push(response);
-          uploader.msg = 'فایل با موفقیت بارگزاری شد.';
-      };
+      // uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      //     console.info('onSuccessItem', fileItem, response, status, headers);
+      //     if(!$scope.product.photos) {
+      //         $scope.product.photos = [];
+      //     }
+      //     $scope.product.photos.push(response);
+      //     uploader.msg = 'فایل با موفقیت بارگزاری شد.';
+      // };
 
 
       $scope.saveProduct = function() {
@@ -521,7 +545,7 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
         }). then(
               function(response){
                 $scope.products[response.data.group.id].unshift(response.data);
-                $state.go('store.productdetails', {pid: response.data.id});
+                $state.go('store.editproduct', {pid: response.data.id});
               }, 
               function(responseErr){
                 console.log(responseErr);

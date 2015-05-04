@@ -366,6 +366,8 @@ body {
                     border-radius: 4px 4px 0 0;
                     height: 55px;
                     border-bottom: 1px solid #2c3e50;
+                    text-align: center;
+                    line-height: 50px;
                     .return-button {
                         margin-top: 5px;
                         margin-right: 10px;
@@ -845,6 +847,7 @@ body {
                         background: inherit;
                         border: none;
                         margin: 5px;
+                        margin-bottom: 10px;
                     }
                     .group-products {
                         border: 1px solid #6496ff;
@@ -880,6 +883,25 @@ body {
 
                         }
 
+                        .product-details-groups {
+                            a {
+                                .dk {
+                                    font-size: 18px;
+                                    position: relative;
+                                    top: 5px;
+                                    margin-left: 4px;
+                                }
+                            }
+                            .edit-groups {
+
+                            }
+                            .finish-edit-groups {
+
+                            }
+                            .add-group {
+
+                            }
+                        }
 
 
                         .store-groups {
@@ -917,7 +939,12 @@ body {
                                 }
                             }
                         }
-
+                        .banner-remove {
+                            .dk {
+                                font-size: 23px;
+                                float: right;
+                            }
+                        }
                         .store-banner {
                             .file-select {
                                 padding: 0;
@@ -937,6 +964,7 @@ body {
                                     background-color: rgba(120,120,120, 0.5);
                                     color: white;
                                 }
+                                
                             }
                             
                         }
@@ -1105,7 +1133,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 @media (max-width: $screen-xs-max) {
     body {
         padding-top: 70px;
-        &.messages, &.store {
+        &.messages, &.store, &.store-edit, &.store-details {
             padding-top: 120px;    
         }
 
@@ -1150,8 +1178,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     }
 }
 
-input.form-control {
+input[type=text].form-control {
     line-height: 43px;
+}
+
+select.form-control {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .radio-box {
@@ -1184,37 +1217,81 @@ input[type=number] {
     bottom: 0;
     right: 0px;
     padding: 2px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.6);
     .as-sortable-item-handle {
         float: right;
         width: 48%;
         margin-bottom: 5px;
         text-align: center;
-        background-color: rgba(0,0,0, 0.25);
+        background-color: rgba(255,255,255, 0.2);
         color: white;
         font-size: 20px;
         height: 100%;
         margin-top: 1px;
         margin-right: 1%;
         margin-left: 1%;
-        padding-top: 33%;
+        padding-top: 27px;
     }
     button {
         float: right;
         width: 48%;
         text-align: center;
         margin-bottom: 5px;
-        background-color: rgba(0,0,0, 0.25);
+        background-color: rgba(255, 255 , 255, 0.2);
         border: 0;
         color: red;
         border-radius: 0;
-        font-size: 18px;
+        font-size: 24px;
         height: 100%;
         margin-top: 1px;
         margin-right: 1%;
         margin-left: 1%;
+        padding-top: 5px;
         &:hover {
-            background-color: rgb(226, 226, 226);
+            background-color: rgba(226, 226, 226, 0.4);
+        }
+    }
+
+}
+
+
+.group-sort-buttons {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    padding: 2px;
+    background-color: rgba(0, 0, 0, 0.6);
+    .as-sortable-item-handle {
+        float: right;
+        width: 41px;
+        text-align: center;
+        background-color: rgba(255,255,255, 0.2);
+        color: white;
+        font-size: 29px;
+        height: 100%;
+        margin-top: 1px;
+        margin-right: 1%;
+        margin-left: 1%;
+        padding-top: 1px;
+    }
+    button {
+        float: right;
+        width: 41px;
+        text-align: center;
+        background-color: rgba(255, 255 , 255, 0.2);
+        border: 0;
+        color: red;
+        border-radius: 0;
+        font-size: 29px;
+        height: 100%;
+        margin-top: 1px;
+        margin-right: 1%;
+        margin-left: 1%;
+        padding-top: 1px;
+        &:hover {
+            background-color: rgba(226, 226, 226, 0.4);
         }
     }
 
@@ -1242,6 +1319,8 @@ input[type=number] {
                     text-align: center;
                     color: gray;
                     margin-bottom: 5px;
+                    height: 40px;
+                    overflow: hidden;
                 }
             }
             .left-col {
@@ -1341,4 +1420,18 @@ input[type=number] {
 
 textarea {
     resize: none;
+}
+
+.image-thumb {
+    position: relative;
+    margin-bottom: 20px;
+    .thumbnail-remove {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        height: 25px;
+        .dk {
+            font-size: 22px;
+        }
+    }    
 }
