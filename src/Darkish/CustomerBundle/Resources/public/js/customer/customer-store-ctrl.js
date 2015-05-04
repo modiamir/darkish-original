@@ -1,8 +1,7 @@
 
 
-customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploader', '$window', '$http', 
-  function($scope, $state, storeData, FileUploader, $window, $http){
-	$scope.store = "mrzsss";
+customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploader', '$window', '$http', 'SweetAlert', 
+  function($scope, $state, storeData, FileUploader, $window, $http, SweetAlert){
 	$scope.state = $state;
   $scope.sortable = false;
   
@@ -23,6 +22,39 @@ customerApp.controller('StoreCtrl', ['$scope', '$state', 'storeData', 'FileUploa
 		console.log(item);
 
 	}
+
+  $scope.deleteProduct = function(groupId, prod) {
+    var index = $scope.products[groupId].indexOf(prod);
+    SweetAlert.swal({
+       title: "آیا از حذف اطمینان دارید؟",
+       text: "این عملیات قابل برگشت نیست!",
+       type: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#DD6B55",
+       confirmButtonText: "بله, حذف کن!",
+       cancelButtonText: "انصراف",
+       imageSize: "40x40",
+       closeOnConfirm: true},
+    function(){ 
+      $http({
+        method: 'DELETE',
+        url: './customer/ajax/product/delete/'+prod.id,
+        headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+        data: $.param({_method: 'DELETE'})
+      }).then(function(response){
+        $scope.products[groupId].splice(index, 1);
+      }, function(responseErr){
+        SweetAlert.swal({
+          title: "حذف انجام نشد.",
+          type: "success"
+        });
+      });
+
+       
+    });
+    
+    
+  }
 
 
   $scope.saveSort = function() {
@@ -206,7 +238,7 @@ customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', 'Sweet
     };
 }])
 
-customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'product', 'FileUploader', '$http', '$filter', '$state', function($scope, $stateParams, product, FileUploader, $http, $filter, $state){
+customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'product', 'FileUploader', '$http', '$filter', '$state', 'SweetAlert', function($scope, $stateParams, product, FileUploader, $http, $filter, $state, SweetAlert){
   $scope.stateParams = $stateParams;
   $scope.product = product;
   $scope.product.group = $filter('filter')($scope.storeData.market_groups, {id: $scope.product.group.id})[0];
@@ -291,7 +323,12 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
             $state.go('store.productdetails', {pid: response.data.id});
           }, 
           function(responseErr){
-            console.log(responseErr);
+            if(responseErr.status == 500) {
+              SweetAlert.swal({
+                title: "کد محصول تکراری است.",
+                type: "success"
+              });
+            }
           }
         );
 
@@ -469,8 +506,8 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
 
 }])
 
-customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$state', function($scope, FileUploader, $http, $state){
-      $scope.product = {availability: 0, special_tag: 0};
+customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$state', 'SweetAlert', function($scope, FileUploader, $http, $state, SweetAlert){
+      $scope.product = {availability: 1, special_tag: 0};
 
       /**
        * 
@@ -524,6 +561,12 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
       //     uploader.msg = 'فایل با موفقیت بارگزاری شد.';
       // };
 
+      $scope.uploadAlert =  function() {
+        SweetAlert.swal({
+          title: "برای بارگزاری تصویر باید محصول را ذخیره نمایید.",
+          type: "success"
+        });
+      }
 
       $scope.saveProduct = function() {
         var tempProduct = angular.copy($scope.product);
@@ -548,7 +591,12 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
                 $state.go('store.editproduct', {pid: response.data.id});
               }, 
               function(responseErr){
-                console.log(responseErr);
+                if(responseErr.status == 500) {
+                  SweetAlert.swal({
+                    title: "کد محصول تکراری است.",
+                    type: "success"
+                  });
+                }
               }
             );
 

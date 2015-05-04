@@ -6,12 +6,19 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\Type;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Product
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity(
+ *     fields={"code", "record"},
+ *     errorPath="code",
+ *     message="This code is already in use on that record."
+ * )
  */
 class Product
 {

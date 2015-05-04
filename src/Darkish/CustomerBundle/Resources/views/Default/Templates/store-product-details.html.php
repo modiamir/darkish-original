@@ -7,7 +7,7 @@
 		{{product.title}}
 		<button  ui-sref="store.editproduct({pid:product.id})" class="details-header-button btn btn-sm btn-primary" href="#/store/product/1/edit">
 			<div class="dk icon-edit"></div>
-			<span class="hidden-xs">ویرایش</span>			
+			<span class="">ویرایش</span>			
 		</button>
 	</div>
 	<div class="store-create-product details-inner well">
@@ -150,11 +150,13 @@
 				</div>
 			</div>
 			<hr ng-show="product.photos"/>
-			<div class="row" ng-show="product.photos">
-				<div class="col col-xs-4" ng-repeat="photo in product.photos">
-					<img ng-src="{{photo.icon_absolute_path}}" />
-				</div>
-			</div>			
+            <div class="row" ng-show="product.photos">
+            	<div class="col col-xs-12 col-sm-6 col-md-3" ng-repeat="photo in product.photos">
+            		<div class="image-thumb">
+                		<img ng-src="{{photo.icon_absolute_path}}" />
+            		</div>
+            	</div>
+            </div>
 		</form>
 
 	</div>

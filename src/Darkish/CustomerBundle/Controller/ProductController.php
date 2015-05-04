@@ -74,10 +74,23 @@ class ProductController extends Controller
 
         $form->handleRequest($request);
 
+        $validator = $this->get('validator');
+        $errors = $validator->validate($entity);
+        if (count($errors) > 0) {
+
+            /*
+             * Uses a __toString method on the $errors variable which is a
+             * ConstraintViolationList object. This gives us a nice string
+             * for debugging.
+             */
+            $errorsString = (string) $errors;
+
+            return new JsonResponse([$errorsString],500);
+        }
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-
+            
             if($producPhotos) {
                 
                 
@@ -124,6 +137,8 @@ class ProductController extends Controller
 
                 
             }
+            $em->persist($entity);
+
             $em->flush();
 
 
@@ -167,10 +182,23 @@ class ProductController extends Controller
 
         $form->handleRequest($request);
 
+        $validator = $this->get('validator');
+        $errors = $validator->validate($entity);
+        if (count($errors) > 0) {
+
+            /*
+             * Uses a __toString method on the $errors variable which is a
+             * ConstraintViolationList object. This gives us a nice string
+             * for debugging.
+             */
+            $errorsString = (string) $errors;
+
+            return new JsonResponse([$errorsString],500);
+        }
+
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
             if($producPhotos) {
                 
                 
@@ -217,12 +245,16 @@ class ProductController extends Controller
 
                 
             }
+
+            
+
+            $em->persist($entity);
             $em->flush();
+            // return new Response($this->get('jms_serializer')->serialize($err, 'json'));
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('product.details', 'file.details'))));
         }
         /* @var $formerror \Symfony\Component\Form\FormErrorIterator */
         $formerror =$form->getErrors();
-
         return new Response($form->getErrors()->__toString());
 
         
@@ -400,6 +432,17 @@ class ProductController extends Controller
         return new Response($this->get('jms_serializer')->serialize($product, 'json', SerializationContext::create()->setGroups(['product.details', 'file.details'])));
     }
 
+
+    /**
+     * @Route("customer/ajax/product/delete/{product}", defaults={"_format"="json"})
+     * @Method({"DELETE"})
+     */
+    public function removeProduct(\Darkish\CategoryBundle\Entity\Product $product) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($product);
+        $em->flush();
+        return new JsonResponse(['Delete done']);
+    }
 
     
 }
