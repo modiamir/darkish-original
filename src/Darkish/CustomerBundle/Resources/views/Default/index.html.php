@@ -29,7 +29,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.css') ?>" rel="stylesheet" type="text/css" />
 
     <!-- angular material CSS -->
-    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.css') ?>" rel="stylesheet" type="text/css" />
+    <!-- <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.css') ?>" rel="stylesheet" type="text/css" /> -->
 
     <!-- ng-scroll CSS -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.css') ?>" rel="stylesheet" type="text/css" />
@@ -40,7 +40,6 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.style.min.css') ?>" rel="stylesheet" type="text/css" />
 
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.css') ?>" rel="stylesheet" type="text/css" />
-    <!-- <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css') ?>" rel="stylesheet" type="text/css" /> -->
 
 
 
@@ -48,8 +47,10 @@
 
     <!-- Custom styles for this template -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-database.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-comments.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/rtl.css') ?>" rel="stylesheet">
-    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/angular-material-rtl.css') ?>" rel="stylesheet">
+    <!-- <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/angular-material-rtl.css') ?>" rel="stylesheet"> -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/font-darkish.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/emotions.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
@@ -128,8 +129,12 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'database')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1"><a ui-sref="database">دیتابیس</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1">
+                                        <a ng-show="user.record.dbase_type_index.id == 1" ui-sref="database">مدیریت املاک</a>
+                                        <a ng-show="user.record.dbase_type_index.id == 2" ui-sref="database">مدیریت خودروها</a>
+                                </li>
                                 
+
                                 <li ng-class="{'active': (state.current.name == 'store')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
                                 
@@ -169,7 +174,10 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'database')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1"><a ui-sref="database">دیتابیس</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1">
+                                        <a ng-show="user.record.dbase_type_index.id == 1" ui-sref="database">مدیریت املاک</a>
+                                        <a ng-show="user.record.dbase_type_index.id == 2" ui-sref="database">مدیریت خودروها</a>
+                                </li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'store')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
@@ -260,10 +268,9 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-utils/ui-utils.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-tags/dist/angular-tags-0.2.10-tpls.min.js') ?>"></script>
-    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-material/angular-material.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-scrollbar/dist/ng-scrollbar.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-elastic/elastic.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-resize/ngresize.js') ?>"></script>
@@ -275,8 +282,7 @@
 
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script> -->
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.js') ?>"></script>
-    <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js') ?>"></script> -->
-
+    
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-contenteditable/angular-contenteditable.js') ?>"></script> -->
 
 
@@ -286,6 +292,8 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-directives.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-database-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-comments-ctrl.js') ?>" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).keydown(function(e) {
             var nodeName = e.target.nodeName.toLowerCase();

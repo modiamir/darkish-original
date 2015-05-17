@@ -38,6 +38,11 @@ class Comment extends BaseComment
     private $claimType;
 
     /**
+     * @ORM\Column(name="reply_count", type="integer", options={"unsigned":true, "default":0})
+     */
+    private $replyCount = 0;
+
+    /**
      * Thread of this comment
      *
      * @var Thread
@@ -58,4 +63,75 @@ class Comment extends BaseComment
 
     
 
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     * @return Comment
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer 
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
+    }
+
+    /**
+     * Set claimType
+     *
+     * @param integer $claimType
+     * @return Comment
+     */
+    public function setClaimType($claimType)
+    {
+        $this->claimType = $claimType;
+
+        return $this;
+    }
+
+    /**
+     * Get claimType
+     *
+     * @return integer 
+     */
+    public function getClaimType()
+    {
+        return $this->claimType;
+    }
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\Thread $thread
+     * @return Comment
+     */
+    public function setThread(\FOS\CommentBundle\Model\ThreadInterface $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\Thread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
+
+    
 }

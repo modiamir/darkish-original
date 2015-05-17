@@ -629,6 +629,19 @@ class Record
     private $dbaseTypeIndex;
 
     /**
+     * @ORM\Column(name="DbaseDescription", type="text", nullable=true)
+     */
+    private $dbaseDescription;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="recordForDbasetBanner")
+     * @ORM\JoinColumn(name="DbaseBanner", referencedColumnName="id")
+     */
+    private $dbaseBanner;
+
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="BulkSmsEnable", type="boolean", nullable=true)
@@ -3712,4 +3725,27 @@ class Record
     }
 
 
+
+    /**
+     * Set marketOnlineOrder
+     *
+     * @param integer $marketOnlineOrder
+     * @return Record
+     */
+    public function setMarketOnlineOrder($marketOnlineOrder)
+    {
+        $this->marketOnlineOrder = $marketOnlineOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get marketOnlineOrder
+     *
+     * @return integer 
+     */
+    public function getMarketOnlineOrder()
+    {
+        return $this->marketOnlineOrder;
+    }
 }

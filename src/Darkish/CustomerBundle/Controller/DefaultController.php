@@ -100,6 +100,24 @@ class DefaultController extends Controller
                 }
                 break;
 
+            case 'comments-all.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'comments-news.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
             case 'attachments.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(5);
                 if($assistantAccess->contains($role)) {
@@ -117,6 +135,141 @@ class DefaultController extends Controller
                     throw new AccessDeniedException();
                 }
                 break;
+
+            case 'database-details.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'database-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'database-create.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'estate-create.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'automobile-create.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;     
+
+            case 'estate-search.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'automobile-search.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;             
+
+            case 'estate-item-list.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'automobile-item-list.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'database-item-details.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'estate-item-details.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'automobile-item-details.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'database-item-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'estate-item-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
+
+            case 'automobile-item-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
 
             case 'store.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);

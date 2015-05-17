@@ -29,13 +29,18 @@ class Comment extends BaseComment
      * @ORM\Column(name="like_count", type="integer", nullable=true)
      * @Groups("comment.details")
      */
-    private $likeCount;
+    protected $likeCount;
 
     /**
      * @ORM\Column(name="claim_type", type="integer", nullable=true)
      * @Groups("comment.details")
      */
-    private $claimType;
+    protected $claimType;
+
+    /**
+     * @ORM\Column(name="reply_count", type="integer", options={"unsigned":true, "default":0})
+     */
+    protected $replyCount = 0;
 
     /**
      * Thread of this comment
@@ -129,4 +134,27 @@ class Comment extends BaseComment
     }
 
     
+
+    /**
+     * Set replyCount
+     *
+     * @param integer $replyCount
+     * @return Comment
+     */
+    public function setReplyCount($replyCount)
+    {
+        $this->replyCount = $replyCount;
+
+        return $this;
+    }
+
+    /**
+     * Get replyCount
+     *
+     * @return integer 
+     */
+    public function getReplyCount()
+    {
+        return $this->replyCount;
+    }
 }

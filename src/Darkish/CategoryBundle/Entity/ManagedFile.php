@@ -141,7 +141,7 @@ class ManagedFile
      * @ORM\Column(name="type", type="string", nullable=true)
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer", "store", "product"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer", "store", "product", "database"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -215,7 +215,10 @@ class ManagedFile
      */
     protected $recordForMarketBanner;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="dbaseBanner")
+     */
+    protected $recordForDbaseBanner;
 
     /**
      * Sets file.
@@ -828,5 +831,104 @@ class ManagedFile
     public function getBannerForOffer()
     {
         return $this->bannerForOffer;
+    }
+
+    /**
+     * Add iconForClassified
+     *
+     * @param \Darkish\CategoryBundle\Entity\Classified $iconForClassified
+     * @return ManagedFile
+     */
+    public function addIconForClassified(\Darkish\CategoryBundle\Entity\Classified $iconForClassified)
+    {
+        $this->iconForClassified[] = $iconForClassified;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForClassified
+     *
+     * @param \Darkish\CategoryBundle\Entity\Classified $iconForClassified
+     */
+    public function removeIconForClassified(\Darkish\CategoryBundle\Entity\Classified $iconForClassified)
+    {
+        $this->iconForClassified->removeElement($iconForClassified);
+    }
+
+    /**
+     * Get iconForClassified
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForClassified()
+    {
+        return $this->iconForClassified;
+    }
+
+    /**
+     * Add recordForMarketBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordForMarketBanner
+     * @return ManagedFile
+     */
+    public function addRecordForMarketBanner(\Darkish\CategoryBundle\Entity\Record $recordForMarketBanner)
+    {
+        $this->recordForMarketBanner[] = $recordForMarketBanner;
+
+        return $this;
+    }
+
+    /**
+     * Remove recordForMarketBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordForMarketBanner
+     */
+    public function removeRecordForMarketBanner(\Darkish\CategoryBundle\Entity\Record $recordForMarketBanner)
+    {
+        $this->recordForMarketBanner->removeElement($recordForMarketBanner);
+    }
+
+    /**
+     * Get recordForMarketBanner
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecordForMarketBanner()
+    {
+        return $this->recordForMarketBanner;
+    }
+
+    /**
+     * Add recordForDbaseBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordForDbaseBanner
+     * @return ManagedFile
+     */
+    public function addRecordForDbaseBanner(\Darkish\CategoryBundle\Entity\Record $recordForDbaseBanner)
+    {
+        $this->recordForDbaseBanner[] = $recordForDbaseBanner;
+
+        return $this;
+    }
+
+    /**
+     * Remove recordForDbaseBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordForDbaseBanner
+     */
+    public function removeRecordForDbaseBanner(\Darkish\CategoryBundle\Entity\Record $recordForDbaseBanner)
+    {
+        $this->recordForDbaseBanner->removeElement($recordForDbaseBanner);
+    }
+
+    /**
+     * Get recordForDbaseBanner
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecordForDbaseBanner()
+    {
+        return $this->recordForDbaseBanner;
     }
 }

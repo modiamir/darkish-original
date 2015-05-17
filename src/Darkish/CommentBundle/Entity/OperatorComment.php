@@ -67,4 +67,32 @@ class OperatorComment extends Comment
     }
 
     
+    /**
+     * @var \Darkish\CommentBundle\Entity\Thread
+     */
+    protected $thread;
+
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\Thread $thread
+     * @return OperatorComment
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\Thread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\Thread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
 }

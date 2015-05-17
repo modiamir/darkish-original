@@ -40,4 +40,31 @@ class OperatorComment extends Comment
     {
         return $this->id;
     }
+    
+
+
+    /**
+     * Set owner
+     *
+     * @param \Darkish\UserBundle\Entity\Operator $owner
+     * @return OperatorComment
+     */
+    public function setOwner(\Darkish\UserBundle\Entity\Operator $owner = null)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \Darkish\UserBundle\Entity\Operator 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    
 }

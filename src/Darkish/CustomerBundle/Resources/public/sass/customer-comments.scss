@@ -1,0 +1,23 @@
+.comments-page {
+	.details {
+		#details-header {
+			background-color: transparent !important;
+			height: inherit !important;
+			.btn-tabs {
+				width: 100%;
+				button {
+					outline: none;
+					width: 50%;
+					&:first-child {
+						border-radius: 0 4px 0 0;
+					}
+
+					&:last-child {
+						border-radius: 4px 0 0 0;
+					}
+				}
+
+			}
+		}
+	}
+}

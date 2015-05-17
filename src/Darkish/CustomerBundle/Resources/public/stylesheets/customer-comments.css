@@ -1,0 +1,22 @@
+/* line 3, ../sass/customer-comments.scss */
+.comments-page .details #details-header {
+  background-color: transparent !important;
+  height: inherit !important;
+}
+/* line 6, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs {
+  width: 100%;
+}
+/* line 8, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button {
+  outline: none;
+  width: 50%;
+}
+/* line 11, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button:first-child {
+  border-radius: 0 4px 0 0;
+}
+/* line 15, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button:last-child {
+  border-radius: 4px 0 0 0;
+}
