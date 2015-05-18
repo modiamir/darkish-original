@@ -223,6 +223,10 @@
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات دو:</label>
                                 <textarea ng-maxlength="255" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()"></textarea>
                             </div>
+                            <div id="non-searchable-wrapper" style="margin: 10px 0;">
+                                <label class="main-fields-non-searchable first-section-fields-title" for="non-searchable">عدم جستجو:</label>
+                                <input type="checkbox" id="non-searchable" name="just-html-chk" class="" ng-model="RecordService.currentRecord.non_searchable" ng-disabled="!RecordService.isEditing()">
+                            </div>
                             <div class="main-fields-search-key">
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
                                 <input type="text" ng-maxlength="255" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords" ng-disabled="!RecordService.isEditing()">

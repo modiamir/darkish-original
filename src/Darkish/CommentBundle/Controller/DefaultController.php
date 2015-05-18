@@ -162,11 +162,8 @@ class DefaultController extends Controller
     	$comments = $qb->getQuery()->getResult();
 
     	$result = array();
-        if($needOrganised) {
-            $result['comments'] = $this->organiseComments($comments);    
-        } else {
-            $result['comments'] = $this->unorganiseComments($comments);    
-        }
+        
+        $result['comments'] = $comments;    
     	
 
     	$result['count'] = count($comments);
@@ -183,8 +180,11 @@ class DefaultController extends Controller
      */
     public function getOrganisedCommentsAction() {
     	// $comments = $this->container->get('fos_comment.manager.comment')->findCommentTreeByThread($thread);
-    	$comments = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment')->findAll();
-    	return new Response($this->get('jms_serializer')->serialize($this->organiseComments($comments), 'json', SerializationContext::create()->setGroups(array('Default'))));
+    	$qb = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment')->createQueryBuilder('cm');
+        $qb->where('cm.parent IS NULL');
+        $qb->setMaxResult(10);
+        $comments = $qb->getQuery()->getResult();
+    	return new Response($this->get('jms_serializer')->serialize($comments, 'json', SerializationContext::create()->setGroups(array('Default'))));
     }
 
     private function organiseComments($comments, $ignoreParents = null)
@@ -358,14 +358,11 @@ class DefaultController extends Controller
                         $result['count'] = 0 ;
                         return new Response($this->get('jms_serializer')->serialize($result, 'json'));
                     }
-                    $commentMan = $this->get('fos_comment.manager.comment');
-                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
-                    $comments = $commentMan->findCommentsByThread($thread);
+                    $comments = $thread->getComments();
                     $count = count($comments);
-                    $result['comments'] = $this->organiseComments($comments);
+                    $result['comments'] = $comments;
                     $result['count'] = $count;
                     return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
-                    return new Response(get_class($threadMan));
                     break;
                 
                 case 'news':
@@ -379,11 +376,9 @@ class DefaultController extends Controller
                         $result['count'] = 0 ;
                         return new Response($this->get('jms_serializer')->serialize($result, 'json'));
                     }
-                    $commentMan = $this->get('fos_comment.manager.comment');
-                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
-                    $comments = $commentMan->findCommentsByThread($thread);
+                    $comments = $thread->getComments();
                     $count = count($comments);
-                    $result['comments'] = $this->organiseComments($comments);
+                    $result['comments'] = $comments;
                     $result['count'] = $count;
                     return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
                     break;
@@ -399,11 +394,9 @@ class DefaultController extends Controller
                         $result['count'] = 0 ;
                         return new Response($this->get('jms_serializer')->serialize($result, 'json'));
                     }
-                    $commentMan = $this->get('fos_comment.manager.comment');
-                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
-                    $comments = $commentMan->findCommentsByThread($thread);
+                    $comments = $thread->getComments();
                     $count = count($comments);
-                    $result['comments'] = $this->organiseComments($comments);
+                    $result['comments'] = $comments;
                     $result['count'] = $count;
                     return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
                     break;
@@ -419,11 +412,9 @@ class DefaultController extends Controller
                         $result['count'] = 0 ;
                         return new Response($this->get('jms_serializer')->serialize($result, 'json'));
                     }
-                    $commentMan = $this->get('fos_comment.manager.comment');
-                    /* @var $threadMan \FOS\CommentBundle\Entity\CommentManager */
-                    $comments = $commentMan->findCommentsByThread($thread);
+                    $comments = $thread->getComments();
                     $count = count($comments);
-                    $result['comments'] = $this->organiseComments($comments);
+                    $result['comments'] = $comments;
                     $result['count'] = $count;
                     return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
                     break;
@@ -551,10 +542,9 @@ class DefaultController extends Controller
         }
 
         
-        $thread->setCommentable(true);
-        $thread->setPermalink($entity->getId());
+        $thread->setIsCommentable(true);
         $thread->setTarget($entity);
-        if (!$thread->isCommentable()) {
+        if (!$thread->getIsCommentable()) {
             throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
         }
         
@@ -564,13 +554,15 @@ class DefaultController extends Controller
         $comment->setOwner($this->get('security.context')->getToken()->getUser());
         $comment->setThread($thread);
         $comment->setState($state);
-
+        $comment->setCreatedAt(new \DateTime());
         $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
         $form->handleRequest($request);
         
 
         if ($form->isValid()) {
-            if ($commentManager->saveComment($comment) !== false) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            if ($em->flush() !== false) {
                 return new Response($this->get('jms_serializer')->serialize(array('comment'=> $comment, 'children'=>[]), 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
             }
         }

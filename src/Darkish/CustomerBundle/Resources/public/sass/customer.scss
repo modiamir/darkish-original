@@ -17,6 +17,11 @@ body {
     font-family: yekan;
     padding-top: 20px;
     padding-bottom: 20px;
+    max-width: 992px;
+    margin: auto;
+    > .container {
+        max-width: 992px;
+    }
     .form-control, .select2-search input[type=text] {
         font-family: yekan;
     }
@@ -24,6 +29,7 @@ body {
     .well {
         // padding: 5px 10px;
         margin-bottom: 10px;
+        background-color: #E9E9E9;
         
     }
 

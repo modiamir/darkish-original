@@ -1,0 +1,548 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Type;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
+/**
+ * Product
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ * @UniqueEntity(
+ *     fields={"code", "record"},
+ *     errorPath="code",
+ *     message="This code is already in use on that record."
+ * )
+ */
+class Automobile extends DBase
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $id;
+
+    
+
+
+
+
+
+    /**
+     * @var string
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $code;
+
+    /**
+     * @var string
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $title;
+
+    /**
+     * @var string
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $description;
+
+    /**
+     * @var boolean
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $status;
+
+    /**
+     * @var \DateTime
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $created;
+
+    /**
+     * @var \Darkish\CategoryBundle\Entity\Record
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $record;
+
+    /**
+     * @var \Darkish\CustomerBundle\Entity\Customer
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $customer;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $photos;
+
+    /**
+     * @var integer
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $price;
+
+    /**
+     * @var integer
+     * @Groups({"database.list", "database.details"})
+     */
+    protected $secondaryPrice;
+
+
+    /**
+     * @ORM\Column(name="automobile_created_year", type="smallint")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $createdYear;
+
+    /**
+     * @ORM\Column(name="automobile_usage", type="integer")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $usage;
+
+    /**
+     * @ORM\Column(name="automobile_tip", type="string")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $tip;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AutomobileColor")
+     * @ORM\JoinColumn("automobile_automobileColor_id")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $automobileColor;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AutomobileBrand")
+     * @ORM\JoinColumn("automobile_automobileBrand_id")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $automobileBrand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AutomobileType")
+     * @ORM\JoinColumn("automobile_automobileType_id")
+     * @Groups({"database.list", "database.details"})
+     */
+    private $automobileType;
+
+
+    /**
+     * @ORM\Column(name="automobile_features", type="json_array")
+     * @Groups({"database.list", "database.details"})
+     **/
+    private $automobileFeatures;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Automobile
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Automobile
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Automobile
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return Automobile
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Automobile
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set record
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $record
+     * @return Automobile
+     */
+    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    {
+        $this->record = $record;
+
+        return $this;
+    }
+
+    /**
+     * Get record
+     *
+     * @return \Darkish\CategoryBundle\Entity\Record 
+     */
+    public function getRecord()
+    {
+        return $this->record;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     * @return Automobile
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     * @return Automobile
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+    
+
+
+    /**
+     * Set createdYear
+     *
+     * @param integer $createdYear
+     * @return Automobile
+     */
+    public function setCreatedYear($createdYear)
+    {
+        $this->createdYear = $createdYear;
+
+        return $this;
+    }
+
+    /**
+     * Get createdYear
+     *
+     * @return integer 
+     */
+    public function getCreatedYear()
+    {
+        return $this->createdYear;
+    }
+
+    /**
+     * Set usage
+     *
+     * @param integer $usage
+     * @return Automobile
+     */
+    public function setUsage($usage)
+    {
+        $this->usage = $usage;
+
+        return $this;
+    }
+
+    /**
+     * Get usage
+     *
+     * @return integer 
+     */
+    public function getUsage()
+    {
+        return $this->usage;
+    }
+
+    /**
+     * Set tip
+     *
+     * @param string $tip
+     * @return Automobile
+     */
+    public function setTip($tip)
+    {
+        $this->tip = $tip;
+
+        return $this;
+    }
+
+    /**
+     * Get tip
+     *
+     * @return string 
+     */
+    public function getTip()
+    {
+        return $this->tip;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return Automobile
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set secondaryPrice
+     *
+     * @param integer $secondaryPrice
+     * @return Automobile
+     */
+    public function setSecondaryPrice($secondaryPrice)
+    {
+        $this->secondaryPrice = $secondaryPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get secondaryPrice
+     *
+     * @return integer 
+     */
+    public function getSecondaryPrice()
+    {
+        return $this->secondaryPrice;
+    }
+
+    /**
+     * Set automobileColor
+     *
+     * @param \Darkish\CategoryBundle\Entity\AutomobileColor $automobileColor
+     * @return Automobile
+     */
+    public function setAutomobileColor(\Darkish\CategoryBundle\Entity\AutomobileColor $automobileColor = null)
+    {
+        $this->automobileColor = $automobileColor;
+
+        return $this;
+    }
+
+    /**
+     * Get automobileColor
+     *
+     * @return \Darkish\CategoryBundle\Entity\AutomobileColor 
+     */
+    public function getAutomobileColor()
+    {
+        return $this->automobileColor;
+    }
+
+    /**
+     * Set automobileBrand
+     *
+     * @param \Darkish\CategoryBundle\Entity\AutomobileBrand $automobileBrand
+     * @return Automobile
+     */
+    public function setAutomobileBrand(\Darkish\CategoryBundle\Entity\AutomobileBrand $automobileBrand = null)
+    {
+        $this->automobileBrand = $automobileBrand;
+
+        return $this;
+    }
+
+    /**
+     * Get automobileBrand
+     *
+     * @return \Darkish\CategoryBundle\Entity\AutomobileBrand 
+     */
+    public function getAutomobileBrand()
+    {
+        return $this->automobileBrand;
+    }
+
+    /**
+     * Set automobileType
+     *
+     * @param \Darkish\CategoryBundle\Entity\AutomobileType $automobileType
+     * @return Automobile
+     */
+    public function setAutomobileType(\Darkish\CategoryBundle\Entity\AutomobileType $automobileType = null)
+    {
+        $this->automobileType = $automobileType;
+
+        return $this;
+    }
+
+    /**
+     * Get automobileType
+     *
+     * @return \Darkish\CategoryBundle\Entity\AutomobileType 
+     */
+    public function getAutomobileType()
+    {
+        return $this->automobileType;
+    }
+
+
+}

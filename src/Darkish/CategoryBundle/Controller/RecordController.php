@@ -431,6 +431,9 @@ class RecordController extends Controller
         if(isset($data['online_ticket'])) {
             $record->setOnlineTicket($data['online_ticket']);
         }
+        if(isset($data['non_searchable'])) {
+            $record->setNonSearchable($data['non_searchable']);
+        }
         if(isset($data['visit_count'])) {
             $record->setVisitCount($data['visit_count']);
         }

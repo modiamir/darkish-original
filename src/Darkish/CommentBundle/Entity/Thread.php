@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorColumn(name="thread_type", type="string")
  * @ORM\DiscriminatorMap({"record" = "RecordThread", "news" = "NewsThread", "forum_tree": "ForumTreeThread", "safarsaz": "SafarsazThread" ,"thread" = "Thread"})
  */
-class Thread extends BaseThread
+class Thread
 {
     /**
      *
@@ -30,36 +30,91 @@ class Thread extends BaseThread
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="thread")
      * @Groups("thread.details")
      */
-    private $comments;
+    protected $comments;
 
     /**
-     * Set id
-     *
-     * @param string $id
-     * @return Thread
+     * @ORM\Column(name="last_comment_at", type="datetime")
+     * @Groups("thread.details")
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
+    protected $lastCommentAt;
 
     /**
-     * Get id
-     *
-     * @return string 
+     * @ORM\Column(name="num_comments", type="integer", options={"default"=0})
+     * @Groups("thread.details")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $numComments = 0;
+
+    /**
+     * @ORM\Column(name="is_commentable", type="boolean", options={"default"=true})
+     * @Groups("thread.details")
+     */
+    protected $isCommentable;
+
+
+    
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * Set numComments
+     *
+     * @param integer $numComments
+     * @return Thread
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = $numComments;
+
+        return $this;
+    }
+
+    /**
+     * Get numComments
+     *
+     * @return integer 
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * Set isCommentable
+     *
+     * @param boolean $isCommentable
+     * @return Thread
+     */
+    public function setIsCommentable($isCommentable)
+    {
+        $this->isCommentable = $isCommentable;
+
+        return $this;
+    }
+
+    /**
+     * Get isCommentable
+     *
+     * @return boolean 
+     */
+    public function getIsCommentable()
+    {
+        return $this->isCommentable;
     }
 
     /**
@@ -93,5 +148,28 @@ class Thread extends BaseThread
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set lastCommentAt
+     *
+     * @param \DateTime $lastCommentAt
+     * @return Thread
+     */
+    public function setLastCommentAt($lastCommentAt)
+    {
+        $this->lastCommentAt = $lastCommentAt;
+
+        return $this;
+    }
+
+    /**
+     * Get lastCommentAt
+     *
+     * @return \DateTime 
+     */
+    public function getLastCommentAt()
+    {
+        return $this->lastCommentAt;
     }
 }

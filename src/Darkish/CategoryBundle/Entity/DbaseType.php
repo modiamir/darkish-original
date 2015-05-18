@@ -19,7 +19,7 @@ class DbaseType
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details", "dbase.list"})
+     * @Groups({"record.details", "dbase.list", "customer.details"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class DbaseType
      * @var string
      *
      * @ORM\Column(name="Name", type="string", length=255)
-     * @Groups({"record.details", "dbase.list"})
+     * @Groups({"record.details", "dbase.list", "customer.details"})
      */
     private $name;
 

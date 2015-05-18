@@ -1,12 +1,13 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
-                'ui.bootstrap.typeahead', 'ngMaterial', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ui.bootstrap.modal']);
+                'ui.bootstrap', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
+                , 'angAccordion', 'ui.sortable', 'angular-loading-bar']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
     // FastClick.attach(document.body);
 });
+
 
 
 
@@ -236,16 +237,12 @@ customerApp.filter('smilies', function() {
   }
 })
 
-customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+customerApp.config(function($stateProvider, $urlRouterProvider) {
 
 
 
 
 
-  $mdThemingProvider.theme('default')
-    .primaryPalette('teal')
-    .accentPalette('blue')
-    .warnPalette('red');
   //
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/profile");
@@ -289,17 +286,27 @@ customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvid
              .then (function (response) {
                 return response.data;
              });
-
         }
       }
     })
     .state('comments', {
+      abstract: true,
       url: "/comments",
       templateUrl: "customer/template/comments.html",
       controller: "CommentsCtrl",
       data: {
       	label: 'نظرات'
       }
+    })
+    .state('comments.all', {
+      url: "/all",
+      templateUrl: "customer/template/comments-all.html",
+      controller: "CommentsAllCtrl"
+    })
+    .state('comments.news', {
+      url: "/news",
+      templateUrl: "customer/template/comments-news.html",
+      controller: "CommentsNewsCtrl"
     })
     .state('attachments', {
       url: "/attachments",
@@ -315,6 +322,102 @@ customerApp.config(function($stateProvider, $urlRouterProvider, $mdThemingProvid
       controller: "DatabaseCtrl",
       data: {
       	label: 'پایگاه داده'
+      },
+      resolve: {
+        databaseData: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_database_data'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        estateTypes: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_estate_types'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        contractTypes: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_contract_types'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        estateFeatures: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_estate_features'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        automobileTypes: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_automobile_types'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        automobileBrands: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_automobile_brands'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        automobileFeatures: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_automobile_features'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+        automobileColors: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/get_automobile_colors'})
+             .then (function (response) {
+                return response.data;
+             });  
+        },
+
+
+      }
+    })
+    .state('database.edit', {
+      url: "/edit",
+      templateUrl: "customer/template/database-edit.html",
+      controller: "DatabaseEditCtrl"
+    })
+    .state('database.details', {
+      url: "/details",
+      templateUrl: "customer/template/database-details.html",
+      controller: "DatabaseDetailsCtrl"
+    })
+    .state('database.create', {
+      url: "/create",
+      templateUrl: "customer/template/database-create.html",
+      controller: "DatabaseCreateCtrl"
+
+    })
+    .state('database.itemdetails', {
+      url: "/item/{iid:int}",
+      templateUrl: "customer/template/database-item-details.html",
+      controller: "DatabaseItemDetailsCtrl",
+      resolve: {
+        item: function($http, $stateParams) {
+          return $http({method: 'GET', url: 'customer/ajax/database/get_item/'+$stateParams.iid})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+
+      }
+    })
+    .state('database.itemedit', {
+      url: "/item/{iid:int}/edit",
+      templateUrl: "customer/template/database-item-edit.html",
+      controller: "DatabaseItemEditCtrl",
+      resolve: {
+        item: function($http, $stateParams) {
+          return $http({method: 'GET', url: 'customer/ajax/database/get_item/'+$stateParams.iid})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+
       }
     })
     .state('store', {
@@ -634,17 +737,11 @@ customerApp.controller('HtmlPageCtrl', ['$scope', function($scope){
 
 
 
-customerApp.controller('CommentsCtrl', ['$scope', '$http', function($scope, $http){
-	
-}])
-
 customerApp.controller('AttachmentsCtrl', ['$scope', function($scope){
 	
 }])
 
-customerApp.controller('DatabaseCtrl', ['$scope', function($scope){
-	
-}])
+
 
 
 

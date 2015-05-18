@@ -624,9 +624,22 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="DbaseType", inversedBy="records")
      * @ORM\JoinColumn(name="DbaseTypeIndex", referencedColumnName="id")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "customer.details"})
      */
     private $dbaseTypeIndex;
+
+    /**
+     * @ORM\Column(name="DbaseDescription", type="text", nullable=true)
+     */
+    private $dbaseDescription;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="recordForDbasetBanner")
+     * @ORM\JoinColumn(name="DbaseBanner", referencedColumnName="id")
+     */
+    private $dbaseBanner;
+
 
     /**
      * @var boolean
@@ -734,7 +747,7 @@ class Record
     private $marketTemplate;
 
     /**
-     * @ORM\Column(name="MarketOnlineOrder", type="smallint", options={"default":0})
+     * @ORM\Column(name="MarketOnlineOrder", type="smallint", nullable=true, options={"default":0})
      */
     private $marketOnlineOrder;
 
@@ -934,6 +947,15 @@ class Record
      * @ORM\Column(name="lastMessage", type="integer", nullable=true )
      */
     private $lastMessageRecieve;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="NonSearchable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $nonSearchable;
 
     /**
      * Get id
@@ -3734,5 +3756,74 @@ class Record
     public function getMarketOnlineOrder()
     {
         return $this->marketOnlineOrder;
+    }
+
+    /**
+     * Set dbaseDescription
+     *
+     * @param string $dbaseDescription
+     * @return Record
+     */
+    public function setDbaseDescription($dbaseDescription)
+    {
+        $this->dbaseDescription = $dbaseDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseDescription
+     *
+     * @return string 
+     */
+    public function getDbaseDescription()
+    {
+        return $this->dbaseDescription;
+    }
+
+    /**
+     * Set dbaseBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $dbaseBanner
+     * @return Record
+     */
+    public function setDbaseBanner(\Darkish\CategoryBundle\Entity\ManagedFile $dbaseBanner = null)
+    {
+        $this->dbaseBanner = $dbaseBanner;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseBanner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getDbaseBanner()
+    {
+        return $this->dbaseBanner;
+    }
+
+    /**
+     * Set nonSearchable
+     *
+     * @param boolean $nonSearchable
+     * @return Record
+     */
+    public function setNonSearchable($nonSearchable)
+    {
+        $this->nonSearchable = $nonSearchable;
+
+        return $this;
+    }
+
+    /**
+     * Get nonSearchable
+     *
+     * @return boolean 
+     */
+    public function getNonSearchable()
+    {
+        return $this->nonSearchable;
     }
 }

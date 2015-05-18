@@ -1,0 +1,101 @@
+/* line 3, ../sass/customer-comments.scss */
+.comments-page .details #details-header {
+  background-color: transparent !important;
+  height: inherit !important;
+}
+/* line 6, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs {
+  width: 100%;
+}
+/* line 8, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button {
+  outline: none;
+  width: 50%;
+}
+/* line 11, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button:first-child {
+  border-radius: 0 4px 0 0;
+}
+/* line 15, ../sass/customer-comments.scss */
+.comments-page .details #details-header .btn-tabs button:last-child {
+  border-radius: 4px 0 0 0;
+}
+/* line 25, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #C0C0C0;
+}
+/* line 31, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-left img {
+  width: 48px;
+  height: 48px;
+  border: 1px solid white;
+}
+/* line 37, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body {
+  font-size: 13px;
+}
+/* line 39, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body span.comment-id {
+  float: right;
+  margin-left: 20px;
+  color: #8A8A8A;
+}
+/* line 44, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body span.comment-date {
+  float: right;
+  clear: left;
+  color: #8A8A8A;
+}
+/* line 49, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .comment-body {
+  clear: both;
+}
+/* line 53, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations button {
+  float: right;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+/* line 60, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form {
+  clear: both;
+  margin-top: 10px;
+  display: inline-table;
+}
+/* line 64, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form textarea {
+  height: 60px;
+  overflow-x: hidden;
+}
+/* line 68, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form .input-group-btn {
+  vertical-align: top;
+}
+/* line 70, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form .input-group-btn button {
+  margin-right: 10px;
+  border-radius: 4px;
+}
+/* line 78, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children a {
+  cursor: pointer;
+  margin: 10px 0;
+  display: block;
+}
+/* line 84, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul {
+  height: 300px;
+  overflow-y: scroll;
+}
+/* line 87, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul li {
+  border-bottom: 1px solid #D4D4D4;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+/* line 91, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul li:last-child {
+  border: 0;
+}

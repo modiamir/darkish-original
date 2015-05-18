@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile as UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\SerializedName;
@@ -32,7 +33,7 @@ class ManagedFile
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $id;
 
@@ -42,7 +43,7 @@ class ManagedFile
      * @ORM\Column(name="user_id", type="integer")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $userId;
 
@@ -50,7 +51,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="file_name", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $fileName;
 
@@ -58,7 +59,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $path;
 
@@ -66,7 +67,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filemime", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filemime;
 
@@ -74,7 +75,7 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="filesize", type="string", length=255)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $filesize;
 
@@ -82,7 +83,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $status;
@@ -91,7 +92,7 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $continual;
@@ -100,18 +101,37 @@ class ManagedFile
      * @var boolean
      *
      * @ORM\Column(name="is_thumbnail", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
      */
     private $isThumbnail;
     
-    
+    /**
+     *
+     * @var string 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $webAbsolutePath;
 
+    /**
+     *
+     * @var string 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $mobileAbsolutePath;
+
+    /**
+     *
+     * @var string 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $iconAbsolutePath;
+    
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetimetz")
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $timestamp;
 
@@ -119,9 +139,9 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "record", "operator", "customer", "store", "product"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -133,7 +153,7 @@ class ManagedFile
      * @ORM\Column(name="entity_id", type = "integer", nullable=true)
      *
      *
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $entityId;
 
@@ -143,10 +163,10 @@ class ManagedFile
      *
      * @ORM\Column(name="upload_dir", type="string", nullable=true)
      *
-     * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc"}, message = "Input a valid uploadDir.")
+     * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc", "banner"}, message = "Input a valid uploadDir.")
      *
      * @Assert\NotNull()
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      */
     private $uploadDir;
 
@@ -155,38 +175,57 @@ class ManagedFile
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details"})
      * 
      */
     private $uploadKey;
     
     /**
      * @ORM\OneToMany(targetEntity="Record", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForRecord;
     
     /**
      * @ORM\OneToMany(targetEntity="News", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForNews;
 
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="icon")
+     * @Groups({"file.details"})
      */
     protected $iconForOffer;
     
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
+     * @Groups({"file.details"})
      */
     protected $bannerForOffer;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Classified", mappedBy="icon")
+     * @Groups({"file.details"})
+     */
+    protected $iconForClassified;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="marketBanner")
+     */
+    protected $recordForMarketBanner;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="dbaseBanner")
+     */
+    protected $recordForDbaseBanner;
 
     /**
      * Sets file.
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)
+    public function setFile(File $file = null)
     {
         $this->file = $file;
     }
@@ -194,7 +233,7 @@ class ManagedFile
     /**
      * Get file.
      *
-     * @return UploadedFile
+     * @return File
      */
     public function getFile()
     {
@@ -281,6 +320,59 @@ class ManagedFile
         return $this->path;
     }
 
+    public function setWebAbsolutePath($path) {
+        $this->webAbsolutePath = $path;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
+    public function getWebAbsolutePath() { 
+        return $this->webAbsolutePath;
+    }
+
+
+    public function setMobileAbsolutePath($path) {
+        $this->mobileAbsolutePath = $path;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
+    public function getMobileAbsolutePath() { 
+        return $this->mobileAbsolutePath;
+    }
+
+
+    public function setIconAbsolutePath($path) {
+        $this->iconAbsolutePath = $path;
+        
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("absolute_path")
+     */
+    public function getIconAbsolutePath() { 
+        return $this->iconAbsolutePath;
+    }
+    
     /**
      * Set filemime
      *
@@ -421,7 +513,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"record.details", "news.details", "operator.details", "offer.details"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "message.list", "message.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -440,7 +532,7 @@ class ManagedFile
             : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
@@ -448,7 +540,7 @@ class ManagedFile
         return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
     }
 
-    protected function getUploadDir()
+    public function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
@@ -532,8 +624,12 @@ class ManagedFile
 
         // move takes the target directory and then the
         // target filename to move to
-
-        $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getClientOriginalExtension();
+        if( $this->getFile() instanceof UploadedFile) {
+            $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getClientOriginalExtension();    
+        } else  {
+            $fileName = $this->type.'-'.time().'-'.rand(10000, 99999).'.'.$this->getFile()->getExtension();    
+        }
+        
         $this->fileName = $fileName;
         $newFile = $this->getFile()->move(
             $this->getUploadRootDir(),
@@ -636,5 +732,104 @@ class ManagedFile
     public function getIconForRecord()
     {
         return $this->iconForRecord;
+    }
+
+    /**
+     * Add iconForNews
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $iconForNews
+     * @return ManagedFile
+     */
+    public function addIconForNews(\Darkish\CategoryBundle\Entity\News $iconForNews)
+    {
+        $this->iconForNews[] = $iconForNews;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForNews
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $iconForNews
+     */
+    public function removeIconForNews(\Darkish\CategoryBundle\Entity\News $iconForNews)
+    {
+        $this->iconForNews->removeElement($iconForNews);
+    }
+
+    /**
+     * Get iconForNews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForNews()
+    {
+        return $this->iconForNews;
+    }
+
+    /**
+     * Add iconForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $iconForOffer
+     * @return ManagedFile
+     */
+    public function addIconForOffer(\Darkish\CategoryBundle\Entity\Offer $iconForOffer)
+    {
+        $this->iconForOffer[] = $iconForOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove iconForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $iconForOffer
+     */
+    public function removeIconForOffer(\Darkish\CategoryBundle\Entity\Offer $iconForOffer)
+    {
+        $this->iconForOffer->removeElement($iconForOffer);
+    }
+
+    /**
+     * Get iconForOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIconForOffer()
+    {
+        return $this->iconForOffer;
+    }
+
+    /**
+     * Add bannerForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $bannerForOffer
+     * @return ManagedFile
+     */
+    public function addBannerForOffer(\Darkish\CategoryBundle\Entity\Offer $bannerForOffer)
+    {
+        $this->bannerForOffer[] = $bannerForOffer;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannerForOffer
+     *
+     * @param \Darkish\CategoryBundle\Entity\Offer $bannerForOffer
+     */
+    public function removeBannerForOffer(\Darkish\CategoryBundle\Entity\Offer $bannerForOffer)
+    {
+        $this->bannerForOffer->removeElement($bannerForOffer);
+    }
+
+    /**
+     * Get bannerForOffer
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBannerForOffer()
+    {
+        return $this->bannerForOffer;
     }
 }

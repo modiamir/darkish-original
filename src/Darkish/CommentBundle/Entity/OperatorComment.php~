@@ -31,13 +31,5 @@ class OperatorComment extends Comment
      */
     private $owner;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
 }
