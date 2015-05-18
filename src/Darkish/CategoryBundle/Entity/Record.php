@@ -747,7 +747,7 @@ class Record
     private $marketTemplate;
 
     /**
-     * @ORM\Column(name="MarketOnlineOrder", type="smallint", options={"default":0})
+     * @ORM\Column(name="MarketOnlineOrder", type="smallint", nullable=true, options={"default":0})
      */
     private $marketOnlineOrder;
 
@@ -947,6 +947,15 @@ class Record
      * @ORM\Column(name="lastMessage", type="integer", nullable=true )
      */
     private $lastMessageRecieve;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="NonSearchable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $nonSearchable;
 
     /**
      * Get id
@@ -3793,5 +3802,28 @@ class Record
     public function getDbaseBanner()
     {
         return $this->dbaseBanner;
+    }
+
+    /**
+     * Set nonSearchable
+     *
+     * @param boolean $nonSearchable
+     * @return Record
+     */
+    public function setNonSearchable($nonSearchable)
+    {
+        $this->nonSearchable = $nonSearchable;
+
+        return $this;
+    }
+
+    /**
+     * Get nonSearchable
+     *
+     * @return boolean 
+     */
+    public function getNonSearchable()
+    {
+        return $this->nonSearchable;
     }
 }

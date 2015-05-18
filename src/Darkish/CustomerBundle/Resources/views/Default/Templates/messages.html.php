@@ -1,5 +1,5 @@
 <div class="row page messages-page">
-	<div class="col col-xs-12 col-sm-5 col-md-4 col-lg-3 threads master"
+	<div class="col col-xs-12 col-sm-5 threads master"
 		 ng-hide="isXSmall() && (selectedThread.id || groupMessageForm)">
 		<div class="well master-buttons" ng-class="{'fixed': isXSmall()}">
 			<button ng-click="showGroupMessageForm()" 
@@ -57,7 +57,7 @@
 		</div>
 		
 	</div>
-	<div class="col col-xs-12 col-sm-7 col-md-8 col-lg-9 messages details">
+	<div class="col col-xs-12 col-sm-7 messages details">
 		<div class="details-header" id="details-header" 
 			ng-show="(selectedThread.id || groupMessageForm)"
 			ng-class="{'fixed': isXSmall()}"
@@ -105,7 +105,7 @@
 		<div ng-show="selectedThread.id && selectedThread.thread_type == 'private'" class="message-submit details-bottom" ng-class="{'fixed' : isXSmall()}"
 			ng-resize="resizeForm($event)">
 			<form>
-				<div class="message-text col col-xs-8 col-sm-8 col-md-10">
+				<div class="message-text col col-xs-8 col-sm-8 ">
 					<!-- <input class="form-control" ng-model="messageForm"/> -->
 					<textarea maxlength="1500" id="message-text-area" class="msd-elastic form-control" ng-model="messageForm">
 					</textarea>
@@ -115,7 +115,7 @@
 					 		select-non-editable="true">
 					 </span> -->
 				</div>
-				<div class="col col-xs-2 col-sm-2 col-md-1 emotions-list">
+				<div class="col col-xs-2 col-sm-2 emotions-list">
 					<div class="btn-group dropup  ">
 					  <button type="button" class="btn btn-default dropdown-toggle emotion-add-icon" data-toggle="dropdown" aria-expanded="false">
 					  	<span class="dk icon-smiley"></span>
@@ -173,7 +173,7 @@
 					  </ul>
 					</div>
 				</div>
-				<div class="submit-button col col-xs-2 col-sm-2 col-md-1">
+				<div class="submit-button col col-xs-2 col-sm-2 ">
 					<button ng-click="postMessage()" ng-disabled="!messageForm"> 
 						<span class="glyphicon glyphicon-send gly-flip-horizontal disable"  
 							  aria-hidden="true" ng-class="{'disable': !messageForm}"

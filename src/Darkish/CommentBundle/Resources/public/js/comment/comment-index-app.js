@@ -292,7 +292,7 @@ commentApp.controller('contentCtrl', [
 				// $http.get('comment/ajax/csrf').then(
 				// 	function(response){
 				// 		$scope.csrf = response.data;
-				// 		$scope.collapsed = comment.comment.id;	
+				// 		$scope.collapsed = comment.id;	
 				// 	}, 
 				// 	function(errResponse){
 				// 		console.log(errResponse.data);
@@ -331,15 +331,15 @@ commentApp.controller('contentCtrl', [
 		$scope.like = function(comment) {
 			$http({
 	            method: "post",
-	            url: "comment/ajax/like/"+comment.comment.id,
+	            url: "comment/ajax/like/"+comment.id,
 	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 	            data: $.param({_method: 'POST'})
 	        }).then(
 	        	function(response){
-	        		if(comment.comment.like_count && comment.comment.like_count > 0) {
-	        			comment.comment.like_count = comment.comment.like_count +  1;
+	        		if(comment.like_count && comment.like_count > 0) {
+	        			comment.like_count = comment.like_count +  1;
 	        		} else {
-	        			comment.comment.like_count = 1;
+	        			comment.like_count = 1;
 	        		}
 	        	}, 
 	        	function(errResponse){
@@ -352,12 +352,12 @@ commentApp.controller('contentCtrl', [
 		$scope.setClaim = function(comment, claimType) {
 			$http({
 	            method: "put",
-	            url: "comment/ajax/set_claim/"+comment.comment.id+'/'+claimType.id,
+	            url: "comment/ajax/set_claim/"+comment.id+'/'+claimType.id,
 	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 	            data: $.param({_method: 'PUT'})
 	        }).then(
 	        	function(response){
-	        		comment.comment.claim_type = claimType.id;
+	        		comment.claim_type = claimType.id;
 	        	}, 
 	        	function(errResponse){
 	        		console.log(errResponse.data);
@@ -368,12 +368,12 @@ commentApp.controller('contentCtrl', [
 		$scope.setState = function(comment, state) {
 			$http({
 	            method: "put",
-	            url: "comment/ajax/set_state/"+comment.comment.id+'/'+state,
+	            url: "comment/ajax/set_state/"+comment.id+'/'+state,
 	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 	            data: $.param({_method: 'PUT'})
 	        }).then(
 	        	function(response){
-	        		comment.comment.state = state;
+	        		comment.state = state;
 	        	}, 
 	        	function(errResponse){
 	        		console.log(errResponse.data);
@@ -385,12 +385,12 @@ commentApp.controller('contentCtrl', [
 		$scope.clearClaim = function(comment) {
 			$http({
 	            method: "put",
-	            url: "comment/ajax/clear_claim/"+comment.comment.id,
+	            url: "comment/ajax/clear_claim/"+comment.id,
 	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 	            data: $.param({_method: 'PUT'})
 	        }).then(
 	        	function(response){
-	        		comment.comment.claim_type = 0;
+	        		comment.claim_type = 0;
 	        	}, 
 	        	function(errResponse){
 	        		console.log(errResponse.data);
@@ -401,7 +401,7 @@ commentApp.controller('contentCtrl', [
 		$scope.remove = function(comment, array, index) {
 			$http({
 	            method: "put",
-	            url: "comment/ajax/delete/"+comment.comment.id,
+	            url: "comment/ajax/delete/"+comment.id,
 	            headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 	            data: $.param({_method: 'PUT'})
 	        }).then(
@@ -466,6 +466,10 @@ commentApp.factory('SearchService', [
 				function(errResponse){
 
 				});
+		}
+
+		self.log = function(item) {
+			console.log(item);
 		}
 		return self;
 }]);

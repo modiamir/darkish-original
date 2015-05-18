@@ -50,7 +50,6 @@ class Thread
      */
     protected $isCommentable;
 
-
     
     /**
      * Constructor
@@ -148,28 +147,5 @@ class Thread
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Set lastCommentAt
-     *
-     * @param \DateTime $lastCommentAt
-     * @return Thread
-     */
-    public function setLastCommentAt($lastCommentAt)
-    {
-        $this->lastCommentAt = $lastCommentAt;
-
-        return $this;
-    }
-
-    /**
-     * Get lastCommentAt
-     *
-     * @return \DateTime 
-     */
-    public function getLastCommentAt()
-    {
-        return $this->lastCommentAt;
     }
 }

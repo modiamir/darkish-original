@@ -29,8 +29,31 @@ class SafarsazThread extends Thread
      * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Safarsaz", inversedBy="thread")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
-    private $target;
+    protected $target;
 
+
+    /**
+     * @var integer
+     */
+    protected $numComments;
+
+    /**
+     * @var boolean
+     */
+    protected $isCommentable;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $comments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -40,6 +63,54 @@ class SafarsazThread extends Thread
     public function getId()
     {
         return $this->id;
+    }
+
+
+
+    /**
+     * Set numComments
+     *
+     * @param integer $numComments
+     * @return SafarsazThread
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = $numComments;
+
+        return $this;
+    }
+
+    /**
+     * Get numComments
+     *
+     * @return integer 
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * Set isCommentable
+     *
+     * @param boolean $isCommentable
+     * @return SafarsazThread
+     */
+    public function setIsCommentable($isCommentable)
+    {
+        $this->isCommentable = $isCommentable;
+
+        return $this;
+    }
+
+    /**
+     * Get isCommentable
+     *
+     * @return boolean 
+     */
+    public function getIsCommentable()
+    {
+        return $this->isCommentable;
     }
 
     /**
@@ -66,25 +137,35 @@ class SafarsazThread extends Thread
     }
 
     /**
-     * Set test
+     * Add comments
      *
-     * @param string $test
+     * @param \Darkish\CommentBundle\Entity\Comment $comments
      * @return SafarsazThread
      */
-    public function setTest($test)
+    public function addComment(\Darkish\CommentBundle\Entity\Comment $comments)
     {
-        $this->test = $test;
+        $this->comments[] = $comments;
 
         return $this;
     }
 
     /**
-     * Get test
+     * Remove comments
      *
-     * @return string 
+     * @param \Darkish\CommentBundle\Entity\Comment $comments
      */
-    public function getTest()
+    public function removeComment(\Darkish\CommentBundle\Entity\Comment $comments)
     {
-        return $this->test;
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

@@ -118,6 +118,24 @@ class DefaultController extends Controller
                 }
                 break;
 
+            case 'comments-item.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'comments-child-item.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
             case 'attachments.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(5);
                 if($assistantAccess->contains($role)) {

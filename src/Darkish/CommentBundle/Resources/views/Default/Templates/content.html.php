@@ -3,32 +3,32 @@
 		<div class="row">
 			<div class="right col-lg-2 col-md-2 col-sm-2 col-xs-2">
 				<div class="owner-photo">
-					<i ng-hide="comment.comment.owner.photo.icon_absolute_path" class="fa fa-user"></i>
-					<img ng-show="comment.comment.owner.photo.icon_absolute_path" ng-src="{{comment.comment.owner.photo.icon_absolute_path}}"  />
+					<i ng-hide="comment.owner.photo.icon_absolute_path" class="fa fa-user"></i>
+					<img ng-show="comment.owner.photo.icon_absolute_path" ng-src="{{comment.owner.photo.icon_absolute_path}}"  />
 				</div>
 				<div class="owner-username">
-					<span ng-bind="comment.comment.owner.username"></span>
+					<span ng-bind="comment.owner.username"></span>
 				</div>
 			</div>
-			<div class="center col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-class="{'pending': (comment.comment.state==3)}">
+			<div class="center col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-class="{'pending': (comment.state==3)}">
 				<div class="row">
 					<div class="body col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						{{comment.comment.body}}
+						{{comment.body}}
 						<hr class="divider" />
 					</div>
 
 					<div class="datetime col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-						<span am-time-ago="comment.comment.created_at"></span>
+						<span am-time-ago="comment.created_at"></span>
 					</div>
 					<div class="operations col col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<button ng-click="collapse(comment)" type="button" class="btn btn-success btn-xs">پاسخ</button>
 						<button type="button" ng-click="like(comment)" class="btn btn-info btn-xs">
-							{{comment.comment.like_count}}
+							{{comment.like_count}}
 							<i class="fa fa-thumbs-up fa-flip-horizontal"></i>
 							
 						</button>
 						<div class="btn-group">
-							<button ng-disabled="comment.comment.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<button ng-disabled="comment.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 						    	شکایت <span class="caret"></span>
 						    </button>
 					        <ul class="dropdown-menu" role="menu">
@@ -40,10 +40,10 @@
 			</div>
 			<div class="left col-lg-2 col-md-2 col-sm-2 col-xs-2">
 				<span class="comment-number">
-					#{{comment.comment.id}}
+					#{{comment.id}}
 				</span>
 				<span class="entity-title">
-					{{currentState()}}: {{comment.comment.thread.target.title}}
+					{{currentState()}}: {{comment.thread.target.title}}
 				</span>
 				<div class="btn-group">
 				    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -54,7 +54,7 @@
 					    <li role="menuitem"><a ng-click="remove(comment, SearchService.comments, $index)">بله</a></li>
 				    </ul>
 				</div>
-				<div ng-show="comment.comment.claim_type" class="btn-group">
+				<div ng-show="comment.claim_type" class="btn-group">
 				    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				    	رفع شکایت <span class="caret"></span>
 				    </button>
@@ -63,7 +63,7 @@
 					    <li role="menuitem"><a ng-click="clearClaim(comment)">بله</a></li>
 				    </ul>
 				</div>
-				<div ng-show="comment.comment.state == 3" class="btn-group">
+				<div ng-show="comment.state == 3" class="btn-group">
 				    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				    	تایید <span class="caret"></span>
 				    </button>
@@ -72,11 +72,11 @@
 					    <li role="menuitem"><a ng-click="setState(comment, 0)">بله</a></li>
 				    </ul>
 				</div>
-				<span ng-show="comment.comment.claim_type" class="claim-type">
-					شکایت: {{claimTypes[comment.comment.claim_type-1].label}}
+				<span ng-show="comment.claim_type" class="claim-type">
+					شکایت: {{claimTypes[comment.claim_type-1].label}}
 				</span>
 			</div>
-			<div collapse="collapsed.comment.id != comment.comment.id" class="center-foot reply col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div collapse="collapsed.id != comment.id" class="center-foot reply col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="well well-lg" ng-include="'comment-form.html'" ></div>
 			</div>
 			<div ng-show="comment.children.length" class="center-bottom children col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -89,31 +89,31 @@
 						</div>
 						<div class="right col-lg-2 col-md-2 col-sm-2 col-xs-2">
 							<div class="owner-photo">
-								<i ng-hide="child.comment.owner.photo.icon_absolute_path" class="fa fa-user"></i>
-								<img ng-show="child.comment.owner.photo.icon_absolute_path" ng-src="{{child.comment.owner.photo.icon_absolute_path}}"  />
+								<i ng-hide="child.owner.photo.icon_absolute_path" class="fa fa-user"></i>
+								<img ng-show="child.owner.photo.icon_absolute_path" ng-src="{{child.owner.photo.icon_absolute_path}}"  />
 							</div>
 							<div class="owner-username">
-								<span ng-bind="child.comment.owner.username"></span>
+								<span ng-bind="child.owner.username"></span>
 							</div>
 						</div>
-						<div class="center col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-class="{'pending': (child.comment.state==3)}">
+						<div class="center col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-class="{'pending': (child.state==3)}">
 							<div class="row">
 								<div class="body col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									{{child.comment.body}}
+									{{child.body}}
 									<hr class="divider" />
 								</div>
 
 								<div class="datetime col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-									<span am-time-ago="child.comment.created_at"></span>
+									<span am-time-ago="child.created_at"></span>
 								</div>
 								<div class="operations col col-lg-6 col-md-6 col-sm-6 col-xs-6">
 									<button type="button" ng-click="like(child)" class="btn btn-info btn-xs">
-										{{child.comment.like_count}}
+										{{child.like_count}}
 										<i class="fa fa-thumbs-up fa-flip-horizontal"></i>
 										
 									</button>
 									<div class="btn-group">
-									    <button ng-disabled="child.comment.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									    <button ng-disabled="child.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 									    	شکایت <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu" role="menu">
@@ -125,10 +125,10 @@
 						</div>
 						<div class="left col-lg-2 col-md-2 col-sm-2 col-xs-2">
 							<span class="comment-number">
-								#{{child.comment.id}}
+								#{{child.id}}
 							</span>
 							<span class="entity-title">
-								{{currentState()}}: {{child.comment.thread.target.title}}
+								{{currentState()}}: {{child.thread.target.title}}
 							</span>
 							<div class="btn-group">
 							    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -140,7 +140,7 @@
 							    </ul>
 							</div>
 
-							<div ng-show="child.comment.claim_type" class="btn-group">
+							<div ng-show="child.claim_type" class="btn-group">
 							    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							    	رفع شکایت <span class="caret"></span>
 							    </button>
@@ -150,7 +150,7 @@
 							    </ul>
 							</div>
 
-							<div ng-show="child.comment.state == 3" class="btn-group">
+							<div ng-show="child.state == 3" class="btn-group">
 							    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							    	تایید <span class="caret"></span>
 							    </button>
@@ -160,8 +160,8 @@
 							    </ul>
 							</div>
 
-							<span ng-show="child.comment.claim_type" class="claim-type">
-								شکایت: {{claimTypes[child.comment.claim_type-1].label}}
+							<span ng-show="child.claim_type" class="claim-type">
+								شکایت: {{claimTypes[child.claim_type-1].label}}
 							</span>
 						</div>	
 						

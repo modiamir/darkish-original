@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\Table()
  * @ORM\Entity
  */
-class CustomerComment extends Comment
+class ClientComment extends Comment
 {
     /**
      * @var integer
@@ -24,7 +24,7 @@ class CustomerComment extends Comment
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Client", inversedBy="comments")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      * @Groups("comment.details")
      */

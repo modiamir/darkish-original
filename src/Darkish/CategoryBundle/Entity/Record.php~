@@ -624,7 +624,7 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="DbaseType", inversedBy="records")
      * @ORM\JoinColumn(name="DbaseTypeIndex", referencedColumnName="id")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "customer.details"})
      */
     private $dbaseTypeIndex;
 
@@ -947,6 +947,15 @@ class Record
      * @ORM\Column(name="lastMessage", type="integer", nullable=true )
      */
     private $lastMessageRecieve;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="NonSearchable", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $nonSearchable;
 
     /**
      * Get id
@@ -3747,5 +3756,51 @@ class Record
     public function getMarketOnlineOrder()
     {
         return $this->marketOnlineOrder;
+    }
+
+    /**
+     * Set dbaseDescription
+     *
+     * @param string $dbaseDescription
+     * @return Record
+     */
+    public function setDbaseDescription($dbaseDescription)
+    {
+        $this->dbaseDescription = $dbaseDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseDescription
+     *
+     * @return string 
+     */
+    public function getDbaseDescription()
+    {
+        return $this->dbaseDescription;
+    }
+
+    /**
+     * Set dbaseBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $dbaseBanner
+     * @return Record
+     */
+    public function setDbaseBanner(\Darkish\CategoryBundle\Entity\ManagedFile $dbaseBanner = null)
+    {
+        $this->dbaseBanner = $dbaseBanner;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseBanner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile 
+     */
+    public function getDbaseBanner()
+    {
+        return $this->dbaseBanner;
     }
 }

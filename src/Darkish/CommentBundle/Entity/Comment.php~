@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\DiscriminatorColumn(name="owner_type", type="string")
  * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "comment"="Comment"})
  */
-class Comment extends BaseComment
+class Comment
 {
     /**
      * @ORM\Id
@@ -29,18 +29,18 @@ class Comment extends BaseComment
      * @ORM\Column(name="like_count", type="integer", nullable=true)
      * @Groups("comment.details")
      */
-    private $likeCount;
+    protected $likeCount;
 
     /**
      * @ORM\Column(name="claim_type", type="integer", nullable=true)
      * @Groups("comment.details")
      */
-    private $claimType;
+    protected $claimType;
 
     /**
      * @ORM\Column(name="reply_count", type="integer", options={"unsigned":true, "default":0})
      */
-    private $replyCount = 0;
+    protected $replyCount = 0;
 
     /**
      * Thread of this comment
@@ -52,86 +52,31 @@ class Comment extends BaseComment
     protected $thread;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @ORM\Column(name="body", type="text")
+     * @Groups("comment.details")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $body;
 
-    
+    /**
+     * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
+     */
+    protected $children;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    protected $createdAt;
 
 
     /**
-     * Set likeCount
-     *
-     * @param integer $likeCount
-     * @return Comment
+     * @ORM\Column(name="state", type="smallint")
      */
-    public function setLikeCount($likeCount)
-    {
-        $this->likeCount = $likeCount;
-
-        return $this;
-    }
-
-    /**
-     * Get likeCount
-     *
-     * @return integer 
-     */
-    public function getLikeCount()
-    {
-        return $this->likeCount;
-    }
-
-    /**
-     * Set claimType
-     *
-     * @param integer $claimType
-     * @return Comment
-     */
-    public function setClaimType($claimType)
-    {
-        $this->claimType = $claimType;
-
-        return $this;
-    }
-
-    /**
-     * Get claimType
-     *
-     * @return integer 
-     */
-    public function getClaimType()
-    {
-        return $this->claimType;
-    }
-
-    /**
-     * Set thread
-     *
-     * @param \Darkish\CommentBundle\Entity\Thread $thread
-     * @return Comment
-     */
-    public function setThread(\FOS\CommentBundle\Model\ThreadInterface $thread = null)
-    {
-        $this->thread = $thread;
-
-        return $this;
-    }
-
-    /**
-     * Get thread
-     *
-     * @return \Darkish\CommentBundle\Entity\Thread 
-     */
-    public function getThread()
-    {
-        return $this->thread;
-    }
+    protected $state;
 
     
 }

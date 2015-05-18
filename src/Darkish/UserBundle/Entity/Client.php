@@ -55,6 +55,11 @@ class Client implements UserInterface, \Serializable
     private $groupMessageThreads;
 
     /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\ClientComment", mappedBy="owner")
+     */
+    private $comments;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Record", inversedBy="clientsFavorited")
      * @ORM\JoinTable(name="favorites")
      */
@@ -278,5 +283,61 @@ class Client implements UserInterface, \Serializable
     public function getFavoriteRecords()
     {
         return $this->favoriteRecords;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     * @return Client
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Darkish\CommentBundle\Entity\ClientComment $comments
+     * @return Client
+     */
+    public function addComment(\Darkish\CommentBundle\Entity\ClientComment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Darkish\CommentBundle\Entity\ClientComment $comments
+     */
+    public function removeComment(\Darkish\CommentBundle\Entity\ClientComment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

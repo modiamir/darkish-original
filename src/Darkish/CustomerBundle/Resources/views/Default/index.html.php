@@ -123,7 +123,7 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_MESSAGE') > -1"><a ui-sref="messages">پیام ها</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'comments')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments">نظرات</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments.all">نظرات</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'attachments')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
@@ -168,7 +168,7 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_MESSAGE') > -1"><a ui-sref="messages">پیام ها</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'comments')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments">نظرات</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments.all">نظرات</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'attachments')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>

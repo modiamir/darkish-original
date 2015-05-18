@@ -290,6 +290,7 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('comments', {
+      abstract: true,
       url: "/comments",
       templateUrl: "customer/template/comments.html",
       controller: "CommentsCtrl",
