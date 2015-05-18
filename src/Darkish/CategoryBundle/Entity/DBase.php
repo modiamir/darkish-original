@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"estate" = "Estate", "automobile" = "Automobile"})
+ * @ORM\DiscriminatorMap({"estate" = "Estate", "automobile" = "Automobile", "dbase" = "DBase"})
  * @UniqueEntity(
  *     fields={"code", "record"},
  *     errorPath="code",
