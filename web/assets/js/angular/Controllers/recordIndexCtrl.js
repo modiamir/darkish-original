@@ -1523,7 +1523,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             return $decoded;
                         }();
                     }
-
+                    if(self.currentRecord.access_class) {
+                        self.currentRecord.access_class = self.currentRecord.access_class.id;
+                    }
                     if(self.currentRecord.m_opening_hours_from) {
                         var res = self.currentRecord.m_opening_hours_from.split(":");
                         self.currentRecord.m_opening_hours_from_date = new Date();
@@ -1608,6 +1610,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     
                     self.currentRecord.bodyDocsList = Collection.getInstance();
                     self.currentRecord.bodyDocsList.addAll(self.currentRecord.body_docs);
+
+                    console.log(self.currentRecord);
                 },
                 function(errResponse) {
                 }
