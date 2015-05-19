@@ -248,7 +248,7 @@
                                     سطح دسترسی
                                 </label>
                                 <select id="trip-maker-combo" ng-model="RecordService.currentRecord.access_class" ng-disabled="!RecordService.isEditing()" class="first-section-input">
-                                    <option ng-selected="class.value == RecordService.currentRecord.access_class.id" ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
+                                    <option ng-selected="class.value == RecordService.currentRecord.access_class" ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
 
                                 </select>
                             </div>
