@@ -47,7 +47,7 @@ class OfferOfferTree
     /**
      * @ORM\ManyToOne(targetEntity="OfferTree",  inversedBy="mainoffers")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details"})
+     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details", "api.list"})
      **/
     private $tree;
     
@@ -55,7 +55,7 @@ class OfferOfferTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details"})
+     * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details", "api.list"})
      */
     private $sort;
 

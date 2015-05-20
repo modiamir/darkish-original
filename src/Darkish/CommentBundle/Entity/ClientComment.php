@@ -371,4 +371,159 @@ class ClientComment extends Comment
     {
         return $this->hasLiked;
     }
+    /**
+     * @var boolean
+     * @Groups("comment.details")
+     */
+    protected $unseenByOperators;
+
+    /**
+     * @var integer
+     * @Groups("comment.details")
+     */
+    protected $unseenRepliesByOperators;
+
+    /**
+     * @var boolean
+     * @Groups("comment.details")
+     */
+    protected $unseenByCustomers;
+
+    /**
+     * @var integer
+     * @Groups("comment.details")
+     */
+    protected $unseenRepliesByCustomers;
+
+
+    /**
+     * Set unseenByOperators
+     *
+     * @param boolean $unseenByOperators
+     * @return ClientComment
+     */
+    public function setUnseenByOperators($unseenByOperators)
+    {
+        $this->unseenByOperators = $unseenByOperators;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenByOperators
+     *
+     * @return boolean 
+     */
+    public function getUnseenByOperators()
+    {
+        return $this->unseenByOperators;
+    }
+
+    /**
+     * Set unseenRepliesByOperators
+     *
+     * @param integer $unseenRepliesByOperators
+     * @return ClientComment
+     */
+    public function setUnseenRepliesByOperators($unseenRepliesByOperators)
+    {
+        $this->unseenRepliesByOperators = $unseenRepliesByOperators;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenRepliesByOperators
+     *
+     * @return integer 
+     */
+    public function getUnseenRepliesByOperators()
+    {
+        return $this->unseenRepliesByOperators;
+    }
+
+    /**
+     * Set unseenByCustomers
+     *
+     * @param boolean $unseenByCustomers
+     * @return ClientComment
+     */
+    public function setUnseenByCustomers($unseenByCustomers)
+    {
+        $this->unseenByCustomers = $unseenByCustomers;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenByCustomers
+     *
+     * @return boolean 
+     */
+    public function getUnseenByCustomers()
+    {
+        return $this->unseenByCustomers;
+    }
+
+    /**
+     * Set unseenRepliesByCustomers
+     *
+     * @param integer $unseenRepliesByCustomers
+     * @return ClientComment
+     */
+    public function setUnseenRepliesByCustomers($unseenRepliesByCustomers)
+    {
+        $this->unseenRepliesByCustomers = $unseenRepliesByCustomers;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenRepliesByCustomers
+     *
+     * @return integer 
+     */
+    public function getUnseenRepliesByCustomers()
+    {
+        return $this->unseenRepliesByCustomers;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Groups({"comment.details"})
+     */
+    protected $photos;
+
+
+    /**
+     * Add photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     * @return ClientComment
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
 }

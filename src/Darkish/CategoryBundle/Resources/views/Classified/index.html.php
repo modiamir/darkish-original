@@ -199,7 +199,7 @@
                                 <div class="dates col col-xs-6">
                                     <div class="publish-date-box">
                                         <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
-                                        <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="ClassifiedService.currentClassified.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!ClassifiedService.isEditing()" close-text="بستن" />
+                                        <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="ClassifiedService.currentClassified.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!ClassifiedService.isEditing()" close-text="بستن" required />
                                     </div>
 
                                     

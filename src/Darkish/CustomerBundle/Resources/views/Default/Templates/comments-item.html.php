@@ -5,18 +5,26 @@
   	<div class="media-body">
   		<span class="comment-id" ng-bind="'#'+comment.id "></span>
   		<span class="comment-date" am-time-ago="comment.created_at"></span>
-
+  		<span ng-show="comment.unseen_by_customers" class="is-new">جدید</span>
     	<div class="comment-body" ng-bind="comment.body"></div>
+    	<div class="comment-photos" ng-show="comment.photos.length > 0">
+    		<h5>
+    			تصاویر ضمیمه
+    		</h5>
+    		<img ng-click="clickToOpen(comment.photos, $index)" class="comment-photo" ng-repeat="photo in comment.photos" ng-src="{{photo.icon_absolute_path}}" width="64" height="64" />
+    	</div>
     	<div class="operations">
 			<button ng-click="openCloseReplies(comment)" type="button" class="btn btn-success btn-xs">
 			پاسخ ها <span class="badge" ng-bind="comment.reply_count"></span>
 			</button>
 			<button ng-disabled="comment.has_liked" type="button" ng-click="like(comment)" class="btn btn-info btn-xs ng-binding">
-				<div class="dk icon-like"></div><span class="badge" ng-bind="comment.like_count"></span>
+				<div class="dk icon-like dk-flip-horizontal"></div><span class="badge" ng-bind="comment.like_count"></span>
 			</button>
 			<button ng-disabled="comment.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" ng-click="setClaim(comment)">
 	    		شکایت 
 	    	</button>
+	    	<span ng-show="comment.unseen_replies_by_customers > 0" class="has-new-replies" ng-bind="comment.unseen_replies_by_customers + ' پاسخ جدید'"></span>
+
 		</div>
 		<div ng-show="replyForm" class="input-group reply-form input-group-sm">
 			<textarea ng-model="replyBody" class="form-control"></textarea>

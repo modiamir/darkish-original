@@ -20,82 +20,199 @@
 .comments-page .details #details-header .btn-tabs button:last-child {
   border-radius: 4px 0 0 0;
 }
-/* line 25, ../sass/customer-comments.scss */
+/* line 24, ../sass/customer-comments.scss */
+.comments-page .details .details-inner .submit-comment-form {
+  padding: 5px 10px;
+  border: 1px solid white;
+  display: inline-block;
+  width: 100%;
+}
+/* line 32, ../sass/customer-comments.scss */
+.comments-page .details .details-inner .submit-comment-form .submit-btn-group {
+  margin: 10px 0;
+  float: left;
+}
+/* line 37, ../sass/customer-comments.scss */
+.comments-page .details .details-inner .submit-comment-form .upload-label {
+  margin: 10px 0;
+}
+/* line 41, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list {
+  border-top: 1px solid #C0C0C0;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+/* line 45, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item {
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #C0C0C0;
 }
-/* line 31, ../sass/customer-comments.scss */
+/* line 50, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media.pending {
+  background-color: red;
+}
+/* line 54, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-left img {
   width: 48px;
   height: 48px;
   border: 1px solid white;
 }
-/* line 37, ../sass/customer-comments.scss */
+/* line 60, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body {
   font-size: 13px;
 }
-/* line 39, ../sass/customer-comments.scss */
+/* line 62, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body span.comment-id {
   float: right;
   margin-left: 20px;
   color: #8A8A8A;
 }
-/* line 44, ../sass/customer-comments.scss */
+/* line 67, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body span.comment-date {
   float: right;
-  clear: left;
+  margin-left: 20px;
   color: #8A8A8A;
 }
-/* line 49, ../sass/customer-comments.scss */
+/* line 73, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body span.is-new {
+  float: right;
+  color: red;
+}
+/* line 78, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .comment-body {
   clear: both;
+  padding: 10px 0;
 }
-/* line 53, ../sass/customer-comments.scss */
-.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations button {
+/* line 83, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .comment-photos {
+  border-bottom: 1px solid #e1e1e1;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 5px;
+}
+/* line 89, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .comment-photos h5 {
+  font-size: 12px;
+}
+/* line 92, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .comment-photos .comment-photo {
+  margin-left: 10px;
+}
+/* line 97, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations button, .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations span {
   float: right;
   margin-left: 5px;
   margin-top: 5px;
 }
-/* line 60, ../sass/customer-comments.scss */
+/* line 103, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations .dk {
+  position: relative;
+  top: 2px;
+}
+/* line 108, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations span.badge {
+  margin-top: 2px;
+  float: none;
+  margin-left: initial;
+  margin-right: 3px;
+}
+/* line 114, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations button {
+  min-width: 48px;
+}
+/* line 117, ../sass/customer-comments.scss */
+.comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .operations span.has-new-replies {
+  color: red;
+}
+/* line 122, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form {
   clear: both;
   margin-top: 10px;
   display: inline-table;
 }
-/* line 64, ../sass/customer-comments.scss */
+/* line 126, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form textarea {
   height: 60px;
   overflow-x: hidden;
 }
-/* line 68, ../sass/customer-comments.scss */
+/* line 130, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form .input-group-btn {
   vertical-align: top;
 }
-/* line 70, ../sass/customer-comments.scss */
+/* line 132, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .reply-form .input-group-btn button {
   margin-right: 10px;
   border-radius: 4px;
 }
-/* line 78, ../sass/customer-comments.scss */
+/* line 140, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children a {
   cursor: pointer;
   margin: 10px 0;
   display: block;
 }
-/* line 84, ../sass/customer-comments.scss */
+/* line 146, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul {
-  height: 300px;
+  max-height: 300px;
   overflow-y: scroll;
 }
-/* line 87, ../sass/customer-comments.scss */
+/* line 149, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul li {
   border-bottom: 1px solid #D4D4D4;
   margin-bottom: 5px;
   padding-bottom: 5px;
 }
-/* line 91, ../sass/customer-comments.scss */
+/* line 153, ../sass/customer-comments.scss */
 .comments-page .details .details-inner ul.comments-list li.comment-item .media .media-body .children ul li:last-child {
   border: 0;
+}
+/* line 165, ../sass/customer-comments.scss */
+.comments-page .details .details-inner .cke .cke_top {
+  display: none;
+}
+/* line 168, ../sass/customer-comments.scss */
+.comments-page .details .details-inner .cke .cke_bottom {
+  display: none;
+}
+/* line 175, ../sass/customer-comments.scss */
+.comments-page a {
+  cursor: pointer;
+}
+/* line 178, ../sass/customer-comments.scss */
+.comments-page button {
+  outline: none !important;
+}
+
+/* line 184, ../sass/customer-comments.scss */
+.ngdialog.ngdialog-theme-default {
+  padding-top: 40px;
+}
+/* line 186, ../sass/customer-comments.scss */
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  width: 80%;
+}
+/* line 188, ../sass/customer-comments.scss */
+.ngdialog.ngdialog-theme-default .ngdialog-content img {
+  width: 100%;
+}
+
+/* line 195, ../sass/customer-comments.scss */
+.comment-photo-modal {
+  position: relative;
+}
+/* line 197, ../sass/customer-comments.scss */
+.comment-photo-modal button.btn {
+  position: absolute;
+  top: 40%;
+  border-radius: 0;
+  outline: none !important;
+}
+/* line 202, ../sass/customer-comments.scss */
+.comment-photo-modal button.btn.previous-btn {
+  right: 0;
+}
+/* line 205, ../sass/customer-comments.scss */
+.comment-photo-modal button.btn.next-btn {
+  left: 0;
 }

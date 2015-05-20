@@ -825,6 +825,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
 
         $scope.initDate = new Date('2016-15-20');
+        $scope.initDate.setHours(0, 0, 0);
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
 

@@ -24,7 +24,7 @@ class Classified
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Classified
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -93,7 +93,7 @@ class Classified
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $publishDate;
     
@@ -138,7 +138,7 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $audio;
 
@@ -146,11 +146,18 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $video;
 
     
+    /**
+     * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"classified.details", "api.list"})
+     */
+    private $visitCount;
+
+
 
     
 
@@ -277,7 +284,7 @@ class Classified
 
     /**
      * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified")
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      **/
     private $classifiedtrees;
 
@@ -296,7 +303,7 @@ class Classified
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForClassified")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      * 
      **/
     private $icon;
@@ -1453,5 +1460,51 @@ class Classified
     public function getClassifiedtrees()
     {
         return $this->classifiedtrees;
+    }
+
+    /**
+     * Set visitCount
+     *
+     * @param integer $visitCount
+     * @return Classified
+     */
+    public function setVisitCount($visitCount)
+    {
+        $this->visitCount = $visitCount;
+
+        return $this;
+    }
+
+    /**
+     * Get visitCount
+     *
+     * @return integer 
+     */
+    public function getVisitCount()
+    {
+        return $this->visitCount;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     * @return Classified
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer 
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
     }
 }

@@ -74,6 +74,9 @@
 }
 
 
+body.cke_editable {
+    font-family: yekan;
+}
 
 .body.primary-header {
     color: #00A0B1;

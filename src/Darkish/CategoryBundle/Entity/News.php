@@ -24,7 +24,7 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list", "api.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class News
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"news.list", "news.details", "comment.details", "comment.list"})
+     * @Groups({"news.list", "news.details", "comment.details", "comment.list", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class News
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"news.list", "news.details"})
+     * @Groups({"news.list", "news.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -93,7 +93,7 @@ class News
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.list"})
      */
     private $publishDate;
     
@@ -191,21 +191,37 @@ class News
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"news.details"})
+     * @ORM\Column(name="Audio", type="boolean", nullable=true, options={"default"=false})
+     * @Groups({"news.details", "api.list"})
      */
     private $audio;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"news.details"})
+     * @ORM\Column(name="Video", type="boolean", nullable=true, options={"default"=false})
+     * @Groups({"news.details", "api.list"})
      */
     private $video;
 
-    
+    /**
+     * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"news.details", "api.list"})
+     */
+    private $visitCount;
 
+    /**
+     * @ORM\Column(name="LikeCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"news.details", "api.list"})
+     */
+    private $likeCount;
+
+
+    /**
+     * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"news.details", "api.list"})
+     */
+    private $commentCount;
     
 
     /**
@@ -244,7 +260,7 @@ class News
 
     /**
      * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="news")
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.list"})
      **/
     private $newstrees;
 
@@ -264,7 +280,7 @@ class News
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForNews")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.list"})
      * 
      **/
     private $icon;
@@ -1216,5 +1232,74 @@ class News
     public function getCommentDefaultState()
     {
         return $this->commentDefaultState;
+    }
+
+    /**
+     * Set visitCount
+     *
+     * @param integer $visitCount
+     * @return News
+     */
+    public function setVisitCount($visitCount)
+    {
+        $this->visitCount = $visitCount;
+
+        return $this;
+    }
+
+    /**
+     * Get visitCount
+     *
+     * @return integer 
+     */
+    public function getVisitCount()
+    {
+        return $this->visitCount;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     * @return News
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer 
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
+    }
+
+    /**
+     * Set commentCount
+     *
+     * @param integer $commentCount
+     * @return News
+     */
+    public function setCommentCount($commentCount)
+    {
+        $this->commentCount = $commentCount;
+
+        return $this;
+    }
+
+    /**
+     * Get commentCount
+     *
+     * @return integer 
+     */
+    public function getCommentCount()
+    {
+        return $this->commentCount;
     }
 }

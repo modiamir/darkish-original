@@ -1,7 +1,7 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'angular-loading-bar']);
+                , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ngDialog']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');

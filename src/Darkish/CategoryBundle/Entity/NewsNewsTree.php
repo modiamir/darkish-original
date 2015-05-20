@@ -47,7 +47,7 @@ class NewsNewsTree
     /**
      * @ORM\ManyToOne(targetEntity="NewsTree",  inversedBy="mainnews")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details"})
+     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details", "api.list"})
      **/
     private $tree;
     
@@ -55,7 +55,7 @@ class NewsNewsTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details"})
+     * @Groups({"newstree.list", "newstree.details", "news.list", "news.details", "api.list"})
      */
     private $sort;
 

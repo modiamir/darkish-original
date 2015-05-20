@@ -1,4 +1,5 @@
-customerApp.controller('CommentsCtrl', ['$scope', '$http', '$state', function($scope, $http, $state){
+customerApp.controller('CommentsCtrl', ['$scope', '$http', '$state', '$filter', 
+	function($scope, $http, $state, $filter){
 	$scope.isAllPage = function() {
 		return $state.current.name == 'comments.all';
 	}
@@ -6,33 +7,207 @@ customerApp.controller('CommentsCtrl', ['$scope', '$http', '$state', function($s
 	$scope.isNewsPage = function() {
 		return $state.current.name == 'comments.news';
 	}
-	$scope.comments = [];
+	
+	$scope.search = function(news, comments) {
+		var postData = {_method: 'POST'};
+		if(news) {
+			postData.news = true;
+		}
 
-	$http({
-		method: 'POST',
-		url: './customer/ajax/comment/search',
-		headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-		data: $.param({_method: 'POST'})
-	}).then(
+		var commentsCount = comments.length;
+		var lowestId = (commentsCount) ? comments[commentsCount - 1].id : 0;
+
+		return $http({
+			method: 'POST',
+			url: './customer/ajax/comment/search/'+lowestId,
+			headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+			data: $.param(postData)
+		});
+	}
+
+	$scope.setUnseenByCustomers = function(comments) {
+		var unseenComments = $filter('filter')(comments, {unseen_by_customers: true});
+		if(unseenComments.length > 0) {
+			var unseenCommentsIds = [];
+			angular.forEach(unseenComments, function(value, key){
+				unseenCommentsIds.push(value.id);
+			});
+			$http({
+				method: 'POST',
+				url: './customer/ajax/comment/set_unseen_by_customer',
+				headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+				data: $.param({_method: 'POST', comments: unseenCommentsIds})
+			}).then(
+				function(response){
+
+				}, 
+				function(responseErr){
+
+				}
+			)
+		}
+
+	}
+
+
+    
+
+}])
+
+customerApp.controller('CommentsAllCtrl', ['$scope', '$http', 'FileUploader', function($scope, $http, FileUploader){
+	$scope.comments = [];
+	$scope.noResultMessage = "در حال دریافت ..."
+	$scope.canLoadMore = false;
+	$scope.newComment = {};
+	$scope.search(false, $scope.comments).then(
 		function(response){
-			$scope.comments = response.data.comments;
+			$scope.comments = $scope.comments.concat(response.data.comments);
+			$scope.setUnseenByCustomers(response.data.comments);
+			$scope.noResultMessage = "نظری جهت نمایش موجود نیست.";
+			if(response.data.comments.length > 0) {
+				$scope.canLoadMore = true;
+			}
 		}, 
 		function(responseErr){
 
 		} 
 	);
 
-}])
+	$scope.loadMore = function() {
+		$scope.search(false, $scope.comments).then(
+			function(response){
+				$scope.comments = $scope.comments.concat(response.data.comments);
+				$scope.setUnseenByCustomers(response.data.comments);
+				$scope.noResultMessage = "نظری جهت نمایش موجود نیست.";
+				if(response.data.comments.length <= 0) {
+					$scope.canLoadMore = false;
+				}
+			}, 
+			function(responseErr){
 
-customerApp.controller('CommentsAllCtrl', ['$scope', '$http', function($scope, $http){
+			} 
+		);
+	}
+
+
+	$scope.postNewComment = function() {
+		$http({
+			method: 'POST',
+			url: 'customer/ajax/comment/post',
+			headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+			data: $.param({
+				_method: 'POST', 
+				darkish_commentbundle_comment: {body: $scope.newComment.body},
+				photos: $scope.newComment.photos
+			})
+		}).then(
+			function(response){
+				$scope.comments.unshift(response.data);
+				$scope.newComment = {}
+				$scope.submitCommentForm = false;
+			}, 
+			function(responseErr){
+
+			}
+		);
+	}
+
+    /**
+     * 
+     * uploader
+     */
+    var uploader = $scope.uploader = new FileUploader({
+        url: './customer/ajax/upload'
+    });
+    uploader.withCredentials = true;
+    
+    uploader.queueLimit = 3;
+
+    uploader.autoUpload = true;
+    uploader.removeAfterUpload = true;
+    uploader.formData.push({uploadDir : 'image'});
+    uploader.formData.push({continual : true});
+    uploader.formData.push({type : 'comment'});
+    uploader.msg = "";
+    
+    // FILTERS
+    $scope.logUploader = function() {
+      console.log(uploader);
+    }
+
+    uploader.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    });
+
+    uploader.filters.push({
+          name: 'photoLimits',
+          fn: function(item, photo) {
+              var photocount = (($scope.newComment.photos) ? $scope.newComment.photos.length : 0) + uploader.queue.length;
+              console.log(photocount);
+              if( photocount >= 3) {
+                return false;
+              }
+              return true;
+          }
+      });
+    
+    
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        console.info('onSuccessItem', fileItem, response, status, headers);
+        if(!$scope.newComment.photos) {
+            $scope.newComment.photos = [];
+        }
+        $scope.newComment.photos.push(response);
+        uploader.msg = 'فایل با موفقیت بارگزاری شد.';
+    };
+
+
+  	$scope.removePhoto = function(index) {
+    	$scope.newComment.photos.splice(index, 1);
+	}
 	
 }])
 
 customerApp.controller('CommentsNewsCtrl', ['$scope', '$http', function($scope, $http){
-	
+	$scope.comments = [];
+	$scope.noResultMessage = "در حال دریافت ..."
+	$scope.canLoadMore = false;
+	$scope.search(true, $scope.comments).then(
+		function(response){
+			$scope.comments = $scope.comments.concat(response.data.comments);
+			$scope.setUnseenByCustomers(response.data.comments);
+			$scope.noResultMessage = "نظری جهت نمایش موجود نیست.";
+			if(response.data.comments.length > 0) {
+				$scope.canLoadMore = true;
+			}
+		}, 
+		function(responseErr){
+
+		} 
+	);
+
+	$scope.loadMore = function() {
+		$scope.search(true, $scope.comments).then(
+			function(response){
+				$scope.comments = $scope.comments.concat(response.data.comments);
+				$scope.setUnseenByCustomers(response.data.comments);
+				$scope.noResultMessage = "نظری جهت نمایش موجود نیست.";
+				if(response.data.comments.length <= 0) {
+					$scope.canLoadMore = false;
+				}
+			}, 
+			function(responseErr){
+
+			} 
+		);
+	}
 }])
 
-customerApp.controller('CommentsItemCtrl', ['$scope', '$http', function($scope, $http){
+customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDialog', function($scope, $http, $filter, ngDialog){
 	$scope.replyForm = false;
 	$scope.replyFormDirty = false;
 	$scope.comment.children = [];
@@ -43,7 +218,26 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', function($scope, 
 			function(response) {
 				comment.children = comment.children.concat(response.data.comments);
 				$scope.replyForm = true;
+				var unseenReplies = $filter('filter')(response.data.comments, {unseen_by_customers: true});
+				if(unseenReplies.length > 0) {
+					var unseenRepliesIds = [];
+					angular.forEach(unseenReplies, function(value, key){
+						unseenRepliesIds.push(value.id);
+					});
+					$http({
+						method: 'POST',
+						url: './customer/ajax/comment/set_unseen_replies_by_customer/'+comment.id,
+						headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+						data: $.param({_method: 'POST', comments: unseenRepliesIds})
+					}).then(
+						function(response){
+							comment.unseen_replies_by_customers = 0;
+						}, 
+						function(responseErr){
 
+						}
+					)
+				}
 			},
 			function(responseErr) {
 
@@ -117,8 +311,31 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', function($scope, 
 		);
 	}
 
-
+	$scope.clickToOpen = function (photos, index) {
+        ngDialog.open({ 
+        	template: 'customer/template/comments-item-photo-modal.html',
+        	className: 'ngdialog-theme-default custom-width',
+        	controller: 'CommentsPhotoModalCtrl', 
+        	resolve: {
+        		photos: function() {
+		            return photos;
+		        },
+		        index: function() {
+		        	return index;
+		        }
+        	}
+        });
+    };
 }])
 
 customerApp.controller('CommentsChildCtrl', ['$scope', '$http', function($scope, $http){
 }])
+
+customerApp.controller('CommentsPhotoModalCtrl', ['$scope', '$http', 'photos', 'index', function($scope, $http, photos, index){
+	$scope.photos = photos;
+	$scope.index = index;
+
+
+}])
+
+

@@ -24,7 +24,7 @@ class NewsTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $id;
 
@@ -46,7 +46,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $treeIndex;
 
@@ -54,6 +54,7 @@ class NewsTree
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer", nullable=true)
+     * 
      */
     private $sort;
 
@@ -61,7 +62,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $title;
 
