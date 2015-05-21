@@ -747,7 +747,7 @@ class Record
     private $marketTemplate;
 
     /**
-     * @ORM\Column(name="MarketOnlineOrder", type="smallint", options={"default":0})
+     * @ORM\Column(name="MarketOnlineOrder", type="smallint", nullable=true, options={"default":0})
      */
     private $marketOnlineOrder;
 
@@ -767,6 +767,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $visitCount;
+
+
+
+    /**
+     * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"record.details", "api.list"})
+     */
+    private $commentCount;
 
     /**
      * @var integer
@@ -3802,5 +3810,28 @@ class Record
     public function getDbaseBanner()
     {
         return $this->dbaseBanner;
+    }
+
+    /**
+     * Set nonSearchable
+     *
+     * @param boolean $nonSearchable
+     * @return Record
+     */
+    public function setNonSearchable($nonSearchable)
+    {
+        $this->nonSearchable = $nonSearchable;
+
+        return $this;
+    }
+
+    /**
+     * Get nonSearchable
+     *
+     * @return boolean 
+     */
+    public function getNonSearchable()
+    {
+        return $this->nonSearchable;
     }
 }

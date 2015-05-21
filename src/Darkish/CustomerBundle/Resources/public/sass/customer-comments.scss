@@ -21,12 +21,35 @@
 		}
 
 		.details-inner {
+			.submit-comment-form {
+				padding: 5px 10px;
+				border: 1px solid white;
+				display: inline-block;
+				width: 100%;
+				textarea {
+
+				}
+				.submit-btn-group {
+					margin: 10px 0;
+					float: left;
+				}
+
+				.upload-label {
+					margin: 10px 0;
+				}
+			}
 			ul.comments-list {
+				border-top: 1px solid #C0C0C0;
+				margin-top: 20px;
+				padding-top: 10px;
 				li.comment-item {
 					margin-bottom: 10px;
 					padding-bottom: 10px;
 					border-bottom: 1px solid #C0C0C0;
 					.media {
+						&.pending {
+							background-color: red;
+						}
 						.media-left {
 							img {
 								width: 48px;
@@ -43,17 +66,56 @@
 							}
 							span.comment-date {
 								float: right;
-								clear: left;
+								margin-left: 20px;
 								color: #8A8A8A;
 							}
+
+							span.is-new {
+								float: right;
+								color: red;
+							}
+
 							.comment-body {
 								clear: both;
+								padding: 10px 0;
+							}
+
+							.comment-photos {
+								border-bottom: 1px solid rgb(225, 225, 225);
+								margin-bottom: 5px;
+								padding-bottom: 5px;
+								border-top: 1px solid rgb(225, 225, 225);
+								margin-top: 5px;
+								h5 {
+									font-size: 12px;
+								}
+								.comment-photo {
+									margin-left: 10px;
+								}
 							}
 							.operations {
-								button {
+								button, span {
 									float: right;
 									margin-left: 5px;
 									margin-top: 5px;
+									
+								}
+								.dk {
+									position: relative;
+									top: 2px;
+								}
+
+								span.badge {
+									margin-top: 2px;
+									float: none;
+									margin-left: initial;
+									margin-right: 3px;
+								}
+								button {
+									min-width: 48px;
+								}
+								span.has-new-replies {
+									color: red;
 								}
 							}
 
@@ -82,7 +144,7 @@
 
 								}
 								ul {
-									height: 300px;
+									max-height: 300px;
 									overflow-y: scroll;
 									li {
 										border-bottom: 1px solid #D4D4D4;
@@ -99,7 +161,49 @@
 					}
 				}
 			}
+			.cke {
+				.cke_top {
+					display: none;
+				}
+				.cke_bottom {
+					display: none;
+				}
+			}
 		}
 
+	}
+	a {
+		cursor: pointer;
+	}
+	button {
+		outline: none !important;
+	}
+}
+
+
+.ngdialog.ngdialog-theme-default {
+	padding-top: 40px;
+	.ngdialog-content {
+		width: 80%;
+		img {
+			width: 100%;
+		}
+	}	
+}
+
+
+.comment-photo-modal {
+	position: relative;
+	button.btn {
+		position: absolute;
+		top: 40%;
+		border-radius: 0;
+		outline: none !important;
+		&.previous-btn {
+			right: 0;
+		}
+		&.next-btn {
+			left: 0;
+		}
 	}
 }

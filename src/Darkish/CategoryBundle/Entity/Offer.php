@@ -24,7 +24,7 @@ class Offer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"offer.list", "offer.details"})
+     * @Groups({"offer.list", "offer.details", "api.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Offer
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"offer.list", "offer.details"})
+     * @Groups({"offer.list", "offer.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"offer.list", "offer.details"})
+     * @Groups({"offer.list", "offer.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -93,7 +93,7 @@ class Offer
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list"})
      */
     private $publishDate;
     
@@ -177,7 +177,7 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list"})
      */
     private $audio;
 
@@ -185,11 +185,16 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list"})
      */
     private $video;
 
     
+    /**
+     * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"offer.details", "api.list"})
+     */
+    private $visitCount;
 
     
 
@@ -316,7 +321,7 @@ class Offer
 
     /**
      * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer")
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list"})
      **/
     private $offertrees;
 
@@ -346,7 +351,7 @@ class Offer
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="bannerForOffer")
      * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id")
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list"})
      * 
      **/
     private $banner;
@@ -1501,5 +1506,51 @@ class Offer
     public function getOffertrees()
     {
         return $this->offertrees;
+    }
+
+    /**
+     * Set visitCount
+     *
+     * @param integer $visitCount
+     * @return Offer
+     */
+    public function setVisitCount($visitCount)
+    {
+        $this->visitCount = $visitCount;
+
+        return $this;
+    }
+
+    /**
+     * Get visitCount
+     *
+     * @return integer 
+     */
+    public function getVisitCount()
+    {
+        return $this->visitCount;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     * @return Offer
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer 
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
     }
 }

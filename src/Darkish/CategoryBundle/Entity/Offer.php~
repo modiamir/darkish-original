@@ -190,7 +190,17 @@ class Offer
     private $video;
 
     
+    /**
+     * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"offer.details"})
+     */
+    private $visitCount;
 
+    /**
+     * @ORM\Column(name="LikeCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"offer.details", "api.list"})
+     */
+    private $likeCount;
     
 
     /**
@@ -1468,5 +1478,61 @@ class Offer
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    /**
+     * Add offertrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees
+     * @return Offer
+     */
+    public function addOffertree(\Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees)
+    {
+        $this->offertrees[] = $offertrees;
+
+        return $this;
+    }
+
+    /**
+     * Remove offertrees
+     *
+     * @param \Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees
+     */
+    public function removeOffertree(\Darkish\CategoryBundle\Entity\OfferOfferTree $offertrees)
+    {
+        $this->offertrees->removeElement($offertrees);
+    }
+
+    /**
+     * Get offertrees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOffertrees()
+    {
+        return $this->offertrees;
+    }
+
+    /**
+     * Set visitCount
+     *
+     * @param integer $visitCount
+     * @return Offer
+     */
+    public function setVisitCount($visitCount)
+    {
+        $this->visitCount = $visitCount;
+
+        return $this;
+    }
+
+    /**
+     * Get visitCount
+     *
+     * @return integer 
+     */
+    public function getVisitCount()
+    {
+        return $this->visitCount;
     }
 }

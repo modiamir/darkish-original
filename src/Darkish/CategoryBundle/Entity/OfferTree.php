@@ -24,7 +24,7 @@ class OfferTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list", "details", "offer.details"})
+     * @Groups({"list", "details", "offer.details", "api.list"})
      */
     private $id;
 
@@ -46,7 +46,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "offer.details"})
+     * @Groups({"list", "details", "offer.details", "api.list"})
      */
     private $treeIndex;
 
@@ -61,7 +61,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "offer.details"})
+     * @Groups({"list", "details", "offer.details", "api.list"})
      */
     private $title;
 
@@ -69,7 +69,7 @@ class OfferTree
      * @var string
      *
      * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "offer.details"})
+     * @Groups({"list", "details", "offer.details", "api.list"})
      */
     private $subTitle;
 

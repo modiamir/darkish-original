@@ -33,6 +33,11 @@ darkish_api_message:
     type:     rest
     prefix:   api/rest/message
 
+darkish_api_cno:
+    resource: "Darkish\UserBundle\Controller\ApiCnoController"
+    type:     rest
+    prefix:   api/rest/cno
+
 darkish_user:
     resource: "@DarkishUserBundle/Controller/"
     type:     annotation

@@ -24,7 +24,7 @@ class ClassifiedTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list", "details", "classified.details"})
+     * @Groups({"list", "details", "classified.details", "api.list"})
      */
     private $id;
 
@@ -46,7 +46,7 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "classified.details"})
+     * @Groups({"list", "details", "classified.details", "api.list"})
      */
     private $treeIndex;
 
@@ -61,7 +61,7 @@ class ClassifiedTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "classified.details"})
+     * @Groups({"list", "details", "classified.details", "api.list"})
      */
     private $title;
 

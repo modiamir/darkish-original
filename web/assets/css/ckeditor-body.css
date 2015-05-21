@@ -74,6 +74,9 @@
 }
 
 
+body.cke_editable {
+    font-family: yekan;
+}
 
 .body.primary-header {
     color: #00A0B1;
@@ -95,6 +98,7 @@
     font-size: 16px;
     text-align: right;
     line-height: 35px;
+
 }
 
 .body.secondary-text {
@@ -105,7 +109,6 @@
     background-position: 97% 2px;
     background-size: 6px;
     background-repeat: no-repeat;
-    display: table;
     padding-right: 15px;
     background-position: right 13px;
     background-image: url(images/bullet.png);

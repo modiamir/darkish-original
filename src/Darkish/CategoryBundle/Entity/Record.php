@@ -768,6 +768,14 @@ class Record
      */
     private $visitCount;
 
+
+
+    /**
+     * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"record.details", "api.list"})
+     */
+    private $commentCount;
+
     /**
      * @var integer
      *
@@ -3825,5 +3833,28 @@ class Record
     public function getNonSearchable()
     {
         return $this->nonSearchable;
+    }
+
+    /**
+     * Set commentCount
+     *
+     * @param integer $commentCount
+     * @return Record
+     */
+    public function setCommentCount($commentCount)
+    {
+        $this->commentCount = $commentCount;
+
+        return $this;
+    }
+
+    /**
+     * Get commentCount
+     *
+     * @return integer 
+     */
+    public function getCommentCount()
+    {
+        return $this->commentCount;
     }
 }

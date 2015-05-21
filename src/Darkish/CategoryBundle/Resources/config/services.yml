@@ -35,6 +35,13 @@ services:
         arguments: ["@service_container", "@request_stack"]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    my_cnor.subscriber:
+        class: Darkish\CategoryBundle\EventListener\CnorSubscriber
+        arguments: ["@service_container", "@request_stack"]
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
     message_thread.subscriber:
         class: Darkish\CategoryBundle\EventListener\MessageThreadSubscriber
         tags:

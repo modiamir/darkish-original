@@ -89,13 +89,40 @@ class Comment
      */
     protected $hasLiked;
 
-    protected $unseenByOperators;
+    /**
+     * @ORM\Column(name="unseen_by_operators", type="boolean", nullable=true, options={"default":false})
+     * @Groups("comment.details")
+     */
+    protected $unseenByOperators = false;
 
-    protected $unseenRepliesByOperators;
+    /**
+     * @ORM\Column(name="unseen_replies_by_operators", type="integer", nullable=true, options={"unsigned":true, "default":0})
+     * @Groups("comment.details")
+     */
+    protected $unseenRepliesByOperators = 0;
 
-    protected $unseenByCustomers;
+    /**
+     * @ORM\Column(name="unseen_by_customers", type="boolean", nullable=true, options={"default":false})
+     * @Groups("comment.details")
+     */
+    protected $unseenByCustomers = false;
 
-    protected $unseenRepliesByCustomers;
+    /**
+     * @ORM\Column(name="unseen_replies_by_customers", type="integer", nullable=true, options={"unsigned":true, "default":0})
+     * @Groups("comment.details")
+     */
+    protected $unseenRepliesByCustomers = 0;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\JoinTable(name="comment_photos",
+     *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
+     *      )
+     * @Groups({"comment.details"})
+     **/
+    protected $photos;
 
     /**
      * Constructor
@@ -353,5 +380,130 @@ class Comment
     public function getHasLiked()
     {
         return $this->hasLiked;
+    }
+
+    /**
+     * Set unseenByOperators
+     *
+     * @param boolean $unseenByOperators
+     * @return Comment
+     */
+    public function setUnseenByOperators($unseenByOperators)
+    {
+        $this->unseenByOperators = $unseenByOperators;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenByOperators
+     *
+     * @return boolean 
+     */
+    public function getUnseenByOperators()
+    {
+        return $this->unseenByOperators;
+    }
+
+    /**
+     * Set unseenRepliesByOperators
+     *
+     * @param integer $unseenRepliesByOperators
+     * @return Comment
+     */
+    public function setUnseenRepliesByOperators($unseenRepliesByOperators)
+    {
+        $this->unseenRepliesByOperators = $unseenRepliesByOperators;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenRepliesByOperators
+     *
+     * @return integer 
+     */
+    public function getUnseenRepliesByOperators()
+    {
+        return $this->unseenRepliesByOperators;
+    }
+
+    /**
+     * Set unseenByCustomers
+     *
+     * @param boolean $unseenByCustomers
+     * @return Comment
+     */
+    public function setUnseenByCustomers($unseenByCustomers)
+    {
+        $this->unseenByCustomers = $unseenByCustomers;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenByCustomers
+     *
+     * @return boolean 
+     */
+    public function getUnseenByCustomers()
+    {
+        return $this->unseenByCustomers;
+    }
+
+    /**
+     * Set unseenRepliesByCustomers
+     *
+     * @param integer $unseenRepliesByCustomers
+     * @return Comment
+     */
+    public function setUnseenRepliesByCustomers($unseenRepliesByCustomers)
+    {
+        $this->unseenRepliesByCustomers = $unseenRepliesByCustomers;
+
+        return $this;
+    }
+
+    /**
+     * Get unseenRepliesByCustomers
+     *
+     * @return integer 
+     */
+    public function getUnseenRepliesByCustomers()
+    {
+        return $this->unseenRepliesByCustomers;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     * @return Comment
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

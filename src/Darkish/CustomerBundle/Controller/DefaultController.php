@@ -127,6 +127,15 @@ class DefaultController extends Controller
                 }
                 break;
 
+            case 'comments-item-photo-modal.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
             case 'comments-child-item.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
                 if($assistantAccess->contains($role)) {

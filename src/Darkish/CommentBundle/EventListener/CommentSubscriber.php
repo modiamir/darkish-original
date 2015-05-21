@@ -26,11 +26,17 @@ class CommentSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-
+        $user = $this->container->get('security.context')->getToken()->getUser();
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
+            //set created time before saving to database
             $entity->setCreatedAt(new \DateTime());
-            
+            if( !($user instanceof \Darkish\UserBundle\Entity\Operator) ) {
+                $entity->setUnseenByOperators(true);
+            }
+            if( !($user instanceof \Darkish\CustomerBundle\Entity\Customer) ) {
+                $entity->setUnseenByCustomers(true);
+            }
         }
     }
 
@@ -39,11 +45,19 @@ class CommentSubscriber implements EventSubscriber
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
             $parent = $entity->getParent();
             if($parent instanceof Comment) {
                 $parent->setReplyCount($parent->getReplyCount() + 1);
+                if( !($user instanceof \Darkish\UserBundle\Entity\Operator) ) {
+                    $parent->setUnseenRepliesByOperators($parent->getUnseenRepliesByOperators() + 1);
+                }
+                if( !($user instanceof \Darkish\CustomerBundle\Entity\Customer) ) {
+                    $parent->setUnseenRepliesByCustomers($parent->getUnseenRepliesByCustomers() + 1);
+                }
                 $entityManager->persist($parent);
                 $entityManager->flush();
             }

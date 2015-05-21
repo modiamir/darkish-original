@@ -47,7 +47,7 @@ class ClassifiedClassifiedTree
     /**
      * @ORM\ManyToOne(targetEntity="ClassifiedTree",  inversedBy="mainclassifieds")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details"})
+     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details", "api.list"})
      **/
     private $tree;
     
@@ -55,7 +55,7 @@ class ClassifiedClassifiedTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details"})
+     * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details", "api.list"})
      */
     private $sort;
 
