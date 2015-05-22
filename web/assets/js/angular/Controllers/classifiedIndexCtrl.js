@@ -2541,7 +2541,7 @@ angular.module('ClassifiedApp', ['treeControl', 'ui.grid', 'smart-table', 'btfor
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
+                    uploadableExtensions = ["jpg", "jpeg", "png"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
