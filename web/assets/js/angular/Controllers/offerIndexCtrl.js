@@ -2539,7 +2539,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
+                    uploadableExtensions = ["jpg", "jpeg", "png"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
