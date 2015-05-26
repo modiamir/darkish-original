@@ -127,13 +127,16 @@ class DefaultController extends Controller
                 }
                 break;
 
-            case 'comments-item-photo-modal.html':
-                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
-                if($assistantAccess->contains($role)) {
-                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
-                } else {
-                    throw new AccessDeniedException();
-                }
+            case 'photo-modal.html':
+                return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                break;
+
+            case 'video-modal.html':
+                return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                break;
+
+            case 'audio-modal.html':
+                return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
                 break;
 
             case 'comments-child-item.html':
@@ -365,7 +368,7 @@ class DefaultController extends Controller
                 }
                 break;
 
-            case 'users.html':
+            case 'user.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
                 if($assistantAccess->contains($role)) {
                     return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
@@ -373,6 +376,35 @@ class DefaultController extends Controller
                     throw new AccessDeniedException();
                 }
                 break;
+
+            case 'user-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+            case 'user-create.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+
+
+
+            case 'user-item-list.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(8);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;  
 
             default:
                 # code...
@@ -804,8 +836,8 @@ class DefaultController extends Controller
 
             if($request->files->has('file')) {
                 $ufile = $request->files->get('file');
-                
-                if(substr($ufile->getMimeType(), 0, 5) != 'image') {
+                // die(substr($ufile->getMimeType(), 0, 5) .' : '. (substr($ufile->getMimeType(), 0, 5) == 'video'));
+                if((substr($ufile->getMimeType(), 0, 5) == 'audio') || (substr($ufile->getMimeType(), 0, 5) == 'video')) {
                     $tmpName = time().'-'.rand(100000,999999).'.'.$ufile->getClientOriginalExtension();
                     $ufile->move('/tmp', $tmpName);
                     $ufile = new File('/tmp/'.$tmpName, true);
@@ -819,7 +851,7 @@ class DefaultController extends Controller
                             ->format($ufile->getRealPath()) // extracts file informations
                             ->get('duration');             // returns the duration property
 
-                        if( $duration > 300) {
+                        if( $duration > 600) {
                             // return new Response("طول فایل بارگذاری شده نباید بیشتر از ۵ دقیقه باشد.", 500);
                             throw new \Exception("طول فایل بارگذاری شده نباید بیشتر از ۵ دقیقه باشد.", 445);
                         }
@@ -898,6 +930,10 @@ class DefaultController extends Controller
             }
             if($request->request->has('uploadKey')) {
                 $file->setUploadKey($request->get('uploadKey'));
+            }
+
+            if($request->request->has('title')) {
+                $file->setTitle($request->get('title'));
             }
 
             if($request->request->has('uploadDir')){

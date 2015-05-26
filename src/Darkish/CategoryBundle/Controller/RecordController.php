@@ -1440,24 +1440,39 @@ class RecordController extends Controller
         /* @var $repository \Darkish\CategoryBundle\Entity\RecordRepository */
         $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
         $qb = $repository->createQueryBuilder('r');
-        $qb->select('r.recordNumber')->orderBy('r.recordNumber','Desc')->setMaxResults(1);
+        $qb->orderBy('r.id','Desc')->setMaxResults(1);
 
 
 
         $res = $qb->getQuery()->getResult();
-        $recordNumber = (count($res))? (int)$res[0]['recordNumber'] : 0;
+        $record = (count($res))? $res[0] : null;
 
         $repository2 = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordLock');
         $qb2 = $repository2->createQueryBuilder('rl');
-        $qb2->select('rl.recordNumber')->orderBy('rl.recordNumber','Desc')->setMaxResults(1);
+        $qb2->orderBy('rl.created','Desc')->setMaxResults(1);
 
         $res2 = $qb2->getQuery()->getResult();
+        if(count($res2)) {
+            $qb3 = $repository->createQueryBuilder('r');
+            $qb3->select('r.id, r.recordNumber')->where('r.recordNumber = :rn')->setParameter('rn', $res2[0]->getRecordNumber())
+                ->orderBy('r.id','Desc')->setMaxResults(1);    
+            $record2 = $res2[0];
+        } else {
+            
+            $record2 =  null;
+        }
+        
+        if(!$record) {
+            $biggerRecord = $record2;
+        } elseif(!$record2) {
+            $biggerRecord = $record;
+        } else {
+            $biggerRecord = ($record->getId() > $record2->getId())? $record : $record2;            
+        }
+        
 
-        $recordNumber2 = (count($res2)) ? (int)$res2[0]['recordNumber'] : 0;
-
-        $biggerRecordNumber = ($recordNumber > $recordNumber2)? $recordNumber : $recordNumber2;
-
-        $biggerRecordNumber++;
+        $biggerRecordNumber = (int)$biggerRecord->getRecordNumber() + 1;
+        
         $count = strlen($biggerRecordNumber);
         $numOfZeros = 6 - $count;
 
