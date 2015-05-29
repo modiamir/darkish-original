@@ -25,6 +25,14 @@ customerApp.controller('CommentsCtrl', ['$scope', '$http', '$state', '$filter',
 		});
 	}
 
+	$scope.claimTypes = [];
+	$http.get('./customer/ajax/comment/get_claim_types').then(
+		function(response){
+			$scope.claimTypes = response.data;
+		}, 
+		function(responseErr){}
+	);
+
 	$scope.setUnseenByCustomers = function(comments) {
 		var unseenComments = $filter('filter')(comments, {unseen_by_customers: true});
 		if(unseenComments.length > 0) {
@@ -254,11 +262,11 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDia
 		$scope.replyFormDirty = true;
 	}
 
-	$scope.setClaim = function(comment) {
+	$scope.setClaim = function(comment, claimType) {
 
 		$http({
 			method: 'POST',
-			url: 'customer/ajax/comment/set_claim/'+comment.id,
+			url: 'customer/ajax/comment/set_claim/'+comment.id+'/'+claimType.id,
 			headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 			data: $.param({_method: 'POST'})
 		}).then(
@@ -311,31 +319,9 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDia
 		);
 	}
 
-	$scope.clickToOpen = function (photos, index) {
-        ngDialog.open({ 
-        	template: 'customer/template/comments-item-photo-modal.html',
-        	className: 'ngdialog-theme-default custom-width',
-        	controller: 'CommentsPhotoModalCtrl', 
-        	resolve: {
-        		photos: function() {
-		            return photos;
-		        },
-		        index: function() {
-		        	return index;
-		        }
-        	}
-        });
-    };
+
 }])
 
 customerApp.controller('CommentsChildCtrl', ['$scope', '$http', function($scope, $http){
 }])
-
-customerApp.controller('CommentsPhotoModalCtrl', ['$scope', '$http', 'photos', 'index', function($scope, $http, photos, index){
-	$scope.photos = photos;
-	$scope.index = index;
-
-
-}])
-
 

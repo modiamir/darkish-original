@@ -140,6 +140,7 @@ body {
                     h4 {
                         line-height: 60px;
                         margin: 0;
+                        font-size: 3vw;
                     }
                 }
 
@@ -1141,7 +1142,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     body {
         padding-top: 70px;
         &.messages, &.store, &.store-edit, &.store-details,
-        &.store-productdetails, &.store-editproduct, &.store-create {
+        &.store-productdetails, &.store-editproduct, &.store-create, &.user, &.comments-all, 
+        &.comments-news, &.attachments, &.database, &.database-create, &.database-itemdetails,
+        &.database-itemedit, &.htmlpage, &.user-edit, &.user-create {
             padding-top: 120px;    
         }
 
@@ -1443,3 +1446,56 @@ textarea {
         }
     }    
 }
+
+
+
+.ngdialog.ngdialog-theme-default {
+    padding-top: 40px;
+    .ngdialog-content {
+        // width: 80%;
+        .photo-modal, .video-modal, .audio-modal {
+            position: relative;
+            min-height: 100px;
+            button.btn {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                border-radius: 0;
+                outline: none !important;
+                border: 0;
+                width: 60px;
+                background: rgba(0,0,0,0.3);
+                padding: 0;
+                &:hover {
+                    background: rgba(0,0,0,0.5);
+                }
+                &.previous-btn {
+                    right: 0;
+                }
+                &.next-btn {
+                    left: 0;
+                }
+                .dk {
+                    font-size: 60px;
+                }
+                &[disabled] {
+                    background: rgba(0,0,0,0.1);
+                    .dk {
+                        color: rgb(132, 132, 132);
+                    }
+                }
+            }
+
+            img, video, audio {
+                max-width: 100%;
+                display: block;
+                margin: auto;
+            }
+        }
+        
+
+
+    }   
+}
+
+

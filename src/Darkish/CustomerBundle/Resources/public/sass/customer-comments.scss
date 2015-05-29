@@ -47,8 +47,10 @@
 					padding-bottom: 10px;
 					border-bottom: 1px solid #C0C0C0;
 					.media {
+						overflow: visible;
 						&.pending {
-							background-color: red;
+							background-color: rgba(255, 194, 194, 0.17);
+							padding: 3px;
 						}
 						.media-left {
 							img {
@@ -59,6 +61,7 @@
 						}
 						.media-body {
 							font-size: 13px;
+							overflow: visible;
 							span.comment-id {
 								float: right;
 								margin-left: 20px;
@@ -139,14 +142,14 @@
 							.children {
 								a {
 									cursor: pointer;
-									margin: 10px 0;
-									display: block;
+									// margin: 10px 0;
+									// display: block;
 
 								}
-								ul {
-									max-height: 300px;
-									overflow-y: scroll;
-									li {
+								ul.children-list {
+									// max-height: 300px;
+									// overflow-y: scroll;
+									li.child-item {
 										border-bottom: 1px solid #D4D4D4;
 										margin-bottom: 5px;
 										padding-bottom: 5px;
@@ -180,30 +183,3 @@
 	}
 }
 
-
-.ngdialog.ngdialog-theme-default {
-	padding-top: 40px;
-	.ngdialog-content {
-		width: 80%;
-		img {
-			width: 100%;
-		}
-	}	
-}
-
-
-.comment-photo-modal {
-	position: relative;
-	button.btn {
-		position: absolute;
-		top: 40%;
-		border-radius: 0;
-		outline: none !important;
-		&.previous-btn {
-			right: 0;
-		}
-		&.next-btn {
-			left: 0;
-		}
-	}
-}

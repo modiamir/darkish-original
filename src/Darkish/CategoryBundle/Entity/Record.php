@@ -856,7 +856,7 @@ class Record
     private $icon;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile", inversedBy="recordAsBodyImage")
      * @ORM\JoinTable(name="records_body_images",
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}

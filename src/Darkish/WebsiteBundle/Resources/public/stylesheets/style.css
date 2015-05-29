@@ -1,0 +1,264 @@
+@font-face {
+  font-family: 'BMitra';
+  src: url("../fonts/BMitra.eot");
+  src: url("../fonts/BMitra.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitra.woff") format("woff"), url("../fonts/BMitra.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BMitraBold';
+  src: url("../fonts/BMitraBold.eot");
+  src: url("../fonts/BMitraBold.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitraBold.woff") format("woff"), url("../fonts/BMitraBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BRoya';
+  src: url("../fonts/BRoya.eot");
+  src: url("../fonts/BRoya.eot?#iefix") format("embedded-opentype"), url("../fonts/BRoya.woff") format("woff"), url("../fonts/BRoya.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTabassom';
+  src: url("../fonts/BTabassom.eot");
+  src: url("../fonts/BTabassom.eot?#iefix") format("embedded-opentype"), url("../fonts/BTabassom.woff") format("woff"), url("../fonts/BTabassom.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTitr';
+  src: url("../fonts/BTitr.eot");
+  src: url("../fonts/BTitr.eot?#iefix") format("embedded-opentype"), url("../fonts/BTitr.woff") format("woff"), url("../fonts/BTitr.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTitrTGE';
+  src: url("../fonts/BTitrTGE.eot");
+  src: url("../fonts/BTitrTGE.eot?#iefix") format("embedded-opentype"), url("../fonts/BTitrTGE.woff") format("woff"), url("../fonts/BTitrTGE.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BYekan';
+  src: url("../fonts/BYekan.eot");
+  src: url("../fonts/BYekan.eot?#iefix") format("embedded-opentype"), url("../fonts/BYekan.woff") format("woff"), url("../fonts/BYekan.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTraffic';
+  src: url("../fonts/BTraffic.eot");
+  src: url("../fonts/BTraffic.eot?#iefix") format("embedded-opentype"), url("../fonts/BTraffic.woff") format("woff"), url("../fonts/BTraffic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BNasim';
+  src: url("../fonts/BNasim.eot");
+  src: url("../fonts/BNasim.eot?#iefix") format("embedded-opentype"), url("../fonts/BNasim.woff") format("woff"), url("../fonts/BNasim.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* line 104, ../sass/style.scss */
+body {
+  font-family: BMitra;
+  min-width: 992px;
+}
+/* line 107, ../sass/style.scss */
+body #main-menu {
+  min-width: 992px;
+  height: 60px;
+  min-height: 40px;
+  text-align: center;
+  z-index: 10000;
+  height: 60px;
+  background-color: #fafafa;
+  border-bottom: 2px solid #bababa;
+  transition: height 0.3s;
+  -webkit-transition: height 0.3s;
+  -moz-transition: height 0.3s;
+  -o-transition: height 0.3s;
+  -ms-transition: height 0.3s;
+  transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  -ms-transition-timing-function: ease-in-out;
+  margin-bottom: 0;
+}
+/* line 131, ../sass/style.scss */
+body #main-menu .container {
+  min-width: 992px;
+  width: 100%;
+  padding: 0 20px;
+  height: 60px;
+}
+/* line 137, ../sass/style.scss */
+body #main-menu .container .navbar-header .navbar-brand {
+  padding: 0;
+}
+/* line 139, ../sass/style.scss */
+body #main-menu .container .navbar-header .navbar-brand img.logo {
+  width: 150px;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+}
+/* line 150, ../sass/style.scss */
+body #main-menu .container #main-navigation {
+  font-size: 20px;
+  margin: auto;
+  display: inline-block !important;
+  margin-right: -150px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  height: 60px !important;
+}
+/* line 160, ../sass/style.scss */
+body #main-menu .container #main-navigation .navbar-nav {
+  height: 60px;
+}
+/* line 162, ../sass/style.scss */
+body #main-menu .container #main-navigation .navbar-nav li {
+  height: 60px;
+}
+/* line 164, ../sass/style.scss */
+body #main-menu .container #main-navigation .navbar-nav li a {
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 60px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  height: 60px !important;
+}
+/* line 175, ../sass/style.scss */
+body #main-menu .container #main-navigation .navbar-nav li.active a {
+  border-bottom: 2px solid;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  height: 60px !important;
+}
+/* line 191, ../sass/style.scss */
+body #main-menu.mini {
+  height: 40px !important;
+}
+/* line 193, ../sass/style.scss */
+body #main-menu.mini .container {
+  height: 40px;
+}
+/* line 197, ../sass/style.scss */
+body #main-menu.mini .container .navbar-header .navbar-brand img.logo {
+  width: 100px;
+}
+/* line 202, ../sass/style.scss */
+body #main-menu.mini .container #main-navigation {
+  margin-right: -100px;
+  height: 40px;
+}
+/* line 205, ../sass/style.scss */
+body #main-menu.mini .container #main-navigation .navbar-nav {
+  height: 40px;
+}
+/* line 207, ../sass/style.scss */
+body #main-menu.mini .container #main-navigation .navbar-nav li {
+  height: 40px;
+}
+/* line 209, ../sass/style.scss */
+body #main-menu.mini .container #main-navigation .navbar-nav li a {
+  line-height: 40px;
+  height: 40px !important;
+}
+/* line 223, ../sass/style.scss */
+body #fullpage .section#section-1 {
+  position: relative;
+}
+/* line 226, ../sass/style.scss */
+body #fullpage .section#section-1 > div {
+  padding-top: 60px;
+}
+/* line 234, ../sass/style.scss */
+body #fullpage .section#section-1 .main-slideshow #myCarousel .carousel-inner .item .container .carousel-caption {
+  font-family: BYekan;
+}
+/* line 236, ../sass/style.scss */
+body #fullpage .section#section-1 .main-slideshow #myCarousel .carousel-inner .item .container .carousel-caption h1 {
+  font-family: BTitrTGE;
+}
+/* line 246, ../sass/style.scss */
+body #fullpage .section#section-1 .offer-slider-wrapper {
+  margin: auto;
+  position: absolute;
+  bottom: 20px;
+  left: 5%;
+  right: 5%;
+  height: 20%;
+}
+/* line 253, ../sass/style.scss */
+body #fullpage .section#section-1 .offer-slider-wrapper .item {
+  float: right;
+  width: 25%;
+}
+/* line 256, ../sass/style.scss */
+body #fullpage .section#section-1 .offer-slider-wrapper .item .offer-bg {
+  height: 100%;
+  width: 70%;
+  margin: auto;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.7;
+  transition: 1s;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  -ms-transition: 1s;
+  transition: 1s;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -ms-transition-property: all;
+}
+/* line 274, ../sass/style.scss */
+body #fullpage .section#section-1 .offer-slider-wrapper .item .offer-bg:hover {
+  opacity: 1;
+}
+/* line 283, ../sass/style.scss */
+body #fullpage .section > div {
+  padding-top: 40px;
+}
+/* line 286, ../sass/style.scss */
+body #fullpage .section h1 {
+  text-align: center;
+  color: white;
+}
+/* line 290, ../sass/style.scss */
+body #fullpage .section:nth-child(2n+3) {
+  background: blue;
+}
+/* line 293, ../sass/style.scss */
+body #fullpage .section:nth-child(2n) {
+  background: red;
+}
+
+/* line 302, ../sass/style.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: BMitra;
+}

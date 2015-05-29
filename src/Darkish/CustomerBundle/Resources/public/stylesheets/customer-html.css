@@ -1,0 +1,80 @@
+/* line 7, ../sass/customer-html.scss */
+.html-page .master.file-list .upload-input-group {
+  border-radius: 4px 4px 0 0;
+}
+/* line 9, ../sass/customer-html.scss */
+.html-page .master.file-list .upload-input-group input {
+  border-radius: 0 4px 0 0;
+  border: 2px solid #E9E9E9;
+}
+/* line 13, ../sass/customer-html.scss */
+.html-page .master.file-list .upload-input-group label {
+  border-radius: 4px 0 0 0;
+  border: 2px solid #E9E9E9;
+}
+/* line 16, ../sass/customer-html.scss */
+.html-page .master.file-list .upload-input-group label.btn {
+  color: #48c6a9;
+}
+/* line 22, ../sass/customer-html.scss */
+.html-page .master.file-list .progress {
+  border-radius: 0;
+  margin-bottom: 0;
+  background-color: #E9E9E9;
+}
+/* line 27, ../sass/customer-html.scss */
+.html-page .master.file-list .remaining-uploads {
+  background-color: #e9e9e9;
+  padding: 0 10px;
+  color: #48c6a9;
+}
+/* line 32, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner {
+  border-radius: 0 0 4px 4px;
+}
+/* line 35, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item {
+  margin: 5px 2px;
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  padding: 5px 10px;
+}
+/* line 41, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item .image-item-list img {
+  width: 25%;
+  float: right;
+  margin-left: 5%;
+}
+/* line 58, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item .media-item-list {
+  display: inline-block;
+  width: 100%;
+}
+/* line 61, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item .media-item-list .dk {
+  width: 25%;
+  font-size: 64px;
+  float: right;
+  margin-left: 5%;
+}
+/* line 67, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item .media-item-list .file-name-btns {
+  float: right;
+  width: 70%;
+}
+/* line 70, ../sass/customer-html.scss */
+.html-page .master.file-list .master-inner ul.files-list li.file-item .media-item-list .file-name-btns span.file-name {
+  float: right;
+  clear: both;
+  font-size: 12px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* line 87, ../sass/customer-html.scss */
+.html-page .details .details-header .return-button {
+  color: black;
+}
+/* line 91, ../sass/customer-html.scss */
+.html-page .details .details-inner {
+  padding: 0;
+}

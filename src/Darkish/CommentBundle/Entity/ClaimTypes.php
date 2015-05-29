@@ -28,6 +28,15 @@ class ClaimTypes
      */
     private $label;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="only_customer", type="boolean", length=255, nullable=true, options={"default" = false})
+     */
+    private $onlyCustomer;
+
+
+
 
     /**
      * Get id
@@ -60,5 +69,28 @@ class ClaimTypes
     public function getLabel()
     {
         return $this->label;
+    }
+
+    /**
+     * Set onlyCustomer
+     *
+     * @param boolean $onlyCustomer
+     * @return ClaimTypes
+     */
+    public function setOnlyCustomer($onlyCustomer)
+    {
+        $this->onlyCustomer = $onlyCustomer;
+
+        return $this;
+    }
+
+    /**
+     * Get onlyCustomer
+     *
+     * @return boolean 
+     */
+    public function getOnlyCustomer()
+    {
+        return $this->onlyCustomer;
     }
 }

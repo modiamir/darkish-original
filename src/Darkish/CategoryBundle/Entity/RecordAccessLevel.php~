@@ -39,6 +39,44 @@ class RecordAccessLevel
 
 
     /**
+     * @ORM\Column(name="body_images_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $bodyImagesLimit;
+
+    /**
+     * @ORM\Column(name="body_videos_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $bodyVideosLimit;
+
+    /**
+     * @ORM\Column(name="body_audios_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $bodyAudiosLimit;
+
+    /**
+     * @ORM\Column(name="body_docs_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $bodyDocsLimit;
+
+    /**
+     * @ORM\Column(name="attachment_images_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $attachmentImagesLimit;
+
+    /**
+     * @ORM\Column(name="attachment_videos_limit", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $attachmentVideosLimit;
+
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -69,5 +107,141 @@ class RecordAccessLevel
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->customerRoles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add customerRoles
+     *
+     * @param \Darkish\CustomerBundle\Entity\CustomerRole $customerRoles
+     * @return RecordAccessLevel
+     */
+    public function addCustomerRole(\Darkish\CustomerBundle\Entity\CustomerRole $customerRoles)
+    {
+        $this->customerRoles[] = $customerRoles;
+
+        return $this;
+    }
+
+    /**
+     * Remove customerRoles
+     *
+     * @param \Darkish\CustomerBundle\Entity\CustomerRole $customerRoles
+     */
+    public function removeCustomerRole(\Darkish\CustomerBundle\Entity\CustomerRole $customerRoles)
+    {
+        $this->customerRoles->removeElement($customerRoles);
+    }
+
+    /**
+     * Get customerRoles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomerRoles()
+    {
+        return $this->customerRoles;
+    }
+
+    /**
+     * Set bodyImagesLimit
+     *
+     * @param integer $bodyImagesLimit
+     *
+     * @return RecordAccessLevel
+     */
+    public function setBodyImagesLimit($bodyImagesLimit)
+    {
+        $this->bodyImagesLimit = $bodyImagesLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyImagesLimit
+     *
+     * @return integer
+     */
+    public function getBodyImagesLimit()
+    {
+        return $this->bodyImagesLimit;
+    }
+
+    /**
+     * Set bodyVideosLimit
+     *
+     * @param integer $bodyVideosLimit
+     *
+     * @return RecordAccessLevel
+     */
+    public function setBodyVideosLimit($bodyVideosLimit)
+    {
+        $this->bodyVideosLimit = $bodyVideosLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyVideosLimit
+     *
+     * @return integer
+     */
+    public function getBodyVideosLimit()
+    {
+        return $this->bodyVideosLimit;
+    }
+
+    /**
+     * Set bodyAudiosLimit
+     *
+     * @param integer $bodyAudiosLimit
+     *
+     * @return RecordAccessLevel
+     */
+    public function setBodyAudiosLimit($bodyAudiosLimit)
+    {
+        $this->bodyAudiosLimit = $bodyAudiosLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyAudiosLimit
+     *
+     * @return integer
+     */
+    public function getBodyAudiosLimit()
+    {
+        return $this->bodyAudiosLimit;
+    }
+
+    /**
+     * Set bodyDocsLimit
+     *
+     * @param integer $bodyDocsLimit
+     *
+     * @return RecordAccessLevel
+     */
+    public function setBodyDocsLimit($bodyDocsLimit)
+    {
+        $this->bodyDocsLimit = $bodyDocsLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyDocsLimit
+     *
+     * @return integer
+     */
+    public function getBodyDocsLimit()
+    {
+        return $this->bodyDocsLimit;
     }
 }

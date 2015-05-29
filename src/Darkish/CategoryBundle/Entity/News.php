@@ -271,7 +271,7 @@ class News
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.list"})
      **/
     private $images;
     

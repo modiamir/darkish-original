@@ -44,14 +44,17 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog-theme-default.min.css') ?>" rel="stylesheet" type="text/css" />
 
-
+    <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
 
 
 
     <!-- Custom styles for this template -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-database.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-user.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-comments.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-html.css') ?>" rel="stylesheet">
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/customer-attachment.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/rtl.css') ?>" rel="stylesheet">
     <!-- <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/angular-material-rtl.css') ?>" rel="stylesheet"> -->
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/font-darkish.css') ?>" rel="stylesheet">
@@ -94,7 +97,7 @@
                 </div>
                 <div class="col col-xs-2 user-menu-button">
                     <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
-                    <a ng-src="{{user.photo.icon_absolute_path}}" href="#" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
+                    <a ng-src="{{user.photo.icon_absolute_path}}" href="" class="dropdown-toggle collapsed" data-toggle="collapse" role="button" data-target="#navbar-collapse-user-menu" aria-expanded="false"><img width="56" height="56" class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                     
                 </div>
                 <div class="col col-xs-12 user-menu">
@@ -141,8 +144,8 @@
                                 <li ng-class="{'active': (state.current.name == 'store')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
                                 
-                                <li ng-class="{'active': (state.current.name == 'users')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="users">کاربران</a></li>
+                                <li ng-class="{'active': (state.current.name == 'user')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="user">کاربران</a></li>
                         </ul>
                     </div>
                 </div>
@@ -185,8 +188,8 @@
                                 <li ng-class="{'active': (state.current.name == 'store')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_STORE') > -1"><a ui-sref="store">فروشگاه آنلاین</a></li>
                                 
-                                <li ng-class="{'active': (state.current.name == 'users')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="users">کاربران</a></li>
+                                <li ng-class="{'active': (state.current.name == 'user')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="user">کاربران</a></li>
                                 
                             </ul>
                         </li>
@@ -211,7 +214,7 @@
                         <li><span class="navbar-text favoritcount"><div class="dk icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span></li>
                         <li class="dropdown">
                             <?php $imageUrl = ($app->getUser()->getPhoto())? $app->getUser()->getPhoto()->getIconAbsolutePath() : $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg'); ?>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img class="photo-icon" src="<?php echo $imageUrl; ?>" /> <!-- <span class="caret"></span> --></a>
                             <ul class="dropdown-menu dropdown-menu-left" role="menu">
                                 <li ng-class="{'active': (state.current.name == 'editprofile')}"><a ui-sref="editprofile">ویرایش پروفایل</a></li>
                                 <li role="presentation" class="divider"></li>
@@ -283,6 +286,9 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ang-accordion/js/ang-accordion.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-sortable/dist/ng-sortable.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/js/ngDialog.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-ckeditor/libs/ckeditor/ckeditor.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ng-ckeditor/ng-ckeditor.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-validation-match/dist/angular-input-match.js') ?>"></script>
 
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-touch/angular-touch.js') ?>"></script> -->
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-loading-bar/build/loading-bar.js') ?>"></script>
@@ -297,7 +303,10 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-database-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-user-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-comments-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-html-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-attachment-ctrl.js') ?>" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).keydown(function(e) {
             var nodeName = e.target.nodeName.toLowerCase();
@@ -305,6 +314,7 @@
             if (e.which === 8) {
                 if ((nodeName === 'input' && e.target.type === 'text') || 
                     (nodeName === 'input' && e.target.type === 'number') || 
+                    (nodeName === 'input' && e.target.type === 'password') || 
                     nodeName === 'textarea') {
                     // do nothing
                 } else {

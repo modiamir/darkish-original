@@ -1,0 +1,73 @@
+/* line 2, ../sass/slideshow.scss */
+.carousel, .item, .active {
+  height: 100%;
+}
+
+/* line 5, ../sass/slideshow.scss */
+.carousel-inner {
+  height: 100%;
+}
+
+/* line 8, ../sass/slideshow.scss */
+.carousel {
+  margin-bottom: 60px;
+}
+
+/* line 11, ../sass/slideshow.scss */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* line 14, ../sass/slideshow.scss */
+.carousel .item {
+  background-color: #777;
+}
+
+/* line 17, ../sass/slideshow.scss */
+.carousel .carousel-inner .bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* line 21, ../sass/slideshow.scss */
+.carousel .carousel-inner .bg1 {
+  background-image: url(../images/1.jpg);
+  background-position: center top;
+}
+
+/* line 25, ../sass/slideshow.scss */
+.carousel .carousel-inner .bg2 {
+  background-image: url(../images/2.jpg);
+  background-position: center center;
+}
+
+/* line 29, ../sass/slideshow.scss */
+.carousel .carousel-inner .bg3 {
+  background-image: url(../images/3.jpg);
+  background-position: center bottom;
+}
+
+/* line 34, ../sass/slideshow.scss */
+.carousel-caption {
+  z-index: 10;
+  bottom: inherit;
+  top: 20%;
+}
+
+/* line 40, ../sass/slideshow.scss */
+.carousel-indicators {
+  bottom: inherit;
+  top: 15%;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+@media (min-width: 768px) {
+  /* Bump up size of carousel content */
+  /* line 54, ../sass/slideshow.scss */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+}
