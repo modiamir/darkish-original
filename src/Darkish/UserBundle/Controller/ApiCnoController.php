@@ -210,7 +210,10 @@ class ApiCnoController extends FOSRestController
      *  description="This is get html api for 'News', 'Classified' and 'Offer' and 'Record' HTML",
      *  
      * )
-     * @Get("get_html/{type}/{id}")
+     * @Get("get_html/{type}/{id}", requirements={
+     *     "id": "\d+",
+     *     "type":"news|record|offer|classified"
+     * })
      */
     public function getHtmlAction($type, $id) {
 
