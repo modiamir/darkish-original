@@ -1,3 +1,7 @@
+darkish_website:
+    resource: "@DarkishWebsiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 darkish_comment:
     resource: "@DarkishCommentBundle/Controller/"
     type:     annotation
@@ -39,7 +43,7 @@ darkish_api_cno:
     prefix:   api/rest/cno
 
 darkish_user:
-    resource: "@DarkishUserBundle/Controller/"
+    resource: "Darkish\UserBundle\Controller\OperatorController"
     type:     annotation
     prefix:   /
     
