@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\RestBundle\Controller\Annotations\Prefix,
@@ -36,6 +37,40 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ApiCnoController extends FOSRestController
 {
     /**
+     * [
+     *{
+     *   "id": 1103,
+     *   "title": "تست",
+     *   "sub_title": "شسیشی",
+     *   "publish_date": "2015-05-20T13:52:24+0430",
+     *   "audio": false,
+     *   "video": false,
+     *   "newstrees": [
+     *       {
+     *           "tree": {
+     *               "id": 184,
+     *               "tree_index": "001702",
+     *               "title": "فيلم و کليپ"
+     *           },
+     *           "sort": "60"
+     *       }
+     *   ],
+     *   "images": [
+     *       {
+     *           "icon_absolute_path": "http://localhost/n-darkish/web/media/cache/icon_thumb/uploads/image/news-1432129959-27896.png",
+     *           "file_name": "news-1432129959-27896.png"
+     *       },
+     *       {
+     *           "icon_absolute_path": "http://localhost/n-darkish/web/media/cache/icon_thumb/uploads/image/news-1432129960-72078.png",
+     *           "file_name": "news-1432129960-72078.png"
+     *       },
+     *       {
+     *           "icon_absolute_path": "http://localhost/n-darkish/web/media/cache/icon_thumb/uploads/image/news-1432129961-92249.png",
+     *           "file_name": "news-1432129961-92249.png"
+     *       }
+     *   ]
+     *   }
+     *]
      * @Post("search")
      * @View(serializerGroups={"api.list"})
      * @ApiDoc(
@@ -53,12 +88,11 @@ class ApiCnoController extends FOSRestController
      */
     public function searchAction (Request $request) {
 
-
+        return $this->container->getParameter('darkish.comment');
         /**
          * Fetching data from request and convert data to array
          */
         $data = $request->request->getIterator()->getArrayCopy();
-
 
         // create a collection of constraints
         $collectionConstraint = new Assert\Collection(array(
@@ -115,7 +149,6 @@ class ApiCnoController extends FOSRestController
         }
         
         
-
         switch ($data['type']) {
             case 'offer':
                 $entityClass = 'DarkishCategoryBundle:Offer';
@@ -168,6 +201,83 @@ class ApiCnoController extends FOSRestController
         $qb->setFirstResult($data['offset']);
 
         return $qb->getQuery()->getResult();
+        
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="This is get html api for 'News', 'Classified' and 'Offer' and 'Record' HTML",
+     *  
+     * )
+     * @Get("get_html/{type}/{id}")
+     */
+    public function getHtmlAction($type, $id) {
+
+        $data= array('type' => $type, 'id'=> $id);
+
+        $collectionConstraint = new Assert\Collection(array(
+            'type'          =>  array(
+                                    new Assert\NotBlank(),
+                                    new Assert\Choice(
+                                            array(
+                                                'choices' => array('offer', 'classified', 'news', 'record'),
+                                                'message' => "The value must be one of ('offer', 'classified', 'news', 'record')"
+                                            )
+                                        )
+                                ),
+            'id'        =>  array(
+                                    new Assert\NotBlank(),
+                                    new Assert\Type(array('type' => 'numeric')),
+                                    new Assert\Range(array('min'=> 1))
+                                )
+        ));
+        
+        //validate data with created validation constraint
+        $errorList = $this->get('validator')->validateValue($data, $collectionConstraint);
+
+
+        //check if there is any error and send error as response
+        if (count($errorList) != 0) {
+            $errors = array();
+            foreach ($errorList as $error) {
+                // getPropertyPath returns form [email], so we strip it
+                $field = substr($error->getPropertyPath(), 1, -1);
+
+                $errors[$field] = $error->getMessage();
+            }
+
+            return array('success' => false, 'errors' => $errors);
+        }
+
+        switch ($data['type']) {
+            case 'offer':
+                $entityClass = 'DarkishCategoryBundle:Offer';
+                break;
+
+            case 'classified':
+                $entityClass = 'DarkishCategoryBundle:Classified';
+                break;
+
+            case 'news':
+                $entityClass = 'DarkishCategoryBundle:News';
+                break;
+
+            case 'record':
+                $entityClass = 'DarkishCategoryBundle:Record';
+                break;
+        }
+
+        $qb = $this->getDoctrine()->getRepository($entityClass)->createQueryBuilder('cno');
+        $qb->select('cno.body')->where('cno.id = :id')->setParameter('id', $id)->setMaxResults(1);
+
+        $result = $qb->getQuery()->getResult();
+
+        if(count($result) <= 0) {
+            throw new HttpException("Entity doesn't exists", 404);
+        }
+
+        return new JsonResponse($result[0]);
         
     }
 
