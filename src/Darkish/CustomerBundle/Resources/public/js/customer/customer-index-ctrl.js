@@ -1,7 +1,7 @@
 var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
-                , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ngDialog']);
+                , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ngDialog', 'ngCkeditor', 'validation.match']);
 
 customerApp.run(function(amMoment) {
     amMoment.changeLocale('fa');
@@ -271,6 +271,30 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       controller: "HtmlPageCtrl",
       data: {
       	label: 'صفحه آنلاین'
+      },
+      resolve: {
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/html/get_record_details'})
+             .then (function (response) {
+                return response.data;
+             });
+        }
+      }
+    })
+    .state('attachments', {
+      url: "/attachments",
+      templateUrl: "customer/template/attachments.html",
+      controller: "AttachmentsCtrl",
+      data: {
+        label: 'فایل ها'
+      },
+      resolve: {
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/attachment/get_record_details'})
+             .then (function (response) {
+                return response.data;
+             });
+        }
       }
     })
     .state('messages', {
@@ -307,14 +331,6 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       url: "/news",
       templateUrl: "customer/template/comments-news.html",
       controller: "CommentsNewsCtrl"
-    })
-    .state('attachments', {
-      url: "/attachments",
-      templateUrl: "customer/template/attachments.html",
-      controller: "AttachmentsCtrl",
-      data: {
-      	label: 'فایل ها'
-      }
     })
     .state('database', {
       url: "/database",
@@ -419,7 +435,45 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
         }
 
       }
+    })////////
+    .state('user', {
+      url: "/user",
+      templateUrl: "customer/template/user.html",
+      controller: "UserCtrl",
+      data: {
+        label: 'مدیریت کاربران'
+      },
+      resolve: {
+        accesses: function($http) {
+          return $http({method: 'GET', url: 'customer/ajax/assistant/get_roles'})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+
+
+      }
+    }).state('user.create', {
+      url: "/create",
+      templateUrl: "customer/template/user-create.html",
+      controller: "UserCreateCtrl"
+
     })
+    .state('user.edit', {
+      url: "/{uid:int}",
+      templateUrl: "customer/template/user-edit.html",
+      controller: "UserItemEditCtrl",
+      resolve: {
+        user: function($http, $stateParams) {
+          return $http({method: 'GET', url: 'customer/ajax/assistant/get_user/'+$stateParams.uid})
+             .then (function (response) {
+                return response.data;
+             });  
+        }
+
+      }
+    })
+    /////
     .state('store', {
       url: "/store",
       templateUrl: "customer/template/store.html",
@@ -479,19 +533,11 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "customer/template/store-create.html",
       controller: "StoreCreateCtrl"
 
-    })
-    .state('users', {
-      url: "/users",
-      templateUrl: "customer/template/users.html",
-      controller: "UsersCtrl",
-      data: {
-      	label: 'کاربران'
-      }
     });
 });
 
 
-customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', '$document', '$window', function($scope, $state, $http, $rootScope, $document, $window){
+customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope', '$document', '$window', 'ngDialog', function($scope, $state, $http, $rootScope, $document, $window, ngDialog){
   $http.get('customer/get_user').then(
     function(response){
 		  $scope.user = response.data;
@@ -552,6 +598,56 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
   $scope.pagetitle = function() {
     return "درکیش  | پنل مشتریان | " + (($state.current.data) ? $state.current.data.label:"");
   }
+
+
+  $scope.openPhotoModal = function (photos, index) {
+    ngDialog.open({ 
+      template: 'customer/template/photo-modal.html',
+      className: 'ngdialog-theme-default custom-width',
+      controller: 'PhotoModalCtrl', 
+      resolve: {
+        photos: function() {
+            return photos;
+        },
+        index: function() {
+          return index;
+        }
+      }
+    });
+  };
+
+  $scope.openVideoModal = function (videos, index) {
+    ngDialog.open({ 
+      template: 'customer/template/video-modal.html',
+      className: 'ngdialog-theme-default custom-width',
+      controller: 'VideoModalCtrl', 
+      resolve: {
+        videos: function() {
+            return videos;
+        },
+        index: function() {
+          return index;
+        }
+      }
+    });
+  };
+
+
+  $scope.openAudioModal = function (audios, index) {
+    ngDialog.open({ 
+      template: 'customer/template/audio-modal.html',
+      className: 'ngdialog-theme-default custom-width',
+      controller: 'AudioModalCtrl', 
+      resolve: {
+        audios: function() {
+            return audios;
+        },
+        index: function() {
+          return index;
+        }
+      }
+    });
+  };
   
 }]);
 
@@ -731,14 +827,60 @@ customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAle
 
 }])
 
-customerApp.controller('HtmlPageCtrl', ['$scope', function($scope){
-	 
+
+
+customerApp.controller('PhotoModalCtrl', ['$scope', '$http', 'photos', 'index', function($scope, $http, photos, index){
+  $scope.photos = photos;
+  $scope.index = index;
+
+
+}])
+
+
+customerApp.controller('VideoModalCtrl', ['$scope', '$http', 'videos', 'index', function($scope, $http, videos, index){
+  $scope.videos = videos;
+  $scope.index = index;
+
+  $scope.next = function() {
+    $scope.index = $scope.index + 1;
+    var videoPlayer = document.getElementById('modal-video-player');
+    videoPlayer.src = $scope.videos[$scope.index].absolute_path;
+    videoPlayer.load();
+    // videoPlayer.play();
+  }
+
+  $scope.previous = function() {
+    $scope.index = $scope.index - 1;
+    var videoPlayer = document.getElementById('modal-video-player');
+    videoPlayer.src = $scope.videos[$scope.index].absolute_path;
+    videoPlayer.load();
+    // videoPlayer.play();
+  }
+
 }])
 
 
 
-customerApp.controller('AttachmentsCtrl', ['$scope', function($scope){
-	
+customerApp.controller('AudioModalCtrl', ['$scope', '$http', 'audios', 'index', function($scope, $http, audios, index){
+  $scope.audios = audios;
+  $scope.index = index;
+
+  $scope.next = function() {
+    $scope.index = $scope.index + 1;
+    var audioPlayer = document.getElementById('modal-audio-player');
+    audioPlayer.src = $scope.audios[$scope.index].absolute_path;
+    audioPlayer.load();
+    // audioPlayer.play();
+  }
+
+  $scope.previous = function() {
+    $scope.index = $scope.index - 1;
+    var audioPlayer = document.getElementById('modal-audio-player');
+    audioPlayer.src = $scope.audios[$scope.index].absolute_path;
+    audioPlayer.load();
+    // audioPlayer.play();
+  }
+
 }])
 
 

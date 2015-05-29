@@ -250,10 +250,10 @@ class ClientComment extends Comment
     /**
      * Set owner
      *
-     * @param \Darkish\CustomerBundle\Entity\Customer $owner
+     * @param \Darkish\UserBundle\Entity\Client $owner
      * @return CustomerComment
      */
-    public function setOwner(\Darkish\CustomerBundle\Entity\Customer $owner = null)
+    public function setOwner(\Darkish\UserBundle\Entity\Client $owner = null)
     {
         $this->owner = $owner;
 
@@ -263,7 +263,7 @@ class ClientComment extends Comment
     /**
      * Get owner
      *
-     * @return \Darkish\CustomerBundle\Entity\Customer 
+     * @return \Darkish\UserBundle\Entity\Client 
      */
     public function getOwner()
     {

@@ -1,0 +1,42 @@
+{
+  "name": "sequencejs",
+  "description": "JavaScript library that provides a simple CSS framework to create your own unique, animated themes for sliders, presentations, banners, accordions, and other step-based applications.",
+  "version": "2.0.0-beta.2",
+  "main": "scripts/sequence.min.js",
+  "license": "MIT",
+  "homepage": "http://sequencejs.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IanLunn/Sequence.git"
+  },
+  "bugs": "https://github.com/IanLunn/Sequence/issues",
+  "authors": [
+    "Ian Lunn <hello@ianlunn.co.uk>"
+  ],
+  "keywords": [
+    "sequence",
+    "sequence.js",
+    "slider",
+    "css3",
+    "slider",
+    "carousel",
+    "css3",
+    "carousel",
+    "animation",
+    "animation framework",
+    "css animation"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hammerjs": "2.0.4",
+    "imagesloaded": "3.1.5",
+    "respond": "^1.4.2"
+  }
+}

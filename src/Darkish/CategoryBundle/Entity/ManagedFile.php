@@ -56,6 +56,12 @@ class ManagedFile
     private $fileName;
 
     /**
+     * @ORM\Column(name="title", type="string", nullable=true)
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "api.list"})
+     */
+    private $title;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
@@ -109,14 +115,14 @@ class ManagedFile
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details", "api.list"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      */
     private $webAbsolutePath;
 
     /**
      *
      * @var string 
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details", "api.list"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
      */
     private $mobileAbsolutePath;
 
@@ -170,6 +176,10 @@ class ManagedFile
      */
     private $uploadDir;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Record", mappedBy="bodyImages")
+     */
+    private $recordAsBodyImage;
 
     /**
      * @var string
@@ -513,7 +523,7 @@ class ManagedFile
 
 
     /**
-     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "message.list", "message.details", "api.list"})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details", "classified.details", "customer.details", "message.list", "message.details"})
      * @VirtualProperty
      * @SerializedName("absolute_path")
      */
@@ -930,5 +940,63 @@ class ManagedFile
     public function getRecordForDbaseBanner()
     {
         return $this->recordForDbaseBanner;
+    }
+
+    /**
+     * Add recordAsBodyImage
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordAsBodyImage
+     *
+     * @return ManagedFile
+     */
+    public function addRecordAsBodyImage(\Darkish\CategoryBundle\Entity\Record $recordAsBodyImage)
+    {
+        $this->recordAsBodyImage[] = $recordAsBodyImage;
+
+        return $this;
+    }
+
+    /**
+     * Remove recordAsBodyImage
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $recordAsBodyImage
+     */
+    public function removeRecordAsBodyImage(\Darkish\CategoryBundle\Entity\Record $recordAsBodyImage)
+    {
+        $this->recordAsBodyImage->removeElement($recordAsBodyImage);
+    }
+
+    /**
+     * Get recordAsBodyImage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecordAsBodyImage()
+    {
+        return $this->recordAsBodyImage;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return ManagedFile
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

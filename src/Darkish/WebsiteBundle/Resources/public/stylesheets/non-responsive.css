@@ -1,0 +1,235 @@
+/* Template-specific stuff
+ *
+ * Customizations just for the template; these are not necessary for anything
+ * with disabling the responsiveness.
+ */
+/* Account for fixed navbar */
+/* line 15, ../sass/non-responsive.scss */
+body,
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  /* min-width: 970px; */
+}
+
+/* Don't let the lead text change font-size. */
+/* line 20, ../sass/non-responsive.scss */
+.lead {
+  font-size: 16px;
+}
+
+/* Finesse the page header spacing */
+/* line 25, ../sass/non-responsive.scss */
+.page-header {
+  margin-bottom: 30px;
+}
+
+/* line 28, ../sass/non-responsive.scss */
+.page-header .lead {
+  margin-bottom: 10px;
+}
+
+/* Non-responsive overrides
+ *
+ * Utilize the following CSS to disable the responsive-ness of the container,
+ * grid system, and navbar.
+ */
+/* Reset the container */
+/* line 40, ../sass/non-responsive.scss */
+.container {
+  /* width: 970px; */
+  /* max-width: none !important; */
+}
+
+/* Demonstrate the grids */
+/* line 46, ../sass/non-responsive.scss */
+.col-xs-4 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #eee;
+  background-color: rgba(86, 61, 124, 0.15);
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86, 61, 124, 0.2);
+}
+
+/* line 56, ../sass/non-responsive.scss */
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Always float the navbar header */
+/* line 62, ../sass/non-responsive.scss */
+.navbar-header {
+  float: right;
+}
+
+/* Undo the collapsing navbar */
+/* line 67, ../sass/non-responsive.scss */
+.navbar-collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+  visibility: visible !important;
+}
+
+/* line 75, ../sass/non-responsive.scss */
+.navbar-toggle {
+  display: none;
+}
+
+/* line 78, ../sass/non-responsive.scss */
+.navbar-collapse {
+  border-top: 0;
+}
+
+/* line 82, ../sass/non-responsive.scss */
+.navbar-brand {
+  margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+/* line 87, ../sass/non-responsive.scss */
+.navbar-nav {
+  float: right;
+  margin: 0;
+}
+
+/* line 91, ../sass/non-responsive.scss */
+.navbar-nav > li {
+  float: right;
+}
+
+/* line 94, ../sass/non-responsive.scss */
+.navbar-nav > li > a {
+  padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+/* line 99, ../sass/non-responsive.scss */
+.navbar-nav.navbar-right {
+  float: right;
+}
+
+/* Undo custom dropdowns */
+/* line 104, ../sass/non-responsive.scss */
+.navbar .navbar-nav .open .dropdown-menu {
+  position: absolute;
+  float: right;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+/* line 115, ../sass/non-responsive.scss */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #333;
+}
+
+/* line 122, ../sass/non-responsive.scss */
+.navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar .navbar-nav .open .dropdown-menu > .active > a,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #fff !important;
+  background-color: #428bca !important;
+}
+
+/* line 128, ../sass/non-responsive.scss */
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  color: #999 !important;
+  background-color: transparent !important;
+}
+
+/* Undo form expansion */
+/* line 134, ../sass/non-responsive.scss */
+.navbar-form {
+  float: right;
+  width: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  margin-left: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* Copy-pasted from forms.less since we mixin the .form-inline styles. */
+/* line 147, ../sass/non-responsive.scss */
+.navbar-form .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 153, ../sass/non-responsive.scss */
+.navbar-form .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+/* line 159, ../sass/non-responsive.scss */
+.navbar-form .form-control-static {
+  display: inline-block;
+}
+
+/* line 163, ../sass/non-responsive.scss */
+.navbar-form .input-group {
+  display: inline-table;
+  vertical-align: middle;
+}
+
+/* line 170, ../sass/non-responsive.scss */
+.navbar-form .input-group .input-group-addon,
+.navbar-form .input-group .input-group-btn,
+.navbar-form .input-group .form-control {
+  width: auto;
+}
+
+/* line 174, ../sass/non-responsive.scss */
+.navbar-form .input-group > .form-control {
+  width: 100%;
+}
+
+/* line 178, ../sass/non-responsive.scss */
+.navbar-form .control-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 184, ../sass/non-responsive.scss */
+.navbar-form .radio,
+.navbar-form .checkbox {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+/* line 192, ../sass/non-responsive.scss */
+.navbar-form .radio label,
+.navbar-form .checkbox label {
+  padding-left: 0;
+}
+
+/* line 197, ../sass/non-responsive.scss */
+.navbar-form .radio input[type="radio"],
+.navbar-form .checkbox input[type="checkbox"] {
+  position: relative;
+  margin-left: 0;
+}
+
+/* line 202, ../sass/non-responsive.scss */
+.navbar-form .has-feedback .form-control-feedback {
+  top: 0;
+}

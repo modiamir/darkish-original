@@ -64,13 +64,13 @@ class CommentController extends Controller
 
 	/**
 	 * @Route(
-	 *     "/customer/ajax/comment/set_claim/{comment}",
+	 *     "/customer/ajax/comment/set_claim/{comment}/{claim}",
 	 *     defaults={"_format" = "json"}
 	 * )
 	 * @Method({"POST"})
 	 * 
 	 */
-	public function setClaimAction(Comment $comment) {
+	public function setClaimAction(Comment $comment, \Darkish\CommentBundle\Entity\ClaimTypes $claim) {
 	    try {
 	    	$user = $this->get('security.context')->getToken()->getUser();
 	    	/* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
@@ -88,7 +88,7 @@ class CommentController extends Controller
 	    	}
 	    	
 	        
-	        $comment->setClaimType(4);
+	        $comment->setClaimType($claim->getId());
 	        $comment->setState(3);
 	        $em = $this->getDoctrine()->getManager();
 	        $em->persist($comment);
@@ -185,7 +185,6 @@ class CommentController extends Controller
 	    $child->setOwner($user);
 	    $child->setThread($thread);
 	    $child->setParent($comment);
-	    $child->setState(3);
 	    $child->setCreatedAt(new \DateTime());
 
 	    $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $child);
@@ -244,7 +243,6 @@ class CommentController extends Controller
 	    $comment = new \Darkish\CommentBundle\Entity\CustomerComment();
 	    $comment->setOwner($user);
 	    $comment->setThread($thread);
-	    $comment->setState(3);
 	    $comment->setCreatedAt(new \DateTime());
 
 	    $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
@@ -426,4 +424,80 @@ class CommentController extends Controller
 	    }
 		return new JsonResponse(array('done'));
 	}
+
+	/**
+     * @Route(
+     *     "/customer/ajax/comment/get_claim_types",
+     *     defaults={"_format" = "json"}
+     * )
+     */
+    public function getClaimTypes() {
+        return new Response($this->get('jms_serializer')->serialize($this->getDoctrine()->getRepository('DarkishCommentBundle:ClaimTypes')->findAll(), 'json'));
+    }
+
+	/**
+	 * @Route(
+	 *      "/customer/ajax/comment/clientpost",
+	 *      defaults={"_format" = "json"}
+	 * )
+	 * @Method({"POST"})
+	 * 
+	 */
+	public function clientPostCommentAction(Request $request) {
+		$user = $this->get('security.context')->getToken()->getUser();
+		/* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+		$assistantAccess = $user->getAssistantAccess();
+		$role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(4);
+		if(!$assistantAccess->contains($role)) {
+		    throw new AccessDeniedException();
+		}
+
+		$record = $user->getRecord();
+		$thread = $record->getThread();
+
+		
+
+
+		
+
+		if( $thread && (!($thread  instanceof \Darkish\CommentBundle\Entity\RecordThread ) || 
+			$thread->getTarget()->getId() != $record->getId() ) ) {
+			throw new AccessDeniedException();	
+		}
+
+		if (!$thread) {
+		    $thread = new \Darkish\CommentBundle\Entity\RecordThread();
+		}
+
+	    
+
+	    
+	    $comment = new \Darkish\CommentBundle\Entity\ClientComment();
+	    $client = $this->getDoctrine()->getRepository('DarkishUserBundle:Client')->find($request->get('client_id'));
+	    $comment->setOwner($client);
+	    $comment->setThread($thread);
+	    $comment->setCreatedAt(new \DateTime());
+
+	    $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
+	    $form->handleRequest($request);
+	    
+
+	    if ($form->isValid()) {
+	    	$em = $this->getDoctrine()->getManager();
+	    	if($request->get('photos')) {
+	    		foreach ($request->get('photos') as $key => $value) {
+	    			$photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($value['id']);
+	    			$em->persist($photo);
+	    			$comment->addPhoto($photo);
+	    		}
+	    	}
+	    	$em->persist($comment);
+	        if ($em->flush() !== false) {
+	            return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
+	        }
+	    }
+
+	    return new Response($this->get('jms_serializer')->serialize(array($form->getErrors()->__toString(),$request->request), 'json'));
+	}
+
 }

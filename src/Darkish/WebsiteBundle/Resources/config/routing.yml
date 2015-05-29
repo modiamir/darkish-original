@@ -1,0 +1,3 @@
+darkish_website_homepage:
+    path:     /
+    defaults: { _controller: DarkishWebsiteBundle:Default:index }

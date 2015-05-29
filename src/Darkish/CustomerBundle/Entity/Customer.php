@@ -19,6 +19,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="Darkish\CustomerBundle\Entity\CustomerRepository")
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     errorPath="username",
+ *     message="نام کاربری تکراری استss."
+ * )
  *
  */
 class Customer implements AdvancedUserInterface, \Serializable
@@ -144,7 +149,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\CustomerComment", mappedBy="owner")
-     * @Groups({"customer.list", "customer.details"})
+     * 
      */
     private $comments;
 

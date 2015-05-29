@@ -1,0 +1,12 @@
+parameters:
+    darkish.comment:
+        record_default_state: 2 # 0: not commentable, 1: commentable, 2: commentable for trees not in record_dangerous_trees
+        record_dangerous_trees:
+            - "0002"
+            - "0005"
+        news_default_state: 2 # 0: not commentable, 1: commentable, 2: commentable for trees not in news_default_commentable_trees
+        news_dangerous_trees:
+            - "0003"
+            - "0005"
+        forum_default_state: 1 # 0: not commentable, 1: commentable
+        safarsaz_default_state: 1 # 0: not commentable, 1: commentable

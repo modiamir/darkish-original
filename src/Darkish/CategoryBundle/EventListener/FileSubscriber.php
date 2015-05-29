@@ -61,9 +61,11 @@ class FileSubscriber implements EventSubscriber
         $entityManager = $args->getEntityManager();
 
         // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof ManagedFile && substr($entity->getFilemime(), 0, 5) == "image") {
+        if ($entity instanceof ManagedFile && substr($entity->getFilemime(), 0, 5) == "image" && 
+            file_exists($this->container->get('kernel')->getRootDir().'/../web/uploads/'.$entity->getWebPath())) {
             $request = $this->requestStack->getCurrentRequest();
             $cacheManager = $this->container->get('liip_imagine.cache.manager');
+
             // ... do something with the Product
             $imagemanagerResponse = $this->container
                 ->get('liip_imagine.controller')

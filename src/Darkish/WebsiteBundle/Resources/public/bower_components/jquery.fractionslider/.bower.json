@@ -1,0 +1,15 @@
+{
+  "name": "jquery.fractionslider",
+  "homepage": "https://github.com/jacksbox/jquery.fractionslider",
+  "version": "0.9.103",
+  "_release": "0.9.103",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.9.103",
+    "commit": "58df6a610343b45a147dd487b08e9f60796ffc17"
+  },
+  "_source": "git://github.com/jacksbox/jquery.fractionslider.git",
+  "_target": "~0.9.103",
+  "_originalSource": "jacksbox/jquery.fractionslider",
+  "_direct": true
+}

@@ -6,14 +6,21 @@
     <span class="comment-id" ng-bind="'#'+child.id "></span>
     <span class="comment-date" am-time-ago="child.created_at"></span>
     <span ng-show="child.unseen_by_customers" class="is-new">جدید</span>
+    <span ng-show="child.state == 3" class="label label-danger">در انتظار تایید</span>
     <div class="comment-body" ng-bind="child.body"></div>
     <div class="operations">
   		<button ng-disabled="child.has_liked" type="button" ng-click="like(child)" class="btn btn-info btn-xs ng-binding">
   			<div class="dk icon-like dk-flip-horizontal"></div><span class="badge" ng-bind="child.like_count"></span>
   		</button>
-  		<button ng-disabled="child.claim_type" type="button" class="btn btn-warning btn-xs dropdown-toggle" ng-click="setClaim(child)">
-  	    	شکایت 
-	    </button>
+  		<div class="dropdown">
+        <button ng-disabled="child.claim_type" class="btn btn-warning btn-xs dropdown-toggle" type="button" id="claimtypedropdowm" data-toggle="dropdown" aria-expanded="true">
+          شکایت
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="claimtypedropdowm">
+          <li ng-repeat="claimType in claimTypes"><a ng-click="setClaim(child,claimType)">{{claimType.label}}</a></li>
+        </ul>
+      </div>
 
 	  </div>
     

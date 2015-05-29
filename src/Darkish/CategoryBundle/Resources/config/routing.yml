@@ -39,8 +39,8 @@ DarkishCategoryBundle_user:
         prefix:   /admin/user
 
 DarkishModi:
-        path:     /modi/test
-        defaults: { _controller: DarkishCategoryBundle:Default:test }
+        path:     /darkish/fix
+        defaults: { _controller: DarkishCategoryBundle:Default:fix }
         
 managedfile_nervgh:
     path:     /nervgh

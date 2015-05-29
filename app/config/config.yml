@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: settings.yml }
 
 framework:
     #esi:             ~
@@ -90,7 +91,7 @@ services:
         class: Darkish\CommentBundle\EventListener\CommentSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default}
-        arguments: ["@service_container"]
+        arguments: ["@service_container", "%darkish.comment%"]
 
 
 
