@@ -279,7 +279,7 @@ class ApiCnoController extends FOSRestController
             throw new HttpException("Entity doesn't exists", 404);
         }
 
-        return new JsonResponse($result[0]);
+        return new Response($result[0]['body']);
         
     }
 
