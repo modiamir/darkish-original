@@ -88,7 +88,6 @@ class ApiCnoController extends FOSRestController
      */
     public function searchAction (Request $request) {
 
-        return $this->container->getParameter('darkish.comment');
         /**
          * Fetching data from request and convert data to array
          */
