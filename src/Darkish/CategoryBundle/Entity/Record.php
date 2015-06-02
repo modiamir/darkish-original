@@ -677,7 +677,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
-     * @Groups({"record.details", "record.list"})
+     * @Groups({"record.details", "record.list", "api.list"})
      */
     private $commentable;
 

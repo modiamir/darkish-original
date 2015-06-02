@@ -166,7 +166,7 @@ class News
      * @var boolean
      *
      * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
-     * @Groups({"news.details", "news.list"})
+     * @Groups({"news.details", "news.list", "api.list"})
      */
     private $commentable;
 
