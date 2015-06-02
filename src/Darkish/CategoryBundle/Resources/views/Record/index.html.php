@@ -723,16 +723,16 @@
                 </div>
                 <div class="row attachements-wrapper">
                     <div class="col-xs-2 right">
-                        <ul class="tab-list" ng-init="ValuesService.activeTab = 'image'">
-                            <li class="pure-button"
-                                ng-class="{'tab-active': ValuesService.activeTab === 'image'}"
-                                ng-click="selectTab('image')">
-                                عکس
-                            </li>
+                        <ul class="tab-list" ng-init="ValuesService.activeTab = 'icon'">
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'icon'}"
                                 ng-click="selectTab('icon')">
                                 آیکون
+                            </li>
+                            <li class="pure-button"
+                                ng-class="{'tab-active': ValuesService.activeTab === 'image'}"
+                                ng-click="selectTab('image')">
+                                عکس
                             </li>
                             <li class="pure-button"
                                 ng-class="{'tab-active': ValuesService.activeTab === 'video'}"
@@ -1765,9 +1765,18 @@
                     </div>
                 </div>
             </script>
-            <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !SecurityService.connected"  type="button" class="btn btn-danger" ng-click="openDeleteModal()">
+            <div ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" style="display: inline-block; margin: 0" class="dropdown">
+              <button ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !SecurityService.connected" class="btn btn-danger btn-xs dropdown-toggle" type="button" id="claimtypedropdowm" data-toggle="dropdown" aria-expanded="true" style="line-height: inherit">
                 حذف
-            </button>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="claimtypedropdowm">
+                <li><a ng-click="openDeleteModal()">حذف</a></li>
+              </ul>
+            </div>
+            <!-- <button ng-show="SecurityService.buttonsAccess.deleteButtonAccess()" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !SecurityService.connected"  type="button" class="btn btn-danger" ng-click="openDeleteModal()">
+                حذف
+            </button> -->
             <button ng-show="SecurityService.buttonsAccess.saveButtonAccess()" ng-disabled="!RecordService.isEditing() || recordform.$invalid" type="button" class="btn btn-success" ng-click="checkConnectionSave()">
                 ذخیره
             </button>

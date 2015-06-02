@@ -1208,10 +1208,11 @@ class RecordController extends Controller
             /* @var $qb QueryBuilder */
             $qb->join('r.maintrees', 'rt');
             $qb->join('rt.tree','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
-            $qb->orderBy('r.listRank', 'Asc');
+            // $qb->orderBy('r.listRank', 'Asc');
+            $qb->orderBy('rt.sort', 'Asc');
+            $qb->addOrderBy('r.creationDate', 'Desc');
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
-            
             $serialized = $this->get('jms_serializer')->
                 serialize($res, 'json', SerializationContext::create()->setGroups(array('record.list')));
 
