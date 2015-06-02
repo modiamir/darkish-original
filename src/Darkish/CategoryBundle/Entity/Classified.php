@@ -130,7 +130,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.body"})
      */
     private $body;
 

@@ -24,7 +24,7 @@ class Record
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list", "api.list"})
      */
     private $id;
 
@@ -32,7 +32,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="record_number", type="string", length=255, unique=true)
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "api.list"})
      */
     private $recordNumber;
 
@@ -40,7 +40,7 @@ class Record
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "comment.details", "comment.list", "thread.list", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -54,7 +54,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"record.list", "record.details", "customer.list", "customer.details"})
+     * @Groups({"record.list", "record.details", "customer.list", "customer.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -500,7 +500,7 @@ class Record
      * @var datetime
      *
      * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $creationDate;
 
@@ -694,7 +694,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.body"})
      */
     private $body;
 
@@ -702,7 +702,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $audio;
 
@@ -710,7 +710,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $video;
 
@@ -764,7 +764,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="VisitCount", type="integer", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $visitCount;
 
@@ -788,7 +788,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="LikeCount", type="integer", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $likeCount;
 
@@ -831,7 +831,7 @@ class Record
 
     /**
      * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $maintrees;
     
@@ -841,7 +841,7 @@ class Record
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $images;
     
@@ -850,7 +850,7 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForRecord")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      * 
      **/
     private $icon;

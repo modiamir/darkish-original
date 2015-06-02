@@ -209,14 +209,15 @@ class ApiCnoController extends FOSRestController
      *  description="This is get html api for 'News', 'Classified' and 'Offer' and 'Record' HTML",
      *  
      * )
-     * @Get("get_html/{type}/{id}", requirements={
+     * @Get("get_entity/{type}/{id}/{mode}", requirements={
      *     "id": "\d+",
-     *     "type":"news|record|offer|classified"
+     *     "type":"news|record|offer|classified",
+     *     "mode":"body|list|listbody"
      * })
      */
-    public function getHtmlAction($type, $id) {
+    public function getHtmlAction($type, $id, $mode) {
 
-        $data= array('type' => $type, 'id'=> $id);
+        $data= array('type' => $type, 'id'=> $id, 'mode' => $mode);
 
         $collectionConstraint = new Assert\Collection(array(
             'type'          =>  array(
@@ -232,6 +233,15 @@ class ApiCnoController extends FOSRestController
                                     new Assert\NotBlank(),
                                     new Assert\Type(array('type' => 'numeric')),
                                     new Assert\Range(array('min'=> 1))
+                                ),
+            'mode'          =>  array(
+                                    new Assert\NotBlank(),
+                                    new Assert\Choice(
+                                            array(
+                                                'choices' => array('body', 'list', 'listbody'),
+                                                'message' => "The value must be one of ('body', 'list', 'listbody')"
+                                            )
+                                        )
                                 )
         ));
         
@@ -271,15 +281,34 @@ class ApiCnoController extends FOSRestController
         }
 
         $qb = $this->getDoctrine()->getRepository($entityClass)->createQueryBuilder('cno');
-        $qb->select('cno.body')->where('cno.id = :id')->setParameter('id', $id)->setMaxResults(1);
+        // $qb->select('cno.body');
+        $qb->where('cno.id = :id')->setParameter('id', $id)->setMaxResults(1);
 
         $result = $qb->getQuery()->getResult();
 
+
+
         if(count($result) <= 0) {
-            throw new HttpException("Entity doesn't exists", 404);
+            throw new \Exception("Entity doesn't exists", 404);
         }
 
-        return new Response($result[0]['body']);
+        switch ($mode) {
+            case 'body':
+                $entity = $result[0]->getBody();
+                break;
+            
+            case 'list':
+                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list')));
+                break;
+            
+            case 'listbody':
+                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list', 'api.body')));
+                break;
+            
+            
+        }
+
+        return new Response($entity);
         
     }
 
