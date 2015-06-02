@@ -47,7 +47,7 @@ class RecordMainTree
     /**
      * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="mainrecords")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
      **/
     private $tree;
     
@@ -55,7 +55,7 @@ class RecordMainTree
      *
      * @var integer
      * @ORM\Column(name="sort", type="string", nullable=true) 
-     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details"})
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
      */
     private $sort;
 

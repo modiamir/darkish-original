@@ -169,7 +169,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.body"})
      */
     private $body;
 

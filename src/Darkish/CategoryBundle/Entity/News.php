@@ -184,7 +184,7 @@ class News
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.body"})
      */
     private $body;
 
