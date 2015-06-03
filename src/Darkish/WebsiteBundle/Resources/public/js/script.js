@@ -35,6 +35,10 @@ $(document).ready(function() {
     	 *	Sync section one's element's height;
     	 */
 		$('#fullpage #section-1 .main-slideshow').height(sectionOneHeight - 60);    	
+
+		$('#fullpage #section-2 .description').height(200);
+		$('#fullpage #section-2 .records').height(minSecHeight - 260);
+		$('#fullpage #section-2 .records #records-container').height(minSecHeight - 260);
 		// $('#fullpage #section-1 .main-slideshow').height((sectionOneHeight - 100) * 0.6);    	
 		// $('#fullpage #section-1 .offer-slider').height( ((minSecHeight - 100) * 0.4) );    	
 		// $('#fullpage #section-1 .offer-slider ul ').height( ((minSecHeight - 100) * 0.4) );    	
@@ -175,37 +179,37 @@ $(document).ready(function() {
     	console.log($(this).attr('src'));
     	$(this).css('background-image','url('+$(this).attr('src')+')');
     })
- //    $("#slickcarousel").slick({
-	//   infinite: false,
-	//   speed: 300,
-	//   slidesToShow: 4,
-	//   slidesToScroll: 4,
-	//   responsive: [
-	//     {
-	//       breakpoint: 1024,
-	//       settings: {
-	//         slidesToShow: 3,
-	//         slidesToScroll: 3,
-	//         infinite: true
-	//       }
-	//     },
-	//     {
-	//       breakpoint: 600,
-	//       settings: {
-	//         slidesToShow: 2,
-	//         slidesToScroll: 2
-	//       }
-	//     },
-	//     {
-	//       breakpoint: 480,
-	//       settings: {
-	//         slidesToShow: 1,
-	//         slidesToScroll: 1
-	//       }
-	//     }
-	//   ]
-	// });
+
+    /**
+     *
+     * Gridster
+     */
+    
+     $('#fullpage #section-2 .records #records-container .item').each(function(){
+     	h = 1 + 2 * Math.random() << 0;
+		// w = 1 + 2 * Math.random() << 0;
+     	$(this).height(h * 150);
+     	$(this).width(h * 150);
+     })
+
+ 	var wall = new freewall("#records-container");
+	wall.reset({
+		selector: '.item',
+		animate: false,
+		cellW: 160,
+		cellH: 160,
+		delay: 30,
+		onResize: function() {
+			wall.refresh($('#fullpage #section-2 .records #records-container').width() - 30, $('#fullpage #section-2 .records #records-container').height() - 30);
+		}
+	});
+	// caculator width and height for IE7;
+	wall.fitZone($('#fullpage #section-2 .records #records-container').width() - 30 , $('#fullpage #section-2 .records #records-container').height() - 30);
 	
+ 	
+ 	
+ 	
+ 	
 });
 
 

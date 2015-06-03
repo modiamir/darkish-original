@@ -220,11 +220,10 @@ body #fullpage .section#section-1 .offer-slider-wrapper .item {
 /* line 256, ../sass/style.scss */
 body #fullpage .section#section-1 .offer-slider-wrapper .item .offer-bg {
   height: 100%;
-  width: 70%;
+  width: 90%;
   margin: auto;
   background-size: cover;
   background-position: center center;
-  opacity: 0.7;
   transition: 1s;
   -webkit-transition: 1s;
   -moz-transition: 1s;
@@ -240,25 +239,118 @@ body #fullpage .section#section-1 .offer-slider-wrapper .item .offer-bg {
 body #fullpage .section#section-1 .offer-slider-wrapper .item .offer-bg:hover {
   opacity: 1;
 }
-/* line 283, ../sass/style.scss */
+/* line 289, ../sass/style.scss */
+body #fullpage .section#section-2 .container .description h1 {
+  font-family: BTitrTGE;
+  color: #79ccff;
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+/* line 296, ../sass/style.scss */
+body #fullpage .section#section-2 .container .description p {
+  font-family: BYekan;
+  color: #2d2d2d;
+  font-size: 15px;
+  text-align: center;
+  margin: 0;
+}
+/* line 304, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container {
+  width: 80%;
+  margin: auto;
+}
+/* line 307, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item {
+  width: 150px;
+  height: 150px;
+}
+/* line 310, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+1) {
+  background-color: #2672ec;
+}
+/* line 313, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+2) {
+  background-color: #a700af;
+}
+/* line 316, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+3) {
+  background-color: #653ebf;
+}
+/* line 319, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+4) {
+  background-color: #fe7d22;
+}
+/* line 322, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+5) {
+  background-color: #00c140;
+}
+/* line 325, ../sass/style.scss */
+body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+6) {
+  background-color: #9e1616;
+}
+/* line 332, ../sass/style.scss */
 body #fullpage .section > div {
   padding-top: 40px;
 }
-/* line 286, ../sass/style.scss */
+/* line 335, ../sass/style.scss */
 body #fullpage .section h1 {
   text-align: center;
   color: white;
 }
-/* line 290, ../sass/style.scss */
+/* line 339, ../sass/style.scss */
 body #fullpage .section:nth-child(2n+3) {
   background: blue;
 }
-/* line 293, ../sass/style.scss */
-body #fullpage .section:nth-child(2n) {
+/* line 342, ../sass/style.scss */
+body #fullpage .section:nth-child(2n+4) {
   background: red;
 }
 
-/* line 302, ../sass/style.scss */
+/* line 351, ../sass/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: BMitra;
+}
+
+/* line 423, ../sass/style.scss */
+.record-list {
+  background-image: url(../images/1.jpg);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  opacity: 0.8;
+}
+/* line 432, ../sass/style.scss */
+.record-list .record-list-caption {
+  position: absolute;
+  bottom: -100%;
+  right: 0;
+  left: 0;
+  min-height: 30px;
+  background-color: rgba(10, 10, 10, 0.3);
+  color: white;
+  text-align: center;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+  -o-transition: 0.3s;
+  transition-properti: all;
+  -webkit-transition-properti: all;
+  -moz-transition-properti: all;
+  -ms-transition-properti: all;
+  transition-properti: all;
+  -o-transition-properti: all;
+}
+/* line 459, ../sass/style.scss */
+.record-list:hover {
+  opacity: 1;
+}
+/* line 461, ../sass/style.scss */
+.record-list:hover .record-list-caption {
+  bottom: 0;
 }
