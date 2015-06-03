@@ -255,11 +255,11 @@ body {
 						width: 25%;
 						.offer-bg {
 							height: 100%;
-							width: 70%;
+							width: 90%;
 							margin: auto;
 							background-size: cover;
 							background-position: center center;
-							opacity: 0.7;
+							// opacity: 0.9;
 							transition: 1s;
 							-webkit-transition: 1s;
 							-moz-transition: 1s;
@@ -280,6 +280,55 @@ body {
 				
 				
 			}
+			&#section-2 {
+				// background-image: url(../images/va.jpg);
+				// background-size: cover;
+				// background-position: center center;
+				.container {
+					.description {
+						h1 {
+							font-family: BTitrTGE;
+							color: #79ccff;
+							margin: 0;
+							padding-top: 20px;
+							padding-bottom: 20px;
+						}
+						p {
+							font-family: BYekan;
+							color: #2d2d2d;
+							font-size: 15px;
+							text-align: center;
+							margin: 0;
+						}
+					}
+					#records-container {
+						width: 80%;
+						margin: auto;
+						.item {
+							width: 150px;
+							height: 150px;
+							&:nth-child(6n+1) {
+								background-color: #2672ec;
+							}
+							&:nth-child(6n+2) {
+								background-color: #a700af;
+							}
+							&:nth-child(6n+3) {
+								background-color: #653ebf;
+							}
+							&:nth-child(6n+4) {
+								background-color: #fe7d22;
+							}
+							&:nth-child(6n+5) {
+								background-color: #00c140;
+							}
+							&:nth-child(6n+6) {
+								background-color: #9e1616;
+							}
+						}
+					}
+				}
+			}
 			& > div {
 				padding-top: 40px;
 			}
@@ -290,7 +339,7 @@ body {
 			&:nth-child(2n+3) {
 				background: blue;
 			}
-			&:nth-child(2n) {
+			&:nth-child(2n+4) {
 				background: red;
 			}
 
@@ -368,3 +417,50 @@ h1, h2, h3, h4, h5, h6 {
 // 		}
 // 	}
 // }
+// 
+// 
+
+.record-list {
+	background-image: url(../images/1.jpg);
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	opacity: 0.8;
+	.record-list-caption {
+		position: absolute;
+		bottom: -100%;
+		right: 0;
+		left: 0;
+		min-height: 30px;
+		background-color: rgba(10,10,10, 0.3);
+
+		color: white;
+		text-align: center;
+
+		transition: 0.3s;
+		-webkit-transition: 0.3s;
+		-moz-transition: 0.3s;
+		-ms-transition: 0.3s;
+		transition: 0.3s;
+		-o-transition: 0.3s;
+
+		transition-properti: all;
+		-webkit-transition-properti: all;
+		-moz-transition-properti: all;
+		-ms-transition-properti: all;
+		transition-properti: all;
+		-o-transition-properti: all;
+
+
+	}
+	&:hover {
+		opacity: 1;
+		.record-list-caption { 
+			bottom: 0;
+
+		}
+	}
+}
