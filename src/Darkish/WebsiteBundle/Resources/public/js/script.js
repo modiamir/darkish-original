@@ -182,7 +182,7 @@ $(document).ready(function() {
 
     /**
      *
-     * Gridster
+     * Grid for records
      */
     
      $('#fullpage #section-2 .records #records-container .item').each(function(){
@@ -205,6 +205,30 @@ $(document).ready(function() {
 	});
 	// caculator width and height for IE7;
 	wall.fitZone($('#fullpage #section-2 .records #records-container').width() - 30 , $('#fullpage #section-2 .records #records-container').height() - 30);
+
+	/**
+     *
+     * Grid for estates
+     */
+    
+ //     $('#fullpage #section-3  #estates-container .item').each(function(){
+ //     	// $(this).height(150);
+ //     	// $(this).width(150);
+ //     })
+
+ // 	var wall2 = new freewall("#estates-container");
+	// wall2.reset({
+	// 	selector: '.item',
+	// 	animate: true,
+	// 	cellW: 160,
+	// 	cellH: 160,
+	// 	delay: 30,
+	// 	onResize: function() {
+	// 		wall2.refresh($('#fullpage #section-3  #estates-container').width() - 30, $('#fullpage #section-3  #estates-container').height() - 30);
+	// 	}
+	// });
+	// // caculator width and height for IE7;
+	// wall2.fitZone($('#fullpage #section-3  #estates-container').width() - 30 , $('#fullpage #section-3  #estates-container').height() - 30);
 	
  	
  	
