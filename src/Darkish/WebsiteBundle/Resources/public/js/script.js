@@ -36,7 +36,7 @@ $(document).ready(function() {
     	 */
 		$('#fullpage #section-1 .main-slideshow').height(sectionOneHeight - 60);    	
 
-		$('#fullpage #section-2 .description').height(200);
+		$('#fullpage #section-2 .description').height(220);
 		$('#fullpage #section-2 .records').height(minSecHeight - 260);
 		$('#fullpage #section-2 .records #records-container').height(minSecHeight - 260);
 		// $('#fullpage #section-1 .main-slideshow').height((sectionOneHeight - 100) * 0.6);    	
