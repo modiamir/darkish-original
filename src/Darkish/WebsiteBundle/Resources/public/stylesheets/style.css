@@ -246,9 +246,8 @@ body #fullpage .section#section-2 .container .description h1 {
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 60px;
-  text-shadow: 0px 0px 53px #AEAEAE;
 }
-/* line 297, ../sass/style.scss */
+/* line 296, ../sass/style.scss */
 body #fullpage .section#section-2 .container .description p {
   font-family: BYekan;
   color: gray;
@@ -257,64 +256,64 @@ body #fullpage .section#section-2 .container .description p {
   margin: auto;
   width: 60%;
 }
-/* line 306, ../sass/style.scss */
+/* line 305, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container {
   width: 100%;
   margin: auto;
 }
-/* line 309, ../sass/style.scss */
+/* line 308, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item {
   width: 150px;
   height: 150px;
 }
-/* line 312, ../sass/style.scss */
+/* line 311, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+1) {
   background-color: #2672ec;
 }
-/* line 315, ../sass/style.scss */
+/* line 314, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+2) {
   background-color: #a700af;
 }
-/* line 318, ../sass/style.scss */
+/* line 317, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+3) {
   background-color: #653ebf;
 }
-/* line 321, ../sass/style.scss */
+/* line 320, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+4) {
   background-color: #fe7d22;
 }
-/* line 324, ../sass/style.scss */
+/* line 323, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+5) {
   background-color: #00c140;
 }
-/* line 327, ../sass/style.scss */
+/* line 326, ../sass/style.scss */
 body #fullpage .section#section-2 .container #records-container .item:nth-child(6n+6) {
   background-color: #9e1616;
 }
-/* line 334, ../sass/style.scss */
+/* line 333, ../sass/style.scss */
 body #fullpage .section > div {
   padding-top: 40px;
 }
-/* line 337, ../sass/style.scss */
+/* line 336, ../sass/style.scss */
 body #fullpage .section h1 {
   text-align: center;
   color: white;
 }
-/* line 341, ../sass/style.scss */
+/* line 340, ../sass/style.scss */
 body #fullpage .section:nth-child(2n+3) {
   background: blue;
 }
-/* line 344, ../sass/style.scss */
+/* line 343, ../sass/style.scss */
 body #fullpage .section:nth-child(2n+4) {
   background: red;
 }
 
-/* line 353, ../sass/style.scss */
+/* line 352, ../sass/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: BMitra;
 }
 
-/* line 425, ../sass/style.scss */
+/* line 424, ../sass/style.scss */
 .record-list {
   background-image: url(../images/1.jpg);
   background-size: cover;
@@ -325,7 +324,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   opacity: 0.8;
 }
-/* line 434, ../sass/style.scss */
+/* line 433, ../sass/style.scss */
 .record-list .record-list-caption {
   position: absolute;
   bottom: -100%;
@@ -348,11 +347,11 @@ h1, h2, h3, h4, h5, h6 {
   transition-properti: all;
   -o-transition-properti: all;
 }
-/* line 461, ../sass/style.scss */
+/* line 460, ../sass/style.scss */
 .record-list:hover {
   opacity: 1;
 }
-/* line 463, ../sass/style.scss */
+/* line 462, ../sass/style.scss */
 .record-list:hover .record-list-caption {
   bottom: 0;
 }
