@@ -287,22 +287,24 @@ body {
 				.container {
 					.description {
 						h1 {
-							font-family: BTitrTGE;
-							color: #79ccff;
+							color: #A0ADB5;
 							margin: 0;
 							padding-top: 20px;
 							padding-bottom: 20px;
+							font-size: 60px;
+							text-shadow: 0px 0px 53px #AEAEAE;
 						}
 						p {
 							font-family: BYekan;
-							color: #2d2d2d;
+							color: gray;
 							font-size: 15px;
 							text-align: center;
-							margin: 0;
+							margin: auto;
+							width: 60%;
 						}
 					}
 					#records-container {
-						width: 80%;
+						width: 100%;
 						margin: auto;
 						.item {
 							width: 150px;

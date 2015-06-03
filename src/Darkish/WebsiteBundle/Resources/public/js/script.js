@@ -195,7 +195,7 @@ $(document).ready(function() {
  	var wall = new freewall("#records-container");
 	wall.reset({
 		selector: '.item',
-		animate: false,
+		animate: true,
 		cellW: 160,
 		cellH: 160,
 		delay: 30,
