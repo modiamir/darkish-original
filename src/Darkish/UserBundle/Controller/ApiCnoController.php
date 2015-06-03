@@ -215,7 +215,7 @@ class ApiCnoController extends FOSRestController
      *     "mode":"body|list|listbody"
      * })
      */
-    public function getHtmlAction($type, $id, $mode) {
+    public function getEntityAction($type, $id, $mode) {
 
         $data= array('type' => $type, 'id'=> $id, 'mode' => $mode);
 
@@ -294,7 +294,7 @@ class ApiCnoController extends FOSRestController
 
         switch ($mode) {
             case 'body':
-                $entity = $result[0]->getBody();
+                $entity = $this->get('jms_serializer')->serialize(array('body' => $result[0]->getBody()), 'json');
                 break;
             
             case 'list':
