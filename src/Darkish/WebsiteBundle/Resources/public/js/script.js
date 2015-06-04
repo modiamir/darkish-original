@@ -39,6 +39,8 @@ $(document).ready(function() {
 		$('#fullpage #section-2 .description').height(220);
 		$('#fullpage #section-2 .records').height(minSecHeight - 260);
 		$('#fullpage #section-2 .records #records-container').height(minSecHeight - 260);
+
+		$('#fullpage #section-4 .automobiles').height(minSecHeight - 240);
 		// $('#fullpage #section-1 .main-slideshow').height((sectionOneHeight - 100) * 0.6);    	
 		// $('#fullpage #section-1 .offer-slider').height( ((minSecHeight - 100) * 0.4) );    	
 		// $('#fullpage #section-1 .offer-slider ul ').height( ((minSecHeight - 100) * 0.4) );    	
@@ -208,28 +210,16 @@ $(document).ready(function() {
 
 	/**
      *
-     * Grid for estates
+     * Portfolio for automobile
      */
     
- //     $('#fullpage #section-3  #estates-container .item').each(function(){
- //     	// $(this).height(150);
- //     	// $(this).width(150);
- //     })
-
- // 	var wall2 = new freewall("#estates-container");
-	// wall2.reset({
-	// 	selector: '.item',
-	// 	animate: true,
-	// 	cellW: 160,
-	// 	cellH: 160,
-	// 	delay: 30,
-	// 	onResize: function() {
-	// 		wall2.refresh($('#fullpage #section-3  #estates-container').width() - 30, $('#fullpage #section-3  #estates-container').height() - 30);
-	// 	}
-	// });
-	// // caculator width and height for IE7;
-	// wall2.fitZone($('#fullpage #section-3  #estates-container').width() - 30 , $('#fullpage #section-3  #estates-container').height() - 30);
-	
+    $('#automobiles-container').mixItUp({
+	    load: {
+	        filter: '.category-1'
+	    }
+	});
+    
+ 
  	
  	
  	

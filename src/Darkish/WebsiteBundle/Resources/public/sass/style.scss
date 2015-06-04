@@ -359,11 +359,67 @@ body {
 								float: right;
 								margin-left: 1%;
 								margin-right: 1%;
-								background-color: #fe7d22;
+								// background-color: #fe7d22;
 							}
 						}
 					}
 				}
+			}
+
+			&#section-4 {
+				background-image: url(../images/image.jpg);
+				background-size: cover;
+				background-position: center;
+				.automobiles-description {
+					height: 200px;
+					h1 {
+						margin-top: 0;
+						padding-top: 20px;
+						margin-bottom: 20px;
+						color: white;
+					}
+					p {
+						color: white;
+						font-size: 18px;
+						text-align: center;
+						margin: auto;
+						width: 60%;
+					}
+				}
+				.automobiles {
+					// padding-top: 20px;
+					button.filter {
+						background: white;
+						border: 0;
+						padding: 9px 15px;
+						font-size: 15px;
+						margin-right: 20px;
+						&:hover, &.active, &:focus {
+							background-color: #008be4;
+							color: white;
+							outline: none;
+							height: initial;
+						}
+					}
+					#automobiles-container {
+						padding-top: 20px;
+						margin-top: 20px;
+						border-top: 2px solid #008be4;
+						height: 75%;
+						.mix{
+						    display: none;
+						    width: 23%;
+						    margin-left: 1%;
+						    margin-right: 1%;
+						    float: right;
+						    height: 100%;
+						}		
+						.automobile-list {
+
+						}
+					}	
+				}
+				 
 			}
 			& > div {
 				padding-top: 40px;
@@ -375,7 +431,7 @@ body {
 			&:nth-child(2n+5) {
 				background: blue;
 			}
-			&:nth-child(2n+4) {
+			&:nth-child(2n+6) {
 				background: red;
 			}
 
@@ -557,5 +613,34 @@ h1, h2, h3, h4, h5, h6 {
 			bottom: 0;
 
 		}
+	}
+}
+
+
+.automobile-list {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	border-bottom: 2px solid #008be4;
+	.automobile-photo {
+		background-image: url(../images/car.jpg);
+		background-size: cover;
+		background-position: center;
+		width: 100%;
+		height: 65%;
+		opacity: 0.8;
+	}
+	.automobile-title {
+		padding: 0 10px;
+		color: #008be4;
+	}
+	.automobile-price {
+		font-size: 25px;
+		color: black;
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
 	}
 }
