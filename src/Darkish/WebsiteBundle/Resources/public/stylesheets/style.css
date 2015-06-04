@@ -329,19 +329,20 @@ body #fullpage .section#section-4 {
   background-image: url(../images/image.jpg);
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }
-/* line 373, ../sass/style.scss */
+/* line 374, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles-description {
   height: 200px;
 }
-/* line 375, ../sass/style.scss */
+/* line 376, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles-description h1 {
   margin-top: 0;
   padding-top: 20px;
   margin-bottom: 20px;
   color: white;
 }
-/* line 381, ../sass/style.scss */
+/* line 382, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles-description p {
   color: white;
   font-size: 18px;
@@ -349,7 +350,7 @@ body #fullpage .section#section-4 .automobiles-description p {
   margin: auto;
   width: 60%;
 }
-/* line 391, ../sass/style.scss */
+/* line 392, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles button.filter {
   background: white;
   border: 0;
@@ -357,21 +358,21 @@ body #fullpage .section#section-4 .automobiles button.filter {
   font-size: 15px;
   margin-right: 20px;
 }
-/* line 397, ../sass/style.scss */
+/* line 398, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles button.filter:hover, body #fullpage .section#section-4 .automobiles button.filter.active, body #fullpage .section#section-4 .automobiles button.filter:focus {
   background-color: #008be4;
   color: white;
   outline: none;
   height: initial;
 }
-/* line 404, ../sass/style.scss */
+/* line 405, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles #automobiles-container {
   padding-top: 20px;
   margin-top: 20px;
   border-top: 2px solid #008be4;
   height: 75%;
 }
-/* line 409, ../sass/style.scss */
+/* line 410, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles #automobiles-container .mix {
   display: none;
   width: 23%;
@@ -380,30 +381,30 @@ body #fullpage .section#section-4 .automobiles #automobiles-container .mix {
   float: right;
   height: 100%;
 }
-/* line 424, ../sass/style.scss */
+/* line 425, ../sass/style.scss */
 body #fullpage .section > div {
   padding-top: 40px;
 }
-/* line 427, ../sass/style.scss */
+/* line 428, ../sass/style.scss */
 body #fullpage .section h1 {
   text-align: center;
   color: white;
 }
-/* line 431, ../sass/style.scss */
+/* line 432, ../sass/style.scss */
 body #fullpage .section:nth-child(2n+5) {
   background: blue;
 }
-/* line 434, ../sass/style.scss */
+/* line 435, ../sass/style.scss */
 body #fullpage .section:nth-child(2n+6) {
   background: red;
 }
 
-/* line 443, ../sass/style.scss */
+/* line 444, ../sass/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: BMitra;
 }
 
-/* line 515, ../sass/style.scss */
+/* line 516, ../sass/style.scss */
 .record-list {
   background-image: url(../images/1.jpg);
   background-size: cover;
@@ -415,7 +416,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.8;
   border-bottom: 2px solid #00c140;
 }
-/* line 525, ../sass/style.scss */
+/* line 526, ../sass/style.scss */
 .record-list .record-list-caption {
   position: absolute;
   bottom: -100%;
@@ -438,16 +439,16 @@ h1, h2, h3, h4, h5, h6 {
   transition-properti: all;
   -o-transition-properti: all;
 }
-/* line 552, ../sass/style.scss */
+/* line 553, ../sass/style.scss */
 .record-list:hover {
   opacity: 1;
 }
-/* line 554, ../sass/style.scss */
+/* line 555, ../sass/style.scss */
 .record-list:hover .record-list-caption {
   bottom: 0;
 }
 
-/* line 562, ../sass/style.scss */
+/* line 563, ../sass/style.scss */
 .estate-list {
   background-color: white;
   width: 100%;
@@ -456,7 +457,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-bottom: 2px solid #fe7d22;
 }
-/* line 569, ../sass/style.scss */
+/* line 570, ../sass/style.scss */
 .estate-list .estate-photo {
   background-image: url(../images/1.jpg);
   background-size: cover;
@@ -465,7 +466,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 50%;
   opacity: 0.8;
 }
-/* line 577, ../sass/style.scss */
+/* line 578, ../sass/style.scss */
 .estate-list h4.estate-title {
   line-height: 22px;
   margin: 10px 0px 10px 0px;
@@ -473,14 +474,14 @@ h1, h2, h3, h4, h5, h6 {
   color: #fe7d22;
   font-size: 22px;
 }
-/* line 584, ../sass/style.scss */
+/* line 585, ../sass/style.scss */
 .estate-list span.estate-description {
   padding: 0px 15px;
   color: #AB998D;
   width: 100%;
   display: block;
 }
-/* line 591, ../sass/style.scss */
+/* line 592, ../sass/style.scss */
 .estate-list span.estate-dimension {
   color: #91613F;
   position: absolute;
@@ -488,7 +489,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 20px;
   font-size: 20px;
 }
-/* line 599, ../sass/style.scss */
+/* line 600, ../sass/style.scss */
 .estate-list span.estate-extra {
   color: #AB998D;
   position: absolute;
@@ -496,20 +497,20 @@ h1, h2, h3, h4, h5, h6 {
   left: 20px;
   font-size: 16px;
 }
-/* line 607, ../sass/style.scss */
+/* line 608, ../sass/style.scss */
 .estate-list:hover {
   box-shadow: 0 0 1px gray;
 }
-/* line 609, ../sass/style.scss */
+/* line 610, ../sass/style.scss */
 .estate-list:hover .estate-photo {
   opacity: 1;
 }
-/* line 612, ../sass/style.scss */
+/* line 613, ../sass/style.scss */
 .estate-list:hover .record-list-caption {
   bottom: 0;
 }
 
-/* line 620, ../sass/style.scss */
+/* line 621, ../sass/style.scss */
 .automobile-list {
   background-color: white;
   width: 100%;
@@ -518,7 +519,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-bottom: 2px solid #008be4;
 }
-/* line 627, ../sass/style.scss */
+/* line 628, ../sass/style.scss */
 .automobile-list .automobile-photo {
   background-image: url(../images/car.jpg);
   background-size: cover;
@@ -527,12 +528,12 @@ h1, h2, h3, h4, h5, h6 {
   height: 65%;
   opacity: 0.8;
 }
-/* line 635, ../sass/style.scss */
+/* line 636, ../sass/style.scss */
 .automobile-list .automobile-title {
   padding: 0 10px;
   color: #008be4;
 }
-/* line 639, ../sass/style.scss */
+/* line 640, ../sass/style.scss */
 .automobile-list .automobile-price {
   font-size: 25px;
   color: black;
