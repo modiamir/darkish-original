@@ -54,7 +54,7 @@ class ClassifiedClassifiedTree
     /**
      *
      * @var integer
-     * @ORM\Column(name="sort", type="string", nullable=true) 
+     * @ORM\Column(name="sort", type="integer", nullable=true) 
      * @Groups({"classifiedtree.list", "classifiedtree.details", "classified.list", "classified.details", "api.list"})
      */
     private $sort;

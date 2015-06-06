@@ -54,7 +54,7 @@ class RecordMainTree
     /**
      *
      * @var integer
-     * @ORM\Column(name="sort", type="string", nullable=true) 
+     * @ORM\Column(name="sort", type="integer", nullable=true) 
      * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
      */
     private $sort;

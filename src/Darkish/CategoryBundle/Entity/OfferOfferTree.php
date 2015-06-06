@@ -54,7 +54,7 @@ class OfferOfferTree
     /**
      *
      * @var integer
-     * @ORM\Column(name="sort", type="string", nullable=true) 
+     * @ORM\Column(name="sort", type="integer", nullable=true) 
      * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details", "api.list"})
      */
     private $sort;

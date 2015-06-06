@@ -54,7 +54,7 @@ class NewsNewsTree
     /**
      *
      * @var integer
-     * @ORM\Column(name="sort", type="string", nullable=true) 
+     * @ORM\Column(name="sort", type="integer", nullable=true) 
      * @Groups({"newstree.list", "newstree.details", "news.list", "news.details", "api.list"})
      */
     private $sort;
