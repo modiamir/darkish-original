@@ -90,9 +90,17 @@ class ApiCommentController extends FOSRestController
         return ['comments' => $comments];
     }
 
+    /**
+     * @RouteAnnot\Get("get_replies/{comment}/{id}/{lowestId}", requirements={
+     *     "id": "\d+",
+     *     "type":"news|record|forum|safarname",
+     *     "lowest_id": "\d+"
+     * })
+     * @View(serializerGroups={"api.list"})
+     * 
+     */
+    public function getReplies(Comment $comment, $lowestId) {
 
-    public function getReplies() {
-        
     }
 
     

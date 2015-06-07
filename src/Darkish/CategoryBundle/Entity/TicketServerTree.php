@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\SerializedName;
 /**
  * NewsTree
  *
- * @ORM\Table(name="flighttree")
+ * @ORM\Table(name="tickettree")
  * @ORM\Entity
  */
 class TicketServerTree
