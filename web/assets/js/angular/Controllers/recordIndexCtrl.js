@@ -17,8 +17,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
           v: '3.17',
           libraries: 'weather,geometry,visualization'
         });
-    }])      
-    .controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
+    }]).filter('range', function() {
+      return function(input, min, max) {
+        min = parseInt(min); //Make string input int
+        max = parseInt(max);
+        for (var i=min; i<=max; i++)
+          input.push(i);
+        return input;
+      };
+    }).controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
         
@@ -339,6 +346,31 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             });
 
             treeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+
+
+        /**
+         * Tree modal initializing
+         */
+        
+        
+        $scope.openTicketTreeModal = function (size) {
+
+            var ticketTreeModalInstance = $modal.open({
+                templateUrl: 'ticketTreeModal.html',
+                controller: 'ticketTreeModalCtrl',
+                size: size,
+                resolve: {
+                    
+                }
+            });
+
+            ticketTreeModalInstance.result.then(
             function () {
                 
             }, function () {
@@ -1958,6 +1990,39 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         }
     }]).
+
+    controller('ticketTreeModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', '$modalInstance', function ($scope, $http, RecordService, TreeService, ValuesService, $modalInstance) {
+        $scope.RecordService = RecordService;
+        $scope.TreeService = TreeService;
+        $scope.ValuesService = ValuesService;
+        var tree=[];
+
+        $http.get('ajax/gettickettree').then(function(response) {
+            tree = response.data;
+        }, function(errResponse) {
+            console.error('Error while fetching notes');
+        });
+
+        $scope.tree = function() {
+            return tree;
+        }
+
+        $scope.treeOptions = function() {
+            
+            return $scope.TreeService.treeOptions();
+        }
+        $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
+        $scope.tOptions.dirSelectable = false;
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
+
+        $scope.selectTicketTreeList = function(node) {
+            RecordService.currentRecord.ticket_server_tree = node;
+        }
+    }]).
+
     controller('bodyTreeModalCtrl', ['$scope', 'RecordService','TreeService', '$modalInstance', function ($scope, RecordService, TreeService, $modalInstance) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;

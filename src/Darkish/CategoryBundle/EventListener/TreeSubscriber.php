@@ -9,6 +9,7 @@ use Darkish\CategoryBundle\Entity\NewsTree;
 use Darkish\CategoryBundle\Entity\OfferTree;
 use Darkish\CategoryBundle\Entity\ClassifiedTree;
 use Darkish\CategoryBundle\Entity\ForumTree;
+use Darkish\CategoryBundle\Entity\TicketServerTree;
 
 class TreeSubscriber implements EventSubscriber
 {
@@ -74,7 +75,11 @@ class TreeSubscriber implements EventSubscriber
                 $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
                 $entity->setParentTreeTitle($parentTree->getTitle());
             }
-            
+            elseif($entity instanceof TicketServerTree) {
+                $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:TicketServerTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
+            }
             
             // die($parentTreeIndex);
             

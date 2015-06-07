@@ -21,25 +21,25 @@ class Comment
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="like_count", type="integer", nullable=true)
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $likeCount;
 
     /**
      * @ORM\Column(name="claim_type", type="integer", nullable=true)
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $claimType;
 
     /**
      * @ORM\Column(name="reply_count", type="integer", options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $replyCount = 0;
 
@@ -48,19 +48,19 @@ class Comment
      *
      * @var Thread
      * @ORM\ManyToOne(targetEntity="Thread", inversedBy="comments")
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $thread;
 
     /**
      * @ORM\Column(name="body", type="text")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $parent;
 
@@ -72,44 +72,44 @@ class Comment
 
     /**
      * @ORM\Column(name="created_at", type="datetime")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $createdAt;
 
 
     /**
      * @ORM\Column(name="state", type="smallint")
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $state;
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $hasLiked;
 
     /**
      * @ORM\Column(name="unseen_by_operators", type="boolean", nullable=true, options={"default":false})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByOperators = false;
 
     /**
      * @ORM\Column(name="unseen_replies_by_operators", type="integer", nullable=true, options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByOperators = 0;
 
     /**
      * @ORM\Column(name="unseen_by_customers", type="boolean", nullable=true, options={"default":false})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByCustomers = false;
 
     /**
      * @ORM\Column(name="unseen_replies_by_customers", type="integer", nullable=true, options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByCustomers = 0;
 
@@ -120,7 +120,7 @@ class Comment
      *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
      *      )
-     * @Groups({"comment.details"})
+     * @Groups({"comment.details", "api.list"})
      **/
     protected $photos;
 

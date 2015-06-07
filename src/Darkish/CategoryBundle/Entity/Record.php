@@ -751,6 +751,46 @@ class Record
      */
     private $marketOnlineOrder;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="TicketSeller", type="boolean", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ticketSeller;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="TicketSellerSort", type="integer", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ticketSellerSort;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="TicketServer", type="boolean", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $ticketServer;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="TicketServerTreeSort", type="integer", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ticketServerTreeSort;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="TicketServerTree", inversedBy="records")
+     * @ORM\JoinColumn(name="ticketServerTree_id", referencedColumnName="id", onDelete="set null")
+     * @Groups({"record.details"})
+     */
+    private $ticketServerTree;
 
     /**
      * @var boolean
@@ -3856,5 +3896,125 @@ class Record
     public function getCommentCount()
     {
         return $this->commentCount;
+    }
+
+    /**
+     * Set ticketSeller
+     *
+     * @param boolean $ticketSeller
+     *
+     * @return Record
+     */
+    public function setTicketSeller($ticketSeller)
+    {
+        $this->ticketSeller = $ticketSeller;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketSeller
+     *
+     * @return boolean
+     */
+    public function getTicketSeller()
+    {
+        return $this->ticketSeller;
+    }
+
+    /**
+     * Set ticketSellerSort
+     *
+     * @param integer $ticketSellerSort
+     *
+     * @return Record
+     */
+    public function setTicketSellerSort($ticketSellerSort)
+    {
+        $this->ticketSellerSort = $ticketSellerSort;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketSellerSort
+     *
+     * @return integer
+     */
+    public function getTicketSellerSort()
+    {
+        return $this->ticketSellerSort;
+    }
+
+    /**
+     * Set ticketServer
+     *
+     * @param boolean $ticketServer
+     *
+     * @return Record
+     */
+    public function setTicketServer($ticketServer)
+    {
+        $this->ticketServer = $ticketServer;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketServer
+     *
+     * @return boolean
+     */
+    public function getTicketServer()
+    {
+        return $this->ticketServer;
+    }
+
+    /**
+     * Set ticketServerTreeSort
+     *
+     * @param integer $ticketServerTreeSort
+     *
+     * @return Record
+     */
+    public function setTicketServerTreeSort($ticketServerTreeSort)
+    {
+        $this->ticketServerTreeSort = $ticketServerTreeSort;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketServerTreeSort
+     *
+     * @return integer
+     */
+    public function getTicketServerTreeSort()
+    {
+        return $this->ticketServerTreeSort;
+    }
+
+    /**
+     * Set ticketServerTree
+     *
+     * @param \Darkish\CategoryBundle\Entity\TicketServerTree $ticketServerTree
+     *
+     * @return Record
+     */
+    public function setTicketServerTree(\Darkish\CategoryBundle\Entity\TicketServerTree $ticketServerTree = null)
+    {
+        $this->ticketServerTree = $ticketServerTree;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketServerTree
+     *
+     * @return \Darkish\CategoryBundle\Entity\TicketServerTree
+     */
+    public function getTicketServerTree()
+    {
+        return $this->ticketServerTree;
     }
 }

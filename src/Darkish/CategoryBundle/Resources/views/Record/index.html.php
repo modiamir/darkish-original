@@ -53,6 +53,16 @@
                                 غیرفعال
                             </a>
                         </li>
+                        <li>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -4};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -4}">
+                                فروشندگان بلیط
+                            </a>
+                        </li>
+                        <li>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -5};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -5}">
+                                خدمات دهندگان بلیط
+                            </a>
+                        </li>
                     </ul>
                     <div class="record-tree">
                         <treecontrol class="tree-classic"
@@ -445,6 +455,67 @@
                                  </div>
                              </div>
 
+                             <div id="ticket-wrapper">
+                                 <div id="spec-msg-text-wrapper">
+                                     <label id="spec-msg-text-label" class="third-section-label ">فروشنده بلیط</label>
+                                     <input type="checkbox" class="" ng-model="RecordService.currentRecord.ticket_seller" ng-disabled="!RecordService.isEditing()">
+                                 </div>
+                                 <div id="spec-msg-date-wrapper">
+
+
+                                     <label id="spec-msg-credit-date-label" class="third-section-label " >رتبه نمایش در لیست فروشنده ها</label>
+                                     <select id="trip-maker-combo" ng-model="RecordService.currentRecord.ticket_seller_sort" ng-disabled="!RecordService.isEditing()"
+                                            ng-options="n for n in [] | range:1:30">
+                                          
+
+                                     </select>
+
+                                 </div>
+                                 <hr style="
+                                     float: right;
+                                     width: 100%;
+                                 ">
+                                 <div style="display:inline-block" id="spec-msg-text-wrapper">
+                                     <label id="spec-msg-text-label" class="third-section-label ">خدمات دهنده بلیط</label>
+                                     <input type="checkbox" class="" ng-model="RecordService.currentRecord.ticket_server" ng-disabled="!RecordService.isEditing()">
+                                 </div>
+                                 <div id="spec-msg-date-wrapper">
+
+
+                                     <label id="spec-msg-credit-date-label" class="third-section-label " >رتبه نمایش در شاخه خدمات دهندگان</label>
+                                     <select id="trip-maker-combo" ng-model="RecordService.currentRecord.ticket_server_tree_sort" ng-disabled="!RecordService.isEditing()"
+                                            ng-options="n for n in [] | range:1:30">
+                                          
+
+                                     </select>
+
+                                 </div>
+                                 <div id="spec-msg-date-wrapper">
+
+
+                                     <button type="button" ng-click="openTicketTreeModal()" id="tree-list-add-button"  ng-disabled="!RecordService.isEditing()">انتخاب شاخه بلیط</button>
+                                     <span ng-bind="(RecordService.currentRecord.ticket_server_tree)?RecordService.currentRecord.ticket_server_tree.title: 'بدون شاخه'"></span>
+                                     <script type="text/ng-template" id="ticketTreeModal.html">
+                                         <div class="modal-header">
+                                             <h3 class="modal-title">انتخاب شاخه ها<span ng-show="message">({{message}})</span></h3>
+                                         </div>
+                                         <div class="modal-body">
+                                             <treecontrol class="tree-classic"
+                                                         tree-model="tree()"
+                                                         options="tOptions"
+                                                         selected-node="currentTicketTreeNode">
+                                                {{node.title}}
+                                             </treecontrol>
+                                         </div>
+                                         <div class="modal-footer">
+                                             <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                             <button ng-disabled="RecordService.currentRecord.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="selectTicketTreeList(currentTicketTreeNode)">اضافه</button>
+                                         </div>
+                                     </script>
+                                 </div>
+                                 
+                             </div>
+
                              <div id="opening-hours-wrapper">
                                  <label id="opening-time-label" class="third-section-label">ساعات کار</label>
                                  <div class="hostelry-box">
@@ -676,7 +747,7 @@
                     <div class="col capabilites">
                         <div class="capabilites-buttons-wrapper">
                             
-                            قابلیت ها
+                            قابلیط ها
                             <span data-ng-click="RecordService.toggleCapability('favorite_enable')"
                                   ng-class="{'active' : RecordService.currentRecord.favorite_enable == true, 'inactive' : RecordService.currentRecord.favorite_enable != true}"
                                   class="capabilites-buttons favorit">   </span>

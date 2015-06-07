@@ -1,0 +1,177 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
+
+/**
+ * NewsTree
+ *
+ * @ORM\Table(name="flighttree")
+ * @ORM\Entity
+ */
+class FlightServerTree
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"list", "details", "flighttree.details", "api.list"})
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="up_tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "flighttree.details"})
+     */
+    private $upTreeIndex;
+    
+    /**
+     *
+     * @Groups({"list", "details", "flighttree.details"})
+     */
+    private $parentTreeTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "flighttree.details", "api.list"})
+     */
+    private $treeIndex;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sort", type="integer", nullable=true)
+     * 
+     */
+    private $sort;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "flighttree.details", "api.list"})
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "flighttree.details"})
+     */
+    private $subTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="back_key_title", type="string", length=255, nullable=true)
+     * @Groups({"list", "details", "flighttree.details"})
+     */
+    private $backKeyTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="search_keywords", type="text", nullable=true)
+     */
+    private $searchKeywords;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_subtree_as_filter", type="boolean", nullable=true)
+     */
+    private $showSubtreeAsFilter;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_sponsor_box", type="boolean", nullable=true)
+     */
+    private $showSponsorBox;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sponsor_group", type="string", length=255, nullable=true)
+     */
+    private $sponsorGroup;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_file_name", type="string", length=255, nullable=true)
+     */
+    private $iconFileName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon_set_files_name", type="string", nullable=true)
+     */
+    private $iconSetFilesName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="font_color", type="string", length=255, nullable=true)
+     */
+    private $fontColor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="back_color", type="string", length=255, nullable=true)
+     */
+    private $backColor;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sub_pic_show", type="boolean", nullable=true)
+     */
+    private $subPicShow;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sub_background", type="string", length=255, nullable=true)
+     */
+    private $subBackground;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sub_unit_height_scale", type="string", length=255, nullable=true)
+     */
+    private $subUnitHeightScale;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hidden_tree", type="boolean", nullable=true)
+     */
+    private $hiddenTree;
+
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Record", mappedBy="flightServerTree")
+     **/
+    private $records;
+
+}
