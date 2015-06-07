@@ -19,63 +19,63 @@ class ClientComment extends Comment
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Client", inversedBy="comments")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $owner;
 
     
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $likeCount;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $claimType;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $replyCount = 0;
 
     /**
      * @var string
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $body;
 
     /**
      * @var \DateTime
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $createdAt;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $state;
 
     /**
      * @var \Darkish\CommentBundle\Entity\Thread
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $thread;
 
     /**
      * @var \Darkish\CommentBundle\Entity\Comment
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $parent;
 
@@ -86,7 +86,7 @@ class ClientComment extends Comment
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $hasLiked;
 
@@ -373,25 +373,25 @@ class ClientComment extends Comment
     }
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByOperators;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByOperators;
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByCustomers;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByCustomers;
 

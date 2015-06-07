@@ -221,7 +221,11 @@ $(document).ready(function() {
     
  
  	
- 	
+ 	$('.your-class').slick({
+    	infinite: true,
+      	slidesToShow: 8,
+      	slidesToScroll: 8
+	  });
  	
  	
 });

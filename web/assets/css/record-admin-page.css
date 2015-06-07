@@ -317,7 +317,7 @@ body{
 }
 
 .main-wrapper .main .main-cols {
-    height: 530px;
+    height: 560px;
 }
 
 .main-wrapper .main-cols .file-upload-row {
@@ -534,7 +534,7 @@ h3.block-title {
 }
 /*-----------main fields first section-------------*/
 .main-fields-row{
-    height: 435px;
+    height: 463px;
     width: 100%;
     display: inline-block;
 }
@@ -1251,11 +1251,26 @@ select#tree-list-input option {
     height: 100%;
 }
 
+#ticket-wrapper {
+    background-color: rgb(255, 237, 199);
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+
+#ticket-wrapper #spec-msg-text-wrapper {
+    margin-bottom: 0;
+}
+#ticket-wrapper hr {
+    margin: 5px;
+    border: 0;
+}
+
 
 .html-wrapper {
     position: static;
     margin: 10px 5px;
-    height: 350px;
+    height: 380px;
     overflow-y: scroll;
     width: 98%;
     overflow-wrap: break-word;

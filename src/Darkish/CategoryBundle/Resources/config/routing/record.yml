@@ -6,6 +6,10 @@ record_get_tree:
     path:     /ajax/gettree
     defaults: { _controller: "DarkishCategoryBundle:Record:getTree", _format: json}
 
+record_get_ticket_tree:
+    path:     /ajax/gettickettree
+    defaults: { _controller: "DarkishCategoryBundle:Record:getTicketTree", _format: json}
+
 record_get_tree_linear:
     path:     /ajax/gettree_linear
     defaults: { _controller: "DarkishCategoryBundle:Record:getTreeLinear", _format: json}

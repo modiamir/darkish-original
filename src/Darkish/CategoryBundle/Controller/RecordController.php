@@ -453,6 +453,32 @@ class RecordController extends Controller
         } else {
             $record->setActive(false);
         }
+
+        if(isset($data['ticket_seller'])) {
+            $record->setTicketSeller($data['ticket_seller']);
+        } else {
+            $record->setTicketSeller(false);
+        }
+
+        if(isset($data['ticket_seller_sort'])) {
+            $record->setTicketSellerSort($data['ticket_seller_sort']);
+        }        
+
+        if(isset($data['ticket_server'])) {
+            $record->setTicketServer($data['ticket_server']);
+        } else {
+            $record->setTicketServer(false);
+        }
+
+        if(isset($data['ticket_server_tree'])) {
+            $tree = $this->getDoctrine()->getRepository('DarkishCategoryBundle:TicketServerTree')->find($data['ticket_server_tree']['id']);
+            $record->setTicketServerTree($tree);
+        }
+
+        if(isset($data['ticket_server_tree_sort'])) {
+            $record->setTicketServerTreeSort($data['ticket_server_tree_sort']);
+        }        
+
         if(isset($data['center_index'])) {
             
             //$record->setCenterIndex($data['center_index']);
@@ -968,6 +994,37 @@ class RecordController extends Controller
         );
     }
 
+    public function getTicketTreeAction() {
+
+
+
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:TicketServerTree');
+        // $categories = $repository->findBy(array(), array('sort' => 'ASC' ));
+        
+        $qb = $repository->createQueryBuilder('t');
+        $qb->orderBy('t.upTreeIndex', 'Asc');
+        $qb->addOrderBy('t.sort', 'Asc');
+        $categories = $qb->getQuery()->getResult();
+        $tree = array();
+        foreach($categories as $key => $product) {
+            $node = array();
+            /* @var $product NewsTree */
+            $node['id'] = $product->getId();
+            $node['treeIndex'] = $product->getTreeIndex();
+            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $node['sort'] = $product->getSort();
+            $tree[$key] = $node;
+        }
+        $hierarchy = $this->buildTree($tree);
+        return new Response(
+            json_encode($hierarchy),
+            200
+        );
+    }
+
     public function containsTreeAction($recordId, $treeId) {
         try {
             /* @var $record Record */
@@ -1023,6 +1080,7 @@ class RecordController extends Controller
         $branch = array();
 
         foreach ($elements as $element) {
+            $element['children'] = [];
             if ($element['upTreeIndex'] === $parentId) {
                 $children = $this->buildTree($elements, $element['treeIndex']);
                 if ($children) {
@@ -1149,6 +1207,62 @@ class RecordController extends Controller
             $queryBuilder = $repository->createQueryBuilder('n');
             /* @var $queryBuilder QueryBuilder */
             $queryBuilder->orderBy('n.creationDate', 'Desc')
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == -4) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->where('n.ticketSeller= :seller')
+                ->setParameter('seller', true)
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+        if($cid == -5) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->where('n.ticketServer= :server')
+                ->setParameter('server', true)
                 ->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)
             ;
@@ -1748,7 +1862,66 @@ class RecordController extends Controller
                 , 200);
         }
 
+
+        if($cid == -4) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->where('n.ticketSeller= :seller')
+                ->setParameter('seller', true)
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
         
+        if($cid == -5) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->where('n.ticketServer= :server')
+                ->setParameter('server', true)
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('record.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
+
+
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:MainTree');
         /* @var $repository \Darkish\CategoryBundle\Entity\MainTreeRepository */
