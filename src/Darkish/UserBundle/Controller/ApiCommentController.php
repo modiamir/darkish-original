@@ -36,6 +36,9 @@ class ApiCommentController extends FOSRestController
     private $numOfChilds = 5;
 
     /**
+     * @ApiDoc(
+     *  
+     * )
      * @RouteAnnot\Get("get_comments/{type}/{id}/{lowest_id}", requirements={
      *     "id": "\d+",
      *     "type":"news|record|forum|safarnameh",
@@ -96,6 +99,9 @@ class ApiCommentController extends FOSRestController
     }
 
     /**
+     * @ApiDoc(
+     *  
+     * )
      * @RouteAnnot\Get("get_replies/{comment}/{lowestId}", requirements={
      *     "comment": "\d+",
      *     "lowestId": "\d+"
@@ -125,6 +131,9 @@ class ApiCommentController extends FOSRestController
 
 
     /**
+     * @ApiDoc(
+     *  
+     * )
      * @RouteAnnot\Post("submit_comment")
      * @View(serializerGroups={"api.list"})
      * 
@@ -269,6 +278,9 @@ class ApiCommentController extends FOSRestController
     
 
     /**
+     * @ApiDoc(
+     *  
+     * )
      * @RouteAnnot\Post("set_claim/{comment}/{claim}")
      * @View(serializerGroups={"api.list"})
      */
@@ -315,7 +327,9 @@ class ApiCommentController extends FOSRestController
 
 
     /**
-     *
+     * @ApiDoc(
+     *  
+     * )
      * @RouteAnnot\Post("reply/{comment}")
      * @View(serializerGroups={"api.list"})
      */
