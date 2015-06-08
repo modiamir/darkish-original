@@ -36,15 +36,18 @@ class ApiCommentController extends FOSRestController
     private $numOfChilds = 5;
 
     /**
-     * @ApiDoc(
-     *  
-     * )
+     * 
      * @RouteAnnot\Get("get_comments/{type}/{id}/{lowest_id}", requirements={
      *     "id": "\d+",
      *     "type":"news|record|forum|safarnameh",
      *     "lowest_id": "\d+"
      * })
      * @View(serializerGroups={"api.list"})
+     * 
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Comment API"
+     * )
      */
     public function getLatestCommentsAction($type, $id, $lowest_id) {
         switch ($type) {
@@ -100,7 +103,8 @@ class ApiCommentController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  
+     *  resource=true,
+     *  section="Comment API"
      * )
      * @RouteAnnot\Get("get_replies/{comment}/{lowestId}", requirements={
      *     "comment": "\d+",
@@ -132,7 +136,8 @@ class ApiCommentController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  
+     *  resource=true,
+     *  section="Comment API"
      * )
      * @RouteAnnot\Post("submit_comment")
      * @View(serializerGroups={"api.list"})
@@ -279,7 +284,8 @@ class ApiCommentController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  
+     *  resource=true,
+     *  section="Comment API"
      * )
      * @RouteAnnot\Post("set_claim/{comment}/{claim}")
      * @View(serializerGroups={"api.list"})
@@ -303,7 +309,10 @@ class ApiCommentController extends FOSRestController
     /**
      * @RouteAnnot\Post("like/{comment}")
      * @View(serializerGroups={"api.list"})
-     * 
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Comment API"
+     * )
      */
     public function likeCommentAction(Comment $comment) {
         if(!$comment->getHasLiked()) {
@@ -328,7 +337,8 @@ class ApiCommentController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  
+     *  resource=true,
+     *  section="Comment API"
      * )
      * @RouteAnnot\Post("reply/{comment}")
      * @View(serializerGroups={"api.list"})
