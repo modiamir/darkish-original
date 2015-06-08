@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use JMS\Serializer\SerializationContext;
 use Darkish\CommentBundle\Entity\RecordThread;
 use Darkish\CommentBundle\Entity\Comment;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CommentController extends Controller
 {

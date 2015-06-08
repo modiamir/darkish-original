@@ -7,6 +7,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Darkish\CommentBundle\Entity\Comment;
+use Darkish\CommentBundle\Entity\Thread;
 use Darkish\CommentBundle\Entity\RecordThread;
 use Darkish\CommentBundle\Entity\NewsThread;
 use Darkish\CommentBundle\Entity\ForumTreeThread;
@@ -39,6 +40,7 @@ class CommentSubscriber implements EventSubscriber
             $this->setUnseen($args);
             $this->setStates($args);
         }
+        
     }
 
 
