@@ -37,6 +37,11 @@ darkish_api_message:
     type:     rest
     prefix:   api/rest/message
 
+darkish_api_comment:
+    resource: "Darkish\UserBundle\Controller\ApiCommentController"
+    type:     rest
+    prefix:   api/rest/comment
+
 darkish_api_cno:
     resource: "Darkish\UserBundle\Controller\ApiCnoController"
     type:     rest
