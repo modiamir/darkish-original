@@ -33,6 +33,9 @@ class AppKernel extends Kernel
             new Pierrre\EncrypterBundle\PierrreEncrypterBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Darkish\WebsiteBundle\DarkishWebsiteBundle(),
+            new VMelnik\DoctrineEncryptBundle\VMelnikDoctrineEncryptBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
