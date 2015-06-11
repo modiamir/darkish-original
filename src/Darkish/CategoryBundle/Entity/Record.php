@@ -611,7 +611,7 @@ class Record
     /**
      * @ORM\Column(type="boolean", name="CustomerRegisterUsed", options={"default"=false})
      */
-    private $customerRegisterUsed;
+    private $customerRegisterUsed = false;
     
     /**
      * @var boolean
