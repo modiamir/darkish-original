@@ -609,7 +609,21 @@ class Record
     private $sellServicePage;
 
     
-    
+    /**
+     * @ORM\Column(type="string", name="CustomerRegisterUsername")
+     */
+    private $customerRegisterUsername;
+
+    /**
+     * @ORM\Column(type="string", name="CustomerRegisterPassword")
+     */
+    private $customerRegisterPassword;
+
+
+    /**
+     * @ORM\Column(type="boolean", name="CustomerRegisterUsed")
+     */
+    private $customerRegisterUsed;
     
     /**
      * @var boolean
@@ -788,6 +802,7 @@ class Record
     /**
      * @ORM\ManyToOne(targetEntity="TicketServerTree", inversedBy="records")
      * @ORM\JoinColumn(name="ticketServerTree_id", referencedColumnName="id", onDelete="set null")
+     * @Groups({"record.details"})
      */
     private $ticketServerTree;
 

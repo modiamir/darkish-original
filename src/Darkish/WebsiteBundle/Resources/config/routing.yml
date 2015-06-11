@@ -1,3 +1,4 @@
-darkish_website_homepage:
-    path:     /
-    defaults: { _controller: DarkishWebsiteBundle:Default:index }
+darkish_website:
+    resource: "Darkish\WebsiteBundle\Controller\DefaultController"
+    type:     annotation
+    prefix:   /

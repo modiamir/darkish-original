@@ -16,7 +16,8 @@ use FFMpeg\Filters\Video\ResizeFilter;
 use FFMpeg\Format\Video\X264;
 use Alchemy\BinaryDriver\Listeners\DebugListener;
 use Symfony\Component\HttpFoundation\File\File;
-
+use JMS\Serializer\SerializationContext;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 
 
@@ -43,11 +44,13 @@ class CnorSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $this->setHasMedias($args);
-        
+        $this->updateTreeJson($args);
     }
     
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args)
     {
+
+        $this->updateTreeJson($args);
         $this->setHasMedias($args);
         
     }
@@ -79,4 +82,13 @@ class CnorSubscriber implements EventSubscriber
     }
 
 
+    private function updateTreeJson(LifecycleEventArgs $args) {
+        // $entity = $args->getEntity();
+        // $entityManager = $args->getEntityManager();
+        // if($entity instanceof News) {
+        //     $trees = $entity->getNewstrees();
+        //     die($this->container->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+            
+        // }
+    }
 }

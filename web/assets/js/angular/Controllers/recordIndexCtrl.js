@@ -437,6 +437,29 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         
         ///////////////
         
+        /**
+         * Body modal initialization
+         */
+        
+        
+                
+        $scope.openRegisterCodeModal = function (size) {
+            var registerCodeModalInstance = $modal.open({
+                templateUrl: 'registerCodeModal.html',
+                controller: 'registerCodeModalCtrl',
+                size: size,
+                windowClass: ''
+            });
+
+            registerCodeModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
+        
+        ///////////////
         
         /**
          * Titles modal initialization
@@ -1083,6 +1106,24 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         };
 
+        self.generateRgisterCodeSingle = function() {
+            $http({
+                method: 'POST',
+                url: '../recordregister/single/'+self.currentRecord.id+'/1',
+                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+            }).then(
+                function(response){
+                    if(response.data.id) {
+                        var encodedData = window.btoa(unescape(encodeURIComponent(JSON.stringify([response.data.id]))));
+                        window.open('../recordregister/download/'+encodedData+'/code/1');
+                    } else {
+                        alert('برای  رکورده فعلی کد ثبت نام تولید نشد');
+                    }
+                },
+                function(responseErr){
+                }
+            );
+        }
 
         self.toggleCapability = function(cap) {
             if(self.isEditing()) {
@@ -3025,6 +3066,93 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
     }]).
+
+    controller('registerCodeModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 
+        function (                $scope,   $http,   RecordService,  TreeService,   ValuesService,   SecurityService,   FileUploader, $modalInstance, $modal) {
+        $scope.recordform = recordform;
+        $scope.RecordService = RecordService;
+        $scope.TreeService = TreeService;
+        $scope.ValuesService = ValuesService;
+        $scope.SecurityService = SecurityService;
+        
+        $scope.generateRgisterCodeGroup = function() {
+            console.log(RecordService.list.all());
+            var recordIds = [];
+
+            angular.forEach(RecordService.list.all(), function(value, key){
+                console.log(value);
+                recordIds.push(value.id);
+            });
+            console.log(recordIds);
+            $http({
+                method: 'POST',
+                url: '../recordregister/group',
+                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+                data: $.param({records: recordIds})
+            }).then(
+                function(response){
+                    var codeIds = [];
+                    angular.forEach(response.data, function(value, key){
+                        codeIds.push(value.id);
+                    });
+                    if(codeIds.length > 0) {
+                        var encodedData = window.btoa(unescape(encodeURIComponent(JSON.stringify(codeIds))));
+                        window.open('../recordregister/download/'+encodedData+'/code/1');
+                    } else {
+                        alert('برای هیچ کدام از رکوردهای لیست کد ثبت نام تولید نشد');
+                    }
+
+
+                },
+                function(responseErr){
+                }
+            );
+        }
+
+        $scope.printRgisterCodeGroup = function() {
+            var recordNumbers = [];
+
+            angular.forEach(RecordService.list.all(), function(value, key){
+                recordNumbers.push(value.record_number);
+            });
+            
+            if(recordNumbers.length > 0) {
+                var encodedData = window.btoa(unescape(encodeURIComponent(JSON.stringify(recordNumbers))));
+                window.open('../recordregister/download/'+encodedData+'/record/0');
+            } else {
+                alert('رکوردی در لیست موجود نیست')
+            }
+        }
+
+        $scope.generateRgisterCodeRange = function(from, to) {
+            $http({
+                method: 'POST',
+                url: '../recordregister/range/'+from+'/'+to,
+                headers: { 'Content-Type' : 'application/x-www-form-urlencoded' }
+            }).then(
+                function(response){
+                    if(response.data.length > 0) {
+                        window.open('../recordregister/download/range/'+from+'/'+to+'/1');
+                    } else {
+                        alert('برای هیچ کدام از رکوردهای لیست کد ثبت نام تولید نشد')
+                    }
+
+
+                },
+                function(responseErr){
+                }
+            );
+        }
+
+        $scope.printRgisterCodeRange = function(from, to) {
+            
+            window.open('../recordregister/download/range/'+from+'/'+to+'/0');
+            
+        }
+
+    }]).
+
+
     factory('ValuesService', ['$http', function ($http){ 
         var centers;
 

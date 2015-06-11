@@ -206,7 +206,9 @@ class ClassifiedController extends Controller
         if(isset($data['sub_title'])) {
             $classified->setSubTitle($data['sub_title']);
         }
-
+        if(isset($data['price'])) {
+            $classified->setPrice($data['price']);
+        }
         if(isset($data['publish_date'])) {
             $date = new \DateTime($data['publish_date']);
             $classified->setPublishDate($date);
@@ -981,6 +983,32 @@ class ClassifiedController extends Controller
                 $serialized
                 , 200);
         }
+        if($cid == -4) {
+
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Classified');
+            //$classifiedList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            $queryBuilder->where('n.claimType IS NOT NULL')
+                ->setFirstResult($count)
+                ->setMaxResults($this->numPerPage)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $classifiedList =  $query->getResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($classifiedList, 'json', SerializationContext::create()->setGroups(array('classified.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
 
 
         $repository = $this->getDoctrine()
@@ -1182,8 +1210,13 @@ class ClassifiedController extends Controller
         if(!$classified) {
             return new Response('classified_id is invalid!', 404);
         }
+        if(!$classified->getActive()) {
+            $classified->setClaimType();
+        }
         /* @var $classified Classified */
         $classified->setActive(!$classified->getActive());
+
+
         $em->persist($classified);
         $em->flush();
         return new JsonResponse(array('active' => $classified->getActive()));
@@ -1416,7 +1449,33 @@ class ClassifiedController extends Controller
                 $serialized
                 , 200);
         }
+        if($cid == -4) {
 
+            $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Classified');
+            //$newsList = $repository->findBy(array('status' => false));
+
+
+            $queryBuilder = $repository->createQueryBuilder('n');
+            /* @var $queryBuilder QueryBuilder */
+            
+            $queryBuilder->select('count(n.id)');
+            $queryBuilder->where('n.claimType IS NOT NULL')
+                ->setFirstResult(0)
+            ;
+
+
+            $query = $queryBuilder->getQuery();
+            $newsList =  $query->getSingleScalarResult();
+
+
+
+            $serialized = $this->get('jms_serializer')->
+                serialize($newsList, 'json', SerializationContext::create()->setGroups(array('classified.list')));
+
+            return new Response(
+                $serialized
+                , 200);
+        }
         
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:ClassifiedTree');

@@ -1,0 +1,10 @@
+{% extends 'DarkishWebsiteBundle:Default:RegisterCustomer/register-customer.html.twig' %}
+
+
+{% block main %}
+	{% include 'DarkishWebsiteBundle:Default:alert.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {% if encrypted is defined %}<input name="data" type="hidden" value="{{encrypted}}" />{% endif %}
+    {{ form_end(form) }}
+{% endblock %}

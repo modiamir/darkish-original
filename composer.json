@@ -32,7 +32,10 @@
         "pierrre/encrypter-bundle": "dev-master",
         "nelmio/cors-bundle": "~1.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
-        "wa72/htmlpagedom": "~1.1"
+        "wa72/htmlpagedom": "~1.1",
+        "vmelnik/doctrine-encrypt-bundle": "dev-master",
+        "knplabs/knp-snappy-bundle": "dev-master",
+        "braincrafted/bootstrap-bundle": "~2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

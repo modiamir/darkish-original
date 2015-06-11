@@ -38,11 +38,22 @@ DarkishCategoryBundle_user:
         resource: "@DarkishCategoryBundle/Resources/config/routing/user.yml"
         prefix:   /admin/user
 
+DarkishCategoryBundle_record_register:
+    resource: "Darkish\CategoryBundle\Controller\RecordRegisterController"
+    type:     annotation
+    prefix:   /admin/recordregister
+
 DarkishModi:
         path:     /darkish/fix
         defaults: { _controller: DarkishCategoryBundle:Default:fix }
-        
+
+DarkishGenerateRecordRegister:
+    path:   /darkish/generate_record_register
+    defaults: { _controller: DarkishCategoryBundle:Default:generateRecordRegistration }
+
 managedfile_nervgh:
     path:     /nervgh
     defaults: { _controller: "DarkishCategoryBundle:ManagedFile:nervgh" }
     requirements: { _method: post|options }
+
+

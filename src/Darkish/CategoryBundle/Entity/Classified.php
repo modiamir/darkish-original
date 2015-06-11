@@ -158,7 +158,11 @@ class Classified
     private $visitCount;
 
 
-
+    /**
+     * @ORM\Column(name="price", type="bigint", nullable=true)
+     * @Groups({"classified.details", "api.list"})
+     */
+    private $price;
     
 
     /**
@@ -177,6 +181,10 @@ class Classified
      */
     private $verify;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ClassifiedClaimTypes")
+     */
+    private $claimType;
     
     
     /**
@@ -1506,5 +1514,53 @@ class Classified
     public function getLikeCount()
     {
         return $this->likeCount;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Classified
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set claimType
+     *
+     * @param \Darkish\CategoryBundle\Entity\ClassifiedClaimTypes $claimType
+     *
+     * @return Classified
+     */
+    public function setClaimType(\Darkish\CategoryBundle\Entity\ClassifiedClaimTypes $claimType = null)
+    {
+        $this->claimType = $claimType;
+
+        return $this;
+    }
+
+    /**
+     * Get claimType
+     *
+     * @return \Darkish\CategoryBundle\Entity\ClassifiedClaimTypes
+     */
+    public function getClaimType()
+    {
+        return $this->claimType;
     }
 }

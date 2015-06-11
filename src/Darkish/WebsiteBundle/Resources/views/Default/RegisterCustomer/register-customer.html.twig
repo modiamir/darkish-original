@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/print.css') }}" media="print" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+	  <link href="{{ asset('bundles/darkishwebsite/stylesheets/ie.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+	<![endif]-->
+
+	<link href="{{ asset('bundles/darkishwebsite/plugins/darkish-bootstrap/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
+	
+	
+
+	
+	
+
+	
+
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/non-responsive.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/style.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+
+{% block javascripts %}
+	<script src="{{ asset('bundles/darkishwebsite/bower_components/jquery/jquery.min.js') }}"></script>
+	
+	
+	<script src="{{ asset('bundles/darkishwebsite/plugins/darkish-bootstrap/js/bootstrap.min.js') }}"></script>
+	
+	
+
+{% endblock %}
+{% block  dir %}dir="rtl" class="register-customer"{% endblock %}
+{% block  body %}
+	
+
+	
+
+
+	<nav id="main-menu" class="navbar navbar-default">
+	  <div class="container">
+	    <div class="navbar-header">
+	      	<a class="navbar-brand" href="#">
+	      		<img class="logo" src="{{asset('bundles/darkishwebsite/images/logo.png')}}">
+	      	</a>
+	    </div>
+
+	    <div id="main-navigation">
+	      	<ul class="nav navbar-nav">
+    			
+	      	</ul>
+	    </div>
+	  </div>
+	</nav>
+
+	
+	<div id="fullpage">
+		<div class="container">
+			<div class="row">
+				<div class="col col-xs-12">
+					{% block main %}
+					    این صفحه در دست ساخت است.
+					{% endblock %}
+				</div>
+			</div>
+	    </div>
+	</div>
+{% endblock %}
