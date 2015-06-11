@@ -219,6 +219,15 @@ class OfferController extends Controller
         if(isset($data['body'])) {
             $offer->setBody($data['body']);
         }
+
+        if(isset($data['submitter_title'])) {
+            $offer->setSubmitterTitle($data['submitter_title']);
+        }
+
+        if(isset($data['submitter_number'])) {
+            $offer->setSubmitterNumber($data['submitter_number']);
+        }
+
         if(isset($data['audio'])) {
             $offer->setAudio($data['audio']);
         }

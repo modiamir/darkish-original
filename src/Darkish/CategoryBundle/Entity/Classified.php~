@@ -24,7 +24,7 @@ class Classified
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Classified
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"classified.list", "classified.details"})
+     * @Groups({"classified.list", "classified.details", "api.list"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -93,7 +93,7 @@ class Classified
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $publishDate;
     
@@ -130,7 +130,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.body"})
      */
     private $body;
 
@@ -138,7 +138,7 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $audio;
 
@@ -146,23 +146,23 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $video;
 
     
     /**
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      */
     private $visitCount;
 
+
     /**
-     * @ORM\Column(name="LikeCount", type="integer", nullable=true, options={"default"=0})
+     * @ORM\Column(name="price", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list"})
      */
-    private $likeCount;
-
+    private $price;
     
 
     /**
@@ -181,6 +181,10 @@ class Classified
      */
     private $verify;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ClassifiedClaimTypes")
+     */
+    private $claimType;
     
     
     /**
@@ -288,7 +292,7 @@ class Classified
 
     /**
      * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified")
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      **/
     private $classifiedtrees;
 
@@ -307,7 +311,7 @@ class Classified
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForClassified")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list"})
      * 
      **/
     private $icon;
@@ -1487,5 +1491,52 @@ class Classified
     public function getVisitCount()
     {
         return $this->visitCount;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     * @return Classified
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer 
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Classified
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

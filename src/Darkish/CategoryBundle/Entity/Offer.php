@@ -173,6 +173,24 @@ class Offer
      */
     private $body;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SubmitterNumber", type="string", nullable=true)
+     * @Groups({"offer.details", "api.body"})
+     */
+    private $submitterNumber;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="SubmitterTitle", type="string", nullable=true)
+     * @Groups({"offer.details", "api.body"})
+     */
+    private $submitterTitle;
+
     /**
      * @var boolean
      *
@@ -1552,5 +1570,53 @@ class Offer
     public function getLikeCount()
     {
         return $this->likeCount;
+    }
+
+    /**
+     * Set submitterNumber
+     *
+     * @param string $submitterNumber
+     *
+     * @return Offer
+     */
+    public function setSubmitterNumber($submitterNumber)
+    {
+        $this->submitterNumber = $submitterNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get submitterNumber
+     *
+     * @return string
+     */
+    public function getSubmitterNumber()
+    {
+        return $this->submitterNumber;
+    }
+
+    /**
+     * Set submitterTitle
+     *
+     * @param string $submitterTitle
+     *
+     * @return Offer
+     */
+    public function setSubmitterTitle($submitterTitle)
+    {
+        $this->submitterTitle = $submitterTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get submitterTitle
+     *
+     * @return string
+     */
+    public function getSubmitterTitle()
+    {
+        return $this->submitterTitle;
     }
 }

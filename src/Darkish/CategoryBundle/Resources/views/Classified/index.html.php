@@ -52,6 +52,11 @@
                                 غیرفعال
                             </a>
                         </li>
+                        <li>
+                            <a data-ng-click="TreeService.currentTreeNode = {id: -4};TreeService.selectTree(TreeService.currentTreeNode)" ng-class="{'selected': TreeService.currentTreeNode.id == -4}">
+                                شکایت شده ها
+                            </a>
+                        </li>
                     </ul>
                     <div class="classified-tree">
                         <treecontrol class="tree-classic"
@@ -251,17 +256,23 @@
 
                             <label for="email">ایمیل</label>
                             <div class="form-item-wrapper email">
-                                <input type="text" id="email" ng-model="ClassifiedService.currentClassified.email" ng-disabled="!ClassifiedService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
+                                <input maxlength="50" type="text" id="email" ng-model="ClassifiedService.currentClassified.email" ng-disabled="!ClassifiedService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
                             </div>
 
                             <label for="website">سایت</label>
                             <div class="form-item-wrapper website">
-                                <input type="text" id="website" ng-model="ClassifiedService.currentClassified.website" ng-disabled="!ClassifiedService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
+                                <input maxlength="50" type="text" id="website" ng-model="ClassifiedService.currentClassified.website" ng-disabled="!ClassifiedService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
                             </div>
 
                             
 
 
+                        </div>
+                        <div class="main-fields-forth-section">
+                            <label for="price">قیمت</label>
+                            <div class="form-item-wrapper price">
+                                <input maxlength="10" type="number" id="price" ng-model="ClassifiedService.currentClassified.price" ng-disabled="!ClassifiedService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
+                            </div>
                         </div>
 
                     </div>
@@ -789,7 +800,7 @@
                         <label>
                             متن آگهی
                         </label>
-                        <textarea ng-maxlength="300" ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
+                        <textarea ng-maxlength="1000" ng-model="ClassifiedService.currentClassified.body" ng-disabled="!ClassifiedService.isEditing()" ></textarea>
                         <div ng-hide="true" class="html-preview" ng-bind-html="trustedBody()">
 
                         </div>

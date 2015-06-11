@@ -166,7 +166,7 @@ class News
      * @var boolean
      *
      * @ORM\Column(name="Commentable", type="boolean", nullable=false, options={"default":1})
-     * @Groups({"news.details", "news.list"})
+     * @Groups({"news.details", "news.list", "api.list"})
      */
     private $commentable;
 
@@ -184,23 +184,23 @@ class News
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.body"})
      */
     private $body;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"news.details"})
+     * @ORM\Column(name="Audio", type="boolean", nullable=true, options={"default"=false})
+     * @Groups({"news.details", "api.list"})
      */
     private $audio;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"news.details"})
+     * @ORM\Column(name="Video", type="boolean", nullable=true, options={"default"=false})
+     * @Groups({"news.details", "api.list"})
      */
     private $video;
 
@@ -271,7 +271,7 @@ class News
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"news.details"})
+     * @Groups({"news.details", "api.list"})
      **/
     private $images;
     
@@ -360,6 +360,13 @@ class News
      * @Exclude
      */
     private $thread;
+
+
+    /**
+     * @ORM\Column(name="treejson", type="json_array")
+     * @Groups({"news.details", "api.list"})
+     **/
+    private $treeJson;
 
 
 
@@ -1278,5 +1285,28 @@ class News
     public function getLikeCount()
     {
         return $this->likeCount;
+    }
+
+    /**
+     * Set commentCount
+     *
+     * @param integer $commentCount
+     * @return News
+     */
+    public function setCommentCount($commentCount)
+    {
+        $this->commentCount = $commentCount;
+
+        return $this;
+    }
+
+    /**
+     * Get commentCount
+     *
+     * @return integer 
+     */
+    public function getCommentCount()
+    {
+        return $this->commentCount;
     }
 }

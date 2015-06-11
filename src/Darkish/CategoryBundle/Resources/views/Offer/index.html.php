@@ -11,7 +11,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
-
+<link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('pagetitle') ?>مدیریت پیشنهاد ویژه<?php $view['slots']->stop() ?>
@@ -240,14 +240,57 @@
                             </div>
                             
                             <div class="offer-submiter-box">
-                                <input type="text" ng-disabled="!OfferService.isEditing()" id="offer-submitter-input" ng-model="OfferService.currentOffer.submitter" />
-                                <label for="offer-submitter-input">
+                                <label style="float: right" for="offer-submitter-input">
                                     شماره رکورد آگهی کننده
                                 </label>
-                                
+                                <input style="float: right" type="text" ng-disabled="!OfferService.isEditing()" id="offer-submitter-input" ng-model="OfferService.currentOffer.submitter_number" />
+                                <hr  style="float: right; width: 100%;margin:5px;"/>
+                                <label style="float: right" for="offer-submitter-input-title">
+                                    نام رکورد آگهی کننده
+                                </label>
+                                <input style="float: right" type="text" ng-disabled="!OfferService.isEditing()" id="offer-submitter-input-title" ng-model="OfferService.currentOffer.submitter_title" />
+                                <hr  style="float: right; width: 100%; margin:5px;"/>
+                                <button style="clear: both;display: block;" ng-click="openSelectRecordModal()">انتخاب رکورد</button>
                             </div>
                             
-                            
+                            <script type="text/ng-template" id="selectRecordModal.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">درج رکورد</h3>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <div> 
+                                        <angucomplete-alt  id="records"
+                                                  placeholder="عنوان رکورد"
+                                                  pause="400"
+                                                  selected-object="selectedEntity"
+                                                  remote-url="../record/ajax/get_entity_list/record/name/"
+                                                  remote-url-data-field="results"
+                                                  title-field="record_number,title"
+                                                  minlength="1"
+                                                  input-class="form-control form-control-small autocomplete-entity-search"/>
+                                    </div>
+
+                                    <div class="autocomplete-entity-search" >
+                                        <angucomplete-alt  id="records"
+                                                  placeholder="شماره رکورد"
+                                                  pause="400"
+                                                  selected-object="selectedEntity"
+                                                  remote-url="../record/ajax/get_entity_list/record/number/"
+                                                  remote-url-data-field="results"
+                                                  title-field="record_number,title"
+                                                  minlength="1"
+                                                  input-class="form-control form-control-small autocomplete-entity-search"/>
+                                    </div>  
+
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-warning" ng-click="close()">بستن</button>
+                                    <button class="btn btn-info pull-left" data-ng-click="insertRecord(selectedEntity)">اضافه</button>
+                                </div>
+                            </script>
                             
                             
 
@@ -282,12 +325,12 @@
 
                             <label for="email">ایمیل</label>
                             <div class="form-item-wrapper email">
-                                <input type="text" id="email" ng-model="OfferService.currentOffer.email" ng-disabled="!OfferService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
+                                <input maxlength="100" type="text" id="email" ng-model="OfferService.currentOffer.email" ng-disabled="!OfferService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
                             </div>
 
                             <label for="website">سایت</label>
                             <div class="form-item-wrapper website">
-                                <input type="text" id="website" ng-model="OfferService.currentOffer.website" ng-disabled="!OfferService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
+                                <input maxlength="100" type="text" id="website" ng-model="OfferService.currentOffer.website" ng-disabled="!OfferService.isEditing()" class="ng-pristine ng-valid" disabled="disabled">
                             </div>
 
                             
@@ -1487,6 +1530,7 @@
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persiandate.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persian-datepicker-tpls.js') ?>"></script>
 
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/checklist-model/checklist-model.js') ?>"></script>
 

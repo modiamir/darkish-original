@@ -568,7 +568,7 @@ h3.block-title {
 
 }
 #tree-list-input {
-   height: 32px;
+   /*height: 32px;*/
     background: white;
     border: groove 1px;
     width: 70%;

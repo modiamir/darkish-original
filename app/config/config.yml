@@ -28,6 +28,9 @@ framework:
 
 # Twig Configuration
 twig:
+    form:
+        resources:
+            - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
@@ -92,6 +95,8 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default}
         arguments: ["@service_container", "%darkish.comment%"]
+    my_mencryptor:
+        class: Darkish\WebsiteBundle\Security\Mencryptor
 
 
 
@@ -256,3 +261,30 @@ nelmio_cors:
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
             hosts: ['^api\.']
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage
+        options:    []
+
+
+braincrafted_bootstrap:
+    output_dir:
+    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
+    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+    less_filter: less # "less", "lessphp", "sass" or "none"
+    fonts_dir: %kernel.root_dir%/../web/fonts
+    auto_configure:
+        assetic: false
+        twig: true
+        knp_menu: true
+        knp_paginator: true
+    customize:
+        variables_file: ~
+        bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
+        bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig

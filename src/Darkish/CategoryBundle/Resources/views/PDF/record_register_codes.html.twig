@@ -1,0 +1,77 @@
+
+
+
+<html dir="rtl">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>New Page 2</title>
+</head>
+<style type="text/css">
+table { 
+	page-break-inside:auto; 
+	border-spacing: 0;
+}
+tr { 
+	page-break-inside:avoid;
+	page-break-after:auto; 
+	
+}
+
+
+
+
+</style>
+<body>
+
+<table border="1" width="100%" id="table1" style="border-right: 0;border-left: 0">
+	{% for code in codes %}
+	<tr height="300px" width="100%" >
+		<td width="35%" style="padding: 0 10px; border-right: 0;">
+			<div style="width:100%;">
+				<div style="float: right; width:33%; vertical-align: top; text-align: right;">
+				بسته ثبت نام
+				</div>
+				<div style="float: right; width:33%; vertical-align: top; text-align: center;">
+				درکیش
+				</div>
+				<div style="float: right; width:33%; vertical-align: top; text-align: left;">
+				شماره پرونده: {{code.recordNumber}}
+				</div>
+			</div>
+			<div style="width: 100%;
+						text-align: center;
+						margin-top: 50px;">
+				توجه: از تحويل گرفتن پاكت باز شده خودداري نماييد.
+			</div>
+		</td>
+		<td width="35%" style="padding: 0 10px; border-left:0;">
+			<div style="text-align: center">
+				كاربر گرامي:  رمزهاي زير ، فقط براي يك بار ثبت نام در سايت دركيش
+
+				 معتبر بوده و پس از تكميل فرآيند ثبت نام ، غير فعال مي شوند.
+
+			</div>
+			<div style="width:100%; text-align: center;margin-top: 20px;">
+				<label>
+					رمز ۱:
+				</label>
+				<span>{{code.username}}</span>
+				<br/>
+				<label>
+					رمز ۲:
+				</label>
+				<span>{{code.password}}</span>
+			</div>
+		</td>
+		<td width="30%" style="border-right: 0; border-left: 0; background: black">
+				
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
+</body>
+
+</html>

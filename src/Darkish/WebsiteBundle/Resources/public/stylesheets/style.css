@@ -398,13 +398,17 @@ body #fullpage .section:nth-child(2n+5) {
 body #fullpage .section:nth-child(2n+6) {
   background: red;
 }
+/* line 443, ../sass/style.scss */
+body.register-customer #fullpage {
+  margin-top: 30px;
+}
 
-/* line 444, ../sass/style.scss */
+/* line 450, ../sass/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: BMitra;
 }
 
-/* line 516, ../sass/style.scss */
+/* line 522, ../sass/style.scss */
 .record-list {
   background-image: url(../images/1.jpg);
   background-size: cover;
@@ -416,7 +420,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.8;
   border-bottom: 2px solid #00c140;
 }
-/* line 526, ../sass/style.scss */
+/* line 532, ../sass/style.scss */
 .record-list .record-list-caption {
   position: absolute;
   bottom: -100%;
@@ -439,16 +443,16 @@ h1, h2, h3, h4, h5, h6 {
   transition-properti: all;
   -o-transition-properti: all;
 }
-/* line 553, ../sass/style.scss */
+/* line 559, ../sass/style.scss */
 .record-list:hover {
   opacity: 1;
 }
-/* line 555, ../sass/style.scss */
+/* line 561, ../sass/style.scss */
 .record-list:hover .record-list-caption {
   bottom: 0;
 }
 
-/* line 563, ../sass/style.scss */
+/* line 569, ../sass/style.scss */
 .estate-list {
   background-color: white;
   width: 100%;
@@ -457,7 +461,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-bottom: 2px solid #fe7d22;
 }
-/* line 570, ../sass/style.scss */
+/* line 576, ../sass/style.scss */
 .estate-list .estate-photo {
   background-image: url(../images/1.jpg);
   background-size: cover;
@@ -466,7 +470,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 50%;
   opacity: 0.8;
 }
-/* line 578, ../sass/style.scss */
+/* line 584, ../sass/style.scss */
 .estate-list h4.estate-title {
   line-height: 22px;
   margin: 10px 0px 10px 0px;
@@ -474,14 +478,14 @@ h1, h2, h3, h4, h5, h6 {
   color: #fe7d22;
   font-size: 22px;
 }
-/* line 585, ../sass/style.scss */
+/* line 591, ../sass/style.scss */
 .estate-list span.estate-description {
   padding: 0px 15px;
   color: #AB998D;
   width: 100%;
   display: block;
 }
-/* line 592, ../sass/style.scss */
+/* line 598, ../sass/style.scss */
 .estate-list span.estate-dimension {
   color: #91613F;
   position: absolute;
@@ -489,7 +493,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 20px;
   font-size: 20px;
 }
-/* line 600, ../sass/style.scss */
+/* line 606, ../sass/style.scss */
 .estate-list span.estate-extra {
   color: #AB998D;
   position: absolute;
@@ -497,20 +501,20 @@ h1, h2, h3, h4, h5, h6 {
   left: 20px;
   font-size: 16px;
 }
-/* line 608, ../sass/style.scss */
+/* line 614, ../sass/style.scss */
 .estate-list:hover {
   box-shadow: 0 0 1px gray;
 }
-/* line 610, ../sass/style.scss */
+/* line 616, ../sass/style.scss */
 .estate-list:hover .estate-photo {
   opacity: 1;
 }
-/* line 613, ../sass/style.scss */
+/* line 619, ../sass/style.scss */
 .estate-list:hover .record-list-caption {
   bottom: 0;
 }
 
-/* line 621, ../sass/style.scss */
+/* line 627, ../sass/style.scss */
 .automobile-list {
   background-color: white;
   width: 100%;
@@ -519,7 +523,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-bottom: 2px solid #008be4;
 }
-/* line 628, ../sass/style.scss */
+/* line 634, ../sass/style.scss */
 .automobile-list .automobile-photo {
   background-image: url(../images/car.jpg);
   background-size: cover;
@@ -528,12 +532,12 @@ h1, h2, h3, h4, h5, h6 {
   height: 65%;
   opacity: 0.8;
 }
-/* line 636, ../sass/style.scss */
+/* line 642, ../sass/style.scss */
 .automobile-list .automobile-title {
   padding: 0 10px;
   color: #008be4;
 }
-/* line 640, ../sass/style.scss */
+/* line 646, ../sass/style.scss */
 .automobile-list .automobile-price {
   font-size: 25px;
   color: black;

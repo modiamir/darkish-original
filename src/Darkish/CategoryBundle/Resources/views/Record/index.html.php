@@ -143,7 +143,7 @@
                           </span>
                           
                         </div>
-                        
+                        <button ng-disabled="!RecordService.currentRecord.id" class="btn btn-default btn-xs" ng-click="RecordService.generateRgisterCodeSingle()">تولید کد ثبت نام</button>
                     </div>
 
                     <div class="basic-info-right-col">
@@ -1480,6 +1480,45 @@
                             </div>
                             
                         </script>
+
+                        <script type="text/ng-template" id="registerCodeModal.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">عملیات کدهای ثبت نام</h3>
+                            </div>
+                            <div class="modal-body">
+                                <tabset>
+                                    <tab select="" heading="گروهی">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col col-offset-xs-3 col-xs-6">
+                                                    <br />
+                                                    <button class="btn btn-md btn-info" ng-click="generateRgisterCodeGroup()">تولید کد برای رکوردهای لیست</button>
+                                                    <button class="btn btn-md btn-success" ng-click="printRgisterCodeGroup()">چاپ کد برای رکوردهای لیست</button>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </tab>
+                                    <tab select="" heading="بازه ای">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col col-offset-xs-3 col-xs-6">
+                                                    <br/>
+                                                    <label for="range-from">از</label> <input id="range-from" type="text" ng-model="from" class="form-control" />
+                                                    <label for="range-to">تا</label> <input id="range-to" type="text" ng-model="to" class="form-control" />
+                                                    <br/>
+                                                    <button ng-disable="!from || !to || to<=from" class="btn btn-md btn-info" ng-click="generateRgisterCodeRange(from, to)">تولید کد برای بازه</button>
+                                                    <button ng-disable="!from || !to || to<=from" class="btn btn-md btn-success" ng-click="printRgisterCodeRange(from, to)">چاپ کد برای بازه</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tab>
+                                    
+                                </tabset>
+                                
+                            </div>
+                            
+                        </script>
                         <script type="text/ng-template" id="bodyTreeModal.html">
                             <div class="modal-header">
                                 <h3 class="modal-title">درج شاخه</h3>
@@ -1915,7 +1954,7 @@
 
 
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-4">
             <button type="button" ng-disabled="!RecordService.currentRecord.id || RecordService.isEditing() || !RecordService.previousable()" class="btn btn-primary" ng-click="RecordService.previousSelectedRecord()">
                 قبلی
             </button>
@@ -1937,10 +1976,11 @@
                 {{(RecordService.currentRecord.verify)? 'تایید شده':'تایید نشده'}}
             </button>
             
+            <button class="btn btn-default" ng-click="openRegisterCodeModal('md')">تولید کد ثبت نام</button>
             
         </div>
 
-        <div class="col-xs-3 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn || !SecurityService.connected)}" style="float: left"  >
+        <div class="col-xs-2 left user-box" ng-class="{'logged-in': (SecurityService.loggedIn && SecurityService.connected), 'logged-out': (!SecurityService.loggedIn || !SecurityService.connected)}" style="float: left"  >
             <ul class="nav navbar-nav navbar-left user-pane">
 
 

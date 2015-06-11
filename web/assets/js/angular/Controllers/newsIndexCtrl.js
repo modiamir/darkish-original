@@ -1750,9 +1750,10 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         });
     }).
 
-    controller('treeModalCtrl', ['$scope', 'NewsService','TreeService', '$modalInstance', function ($scope, NewsService, TreeService, $modalInstance) {
+    controller('treeModalCtrl', ['$scope', 'NewsService','TreeService', '$modalInstance', 'ValuesService', function ($scope, NewsService, TreeService, $modalInstance, ValuesService) {
         $scope.NewsService = NewsService;
         $scope.TreeService = TreeService;
+        $scope.ValuesService = ValuesService;
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }

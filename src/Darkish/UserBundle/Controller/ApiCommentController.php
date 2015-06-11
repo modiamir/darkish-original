@@ -137,7 +137,13 @@ class ApiCommentController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="Comment API"
+     *  section="Comment API",
+     *  parameters={
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="Type of entity and should be one of 'record', 'forum', 'news', 'safarnameh'"},
+     *      {"name"="id", "dataType"="numeric string", "required"=true },
+     *      {"name"="photos", "dataType"="string", "required"=true, "description"="array of photo ids"},
+     *      {"name"="darkish_commentbundle_comment[body]", "dataType"="text", "required"=true, "description"="body of comment"}
+     *  }
      * )
      * @RouteAnnot\Post("submit_comment")
      * @View(serializerGroups={"api.list"})

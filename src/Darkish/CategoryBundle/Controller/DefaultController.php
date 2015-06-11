@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializationContext;
 use \Wa72\HtmlPageDom\HtmlPageCrawler;
-
+use Doctrine\Common\Collections\ArrayCollection as Collection;
 
 class DefaultController extends Controller
 {
@@ -117,4 +117,67 @@ class DefaultController extends Controller
     private function getFileName($fileUrl) {
     	return(pathinfo($fileUrl)['basename']);
     }
+
+
+    public function generateRecordRegistrationAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $recordRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record');
+        $records = $recordRepo->findAll();
+
+        $regCodes = [];
+
+        foreach ($records as $key => $record) {
+            $regCode = new \Darkish\CategoryBundle\Entity\RecordRegisterCode();
+            $regCode->setCreated(new \Datetime());
+            $regCode->setRecordNumber($record->getRecordNumber());
+            $regCode->setUsername(rand(10000,99999).$record->getRecordNumber());
+            $regCode->setPassword(rand(10000000, 99999999));
+            
+            $regCode->setUsed(false);    
+
+            $regCodes[] = $regCode;
+        }
+
+        
+
+        
+        
+        
+
+        // foreach ($regCodes as $entity) {
+        //     $em->persist($entity);
+        // }
+        
+        
+        // $em->flush();
+        
+        return new Response($this->get('jms_serializer')->serialize($regCodes,'json'));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -204,7 +204,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-warning" ng-click="close()">بستن</button>
-                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 1" class="btn btn-info pull-left" data-ng-click="message = NewsService.addToTreeList(TreeService.currentSecondTreeNode)">اضافه</button>
+                                        <select class="tree-modal-tree-rank pull-left" ng-model="list_rank">
+                                            <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
+                                        </select>
+                                        <button ng-disabled="NewsService.currentNews.treeList.length >= 3" class="btn btn-info pull-left" data-ng-click="message = NewsService.addToTreeList(TreeService.currentSecondTreeNode, list_rank)">اضافه</button>
                                     </div>
                                 </script>
                                 

@@ -362,6 +362,13 @@ class News
     private $thread;
 
 
+    /**
+     * @ORM\Column(name="treejson", type="json_array")
+     * @Groups({"news.details", "api.list"})
+     **/
+    private $treeJson;
+
+
 
     /**
      * Get id
@@ -1301,5 +1308,29 @@ class News
     public function getCommentCount()
     {
         return $this->commentCount;
+    }
+
+    /**
+     * Set treeJson
+     *
+     * @param array $treeJson
+     *
+     * @return News
+     */
+    public function setTreeJson($treeJson)
+    {
+        $this->treeJson = $treeJson;
+
+        return $this;
+    }
+
+    /**
+     * Get treeJson
+     *
+     * @return array
+     */
+    public function getTreeJson()
+    {
+        return $this->treeJson;
     }
 }

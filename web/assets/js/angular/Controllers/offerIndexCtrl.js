@@ -9,7 +9,7 @@
 //        }]);
 
 angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
-                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll'
+                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll', 'angucomplete-alt'
     ])
     .config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
         GoogleMapApi.configure({
@@ -824,6 +824,29 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
         
         ///////////////
+
+        /**
+         * Select Record modal initializing
+         */
+        
+        
+        $scope.openSelectRecordModal = function (size) {
+
+            var bodySelectModalInstance = $modal.open({
+                templateUrl: 'selectRecordModal.html',
+                controller: 'selectRecordModalCtrl',
+                size: size,
+                resolve: {
+                }
+            });
+
+            bodySelectModalInstance.result.then(
+            function () {
+                
+            }, function () {
+                
+            });
+        };
 
         /**
          * disconnect modal initialization
@@ -2266,6 +2289,24 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         }
         
     }]).
+    controller('selectRecordModalCtrl', ['$scope', 'OfferService','TreeService', '$modalInstance', function ($scope, OfferService, TreeService, $modalInstance) {
+        $scope.OfferService = OfferService;
+        $scope.TreeService = TreeService;
+        $scope.text = "";
+        $scope.recordId = "";
+        
+        $scope.close = function () {
+            $modalInstance.close();
+        };
+
+        
+        $scope.insertRecord = function(record) {
+            console.log(record.originalObject);
+            OfferService.currentOffer.submitter_title = record.originalObject.title;
+            OfferService.currentOffer.submitter_number = record.originalObject.record_number;
+            $scope.close();
+        }
+    }]).
     controller('bodyModalCtrl', ['$scope', '$http', 'OfferService','TreeService', 'ValuesService','SecurityService', 'FileUploader', '$modalInstance', '$modal', 'recordform', 
         function (                $scope,   $http,   OfferService,  TreeService,   ValuesService, SecurityService, FileUploader, $modalInstance, $modal, recordform) {
         $scope.recordform = recordform;
@@ -2358,6 +2399,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         
         
         //////////////
+        
         
         
         /**

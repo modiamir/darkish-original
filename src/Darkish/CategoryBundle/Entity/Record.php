@@ -608,8 +608,10 @@ class Record
      */
     private $sellServicePage;
 
-    
-    
+    /**
+     * @ORM\Column(type="boolean", name="CustomerRegisterUsed", options={"default"=false})
+     */
+    private $customerRegisterUsed;
     
     /**
      * @var boolean
@@ -4016,5 +4018,29 @@ class Record
     public function getTicketServerTree()
     {
         return $this->ticketServerTree;
+    }
+
+    /**
+     * Set customerRegisterUsed
+     *
+     * @param boolean $customerRegisterUsed
+     *
+     * @return Record
+     */
+    public function setCustomerRegisterUsed($customerRegisterUsed)
+    {
+        $this->customerRegisterUsed = $customerRegisterUsed;
+
+        return $this;
+    }
+
+    /**
+     * Get customerRegisterUsed
+     *
+     * @return boolean
+     */
+    public function getCustomerRegisterUsed()
+    {
+        return $this->customerRegisterUsed;
     }
 }

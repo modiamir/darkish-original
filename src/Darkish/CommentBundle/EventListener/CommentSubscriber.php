@@ -32,10 +32,11 @@ class CommentSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
             //set created time before saving to database
+            $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setCreatedAt(new \DateTime());
             $this->setUnseen($args);
             $this->setStates($args);
@@ -50,10 +51,11 @@ class CommentSubscriber implements EventSubscriber
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        
 
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
+            $user = $this->container->get('security.context')->getToken()->getUser();
             $this->setUnseenReplies($args);
             $thread = $entity->getThread();
             
