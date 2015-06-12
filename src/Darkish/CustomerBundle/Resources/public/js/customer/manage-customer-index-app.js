@@ -609,15 +609,15 @@ customerApp.factory('ValuesService', ['$http', function($http){
     self = {};
     var username = null;
     if(!username) {
-        $http.get('ajax/get_username').then(
-            function(response){
-                username = response.data;
-                self.username = username;
-            },
-            function(responseErr){
-                console.log(responseErr);
-            }
-        );
+        // $http.get('ajax/get_username').then(
+        //     function(response){
+        //         username = response.data;
+        //         self.username = username;
+        //     },
+        //     function(responseErr){
+        //         console.log(responseErr);
+        //     }
+        // );
     }
     
     self.accessLevels = [

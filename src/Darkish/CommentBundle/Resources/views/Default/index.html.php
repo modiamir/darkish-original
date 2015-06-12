@@ -15,6 +15,9 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishuser/bower_components/angular-ui-switch/angular-ui-switch.min.css') ?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/css/tree-control.css') ?>" rel="stylesheet" type="text/css" >
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/css/tree-control-attribute.css') ?>" rel="stylesheet" type="text/css" >
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog-theme-default.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') ?>" rel="stylesheet" type="text/css" />
     
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
     
@@ -36,6 +39,10 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-moment/angular-moment.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/bower_components/angular-tree-control/angular-tree-control.js') ?>" type="text/javascript" ></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-file-upload/angular-file-upload.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/js/ngDialog.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/js/comment/comment-index-app.js') ?>"></script>
 
@@ -104,31 +111,53 @@
                 </div>
         	</div>
             <div class="content-wrapper col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                <h2 ng-show="globalValues.currentEntity.id && isCommentable(globalValues.currentEntity)">{{globalValues.currentEntity.title}}<button ng-click="globalValues.currentEntity.form = (globalValues.currentEntity.form)? false : true" type="button" class="btn btn-success btn-xs post-comment-button">ارسال نظر</button></h2>
+                <h2 ng-show="globalValues.currentEntity.id && isCommentable(globalValues.currentEntity)">{{globalValues.currentEntity.title}}<button ng-click="newComment = {}; globalValues.currentEntity.form = (globalValues.currentEntity.form)? false : true" type="button" class="btn btn-success btn-xs post-comment-button">ارسال نظر</button></h2>
                 <div collapse="!globalValues.currentEntity.form">
                     <div class="well well-lg">
-                        <label for="comment-body">متن پاسخ</label>
-                            <textarea id="comment-body" class="form-control" ng-model="commentBody" rows="3"></textarea>
-                          
-                            <button type="submit" ng-click="postComment(commentBody);commentBody=''" class="btn btn-default">ارسال</button>
+                        
+                        <div class="submit-comment-form" >
+                            <textarea class="form-control" ng-model="newComment.body"></textarea>
+                            <div style="float: left; margin-top: 10px; margin-bottom: 10px;" class="btn-group btn-group-sm submit-btn-group">
+                                <button class="btn btn-danger " ng-click="newComment = {}; globalValues.currentEntity.form = false" >انصراف</button>
+                                <button ng-disabled="!newComment.body" ng-click="postComment(newComment);" class="btn btn-success">ارسال</button>
+                            </div>
+                            <label style="float: right; margin-top: 10px;" ng-disabled="newComment.photos.length >= 3" class="btn btn-info btn-sm upload-label">
+                                انتخاب فایل
+                                <input type="file" ng-show="false" nv-file-select="" uploader="uploader" multiple  /><br/>
+                            </label>
+                            <div class="progress" style="clear: both">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                            <div class="row" ng-show="newComment.photos">
+                                <div class="col col-xs-12 col-sm-6 col-md-3" ng-repeat="photo in newComment.photos">
+                                    <div class="image-thumb">
+                                        <img ng-src="{{photo.icon_absolute_path}}" />
+                                        <button class="thumbnail-remove btn btn-danger btn-xs" ng-click="removePhoto($index)">حذف</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
                     </div>
+                    
                 </div>
                 <hr ng-show="globalValues.currentEntity.id"/>
                 <div ui-view="content" class="content"></div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        test
-                    </div>
-                    <div class="col-xs-6">
-                        <i class="fa fa-thumbs-up fa-flip-horizontal" style="font-size:30px;"></i>
-                    </div>
-                    <div class="col-xs-">
-                </div>
+                
             </div>
         </div>
     </div>
     
-    
+    <script type="text/ng-template" id="photo-modal.html">
+        <div class="photo-modal">
+          <img style="max-width: 100%;" class="photo-in-modal" ng-src="{{photos[index].web_absolute_path}}" />
+          <button class="btn btn-default previous-btn" ng-disabled="index <= 0" ng-click="index = index-1">
+            بعدی
+          </button>
+          <button class="btn btn-default next-btn" ng-disabled="index >= (photos.length -1)" ng-click="index = index+1">
+            قبلی
+          </button>
+        </div>
+    </script>
     
     
     

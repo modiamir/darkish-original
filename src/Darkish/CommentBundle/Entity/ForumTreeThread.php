@@ -7,6 +7,8 @@ use Darkish\CommentBundle\Entity\Thread;
 use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+
 
 /**
  * PostComment
@@ -28,6 +30,7 @@ class ForumTreeThread extends Thread
     /**
      * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\ForumTree", inversedBy="thread")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $target;
 

@@ -12,9 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Darkish\CommentBundle\Entity\Comment;
 
 class DefaultController extends Controller
 {
+
+    private $numOfComments = 5;
+
     /**
      * @Route("/admin/comment" , name="forum")
      */
@@ -47,9 +51,9 @@ class DefaultController extends Controller
 
     /**
      * 
-     * @Route("admin/comment/ajax/search/{type}/{filter}/{keywordType}/{keyword}", defaults={"_format"="json", "keyword"=null})
+     * @Route("admin/comment/ajax/search/{type}/{filter}/{keywordType}/{lowestId}/{keyword}/", defaults={"_format"="json", "keyword"=null})
      */
-    public function searchCommentsAction($type, $filter, $keywordType, $keyword) {
+    public function searchCommentsAction($type, $filter, $keywordType, $lowestId, $keyword) {
         $needOrganised = true;
     	$repo = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment');
         // return new Response($this->get('jms_serializer')->serialize($repo->find(1), 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
@@ -81,6 +85,8 @@ class DefaultController extends Controller
             $needOrganised = false;
         }
 
+
+
         if($keywordType != "null" && $keyword != "null") {
             
             if($keywordType == 'text') {
@@ -98,7 +104,7 @@ class DefaultController extends Controller
                         } else {
                             $result['comments'] = [];
                             $result['count'] = 0 ;
-                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('comment.details'))));
                         }
                         
                         break;
@@ -114,7 +120,7 @@ class DefaultController extends Controller
                         } else {
                             $result['comments'] = [];
                             $result['count'] = 0 ;
-                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
                         }
                         break;
 
@@ -129,7 +135,7 @@ class DefaultController extends Controller
                         } else {
                             $result['comments'] = [];
                             $result['count'] = 0 ;
-                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
                         }
                         break;
 
@@ -144,7 +150,7 @@ class DefaultController extends Controller
                         } else {
                             $result['comments'] = [];
                             $result['count'] = 0 ;
-                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+                            return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
                         }
                         break;
                     default:
@@ -155,10 +161,18 @@ class DefaultController extends Controller
             
         }
 
+
+        if($lowestId) {
+            $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+        }
+
+        $qb->setMaxResults($this->numOfComments);
+        $qb->orderBy('c.id', 'Desc');
+
     	// $qb->where('');
     	// $qb->join('c.thread', 'th');
     	// 
-    	
+    	$qb->andWhere('c.parent IS NULL');
     	$comments = $qb->getQuery()->getResult();
 
     	$result = array();
@@ -167,7 +181,7 @@ class DefaultController extends Controller
     	
 
     	$result['count'] = count($comments);
-    	return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+    	return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
 
     }
 
@@ -267,7 +281,7 @@ class DefaultController extends Controller
                         # code...
                         break;
                 }
-                $result = $this->get('jms_serializer')->serialize(array('results'=>$qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array('Default', 'record.list')));
+                $result = $this->get('jms_serializer')->serialize(array('results'=>$qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'record.list')));
                 break;
             
             case 'news':
@@ -286,7 +300,7 @@ class DefaultController extends Controller
                         # code...
                         break;
                 }
-                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array('Default', 'news.list')));
+                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'news.list')));
                 break;
 
             case 'safarsaz':
@@ -305,7 +319,7 @@ class DefaultController extends Controller
                         # code...
                         break;
                 }
-                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array('Default', 'safarsaz.list')));
+                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'safarsaz.list')));
                 break;
 
             case 'forum':
@@ -324,7 +338,7 @@ class DefaultController extends Controller
                         # code...
                         break;
                 }
-                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array('Default', 'forumtree.list')));
+                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'forumtree.list')));
                 break;
 
             default:
@@ -340,130 +354,162 @@ class DefaultController extends Controller
 
     /**
      * @Route(
-     *      "/admin/comment/ajax/get_entity_comments/{type}/{id}",
+     *      "/admin/comment/ajax/get_entity_comments/{type}/{id}/{lowestId}", defaults={"lowestId" = 0},
      *      defaults={"_format" = "json"}
      * )
      */
-    public function getEntityCommentsAction($type, $id) {
-        try {
-            switch ($type) {
-                case 'record':
-                    $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
-                    if(!$record) {
-                        return new Response('Record not found', 404);
-                    }
-                    $thread = $record->getThread();
-                    if(!$thread) {
-                        $result['comments'] = [];
-                        $result['count'] = 0 ;
-                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
-                    }
-                    $comments = $thread->getComments();
-                    $count = count($comments);
-                    $result['comments'] = $comments;
-                    $result['count'] = $count;
-                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
-                    break;
-                
-                case 'news':
-                    $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
-                    if(!$news) {
-                        return new Response('News not found', 404);
-                    }
-                    $thread = $news->getThread();
-                    if(!$thread) {
-                        $result['comments'] = [];
-                        $result['count'] = 0 ;
-                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
-                    }
-                    $comments = $thread->getComments();
-                    $count = count($comments);
-                    $result['comments'] = $comments;
-                    $result['count'] = $count;
-                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
-                    break;
+    public function getEntityCommentsAction($type, $id, $lowestId = 0) {
+        switch ($type) {
+            case 'record':
+                $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
+                if(!$record) {
+                    return new Response('Record not found', 404);
+                }
+                $thread = $record->getThread();
+                if(!$thread) {
+                    $result['comments'] = [];
+                    $result['count'] = 0 ;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                }
+                $repo = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment');
+                $qb = $repo->createQueryBuilder('c');
+                $qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
+                $qb->orderBy('c.id', 'Desc');
+                if($lowestId > 0) {
+                    $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+                }
+                $qb->setMaxResults($this->numOfComments);
+                $qb->andWhere('c.parent IS NULL');
+                $comments = $qb->getQuery()->getResult();
+                $count = count($comments);
+                $result['comments'] = $comments;
+                $result['count'] = $count;
+                return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
+                break;
+            
+            case 'news':
+                $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
+                if(!$news) {
+                    return new Response('News not found', 404);
+                }
+                $thread = $news->getThread();
+                if(!$thread) {
+                    $result['comments'] = [];
+                    $result['count'] = 0 ;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                }
+                $repo = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment');
+                $qb = $repo->createQueryBuilder('c');
+                $qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
+                $qb->orderBy('c.id', 'Desc');
+                if($lowestId > 0) {
+                    $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+                }
+                $qb->setMaxResults($this->numOfComments);
+                $qb->andWhere('c.parent IS NULL');
+                $comments = $qb->getQuery()->getResult();
+                $count = count($comments);
+                $result['comments'] = $comments;
+                $result['count'] = $count;
+                return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
+                break;
 
-                case 'safarsaz':
-                    $safarsaz = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
-                    if(!$safarsaz) {
-                        return new Response('Safarsaz not found', 404);
-                    }
-                    $thread = $safarsaz->getThread();
-                    if(!$thread) {
-                        $result['comments'] = [];
-                        $result['count'] = 0 ;
-                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
-                    }
-                    $comments = $thread->getComments();
-                    $count = count($comments);
-                    $result['comments'] = $comments;
-                    $result['count'] = $count;
-                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
-                    break;
+            case 'safarsaz':
+                $safarsaz = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
+                if(!$safarsaz) {
+                    return new Response('Safarsaz not found', 404);
+                }
+                $thread = $safarsaz->getThread();
+                if(!$thread) {
+                    $result['comments'] = [];
+                    $result['count'] = 0 ;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                }
+                $repo = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment');
+                $qb = $repo->createQueryBuilder('c');
+                $qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
+                $qb->orderBy('c.id', 'Desc');
+                if($lowestId > 0) {
+                    $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+                }
+                $qb->setMaxResults($this->numOfComments);
+                $qb->andWhere('c.parent IS NULL');
+                $comments = $qb->getQuery()->getResult();
+                $count = count($comments);
+                $result['comments'] = $comments;
+                $result['count'] = $count;
+                return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
+                break;
 
-                case 'forum':
-                    $forum = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ForumTree')->find($id);
-                    if(!$forum) {
-                        return new Response('Forum not found', 404);
-                    }
-                    $thread = $forum->getThread();
-                    if(!$thread) {
-                        $result['comments'] = [];
-                        $result['count'] = 0 ;
-                        return new Response($this->get('jms_serializer')->serialize($result, 'json'));
-                    }
-                    $comments = $thread->getComments();
-                    $count = count($comments);
-                    $result['comments'] = $comments;
-                    $result['count'] = $count;
-                    return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
-                    break;
+            case 'forum':
+                $forum = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ForumTree')->find($id);
+                if(!$forum) {
+                    return new Response('Forum not found', 404);
+                }
+                $thread = $forum->getThread();
+                if(!$thread) {
+                    $result['comments'] = [];
+                    $result['count'] = 0 ;
+                    return new Response($this->get('jms_serializer')->serialize($result, 'json'));
+                }
+                $repo = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment');
+                $qb = $repo->createQueryBuilder('c');
+                $qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
+                $qb->orderBy('c.id', 'Desc');
+                if($lowestId > 0) {
+                    $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+                }
+                $qb->setMaxResults($this->numOfComments);
+                $qb->andWhere('c.parent IS NULL');
+                $comments = $qb->getQuery()->getResult();
+                $count = count($comments);
+                $result['comments'] = $comments;
+                $result['count'] = $count;
+                return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
+                break;
 
-                default:
-                    # code...
-                    break;
-            }
-
-        }catch(\Exception $e) {
-            die($e->getMessage());
+            default:
+                # code...
+                break;
         }
         
     }
 
     /**
      * @Route(
-     *      "/admin/comment/ajax/reply/{id}",
+     *      "/admin/comment/ajax/reply/{comment}",
      *      defaults={"_format" = "json"}
      * )
      * @Method({"POST"})
      * 
      */
-    public function replyCommentAction(Request $request, $id) {
-        $thread = $this->container->get('fos_comment.manager.thread')->findThreadById($id);
-        if (!$thread) {
-            throw new NotFoundHttpException(sprintf('Thread with identifier of "%s" does not exist', $id));
+    public function replyCommentAction(Request $request, Comment $comment) {
+        
+        $thread = $comment->getThread();
+        
+        if (!$thread->getIsCommentable()) {
+            throw new AccessDeniedHttpException(sprintf('Thread is not commentable'));
+        }
+
+        if($comment->getState() != 0) {
+            throw new AccessDeniedHttpException(sprintf('Comment is not active'));
         }
         
-        if (!$thread->isCommentable()) {
-            throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
-        }
+        $child = new \Darkish\CommentBundle\Entity\OperatorComment();
+        $child->setOwner($this->getUser());
+        $child->setThread($thread);
+        $child->setParent($comment);
+        $child->setCreatedAt(new \DateTime());
 
-        $parent = $this->getValidCommentParent($thread, $request->request->get('parentId'));
-        $commentManager = $this->container->get('fos_comment.manager.comment');
-        // $comment = $commentManager->createComment($thread, $parent);
-        $comment = new \Darkish\CommentBundle\Entity\OperatorComment();
-        $comment->setOwner($this->get('security.context')->getToken()->getUser());
-        $comment->setThread($thread);
-        $comment->setParent($parent);
-        $comment->setState($comment::STATE_PENDING);
-
-        $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
+        $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $child);
         $form->handleRequest($request);
         
 
         if ($form->isValid()) {
-            if ($commentManager->saveComment($comment) !== false) {
-                return new Response($this->get('jms_serializer')->serialize(array('comment'=> $comment, 'children'=>[]), 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($child);
+            if ($em->flush() !== false) {
+                return new Response($this->get('jms_serializer')->serialize($child, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
             }
         }
 
@@ -480,6 +526,9 @@ class DefaultController extends Controller
      * 
      */
     public function postCommentAction($type, $id, Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
         switch ($type) {
             case 'record':
                 $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($id);
@@ -539,11 +588,16 @@ class DefaultController extends Controller
                     # code...
                     break;
             }
+            $thread->setIsCommentable(true);
+            $thread->setTarget($entity);
+            $thread->setLastCommentAt(new \DateTime());
+            $thread->setNumComments(0);
+            $em->persist($thread);
         }
 
         
-        $thread->setIsCommentable(true);
-        $thread->setTarget($entity);
+
+
         if (!$thread->getIsCommentable()) {
             throw new AccessDeniedHttpException(sprintf('Thread "%s" is not commentable', $id));
         }
@@ -560,14 +614,48 @@ class DefaultController extends Controller
         
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            if($request->get('photos')) {
+                foreach ($request->get('photos') as $key => $value) {
+                    $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($value);
+                    $em->persist($photo);
+                    $comment->addPhoto($photo);
+                }
+            }
+            
             $em->persist($comment);
             if ($em->flush() !== false) {
-                return new Response($this->get('jms_serializer')->serialize(array('comment'=> $comment, 'children'=>[]), 'json', SerializationContext::create()->setGroups(array('Default', 'comment.details'))));
+                return new Response($this->get('jms_serializer')->serialize(array('comment'=> $comment, 'children'=>[]), 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
             }
         }
 
         return new Response($this->get('jms_serializer')->serialize(array($form->getErrors()->__toString(),$request->request), 'json'));
+    }
+
+
+
+    /**
+     * @Route(
+     *      "/admin/comment/ajax/get_replies/{comment}/{lowestId}",
+     *      defaults={"_format" = "json"}
+     * )
+     */
+    public function getRepliesAction(Comment $comment, $lowestId) {
+        $qb = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment')->createQueryBuilder('c');
+        $qb->andWhere('c.parent = :pid')->setParameter('pid', $comment->getId());
+        $qb->andWhere('c.state = 0');
+
+        if($lowestId > 0) {
+            $qb->andWhere('c.id < :lowestId')->setParameter('lowestId', $lowestId);
+            $qb->setMaxResults($this->numOfComments);
+        }
+
+        $qb->setMaxResults($this->numOfComments);
+        $qb->orderBy('c.id', 'DESC');
+        
+
+        
+        $comments = $qb->getQuery()->getResult();
+        return new Response($this->get('jms_serializer')->serialize(['children' => $comments], 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
     }
 
 

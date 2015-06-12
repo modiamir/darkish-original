@@ -975,7 +975,7 @@ class Record
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
      * @Groups({"record.details"})
      */
     private $customers;

@@ -6,7 +6,10 @@ var commentApp = angular.module('commentApp',
 		'angularMoment',
 		'ui.bootstrap.dropdown',
 		'angucomplete-alt',
-		'treeControl'
+		'treeControl',
+		'angularFileUpload',
+		'ngDialog',
+		'frapontillo.bootstrap-switch'
 	]
 );
 
@@ -68,6 +71,8 @@ commentApp.controller('commentIndexCtrl', [
 	'$stateParams',
 	'globalValues',
 	'$http',
+	'FileUploader',
+	'ngDialog',
 	function(
 		$scope,
 		$interval,
@@ -75,7 +80,9 @@ commentApp.controller('commentIndexCtrl', [
 		SearchService,
 		$stateParams,
 		globalValues,
-		$http
+		$http,
+		FileUploader,
+		ngDialog
 	)
 	{
 		
@@ -85,6 +92,9 @@ commentApp.controller('commentIndexCtrl', [
         $scope.operators = [];
         $scope.SearchService = SearchService;
         $scope.globalValues = globalValues;
+
+        $scope.newComment = {};
+
         $scope.test = function() {
         	console.log(globalValues);
         }
@@ -128,6 +138,7 @@ commentApp.controller('commentIndexCtrl', [
         	$scope.SearchService.searchCriteria = {
 				type: $stateParams.type,
 				filter: filter,
+				lowestId: 0,
 				keywordType: null,
 				keyword: null,
 				sort: {
@@ -142,6 +153,7 @@ commentApp.controller('commentIndexCtrl', [
         	$scope.SearchService.searchCriteria = {
 				type: $stateParams.type,
 				filter: 'all',
+				lowestId: 0,
 				keywordType: keywordType,
 				keyword: keyword,
 				sort: {
@@ -153,19 +165,24 @@ commentApp.controller('commentIndexCtrl', [
 
         }
 
-        $scope.postComment = function(body) {
+        $scope.postComment = function(newComment) {
         	
 			var data = {};
-			data.body = body;
+			photosIds = [];
+			angular.forEach(newComment.photos, function(value, key){
+				photosIds.push(value.id);
+			});
 			$http({
                 method: "post",
                 url: "comment/ajax/post_comment/"+ $stateParams.type+'/'+globalValues.currentEntity.id,
                 headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                data: $.param({_method: 'POST', darkish_commentbundle_comment: data})
+                data: $.param({_method: 'POST', darkish_commentbundle_comment: {body: newComment.body}, photos: photosIds})
             }).then(
             	function(response){
-            		SearchService.comments.unshift(response.data);
+            		SearchService.comments.unshift(response.data.comment);
             		SearchService.count = (SearchService.count)? SearchService.count+1 : 1;
+            		$scope.newComment = {};
+            		globalValues.currentEntity.form = false;
             	}, 
             	function(errResponse){
             		console.log(errResponse.data);
@@ -173,6 +190,83 @@ commentApp.controller('commentIndexCtrl', [
         	);
 			
 		}
+
+
+		$scope.openPhotoModal = function (photos, index) {
+		  ngDialog.open({ 
+		    template: 'photo-modal.html',
+		    className: 'ngdialog-theme-default custom-width',
+		    controller: 'PhotoModalCtrl', 
+		    resolve: {
+		      photos: function() {
+		          return photos;
+		      },
+		      index: function() {
+		        return index;
+		      }
+		    }
+		  });
+		};
+
+	    /**
+	     * 
+	     * uploader
+	     */
+	    var uploader = $scope.uploader = new FileUploader({
+	        url: './managedfile/ajax/upload'
+	    });
+	    uploader.withCredentials = true;
+	    
+	    uploader.queueLimit = 3;
+
+	    uploader.autoUpload = true;
+	    uploader.removeAfterUpload = true;
+	    uploader.formData.push({uploadDir : 'image'});
+	    uploader.formData.push({continual : true});
+	    uploader.formData.push({type : 'comment'});
+	    uploader.msg = "";
+	    
+	    // FILTERS
+	    $scope.logUploader = function() {
+	      console.log(uploader);
+	    }
+
+	    uploader.filters.push({
+	        name: 'imageFilter',
+	        fn: function(item /*{File|FileLikeObject}*/, options) {
+	            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+	            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+	        }
+	    });
+
+	    uploader.filters.push({
+	          name: 'photoLimits',
+	          fn: function(item, photo) {
+	              var photocount = (($scope.newComment.photos) ? $scope.newComment.photos.length : 0) + uploader.queue.length;
+	              console.log(photocount);
+	              if( photocount >= 3) {
+	                return false;
+	              }
+	              return true;
+	          }
+	      });
+	    
+	    
+	    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+	        console.info('onSuccessItem', fileItem, response, status, headers);
+	        if(!$scope.newComment.photos) {
+	            $scope.newComment.photos = [];
+	        }
+	        $scope.newComment.photos.push(response);
+	        uploader.msg = 'فایل با موفقیت بارگزاری شد.';
+	    };
+
+
+	  	$scope.removePhoto = function(index) {
+	    	$scope.newComment.photos.splice(index, 1);
+		}
+
+
 	}
 ]);
 
@@ -242,13 +336,15 @@ commentApp.controller('contentCtrl', [
 	'SearchService',
 	'$log',
 	'$http',
+	'globalValues',
 	function(
 		$scope,
 		$stateParams,
 		$state,
 		SearchService,
 		$log,
-		$http
+		$http,
+		globalValues
 	){
 
 		$scope.SearchService = SearchService;
@@ -256,6 +352,7 @@ commentApp.controller('contentCtrl', [
 			$scope.SearchService.searchCriteria = {
 				type: $stateParams.type,
 				filter: 'all',
+				lowestId: 0,
 				keywordType: null,
 				keyword: null,
 				sort: {
@@ -266,59 +363,75 @@ commentApp.controller('contentCtrl', [
 		}
 
 
-		$scope.claimTypes = [
-			{
-				id: 1,
-				label: 'نوع یک'
-			},
-			{
-				id: 2,
-				label: 'نوع دو'
-			},
-			{
-				id: 3,
-				label: 'نوع سه'
-			}
-		];
-
 		$http.get('comment/ajax/get_claim_types').then(function(response){
 			$scope.claimTypes = response.data;
 		});
 		
-		$scope.collapsed = 0;
 		
-		$scope.collapse = function(comment){
-			if($scope.collapsed != comment) {
-				// $http.get('comment/ajax/csrf').then(
-				// 	function(response){
-				// 		$scope.csrf = response.data;
-				// 		$scope.collapsed = comment.id;	
-				// 	}, 
-				// 	function(errResponse){
-				// 		console.log(errResponse.data);
-				// 		$scope.collapsed = 0;
-				// 	});
-				
-				$scope.collapsed = comment;	
-				// $scope.commentBody = "";
-				
+
+		$scope.loadMore = function() {
+			if(!globalValues.currentEntity) {
+				$scope.SearchService.searchCriteria.lowestId = SearchService.comments[SearchService.comments.length - 1].id;
+				$scope.SearchService.search();
 			} else {
-				$scope.collapsed = 0;
+				SearchService.getEntityComments($stateParams.type, globalValues.currentEntity, SearchService.comments[SearchService.comments.length - 1].id);
 			}
 			
 		}
+
+
+	}
+])
+
+commentApp.controller('CommentCtrl', [
+	'$scope',
+	'$stateParams',
+	'$state', 
+	'SearchService',
+	'$log',
+	'$http',
+	'$timeout',
+	function(
+		$scope,
+		$stateParams,
+		$state,
+		SearchService,
+		$log,
+		$http,
+		$timeout
+	){
+
+		$scope.collapsed = true;
+		$scope.expanded = false;
+
+		$scope.collapse = function(){
+			$scope.collapsed = !$scope.collapsed;
+			if(!$scope.expanded) {
+				$scope.expanded = true;
+				$http.get('comment/ajax/get_replies/'+$scope.comment.id+'/'+0).then(
+					function(response){
+						var result = response.data;
+						$scope.comment.children = response.data.children;
+					}, 
+					function(errResponse){
+
+					}
+				);
+			}
+		}
+		
 
 		$scope.reply = function(body) {
 			var data = {};
 			data.body = body;
 			$http({
                 method: "post",
-                url: "comment/ajax/reply/"+$scope.collapsed.comment.thread.id,
+                url: "comment/ajax/reply/"+$scope.comment.id,
                 headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
-                data: $.param({_method: 'POST', parentId: $scope.collapsed.comment.id, darkish_commentbundle_comment: data})
+                data: $.param({_method: 'POST', parentId: $scope.comment.id, darkish_commentbundle_comment: data})
             }).then(
             	function(response){
-            		$scope.collapsed.children.unshift(response.data);
+            		$scope.comment.children.unshift(response.data);
             	}, 
             	function(errResponse){
             		console.log(errResponse.data);
@@ -417,18 +530,22 @@ commentApp.controller('contentCtrl', [
 	}
 ])
 
+
 commentApp.factory('SearchService', [
 	'$state',
 	'$http',
+	'globalValues',
 	function(
 		$state,
-		$http
+		$http,
+		globalValues
 	){
 		var self = {};
 		self.searchCriteria = {
 			type: 'forum',
 			filter: 'all',
 			keywordType: 'text',
+			lowestId: 0,
 			keyword: '',
 			sort: {
 				date: 'DESC'
@@ -437,15 +554,25 @@ commentApp.factory('SearchService', [
 		self.comments = [];
 		self.count = 0;
 		self.search = function(contin) {
+			globalValues.currentEntity = null;
 			if(contin == true) {
 				self.count = 0;	
 			} 
+			if(!self.searchCriteria.lowestId) {
+				self.searchCriteria.lowestId = 0;
+				console.log(self.searchCriteria.lowestId);
+			}
 			$http.get('comment/ajax/search/'+self.searchCriteria.type+'/'+self.searchCriteria.filter+
-				'/'+self.searchCriteria.keywordType+'/'+self.searchCriteria.keyword
+				'/'+self.searchCriteria.keywordType+'/'+self.searchCriteria.lowestId+'/'+self.searchCriteria.keyword
 			 ).then(
 				function(response){
 					var result = response.data;
-					self.comments = result.comments;
+					if(self.searchCriteria.lowestId > 0) {
+						self.comments = self.comments.concat(result.comments);
+					} else {
+						self.comments = result.comments;
+					}
+
 					self.count = self.count + result.count;
 				}, 
 				function(errResponse){
@@ -456,12 +583,21 @@ commentApp.factory('SearchService', [
 			
 		}
 
-		self.getEntityComments = function(type, entity) {
-			$http.get('comment/ajax/get_entity_comments/'+type+'/'+entity.id).then(
+		self.getEntityComments = function(type, entity, lowestId) {
+			if(!lowestId) {
+				lowestId = 0;
+			}
+			$http.get('comment/ajax/get_entity_comments/'+type+'/'+entity.id+'/'+lowestId).then(
 				function(response){
 					var result = response.data;
-					self.comments = result.comments;
-					self.count = self.count + result.count;
+					if(lowestId > 0) {
+						self.comments = self.comments.concat(result.comments);
+					} else  {
+						self.comments = result.comments;	
+						self.count = self.count + result.count;
+					}
+					
+					
 				},
 				function(errResponse){
 
@@ -473,3 +609,11 @@ commentApp.factory('SearchService', [
 		}
 		return self;
 }]);
+
+
+commentApp.controller('PhotoModalCtrl', ['$scope', '$http', 'photos', 'index', function($scope, $http, photos, index){
+  $scope.photos = photos;
+  $scope.index = index;
+
+
+}])

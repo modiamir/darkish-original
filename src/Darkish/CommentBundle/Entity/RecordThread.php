@@ -4,6 +4,7 @@ namespace Darkish\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Darkish\CommentBundle\Entity\Thread;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * PostComment
@@ -25,6 +26,7 @@ class RecordThread extends Thread
     /**
      * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="thread")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $target;
 
