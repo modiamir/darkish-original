@@ -43,6 +43,8 @@ use \GetId3\GetId3Core as GetId3;
 use FFMpeg\FFProbe;
 use Exception;
 use Darkish\CategoryBundle\Entity\ManagedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * 
@@ -313,7 +315,7 @@ class ApiController extends FOSRestController
 
 
     /**
-     * This method is for activate login. 
+     * This method is for upload file. 
      * 
      * @ApiDoc(
      *  resource=true,
@@ -505,22 +507,84 @@ class ApiController extends FOSRestController
             return new Response( $e->getMessage(), 401);
         }
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
+
+    /**
+     * This method is for assign photo to profile. 
+     * 
+     * @ApiDoc(
+     *  resource=true,
+     *  description="This is the upload file  API method",
+     *  parameters={
+     *      {"name"="file_id", "dataType"="integer", "required"=true, "description"="the id for image file that uploaded befor"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      403={
+     *          "Access denied"
+     *      },
+     *      404="Returned when the approve code is invalid"
+     *  }
+     * )
+     * @Method({"POST"})
+     * @View()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function postProfilePhotoAction(Request $request) {
+
+        
+        /**
+         * Fetching data from request and convert data to array
+         */
+        $data = $request->request->getIterator()->getArrayCopy();
+
+        // create a collection of constraints
+        $collectionConstraint = new Assert\Collection(array(
+            'file_id'        =>  array(
+                                    new Assert\NotBlank(),
+                                    new Assert\Type(array('type' => 'numeric')),
+                                    new Assert\Range(array('min'=> 0))
+                                )
+        ));
+        
+        //validate data with created validation constraint
+        $errorList = $this->get('validator')->validateValue($data, $collectionConstraint);
+
+
+        //check if there is any error and send error as response
+        if (count($errorList) != 0) {
+            $errors = array();
+            foreach ($errorList as $error) {
+                // getPropertyPath returns form [email], so we strip it
+                $field = substr($error->getPropertyPath(), 1, -1);
+
+                $errors[$field] = $error->getMessage();
+            }
+
+            return array('success' => false, 'errors' => $errors);
+        }
+
+
+        $file = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($data['file_id']);
+
+        if(!($file instanceof \Darkish\CategoryBundle\Entity\ManagedFile)) {
+            return array('success' => false, 'errors' => 'The file id sent is not valid');   
+        }
+
+        
+        $user = $this->getUser();
+
+        $user->setPhoto($file);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($user);
+        $em->flush();
+
+        return ['code' => 200, 'message' => 'photo assigned to user profile'];
+    }
     
 
 
