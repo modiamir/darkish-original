@@ -26,12 +26,12 @@ class MessageThread
      */
     protected $id;
 
-    // *
-    //  * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="messageThreads")
-    //  * @ORM\JoinColumn(name="customer", referencedColumnName="id")
-    //  * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
-     
-    // protected $customer;
+    /**
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="messageThreads")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id")
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
+     */
+    protected $customer;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="thread")
