@@ -1,0 +1,130 @@
+sponsor:
+    path:     /
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:index" }
+
+sponsor_get_tree:
+    path:     /ajax/gettree
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getTree", _format: json}
+
+sponsor_get_tree_linear:
+    path:     /ajax/gettree_linear
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getTreeLinear", _format: json}
+
+sponsor_get_json:
+    path:     /ajax/getjson
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getJson", _format: json}
+
+
+sponsor_get_sponsor_for_category:
+    path:     /ajax/get_sponsor_for_cat/{cid}/{count}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getSponsorForCategory", _format: json, count: 0}
+
+sponsor_search_sponsor:
+    path:     /ajax/search_sponsor/{search_by}/{sort_by}/{count}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:searchSponsors", _format: json, keyword: "", search_by: 1, sort_by: 1}
+
+
+sponsor_verify_sponsor:
+    path:     /ajax/verify_sponsor/{sponsorId}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:verifySponsor", _format: json }
+    requirements: { _method: post|put }
+
+sponsor_toggle_verify_sponsor:
+    path:     /ajax/toggle_verify_sponsor/{sponsorId}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:toggleVerifySponsor", _format: json }
+    requirements: { _method: post|put }
+
+sponsor_set_main_sponsor:
+    path:     /ajax/set_main_sponsor/{sponsor}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:setMainSponsor", _format: json }
+    requirements: { _method: post|put }
+
+sponsor_toggle_active_sponsor:
+    path:     /ajax/toggle_active_sponsor/{sponsorId}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:toggleActiveSponsor", _format: json }
+    requirements: { _method: post|put }
+
+sponsor_delete_sponsor:
+    path:     /ajax/delete_sponsor/{sponsorId}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:deleteSponsor", _format: json }
+    requirements: { _method: post|put }
+
+sponsor_get_sponsor:
+    path:     /ajax/get_sponsor/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getSponsor", _format: json}
+
+sponsor_get_centers:
+    path:   /ajax/get_centers
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getCenters", _format: json }
+
+sponsor_get_safarsaz_types:
+    path:   /ajax/get_safarsaz_types
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getSafarsazTypes", _format: json }
+
+sponsor_get_dbase_types:
+    path:   /ajax/get_dbase_types
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getDbaseTypes", _format: json }
+
+sponsor_get_areas:
+    path:   /ajax/get_areas
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getAreas", _format: json }
+
+sponsor_update:
+    path:     ajax/{id}/update
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:update" }
+    requirements: { _method: post|put }
+
+sponsor_create:
+    path:     ajax/create
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:create" }
+    requirements: { _method: post }
+
+sponsor_get_generate_csrf:
+    path:     /ajax/generate_csrf
+    defaults: {_controller: "DarkishCategoryBundle:Sponsor:generateCsrf", _format: json}
+
+sponsor_contains_tree:
+    path:     /ajax/contains_tree/{sponsorId}/{treeId}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:containsTree", _format: json}
+
+sponsor_access_test:
+    path:     /ajax/access
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:access", _format: json}
+
+sponsor_get_username:
+    path:     /ajax/get_username
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getUsername", _format: json}
+
+sponsor_get_last_sponsornumber:
+    path:     /ajax/get_last_sponsornumber
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getLastSponsorNumber", _format: json}
+
+sponsor_lock_sponsor_number:
+    path:     /ajax/lock_sponsor_number/{sponsorNumber}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:lockSponsorNumber", _format: json}
+    requirements: { _method: post|put }
+
+
+sponsor_check_permission:
+    path:     /ajax/check_permission/{attribute}/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:checkPermission", _format: json, id: null}
+    
+sponsor_get_by_id:
+    path:     /ajax/get_sponsor_by_id/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getSponsorById", _format: json}
+    
+sponsor_get_tree_by_index:
+    path:     /ajax/get_tree_by_index/{index}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getTreeByIndex", _format: json}
+    
+sponsor_get_test_tree:
+    path:     /get_test_tree/{id}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getTestTree", _format: json}
+    
+sponsor_get_total_sponsor_for_category:
+    path:     /ajax/get_total_sponsor_for_cat/{cid}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:getTotalSponsorForCategory"}
+    
+sponsor_total_search_sponsor:
+    path:     /ajax/total_search_sponsor/{search_by}/{sort_by}/{keyword}
+    defaults: { _controller: "DarkishCategoryBundle:Sponsor:totalSearchSponsors",  keyword: "", search_by: 1, sort_by: 1}

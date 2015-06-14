@@ -18,6 +18,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog-theme-default.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcategory/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" rel="stylesheet" type="text/css" />
     
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
     
@@ -43,6 +44,7 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/js/ngDialog.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcategory/bower_components/angular-hotkeys/build/hotkeys.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/js/comment/comment-index-app.js') ?>"></script>
 
@@ -159,6 +161,17 @@
         </div>
     </script>
     
-    
+    <script type="text/ng-template" id="sendMessageModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">پاسخ</h3>
+        </div>
+        <div class="modal-body">
+            <textarea ng-model="body" class="form-control" row=4></textarea>
+        </div>
+        <div class="modal-footer">
+            <button ng-disabled="" class="btn btn-warning" ng-click="dismiss()">انصراف</button>
+            <button class="btn btn-info pull-left" data-ng-click="reply(body)">ارسال</button>
+        </div>
+    </script>
     
 <?php $view['slots']->stop() ?>

@@ -9,7 +9,8 @@ var commentApp = angular.module('commentApp',
 		'treeControl',
 		'angularFileUpload',
 		'ngDialog',
-		'frapontillo.bootstrap-switch'
+		'frapontillo.bootstrap-switch',
+		'cfp.hotkeys'
 	]
 );
 
@@ -73,6 +74,7 @@ commentApp.controller('commentIndexCtrl', [
 	'$http',
 	'FileUploader',
 	'ngDialog',
+	'hotkeys',
 	function(
 		$scope,
 		$interval,
@@ -82,10 +84,21 @@ commentApp.controller('commentIndexCtrl', [
 		globalValues,
 		$http,
 		FileUploader,
-		ngDialog
+		ngDialog,
+		hotkeys
 	)
 	{
 		
+
+		hotkeys.add({
+		    combo: 'shift+alt+m',
+		    description: 'This one goes to 11',
+		    callback: function() {
+		      	messageWindow = window.open("./messagebox", "_blank", "toolbar=no,directories=no, scrollbars=yes, resizable=yes, top=200, left=500, width=550, height=500, location=no, resizable=no");
+		      	console.log(messageWindow);
+		    }
+	  	});
+
 		$interval(function(){
             $scope.loaded = true;
         }, 3000);
@@ -391,6 +404,7 @@ commentApp.controller('CommentCtrl', [
 	'$log',
 	'$http',
 	'$timeout',
+	'$modal',
 	function(
 		$scope,
 		$stateParams,
@@ -398,7 +412,8 @@ commentApp.controller('CommentCtrl', [
 		SearchService,
 		$log,
 		$http,
-		$timeout
+		$timeout,
+		$modal
 	){
 
 		$scope.collapsed = true;
@@ -527,6 +542,30 @@ commentApp.controller('CommentCtrl', [
 	    	);
 		}
 
+		$scope.openSendMessageModal = function (comment) {
+	        
+	        var replyModalInstance = $modal.open({
+     		    templateUrl: 'sendMessageModal.html',
+     		    controller: 'sendMessageModalCtrl',
+     		    size: 'sm',
+     		    resolve: {
+     		        comment: function(){
+     		            return comment;
+     		        }
+     		    },
+     		    windowClass: 'reply-modal-window'
+     		});
+
+     		replyModalInstance.result.then(
+     		function (message) {
+     		    
+     		}, function () {
+     		    
+     		});
+
+	        
+	    };
+
 	}
 ])
 
@@ -616,4 +655,29 @@ commentApp.controller('PhotoModalCtrl', ['$scope', '$http', 'photos', 'index', f
   $scope.index = index;
 
 
+}])
+
+commentApp.controller('sendMessageModalCtrl', ['$scope', '$http', '$modalInstance', '$modal', 'comment', function($scope, $http, $modalInstance, $modal, comment){
+		
+		$scope.reply = function(body) {
+			if(body.length > 0) {
+				$http({
+					method: "PUT",
+					url: './comment/ajax/send_message/'+comment.id,
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param({body: body, _method:"PUT"})
+				}).then(
+					function(response){
+						$modalInstance.close(response.data);
+					}, 
+					function(responseErr){
+						alert('پاسخ ارسال نشد.')
+					}
+				);
+			}
+		}
+
+		$scope.dismiss = function() {
+			$modalInstance.dismiss();
+		}
 }])

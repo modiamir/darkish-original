@@ -1,0 +1,141 @@
+body {
+	// min-height: 500px;
+	// min-width: 350px;
+	.messages-wrapper {
+		background-color: #f9f9f9;
+		position: absolute;
+		width: 100%;
+		min-width: 550px;
+		height: 100%;
+		overflow-y: scroll;
+		.messages {
+			&>ul {
+				li.load-older {
+					a {
+						width: 100%;
+						text-align: center;
+						display: inline-block;
+						cursor: pointer;
+					}
+				}
+				li.message {
+					width: 100%;
+					display: inline-block;
+					.message-details {
+						clear: both;
+						padding: 5px 10px;
+						border-radius: 4px;
+						margin: 5px 0;
+
+	                    .text {
+	                        color: white;
+	                        padding: 10px 5px;
+	                        border-radius: 4px;
+	                        margin: 10px 0 0;
+	                        font-size: 13px;
+	                        min-width: 100px;
+	                        max-width: 300px;
+	                        // white-space: pre;           /* CSS 2.0 */
+	                        // white-space: pre-wrap;      /* CSS 2.1 */
+	                        // white-space: pre-line;      /* CSS 3.0 */
+	                        // white-space: -pre-wrap;     /* Opera 4-6 */
+	                        // white-space: -o-pre-wrap;   /* Opera 7 */
+	                        // white-space: -moz-pre-wrap; /* Mozilla */
+	                        // white-space: -hp-pre-wrap;  /* HP Printers */
+	                        word-wrap: break-word;      /* IE 5+ */
+
+	                    }
+	                    .time {
+	                        clear: both;
+	                        font-size: 12px;
+	                    }
+	                    img {
+	                        margin: 10px 0 0;
+	                        width: 40px;
+	                        height: 40px;
+	                        border-width: 2px;
+	                    }
+	                    &.record {
+	                        margin-right: 20px;
+	                        .text{
+	                            background-color: rgba(24, 148, 124, 0.19);
+	                            border-color: #18947c;
+	                            float: right;
+	                            margin-right: 10px;
+	                            color: rgb(60, 60, 60);
+	                            line-height: 24px;
+	                        }
+	                        img {
+	                            float: right;
+	                            border-width: 1px;
+	                        }
+	                        .time {
+	                            float: left;
+	                        }
+	                    }
+
+	                    &.client {
+	                    	&:hover {
+	                    		background: #f3f3f3;
+	                    		cursor: pointer;
+	                    	}
+	                        margin-left: 20px;
+	                        .text{
+	                            background-color: rgba(63, 129, 174, 0.29);
+	                            border-color: #3f81ae;
+	                            float: left;
+	                            margin-left: 10px;
+	                            color: rgb(60,60,60);
+	                        }
+	                        img {
+	                            float: left;
+	                            border-width: 1px;
+	                        }
+	                        .time {
+	                            float: right;
+	                        }
+	                    }
+	                    .time {
+	                        display: block;
+	                    }
+	                    .delivered, .seen {
+	                        float: right;
+	                        clear: both;
+	                        font-size: 10px;
+	                        color: gray;
+	                    }
+	                    .seen {
+
+	                    }
+	                	.client-name {
+	                		float: right;
+	                		clear: both;
+	                	}    
+					}
+					.client-details {
+						float: left;
+						padding: 10px;
+						margin-top: 10px;
+						margin-left: 10px;
+						&:hover {
+							cursor: pointer;
+							background-color: #f3f3f3;
+						}
+						img.client-photo {
+							width: 40px;
+							margin: auto;
+							height: 40px;
+							display: block;
+						}
+						span.client-name {
+							width: 100%;
+							text-align: center;
+							display: block;
+						}
+					}
+					
+				}
+			}
+		}
+	}
+}

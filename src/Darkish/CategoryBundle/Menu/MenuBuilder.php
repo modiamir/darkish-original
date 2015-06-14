@@ -27,6 +27,7 @@ class MenuBuilder
             'record' => 'رکورد',
             'news' => 'اخبار و سرگرمی',
             'offer' => 'پیشنهاد ویژه',
+            'sponsor' => 'اسپانسر',
             'classified' => 'نیازمندی ها',
             'operator' => 'اپراتور ها',
             'manage_customer' => 'مدیریت مشتری ها',

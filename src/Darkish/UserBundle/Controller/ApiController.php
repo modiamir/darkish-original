@@ -22,6 +22,28 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\Serializer\SerializationContext;
 
 
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Form\FormErrorIterator;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use JMS\Serializer\Serializer as JMSSerializer;
+use FFMpeg\Coordinate\Dimension;
+use FFMpeg\Filters\Video\ResizeFilter;
+use FFMpeg\Format\Video\X264;
+use Alchemy\BinaryDriver\Listeners\DebugListener;
+use \GetId3\GetId3Core as GetId3;
+use FFMpeg\FFProbe;
+use Exception;
+use Darkish\CategoryBundle\Entity\ManagedFile;
+
 /**
  * 
  */
@@ -286,6 +308,216 @@ class ApiController extends FOSRestController
     	} else {
     		throw new HttpException(404, "Your sent approve code is invalid.");
     	}
+
+    }
+
+
+    /**
+     * This method is for activate login. 
+     * 
+     * @ApiDoc(
+     *  resource=true,
+     *  description="This is the upload file  API method",
+     *  parameters={
+     *      {"name"="file", "dataType"="file", "required"=true, "description"="file to upload"},
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="one of these :news, classified, offer, sponsor, record, operator, customer, client, store, product, database, comment"},
+     *      {"name"="continual", "dataType"="integer", "required"=true, "description"="should be true"},
+     *      {"name"="uploadDir", "dataType"="string", "required"=true, "description"="one of these :image, video, audio, icon, doc, banner"}
+     *  },
+     *  statusCodes={
+     *      200="Returned when successful",
+     *      400={
+     *          "Returned when the device id is not exist",
+     *          "Returned when the phone is not exist",
+     *          "Returned when the approve code is not exist",
+     *          "Returned when the phone or device id has invalid format",
+     *      },
+     *      404="Returned when the approve code is invalid"
+     *  }
+     * )
+     * @Method({"POST"})
+     * @View()
+     */
+    public function postUploadAction(Request $request)
+    {
+
+        try {
+            /* @var $form Form  */
+
+            $file = new ManagedFile();
+            $file->setStatus(0);
+            $file->setTimestamp(new \DateTime());
+            $file->setUserId($this->getUser()->getId());
+
+
+            if($request->files->has('file')) {
+                $ufile = $request->files->get('file');
+                if(substr($ufile->getMimeType(), 0, 5) != 'image' && substr($ufile->getMimeType(), 0, 11) != 'application') {
+                    $tmpName = time().'-'.rand(100000,999999).'.'.$ufile->getClientOriginalExtension();
+                    $ufile->move('/tmp', $tmpName);
+                    $ufile = new File('/tmp/'.$tmpName, true);
+
+                    $ffprobe = FFProbe::create();
+
+
+                    if($ffprobe->streams($ufile->getRealPath())->first()->isVideo()) {
+                        
+                        $duration = $ffprobe
+                            ->format($ufile->getRealPath()) // extracts file informations
+                            ->get('duration');             // returns the duration property
+
+                        if( $duration > 600) {
+                            // return new Response("طول فایل بارگذاری شده نباید بیشتر از ۵ دقیقه باشد.", 500);
+                            throw new \Exception("طول فایل بارگذاری شده نباید بیشتر از ۵ دقیقه باشد.", 445);
+                        }
+
+
+
+
+
+                        
+                        $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+                        $video = $ffmpeg->open('/tmp'.'/'.$tmpName);
+                        if($ffprobe->streams($ufile->getRealPath())->first()->get('width') > 480 ||
+                            $ffprobe->streams($ufile->getRealPath())->first()->get('height') > 320
+                        ) {
+                            $video
+                                ->filters()
+                                ->resize(new Dimension(480, 320), ResizeFilter::RESIZEMODE_INSET)
+                                ->synchronize();
+                            // Start transcoding and save video
+                            $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
+                            $format = new X264();
+                            $format->setAudioCodec('libmp3lame');
+                            if($video->save($format, '/tmp/'.$newTmpName)) {
+                                $ufile = new File('/tmp/'.$newTmpName, true);
+                                    
+                            }    
+                        }
+                        
+
+                    }
+
+                    if($ffprobe->streams($ufile->getRealPath())->first()->isAudio()) {
+                        
+                        
+                        $ffprobe = FFProbe::create();
+                        $duration = $ffprobe
+                            ->format($ufile->getRealPath()) // extracts file informations
+                            ->get('duration');             // returns the duration property
+
+                        if( $duration > 600) {
+                            // return new Response(, 500);
+                            throw new \Exception("طول فایل بارگذاری شده نباید بیشتر از ۱۰ دقیقه باشد.", 445);
+                            
+                        }
+
+
+
+                        $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
+                        $audio = $ffmpeg->open('/tmp'.'/'.$tmpName);
+
+                        $format = new \FFMpeg\Format\Audio\Mp3();
+                        $format
+                            -> setAudioChannels(2)
+                            -> setAudioKiloBitrate(64);
+                        $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
+                        if($audio->save($format, '/tmp/'.$newTmpName)) {
+                            $ufile = new File('/tmp/'.$newTmpName, true);
+                                
+                        }  
+
+                        
+
+                    }
+                }
+                
+
+                $file->setFile($ufile);
+            }
+
+            if($request->request->has('type')){
+                $file->setType($request->get('type'));
+            }
+
+            if($request->request->has('entityId')){
+                $file->setEntityId($request->get('entityId'));
+            }
+            if($request->request->has('uploadKey')) {
+                $file->setUploadKey($request->get('uploadKey'));
+            }
+
+            if($request->request->has('uploadDir')){
+                $file->setUploadDir($request->get('uploadDir'));
+            }
+            
+            if($request->request->has('continual')) {
+                $file->setContinual($request->get('continual'));
+            } else {
+                $file->setContinual(false);
+            }
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($file);
+
+
+            if(count($errors) == 0) {
+                $em = $this->getDoctrine()->getManager();
+
+                $file->upload();
+
+
+            } else {
+                $errorsString = (string) $errors;
+
+                // return new Response($errorsString, 401);
+                throw new \Exception($errorsString, 445);
+                
+            }
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($file);
+            if(count($errors) == 0) {
+                $em->persist($file);
+                $em->flush();
+
+
+                if($request->get('entityId')) {
+
+                }
+
+                $serializer = $this->get('jms_serializer');
+                $serialized = $serializer->serialize($file, 'json');
+    //            $serialized = $serializer->serialize($file, 'json');
+
+
+
+                return new Response($serialized);
+            } else {
+                $errorsString = (string) $errors;
+
+                // return new Response($errorsString);
+                throw new \Exception($errorsString, 445);
+            }
+
+        }
+        catch (\Exception $e) {
+            return new Response( $e->getMessage(), 401);
+        }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

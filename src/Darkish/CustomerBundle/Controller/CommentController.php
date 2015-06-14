@@ -269,7 +269,56 @@ class CommentController extends Controller
 	}
 
 
+	/**
+	 * @Route("/customer/ajax/comment/send_message/{comment}")
+	 * @Method({"PUT"})
+	 */
+	public function sendMessageAction(\Darkish\CommentBundle\Entity\Comment $comment, Request $request) {
 
+	    if($comment->getOwnerType() != 'client') {
+	        throw new AccessDeniedHttpException();
+	    }
+
+	    $client = $comment->getOwner();
+	    $customer = $this->getUser();
+	    
+	    if(!($customer instanceof \Darkish\CustomerBundle\Entity\Customer)) {
+	        throw new AccessDeniedHttpException();    
+	    }
+
+	    $thread = $this->getDoctrine()->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+	                                  ->findOneBy(['customer' => $customer->getId(), 'client' => $client->getId()]);
+
+	    $em = $this->getDoctrine()->getManager();
+	    if(!($thread instanceof \Darkish\CategoryBundle\Entity\PrivateMessageThread)) {
+	        $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
+	        $thread->setClient($client);
+	        $thread->setCustomer($customer);
+	        $thread->setLastRecordSeen(0);
+	        $thread->setLastClientSeen(0);
+	        $thread->setLastRecordDelivered(0);
+	        $thread->setLastClientDelivered(0);
+	        $thread->setDeletedByRecord(false);
+	        $thread->setDeletedByClient(false);
+	        $em->persist($thread);
+	    }
+	    
+	    
+	    $msg = new \Darkish\CategoryBundle\Entity\Message();
+	    $msg->setCreated(new \DateTime());
+	    $msg->setThread($thread);
+	    $msg->setFrom('record');
+	    $msg->setText($request->get('body'));
+	    $msg->setCustomer($customer);
+	    $em->persist($msg);
+
+	    $em->flush();
+
+	    $serialized = $this->get('jms_serializer')->serialize($msg, 'json'
+	        ,SerializationContext::create()->setGroups(array('thread.list', 'customer.details')));
+
+	    return new Response($serialized);
+	}
 
 
 	/**

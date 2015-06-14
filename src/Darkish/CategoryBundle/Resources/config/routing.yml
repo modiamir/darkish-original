@@ -23,6 +23,10 @@ DarkishCategoryBundle_offer:
         resource: "@DarkishCategoryBundle/Resources/config/routing/offer.yml"
         prefix:   /admin/offer
 
+DarkishCategoryBundle_sponsor:
+        resource: "@DarkishCategoryBundle/Resources/config/routing/sponsor.yml"
+        prefix:   /admin/sponsor
+
 DarkishCategoryBundle_classified:
         resource: "@DarkishCategoryBundle/Resources/config/routing/classified.yml"
         prefix:   /admin/classified
@@ -42,6 +46,11 @@ DarkishCategoryBundle_record_register:
     resource: "Darkish\CategoryBundle\Controller\RecordRegisterController"
     type:     annotation
     prefix:   /admin/recordregister
+
+DarkishCategoryBundle_message_box:
+    resource: "Darkish\CategoryBundle\Controller\MessageBoxController"
+    type:     annotation
+    prefix:   /admin/messagebox
 
 DarkishModi:
         path:     /darkish/fix

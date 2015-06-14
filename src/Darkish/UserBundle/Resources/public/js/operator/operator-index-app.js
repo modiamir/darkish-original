@@ -207,7 +207,16 @@ operatorApp.controller('operatorsAddCtrl', ['$scope', '$stateParams', '$state', 
         $scope.operator = {};
         
 
-        
+        $scope.darkishCustomers = [];
+        $scope.getDarkishCustomers = function() {
+            return $http.get('./ajax/get_darkish_customers');
+        }
+
+        $scope.getDarkishCustomers().then(
+            function(response){
+                $scope.darkishCustomers = response.data.customers;
+            }
+        );
         
         $scope.submit = function() {
             var data = humps.camelizeKeys($scope.operator);
@@ -217,6 +226,10 @@ operatorApp.controller('operatorsAddCtrl', ['$scope', '$stateParams', '$state', 
             data.accessLevel = JSON.stringify(data.accessLevel);
             if(!data.isActive) {
                 delete data.isActive;
+            }
+
+            if(data.customer) {
+                data.customer = data.customer.id;
             }
             delete data.newPasswordConfirm;
             
@@ -348,7 +361,7 @@ operatorApp.controller('operatorsAddCtrl', ['$scope', '$stateParams', '$state', 
         };
 }]);
 
-operatorApp.controller('operatorsEditCtrl', ['$scope', '$stateParams', '$state', 'SweetAlert', '$http', 'ValuesService', 'FileUploader', function($scope, $stateParams, $state, SweetAlert, $http, ValuesService, FileUploader){
+operatorApp.controller('operatorsEditCtrl', ['$scope', '$stateParams', '$state', 'SweetAlert', '$http', 'ValuesService', 'FileUploader', '$filter', function($scope, $stateParams, $state, SweetAlert, $http, ValuesService, FileUploader, $filter){
         $scope.ValuesService = ValuesService;
         
         $http.get('./ajax/get_operator/'+$stateParams.id).then(
@@ -361,20 +374,38 @@ operatorApp.controller('operatorsEditCtrl', ['$scope', '$stateParams', '$state',
                 });
                 $scope.operator.roles = angular.copy(roles);
                 $scope.operator.access_level = JSON.parse($scope.operator.access_level);
-                
+                $scope.getDarkishCustomers().then(
+                    function(response){
+                        $scope.darkishCustomers = response.data.customers;
+                        if($scope.operator.customer) {
+                            $scope.operator.customer = $filter('filter')($scope.darkishCustomers, {id:$scope.operator.customer.id}, true)[0];
+                        }
+                    }
+                );
+
+
             },
             function(errResponse){
                 
             }
         );
         
+        $scope.darkishCustomers = [];
+        $scope.getDarkishCustomers = function() {
+            return $http.get('./ajax/get_darkish_customers');
+        }
+        
+
+
         $scope.submit = function() {
             var data = humps.camelizeKeys($scope.operator);
             if($scope.operator.photo) {
                 data.photo = $scope.operator.photo.id;
             }
             data.accessLevel = JSON.stringify(data.accessLevel);
-            
+            if(data.customer) {
+                data.customer = data.customer.id;
+            }
             if(!data.isActive) {
                 delete data.isActive;
             }
@@ -578,8 +609,11 @@ operatorApp.factory('ValuesService', ['$http', function($http){
         {
             label: 'مدیریت نظرات',
             value: "forum"
+        },
+        {
+            label: 'اسپانسر',
+            value: "sponsor"
         }
-
         
     ];
     
@@ -598,6 +632,8 @@ operatorApp.factory('ValuesService', ['$http', function($http){
 
 
     }
+
+
     
     return self;
 }]);

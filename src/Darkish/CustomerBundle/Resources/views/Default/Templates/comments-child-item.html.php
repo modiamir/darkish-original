@@ -21,6 +21,7 @@
           <li ng-repeat="claimType in claimTypes"><a ng-click="setClaim(child,claimType)">{{claimType.label}}</a></li>
         </ul>
       </div>
+      <button ng-show="child.owner_type == 'client'" class="btn btn-info btn-xs" ng-click="openSendMessageModal(child)">ارسال پیام</button>
 
 	  </div>
     

@@ -82,6 +82,9 @@
 			    </ul>
 			</div>
 		</div>
+		<div ng-show="comment.owner_type == 'client'" class="send-message">
+			<button class="btn btn-default" ng-click="openSendMessageModal(comment)">ارسال پیام</button>
+		</div>
 		<span ng-show="comment.claim_type" class="claim-type">
 			شکایت: {{claimTypes[comment.claim_type-1].label}}
 		</span>

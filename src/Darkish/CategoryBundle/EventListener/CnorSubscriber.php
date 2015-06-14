@@ -44,13 +44,47 @@ class CnorSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $this->setHasMedias($args);
-        $this->updateTreeJson($args);
+        // $this->updateTreeJson($args);
     }
     
     public function preUpdate(PreUpdateEventArgs $args)
     {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
 
-        $this->updateTreeJson($args);
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof News ) {
+
+            $changes = $args->getEntityChangeSet();
+            $publishDateChange = $changes['publishDate'];
+            if(isset($changes['body'])) {
+                unset($changes['body']);    
+                $entity->setHtmlLastUpdate(new \DateTime());
+            }
+            
+            unset($changes['publishDate']);
+            
+            if($publishDateChange[0] != $publishDateChange[1] || count($changes) > 0) {
+                $entity->setLastUpdate(new \DateTime());
+            }
+        }
+
+        if ($entity instanceof Record ) {
+
+            $changes = $args->getEntityChangeSet();
+            if(isset($changes['body'])) {
+                unset($changes['body']);    
+                $entity->setHtmlLastUpdate(new \DateTime());
+            }
+            
+            
+            
+            if(count($changes) > 0) {
+                $entity->setLastUpdate(new \DateTime());
+            }
+        }
+        
+        
         $this->setHasMedias($args);
         
     }
@@ -82,13 +116,13 @@ class CnorSubscriber implements EventSubscriber
     }
 
 
-    private function updateTreeJson(LifecycleEventArgs $args) {
-        // $entity = $args->getEntity();
-        // $entityManager = $args->getEntityManager();
-        // if($entity instanceof News) {
-        //     $trees = $entity->getNewstrees();
-        //     die($this->container->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+    // private function updateTreeJson(LifecycleEventArgs $args) {
+    //     $entity = $args->getEntity();
+    //     $entityManager = $args->getEntityManager();
+    //     if($entity instanceof News) {
+    //         $trees = $entity->getNewstrees();
+    //         die($this->container->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('news.details'))));
             
-        // }
-    }
+    //     }
+    // }
 }

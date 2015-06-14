@@ -1,0 +1,142 @@
+services:
+    sonata.admin.record:
+        class: Darkish\CategoryBundle\Admin\RecordRequestAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "RecordRequest" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\RecordRequest
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.area:
+        class: Darkish\CategoryBundle\Admin\AreaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Area" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\Area
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.center_type:
+        class: Darkish\CategoryBundle\Admin\CenterTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Center Type" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\CenterType
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.center:
+        class: Darkish\CategoryBundle\Admin\CenterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Center" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\Center
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.classified_claim_types:
+        class: Darkish\CategoryBundle\Admin\ClassifiedClaimTypesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Classified Claim Types" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\ClassifiedClaimTypes
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.contract_type:
+        class: Darkish\CategoryBundle\Admin\ContractTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Contract Type" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\ContractType
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.estate_features:
+        class: Darkish\CategoryBundle\Admin\EstateFeaturesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Estate Features" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\EstateFeatures
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.estate_type:
+        class: Darkish\CategoryBundle\Admin\EstateTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Estate Type" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\EstateType
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.record_access_level:
+        class: Darkish\CategoryBundle\Admin\RecordAccessLevelAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "RecordAccessLevel" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\RecordAccessLevel
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.automobile_brand:
+        class: Darkish\CategoryBundle\Admin\AutomobileBrandAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Automobile Brand" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\AutomobileBrand
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.automobile_color:
+        class: Darkish\CategoryBundle\Admin\AutomobileColorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Automobile Color" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\AutomobileColor
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.automobile_features:
+        class: Darkish\CategoryBundle\Admin\AutomobileFeaturesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Automobile Features" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\AutomobileFeatures
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.automobile_type:
+        class: Darkish\CategoryBundle\Admin\AutomobileTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Automobile Type" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\AutomobileType
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+    sonata.admin.invalid_names:
+        class: Darkish\CategoryBundle\Admin\InvalidNamesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Inavlid Names" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\InvalidNames
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]
+

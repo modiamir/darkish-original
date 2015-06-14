@@ -448,8 +448,8 @@ class DefaultController extends Controller
         // 
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT th from \Darkish\CategoryBundle\Entity\MessageThread th 
-            WHERE th.record = :rid AND  th.deletedByRecord = 0");
-        $query->setParameter('rid', $user->getRecord()->getId());
+            WHERE th.customer = :cid AND  th.deletedByRecord = 0");
+        $query->setParameter('cid', $user->getId());
         $threads = $query->getResult();
         $oldLastMessageId = $user->getRecord()->getLastMessageRecieve();
         $lastMessageId = 0;
@@ -482,7 +482,7 @@ class DefaultController extends Controller
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }
-        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+        if($thread->getCustomer()->getId() != $user->getId()) {
             throw new AccessDeniedException();   
         }
 
@@ -496,13 +496,13 @@ class DefaultController extends Controller
         }
         $qb->setMaxResults($this->messageLoadNumber);
         $qb->orderBy('m.created', 'DESC');
-        $qb->orderBy('m.id', 'DESC');
+        $qb->addOrderBy('m.id', 'DESC');
 
         $res = $qb->getQuery()->getResult();
 
 
 
-        $serialized = $this->get('jms_serializer')->serialize($res, 'json'
+        $serialized = $this->get('jms_serializer')->serialize(['messages' => $res], 'json'
             ,SerializationContext::create()->setGroups(array('thread.list')));
 
         return new Response($serialized);
@@ -522,7 +522,7 @@ class DefaultController extends Controller
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }
-        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+        if($thread->getCustomer()->getId() != $user->getId()) {
             throw new AccessDeniedException();   
         }
         
@@ -553,10 +553,19 @@ class DefaultController extends Controller
         /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
         $assistantAccess = $user->getAssistantAccess();
         $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(3);
-        if(!$assistantAccess->contains($role)) {
+        if(!$assistantAccess->contains($role) || $user->getType() != 'owner') {
             throw new AccessDeniedException();
         }
+
+
+
+
         
+        $record = $user->getRecord();
+        
+        
+        $record->setLastGroupMessage(new \DateTime());
+
         $em = $this->getDoctrine()->getManager();
         $thread = new \Darkish\CategoryBundle\Entity\GroupMessageThread();
 
@@ -568,7 +577,7 @@ class DefaultController extends Controller
 
         $clients = $user->getRecord()->getClientsFavorited();
 
-        $thread->setRecord($user->getRecord());
+        $thread->setCustomer($user);
         $thread->setLastMessage($message);
         $thread->setLastClientDelivered(0);
         $thread->setLastClientSeen(0);
@@ -585,6 +594,7 @@ class DefaultController extends Controller
 
         $em->persist($thread);
         $em->persist($message);
+        $em->persist($record);
 
         $em->flush();
 
@@ -739,8 +749,8 @@ class DefaultController extends Controller
         $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Message')
                    ->createQueryBuilder('m');
         $qb->join('m.thread', 'th');
-        $qb->join('th.record', 'r', 'WITH', 'r.id = :rid')
-           ->setParameter('rid', $user->getRecord()->getId());
+        $qb->join('th.customer', 'c', 'WITH', 'c.id = :cid')
+           ->setParameter('cid', $user->getId());
         $qb->where('m.id > :last')->setParameter('last', $last);
         $qb->andWhere('th.deletedByRecord = :f')->setParameter('f', false);
         $qb->andWhere('m.deletedByRecord = :f')->setParameter('f', false);
@@ -764,7 +774,7 @@ class DefaultController extends Controller
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }
-        if($thread->getRecord()->getId() != $user->getRecord()->getId()) {
+        if($thread->getCustomer()->getId() != $user->getId()) {
             throw new AccessDeniedException();   
         }
 

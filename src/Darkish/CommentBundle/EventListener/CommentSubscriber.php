@@ -74,9 +74,7 @@ class CommentSubscriber implements EventSubscriber
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
             $this->setHasLiked($args);
-
-
-            
+            $this->setOwnerType($args);
         }
     }
 
@@ -85,6 +83,21 @@ class CommentSubscriber implements EventSubscriber
         $this->commentSettings = $commentSettings;
         // $this->commentManager = $this->container->get('fos_comment.manager.comment');
         // $this->threadManager = $this->container->get('fos_comment.manager.thread');
+    }
+
+    private function setOwnerType(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        $owner = $entity->getOwner();
+        $ownerType = null;
+        if($owner instanceof \Darkish\UserBundle\Entity\Client) {
+            $ownerType = 'client';
+        } elseif($owner instanceof \Darkish\UserBundle\Entity\Operator) {
+            $ownerType = 'operator';
+        } elseif($owner instanceof \Darkish\CustomerBundle\Entity\Customer) {
+            $ownerType = 'customer';
+        } 
+        $entity->setOwnerType($ownerType);
     }
 
     private function setHasLiked(LifecycleEventArgs $args) {

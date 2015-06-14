@@ -130,25 +130,30 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
-     * @Groups({"operator.details"})
      */
     protected $records;
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\News", mappedBy="user")
-     * @Groups({"operator.details"})
+     * 
      */
     protected $news;
 
     /**
      * @ORM\OneToMany(targetEntity="UserLog", mappedBy="operator")
-     * @Groups({"operator.details"})
+     * 
      **/
     private $logs;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\OperatorComment", mappedBy="owner")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
      * @Groups({"operator.details"})
+     */
+    private $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\OperatorComment", mappedBy="owner")
+     * 
      */
     private $comments;
     
@@ -685,5 +690,97 @@ class Operator implements AdvancedUserInterface, \Serializable
         }
         $al = json_decode($this->getAccessLevel());
         return ($this->id == 1) || in_array($route, $al);
+    }
+
+    /**
+     * Add log
+     *
+     * @param \Darkish\UserBundle\Entity\UserLog $log
+     *
+     * @return Operator
+     */
+    public function addLog(\Darkish\UserBundle\Entity\UserLog $log)
+    {
+        $this->logs[] = $log;
+
+        return $this;
+    }
+
+    /**
+     * Remove log
+     *
+     * @param \Darkish\UserBundle\Entity\UserLog $log
+     */
+    public function removeLog(\Darkish\UserBundle\Entity\UserLog $log)
+    {
+        $this->logs->removeElement($log);
+    }
+
+    /**
+     * Get logs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLogs()
+    {
+        return $this->logs;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     *
+     * @return Operator
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Darkish\CommentBundle\Entity\OperatorComment $comment
+     *
+     * @return Operator
+     */
+    public function addComment(\Darkish\CommentBundle\Entity\OperatorComment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Darkish\CommentBundle\Entity\OperatorComment $comment
+     */
+    public function removeComment(\Darkish\CommentBundle\Entity\OperatorComment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

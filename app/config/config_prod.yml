@@ -31,3 +31,11 @@ monolog:
         console:
             type:   console
             bubble: false
+        request:
+            type:   stream
+            path:   "%kernel.logs_dir%/request.log"
+            channels: [request]
+        security:
+            type:   stream
+            path:   "%kernel.logs_dir%/security.log"
+            channels: [security]

@@ -215,7 +215,7 @@ customerApp.controller('CommentsNewsCtrl', ['$scope', '$http', function($scope, 
 	}
 }])
 
-customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDialog', function($scope, $http, $filter, ngDialog){
+customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDialog','$modal', function($scope, $http, $filter, ngDialog, $modal){
 	$scope.replyForm = false;
 	$scope.replyFormDirty = false;
 	$scope.comment.children = [];
@@ -261,6 +261,31 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDia
 		}
 		$scope.replyFormDirty = true;
 	}
+
+
+	$scope.openSendMessageModal = function (comment) {
+        
+        var replyModalInstance = $modal.open({
+ 		    templateUrl: 'sendMessageModal.html',
+ 		    controller: 'sendMessageModalCtrl',
+ 		    size: 'sm',
+ 		    resolve: {
+ 		        comment: function(){
+ 		            return comment;
+ 		        }
+ 		    },
+ 		    windowClass: 'reply-modal-window'
+ 		});
+
+ 		replyModalInstance.result.then(
+ 		function (message) {
+ 		    
+ 		}, function () {
+ 		    
+ 		});
+
+        
+    };
 
 	$scope.setClaim = function(comment, claimType) {
 
@@ -325,3 +350,27 @@ customerApp.controller('CommentsItemCtrl', ['$scope', '$http', '$filter', 'ngDia
 customerApp.controller('CommentsChildCtrl', ['$scope', '$http', function($scope, $http){
 }])
 
+customerApp.controller('sendMessageModalCtrl', ['$scope', '$http', '$modalInstance', '$modal', 'comment', function($scope, $http, $modalInstance, $modal, comment){
+		
+		$scope.reply = function(body) {
+			if(body.length > 0) {
+				$http({
+					method: "PUT",
+					url: './customer/ajax/comment/send_message/'+comment.id,
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param({body: body, _method:"PUT"})
+				}).then(
+					function(response){
+						$modalInstance.close(response.data);
+					}, 
+					function(responseErr){
+						alert('پاسخ ارسال نشد.')
+					}
+				);
+			}
+		}
+
+		$scope.dismiss = function() {
+			$modalInstance.dismiss();
+		}
+}])

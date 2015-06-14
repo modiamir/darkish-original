@@ -92,11 +92,41 @@ class OperatorComment extends Comment
     protected $hasLiked;
 
     /**
+     * @var string
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $ownerType;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Set ownerType
+     *
+     * @param string $ownerType
+     * @return Comment
+     */
+    public function setOwnerType($ownerType)
+    {
+        $this->ownerType = $ownerType;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerType
+     *
+     * @return string
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
     }
 
     /**

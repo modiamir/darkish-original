@@ -254,6 +254,20 @@
         <i class="fa fa-circle-o-notch fa-spin"></i>
     </div>
 
+
+
+    <script type="text/ng-template" id="sendMessageModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">پاسخ</h3>
+        </div>
+        <div class="modal-body">
+            <textarea ng-model="body" class="form-control" row=4></textarea>
+        </div>
+        <div class="modal-footer">
+            <button ng-disabled="" class="btn btn-warning" ng-click="dismiss()">انصراف</button>
+            <button class="btn btn-info pull-left" data-ng-click="reply(body)">ارسال</button>
+        </div>
+    </script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery-ui/jquery-ui.min.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular/angular.min.js') ?>" type="text/javascript"></script>

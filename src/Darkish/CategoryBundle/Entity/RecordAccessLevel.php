@@ -75,6 +75,13 @@ class RecordAccessLevel
     private $attachmentVideosLimit;
 
 
+    /**
+     * @ORM\Column(name="group_message_interval", type="integer", nullable=true, options={"default"=0})
+     * @Groups({"recordaccess.list", "recordaccess.details", "customer.list", "customer.details", "record.details"})
+     */
+    private $groupMessageInterval;
+
+
 
     /**
      * Get id
@@ -291,5 +298,29 @@ class RecordAccessLevel
     public function getAttachmentVideosLimit()
     {
         return $this->attachmentVideosLimit;
+    }
+
+    /**
+     * Set groupMessageInterval
+     *
+     * @param integer $groupMessageInterval
+     *
+     * @return RecordAccessLevel
+     */
+    public function setGroupMessageInterval($groupMessageInterval)
+    {
+        $this->groupMessageInterval = $groupMessageInterval;
+
+        return $this;
+    }
+
+    /**
+     * Get groupMessageInterval
+     *
+     * @return integer
+     */
+    public function getGroupMessageInterval()
+    {
+        return $this->groupMessageInterval;
     }
 }

@@ -38,6 +38,10 @@ class OperatorType extends AbstractType
                 'class' => 'DarkishCategoryBundle:ManagedFile',
                 'property' => 'id',
             ))
+            ->add('customer', 'entity', array(
+                'class' => 'DarkishCustomerBundle:Customer',
+                'property' => 'id',
+            ))
             ->add('creator', 'entity', array(
                 'class' => 'DarkishUserBundle:Operator',
                 'property' => 'id',  

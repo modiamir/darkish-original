@@ -34,6 +34,7 @@ class DefaultController extends Controller
 	    	->add('recordNumber', 'text', array('label' => 'شماره رکورد','constraints' => new Length(array('min' => 3))))
 			->add('username', 'password', array('label' => 'رمز اول'))
 			->add('password', 'password', array('label' => 'رمز دوم'))
+			->add('captcha', 'captcha')
 			->add('save', 'submit', array('label' => 'ارسال'))
 			->getForm();
     	

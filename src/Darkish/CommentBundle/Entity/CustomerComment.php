@@ -92,6 +92,12 @@ class CustomerComment extends Comment
 
 
     /**
+     * @var string
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $ownerType;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -107,6 +113,29 @@ class CustomerComment extends Comment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set ownerType
+     *
+     * @param string $ownerType
+     * @return Comment
+     */
+    public function setOwnerType($ownerType)
+    {
+        $this->ownerType = $ownerType;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerType
+     *
+     * @return string
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
     }
 
     /**

@@ -1,7 +1,8 @@
 <div class="row page messages-page">
 	<div class="col col-xs-12 col-sm-5 threads master"
 		 ng-hide="isXSmall() && (selectedThread.id || groupMessageForm)">
-		<div class="well master-buttons" ng-class="{'fixed': isXSmall()}">
+		<div ng-show="user.type == 'owner'" class="well master-buttons" ng-class="{'fixed': isXSmall()}">
+
 			<button ng-click="showGroupMessageForm()" 
 					class="btn btn-danger group-message-button">ارسال پیام گروهی</button>
 		</div>
@@ -73,7 +74,7 @@
 		<div ng-class="{'has-details-bottom': isXSmall() && selectedThread.id, 'scrollable': !isXSmall()}" ng-show="selectedThread.id" class="messages-inner details-inner" id="message-container" scroll-glue>
 			<button ng-show="selectedThread.thread_type == 'private'" class="btn btn-info btn-xs load-more" ng-show="selectedThread.id" ng-disabled="hasNotMore" ng-click="loadMore()">بیشتر</button>
 			<ul class="message-list">
-				<li class="message" ng-repeat="message in currentMessages | orderBy:'id'"
+				<li class="message" ng-repeat="message in currentMessages | orderBy: 'id'"
 					ng-class="
 					{
 						'pull-right': message.from == 'record',
@@ -97,7 +98,6 @@
 						  ng-show="message.from == 'record' && selectedThread.last_client_seen == message.id">
 						دیده شده
 					</span>
-					
 
 				</li>
 			</ul>
@@ -191,8 +191,12 @@
 				ارسال پیام گروهی
 			</h3>
 			<form>
-				<textarea ng-disabled="groupMessageApprove" maxlength="3000" class="form-control" id="group-text-area" ng-model="groupText"></textarea>
-				<button ng-hide="groupMessageApprove"  class="btn btn-success btn-sm" ng-disabled="!groupText" ng-click="presubmitGroupMessage()">پیش نمایش</button>
+				<div ng-hide="canSendGroupMessage()" class="groupMessageDisabled">
+					در حال حاضر ارسال پیام گروهی برای شما مقدور نیست. شما در تاریخ و ساعت {{openGroupMessage() | toDate | amDateFormat:'jYYYY/jM/jD, h:mm'}} می توانید برای ارسال پیام گروهی اقدام فرمایید.
+					
+				</div>
+				<textarea ng-disabled="groupMessageApprove || !canSendGroupMessage()" maxlength="3000" class="form-control" id="group-text-area" ng-model="groupText"></textarea>
+				<button ng-hide="groupMessageApprove"  class="btn btn-success btn-sm" ng-disabled="!groupText || !canSendGroupMessage()" ng-click="presubmitGroupMessage()">پیش نمایش</button>
 				<div ng-hide="groupMessageApprove" class="btn-group dropup emotions-list group-message">
 				  <button type="button" class="btn btn-default dropdown-toggle emotion-add-icon" data-toggle="dropdown" aria-expanded="false">
 				  	<span class="dk icon-smiley"></span>
