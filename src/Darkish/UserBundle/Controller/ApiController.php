@@ -339,6 +339,7 @@ class ApiController extends FOSRestController
      * )
      * @Method({"POST"})
      * @View()
+     * @Security("has_role('ROLE_USER')")
      */
     public function postUploadAction(Request $request)
     {
