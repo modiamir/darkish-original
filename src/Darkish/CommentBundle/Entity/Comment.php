@@ -13,9 +13,9 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="owner_type", type="string")
- * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment", "comment"="Comment"})
+ * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment"})
  */
-class Comment
+abstract class Comment
 {
     /**
      * @ORM\Id

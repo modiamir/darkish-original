@@ -45,6 +45,15 @@ class Client implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     * @Groups({"thread.list", "thread.details"})
+     *
+     */
+    private $photo;
+
+    /**
      * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\PrivateMessageThread", mappedBy="client")
      */
     private $privateMessageThreads;
@@ -283,5 +292,61 @@ class Client implements UserInterface, \Serializable
     public function getFavoriteRecords()
     {
         return $this->favoriteRecords;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     * @return Client
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Darkish\CommentBundle\Entity\ClientComment $comments
+     * @return Client
+     */
+    public function addComment(\Darkish\CommentBundle\Entity\ClientComment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Darkish\CommentBundle\Entity\ClientComment $comments
+     */
+    public function removeComment(\Darkish\CommentBundle\Entity\ClientComment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

@@ -349,4 +349,28 @@ class Client implements UserInterface, \Serializable
     {
         return $this->comments;
     }
+
+    /**
+     * Set photo
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photo
+     *
+     * @return Client
+     */
+    public function setPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 }
