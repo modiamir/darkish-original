@@ -1,6 +1,8 @@
-customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http', '$timeout', '$filter',
-  '$interval', 'SweetAlert', '$sce', function($scope, $window, threads, $http, $timeout, $filter, $interval, SweetAlert, $sce){
+customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', 'recordData', '$http', '$timeout', '$filter',
+  '$interval', 'SweetAlert', '$sce', function($scope, $window, threads, recordData, $http, $timeout, $filter, $interval, SweetAlert, $sce){
   $scope.threads = threads.threads;
+  $scope.recordData = recordData;
+  console.log(recordData);
   $scope.lastMessage = threads.last_message;
   $scope.selectedThread = {};
   // $scope.window = $window;
@@ -10,6 +12,18 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
     console.log(event);
   }
 
+  $scope.canSendGroupMessage = function() {
+    var now = new Date();
+    var before = new Date($scope.recordData.last_group_message);
+    var validDay = recordData.access_class.group_message_interval;
+    return ( (now - before) > (validDay * 86400 * 1000));
+  }
+
+  $scope.openGroupMessage = function() {
+    var before = new Date($scope.recordData.last_group_message);
+    var validDay = recordData.access_class.group_message_interval;
+    return new Date(before.getTime() + (validDay * 86400 * 1000));
+  }
 
   $scope.setCaretPosition = function(ctrl, pos)
   {
@@ -190,7 +204,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
             $('#message-container').scrollTop($('#message-container')[0].scrollHeight, 0);  
           }, 5);
           $scope.selectedThread = thread;
-          $scope.currentMessages = response.data;
+          $scope.currentMessages = response.data.messages;
           $scope.setLastMessageSeen(thread, thread.last_message.id);
           $scope.fetchDeliveredSeen();
           $scope.setDetailsInnerMarginBottom();
@@ -204,7 +218,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', '$http',
   $scope.loadMore = function() {
     $http.get('./customer/ajax/get_messages_for_thread/'+$scope.selectedThread.id+'/'+$scope.currentMessages.length).then(
       function(response) {
-        $scope.currentMessages = $scope.currentMessages.concat(response.data);
+        $scope.currentMessages = $scope.currentMessages.concat(response.data.messages);
         if(response.data.length < 10) {
           $scope.hasNotMore = true;
         }

@@ -14,6 +14,11 @@ services:
         public:     false
         tags:
            - { name: security.voter }
+    security.access.sponsor_voter:
+        class:      Darkish\CategoryBundle\Security\Voter\SponsorVoter
+        public:     false
+        tags:
+           - { name: security.voter }
     security.access.classified_voter:
         class:      Darkish\CategoryBundle\Security\Voter\ClassifiedVoter
         public:     false

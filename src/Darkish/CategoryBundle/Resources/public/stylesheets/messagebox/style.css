@@ -1,0 +1,141 @@
+/* line 4, ../../sass/messagebox/style.scss */
+body .messages-wrapper {
+  background-color: #f9f9f9;
+  position: absolute;
+  width: 100%;
+  min-width: 550px;
+  height: 100%;
+  overflow-y: scroll;
+}
+/* line 14, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.load-older a {
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+/* line 21, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message {
+  width: 100%;
+  display: inline-block;
+}
+/* line 24, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details {
+  clear: both;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+/* line 30, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details .text {
+  color: white;
+  padding: 10px 5px;
+  border-radius: 4px;
+  margin: 10px 0 0;
+  font-size: 13px;
+  min-width: 100px;
+  max-width: 300px;
+  word-wrap: break-word;
+  /* IE 5+ */
+}
+/* line 48, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details .time {
+  clear: both;
+  font-size: 12px;
+}
+/* line 52, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details img {
+  margin: 10px 0 0;
+  width: 40px;
+  height: 40px;
+  border-width: 2px;
+}
+/* line 58, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.record {
+  margin-right: 20px;
+}
+/* line 60, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.record .text {
+  background-color: rgba(24, 148, 124, 0.19);
+  border-color: #18947c;
+  float: right;
+  margin-right: 10px;
+  color: #3c3c3c;
+  line-height: 24px;
+}
+/* line 68, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.record img {
+  float: right;
+  border-width: 1px;
+}
+/* line 72, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.record .time {
+  float: left;
+}
+/* line 77, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.client {
+  margin-left: 20px;
+}
+/* line 78, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.client:hover {
+  background: #f3f3f3;
+  cursor: pointer;
+}
+/* line 83, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.client .text {
+  background-color: rgba(63, 129, 174, 0.29);
+  border-color: #3f81ae;
+  float: left;
+  margin-left: 10px;
+  color: #3c3c3c;
+}
+/* line 90, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.client img {
+  float: left;
+  border-width: 1px;
+}
+/* line 94, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details.client .time {
+  float: right;
+}
+/* line 98, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details .time {
+  display: block;
+}
+/* line 101, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details .delivered, body .messages-wrapper .messages > ul li.message .message-details .seen {
+  float: right;
+  clear: both;
+  font-size: 10px;
+  color: gray;
+}
+/* line 110, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .message-details .client-name {
+  float: right;
+  clear: both;
+}
+/* line 115, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .client-details {
+  float: left;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+/* line 120, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .client-details:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+/* line 124, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .client-details img.client-photo {
+  width: 40px;
+  margin: auto;
+  height: 40px;
+  display: block;
+}
+/* line 130, ../../sass/messagebox/style.scss */
+body .messages-wrapper .messages > ul li.message .client-details span.client-name {
+  width: 100%;
+  text-align: center;
+  display: block;
+}

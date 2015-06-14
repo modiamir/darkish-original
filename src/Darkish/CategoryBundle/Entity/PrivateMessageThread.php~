@@ -28,7 +28,56 @@ class PrivateMessageThread extends MessageThread
      */
     protected $threadType = 'private';
     
+    /**
+     * @var integer
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
+     */
+    protected $id;
 
+    /**
+     * @var integer
+     * @Groups({"thread.list", "thread.details"})
+     */
+    protected $lastRecordSeen;
+
+    /**
+     * @var integer
+     * @Groups({"thread.list", "thread.details"})
+     */
+    protected $lastRecordDelivered;
+
+    /**
+     * @var integer
+     * @Groups({"thread.list", "thread.details"})
+     */
+    protected $lastClientSeen;
+
+    /**
+     * @var integer
+     * @Groups({"thread.list", "thread.details"})
+     */
+    protected $lastClientDelivered;
+
+    /**
+     * @var \Darkish\CustomerBundle\Entity\Customer
+     * @Groups({"thread.list", "thread.details"})
+     */
+    protected $customer;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $messages;
+
+    /**
+     * @var boolean
+     */
+    protected $deletedByRecord;
+
+    /**
+     * @var boolean
+     */
+    protected $deletedByClient;
 
 
 
@@ -58,40 +107,7 @@ class PrivateMessageThread extends MessageThread
     public function getThreadType() {
         return $this->threadType;
     }
-    /**
-     * @var integer
-     */
-    protected $id;
 
-    /**
-     * @var integer
-     */
-    protected $lastRecordSeen;
-
-    /**
-     * @var integer
-     */
-    protected $lastRecordDelivered;
-
-    /**
-     * @var integer
-     */
-    protected $lastClientSeen;
-
-    /**
-     * @var integer
-     */
-    protected $lastClientDelivered;
-
-    /**
-     * @var \Darkish\CategoryBundle\Entity\Record
-     */
-    protected $record;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $messages;
 
     /**
      * Constructor
@@ -205,28 +221,7 @@ class PrivateMessageThread extends MessageThread
         return $this->lastClientDelivered;
     }
 
-    /**
-     * Set record
-     *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return PrivateMessageThread
-     */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
-    {
-        $this->record = $record;
-
-        return $this;
-    }
-
-    /**
-     * Get record
-     *
-     * @return \Darkish\CategoryBundle\Entity\Record 
-     */
-    public function getRecord()
-    {
-        return $this->record;
-    }
+    
 
     /**
      * Add messages
@@ -259,5 +254,53 @@ class PrivateMessageThread extends MessageThread
     public function getMessages()
     {
         return $this->messages;
+    }
+    
+
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return PrivateMessageThread
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return PrivateMessageThread
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
     }
 }

@@ -8,6 +8,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Type;
+
 
 /**
  * User
@@ -27,12 +29,13 @@ class Operator implements AdvancedUserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
-     * @Groups({"operator.list", "operator.details"})
+     * @Groups({"operator.list", "operator.details", "comment.details"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"none"})
      */
     private $password;
 
@@ -40,7 +43,7 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\Column(type="string", length=60, unique=true)
-     * @Groups({"operator.list", "operator.details"})
+     * @Groups({"operator.list", "operator.details", "comment.details"})
      */
     private $email;
 
@@ -103,6 +106,7 @@ class Operator implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="access_level", type="json_array", nullable=true)
      * @Groups({"operator.details"})
+     * @Type("string")
      */
     private $accessLevel;
     
@@ -110,7 +114,7 @@ class Operator implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"operator.details"})
+     * @Groups({"operator.details", "comment.details"})
      *
      */
     private $photo;
@@ -126,14 +130,34 @@ class Operator implements AdvancedUserInterface, \Serializable
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\Record", mappedBy="user")
+     * @Groups({"operator.details"})
      */
     protected $records;
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CategoryBundle\Entity\News", mappedBy="user")
+     * @Groups({"operator.details"})
      */
     protected $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserLog", mappedBy="operator")
+     * @Groups({"operator.details"})
+     **/
+    private $logs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @Groups({"operator.details"})
+     */
+    private $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\OperatorComment", mappedBy="owner")
+     * @Groups({"operator.details"})
+     */
+    private $comments;
+    
     public function __construct()
     {
         $this->isActive = true;
@@ -632,5 +656,40 @@ class Operator implements AdvancedUserInterface, \Serializable
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Set accessLevel
+     *
+     * @param array $accessLevel
+     * @return Operator
+     */
+    public function setAccessLevel($accessLevel)
+    {
+        $this->accessLevel = $accessLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get accessLevel
+     *
+     * @return array 
+     */
+    public function getAccessLevel()
+    {
+        return $this->accessLevel;
+    }
+    
+    public function routeAccess($route) {
+        if($route == 'operator') {
+            if($this->getId() == 1) {
+                return true; 
+            } else {
+                return false;
+            }
+        }
+        $al = json_decode($this->getAccessLevel());
+        return ($this->id == 1) || in_array($route, $al);
     }
 }

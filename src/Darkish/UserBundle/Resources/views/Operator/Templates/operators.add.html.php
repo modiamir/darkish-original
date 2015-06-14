@@ -69,6 +69,15 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="operatorCustomer">مشتری درکیش</label>
+                    <select  ng-model="operator.customer" class="form-control" id="operatorCustomer" 
+                             ng-options="customer as customer.full_name for customer in darkishCustomers">
+                        <!--            <option ng-repeat="role in ValuesService.roles" value="{{role.id}}">
+                                        {{role.name}}
+                                    </option>-->
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="operatorSecondaryEmail">پست الکترونیک ثانویه</label>
                     <input dir="ltr" ng-model="operator.secondary_mail" type="email" class="form-control" id="operatorSecondaryEmail" placeholder="پست الکترونیک ثانویه">
                 </div>

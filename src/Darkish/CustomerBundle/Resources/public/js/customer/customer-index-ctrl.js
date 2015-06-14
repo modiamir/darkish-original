@@ -310,6 +310,12 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
              .then (function (response) {
                 return response.data;
              });
+        },
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/html/get_record_details'})
+             .then (function (response) {
+                return response.data;
+             });
         }
       }
     })

@@ -1,5 +1,5 @@
 <div class="btn-group">
-    <button ui-sref="add" class="btn btn-info">جدید</button>
+    <!-- <button ui-sref="add" class="btn btn-info">جدید</button> -->
 </div>
 <h2>لیست مشتری ها </h2>
 <hr/>

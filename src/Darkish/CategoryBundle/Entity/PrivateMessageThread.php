@@ -59,10 +59,10 @@ class PrivateMessageThread extends MessageThread
     protected $lastClientDelivered;
 
     /**
-     * @var \Darkish\CategoryBundle\Entity\Record
+     * @var \Darkish\CustomerBundle\Entity\Customer
      * @Groups({"thread.list", "thread.details"})
      */
-    protected $record;
+    protected $customer;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -222,26 +222,26 @@ class PrivateMessageThread extends MessageThread
     }
 
     /**
-     * Set record
+     * Set customer
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
      * @return PrivateMessageThread
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
     {
-        $this->record = $record;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get customer
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return \Darkish\CustomerBundle\Entity\Customer
      */
-    public function getRecord()
+    public function getCustomer()
     {
-        return $this->record;
+        return $this->customer;
     }
 
     /**

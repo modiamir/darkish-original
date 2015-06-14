@@ -975,7 +975,7 @@ class Record
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
      * @Groups({"record.details"})
      */
     private $customers;
@@ -1006,6 +1006,19 @@ class Record
      * @Groups({"record.details"})
      */
     private $nonSearchable;
+
+
+    /**
+     * @ORM\Column(name="treejson", type="json_array")
+     * @Groups({"record.details", "api.list"})
+     **/
+    private $treeJson;
+
+    /**
+     * @ORM\Column(name="last_group_message", type="datetime", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $lastGroupMessage;
 
     /**
      * Get id
@@ -4042,5 +4055,53 @@ class Record
     public function getCustomerRegisterUsed()
     {
         return $this->customerRegisterUsed;
+    }
+
+    /**
+     * Set treeJson
+     *
+     * @param array $treeJson
+     *
+     * @return Record
+     */
+    public function setTreeJson($treeJson)
+    {
+        $this->treeJson = $treeJson;
+
+        return $this;
+    }
+
+    /**
+     * Get treeJson
+     *
+     * @return array
+     */
+    public function getTreeJson()
+    {
+        return $this->treeJson;
+    }
+
+    /**
+     * Set lastGroupMessage
+     *
+     * @param \DateTime $lastGroupMessage
+     *
+     * @return Record
+     */
+    public function setLastGroupMessage($lastGroupMessage)
+    {
+        $this->lastGroupMessage = $lastGroupMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get lastGroupMessage
+     *
+     * @return \DateTime
+     */
+    public function getLastGroupMessage()
+    {
+        return $this->lastGroupMessage;
     }
 }

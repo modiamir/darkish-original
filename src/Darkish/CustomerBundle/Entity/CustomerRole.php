@@ -53,6 +53,10 @@ class CustomerRole implements RoleInterface
         $this->customers = new ArrayCollection();
     }
 
+    public function __toString() {
+        return ($this->getName()) ? : '';
+    }
+
     /**
      * @see RoleInterface
      */

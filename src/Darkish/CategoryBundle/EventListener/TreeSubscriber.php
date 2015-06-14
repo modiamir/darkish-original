@@ -7,6 +7,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Darkish\CategoryBundle\Entity\MainTree;
 use Darkish\CategoryBundle\Entity\NewsTree;
 use Darkish\CategoryBundle\Entity\OfferTree;
+use Darkish\CategoryBundle\Entity\SponsorTree;
 use Darkish\CategoryBundle\Entity\ClassifiedTree;
 use Darkish\CategoryBundle\Entity\ForumTree;
 use Darkish\CategoryBundle\Entity\TicketServerTree;
@@ -30,7 +31,7 @@ class TreeSubscriber implements EventSubscriber
 //        /* @var $entity MainTree */
 //        $test = $repo->find();
         
-        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof ClassifiedTree|| $entity instanceof ForumTree) {
+        if( $entity instanceof MainTree || $entity instanceof NewsTree || $entity instanceof OfferTree || $entity instanceof SponsorTree || $entity instanceof ClassifiedTree|| $entity instanceof ForumTree) {
             // die('asd');
             $treeIndex = $entity->getTreeIndex();
             $parentTreeIndex = substr($treeIndex, 0, 4);
@@ -62,6 +63,11 @@ class TreeSubscriber implements EventSubscriber
             }
             elseif($entity instanceof OfferTree) {
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:OfferTree');
+                $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                $entity->setParentTreeTitle($parentTree->getTitle());
+            }
+            elseif($entity instanceof SponsorTree) {
+                $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:SponsorTree');
                 $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
                 $entity->setParentTreeTitle($parentTree->getTitle());
             }

@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"group" = "GroupMessageThread", "private" = "PrivateMessageThread"})
+ * @ORM\DiscriminatorMap({"group" = "GroupMessageThread", "private" = "PrivateMessageThread", "messagethread" = "MessageThread"})
  */
 class MessageThread
 {
@@ -27,11 +27,11 @@ class MessageThread
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Record", inversedBy="messageThreads")
-     * @ORM\JoinColumn(name="record", referencedColumnName="id")
-     * 
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="messageThreads")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id")
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
-    protected $record;
+    protected $customer;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="thread")
@@ -44,25 +44,25 @@ class MessageThread
     protected $lastMessage;
 
     /**
-     * @ORM\Column(name="last_record_seen", type="integer")
+     * @ORM\Column(name="last_record_seen", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordSeen = 0;
 
     /**
-     * @ORM\Column(name="last_record_delivered", type="integer")
+     * @ORM\Column(name="last_record_delivered", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordDelivered = 0;
 
     /**
-     * @ORM\Column(name="last_client_seen", type="integer")
+     * @ORM\Column(name="last_client_seen", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientSeen = 0;
 
     /**
-     * @ORM\Column(name="last_client_delivered", type="integer")
+     * @ORM\Column(name="last_client_delivered", type="integer", options={"default"=0})
      * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientDelivered = 0;
@@ -96,28 +96,7 @@ class MessageThread
         $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Set record
-     *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return MessageThread
-     */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
-    {
-        $this->record = $record;
-
-        return $this;
-    }
-
-    /**
-     * Get record
-     *
-     * @return \Darkish\CategoryBundle\Entity\Record 
-     */
-    public function getRecord()
-    {
-        return $this->record;
-    }
+    
 
     /**
      * Add messages
@@ -250,5 +229,51 @@ class MessageThread
     public function getLastClientDelivered()
     {
         return $this->lastClientDelivered;
+    }
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return MessageThread
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return MessageThread
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
     }
 }

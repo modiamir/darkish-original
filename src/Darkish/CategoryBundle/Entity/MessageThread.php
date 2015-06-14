@@ -27,11 +27,11 @@ class MessageThread
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Record", inversedBy="messageThreads")
-     * @ORM\JoinColumn(name="record", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="messageThreads")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id")
      * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
-    protected $record;
+    protected $customer;
 
     /**
      * @ORM\OneToMany(targetEntity="Message", mappedBy="thread")
@@ -96,28 +96,7 @@ class MessageThread
         $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Set record
-     *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
-     * @return MessageThread
-     */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
-    {
-        $this->record = $record;
-
-        return $this;
-    }
-
-    /**
-     * Get record
-     *
-     * @return \Darkish\CategoryBundle\Entity\Record 
-     */
-    public function getRecord()
-    {
-        return $this->record;
-    }
+    
 
     /**
      * Add messages
@@ -296,5 +275,29 @@ class MessageThread
     public function getDeletedByClient()
     {
         return $this->deletedByClient;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     *
+     * @return MessageThread
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
     }
 }

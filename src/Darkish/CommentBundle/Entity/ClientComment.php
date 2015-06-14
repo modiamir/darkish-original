@@ -62,6 +62,12 @@ class ClientComment extends Comment
     protected $createdAt;
 
     /**
+     * @var string
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $ownerType;
+
+    /**
      * @var integer
      * @Groups({"comment.details"})
      */
@@ -107,6 +113,30 @@ class ClientComment extends Comment
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Set ownerType
+     *
+     * @param string $ownerType
+     * @return Comment
+     */
+    public function setOwnerType($ownerType)
+    {
+        $this->ownerType = $ownerType;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerType
+     *
+     * @return string
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
     }
 
     /**

@@ -30,6 +30,7 @@
 	    	    <li ng-repeat="claimType in claimTypes"><a ng-click="setClaim(comment,claimType)">{{claimType.label}}</a></li>
 	    	  </ul>
 	    	</div>
+        <button ng-show="comment.owner_type == 'client'" class="btn btn-info btn-xs" ng-click="openSendMessageModal(comment)">ارسال پیام</button>
 	    	<span ng-show="comment.unseen_replies_by_customers > 0" class="has-new-replies" ng-bind="comment.unseen_replies_by_customers + ' پاسخ جدید'"></span>
 
 		</div>

@@ -45,6 +45,15 @@ class Client implements UserInterface, \Serializable
     private $isActive;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     * @Groups({"thread.list", "thread.details"})
+     *
+     */
+    private $photo;
+
+    /**
      * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\PrivateMessageThread", mappedBy="client")
      */
     private $privateMessageThreads;

@@ -46,6 +46,26 @@ class OperatorController extends Controller
         $operators = $repo->findAll();
         return new Response($this->get('jms_serializer')->serialize($operators, 'json', SerializationContext::create()->setGroups(array('operator.list'))));
     }
+
+    /**
+     * @Route(
+     *      "/admin/operator/ajax/get_darkish_customers", 
+     *      defaults={"_format": "json"}
+     * )
+     */
+    public function getDarkishCustomers() {
+        $repo = $this->getDoctrine()->getRepository('DarkishCustomerBundle:Customer');
+        $darkishRecord = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+                              ->findOneBy(['recordNumber' => '001000']);
+
+        if(!$darkishRecord instanceof \Darkish\CategoryBundle\Entity\Record) {
+            return new JsonResponse(['customers' => []]);
+        }
+        $darkishCustomers = $repo->findBy(['record' => $darkishRecord->getId()]);
+
+        $serialized = $this->get('jms_serializer')->serialize(['customers' => $darkishCustomers], 'json', SerializationContext::create()->setGroups(array('customer.list')));
+        return new Response($serialized);
+    }
     
     /**
      * @Route("admin/operator/ajax/search",defaults={"_format": "json"} )
@@ -96,7 +116,7 @@ class OperatorController extends Controller
         try {
             $repo = $this->getDoctrine()->getRepository('DarkishUserBundle:Operator');
             $operator = $repo->find($id);
-            return new Response($this->get('jms_serializer')->serialize($operator, 'json', SerializationContext::create()->setGroups(array('operator.details')) ));
+            return new Response($this->get('jms_serializer')->serialize($operator, 'json', SerializationContext::create()->setGroups(array('operator.details', 'customer.list')) ));
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }

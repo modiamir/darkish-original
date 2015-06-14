@@ -36,6 +36,12 @@ class AppKernel extends Kernel
             new VMelnik\DoctrineEncryptBundle\VMelnikDoctrineEncryptBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

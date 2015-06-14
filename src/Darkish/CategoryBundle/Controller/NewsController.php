@@ -84,8 +84,8 @@ class NewsController extends Controller
             
             
             $this->newsMassAssignment($news, $data);
-            $news->setLastUpdate(new \DateTime());
-            $news->setHtmlLastUpdate(new \DateTime());
+            // $news->setLastUpdate(new \DateTime());
+            // $news->setHtmlLastUpdate(new \DateTime());
             $news->setUser($user);
             
             if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
@@ -350,10 +350,12 @@ class NewsController extends Controller
 
 
             $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+            $treeJson = array();
             foreach($data['newstrees'] as $tree) {
                 $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+                $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title']];
             }   
-
+            $news->setTreeJson($treeJson);
 
             $newTreesIterator = $newTrees->getIterator();
             while($newTreesIterator->valid()) {
@@ -756,8 +758,8 @@ class NewsController extends Controller
             $node = array();
             /* @var $product NewsTree */
             $node['id'] = $product->getId();
-            $node['treeIndex'] = $product->getTreeIndex();
-            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['tree_index'] = $product->getTreeIndex();
+            $node['up_tree_index'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
             $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
@@ -804,8 +806,8 @@ class NewsController extends Controller
             $node = array();
             /* @var $product NewsTree */
             $node['id'] = $product->getId();
-            $node['treeIndex'] = $product->getTreeIndex();
-            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['tree_index'] = $product->getTreeIndex();
+            $node['up_tree_index'] = $product->getUpTreeIndex();
             $node['title'] = $product->getTitle();
             $node['parent_tree_title'] = $product->getParentTreeTitle();
             $tree[$key] = $node;
@@ -823,8 +825,8 @@ class NewsController extends Controller
         $branch = array();
 
         foreach ($elements as $element) {
-            if ($element['upTreeIndex'] === $parentId) {
-                $children = $this->buildTree($elements, $element['treeIndex']);
+            if ($element['up_tree_index'] === $parentId) {
+                $children = $this->buildTree($elements, $element['tree_index']);
                 if ($children) {
                     $element['children'] = $children;
                 }
