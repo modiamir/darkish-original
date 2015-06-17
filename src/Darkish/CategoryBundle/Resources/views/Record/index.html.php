@@ -241,7 +241,7 @@
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">کلید واژه جستجو:</label>
                                 <input type="text" ng-maxlength="255" name="searchkey-input" id="search-key-input" class="first-section-input" ng-model="RecordService.currentRecord.search_keywords" ng-disabled="!RecordService.isEditing()">
                             </div>
-
+                            <br/>
                             <div class="main-fields-owner">
                                 <label class="main-fields-owner-title first-section-fields-title" for="owner-input">نام مالک:</label>
                                 <input type="text" ng-maxlength="255" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner" ng-disabled="!RecordService.isEditing()">
@@ -251,6 +251,11 @@
                                 <input type="text" ng-maxlength="11" name="owner-phone-input" id="owner-phone-input" class="first-section-input" ng-model="RecordService.currentRecord.owner_phone" ng-disabled="!RecordService.isEditing()">
                             </div>
                             <div class="main-fields-owner">
+                                <label class="main-fields-owner-mail first-section-fields-title" for="owner-mail-input">تلفن مالک:</label>
+                                <input type="text" ng-maxlength="50" name="owner-mail-input" id="owner-mail-input" class="first-section-input" ng-model="RecordService.currentRecord.owner_mail" ng-disabled="!RecordService.isEditing()">
+                            </div>
+                            <br/>
+                            <div class="main-fields-owner">
                                 <label class="main-fields-manager-title first-section-fields-title" for="manager-input">نام مدیر:</label>
                                 <input type="text" ng-maxlength="255" name="manager-input" id="manager-input" class="first-section-input" ng-model="RecordService.currentRecord.manager" ng-disabled="!RecordService.isEditing()">
                             </div>
@@ -258,8 +263,12 @@
                                 <label class="main-fields-manager-phone-title first-section-fields-title" for="manager-phone-input">تلفن مدیر:</label>
                                 <input type="text" ng-maxlength="11" name="manager-phone-input" id="manager-phone-input" class="first-section-input" ng-model="RecordService.currentRecord.manager_phone" ng-disabled="!RecordService.isEditing()">
                             </div>
+                            <div class="main-fields-owner">
+                                <label class="main-fields-manager-mail first-section-fields-title" for="manager-mail-input">تلفن مالک:</label>
+                                <input type="text" ng-maxlength="50" name="manager-mail-input" id="manager-mail-input" class="first-section-input" ng-model="RecordService.currentRecord.manager_mail" ng-disabled="!RecordService.isEditing()">
+                            </div>
 
-
+                            <br/>
                             <div class="main-fields-legal-name">
                                 <label class="main-fields-legal-name-title first-section-fields-title" for="legal-name-input">نام حقوقی:</label>
                                 <input type="text" name="legal-name-input" id="legal-name-input" class="first-section-input" ng-model="RecordService.currentRecord.legal_name" ng-disabled="!RecordService.isEditing()">
