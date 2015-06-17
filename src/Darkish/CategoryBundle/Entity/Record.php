@@ -160,6 +160,30 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="OwnerPhone", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ownerPhone;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Manager", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $manager;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ManagerPhone", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $managerPhone;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="LegalName", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
@@ -4103,5 +4127,77 @@ class Record
     public function getLastGroupMessage()
     {
         return $this->lastGroupMessage;
+    }
+
+    /**
+     * Set ownerPhone
+     *
+     * @param string $ownerPhone
+     *
+     * @return Record
+     */
+    public function setOwnerPhone($ownerPhone)
+    {
+        $this->ownerPhone = $ownerPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerPhone
+     *
+     * @return string
+     */
+    public function getOwnerPhone()
+    {
+        return $this->ownerPhone;
+    }
+
+    /**
+     * Set manager
+     *
+     * @param string $manager
+     *
+     * @return Record
+     */
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    /**
+     * Get manager
+     *
+     * @return string
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * Set managerPhone
+     *
+     * @param string $managerPhone
+     *
+     * @return Record
+     */
+    public function setManagerPhone($managerPhone)
+    {
+        $this->managerPhone = $managerPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get managerPhone
+     *
+     * @return string
+     */
+    public function getManagerPhone()
+    {
+        return $this->managerPhone;
     }
 }

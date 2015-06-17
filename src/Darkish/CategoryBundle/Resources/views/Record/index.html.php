@@ -243,8 +243,20 @@
                             </div>
 
                             <div class="main-fields-owner">
-                                <label class="main-fields-owner-title first-section-fields-title" for="owner-input">مالک/مدیر:</label>
+                                <label class="main-fields-owner-title first-section-fields-title" for="owner-input">نام مالک:</label>
                                 <input type="text" ng-maxlength="255" name="owner-input" id="owner-input" class="first-section-input" ng-model="RecordService.currentRecord.owner" ng-disabled="!RecordService.isEditing()">
+                            </div>
+                            <div class="main-fields-owner">
+                                <label class="main-fields-owner-phone first-section-fields-title" for="owner-phone-input">تلفن مالک:</label>
+                                <input type="text" ng-maxlength="11" name="owner-phone-input" id="owner-phone-input" class="first-section-input" ng-model="RecordService.currentRecord.owner_phone" ng-disabled="!RecordService.isEditing()">
+                            </div>
+                            <div class="main-fields-owner">
+                                <label class="main-fields-manager-title first-section-fields-title" for="manager-input">نام مدیر:</label>
+                                <input type="text" ng-maxlength="255" name="manager-input" id="manager-input" class="first-section-input" ng-model="RecordService.currentRecord.manager" ng-disabled="!RecordService.isEditing()">
+                            </div>
+                            <div class="main-fields-owner">
+                                <label class="main-fields-manager-phone-title first-section-fields-title" for="manager-phone-input">تلفن مدیر:</label>
+                                <input type="text" ng-maxlength="11" name="manager-phone-input" id="manager-phone-input" class="first-section-input" ng-model="RecordService.currentRecord.manager_phone" ng-disabled="!RecordService.isEditing()">
                             </div>
 
 

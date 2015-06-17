@@ -240,6 +240,15 @@ class RecordController extends Controller
         if(isset($data['owner'])) {
             $record->setOwner($data['owner']);
         }
+        if(isset($data['owner_phone'])) {
+            $record->setOwnerPhone($data['owner_phone']);
+        }
+        if(isset($data['manager'])) {
+            $record->setManager($data['manager']);
+        }
+        if(isset($data['manager_phone'])) {
+            $record->setManagerPhone($data['manager_phone']);
+        }
         if(isset($data['legal_name'])) {
             $record->setLegalName($data['legal_name']);
         }

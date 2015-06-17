@@ -160,6 +160,30 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="OwnerPhone", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ownerPhone;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Manager", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $manager;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ManagerPhone", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $managerPhone;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="LegalName", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
@@ -4079,5 +4103,29 @@ class Record
     public function getTreeJson()
     {
         return $this->treeJson;
+    }
+
+    /**
+     * Set lastGroupMessage
+     *
+     * @param \DateTime $lastGroupMessage
+     *
+     * @return Record
+     */
+    public function setLastGroupMessage($lastGroupMessage)
+    {
+        $this->lastGroupMessage = $lastGroupMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get lastGroupMessage
+     *
+     * @return \DateTime
+     */
+    public function getLastGroupMessage()
+    {
+        return $this->lastGroupMessage;
     }
 }
