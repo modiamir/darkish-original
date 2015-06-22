@@ -152,3 +152,8 @@ body .content-wrapper .content .comments .media.comment hr.comment-divider {
 body .post-comment-button {
   margin-right: 10px;
 }
+
+/* line 155, ../../sass/comment/comment.scss */
+.cke_bottom, .cke_top {
+  display: none !important;
+}

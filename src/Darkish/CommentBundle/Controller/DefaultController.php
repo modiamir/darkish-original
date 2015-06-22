@@ -805,6 +805,71 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/get_main_tree",
+     *     defaults={"_format" = "json"}
+     * )
+     * 
+     */
+    public function getMainTreeAction() {
+
+
+
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:MainTree');
+        $categories = $repository->findAll();
+        $tree = array();
+        foreach($categories as $key => $product) {
+            $node = array();
+            /* @var $product ForumTree */
+            $node['id'] = $product->getId();
+            $node['treeIndex'] = $product->getTreeIndex();
+            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $tree[$key] = $node;
+        }
+        $hierarchy = $this->buildTree($tree);
+        return new Response(
+            json_encode($hierarchy),
+            200
+        );
+    }
+
+
+    /**
+     * @Route(
+     *     "/admin/comment/ajax/get_news_tree",
+     *     defaults={"_format" = "json"}
+     * )
+     * 
+     */
+    public function getNewsTreeAction() {
+
+
+
+        $repository = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:NewsTree');
+        $categories = $repository->findAll();
+        $tree = array();
+        foreach($categories as $key => $product) {
+            $node = array();
+            /* @var $product ForumTree */
+            $node['id'] = $product->getId();
+            $node['treeIndex'] = $product->getTreeIndex();
+            $node['upTreeIndex'] = $product->getUpTreeIndex();
+            $node['title'] = $product->getTitle();
+            $node['parent_tree_title'] = $product->getParentTreeTitle();
+            $tree[$key] = $node;
+        }
+        $hierarchy = $this->buildTree($tree);
+        return new Response(
+            json_encode($hierarchy),
+            200
+        );
+    }
+
 
     private function buildTree(array $elements, $parentId = "00") {
         $branch = array();
@@ -920,5 +985,28 @@ class DefaultController extends Controller
             ,SerializationContext::create()->setGroups(array('thread.list', 'customer.details')));
 
         return new Response($serialized);
+    }
+
+    /**
+     * @Route("/admin/comment/ajax/change_tree/{comment}/{forumTree}")
+     * @Method({"PUT"})
+     */
+    public function changeForumTree(Comment $comment, \Darkish\CategoryBundle\Entity\ForumTree $forumTree) {
+        $em = $this->getDoctrine()->getManager();
+        $threadRepo = $this->getDoctrine()->getRepository('DarkishCommentBundle:ForumTreeThread');
+        $newThread = $threadRepo->findOneBy(['target' => $forumTree->getId()]);
+        if (!$newThread) {
+            
+            $newThread = new \Darkish\CommentBundle\Entity\ForumTreeThread();
+            $newThread->setIsCommentable(true);
+            $newThread->setTarget($forumTree);
+            $newThread->setLastCommentAt(new \DateTime());
+            $newThread->setNumComments(0);
+            $em->persist($newThread);
+        }        
+        $comment->setThread($newThread);
+        $em->persist($comment);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
     }
 }

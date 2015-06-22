@@ -19,8 +19,9 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog-theme-default.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcategory/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
     
-    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
     
 <?php $view['slots']->stop() ?>
 
@@ -45,6 +46,10 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishwebsite/bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js') ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcategory/bower_components/angular-hotkeys/build/hotkeys.min.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/libs/ckeditor/ckeditor.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.js') ?>"></script>
+    
+
 
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcomment/js/comment/comment-index-app.js') ?>"></script>
 
@@ -118,11 +123,15 @@
                     <div class="well well-lg">
                         
                         <div class="submit-comment-form" >
-                            <textarea class="form-control" ng-model="newComment.body"></textarea>
+                            <!-- <textarea class="form-control" ng-model="newComment.body"></textarea> -->
+                            <textarea ckeditor="bodyEditorOptions" ng-model="newComment.body"></textarea>
                             <div style="float: left; margin-top: 10px; margin-bottom: 10px;" class="btn-group btn-group-sm submit-btn-group">
                                 <button class="btn btn-danger " ng-click="newComment = {}; globalValues.currentEntity.form = false" >انصراف</button>
                                 <button ng-disabled="!newComment.body" ng-click="postComment(newComment);" class="btn btn-success">ارسال</button>
                             </div>
+                            <button style="margin-right: 10px; margin-top: 10px;" ng-click="openInsertEntityModal()" class="btn btn-info btn-sm">افزودن لینک محتوا</button>
+                            <button style="margin-right: 10px; margin-top: 10px;" ng-click="openInsertTreeModal()" class="btn btn-info btn-sm">افزودن لینک شاخه</button>
+
                             <label style="float: right; margin-top: 10px;" ng-disabled="newComment.photos.length >= 3" class="btn btn-info btn-sm upload-label">
                                 انتخاب فایل
                                 <input type="file" ng-show="false" nv-file-select="" uploader="uploader" multiple  /><br/>
@@ -171,6 +180,138 @@
         <div class="modal-footer">
             <button ng-disabled="" class="btn btn-warning" ng-click="dismiss()">انصراف</button>
             <button class="btn btn-info pull-left" data-ng-click="reply(body)">ارسال</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="insertEntityModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">افزودن لینک به محتوا</h3>
+        </div>
+        <div class="modal-body">
+            <label class="record-insert-link-type" for="record-insert-link-type">نوع لینک</label>
+            <select ng-init="linkType = 'record'" ng-model="linkType" required>
+                <option value="record">رکورد</option>
+                <option value="news">خبر</option>
+            </select>
+            <br/>
+            <br/>
+            <input id="record-insert-text" type="text" ng-model="text" class="form-control" placeholder="عنوان لینک" />
+            <br/>
+            <div ng-show="linkType == 'record'"  > 
+                <angucomplete-alt  id="records"
+                          placeholder="عنوان رکورد"
+                          pause="400"
+                          selected-object="selectedEntity"
+                          remote-url="comment/ajax/get_entity_list/record/name/"
+                          remote-url-data-field="results"
+                          title-field="record_number,title"
+                          minlength="1"
+                          input-class="form-control form-control-small autocomplete-entity-search"/>
+            </div>
+            <br/>
+            <div ng-show="linkType == 'record'" class="autocomplete-entity-search" >
+                <angucomplete-alt  id="records"
+                          placeholder="شماره رکورد"
+                          pause="400"
+                          selected-object="selectedEntity"
+                          remote-url="comment/ajax/get_entity_list/record/number/"
+                          remote-url-data-field="results"
+                          title-field="record_number,title"
+                          minlength="1"
+                          input-class="form-control form-control-small autocomplete-entity-search"/>
+            </div>  
+            <br/>
+            <div ng-show="linkType == 'news'">
+                <angucomplete-alt  id="news"
+                          placeholder="عنوان خبر"
+                          pause="400"
+                          selected-object="selectedEntity"
+                          remote-url="comment/ajax/get_entity_list/news/name/"
+                          remote-url-data-field="results"
+                          title-field="id,title"
+                          minlength="1"
+                          input-class="form-control form-control-small autocomplete-entity-search"/>
+            </div>
+            <br/>
+            <div ng-show="linkType == 'news'">
+                <angucomplete-alt  id="news"
+                          placeholder="شماره خبر"
+                          pause="400"
+                          selected-object="selectedEntity"
+                          remote-url="comment/ajax/get_entity_list/news/number/"
+                          remote-url-data-field="results"
+                          title-field="id,title"
+                          minlength="1"
+                          input-class="form-control form-control-small autocomplete-entity-search"/>
+            </div>  
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="dismiss()">بستن</button>
+            <button ng-show="linkType == 'record'" class="btn btn-info pull-left" data-ng-click="insertRecord(selectedEntity)">اضافه</button>
+            <button ng-show="linkType == 'news'" class="btn btn-info pull-left" data-ng-click="insertNews(selectedEntity)">اضافه</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="insertTreeModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">افزودن لینک به شاخه</h3>
+        </div>
+        <div class="modal-body">
+            <label class="record-insert-link-type" for="record-insert-link-type">نوع لینک</label>
+            <select ng-init="linkType = 'record'" ng-model="linkType" required>
+                <option value="maintree">شاخه رکورد</option>
+                <option value="newstree">شاخه خبر</option>
+                <option value="forumtree">تالار گفتگو</option>
+            </select>
+            <br/>
+            <br/>
+            <div ng-show="linkType == 'forumtree'">
+                <treecontrol class="tree-classic"
+                   tree-model="forumTree"
+                   options="treeOptions"
+                   selected-node="selectedForumTree">
+                   {{node.title}}
+                </treecontrol>
+            </div>
+            <div ng-show="linkType == 'maintree'">
+                <treecontrol class="tree-classic"
+                   tree-model="mainTree"
+                   options="treeOptions"
+                   selected-node="selectedMainTree">
+                   {{node.title}}
+                </treecontrol>
+            </div>
+            <div ng-show="linkType == 'newstree'">
+                <treecontrol class="tree-classic"
+                   tree-model="newsTree"
+                   options="treeOptions"
+                   selected-node="selectedNewsTree">
+                   {{node.title}}
+                </treecontrol>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="dismiss()">بستن</button>
+            <button ng-show="linkType == 'forumtree'" class="btn btn-info pull-left" data-ng-click="insertForumTree()">اضافه</button>
+            <button ng-show="linkType == 'maintree'" class="btn btn-info pull-left" data-ng-click="insertMainTree()">اضافه</button>
+            <button ng-show="linkType == 'newstree'" class="btn btn-info pull-left" data-ng-click="insertNewsTree()">اضافه</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="changeTreeModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">تغییر شاخه</h3>
+        </div>
+        <div class="modal-body">
+            
+            <treecontrol class="tree-classic"
+               tree-model="forumTree"
+               options="treeOptions"
+               selected-node="newForumTree">
+               {{node.title}}
+            </treecontrol>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="dismiss()">بستن</button>
+            <button class="btn btn-info pull-left" data-ng-click="changeForumTree()">اضافه</button>
+            
         </div>
     </script>
     
