@@ -264,7 +264,7 @@
                                 <input type="text" ng-maxlength="11" name="manager-phone-input" id="manager-phone-input" class="first-section-input" ng-model="RecordService.currentRecord.manager_phone" ng-disabled="!RecordService.isEditing()">
                             </div>
                             <div class="main-fields-owner">
-                                <label class="main-fields-manager-mail first-section-fields-title" for="manager-mail-input">ایمیل مالک:</label>
+                                <label class="main-fields-manager-mail first-section-fields-title" for="manager-mail-input">ایمیل مدیر:</label>
                                 <input type="text" ng-maxlength="50" name="manager-mail-input" id="manager-mail-input" class="first-section-input" ng-model="RecordService.currentRecord.manager_mail" ng-disabled="!RecordService.isEditing()">
                             </div>
 
