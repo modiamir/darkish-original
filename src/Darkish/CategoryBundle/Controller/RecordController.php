@@ -243,11 +243,17 @@ class RecordController extends Controller
         if(isset($data['owner_phone'])) {
             $record->setOwnerPhone($data['owner_phone']);
         }
+        if(isset($data['owner_mail'])) {
+            $record->setOwnerMail($data['owner_mail']);
+        }
         if(isset($data['manager'])) {
             $record->setManager($data['manager']);
         }
         if(isset($data['manager_phone'])) {
             $record->setManagerPhone($data['manager_phone']);
+        }
+        if(isset($data['manager_mail'])) {
+            $record->setManagerMail($data['manager_mail']);
         }
         if(isset($data['legal_name'])) {
             $record->setLegalName($data['legal_name']);

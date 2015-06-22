@@ -11,7 +11,7 @@
 	<div class="center col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-class="{'pending': (comment.state==3)}">
 		<div class="row">
 			<div class="body col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				{{comment.body}}
+				<span ng-bind-html="trustedBody(comment)"></span>
 				<hr class="divider" />
 			</div>
 
@@ -85,9 +85,15 @@
 		<div ng-show="comment.owner_type == 'client'" class="send-message">
 			<button class="btn btn-default" ng-click="openSendMessageModal(comment)">ارسال پیام</button>
 		</div>
+		
 		<span ng-show="comment.claim_type" class="claim-type">
 			شکایت: {{claimTypes[comment.claim_type-1].label}}
 		</span>
+
+		<div ng-show="canChangeTarget()" class="send-message">
+			<button class="btn btn-default" ng-click="openChangeTreeModal(comment)">تغییر شاخه</button>
+		</div>
+
 		
 		
 	</div>
@@ -117,7 +123,7 @@
 				<div class="center col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-class="{'pending': (child.state==3)}">
 					<div class="row">
 						<div class="body col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							{{child.body}}
+							<span ng-bind-html="trustedBody(child)"></span>
 							<hr class="divider" />
 						</div>
 

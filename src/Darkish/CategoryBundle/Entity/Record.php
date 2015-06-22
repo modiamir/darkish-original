@@ -166,6 +166,14 @@ class Record
     private $ownerPhone;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="OwnerMail", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $ownerMail;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="Manager", type="string", nullable=true)
@@ -180,6 +188,14 @@ class Record
      * @Groups({"record.details"})
      */
     private $managerPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ManagerMail", type="string", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $managerMail;
 
     /**
      * @var string
@@ -4199,5 +4215,53 @@ class Record
     public function getManagerPhone()
     {
         return $this->managerPhone;
+    }
+
+    /**
+     * Set ownerMail
+     *
+     * @param string $ownerMail
+     *
+     * @return Record
+     */
+    public function setOwnerMail($ownerMail)
+    {
+        $this->ownerMail = $ownerMail;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerMail
+     *
+     * @return string
+     */
+    public function getOwnerMail()
+    {
+        return $this->ownerMail;
+    }
+
+    /**
+     * Set managerMail
+     *
+     * @param string $managerMail
+     *
+     * @return Record
+     */
+    public function setManagerMail($managerMail)
+    {
+        $this->managerMail = $managerMail;
+
+        return $this;
+    }
+
+    /**
+     * Get managerMail
+     *
+     * @return string
+     */
+    public function getManagerMail()
+    {
+        return $this->managerMail;
     }
 }
