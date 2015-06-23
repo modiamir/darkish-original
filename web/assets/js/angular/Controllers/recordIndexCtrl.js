@@ -2088,7 +2088,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.insertTree = function() {
             
             console.log($scope.currentBodyTreeNode);
-            CkInstance.insertHtml('<a href="#" class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.treeIndex+'">'+$scope.currentBodyTreeNode.title+'</a>');
+            CkInstance.insertHtml('<a href="#" class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.tree_index+'">'+$scope.currentBodyTreeNode.title+'</a>');
             $scope.close();
         }
     }]).
