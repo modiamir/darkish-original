@@ -28,18 +28,18 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     }).controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
-        
-        
+
+
         /**
          * initializing config for list endless scroll
          */
         gb = document.getElementsByClassName('grid-block')[0];
         tbl = gb.getElementsByTagName('table')[0];
-              
-        
+
+
         gridblock = angular.element(gb);
         table = angular.element(tbl);
-        
+
         gridblock.on('scroll', function() {
           if(gridblock.scrollTop() + gridblock.height() >= table.height()) {
               RecordService.searchRecords(RecordService.recordList().length);
@@ -49,7 +49,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         /**
-         * 
+         *
          * uploader
          */
 
@@ -63,14 +63,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         uploader.formData.push({uploadDir : ValuesService.activeTab});
         uploader.formData.push({type : 'record'});
         uploader.msg = "";
-        
+
         $scope.selectTab = function(currentTab) {
             ValuesService.activeTab = currentTab;
             uploader.formData.push({uploadDir : ValuesService.activeTab});
         }
-        
+
         // FILTERS
-            
+
         uploader.filters.push({
             name: 'imageTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -84,13 +84,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
-        
-        
+
+
+
 //        uploader.filters.push({
 //            name: 'imageSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -100,11 +100,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'iconTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -118,11 +118,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'iconSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -132,11 +132,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'videoTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -150,13 +150,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
-        
-        
+
+
+
 //        uploader.filters.push({
 //            name: 'videoSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -166,11 +166,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'audioTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -184,11 +184,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'audioSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -198,8 +198,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
 
@@ -232,7 +232,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'videoSizeFilter':
                     uploader.msg = 'videoSizeFilter';
                     break;
-                
+
             }
         };
         uploader.onAfterAddingFile = function(fileItem) {
@@ -307,9 +307,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         ]);
         //////////////////////
-        
-        
-        
+
+
+
 
 
         /**
@@ -328,12 +328,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
-        
+
         /**
          * Tree modal initializing
          */
-        
-        
+
+
         $scope.openTreeModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -341,15 +341,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'treeModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
 
@@ -357,8 +357,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         /**
          * Tree modal initializing
          */
-        
-        
+
+
         $scope.openTicketTreeModal = function (size) {
 
             var ticketTreeModalInstance = $modal.open({
@@ -366,26 +366,26 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'ticketTreeModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             ticketTreeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         //////////////
-        
-        
+
+
         /**
          * Saving modal initialization
          */
-        
-        
+
+
         $scope.openSavingModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -393,27 +393,27 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'savingModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 backdrop: 'static'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         //////////////
-        
+
         /**
          * Body modal initialization
          */
-        
-        
-                
+
+
+
         $scope.openBodyModal = function (size) {
             var treeModalInstance = $modal.open({
                 templateUrl: 'bodyModal.html',
@@ -429,20 +429,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * Body modal initialization
          */
-        
-        
-                
+
+
+
         $scope.openRegisterCodeModal = function (size) {
             var registerCodeModalInstance = $modal.open({
                 templateUrl: 'registerCodeModal.html',
@@ -453,21 +453,21 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
             registerCodeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * Titles modal initialization
          */
-        
-        
-    
-            
+
+
+
+
         $scope.openTitlesModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -475,28 +475,28 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'titlesModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'titles-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * delete modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDeleteModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -504,30 +504,30 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'deleteModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'delete-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
-    
+
+
+
         /**
          * continual modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openContinualModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -535,31 +535,31 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'continualModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'continual-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
 
         /**
          * image modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openImageModal = function (size, image, index) {
-            ValuesService.currentImageModal.image = image; 
+            ValuesService.currentImageModal.image = image;
             ValuesService.currentImageModal.index = index;
 
             var treeModalInstance = $modal.open({
@@ -567,28 +567,28 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'imageModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'image-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
         /**
          * icon modal initialization
          */
-        
-                
-        
-            
+
+
+
+
         $scope.openIconModal = function (size, icon) {
             ValuesService.currentIconModal = {};
             ValuesService.currentIconModal.image = icon;
@@ -598,30 +598,30 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'iconModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'image-modal-window'
             });
 
             iconModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-   
+
         /**
          * video modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openVideoModal = function (size, video, index) {
-            ValuesService.currentVideoModal.video = video; 
+            ValuesService.currentVideoModal.video = video;
             ValuesService.currentVideoModal.index = index;
 
             var treeModalInstance = $modal.open({
@@ -629,31 +629,31 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'videoModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'video-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * audio modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openAudioModal = function (size, audio, index) {
             ValuesService.currentAudioModal = {}
-            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.Audio = audio;
             ValuesService.currentAudioModal.index = index;
 
             var audioModalInstance = $modal.open({
@@ -661,36 +661,36 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'audioModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'audio-modal-window'
             });
 
             audioModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * cancel modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openCancelModal = function (size, form) {
-            
+
             var cancelModalInstance = $modal.open({
                 templateUrl: 'cancelModal.html',
                 controller: 'cancelModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'cancel-modal-window'
             });
@@ -700,140 +700,140 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 if(setPristine) {
                     form.$setPristine();
                 }
-                
-                
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * body preview modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openBodyPreviewModal = function (size) {
             var bodyPreviewModalInstance = $modal.open({
                 templateUrl: 'bodyPreviewModal.html',
                 controller: 'bodyPreviewModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'body-preview-modal-window'
             });
 
             bodyPreviewModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
+
+
         /**
          * login modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLoginModal = function (size) {
-            
+
             var loginModalInstance = $modal.open({
                 templateUrl: 'loginModal.html',
                 controller: 'loginModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             loginModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
+
+
         /**
          * logout modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLogoutModal = function (size) {
-            
+
             var logoutModalInstance = $modal.open({
                 templateUrl: 'logoutModal.html',
                 controller: 'logoutModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             logoutModalInstance.result.then(
             function () {
-                
+
                 $scope.logout();
-                
-                
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
+
+
         /**
          * disconnect modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDisconnectModal = function (size) {
-            
+
             var disconnectModalInstance = $modal.open({
                 templateUrl: 'disconnectModal.html',
                 controller: 'disconnectModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'disconnect-modal-window'
             });
 
             disconnectModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
 
@@ -848,16 +848,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             return RecordService.recordList();
         };
 
-        
-        
-        
 
-        
+
+
+
+
         $scope.showMapModal = function(){mapModal.activate()};
 
-        
 
-        
+
+
 
 
         /**
@@ -910,14 +910,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
         /**
-         * 
+         *
          * user authentication config
          */
-        
+
         SecurityService.loggedIn = true;
         SecurityService.connected = true;
         SecurityService.disconnectModalDisplayed = false;
-        
+
         $scope.logout = function() {
             $http.get('../operator/ajax/logout').then(
                 function(response){
@@ -939,9 +939,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;    
+                        SecurityService.loggedIn = true;
                     }
-                    
+
                 },
                 function(responseErr){
                     SecurityService.connected = false;
@@ -949,7 +949,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         SecurityService.disconnectModalDisplayed = true;
                         $scope.openDisconnectModal();
                     }
-                    
+
                 }
             );
         }
@@ -957,7 +957,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.loggedOut = function() {
             SecurityService.loggedIn = false;
         }
-        
+
         $scope.checkConnectionSave = function(contin) {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
@@ -965,11 +965,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;    
+                        SecurityService.loggedIn = true;
                     }
-                    
-                    
-                    
+
+
+
                     if(!SecurityService.connected) {
                         $scope.openDisconnectModal();
                     }else
@@ -982,14 +982,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         $scope.recordform.$setPristine();
 
                     }
-                }, 
+                },
                 function(errResponse){
                     $scope.openDisconnectModal();
                 }
             );
-            
+
         }
-        
+
         poollingFactory.callFnOnInterval(function() {
             $scope.isLoggedIn();
         });
@@ -999,7 +999,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $interval(function(){
             $scope.loaded = true;
         }, 3000);
-        
+
         /////////////////////////////
 
 
@@ -1049,7 +1049,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     .factory('TreeService', ['$http', 'RecordService', '$collection', function($http, RecordService, $collection){
 
         var tree = [];
-        
+
         var treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
@@ -1185,15 +1185,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         self.hasVideo = function() {
-            if((typeof self.currentRecord.videosList != 'undefined' && self.currentRecord.videosList.length > 0) || 
+            if((typeof self.currentRecord.videosList != 'undefined' && self.currentRecord.videosList.length > 0) ||
                (typeof self.currentRecord.bodyVideosList != 'undefined' && self.currentRecord.bodyVideosList.length > 0) ) {
                 return true;
             }
             return false;
         }
-        
+
         self.hasAudio = function() {
-            if((typeof self.currentRecord.audiosList != 'undefined' && self.currentRecord.audiosList.length > 0) || 
+            if((typeof self.currentRecord.audiosList != 'undefined' && self.currentRecord.audiosList.length > 0) ||
                (typeof self.currentRecord.bodyAudiosList != 'undefined' && self.currentRecord.bodyAudiosList.length > 0)) {
                 return true;
             }
@@ -1311,7 +1311,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 self.totalRecord = response.data;
             },function(errResponse){
             });
-            
+
             $http.get('ajax/get_record_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {recordList.removeAll();}
                 recordList.addAll(response.data);
@@ -1341,7 +1341,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 self.totalRecord = response.data;
             },function(errResponse){
             });
-            
+
             $http.get('ajax/search_record/'+
                 self.recordSearchCriteria.searchBy+'/'+
                 self.recordSearchCriteria.sortBy+'/'+
@@ -1360,7 +1360,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         self.searchRecords = function(count) {
-            
+
             if(!count) {
                 count=0;
             }
@@ -1549,7 +1549,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         self.selectedAudios = []
 
         self.selectedBodyAudios = []
-        
+
         self.selectedBodyDocs = []
 
 
@@ -1641,8 +1641,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         self.currentRecord.a_opening_hours_to_date.setHours(0);
                         self.currentRecord.a_opening_hours_to_date.setMinutes(0);
                     }
-                    
-                    
+
+
 
                     self.currentRecord.treeList = Collection.getInstance();
                     self.currentRecord.treeList.addAll(self.currentRecord.maintrees);
@@ -1680,7 +1680,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                     self.currentRecord.bodyAudiosList = Collection.getInstance();
                     self.currentRecord.bodyAudiosList.addAll(self.currentRecord.body_audios);
-                    
+
                     self.currentRecord.bodyDocsList = Collection.getInstance();
                     self.currentRecord.bodyDocsList.addAll(self.currentRecord.body_docs);
 
@@ -1729,7 +1729,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             self.currentRecord.bodyAudiosList.add(obj);
             self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
         }
-        
+
         self.addToBodyDocsList = function(obj) {
             self.currentRecord.bodyDocsList.add(obj);
             self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
@@ -1744,7 +1744,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     self.currentRecord.images = self.currentRecord.imagesList.all();
                     break;
                 case 'icon':
-                    
+
                     self.currentRecord.icon = {};
                     break;
                 case 'video':
@@ -1763,7 +1763,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }
 
         }
-        
+
         self.cleanBodyAttachments = function() {
             bodyDom = angular.element(self.currentRecord.body);
             angular.forEach(self.currentRecord.bodyImagesList.hash, function(value, key){
@@ -1773,7 +1773,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 }
             });
             self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
-            
+
             angular.forEach(self.currentRecord.bodyVideosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1781,7 +1781,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 }
             });
             self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
-            
+
             angular.forEach(self.currentRecord.bodyAudiosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1789,7 +1789,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 }
             });
             self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
-            
+
             angular.forEach(self.currentRecord.bodyDocsList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1797,14 +1797,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 }
             });
             self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
-            
+
         }
 
         self.removeFromBodyAttachList = function() {
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     angular.forEach(self.selectedBodyImages, function(value, key){
-                        
+
                         bodyDom = angular.element(self.currentRecord.body);
                         filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                         if(filesInEditor.length > 0) {
@@ -1812,7 +1812,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         }else {
                             self.currentRecord.bodyImagesList.remove(value);
                         }
-                        
+
                     });
                     self.currentRecord.body_images = self.currentRecord.bodyImagesList.all();
                     break;
@@ -1825,7 +1825,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         }else {
                             self.currentRecord.bodyVideosList.remove(value);
                         }
-                        
+
                     });
                     self.currentRecord.body_videos = self.currentRecord.bodyVideosList.all();
                     break;
@@ -1838,11 +1838,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         }else {
                             self.currentRecord.bodyAudiosList.remove(value);
                         }
-                        
+
                     });
                     self.currentRecord.body_audios = self.currentRecord.bodyAudiosList.all();
                     break;
-                
+
                 case 'doc':
                     angular.forEach(self.selectedBodyDocs, function(value, key){
                         bodyDom = angular.element(self.currentRecord.body);
@@ -1852,7 +1852,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         }else {
                             self.currentRecord.bodyDocsList.remove(value);
                         }
-                        
+
                     });
                     self.currentRecord.body_docs = self.currentRecord.bodyDocsList.all();
                     break;
@@ -1960,11 +1960,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                         self.saved = true;
                         self.savingMessages = ['رکورد مورد نظر ذخیره شد.'];
                         if(!contin) {
-                            self.searchRecords();
+                            // self.searchRecords();
                             self.finishEditing();
                         }else {
                             temporaryRecord = angular.copy(self.currentRecord);
                         }
+                        var recordInList = $filter('filter')(self.list.array, {id: response.data.id}, true)[0];
+                        recordInList.title = response.data.title;
+                        recordInList.sub_title = response.data.sub_title;
                     },
                     function(errResponse){
                         self.saved = true;
@@ -1975,8 +1978,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 );
             }
         }
-        
-        
+
+
 
         self.changeWorkingDays = function() {
 
@@ -2017,12 +2020,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.treeOptions = function() {
-            
+
             return $scope.TreeService.treeOptions();
         }
         $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
         $scope.tOptions.dirSelectable = false;
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
@@ -2049,12 +2052,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.treeOptions = function() {
-            
+
             return $scope.TreeService.treeOptions();
         }
         $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
         $scope.tOptions.dirSelectable = false;
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
@@ -2070,23 +2073,23 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
-        
-        
+
+
         $scope.mainTreeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
         $scope.treeOptions = angular.copy($scope.TreeService.treeOptions());
         $scope.treeOptions.dirSelectable = true;
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertTree = function() {
-            
+
             console.log($scope.currentBodyTreeNode);
             CkInstance.insertHtml('<a href="#" class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.tree_index+'">'+$scope.currentBodyTreeNode.title+'</a>');
             $scope.close();
@@ -2097,14 +2100,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.TreeService = TreeService;
         $scope.text = "";
         $scope.recordId = "";
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertRecord = function(record) {
             var text = ($scope.text) ? $scope.text : record.originalObject.title;
             console.log($scope.currentBodyTreeNode);
@@ -2123,14 +2126,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.TreeService = TreeService;
         $scope.text = "";
         $scope.link = "";
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertLink = function() {
             $scope.insertableLink= 'http://'+$scope.link;
             console.log($scope.currentBodyTreeNode);
@@ -2146,14 +2149,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     controller('titlesModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', function ($scope, $modalInstance, RecordService, TreeService) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close();}
-        
+
     }]).
     controller('mapModalCtrl', ['$scope', 'mapModal', 'RecordService','TreeService', 'uiGmapGoogleMapApi', function ($scope, mapModal, RecordService, TreeService, GoogleMapApi) {
         $scope.RecordService = RecordService;
-        $scope.closeMe = function(){ 
+        $scope.closeMe = function(){
             mapModal.deactivate();
         }
-        
+
         $scope.apply = function() {
             RecordService.currentRecord.latitude = $scope.map.marker.coords.latitude;
             RecordService.currentRecord.longitude = $scope.map.marker.coords.longitude;
@@ -2170,10 +2173,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     console.info('latitude', var3[0].latLng.lat());
                     console.info('longitude', var3[0].latLng.lng());
                     $scope.map.marker.coords.latitude = var3[0].latLng.lat();
-                    
+
                     $scope.map.marker.coords.longitude = var3[0].latLng.lng();
-                    
-                    
+
+
                     $scope.$apply();
 
 
@@ -2203,7 +2206,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.images = angular.copy(RecordService.currentRecord.imagesList.all());
         $scope.audios = angular.copy(RecordService.currentRecord.audiosList.all());
         $scope.videos = angular.copy(RecordService.currentRecord.videosList.all());
-        
+
         $scope.bodyImages = angular.copy(RecordService.currentRecord.bodyImagesList.all());
         $scope.bodyAudios = angular.copy(RecordService.currentRecord.bodyAudiosList.all());
         $scope.bodyDocs = angular.copy(RecordService.currentRecord.bodyDocsList.all());
@@ -2229,7 +2232,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             RecordService.currentRecord.bodyAudiosList.removeAll();
             RecordService.currentRecord.bodyAudiosList.addAll($scope.bodyAudios);
             RecordService.currentRecord.body_audios = RecordService.currentRecord.bodyAudiosList.all();
-            
+
             RecordService.currentRecord.bodyDocsList.removeAll();
             RecordService.currentRecord.bodyDocsList.addAll($scope.bodyDocs);
             RecordService.currentRecord.body_docs = RecordService.currentRecord.bodyDocsList.all();
@@ -2237,12 +2240,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             RecordService.currentRecord.bodyVideosList.removeAll();
             RecordService.currentRecord.bodyVideosList.addAll($scope.bodyVideos);
             RecordService.currentRecord.body_videos = RecordService.currentRecord.bodyVideosList.all();
-            
+
             $modalInstance.close();
         }
-        
+
     }]).
-        
+
     controller('imageModalCtrl', ['$scope', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $modalInstance, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
@@ -2269,7 +2272,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.ValuesService = ValuesService;
         $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
         $scope.icon = ValuesService.currentIconModal.image;
-        
+
 
 
 
@@ -2332,7 +2335,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close(false);}
         $scope.cancel = function() {
-            RecordService.cancelEditing(); 
+            RecordService.cancelEditing();
             $modalInstance.close(true);
         }
     }]).
@@ -2346,7 +2349,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             var approve = true;
             var redirect = false;
             if(ValuesService.username != $scope.username) {
-                
+
                 approve = confirm("نام کاربری وارد شده با نام کاربری شناسایی شده از قبل متفاوت است. در صورت ادامه صفحه مجددا بارگزاری خواهد شد. آیا از ادامه اطمینان دارید؟");
                 redirect = true;
             }
@@ -2364,20 +2367,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                             } else {
                                 $modalInstance.close(true);
                             }
-                            
+
                         },
                         function (errResponse) {
                             alert(errResponse.data);
                         }
                 );
             }
-            
-            
+
+
         }
     }]).
     controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {
         $scope.RecordService = RecordService;
-        
+
         $scope.cancel = function() {
             $modalInstance.dismiss();
         }
@@ -2388,7 +2391,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, RecordService, ValuesService, SecurityService) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close(false);}
-        
+
     }]).
     controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, RecordService, ValuesService, SecurityService) {
         $scope.RecordService = RecordService;
@@ -2401,7 +2404,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.trustedBody = $scope.getTrustedBody(RecordService.currentRecord.body);
         $scope.innerLink = true;
         $scope.externalLink = false;
-        
+
         $scope.loadRecord = function(recordNumber) {
             $scope.innerLink = true;
             $scope.externalLink = false;
@@ -2447,7 +2450,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
             );
         }
-        
+
         $scope.loadExternal = function(url) {
             $scope.innerLink = false;
             $scope.externalLink = true;
@@ -2455,7 +2458,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             $scope.url = url;
             $scope.trustedBody = "";
         }
-        
+
         $scope.observeEvents = function() {
             setTimeout(function () {
                 angular.element(document.querySelectorAll('.body-preview-content a[record-id]')).unbind('click');
@@ -2484,8 +2487,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     $scope.history.add({func: $scope.loadTree, arg: treeIndex});
                     event.preventDefault();
                 });
-                
-                
+
+
                 angular.element($(".body-preview-content a[href != '#']")).unbind('click');
                 angular.element($(".body-preview-content a[href != '#']")).on('click', function (event) {
                     console.log(event);
@@ -2494,44 +2497,44 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     $scope.history.add({func: $scope.loadExternal, arg: url});
                     event.preventDefault();
                 });
-                
-                
+
+
                 $(".body-preview-content a[href]").filter(function(){
                     var href = $(this).attr('href');
                     return (href[0] == '#' && href.length > 1)
                 }).unbind('click').on('click', function(){
                     var id = $(this).attr('href');
-                    
+
                     $('.body-preview-box .body-preview-content').animate({
                         scrollTop: $(id).offset().top
                     },100);
-                    
+
                 });
 //                $('.body-preview-content img').css('width', '90%');
-                
+
                 $('.body-preview-content img').filter(function(){
                     return $(this).css('border-width') == '0px';
-                    
+
                 }).css('border-width', '0').css('width', '90%');
-                
+
                 $('.body-preview-content img').filter(function(){
                     return $(this).css('border-width') == '0px';
-                    
+
                 }).css('border-width', '0').css('width', '90%');
-                
-                
-                
+
+
+
             }, 200);
         }
         $scope.observeEvents();
-        
+
         $scope.history.add({func: $scope.loadRecord, arg: RecordService.currentRecord.record_number});
         $scope.back = function() {
             var func = $scope.history.array[$scope.history.length-2];
             func.func(func.arg);
             $scope.history.remove($scope.history.array[$scope.history.length-1]);
         }
-        
+
         $scope.hasBack = function() {
             if($scope.history.length > 1) {
                 return true;
@@ -2543,11 +2546,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             section = document.getElementsByClassName('body-preview-content')[0];
             sectionElm = angular.element(section);
             sectionElm.scrollTo(0,0);
-            
+
         }
-        
+
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'recordform', 
+    controller('bodyModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'recordform',
         function (                $scope,   $http,   RecordService,  TreeService,   ValuesService,   SecurityService,   FileUploader, $modalInstance, $modal, recordform) {
         $scope.recordform = recordform;
         $scope.RecordService = RecordService;
@@ -2577,7 +2580,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             contentsCss : '../../assets/css/ckeditor-body.css',
             smiley_path: CKEDITOR.basePath+'plugins/smiley/images/darkish/',
             smiley_images: ['(smiley).png','(happy).png','(wink2).png','(wink).png','(laugh).png','(teeth).png','(yummi).png','(surprised).png','(crazy).png','(money).png','(moa).png','(inlove).png','(flirt).png','(teary).png','(mad).png','(upset).png','(cry).png','(angry).png','(sick).png','(sleeping).png','(info).png','(Q).png','(heart).png','(purple_heart).png','(clap).png','(like).png','(V).png','(unlike).png','(flower).png','(balloon2).png','(balloon1).png','(cake).png','(gift).png','(partyhat).png','(cupcake).png','(magnify).png','(glasses).png','(letter).png','(thinking).png','(music).png','(pencil).png','(book).png','(ruler).png','(scissor).png','(dollar).png','(run).png','(time).png','(bell).png','(telephone).png','(snowman).png','(snowflake).png','(rain).png','(cloud).png','(moon).png','(sun).png','(angel).png','(palmtree).png','(christmas_tree).png','(sunflower).png','(cactus).png','(sprout).png','(clover).png','(koala).png','(bunny).png','(squirrel).png','(goldfish).png','(monkey).png','(cat).png','(kangaroo).png','(ladybug).png','(turtle).png','(sheep).png','(panda).png','(owl).png','(chick).png','(dog).png','(bee).png','(penguin).png','(dragonfly).png','(pig).png','(snake).png','(snail).png','(fly).png','(shark).png','(bat).png','(martini).png','(beer).png','(coffee).png','(soda).png','(burger).png','(pizza).png','(hotdog).png','(popcorn).png','(egg).png','(noodles).png','(chicken).png','(donut).png','(popsicle).png','(ice_cream).png','(lollipop).png','(croissant).png','(chocolate).png','(cherry).png','(grapes).png','(watermelon).png','(strawberry).png','(banana).png','(pineapple).png','(corn).png','(pea).png','(mushroom).png','(bicycle).png','(taxi).png','(ambulance).png','(policecar).png','(car).png','(airplane).png','(rocket).png','(ufo).png','(flipflop).png','(umbrella).png','(fidora).png','(cap).png','(crown).png','(diamond).png','(ring).png','(relax).png','(battery).png','(nobattery).png','(termometer).png','(meds).png','(syringe).png','(golfball).png','(golf).png','(soccer).png','(baseball).png','(basketball).png','(tennis).png','(beachball).png','(8ball).png','(boxing).png','(football).png','(weight).png','(muscle).png','(trophy).png','(happycry).png','(silly).png','(nerd).png','(shy).png','(not_sure).png','(confused).png','(meh).png','(what).png','(yo).png','(wtf).png','(tongue).png','(sad).png','(exhausted).png','(huh).png','(scream).png','(weak).png','(dead).png','(mischievous).png','(ohno).png','(straight).png','(dizzy).png','(cool).png','(spiderman).png','(eek).png','(ugh).png','(devil).png','(oh).png','(depressed).png','(mwah).png','(singing).png','(batman).png','(ninja).png','(light_bulb).png','(fire).png','(torch).png','(sushi1).png','(sushi2).png','(phone).png','(knife).png','(key).png','(angrymark).png','(bomb).png','(mapleleaf).png','(zzz).png','(guitar).png','(trumpet).png','(hammer).png','(dice).png','(console).png','(lantern).png','(microphone).png','(tape).png','(speaker).png','(video).png','(TV).png','(wrench).png','(lock).png','(paperclip).png','(skull).png','(ghost).png','(paw).png','(darkish-logo).png'],
-            smiley_columns: 20,            
+            smiley_columns: 20,
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -2614,129 +2617,129 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         };
 
 
-        
+
         /**
          * Tree modal initializing
          */
-        
-        
+
+
         $scope.openBodyTreeModal = function (size) {
-            
+
             var bodyTreeModalInstance = $modal.open({
                 templateUrl: 'bodyTreeModal.html',
                 controller: 'bodyTreeModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
-            
+
             bodyTreeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
-        
+
         /**
          * body preview modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openBodyPreviewModal = function (size) {
             var bodyPreviewModalInstance = $modal.open({
                 templateUrl: 'bodyPreviewModal.html',
                 controller: 'bodyPreviewModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'body-preview-modal-window'
             });
 
             bodyPreviewModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
-        
+
+
+
         /**
          * login modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLoginModal = function (size) {
-            
+
             var loginModalInstance = $modal.open({
                 templateUrl: 'loginModal.html',
                 controller: 'loginModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             loginModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * disconnect modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDisconnectModal = function (size) {
-            
+
             var disconnectModalInstance = $modal.open({
                 templateUrl: 'disconnectModal.html',
                 controller: 'disconnectModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'disconnect-modal-window'
             });
 
             disconnectModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         $scope.checkConnectionSave = function(contin) {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
@@ -2744,11 +2747,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;    
+                        SecurityService.loggedIn = true;
                     }
-                    
-                    
-                    
+
+
+
                     if(!SecurityService.connected) {
                         $scope.openDisconnectModal();
                     }else
@@ -2761,20 +2764,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                        $scope.recordform.$setPristine();
 
                     }
-                }, 
+                },
                 function(errResponse){
                     $scope.openDisconnectModal();
                 }
             );
-            
+
         }
-        
-        
+
+
         /**
          * Body Record modal initializing
          */
-        
-        
+
+
         $scope.openBodyRecordModal = function (size) {
 
             var bodyRecordModalInstance = $modal.open({
@@ -2782,27 +2785,27 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'bodyRecordModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             bodyRecordModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
-        
+
         /**
          * Insert link modal initializing
          */
-        
-        
+
+
         $scope.openInsertLinkModal = function (size) {
 
             var bodyInsertLinkInstance = $modal.open({
@@ -2810,25 +2813,25 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 controller: 'insertLinkModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             insertLinkModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
 
 
         /**
-         * 
+         *
          * uploader
          */
 
@@ -2841,14 +2844,14 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         uploader.removeAfterUpload = true;
         uploader.msg = "";
         uploader.formData.push({type : 'record'});
-        
+
         $scope.selectTab = function(currentTab) {
             ValuesService.bodyAttachmentActiveTab = currentTab;
             uploader.formData.push({uploadDir : ValuesService.bodyAttachmentActiveTab});
         }
-        
+
         // FILTERS
-            
+
         uploader.filters.push({
             name: 'imageTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2862,11 +2865,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'imageSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2876,11 +2879,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'videoTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2894,11 +2897,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'videoSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2908,11 +2911,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'audioTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2926,11 +2929,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'audioSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2940,8 +2943,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
 
@@ -2968,7 +2971,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'videoSizeFilter':
                     uploader.msg = 'videoSizeFilter';
                     break;
-                
+
             }
         };
         uploader.onAfterAddingFile = function(fileItem) {
@@ -3021,20 +3024,20 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         console.info('uploader', uploader);
 
-        
+
         /***************************
-         *************************** 
+         ***************************
          ***************************
          */
 
-        
+
 
 
         $scope.CkeditorInsert = function() {
 
             var CkInstance = null;
             angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-            
+
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     var fileClass = RecordService.selectedBodyImage.file_name.replace(".", "-");
@@ -3048,7 +3051,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     var fileClass = RecordService.selectedBodyAudio.file_name.replace(".", "-");
                     CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
                     break;
-                    
+
                 case 'doc':
                     var text = prompt("لطفا متن مربوط به لینک دانلود فایل را وارد نمایید. در غیر این صورت نام فایل به عنوان متن در نظر گرفته می شود.");
                     text = (text)?text:RecordService.selectedBodyDoc.file_name;
@@ -3061,21 +3064,21 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
         };
 
-        
+
 
         $scope.close = function(){$modalInstance.close();}
 
 
     }]).
 
-    controller('registerCodeModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 
+    controller('registerCodeModalCtrl', ['$scope', '$http', 'RecordService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal',
         function (                $scope,   $http,   RecordService,  TreeService,   ValuesService,   SecurityService,   FileUploader, $modalInstance, $modal) {
         $scope.recordform = recordform;
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
         $scope.SecurityService = SecurityService;
-        
+
         $scope.generateRgisterCodeGroup = function() {
             console.log(RecordService.list.all());
             var recordIds = [];
@@ -3116,7 +3119,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             angular.forEach(RecordService.list.all(), function(value, key){
                 recordNumbers.push(value.record_number);
             });
-            
+
             if(recordNumbers.length > 0) {
                 var encodedData = window.btoa(unescape(encodeURIComponent(JSON.stringify(recordNumbers))));
                 window.open('../recordregister/download/'+encodedData+'/record/0');
@@ -3146,15 +3149,15 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
         $scope.printRgisterCodeRange = function(from, to) {
-            
+
             window.open('../recordregister/download/range/'+from+'/'+to+'/0');
-            
+
         }
 
     }]).
 
 
-    factory('ValuesService', ['$http', function ($http){ 
+    factory('ValuesService', ['$http', function ($http){
         var centers;
 
         var safarSazTypes;
@@ -3278,7 +3281,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 name: i
             })
         }
-        
+
         self.treeRanks = [];
         for(var i = 1; i<=60; i++) {
             self.treeRanks.push({
@@ -3323,8 +3326,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
     }]).factory('SecurityService', ['$http', 'RecordService', function($http, RecordService){
         var self={};
-        
-            
+
+
         var viewAccess = null;
         var editAccess = {};
         var deleteAccess = {};
@@ -3332,11 +3335,11 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         var createAccess = null;
         var activateAccess = null;
         var otherAccess = null;
-        
+
         self.actionsAccess = {};
         self.buttonsAccess = {};
-        
-        
+
+
         self.actionsAccess.viewAccess = function() {
             if(viewAccess == 'waiting') {
                 return false;
@@ -3356,17 +3359,17 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return viewAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.editAccess = function() {
             if(editAccess[RecordService.currentRecord.id] == 'waiting') {
                 return false;
             }
-            
+
             if(!angular.isDefined(editAccess[RecordService.currentRecord.id])) {
                 editAccess[RecordService.currentRecord.id] = 'waiting';
-                
+
                 $http.get('ajax/check_permission/edit/'+RecordService.currentRecord.id).then(
                     function(response){
                         editAccess[RecordService.currentRecord.id] = response.data[0];
@@ -3380,18 +3383,18 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return editAccess[RecordService.currentRecord.id];
             }
-            
+
         }
-        
-        
+
+
         self.actionsAccess.deleteAccess = function() {
             if(deleteAccess[RecordService.currentRecord.id] == 'waiting') {
                 return false;
             }
-            
+
             if(!angular.isDefined(deleteAccess[RecordService.currentRecord.id])) {
                 deleteAccess[RecordService.currentRecord.id] = 'waiting';
-                
+
                 $http.get('ajax/check_permission/remove/'+RecordService.currentRecord.id).then(
                     function(response){
                         deleteAccess[RecordService.currentRecord.id] = response.data[0];
@@ -3405,10 +3408,10 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return deleteAccess[RecordService.currentRecord.id];
             }
-            
+
         }
-        
-        
+
+
         self.actionsAccess.verifyAccess = function() {
             if(verifyAccess == 'waiting') {
                 return false;
@@ -3428,9 +3431,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return verifyAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.createAccess = function() {
             if(createAccess == 'waiting') {
                 return false;
@@ -3450,9 +3453,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return createAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.activateAccess = function() {
             if(activateAccess == 'waiting') {
                 return false;
@@ -3472,9 +3475,9 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return activateAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.otherAccess = function() {
             if(otherAccess == 'waiting') {
                 return false;
@@ -3494,59 +3497,59 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             } else {
                 return otherAccess;
             }
-            
+
         }
-        
+
         self.buttonsAccess.newButtonAccess = function() {
             return self.actionsAccess.createAccess();
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.editButtonAccess = function() {
             return self.actionsAccess.editAccess();
         }
-        
+
         self.buttonsAccess.deleteButtonAccess = function() {
             return self.actionsAccess.deleteAccess();
         }
-        
+
         self.buttonsAccess.verifyButtonAccess = function() {
             return self.actionsAccess.verifyAccess();
         }
-        
+
         self.test = function() {
             return false;
         }
-        
+
         self.buttonsAccess.activateButtonAccess = function() {
             return self.actionsAccess.activateAccess();
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.saveButtonAccess = function() {
             if(RecordService.isNew()) {
                 return true;
             } else {
                 return self.actionsAccess.editAccess();
             }
-            
+
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.saveAndContinueButtonAccess = function() {
             if(RecordService.isNew()) {
                 return true;
             } else {
                 return self.actionsAccess.editAccess();
             }
-            
+
         }
-        
+
         return self;
-        
-        
-        
+
+
+
     } ]);

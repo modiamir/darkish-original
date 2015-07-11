@@ -17,22 +17,22 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
           v: '3.17',
           libraries: 'weather,geometry,visualization'
         });
-    }])      
+    }])
     .controller('NewsIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'NewsService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   NewsService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
 
-        
+
         /**
          * initializing config for list endless scroll
          */
         gb = document.getElementsByClassName('grid-block')[0];
         tbl = gb.getElementsByTagName('table')[0];
-              
-        
+
+
         gridblock = angular.element(gb);
         table = angular.element(tbl);
-        
+
         gridblock.on('scroll', function() {
           if(gridblock.scrollTop() + gridblock.height() >= table.height()) {
               NewsService.searchNews(NewsService.newsList().length);
@@ -42,7 +42,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
 
         /**
-         * 
+         *
          * uploader
          */
 
@@ -56,14 +56,14 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         uploader.formData.push({uploadDir : ValuesService.activeTab});
         uploader.formData.push({type : 'news'});
         uploader.msg = "";
-        
+
         $scope.selectTab = function(currentTab) {
             ValuesService.activeTab = currentTab;
             uploader.formData.push({uploadDir : ValuesService.activeTab});
         }
-        
+
         // FILTERS
-            
+
         uploader.filters.push({
             name: 'imageTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -77,11 +77,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'imageSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -91,11 +91,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'iconTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -109,11 +109,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'iconSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -123,11 +123,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'videoTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -141,11 +141,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'videoSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -155,11 +155,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'audioTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -173,11 +173,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'audioSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -187,8 +187,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
 
@@ -221,7 +221,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 case 'videoSizeFilter':
                     uploader.msg = 'videoSizeFilter';
                     break;
-                
+
             }
         };
         uploader.onAfterAddingFile = function(fileItem) {
@@ -296,9 +296,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
         ]);
         //////////////////////
-        
-        
-        
+
+
+
 
 
         /**
@@ -317,12 +317,12 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.treeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
-        
+
         /**
          * Tree modal initializing
          */
-        
-        
+
+
         $scope.openTreeModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -330,26 +330,26 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'treeModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         //////////////
-        
-        
+
+
         /**
          * Saving modal initialization
          */
-        
-        
+
+
         $scope.openSavingModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -357,27 +357,27 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'savingModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 backdrop: 'static'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         //////////////
-        
+
         /**
          * Body modal initialization
          */
-        
-        
-                
+
+
+
         $scope.openBodyModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -394,24 +394,24 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
-        
-        
+
+
+
+
         /**
          * delete modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDeleteModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -419,30 +419,30 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'deleteModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'delete-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
-    
+
+
+
         /**
          * continual modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openContinualModal = function (size) {
 
             var treeModalInstance = $modal.open({
@@ -450,31 +450,31 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'continualModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'continual-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
 
         /**
          * image modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openImageModal = function (size, image, index) {
-            ValuesService.currentImageModal.image = image; 
+            ValuesService.currentImageModal.image = image;
             ValuesService.currentImageModal.index = index;
 
             var treeModalInstance = $modal.open({
@@ -482,28 +482,28 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'imageModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'image-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
         /**
          * icon modal initialization
          */
-        
-                
-        
-            
+
+
+
+
         $scope.openIconModal = function (size, icon) {
             ValuesService.currentIconModal = {};
             ValuesService.currentIconModal.image = icon;
@@ -513,31 +513,31 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'iconModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'image-modal-window'
             });
 
             iconModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
-   
+
         /**
          * video modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openVideoModal = function (size, video, index) {
-            ValuesService.currentVideoModal.video = video; 
+            ValuesService.currentVideoModal.video = video;
             ValuesService.currentVideoModal.index = index;
 
             var treeModalInstance = $modal.open({
@@ -545,31 +545,31 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'videoModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'video-modal-window'
             });
 
             treeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * audio modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openAudioModal = function (size, audio, index) {
             ValuesService.currentAudioModal = {}
-            ValuesService.currentAudioModal.Audio = audio; 
+            ValuesService.currentAudioModal.Audio = audio;
             ValuesService.currentAudioModal.index = index;
 
             var audioModalInstance = $modal.open({
@@ -577,36 +577,36 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'audioModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'audio-modal-window'
             });
 
             audioModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * cancel modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openCancelModal = function (size, form) {
-            
+
             var cancelModalInstance = $modal.open({
                 templateUrl: 'cancelModal.html',
                 controller: 'cancelModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'cancel-modal-window'
             });
@@ -616,140 +616,140 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 if(setPristine) {
                     form.$setPristine();
                 }
-                
-                
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
+
+
         /**
          * body preview modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openBodyPreviewModal = function (size) {
             var bodyPreviewModalInstance = $modal.open({
                 templateUrl: 'bodyPreviewModal.html',
                 controller: 'bodyPreviewModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'body-preview-modal-window'
             });
 
             bodyPreviewModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
+
+
         /**
          * login modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLoginModal = function (size) {
-            
+
             var loginModalInstance = $modal.open({
                 templateUrl: 'loginModal.html',
                 controller: 'loginModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             loginModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * logout modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLogoutModal = function (size) {
-            
+
             var logoutModalInstance = $modal.open({
                 templateUrl: 'logoutModal.html',
                 controller: 'logoutModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             logoutModalInstance.result.then(
             function () {
-                
+
                 $scope.logout();
-                
-                
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
 
         /**
          * disconnect modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDisconnectModal = function (size) {
-            
+
             var disconnectModalInstance = $modal.open({
                 templateUrl: 'disconnectModal.html',
                 controller: 'disconnectModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'disconnect-modal-window'
             });
 
             disconnectModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
 
 
@@ -764,16 +764,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             return NewsService.newsList();
         };
 
-        
-        
-        
 
-        
+
+
+
+
         $scope.showMapModal = function(){mapModal.activate()};
 
-        
 
-        
+
+
 
 
         /**
@@ -818,7 +818,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
            formatYear: 'yy',
            startingDay: 6
         };
-        
+
         $scope.expireDateOptions = {
            formatYear: 'yy',
            startingDay: 6
@@ -832,7 +832,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
 
         /**
-         * 
+         *
          * user authentication config
          */
 
@@ -877,7 +877,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.loggedOut = function() {
             SecurityService.loggedIn = false;
         }
-        
+
         $scope.checkConnectionSave = function(contin) {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
@@ -885,11 +885,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;    
+                        SecurityService.loggedIn = true;
                     }
-                    
-                    
-                    
+
+
+
                     if(!SecurityService.connected) {
                         $scope.openDisconnectModal();
                     }else
@@ -902,12 +902,12 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         $scope.newsform.$setPristine();
 
                     }
-                }, 
+                },
                 function(errResponse){
                     $scope.openDisconnectModal();
                 }
             );
-            
+
         }
 
         poollingFactory.callFnOnInterval(function() {
@@ -967,7 +967,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
     .factory('TreeService', ['$http', 'NewsService', '$collection', function($http, NewsService, $collection){
 
         var tree = [];
-        
+
         var treeOptions = {
             nodeChildren: "children",
             dirSelectable: true,
@@ -1025,7 +1025,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
 
 
-        
+
 
         self.list = newsList;
         self.nextSelectedNews = function() {
@@ -1061,15 +1061,15 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         }
 
         self.hasVideo = function() {
-            if((typeof self.currentNews.videosList != 'undefined' && self.currentNews.videosList.length > 0) || 
+            if((typeof self.currentNews.videosList != 'undefined' && self.currentNews.videosList.length > 0) ||
                (typeof self.currentNews.bodyVideosList != 'undefined' && self.currentNews.bodyVideosList.length > 0) ) {
                 return true;
             }
             return false;
         }
-        
+
         self.hasAudio = function() {
-            if((typeof self.currentNews.audiosList != 'undefined' && self.currentNews.audiosList.length > 0) || 
+            if((typeof self.currentNews.audiosList != 'undefined' && self.currentNews.audiosList.length > 0) ||
                (typeof self.currentNews.bodyAudiosList != 'undefined' && self.currentNews.bodyAudiosList.length > 0)) {
                 return true;
             }
@@ -1183,12 +1183,12 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         };
 
         self.getNewsForCat = function(cid, count) {
-            
+
             $http.get('ajax/get_total_news_for_cat/'+cid).then(function(response){
                 self.totalNews = response.data;
             },function(errResponse){
             });
-            
+
             $http.get('ajax/get_news_for_cat/'+cid+'/'+count).then(function(response){
                 if(!count) {newsList.removeAll();}
                 newsList.addAll(response.data);
@@ -1210,7 +1210,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             }
 
             var lastSep = (self.newsSearchCriteria.searchKeyword)?'/':'';
-            
+
             $http.get('ajax/total_search_news/'+
                 self.newsSearchCriteria.searchBy+'/'+
                 self.newsSearchCriteria.sortBy+'/'+
@@ -1219,7 +1219,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 self.totalNews = response.data;
             },function(errResponse){
             });
-            
+
             $http.get('ajax/search_news/'+
                 self.newsSearchCriteria.searchBy+'/'+
                 self.newsSearchCriteria.sortBy+'/'+
@@ -1238,7 +1238,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         }
 
         self.searchNews = function(count) {
-            
+
             if(!count) {
                 count=0;
             }
@@ -1277,9 +1277,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             self.currentNews.bodyAudiosList = Collection.getInstance();
             self.currentNews.bodyDocsList = Collection.getInstance();
 
-            
 
-            
+
+
 
 
             /**
@@ -1288,17 +1288,17 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
             self.currentNews.verify = false;
             self.currentNews.active = false;
-            self.currentNews.continual = true; 
-            self.currentNews.rate = 10; 
+            self.currentNews.continual = true;
+            self.currentNews.rate = 10;
             /* initializing verify active --end  */
 
             self.currentNews.commentable = true;
             self.currentNews.comment_default_state = 3;
-            
+
 
             editing = true;
             ValuesService.getRandUploadKey(true);
-            
+
             self.currentNews.publish_date = new Date();
 
 
@@ -1354,7 +1354,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         self.selectedAudios = []
 
         self.selectedBodyAudios = []
-        
+
         self.selectedBodyDocs = []
 
 
@@ -1392,9 +1392,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             $http.get('ajax/get_news/'+news.id).then(
                 function(response) {
                     self.currentNews = response.data;
-                    
 
-                    
+
+
                     self.currentNews.treeList = Collection.getInstance();
                     self.currentNews.treeList.addAll(self.currentNews.newstrees);
 
@@ -1431,7 +1431,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
                     self.currentNews.bodyAudiosList = Collection.getInstance();
                     self.currentNews.bodyAudiosList.addAll(self.currentNews.body_audios);
-                    
+
                     self.currentNews.bodyDocsList = Collection.getInstance();
                     self.currentNews.bodyDocsList.addAll(self.currentNews.body_docs);
                 },
@@ -1478,7 +1478,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             self.currentNews.bodyAudiosList.add(obj);
             self.currentNews.body_audios = self.currentNews.bodyAudiosList.all();
         }
-        
+
         self.addToBodyDocsList = function(obj) {
             self.currentNews.bodyDocsList.add(obj);
             self.currentNews.body_docs = self.currentNews.bodyDocsList.all();
@@ -1493,7 +1493,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     self.currentNews.images = self.currentNews.imagesList.all();
                     break;
                 case 'icon':
-                    
+
                     self.currentNews.icon = {};
                     break;
                 case 'video':
@@ -1512,7 +1512,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             }
 
         }
-        
+
         self.cleanBodyAttachments = function() {
             bodyDom = angular.element(self.currentNews.body);
             angular.forEach(self.currentNews.bodyImagesList.hash, function(value, key){
@@ -1522,7 +1522,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 }
             });
             self.currentNews.body_images = self.currentNews.bodyImagesList.all();
-            
+
             angular.forEach(self.currentNews.bodyVideosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1530,7 +1530,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 }
             });
             self.currentNews.body_videos = self.currentNews.bodyVideosList.all();
-            
+
             angular.forEach(self.currentNews.bodyAudiosList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1538,7 +1538,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 }
             });
             self.currentNews.body_audios = self.currentNews.bodyAudiosList.all();
-            
+
             angular.forEach(self.currentNews.bodyDocsList.hash, function(value, key){
                 filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                 if(filesInEditor.length == 0) {
@@ -1546,14 +1546,14 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 }
             });
             self.currentNews.body_docs = self.currentNews.bodyDocsList.all();
-            
+
         }
 
         self.removeFromBodyAttachList = function() {
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     angular.forEach(self.selectedBodyImages, function(value, key){
-                        
+
                         bodyDom = angular.element(self.currentNews.body);
                         filesInEditor = bodyDom.find("."+value.file_name.replace('.','-'));
                         if(filesInEditor.length > 0) {
@@ -1561,7 +1561,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         }else {
                             self.currentNews.bodyImagesList.remove(value);
                         }
-                        
+
                     });
                     self.currentNews.body_images = self.currentNews.bodyImagesList.all();
                     break;
@@ -1574,7 +1574,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         }else {
                             self.currentNews.bodyVideosList.remove(value);
                         }
-                        
+
                     });
                     self.currentNews.body_videos = self.currentNews.bodyVideosList.all();
                     break;
@@ -1587,11 +1587,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         }else {
                             self.currentNews.bodyAudiosList.remove(value);
                         }
-                        
+
                     });
                     self.currentNews.body_audios = self.currentNews.bodyAudiosList.all();
                     break;
-                
+
                 case 'doc':
                     angular.forEach(self.selectedBodyDocs, function(value, key){
                         bodyDom = angular.element(self.currentNews.body);
@@ -1601,7 +1601,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         }else {
                             self.currentNews.bodyDocsList.remove(value);
                         }
-                        
+
                     });
                     self.currentNews.body_docs = self.currentNews.bodyDocsList.all();
                     break;
@@ -1632,7 +1632,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             self.currentNews.newstrees = self.currentNews.treeList.all() ;
             return obj.title+" به خبر اضافه شد.";
 
-            
+
         }
 
         self.removeFromTreeList = function(selectedTrees)  {
@@ -1713,11 +1713,14 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                         self.saved = true;
                         self.savingMessages = ['خبر مورد نظر ذخیره شد.'];
                         if(!contin) {
-                            self.searchNews();
+                            //self.searchNews();
                             self.finishEditing();
                         }else {
                             temporaryNews = angular.copy(self.currentNews);
                         }
+                        var newsInList = $filter('filter')(self.list.array, {id: response.data.id}, true)[0];
+                        newsInList.title = response.data.title;
+                        newsInList.sub_title = response.data.sub_title;
                     },
                     function(errResponse){
                         self.saved = true;
@@ -1728,10 +1731,10 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 );
             }
         }
-        
-        
 
-        
+
+
+
 
         self.isSelected = function(news) {
             if(news.id == selectedNews.id) {
@@ -1777,23 +1780,23 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.tree = function() {
             return $scope.TreeService.tree();
         }
-        
-        
+
+
         $scope.mainTreeOptions = function() {
             return $scope.TreeService.treeOptions();
         }
         $scope.treeOptions = angular.copy($scope.TreeService.treeOptions());
         $scope.treeOptions.dirSelectable = true;
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertTree = function() {
-            
+
             console.log($scope.currentBodyTreeNode);
             CkInstance.insertHtml('<a href="#" class="body inner-link " tree-index="'+$scope.currentBodyTreeNode.tree_index+'">'+$scope.currentBodyTreeNode.title+'</a>');
             $scope.close();
@@ -1804,16 +1807,16 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.TreeService = TreeService;
         $scope.text = "";
         $scope.newsId = "";
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertRecord = function(record) {
-            var text = ($scope.text) ? $scope.text : record.originalObject.title;   
+            var text = ($scope.text) ? $scope.text : record.originalObject.title;
             console.log($scope.currentBodyTreeNode);
             CkInstance.insertHtml('<a href="#" class="body inner-link " record-id="'+record.originalObject.record_number+'">'+text+'</a>');
             $scope.close();
@@ -1830,14 +1833,14 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.TreeService = TreeService;
         $scope.text = "";
         $scope.link = "";
-        
+
         $scope.close = function () {
             $modalInstance.close();
         };
 
         var CkInstance = null;
         angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-        
+
         $scope.insertLink = function() {
             $scope.insertableLink= 'http://'+$scope.link;
             console.log($scope.currentBodyTreeNode);
@@ -1862,7 +1865,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.images = angular.copy(NewsService.currentNews.imagesList.all());
         $scope.audios = angular.copy(NewsService.currentNews.audiosList.all());
         $scope.videos = angular.copy(NewsService.currentNews.videosList.all());
-        
+
         $scope.bodyImages = angular.copy(NewsService.currentNews.bodyImagesList.all());
         $scope.bodyAudios = angular.copy(NewsService.currentNews.bodyAudiosList.all());
         $scope.bodyDocs = angular.copy(NewsService.currentNews.bodyDocsList.all());
@@ -1888,7 +1891,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             NewsService.currentNews.bodyAudiosList.removeAll();
             NewsService.currentNews.bodyAudiosList.addAll($scope.bodyAudios);
             NewsService.currentNews.body_audios = NewsService.currentNews.bodyAudiosList.all();
-            
+
             NewsService.currentNews.bodyDocsList.removeAll();
             NewsService.currentNews.bodyDocsList.addAll($scope.bodyDocs);
             NewsService.currentNews.body_docs = NewsService.currentNews.bodyDocsList.all();
@@ -1896,12 +1899,12 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             NewsService.currentNews.bodyVideosList.removeAll();
             NewsService.currentNews.bodyVideosList.addAll($scope.bodyVideos);
             NewsService.currentNews.body_videos = NewsService.currentNews.bodyVideosList.all();
-            
+
             $modalInstance.close();
         }
-        
+
     }]).
-        
+
     controller('imageModalCtrl', ['$scope', '$modalInstance', 'NewsService','TreeService', 'ValuesService', function ($scope, $modalInstance, NewsService, TreeService, ValuesService) {
         $scope.NewsService = NewsService;
         $scope.ValuesService = ValuesService;
@@ -1928,7 +1931,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.ValuesService = ValuesService;
         $scope.close = function(){ValuesService.currentIconModal = {}; $modalInstance.close();}
         $scope.icon = ValuesService.currentIconModal.image;
-        
+
 
 
 
@@ -1991,7 +1994,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.NewsService = NewsService;
         $scope.close = function(){$modalInstance.close(false);}
         $scope.cancel = function() {
-            NewsService.cancelEditing(); 
+            NewsService.cancelEditing();
             $modalInstance.close(true);
         }
     }]).
@@ -2005,7 +2008,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             var approve = true;
             var redirect = false;
             if(ValuesService.username != $scope.username) {
-                
+
                 approve = confirm("نام کاربری وارد شده با نام کاربری شناسایی شده از قبل متفاوت است. در صورت ادامه صفحه مجددا بارگزاری خواهد شد. آیا از ادامه اطمینان دارید؟");
                 redirect = true;
             }
@@ -2023,20 +2026,20 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                             } else {
                                 $modalInstance.close(true);
                             }
-                            
+
                         },
                         function (errResponse) {
                             alert(errResponse.data);
                         }
                 );
             }
-            
-            
+
+
         }
     }]).
     controller('logoutModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
         $scope.NewsService = NewsService;
-        
+
         $scope.cancel = function() {
             $modalInstance.dismiss();
         }
@@ -2047,7 +2050,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
     controller('disconnectModalCtrl', ['$scope', '$http', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $modalInstance, NewsService, ValuesService, SecurityService) {
         $scope.NewsService = NewsService;
         $scope.close = function(){$modalInstance.close(false);}
-        
+
     }]).
     controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'NewsService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, NewsService, ValuesService, SecurityService) {
         $scope.NewsService = NewsService;
@@ -2060,7 +2063,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         $scope.trustedBody = $scope.getTrustedBody(NewsService.currentNews.body);
         $scope.innerLink = true;
         $scope.externalLink = false;
-        
+
         $scope.loadNews = function(newsId) {
             $scope.innerLink = true;
             $scope.externalLink = false;
@@ -2104,7 +2107,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
             );
         }
-        
+
         $scope.loadExternal = function(url) {
             $scope.innerLink = false;
             $scope.externalLink = true;
@@ -2112,7 +2115,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             $scope.url = url;
             $scope.trustedBody = "";
         }
-        
+
         $scope.observeEvents = function() {
             setTimeout(function () {
                 angular.element(document.querySelectorAll('.body-preview-content a[news-id]')).unbind('click');
@@ -2140,8 +2143,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     $scope.history.add({func: $scope.loadTree, arg: treeIndex});
                     event.preventDefault();
                 });
-                
-                
+
+
                 angular.element($(".body-preview-content a[href != '#']")).unbind('click');
                 angular.element($(".body-preview-content a[href != '#']")).on('click', function (event) {
                     console.log(event);
@@ -2150,36 +2153,36 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     $scope.history.add({func: $scope.loadExternal, arg: url});
                     event.preventDefault();
                 });
-                
+
                 $(".body-preview-content a[href]").filter(function(){
                     var href = $(this).attr('href');
                     return (href[0] == '#' && href.length > 1)
                 }).unbind('click').on('click', function(){
                     var id = $(this).attr('href');
-                    
+
                     $('.body-preview-box .body-preview-content').animate({
                         scrollTop: $(id).offset().top
                     },100);
-                    
+
                 });
 //                $('.body-preview-content img').css('width', '90%');
-                
+
                 $('.body-preview-content img').filter(function(){
                     return $(this).css('border-width') == '0px';
-                    
+
                 }).css('border-width', '0').css('width', '90%');
-                
+
             }, 500);
         }
         $scope.observeEvents();
-        
+
         $scope.history.add({func: $scope.loadNews, arg: NewsService.currentNews.id});
         $scope.back = function() {
             var func = $scope.history.array[$scope.history.length-2];
             func.func(func.arg);
             $scope.history.remove($scope.history.array[$scope.history.length-1]);
         }
-        
+
         $scope.hasBack = function() {
             if($scope.history.length > 1) {
                 return true;
@@ -2191,11 +2194,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             section = document.getElementsByClassName('body-preview-content')[0];
             sectionElm = angular.element(section);
             sectionElm.scrollTo(0,0);
-            
+
         }
-        
+
     }]).
-    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'newsform', 
+    controller('bodyModalCtrl', ['$scope', '$http', 'NewsService','TreeService', 'ValuesService', 'SecurityService', 'FileUploader', '$modalInstance', '$modal', 'newsform',
         function (                $scope,   $http,   NewsService,  TreeService,   ValuesService, SecurityService, FileUploader, $modalInstance, $modal, newsform) {
         $scope.newsform = newsform;
         $scope.NewsService = NewsService;
@@ -2225,7 +2228,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             contentsCss : '../../assets/css/ckeditor-body.css',
             smiley_path: CKEDITOR.basePath+'plugins/smiley/images/darkish/',
             smiley_images: ['(smiley).png','(happy).png','(wink2).png','(wink).png','(laugh).png','(teeth).png','(yummi).png','(surprised).png','(crazy).png','(money).png','(moa).png','(inlove).png','(flirt).png','(teary).png','(mad).png','(upset).png','(cry).png','(angry).png','(sick).png','(sleeping).png','(info).png','(Q).png','(heart).png','(purple_heart).png','(clap).png','(like).png','(V).png','(unlike).png','(flower).png','(balloon2).png','(balloon1).png','(cake).png','(gift).png','(partyhat).png','(cupcake).png','(magnify).png','(glasses).png','(letter).png','(thinking).png','(music).png','(pencil).png','(book).png','(ruler).png','(scissor).png','(dollar).png','(run).png','(time).png','(bell).png','(telephone).png','(snowman).png','(snowflake).png','(rain).png','(cloud).png','(moon).png','(sun).png','(angel).png','(palmtree).png','(christmas_tree).png','(sunflower).png','(cactus).png','(sprout).png','(clover).png','(koala).png','(bunny).png','(squirrel).png','(goldfish).png','(monkey).png','(cat).png','(kangaroo).png','(ladybug).png','(turtle).png','(sheep).png','(panda).png','(owl).png','(chick).png','(dog).png','(bee).png','(penguin).png','(dragonfly).png','(pig).png','(snake).png','(snail).png','(fly).png','(shark).png','(bat).png','(martini).png','(beer).png','(coffee).png','(soda).png','(burger).png','(pizza).png','(hotdog).png','(popcorn).png','(egg).png','(noodles).png','(chicken).png','(donut).png','(popsicle).png','(ice_cream).png','(lollipop).png','(croissant).png','(chocolate).png','(cherry).png','(grapes).png','(watermelon).png','(strawberry).png','(banana).png','(pineapple).png','(corn).png','(pea).png','(mushroom).png','(bicycle).png','(taxi).png','(ambulance).png','(policecar).png','(car).png','(airplane).png','(rocket).png','(ufo).png','(flipflop).png','(umbrella).png','(fidora).png','(cap).png','(crown).png','(diamond).png','(ring).png','(relax).png','(battery).png','(nobattery).png','(termometer).png','(meds).png','(syringe).png','(golfball).png','(golf).png','(soccer).png','(baseball).png','(basketball).png','(tennis).png','(beachball).png','(8ball).png','(boxing).png','(football).png','(weight).png','(muscle).png','(trophy).png','(happycry).png','(silly).png','(nerd).png','(shy).png','(not_sure).png','(confused).png','(meh).png','(what).png','(yo).png','(wtf).png','(tongue).png','(sad).png','(exhausted).png','(huh).png','(scream).png','(weak).png','(dead).png','(mischievous).png','(ohno).png','(straight).png','(dizzy).png','(cool).png','(spiderman).png','(eek).png','(ugh).png','(devil).png','(oh).png','(depressed).png','(mwah).png','(singing).png','(batman).png','(ninja).png','(light_bulb).png','(fire).png','(torch).png','(sushi1).png','(sushi2).png','(phone).png','(knife).png','(key).png','(angrymark).png','(bomb).png','(mapleleaf).png','(zzz).png','(guitar).png','(trumpet).png','(hammer).png','(dice).png','(console).png','(lantern).png','(microphone).png','(tape).png','(speaker).png','(video).png','(TV).png','(wrench).png','(lock).png','(paperclip).png','(skull).png','(ghost).png','(paw).png','(darkish-logo).png'],
-            smiley_columns: 20,            
+            smiley_columns: 20,
             toolbar: [
                 { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                 { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -2264,8 +2267,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         /**
          * Tree modal initializing
          */
-        
-        
+
+
         $scope.openBodyTreeModal = function (size) {
 
             var bodyTreeModalInstance = $modal.open({
@@ -2273,117 +2276,117 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'bodyTreeModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             bodyTreeModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
-        
+
 
         /**
          * body preview modal initialization
          */
-        
-                
-        
-            
+
+
+
+
         $scope.openBodyPreviewModal = function (size) {
             var bodyPreviewModalInstance = $modal.open({
                 templateUrl: 'bodyPreviewModal.html',
                 controller: 'bodyPreviewModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'body-preview-modal-window'
             });
 
             bodyPreviewModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         /**
          * login modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openLoginModal = function (size) {
-            
+
             var loginModalInstance = $modal.open({
                 templateUrl: 'loginModal.html',
                 controller: 'loginModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'login-modal-window'
             });
 
             loginModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
-        
-        
+
+
+
         /**
          * disconnect modal initialization
          */
-        
-                
-    
-            
+
+
+
+
         $scope.openDisconnectModal = function (size) {
-            
+
             var disconnectModalInstance = $modal.open({
                 templateUrl: 'disconnectModal.html',
                 controller: 'disconnectModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 },
                 windowClass: 'disconnect-modal-window'
             });
 
             disconnectModalInstance.result.then(
             function () {
-                
-                
-                
+
+
+
             }, function () {
-                
+
             });
         };
-        
+
         ///////////////
-        
+
         $scope.checkConnectionSave = function(contin) {
             $http.get('../user/ajax/is_logged_in').then(
                 function(response){
@@ -2391,11 +2394,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     if(response.data[0] === false) {
                         SecurityService.loggedIn = false;
                     } else {
-                        SecurityService.loggedIn = true;    
+                        SecurityService.loggedIn = true;
                     }
-                    
-                    
-                    
+
+
+
                     if(!SecurityService.connected) {
                         $scope.openDisconnectModal();
                     }else
@@ -2408,20 +2411,20 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                        $scope.newsform.$setPristine();
 
                     }
-                }, 
+                },
                 function(errResponse){
                     $scope.openDisconnectModal();
                 }
             );
-            
+
         }
-        
-        
+
+
         /**
          * Body News modal initializing
          */
-        
-        
+
+
         $scope.openBodyNewsModal = function (size) {
 
             var bodyNewsModalInstance = $modal.open({
@@ -2429,27 +2432,27 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'bodyNewsModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             bodyNewsModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
-        
+
         /**
          * Insert link modal initializing
          */
-        
-        
+
+
         $scope.openInsertLinkModal = function (size) {
 
             var bodyInsertLinkInstance = $modal.open({
@@ -2457,25 +2460,25 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 controller: 'insertLinkModalCtrl',
                 size: size,
                 resolve: {
-                    
+
                 }
             });
 
             insertLinkModalInstance.result.then(
             function () {
-                
+
             }, function () {
-                
+
             });
         };
-        
-        
-        
+
+
+
         //////////////
 
 
         /**
-         * 
+         *
          * uploader
          */
 
@@ -2488,14 +2491,14 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         uploader.removeAfterUpload = true;
         uploader.msg = "";
         uploader.formData.push({type : 'news'});
-        
+
         $scope.selectTab = function(currentTab) {
             ValuesService.bodyAttachmentActiveTab = currentTab;
             uploader.formData.push({uploadDir : ValuesService.bodyAttachmentActiveTab});
         }
-        
+
         // FILTERS
-            
+
         uploader.filters.push({
             name: 'imageTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2509,11 +2512,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'imageSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2523,11 +2526,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'videoTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2541,11 +2544,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'videoSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2555,11 +2558,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
-        
+
         uploader.filters.push({
             name: 'audioTypeFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2573,11 +2576,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     }
                 }
                 return true;
-                
-                 
+
+
             }
         });
-        
+
 //        uploader.filters.push({
 //            name: 'audioSizeFilter',
 //            fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2587,8 +2590,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 //                    }
 //                }
 //                return true;
-//                
-//                 
+//
+//
 //            }
 //        });
 
@@ -2615,7 +2618,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                 case 'videoSizeFilter':
                     uploader.msg = 'videoSizeFilter';
                     break;
-                
+
             }
         };
         uploader.onAfterAddingFile = function(fileItem) {
@@ -2668,20 +2671,20 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
         console.info('uploader', uploader);
 
-        
+
         /***************************
-         *************************** 
+         ***************************
          ***************************
          */
 
-        
+
 
 
         $scope.CkeditorInsert = function() {
 
             var CkInstance = null;
             angular.forEach(CKEDITOR.instances,function(value, key){CkInstance = value; keepGoing = false;})
-            
+
             switch(ValuesService.bodyAttachmentActiveTab) {
                 case 'image':
                     var fileClass = NewsService.selectedBodyImage.file_name.replace(".", "-");
@@ -2695,7 +2698,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
                     var fileClass = NewsService.selectedBodyAudio.file_name.replace(".", "-");
                     CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+NewsService.selectedBodyAudio.absolute_path+'" type="'+NewsService.selectedBodyAudio.filemime+'"></audio></p>');
                     break;
-                    
+
                 case 'doc':
                     var text = prompt("لطفا متن مربوط به لینک دانلود فایل را وارد نمایید. در غیر این صورت نام فایل به عنوان متن در نظر گرفته می شود.");
                     text = (text)?text:NewsService.selectedBodyDoc.file_name;
@@ -2708,21 +2711,21 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
         };
 
-        
+
 
         $scope.close = function(){$modalInstance.close();}
 
 
     }]).
-    factory('ValuesService', ['$http', function ($http){ 
+    factory('ValuesService', ['$http', function ($http){
 
-        
+
 
 
         var csrf;
 
 
-        
+
         if(!csrf) {
             $http.get('ajax/generate_csrf').then(
                 function(response) {
@@ -2735,7 +2738,7 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             );
         }
 
-        
+
 
         if(!self.username) {
             $http.get('ajax/get_username').then(
@@ -2748,8 +2751,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             );
         }
 
-        
-        
+
+
 
         self.commentDefaultStates = [
             {
@@ -2797,8 +2800,8 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
 
     }]).factory('SecurityService', ['$http', 'NewsService', function($http, NewsService){
         var self={};
-        
-            
+
+
         var viewAccess = null;
         var editAccess = {};
         var deleteAccess = {};
@@ -2806,11 +2809,11 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
         var createAccess = null;
         var activateAccess = null;
         var otherAccess = null;
-        
+
         self.actionsAccess = {};
         self.buttonsAccess = {};
-        
-        
+
+
         self.actionsAccess.viewAccess = function() {
             if(viewAccess == 'waiting') {
                 return false;
@@ -2830,17 +2833,17 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return viewAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.editAccess = function() {
             if(editAccess[NewsService.currentNews.id] == 'waiting') {
                 return false;
             }
-            
+
             if(!angular.isDefined(editAccess[NewsService.currentNews.id])) {
                 editAccess[NewsService.currentNews.id] = 'waiting';
-                
+
                 $http.get('ajax/check_permission/edit/'+NewsService.currentNews.id).then(
                     function(response){
                         editAccess[NewsService.currentNews.id] = response.data[0];
@@ -2854,18 +2857,18 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return editAccess[NewsService.currentNews.id];
             }
-            
+
         }
-        
-        
+
+
         self.actionsAccess.deleteAccess = function() {
             if(deleteAccess[NewsService.currentNews.id] == 'waiting') {
                 return false;
             }
-            
+
             if(!angular.isDefined(deleteAccess[NewsService.currentNews.id])) {
                 deleteAccess[NewsService.currentNews.id] = 'waiting';
-                
+
                 $http.get('ajax/check_permission/remove/'+NewsService.currentNews.id).then(
                     function(response){
                         deleteAccess[NewsService.currentNews.id] = response.data[0];
@@ -2879,10 +2882,10 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return deleteAccess[NewsService.currentNews.id];
             }
-            
+
         }
-        
-        
+
+
         self.actionsAccess.verifyAccess = function() {
             if(verifyAccess == 'waiting') {
                 return false;
@@ -2902,9 +2905,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return verifyAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.createAccess = function() {
             if(createAccess == 'waiting') {
                 return false;
@@ -2924,9 +2927,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return createAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.activateAccess = function() {
             if(activateAccess == 'waiting') {
                 return false;
@@ -2946,9 +2949,9 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return activateAccess;
             }
-            
+
         }
-        
+
         self.actionsAccess.otherAccess = function() {
             if(otherAccess == 'waiting') {
                 return false;
@@ -2968,59 +2971,59 @@ angular.module('NewsApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.moda
             } else {
                 return otherAccess;
             }
-            
+
         }
-        
+
         self.buttonsAccess.newButtonAccess = function() {
             return self.actionsAccess.createAccess();
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.editButtonAccess = function() {
             return self.actionsAccess.editAccess();
         }
-        
+
         self.buttonsAccess.deleteButtonAccess = function() {
             return self.actionsAccess.deleteAccess();
         }
-        
+
         self.buttonsAccess.verifyButtonAccess = function() {
             return self.actionsAccess.verifyAccess();
         }
-        
+
         self.test = function() {
             return false;
         }
-        
+
         self.buttonsAccess.activateButtonAccess = function() {
             return self.actionsAccess.activateAccess();
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.saveButtonAccess = function() {
             if(NewsService.isNew()) {
                 return true;
             } else {
                 return self.actionsAccess.editAccess();
             }
-            
+
         }
-        
-        
-        
+
+
+
         self.buttonsAccess.saveAndContinueButtonAccess = function() {
             if(NewsService.isNew()) {
                 return true;
             } else {
                 return self.actionsAccess.editAccess();
             }
-            
+
         }
-        
+
         return self;
-        
-        
-        
+
+
+
     } ]);
