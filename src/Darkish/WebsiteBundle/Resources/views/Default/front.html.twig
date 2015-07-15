@@ -14,6 +14,7 @@
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/slick.js/slick/slick.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/slick.js/slick/slick-theme.css') }}" rel="stylesheet" type="text/css" />
 
+	<link href="{{ asset('bundles/darkishwebsite/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 	
 	
 
@@ -62,9 +63,9 @@
     	        <li class="section-3 level-one"><a href="#section-3">بانک املاک</a></li>
     	        <li class="section-4 level-one"><a href="#section-4">بانک خودرو</a></li>
     	        <li class="section-5 level-one"><a href="#section-5">فروشگاه ها</a></li>
-    	        <li class="section-6 level-one"><a href="#section-6">دریافت نرم افزار</a></li>
+    	        <li class="section-6 level-one"><a href="#section-6">اخبار</a></li>
     	        <li class="section-7 level-one"><a href="#section-7">سفر به کیش</a></li>
-    	        <li class="section-8 level-one"><a href="#section-8">اخبار</a></li>
+    	        <li class="section-8 level-one"><a href="#section-8">دریافت نرم افزار</a></li>
     	        <li class="section-9 level-one"><a href="#section-9">تماس</a></li>	
 	      	</ul>
 	    </div>
@@ -170,14 +171,12 @@
 	    	</div>
 	    </div>
 	    <div id="section-5" class="section">
-	    	<div class="second-section">
-	    		{{ include('DarkishWebsiteBundle:Default:front/section-five.html.twig') }}
-	    	</div>
+	    	
+    		{{ include('DarkishWebsiteBundle:Default:front/section-five.html.twig') }}
+	    	
 	    </div>
 	    <div id="section-6" class="section">
-	    	<div class="second-section">
-	    		{{ include('DarkishWebsiteBundle:Default:front/section-six.html.twig') }}
-	    	</div>
+	    	{{ include('DarkishWebsiteBundle:Default:front/section-six.html.twig') }}
 	    </div>
 	    <div id="section-7" class="section">
 	    	<div class="second-section">
@@ -185,14 +184,10 @@
 	    	</div>
 	    </div>
 	    <div id="section-8" class="section">
-	    	<div class="second-section">
-	    		{{ include('DarkishWebsiteBundle:Default:front/section-eight.html.twig') }}
-	    	</div>
+	    	{{ include('DarkishWebsiteBundle:Default:front/section-eight.html.twig') }}
 	    </div>
 	    <div id="section-9" class="section">
-	    	<div class="second-section">
-	    		{{ include('DarkishWebsiteBundle:Default:front/section-nine.html.twig') }}
-	    	</div>
+	    	{{ include('DarkishWebsiteBundle:Default:front/section-nine.html.twig') }}
 	    </div>
 	</div>
 {% endblock %}
