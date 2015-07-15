@@ -1,5 +1,13 @@
 
 @font-face {
+     font-family: 'cocon';
+     src: url('../fonts/cocon-light.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+
+@font-face {
     font-family: 'BMitra';
     src: url('../fonts/BMitra.eot');
     src: url('../fonts/BMitra.eot?#iefix') format('embedded-opentype'),
@@ -422,6 +430,388 @@ body {
 				}
 				 
 			}
+			&#section-5 {
+				background-image: url(../images/store-bg.png);
+				min-height: 600px;
+				.main-subsection {
+					padding-top: 50px;
+					.description {
+						float: right;
+						width: 33%;
+						min-height: 250px;
+						margin-bottom: 50px;
+						.description-inner {
+
+							height: 250px;
+							width: 85%;
+							margin: auto;
+			        h3.stores-section-title {
+			          font-family: cocon;
+			          margin: 0;
+			          color: #f17022;
+			          font-size: 33px;
+			          text-align: center;
+			          font-weight: lighter;
+			          .stores-section-title-icon {
+			            background-image: url(../images/store-header-icon.png);
+			            width: 30px;
+			            height: 30px;
+			            display: inline-block;
+			            margin-right: 20px;
+			          }
+			        }
+
+			        p.stores-section-description-text {
+			          font-family: cocon;
+			          color: #62c2cc;
+			          text-shadow: 1px 1px #222222;
+			          font-size: 22px;
+			          text-align: center;
+			        }
+						}
+
+					}
+					.store {
+						float: right;
+						width: 33%;
+						min-height: 250px;
+						margin-bottom: 50px;
+						.store-inner {
+							background-color: #62c2cc;
+							height: 250px;
+							width: 85%;
+							margin: auto;
+			        .store-header {
+			          background-color: #e4f6f8;
+			          font-family: BMitra;
+			          padding-right: 10px;
+			          h4.store-header-title {
+			            color: #f17022;
+			            display: inline-block;
+			            width: 100%;
+			            font-size: 25px;
+			            margin-bottom: 0;
+			          }
+			          h5.store-header-subtitle {
+			            color: #0099cc;
+			            display: inline-block;
+			            width: 100%;
+			            font-size: 20px;
+			            margin-top: 0;
+			          }
+			        }
+			        .store-products {
+			          ul.products {
+			            list-style: none;
+			            padding: 0;
+			            li {
+			              background: white;
+			              height: 55px;
+			              margin-top: 5px;
+			              position: relative;
+			              img {
+			                height: 55px;
+			              }
+			              .product-title {
+			                font-family: BMitra;
+			                font-size: 20px;
+			                color: #0099cc;
+			              }
+			              .product-price {
+			                position: absolute;
+			                left: 0;
+			                top: 0;
+			                bottom: 0;
+			                width: 90px;
+			                font-family: BMitra;
+			                color: #f17022;
+			                font-size: 17px;
+			                line-height: 1;
+			                padding-top: 4px;
+			              }
+			            }
+			          }
+			        }
+						}
+
+					}
+
+				}
+			}
+
+			&#section-6 {
+			  background-image: url(../images/news-bg.png);
+				min-height: 600px;
+			  .main-subsection {
+			    padding-top: 40px;
+			    .section-title {
+			      text-align: center;
+			      font-family: cocon;
+			      color: #62c2cc;
+			      text-shadow: 1px 1px black;
+			      font-size: 35px;
+			    }
+			    .notification-news {
+			      float: right;
+			      width: 45%;
+			      height: 450px;
+			      background-image: url(../images/notification-news.png);
+			      margin-top: 20px;
+			      background-size: contain;
+			      background-repeat: no-repeat;
+			      font-family: BMitra;
+			      h3.notification-news-title {
+			        text-align: center;
+			        padding-right: 60px;
+			        padding-left: 11px;
+			        color: #f17022;
+			        font-family: cocon;
+			      }
+			      p.notification-news-text {
+			        padding-right: 80px;
+			        padding-left: 31px;
+			        color: #62c2cc;
+			        font-size: 18px;
+			      }
+			    }
+			    .latest-news {
+			      float: left;
+			      width: 45%;
+			      .latest-news-title {
+			        font-family: cocon;
+			        font-size: 23px;
+			        color: #f17022;
+			      }
+			      .latest-news-list {
+			        width: 100%;
+			        display: inline-block;
+			        padding: 0;
+			        list-style: none;
+			        li.news-item {
+			          display: inline-block;
+			          width: 100%;
+			          padding: 4px 7px;
+			          display: inline-block;
+			          width: 100%;
+			          background-color: white;
+			          margin-top: 10px;
+			          .news-image {
+			            float: right;
+			            width: 15%;
+			            img {
+			              width: 64px;
+			            }
+			          }
+			          .news-info {
+			            float: right;
+			            width: 85%;
+
+			            .news-date {
+			              color: gray;
+			            }
+			            .news-title {
+			              color: #f17022;
+			              margin: 0;
+			            }
+			            .news-summary {
+			              color: #62c2cc;
+			            }
+			          }
+			        }
+			      }
+			    }
+			  }
+			}
+
+			&#section-8 {
+			  background-color: white;
+			  min-height: 600px;
+			  .main-subsection {
+			    min-height: 600px;
+			    .container {
+			      min-height: 600px;
+			      background-image: url(../images/download-app.png);
+			      background-repeat: no-repeat;
+			      background-position: left bottom;
+			      padding-top: 100px;
+			      h2.download-app-title {
+			        width: 50%;
+			        font-family: cocon;
+			        font-size: 32px;
+			        color: #f17022;
+			      }
+			      p.download-app-description {
+			        width: 50%;
+			        color: #62c2cc;
+			        font-size: 18px;
+			      }
+			      hr {
+			        width: 50%;
+			        border-color: #f17022;
+			        border-width: 2px;
+			        float: right;
+			        clear: both;
+			      }
+			      .download-app-android, .download-app-ios {
+			        float: right;
+			        clear: both;
+			        background-color: #f17022;
+			        color: white;
+			        padding: 15px 10px;
+			        line-height: 25px;
+			        font-family: cocon;
+			        margin-bottom: 5px;
+			        border: 1px solid transparent;
+			        h4 {
+			          float: right;
+			          margin: 0;
+			          float: right;
+			          margin: 0;
+			          font-size: 25px;
+			          line-height: 25px;
+			          font-family: cocon;
+			          margin-left: 10px;
+			        }
+			        &:hover {
+			          text-decoration: none;
+			          background: white;
+			          color:#f17022;
+			          border: 1px solid #f17022;
+			        }
+
+			      }
+			      .last-update-app {
+			        clear: both;
+			        float: right;
+			        width: 50%;
+			        color: #62c2cc;
+			        font-size: 20px;
+			      }
+
+			    }
+			  }
+			}
+
+			&#section-9 {
+			  background-color: #6ccecb;
+			  min-height: 600px;
+			  .main-subsection {
+			    min-height: 600px;
+			    .container {
+			      // min-height: 600px;
+			      &>.row {
+			        // min-height: 600px;
+			        .about-subsection {
+			          // min-height: 500px;
+			          position: relative;
+			          .about-title {
+			            margin-top: 50px;
+			            color: white;
+			            font-family: cocon;
+			            font-size: 32px;
+			            span {
+			              color:#f17022;
+			            }
+			          }
+			          .about-description {
+			            font-size: 18px;
+			            color: white;
+			            padding: 10px 0 0 30px ;
+			            text-align: justify;
+			          }
+
+			          .social-links {
+			            ul {
+			              display: inline-block;
+			              margin-top: 50px;
+			              float: left;
+			              margin-left: 30px;
+			              li {
+			                float: right;
+			                list-style: none;
+			                margin-right: 10px;
+			                a {
+			                    width: 40px;
+			                    height: 40px;
+			                    display: inline-block;
+			                    text-align: center;
+			                    border-radius: 20px;
+			                    background-color: #f17022;
+			                    &:hover {
+			                      background-color: white;
+			                      i.fa {
+			                        color: #f17022;
+			                      }
+			                    }
+			                    i.fa {
+			                      color: white;
+			                      font-size: 20px;
+			                      margin-top: 10px;
+			                    }
+			                }
+
+			              }
+			            }
+			          }
+			        }
+
+			        .contact-subsection {
+			          .contact-title {
+			            margin-top: 50px;
+			            color: white;
+			            font-family: cocon;
+			            font-size: 32px;
+			            span {
+			              color:#f17022;
+			            }
+			          }
+			          .contact-form {
+			            padding-top: 10px;
+			            input, textarea {
+			              background-color: transparent;
+			              color: white;
+			              border-radius: 0;
+			              border-top-width: 0;
+			              border-right-width: 0;
+			              border-left-width: 0;
+			              border-color: white;
+			              &::-webkit-input-placeholder {
+			                 color: white;
+			              }
+
+			              &:-moz-placeholder { /* Firefox 18- */
+			                 color: white;
+			              }
+
+			              &::-moz-placeholder {  /* Firefox 19+ */
+			                 color: white;
+			              }
+
+			              &:-ms-input-placeholder {
+			                 color: white;
+			              }
+
+			              -webkit-box-shadow: none;
+			              box-shadow: none;
+			            }
+			          }
+			          textarea {
+			            height: 200px;
+			          }
+			          button {
+			            font-family: cocon;
+			            background-color: #f17022;
+			            color: white;
+			            border-radius: 0;
+			            border: 0;
+			          }
+			        }
+			      }
+
+			    }
+			  }
+			}
+
 			& > div {
 				padding-top: 40px;
 			}
@@ -429,12 +819,10 @@ body {
 				text-align: center;
 				color: white;
 			}
-			&:nth-child(2n+5) {
+			&:nth-child(2n+7) {
 				background: blue;
 			}
-			&:nth-child(2n+6) {
-				background: red;
-			}
+			
 
 		}
 	}
