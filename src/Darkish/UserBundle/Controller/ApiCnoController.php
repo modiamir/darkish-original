@@ -312,5 +312,36 @@ class ApiCnoController extends FOSRestController
         
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="This is records updates service.",
+     *  
+     * )
+     * @Get("get_records_updates/{lastUpdate}")
+     */
+    public function getRecordsUpdatesAction($lastUpdate) {
+
+        $updates = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+                        ->createQueryBuilder('r')
+                        ->where('r.lastUpdate > :lastUpdate')->setParameter('lastUpdate', $lastUpdate)
+                        ->getQuery()->getResult();
+
+        $deletes = $this->getDoctrine()->getRepository('DarkishCategoryBundle:DeletedRecords')
+                        ->createQueryBuilder('dr')
+                        ->where('dr.deletedAt > :lastUpdate')->setParameter('lastUpdate', $lastUpdate)
+                        ->getQuery()->getResult();
+
+
+        $result = [
+            'updates' => $updates,
+            'deletes' => $deletes
+        ];
+
+        return new  Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array('api.list', 'api.body'))));
+
+
+
+    }
 
 }

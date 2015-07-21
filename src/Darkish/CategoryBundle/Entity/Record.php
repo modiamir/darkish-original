@@ -431,6 +431,14 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="LatLongEncoded", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $latLongEncoded;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Reserved1", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
@@ -778,7 +786,7 @@ class Record
     private $marketBanner;
 
     /**
-     * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record", cascade={"remove"})
      */
     private $marketGroups;
 
@@ -789,7 +797,7 @@ class Record
     private $marketTemplate;
 
     /**
-     * @ORM\Column(name="MarketOnlineOrder", type="smallint", nullable=true, options={"default":0})
+     * @ORM\Column(name="MarketOnlineOrder", type="boolean", nullable=true, options={"default":false})
      */
     private $marketOnlineOrder;
 
@@ -848,7 +856,7 @@ class Record
      * @ORM\Column(name="VisitCount", type="integer", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
-    private $visitCount;
+    private $visitCount = 0;
 
 
 
@@ -856,7 +864,7 @@ class Record
      * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"record.details", "api.list"})
      */
-    private $commentCount;
+    private $commentCount = 0;
 
     /**
      * @var integer
@@ -864,7 +872,7 @@ class Record
      * @ORM\Column(name="FavoriteCount", type="integer", nullable=true)
      * @Groups({"record.details"})
      */
-    private $favoriteCount;
+    private $favoriteCount = 0;
 
     /**
      * @var integer
@@ -872,7 +880,7 @@ class Record
      * @ORM\Column(name="LikeCount", type="integer", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
-    private $likeCount;
+    private $likeCount = 0;
 
     /**
      * @var boolean
@@ -912,7 +920,7 @@ class Record
     private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record" , cascade={"remove"})
      * @Groups({"record.details", "api.list"})
      **/
     private $maintrees;
@@ -953,7 +961,7 @@ class Record
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $videos;
 
@@ -973,7 +981,7 @@ class Record
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $audios;
 
@@ -1049,7 +1057,7 @@ class Record
 
 
     /**
-     * @ORM\Column(name="treejson", type="json_array")
+     * @ORM\Column(name="treejson", type="json_array", nullable=true)
      * @Groups({"record.details", "api.list"})
      **/
     private $treeJson;
@@ -4263,5 +4271,29 @@ class Record
     public function getManagerMail()
     {
         return $this->managerMail;
+    }
+
+    /**
+     * Set latLongEncoded
+     *
+     * @param string $latLongEncoded
+     *
+     * @return Record
+     */
+    public function setLatLongEncoded($latLongEncoded)
+    {
+        $this->latLongEncoded = $latLongEncoded;
+
+        return $this;
+    }
+
+    /**
+     * Get latLongEncoded
+     *
+     * @return string
+     */
+    public function getLatLongEncoded()
+    {
+        return $this->latLongEncoded;
     }
 }
