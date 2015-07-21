@@ -31,7 +31,7 @@ use JMS\Serializer\Serializer as JMSSerializer;
 use JMS\Serializer\SerializationContext;
 use Darkish\CategoryBundle\Form\RecordType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
+use Darkish\CategoryBundle\Entity\DeletedRecords;
 
 class RecordController extends Controller
 {
@@ -344,6 +344,11 @@ class RecordController extends Controller
         if(isset($data['latitude'])) {
             $record->setLatitude($data['latitude']);
         }
+
+        if(isset($data['longitude']) && isset($data['latitude'])) {
+            $record->setLatLongEncoded($this->encodeLatLong($data['latitude'], $data['longitude'], 8));
+        }
+
         if(isset($data['reserved1'])) {
             $record->setReserved1($data['reserved1']);
         }
@@ -1524,6 +1529,11 @@ class RecordController extends Controller
             /* @var $record Record */
             $em->remove($record);
             $em->flush();
+            $deletedRecord = new DeletedRecords();
+            $deletedRecord->setRecordId($recordId);
+            $deletedRecord->setDeletedAt(new \DateTime());
+            $em->persist($deletedRecord);
+            $em->flush();
             return new Response('Record deleted');
         } catch(\Doctrine\ORM\ORMInvalidArgumentException $e) {
             return new Response('Record Not found', 404);
@@ -2051,5 +2061,76 @@ class RecordController extends Controller
         }
 
         return new Response($serialized);
+    }
+
+    private function mb_html_entity_decode($string)
+    {
+        if (extension_loaded('mbstring') === true)
+        {
+            mb_language('Neutral');
+            mb_internal_encoding('UTF-8');
+            mb_detect_order(array('UTF-8', 'ISO-8859-15', 'ISO-8859-1', 'ASCII'));
+
+            return mb_convert_encoding($string, 'UTF-8', 'HTML-ENTITIES');
+        }
+
+        return html_entity_decode($string, ENT_COMPAT, 'UTF-8');
+    }
+
+    private function mb_ord($string)
+    {
+        if (extension_loaded('mbstring') === true)
+        {
+            mb_language('Neutral');
+            mb_internal_encoding('UTF-8');
+            mb_detect_order(array('UTF-8', 'ISO-8859-15', 'ISO-8859-1', 'ASCII'));
+
+            $result = unpack('N', mb_convert_encoding($string, 'UCS-4BE', 'UTF-8'));
+
+            if (is_array($result) === true)
+            {
+                return $result[1];
+            }
+        }
+
+        return ord($string);
+    }
+
+
+    private function mb_chr($string)
+    {
+        return $this->mb_html_entity_decode('&#' . intval($string) . ';');
+    }
+
+
+    private function encodeLatLong($lat, $long, $acc) {
+        die($this->mb_chr(127));
+        $encodeBase = rand(0,20) + 20;
+        $str = chr($encodeBase);
+        $xStr = str_replace('.',"", $long);
+        $yStr = str_replace('.',"", $lat);
+        if(strlen($xStr) < $acc) {
+            for($i = 0; $i <= $acc - strlen($xStr) ; $i++) {
+                $xStr = $xStr. '0';
+            }
+        }
+
+        if(strlen($yStr) < $acc) {
+            for($i = 0; $i <= $acc - strlen($yStr) ; $i++) {
+                $yStr = $yStr. '0';
+            }
+        }
+        
+        
+        $ch = "";
+        for ($i = 0; $i < $acc; $i++) {
+
+            $ch=(intval($xStr[$i]))*10+intval($yStr[$i])+$encodeBase;
+            $str = $str.chr($ch);
+
+        }
+        die($str);
+        return $str;
+
     }
 }
