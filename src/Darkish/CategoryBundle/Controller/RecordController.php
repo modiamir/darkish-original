@@ -2104,7 +2104,6 @@ class RecordController extends Controller
 
 
     private function encodeLatLong($lat, $long, $acc) {
-        die($this->mb_chr(127));
         $encodeBase = rand(0,20) + 20;
         $str = chr($encodeBase);
         $xStr = str_replace('.',"", $long);
@@ -2129,7 +2128,6 @@ class RecordController extends Controller
             $str = $str.chr($ch);
 
         }
-        die($str);
         return $str;
 
     }
