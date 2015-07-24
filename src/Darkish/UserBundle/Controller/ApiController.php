@@ -45,6 +45,7 @@ use Exception;
 use Darkish\CategoryBundle\Entity\ManagedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 /**
  * 
@@ -588,5 +589,36 @@ class ApiController extends FOSRestController
     }
     
 
+
+    /**
+     * This method is for refresh image cache for an image. 
+     * 
+     * @ApiDoc(
+     *  description="This method is for refresh image cache for an image",
+     *  parameters={
+     *      {"name"="file_name", "dataType"="string", "required"=true, "description"="the name for image file"}
+     *  }
+     * )
+     * @Get("refresh_image_cache/{fileName}")
+     * @View()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function refreshImageCacheAction($fileName) {
+
+        
+        $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')
+                    ->createQueryBuilder('f');
+
+        $qb->where($qb->expr()->like('f.fileName', $qb->expr()->literal($fileName . '%')));
+
+        $file = $qb->getQuery()->getResult();
+
+        if($file) {
+            return ['code' => 200, 'message' => 'Cache refreshed'];    
+        } else  {
+            return ['code' => 404, 'message' => 'Invalid filename'];    
+        }
+        
+    }
 
 }
