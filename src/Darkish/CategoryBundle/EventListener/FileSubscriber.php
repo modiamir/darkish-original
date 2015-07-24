@@ -13,6 +13,9 @@ use FFMpeg\Filters\Video\ResizeFilter;
 use FFMpeg\Format\Video\X264;
 use Alchemy\BinaryDriver\Listeners\DebugListener;
 use Symfony\Component\HttpFoundation\File\File;
+use FFMpeg\FFMpeg;
+use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\Media\Video;
 
 
 
@@ -34,6 +37,7 @@ class FileSubscriber implements EventSubscriber
             'postLoad',
             'postPersist',
             'postUpdate',
+            'prePersist',
         );
     }
 
@@ -46,6 +50,12 @@ class FileSubscriber implements EventSubscriber
     public function postPersist(LifecycleEventArgs $args)
     {
         $this->index($args);
+        // $this->videConvert($args);
+    }
+
+    public function prePersist(LifecycleEventArgs $args)
+    {
+        $this->getFrameFromVideo($args);
         // $this->videConvert($args);
     }
     
@@ -110,6 +120,59 @@ class FileSubscriber implements EventSubscriber
                         'icon_thumb'              // filter defined in config.yml
             );
             
+
+            //generate 64px width image
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request,          // http request
+                        'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                        '64'              // filter defined in config.yml
+            );
+            
+
+            //generate 128px width image
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request,          // http request
+                        'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                        '128'              // filter defined in config.yml
+            );
+            
+            //generate 256px width image
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request,          // http request
+                        'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                        '256'              // filter defined in config.yml
+            );
+            
+
+            //generate 512px width image
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request,          // http request
+                        'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                        '512'              // filter defined in config.yml
+            );
+            
+
+            //generate 1024px width image
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request,          // http request
+                        'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                        '1024'              // filter defined in config.yml
+            );
             
 
             // string to put directly in the "src" of the tag <img>
@@ -118,6 +181,25 @@ class FileSubscriber implements EventSubscriber
             
             $entity->setIconAbsolutePath($srcPath);            
         }  
+    }
+
+
+    public function getFrameFromVideo(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof ManagedFile && substr($entity->getFilemime(), 0, 5) == "video") {
+            $ffmpeg = FFMpeg::create();
+            $video = $ffmpeg->open($this->container->get( 'kernel' )->getRootDir(). '/../web/uploads/video/'.$entity->getFileName());
+            $thumbName = substr($entity->getFileName(), 0, strrpos($entity->getFileName(), '.')).'.jpg';
+            $video
+                ->frame(TimeCode::fromSeconds(10))
+                ->save($this->container->get( 'kernel' )->getRootDir(). '/../web/uploads/video_thumbnail/'.$thumbName);
+            $entity->setVideoThumbnail($thumbName);
+            // $file = new File('/tmp/'.$thumbName);
+            // $file->move($this->container->get( 'kernel' )->getRootDir(). '/../web/uploads/video_thumbnail');
+        }        
     }
 
     public function videConvert(LifecycleEventArgs $args) {

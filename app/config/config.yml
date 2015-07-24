@@ -122,14 +122,66 @@ liip_imagine:
             quality: 60
             filters:
                 thumbnail: { size: [1280, 960], mode: inset }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Size of the watermark relative to the origin images size
+                    size: 0.5
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: center
         mobile_thumb:
             quality: 60
             filters:
                 thumbnail: { size: [640, 480], mode: inset }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Size of the watermark relative to the origin images size
+                    size: 0.5
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: center
         icon_thumb:
             quality: 60
             filters:
                 thumbnail: { size: [128, 128], mode: outbound }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Size of the watermark relative to the origin images size
+                    size: 0.5
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: center
+        64:
+            filters:
+                relative_resize: { widen: 64 }
+        128:
+            filters:
+                relative_resize: { widen: 128 }
+        256:
+            filters:
+                relative_resize: { widen: 256 }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: bottomright
+        512:
+            filters:
+                relative_resize: { widen: 512 }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: bottomright
+        1024:
+            filters:
+                relative_resize: { widen: 1024 }
+                watermark:
+                    # Relative path to the watermark file (prepended with "%kernel.root_dir%/")
+                    image: Resources/data/watermark.png
+                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
+                    position: bottomright
+
 
 dubture_f_fmpeg:
     ffmpeg_binary: ffmpeg
