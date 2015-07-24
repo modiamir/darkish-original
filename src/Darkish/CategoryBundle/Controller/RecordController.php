@@ -346,7 +346,8 @@ class RecordController extends Controller
         }
 
         if(isset($data['longitude']) && isset($data['latitude'])) {
-            $record->setLatLongEncoded($this->encodeLatLong($data['latitude'], $data['longitude'], 8));
+            // $record->setLatLongEncoded($this->encodeLatLong($data['latitude'], $data['longitude'], 8));
+            // die('asd');
         }
 
         if(isset($data['reserved1'])) {
