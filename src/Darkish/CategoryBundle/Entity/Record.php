@@ -210,7 +210,7 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="Center", inversedBy="records")
      * @ORM\JoinColumn(name="CenterIndex", referencedColumnName="id")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerIndex;
 
@@ -220,7 +220,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CenterFloor", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerFloor;
 
@@ -228,7 +228,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CenterUnitNumber", type="smallint", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerUnitNumber;
 
@@ -245,7 +245,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="MessageEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageEnable;
 
@@ -253,7 +253,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageText", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageText;
 
@@ -278,7 +278,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="safarsaz", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      *
      */
     private $safarsaz;
@@ -392,7 +392,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SmsNumber", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $smsNumber;
     
@@ -416,7 +416,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Longitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $longitude;
 
@@ -424,7 +424,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Latitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $latitude;
 
@@ -532,7 +532,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="WorkingDays", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $workingDays;
 
@@ -556,7 +556,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $lastUpdate;
     
@@ -564,7 +564,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $htmlLastUpdate;
 
@@ -572,7 +572,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="FavoriteEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $favoriteEnable;
 
@@ -580,7 +580,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="LikeEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $likeEnable;
 
@@ -604,7 +604,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="SendSmsEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $sendSmsEnable;
 
@@ -612,7 +612,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="InfoKeyEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoKeyEnable;
 
@@ -620,7 +620,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="CommentEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $commentEnable;
 
@@ -628,7 +628,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlyHtml", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $onlyHtml;
 
@@ -636,7 +636,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlineEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $onlineEnable;
     
@@ -665,7 +665,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="DbaseEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $dbaseEnable;
 
@@ -870,7 +870,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="FavoriteCount", type="integer", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $favoriteCount = 0;
 
