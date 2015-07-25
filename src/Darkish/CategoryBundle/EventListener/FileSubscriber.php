@@ -55,7 +55,7 @@ class FileSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        $this->getFrameFromVideo($args);
+        // $this->getFrameFromVideo($args);
         // $this->videConvert($args);
     }
     
