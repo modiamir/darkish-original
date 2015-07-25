@@ -144,6 +144,14 @@ class ManagedFile
     /**
      * @var string
      *
+     * @ORM\Column(name="video_thumbnail", type="string", length=255, nullable=true)
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "api.list"})
+     */
+    private $videoThumbnail;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="type", type="string", nullable=true)
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      *
@@ -547,6 +555,20 @@ class ManagedFile
         return null === $this->path
             ? null
             : "http://".$_SERVER['SERVER_NAME'].'/n-darkish/web/uploads/'.$this->getUploadDir().'/'.$this->path;
+    }
+
+
+    /**
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("video_thumbnail_absolute_path")
+     */
+    public function getVideoThumbnailAbsolutePath()
+    {
+
+        return null === $this->videoThumbnail
+            ? null
+            : "http://".$_SERVER['SERVER_NAME'].'/n-darkish/web/uploads/video_thumbnail/'.$this->videoThumbnail;
     }
 
     public function getWebPath()
@@ -1080,5 +1102,29 @@ class ManagedFile
     public function getBannerForSponsor()
     {
         return $this->bannerForSponsor;
+    }
+
+    /**
+     * Set videoThumbnail
+     *
+     * @param string $videoThumbnail
+     *
+     * @return ManagedFile
+     */
+    public function setVideoThumbnail($videoThumbnail)
+    {
+        $this->videoThumbnail = $videoThumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get videoThumbnail
+     *
+     * @return string
+     */
+    public function getVideoThumbnail()
+    {
+        return $this->videoThumbnail;
     }
 }
