@@ -20,10 +20,10 @@
 
 {% block content %}
 	{% if trees %}
-		<ul class="newstree-list">
+		<ul class="recordtree-list">
 			{% for tree in trees %}
 				<li>
-		    		<a href="{{path('website_news_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
+		    		<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
 	    		</li>
 			{% endfor %}	
 		</ul>
