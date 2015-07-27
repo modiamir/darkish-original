@@ -3085,7 +3085,13 @@ class Record
      */
     public function getIcon()
     {
-        return $this->icon;
+        if($this->icon) {
+            return $this->icon;
+        } elseif($this->images->count()) {
+            return $this->images->first();
+        } else {
+            return $this->icon;
+        }
     }
 
     /**
