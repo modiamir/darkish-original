@@ -346,6 +346,28 @@ body .bottom-wrapper .social-link ul li a i.fa {
   padding-bottom: 5px;
 }
 
+/* line 1, ../sass/modules/_newstree.scss */
+ul.newstree-list {
+  display: inline-block;
+  width: 100%;
+}
+/* line 4, ../sass/modules/_newstree.scss */
+ul.newstree-list li {
+  float: right;
+  width: 50%;
+}
+
+/* line 10, ../sass/modules/_newstree.scss */
+div.news-list {
+  display: inline-block;
+  width: 100%;
+}
+/* line 13, ../sass/modules/_newstree.scss */
+div.news-list .news-item {
+  float: right;
+  width: 50%;
+}
+
 /* line 1, ../sass/modules/_recordtree.scss */
 ul.recordtree-list {
   display: inline-block;
