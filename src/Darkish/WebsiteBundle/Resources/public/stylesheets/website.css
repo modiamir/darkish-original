@@ -307,6 +307,37 @@ body .bottom-wrapper .social-link ul li a i.fa {
   margin: 10px 0 0 0;
 }
 
+/* line 5, ../sass/modules/_record.scss */
+.record.mode-list {
+  clear: both;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f17022;
+}
+/* line 6, ../sass/modules/_record.scss */
+.record.mode-list img {
+  float: right;
+  margin-left: 10px;
+}
+/* line 18, ../sass/modules/_record.scss */
+.record.mode-grid {
+  max-width: 320px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f17022;
+}
+/* line 24, ../sass/modules/_record.scss */
+.record.mode-grid img {
+  clear: both;
+  display: block;
+}
+/* line 28, ../sass/modules/_record.scss */
+.record.mode-grid h4 {
+  margin: 10px 0 0 0;
+}
+
 /* line 2, ../sass/modules/_block.scss */
 .cms-block .block-title {
   color: #f17022;
@@ -315,24 +346,24 @@ body .bottom-wrapper .social-link ul li a i.fa {
   padding-bottom: 5px;
 }
 
-/* line 1, ../sass/modules/_newstree.scss */
-ul.newstree-list {
+/* line 1, ../sass/modules/_recordtree.scss */
+ul.recordtree-list {
   display: inline-block;
   width: 100%;
 }
-/* line 4, ../sass/modules/_newstree.scss */
-ul.newstree-list li {
+/* line 4, ../sass/modules/_recordtree.scss */
+ul.recordtree-list li {
   float: right;
   width: 50%;
 }
 
-/* line 10, ../sass/modules/_newstree.scss */
-div.news-list {
+/* line 10, ../sass/modules/_recordtree.scss */
+div.record-list {
   display: inline-block;
   width: 100%;
 }
-/* line 13, ../sass/modules/_newstree.scss */
-div.news-list .news-item {
+/* line 13, ../sass/modules/_recordtree.scss */
+div.record-list .record-item {
   float: right;
   width: 50%;
 }
