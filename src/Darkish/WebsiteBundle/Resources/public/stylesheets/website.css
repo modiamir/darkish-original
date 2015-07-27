@@ -1,0 +1,338 @@
+@font-face {
+  font-family: 'cocon';
+  src: url("../fonts/cocon-light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BMitra';
+  src: url("../fonts/BMitra.eot");
+  src: url("../fonts/BMitra.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitra.woff") format("woff"), url("../fonts/BMitra.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BMitraBold';
+  src: url("../fonts/BMitraBold.eot");
+  src: url("../fonts/BMitraBold.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitraBold.woff") format("woff"), url("../fonts/BMitraBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BRoya';
+  src: url("../fonts/BRoya.eot");
+  src: url("../fonts/BRoya.eot?#iefix") format("embedded-opentype"), url("../fonts/BRoya.woff") format("woff"), url("../fonts/BRoya.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTabassom';
+  src: url("../fonts/BTabassom.eot");
+  src: url("../fonts/BTabassom.eot?#iefix") format("embedded-opentype"), url("../fonts/BTabassom.woff") format("woff"), url("../fonts/BTabassom.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTitr';
+  src: url("../fonts/BTitr.eot");
+  src: url("../fonts/BTitr.eot?#iefix") format("embedded-opentype"), url("../fonts/BTitr.woff") format("woff"), url("../fonts/BTitr.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTitrTGE';
+  src: url("../fonts/BTitrTGE.eot");
+  src: url("../fonts/BTitrTGE.eot?#iefix") format("embedded-opentype"), url("../fonts/BTitrTGE.woff") format("woff"), url("../fonts/BTitrTGE.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BYekan';
+  src: url("../fonts/BYekan.eot");
+  src: url("../fonts/BYekan.eot?#iefix") format("embedded-opentype"), url("../fonts/BYekan.woff") format("woff"), url("../fonts/BYekan.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BTraffic';
+  src: url("../fonts/BTraffic.eot");
+  src: url("../fonts/BTraffic.eot?#iefix") format("embedded-opentype"), url("../fonts/BTraffic.woff") format("woff"), url("../fonts/BTraffic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BNasim';
+  src: url("../fonts/BNasim.eot");
+  src: url("../fonts/BNasim.eot?#iefix") format("embedded-opentype"), url("../fonts/BNasim.woff") format("woff"), url("../fonts/BNasim.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* line 104, ../sass/framework/_layout.scss */
+body {
+  font-family: BMitra;
+  font-size: 16px;
+}
+/* line 107, ../sass/framework/_layout.scss */
+body .header-wrapper {
+  background: #6bcecb;
+  border-bottom: 3px solid #f17022;
+  margin-bottom: 10px;
+}
+/* line 111, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default {
+  height: 80px;
+  border: 0;
+  margin-bottom: 0;
+  background: transparent;
+}
+/* line 116, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+/* line 120, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default .navbar-header {
+  height: 80px;
+}
+/* line 122, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default .navbar-header button, body .header-wrapper .navbar-default .navbar-header a {
+  height: 80px;
+}
+/* line 126, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default .navbar-header a {
+  line-height: 50px;
+  color: white;
+}
+/* line 129, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default .navbar-header a img {
+  height: 50px;
+}
+/* line 136, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default #navbar .navbar-nav li {
+  height: 80px;
+}
+/* line 138, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default #navbar .navbar-nav li a {
+  height: 80px;
+  color: white;
+  line-height: 50px;
+  font-size: 18px;
+  -moz-transition: background .02s ease-out;
+  -ms-transition: background .02s ease-out;
+  -webkit-transition: background .02s ease-out;
+  transition: background .02s ease-out;
+}
+/* line 143, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default #navbar .navbar-nav li a i {
+  font-size: 16px;
+}
+/* line 153, ../sass/framework/_layout.scss */
+body .header-wrapper .navbar-default #navbar .navbar-nav li:hover a, body .header-wrapper .navbar-default #navbar .navbar-nav li.active a {
+  background-color: #f17022;
+}
+/* line 164, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper {
+  background: #EFEFEF;
+  padding: 5px 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: black;
+}
+/* line 170, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper ul.breadcrumb {
+  margin-bottom: 0;
+  background-color: transparent;
+  padding: 0 10px;
+}
+/* line 175, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper ul.breadcrumb li .separator {
+  margin: 0 5px;
+}
+/* line 178, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper ul.breadcrumb li:before {
+  content: none;
+}
+/* line 183, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper .breadcrumb-label {
+  color: black;
+}
+/* line 186, ../sass/framework/_layout.scss */
+body .breadcrumb-wrapper i {
+  font-size: 14px;
+}
+/* line 193, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box {
+  position: relative;
+}
+/* line 196, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box .image-box img {
+  width: 100%;
+}
+/* line 200, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box .date {
+  position: absolute;
+  background-color: #6bcecb;
+  border-radius: 40px;
+  width: 80px;
+  height: 80px;
+  bottom: -40px;
+  left: 10px;
+  border: 3px solid white;
+  color: white;
+}
+/* line 210, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box .date .day {
+  clear: both;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  line-height: 10px;
+  margin-top: 8px;
+}
+/* line 218, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box .date .month {
+  clear: both;
+  display: block;
+  text-align: center;
+  font-size: 22px;
+}
+/* line 224, ../sass/framework/_layout.scss */
+body .main-container .content .page-header-box .date .time {
+  clear: both;
+  display: block;
+  text-align: center;
+}
+/* line 233, ../sass/framework/_layout.scss */
+body .main-container .content .page-title {
+  color: #f17022;
+  font-family: cocon;
+}
+/* line 238, ../sass/framework/_layout.scss */
+body .main-container .content .page-subtitle {
+  font-family: cocon;
+  border-bottom: 2px solid #f17022;
+  padding-bottom: 10px;
+}
+/* line 246, ../sass/framework/_layout.scss */
+body .footer-wrapper {
+  background: #6bcecb;
+  border-top: 3px solid #f17022;
+  margin-top: 10px;
+  color: white;
+}
+/* line 253, ../sass/framework/_layout.scss */
+body .bottom-wrapper {
+  background-color: #f17022;
+  color: white;
+}
+/* line 256, ../sass/framework/_layout.scss */
+body .bottom-wrapper .copyright {
+  height: 50px;
+  line-height: 50px;
+}
+/* line 261, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul {
+  display: inline-block;
+  float: left;
+  margin: 5px 0;
+}
+/* line 265, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul li {
+  float: right;
+  list-style: none;
+  margin-right: 10px;
+}
+/* line 269, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul li a {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #6bcecb;
+}
+/* line 276, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul li a:hover {
+  background-color: white;
+}
+/* line 278, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul li a:hover i.fa {
+  color: #f17022;
+}
+/* line 282, ../sass/framework/_layout.scss */
+body .bottom-wrapper .social-link ul li a i.fa {
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+/* line 5, ../sass/modules/_news.scss */
+.news.mode-list {
+  clear: both;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f17022;
+}
+/* line 6, ../sass/modules/_news.scss */
+.news.mode-list img {
+  float: right;
+  margin-left: 10px;
+}
+/* line 18, ../sass/modules/_news.scss */
+.news.mode-grid {
+  max-width: 320px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f17022;
+}
+/* line 24, ../sass/modules/_news.scss */
+.news.mode-grid img {
+  clear: both;
+  display: block;
+}
+/* line 28, ../sass/modules/_news.scss */
+.news.mode-grid h4 {
+  margin: 10px 0 0 0;
+}
+
+/* line 2, ../sass/modules/_block.scss */
+.cms-block .block-title {
+  color: #f17022;
+  border-bottom: 2px solid #f17022;
+  font-family: cocon;
+  padding-bottom: 5px;
+}
+
+/* line 1, ../sass/modules/_newstree.scss */
+ul.newstree-list {
+  display: inline-block;
+  width: 100%;
+}
+/* line 4, ../sass/modules/_newstree.scss */
+ul.newstree-list li {
+  float: right;
+  width: 50%;
+}
+
+/* line 10, ../sass/modules/_newstree.scss */
+div.news-list {
+  display: inline-block;
+  width: 100%;
+}
+/* line 13, ../sass/modules/_newstree.scss */
+div.news-list .news-item {
+  float: right;
+  width: 50%;
+}

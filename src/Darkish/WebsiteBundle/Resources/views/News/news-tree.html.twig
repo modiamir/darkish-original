@@ -1,0 +1,54 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+
+{% block page_title %}
+	{% if tree %}
+		<h2 class="page-title">
+			{{tree.title}}
+		</h2>
+	{% else %}
+		<h2 class="page-title">
+			اخبار
+		</h2>
+	{% endif %}
+{% endblock %}
+
+{% block page_subtitle %}
+	{% if tree %}
+		<h4 class="page-subtitle">
+			{{tree.subTitle}}
+		</h4>
+	{% else %}
+		<h4 class="page-subtitle">
+			شاخه بندی اخبار
+		</h4>
+	{% endif %}
+	
+{% endblock %}
+
+{% block content %}
+	{% if trees %}
+		<ul class="newstree-list">
+			{% for tree in trees %}
+				<li>
+		    		<a href="{{path('website_news_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
+	    		</li>
+			{% endfor %}	
+		</ul>
+		<hr/>
+	{% endif %}
+	
+
+	
+
+	<div class="news-list">
+		{% for news in pagination %}
+			<div class="news-item">
+				{{ include('DarkishWebsiteBundle:News:news-grid.html.twig', {'news': news}) }}
+			</div>
+		{% endfor %}
+	</div>
+
+ 	{{ knp_pagination_render(pagination) }}
+	
+{% endblock %}

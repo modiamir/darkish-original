@@ -1,0 +1,11 @@
+<div class="news mode-grid">
+	{% if news.icon %}
+		<img width="320" height="180" src="{{ news.icon.getRelativePath | imagine_filter('my_thumb') }}" />
+		
+	{% else %}
+		<img width="320" height="180" src="{{ 'bundles/darkishwebsite/images/default_image.png' | imagine_filter('my_thumb') }}" />
+	{% endif %}
+	<h4><a href="{{ path('website_news_single', {'news': news.id}) }}" rel="nofollow" title="{{ news.title }}">{{ news.title }}</a></h4>
+
+	<div>{{news.creationDate | jdate("l j F Y H:i")}}</div>
+</div>

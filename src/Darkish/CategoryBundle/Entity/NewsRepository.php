@@ -5,6 +5,7 @@ namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Darkish\CategoryBundle\Entity\News;
+use Darkish\CategoryBundle\Entity\NewsTree;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -51,4 +52,25 @@ class NewsRepository extends EntityRepository
 
 
     }
+
+    public function getNewsForCat(NewsTree $tree) {
+        $newsTreeRepo = $this->getEntityManager()->getRepository('DarkishCategoryBundle:NewsTree');
+
+        $children = $newsTreeRepo->getTreeChildren($tree);
+
+        $treesIds = array();
+        $treesIds[] = $tree->getId();
+        foreach($children as $child) {
+            $treesIds[] = $child->getId();
+        }
+
+        $newsQuery = $this->createQueryBuilder('n');
+        $newsQuery->join('n.newstrees', 'nt');
+        $newsQuery->join('nt.tree','t', 'WITH',$newsQuery->expr()->in('t.id', $treesIds))->distinct();
+        $newsQuery->orderBy('n.lastUpdate', 'Desc');
+        // $newsQuery->addOrderBy('nt.sort', 'Asc');
+
+        return $newsQuery;
+    }
+
 }

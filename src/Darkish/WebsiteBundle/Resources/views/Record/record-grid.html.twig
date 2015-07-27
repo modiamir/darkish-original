@@ -1,0 +1,11 @@
+<div class="record mode-grid">
+	{% if record.icon %}
+		<img width="320" height="180" src="{{ record.icon.getRelativePath | imagine_filter('my_thumb') }}" />
+		
+	{% else %}
+		<img width="320" height="180" src="{{ 'bundles/darkishwebsite/images/default_image.png' | imagine_filter('my_thumb') }}" />
+	{% endif %}
+	<h4><a href="{{ path('website_record_single', {'record': record.id}) }}" rel="nofollow" title="{{ record.title }}">{{ record.title }}</a></h4>
+
+	<div>{{record.creationDate | jdate("l j F Y H:i")}}</div>
+</div>

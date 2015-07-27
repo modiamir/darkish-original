@@ -1,0 +1,15 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <h3 class="block-title">{{ settings.title }}</h3>
+
+    <div class="block-container">
+        {% for news in newsList %}
+            <div>
+                {{ include('DarkishWebsiteBundle:News:news-list.html.twig', {'news': news}) }}
+            </div>
+        {% else %}
+                No news available.
+        {% endfor %}
+    </div>
+{% endblock %}

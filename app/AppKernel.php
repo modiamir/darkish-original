@@ -41,6 +41,9 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new SymfonyPersia\JalaliDateBundle\SymfonyPersiaJalaliDateBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
         );
 

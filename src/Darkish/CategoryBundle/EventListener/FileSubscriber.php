@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use FFMpeg\FFMpeg;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\Media\Video;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 
@@ -225,7 +225,7 @@ class FileSubscriber implements EventSubscriber
                     $entity->getFileName()
                 );
             } 
-            // die($_SERVER['DOCUMENT_ROOT'].$this->container->get('request')->getBasePath()) ;
+            
 
         }
     }

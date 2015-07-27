@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\SerializedName;
  * NewsTree
  *
  * @ORM\Table(name="newstree")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\NewsTreeRepository")
  */
 class NewsTree
 {

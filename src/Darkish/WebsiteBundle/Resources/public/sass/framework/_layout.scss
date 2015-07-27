@@ -1,0 +1,293 @@
+@font-face {
+     font-family: 'cocon';
+     src: url('../fonts/cocon-light.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'BMitra';
+    src: url('../fonts/BMitra.eot');
+    src: url('../fonts/BMitra.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BMitra.woff') format('woff'),
+         url('../fonts/BMitra.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BMitraBold';
+    src: url('../fonts/BMitraBold.eot');
+    src: url('../fonts/BMitraBold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BMitraBold.woff') format('woff'),
+         url('../fonts/BMitraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BRoya';
+    src: url('../fonts/BRoya.eot');
+    src: url('../fonts/BRoya.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BRoya.woff') format('woff'),
+         url('../fonts/BRoya.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BTabassom';
+    src: url('../fonts/BTabassom.eot');
+    src: url('../fonts/BTabassom.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BTabassom.woff') format('woff'),
+         url('../fonts/BTabassom.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'BTitr';
+    src: url('../fonts/BTitr.eot');
+    src: url('../fonts/BTitr.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BTitr.woff') format('woff'),
+         url('../fonts/BTitr.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BTitrTGE';
+    src: url('../fonts/BTitrTGE.eot');
+    src: url('../fonts/BTitrTGE.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BTitrTGE.woff') format('woff'), 
+         url('../fonts/BTitrTGE.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'BYekan';
+    src: url('../fonts/BYekan.eot');
+    src: url('../fonts/BYekan.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BYekan.woff') format('woff'),
+         url('../fonts/BYekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'BTraffic';
+    src: url('../fonts/BTraffic.eot');
+    src: url('../fonts/BTraffic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BTraffic.woff') format('woff'),
+         url('../fonts/BTraffic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+ @font-face {
+    font-family: 'BNasim';
+    src: url('../fonts/BNasim.eot');
+    src: url('../fonts/BNasim.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BNasim.woff') format('woff'),
+         url('../fonts/BNasim.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+body {
+	font-family: BMitra;
+	font-size: 16px;
+	.header-wrapper {
+		background: #6bcecb;
+		border-bottom: 3px solid #f17022;
+		margin-bottom: 10px;
+		.navbar-default {
+			height: 80px;
+			border: 0;
+			margin-bottom: 0;
+			background: transparent;
+			.container-fluid {
+				padding-left: 0;
+				padding-right: 0;
+			}
+			.navbar-header {
+				height: 80px;
+				button, a {
+					height: 80px;
+					
+				}
+				a {
+					line-height: 50px;
+					color: white;
+					img {
+						height: 50px;
+					}
+				}
+			}
+			#navbar {
+				.navbar-nav {
+					li {
+						height: 80px;
+						a {
+							height: 80px;
+							color: white;
+							line-height: 50px;
+							font-size: 18px;
+							i {
+								font-size: 16px;
+							}
+							-moz-transition: background .02s ease-out;
+							-ms-transition: background .02s ease-out;
+							-webkit-transition: background .02s ease-out;
+							transition: background .02s ease-out;
+						}
+
+						&:hover, &.active {
+							a {
+								background-color: #f17022;
+
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+	
+	.breadcrumb-wrapper {
+		background: #EFEFEF;
+		padding: 5px 0;
+		margin-bottom: 10px;
+		font-size: 18px;
+		color: black;
+		ul.breadcrumb {
+			margin-bottom: 0;
+			background-color: transparent;
+			padding: 0 10px;
+			li {
+				.separator {
+					margin: 0 5px;
+				}
+				&:before {
+					content: none;
+				}
+			}
+		}
+		.breadcrumb-label {
+			color: black;
+		}
+		i {
+			font-size: 14px;
+		}
+	}
+
+	.main-container {
+		.content {
+			.page-header-box {
+				position: relative;
+				.image-box {
+					img {
+						width: 100%;
+					}
+				}
+				.date {
+					position: absolute;
+					background-color: #6bcecb;
+					border-radius: 40px;
+					width: 80px;
+					height: 80px;
+					bottom: -40px;
+					left: 10px;
+					border: 3px solid white;
+					color: white;
+					.day {
+						clear: both;
+						display: block;
+						text-align: center;
+						font-size: 20px;
+						line-height: 10px;
+						margin-top: 8px;
+					}	
+					.month {
+						clear: both;
+						display: block;
+						text-align: center;
+						font-size: 22px;
+					}
+					.time {
+						clear: both;
+						display: block;
+						text-align: center;
+					}
+				}
+
+			}
+
+			.page-title {
+				color: $orange;
+				font-family: cocon;
+			}
+
+			.page-subtitle {
+				font-family: cocon;
+				border-bottom: 2px solid $orange;
+				padding-bottom: 10px;	
+			}
+		}
+	}
+
+	.footer-wrapper {
+		background: $green;
+		border-top: 3px solid #f17022;
+		margin-top: 10px;
+		color: white;
+	}
+
+	.bottom-wrapper {
+		background-color: $orange;
+		color: white;
+		.copyright {
+			height: 50px;
+			line-height: 50px;
+		}
+		.social-link {
+		  ul {
+		    display: inline-block;
+		    float: left;
+		    margin: 5px 0;
+		    li {
+		      float: right;
+		      list-style: none;
+		      margin-right: 10px;
+		      a {
+		          width: 40px;
+		          height: 40px;
+		          display: inline-block;
+		          text-align: center;
+		          border-radius: 20px;
+		          background-color: #6bcecb;
+		          &:hover {
+		            background-color: white;
+		            i.fa {
+		              color: #f17022;
+		            }
+		          }
+		          i.fa {
+		            color: white;
+		            font-size: 20px;
+		            margin-top: 10px;
+		          }
+		      }
+
+		    }
+		  }
+		}
+	}
+}

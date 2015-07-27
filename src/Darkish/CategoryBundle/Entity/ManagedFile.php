@@ -586,6 +586,10 @@ class ManagedFile
         return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
     }
 
+    public function getRelativePath() {
+        return 'uploads/'.$this->getUploadDir().'/'.$this->getPath();   
+    }
+
     public function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up

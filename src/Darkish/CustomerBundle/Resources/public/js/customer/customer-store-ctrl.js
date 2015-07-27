@@ -154,7 +154,7 @@ customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', 'Sweet
     $scope.addGroup = function() {
       var grpObj = {}
       grpObj.name = $scope.addingGroup;
-      grpObj.sort = $scope.tempGroups[0].sort - 1;
+      grpObj.sort = ($scope.tempGroups[0]) ? $scope.tempGroups[0].sort - 1 : 0;
 
       $http({
         method: 'POST',
@@ -360,7 +360,7 @@ customerApp.controller('StoreEditCtrl', ['$scope', 'FileUploader', '$http', '$fi
   $http.get("./customer/ajax/get_templates").then(
 	function(response){
 		$scope.templates = response.data;
-		$scope.store.market_template = $filter('filter')($scope.templates, {id: $scope.store.market_template.id})[0];
+		$scope.store.market_template = ($scope.store.market_template) ? $filter('filter')($scope.templates, {id: $scope.store.market_template.id})[0] : null;
 	},
 	function(responseErr){}
   )

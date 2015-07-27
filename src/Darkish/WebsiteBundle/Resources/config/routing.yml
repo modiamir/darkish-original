@@ -10,3 +10,12 @@ darkish_website_customer_remember_password:
     resource: "Darkish\WebsiteBundle\Controller\CustomerPasswordRequestController"
     type:     annotation
     prefix:   /password/customer
+darkish_website_news:
+    resource: "Darkish\WebsiteBundle\Controller\MewsController"
+    type:     annotation
+    prefix:   /
+
+darkish_website_record:
+    resource: "Darkish\WebsiteBundle\Controller\RecordController"
+    type:     annotation
+    prefix:   /

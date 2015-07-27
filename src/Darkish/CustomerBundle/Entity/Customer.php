@@ -70,7 +70,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="customers")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="record_id", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({"customer.list", "customer.details"})
      */
     private $record;

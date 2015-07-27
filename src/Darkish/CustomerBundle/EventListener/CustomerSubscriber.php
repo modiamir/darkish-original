@@ -74,6 +74,18 @@ class CustomerSubscriber implements EventSubscriber
     public function postLoad(LifecycleEventArgs $args)
     {
         $this->index($args);
+        $this->activeBasedOnRecord($args);
+    }
+
+
+    public function activeBasedOnRecord(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof Customer) {
+            
+        }
     }
 
     public function index(LifecycleEventArgs $args)

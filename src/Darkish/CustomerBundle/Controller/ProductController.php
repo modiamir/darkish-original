@@ -412,6 +412,9 @@ class ProductController extends Controller
      */
     public function sortProductsAction(Request $request) {
         $products = $request->get('products');
+        if(!count($products)) {
+            return new JsonResponse(['Sort Done']);    
+        }
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Product');
         $em = $this->getDoctrine()->getManager();
         foreach ($products as $key => $product) {

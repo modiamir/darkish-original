@@ -29,22 +29,24 @@
 
 				<div class="col col-xs-12 col-sm-2 form-group">
 					<label class="control-label">وضعیت</label>
-					<button type="button" class="btn btn-primary" ng-class="{'btn-success': curUser.is_active, 'btn-danger': !curUser.is_active}" ng-model="curUser.is_active" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+					<button ng-disabled="curUser.type == 'owner' || curUser.id == user.id" type="button" class="btn btn-primary" ng-class="{'btn-success': curUser.is_active, 'btn-danger': !curUser.is_active}" ng-model="curUser.is_active" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
 				       	{{(curUser.is_active) ? 'فعال' : 'غیر فعال'}}
 				    </button>
 				</div>
 
 				<div class="col col-xs-12 col-sm-6 col-md-6 form-group">
-				  <label class="control-label" for="password">رمز عبور<span class="required-field">*</span></label>
-				  <input ng-pattern="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/" class="form-control" id="password" type="password"
+				  <label class="control-label" for="password">رمز عبور</label>
+				  <input ng-pattern="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/" class="form-control" id="password" type="text"
 				  		 maxlength="255" placeholder="رمز عبور" ng-model="curUser.new_password" >
 				</div>
 				
 				<div class="col col-xs-12 col-sm-6 col-md-6 form-group">
-				  <label class="control-label" for="password-confirm">تایید رمز عبور<span class="required-field">*</span></label>
+				  <label class="control-label" for="password-confirm">تایید رمز عبور</label>
 				  <input match="curUser.new_password" class="form-control" id="password-confirm" type="password"
 				  		 maxlength="255" placeholder="رمز عبور" ng-model="curUser.new_password_confirm">
 				</div>
+
+				
 
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-one">تلفن یک</label>
@@ -83,7 +85,7 @@
 					<ul>
 						<li ng-repeat="access in accesses">
 							<label for="user-access-{{access.id}}">{{access.name}}</label>
-							<input ng-model="curUser.assistant_access[access.id]" id="user-access-{{access.id}}" type="checkbox" value="access.name" />
+							<input ng-disabled="curUser.type == 'owner' || curUser.id == user.id" ng-model="curUser.assistant_access[access.id]" id="user-access-{{access.id}}" type="checkbox" value="access.name" />
 						</li>
 					</ul>
 
@@ -111,7 +113,7 @@
 			
 		</form>
 		<div class="remove-user">
-			<button ng-click="removeUser()" class="btn btn-danger btn-sm">
+			<button ng-disabled="curUser.type == 'owner' || curUser.id == user.id" ng-click="removeUser()" class="btn btn-danger btn-sm">
 				حذف دستیار
 			</button>
 		</div>

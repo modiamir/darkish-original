@@ -3,6 +3,7 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Darkish\CategoryBundle\Entity\MainTree;
 
 /**
  * RecordRepository
@@ -12,5 +13,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class RecordRepository extends EntityRepository
 {
+	public function getRecordsForCat(MainTree $tree) {
+        $mainTreeRepo = $this->getEntityManager()->getRepository('DarkishCategoryBundle:MainTree');
 
+        $children = $mainTreeRepo->getTreeChildren($tree);
+
+        $treesIds = array();
+        $treesIds[] = $tree->getId();
+        foreach($children as $child) {
+            $treesIds[] = $child->getId();
+        }
+
+        $recordQuery = $this->createQueryBuilder('r');
+        $recordQuery->join('r.maintrees', 'rt');
+        $recordQuery->join('rt.tree','t', 'WITH',$recordQuery->expr()->in('t.id', $treesIds))->distinct();
+        $recordQuery->orderBy('r.lastUpdate', 'Desc');
+        // $recordQuery->addOrderBy('nt.sort', 'Asc');
+
+        return $recordQuery;
+    }
 }

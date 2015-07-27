@@ -431,6 +431,14 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="LatLongEncoded", type="string", length=255, nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $latLongEncoded;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Reserved1", type="string", length=255, nullable=true)
      * @Groups({"record.details"})
      */
@@ -848,7 +856,7 @@ class Record
      * @ORM\Column(name="VisitCount", type="integer", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
-    private $visitCount;
+    private $visitCount = 0;
 
 
 
@@ -856,7 +864,7 @@ class Record
      * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"record.details", "api.list"})
      */
-    private $commentCount;
+    private $commentCount = 0;
 
     /**
      * @var integer
@@ -864,7 +872,7 @@ class Record
      * @ORM\Column(name="FavoriteCount", type="integer", nullable=true)
      * @Groups({"record.details"})
      */
-    private $favoriteCount;
+    private $favoriteCount = 0;
 
     /**
      * @var integer
@@ -872,7 +880,7 @@ class Record
      * @ORM\Column(name="LikeCount", type="integer", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
-    private $likeCount;
+    private $likeCount = 0;
 
     /**
      * @var boolean
@@ -912,7 +920,7 @@ class Record
     private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="RecordMainTree", mappedBy="record" , cascade={"remove"})
      * @Groups({"record.details", "api.list"})
      **/
     private $maintrees;
@@ -1015,7 +1023,7 @@ class Record
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"detach"})
      * @Groups({"record.details"})
      */
     private $customers;
@@ -1049,7 +1057,7 @@ class Record
 
 
     /**
-     * @ORM\Column(name="treejson", type="json_array")
+     * @ORM\Column(name="treejson", type="json_array", nullable=true)
      * @Groups({"record.details", "api.list"})
      **/
     private $treeJson;
@@ -4215,5 +4223,53 @@ class Record
     public function getManagerPhone()
     {
         return $this->managerPhone;
+    }
+
+    /**
+     * Set ownerMail
+     *
+     * @param string $ownerMail
+     *
+     * @return Record
+     */
+    public function setOwnerMail($ownerMail)
+    {
+        $this->ownerMail = $ownerMail;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerMail
+     *
+     * @return string
+     */
+    public function getOwnerMail()
+    {
+        return $this->ownerMail;
+    }
+
+    /**
+     * Set managerMail
+     *
+     * @param string $managerMail
+     *
+     * @return Record
+     */
+    public function setManagerMail($managerMail)
+    {
+        $this->managerMail = $managerMail;
+
+        return $this;
+    }
+
+    /**
+     * Get managerMail
+     *
+     * @return string
+     */
+    public function getManagerMail()
+    {
+        return $this->managerMail;
     }
 }

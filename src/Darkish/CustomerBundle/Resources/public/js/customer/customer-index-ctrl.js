@@ -491,6 +491,12 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
         storeData: function($http) {
           return $http({method: 'GET', url: 'customer/ajax/get_store_data'})
              .then (function (response) {
+                storeDate = response.data;
+                // if(storeDate.market_online_order == "true") {
+                //   storeDate.market_online_order = true;
+                // } else {
+                //   storeDate.market_online_order = false;
+                // }
                 return response.data;
              });  
         }

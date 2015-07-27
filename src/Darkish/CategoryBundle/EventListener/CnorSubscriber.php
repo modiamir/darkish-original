@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Darkish\CategoryBundle\Entity\Record;
+use Darkish\CategoryBundle\Entity\DeletedRecords;
 use Darkish\CategoryBundle\Entity\News;
 use Darkish\CategoryBundle\Entity\Offer;
 use Darkish\CategoryBundle\Entity\Classified;
@@ -25,7 +26,7 @@ class CnorSubscriber implements EventSubscriber
 {
     protected $container;
     protected $requestStack;
-    
+
     public function __construct(ContainerInterface $container, RequestStack $requestStack) {
         $this->container = $container;
         $this->requestStack = $requestStack;
@@ -46,7 +47,10 @@ class CnorSubscriber implements EventSubscriber
         $this->setHasMedias($args);
         // $this->updateTreeJson($args);
     }
+
     
+
+
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -56,48 +60,52 @@ class CnorSubscriber implements EventSubscriber
         if ($entity instanceof News ) {
 
             $changes = $args->getEntityChangeSet();
-            $publishDateChange = $changes['publishDate'];
+            if(isset($changes['publishDate'])) {
+                $publishDateChange = $changes['publishDate'];
+                unset($changes['publishDate']);
+                if($publishDateChange[0] != $publishDateChange[1] || count($changes) > 0) {
+                    $entity->setLastUpdate(new \DateTime());
+                }
+            }
             if(isset($changes['body'])) {
-                unset($changes['body']);    
+                unset($changes['body']);
                 $entity->setHtmlLastUpdate(new \DateTime());
             }
-            
-            unset($changes['publishDate']);
-            
-            if($publishDateChange[0] != $publishDateChange[1] || count($changes) > 0) {
-                $entity->setLastUpdate(new \DateTime());
-            }
+
+
+
+
         }
 
         if ($entity instanceof Record ) {
 
             $changes = $args->getEntityChangeSet();
             if(isset($changes['body'])) {
-                unset($changes['body']);    
+                unset($changes['body']);
                 $entity->setHtmlLastUpdate(new \DateTime());
             }
-            
-            
-            
+
+
+
             if(count($changes) > 0) {
                 $entity->setLastUpdate(new \DateTime());
             }
         }
-        
-        
+
+
         $this->setHasMedias($args);
-        
+
     }
-    
+
     public function setHasMedias(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
         // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof Record || 
-            $entity instanceof News || 
-            $entity instanceof Offer || 
+        if ($entity instanceof Record ||
+            $entity instanceof News ||
+            $entity instanceof Offer ||
             $entity instanceof Classified ) {
 
             if($entity->getVideos()->count()) {
@@ -111,8 +119,8 @@ class CnorSubscriber implements EventSubscriber
             } else {
                 $entity->setAudio(false);
             }
-                     
-        }  
+
+        }
     }
 
 
@@ -122,7 +130,7 @@ class CnorSubscriber implements EventSubscriber
     //     if($entity instanceof News) {
     //         $trees = $entity->getNewstrees();
     //         die($this->container->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('news.details'))));
-            
+
     //     }
     // }
 }

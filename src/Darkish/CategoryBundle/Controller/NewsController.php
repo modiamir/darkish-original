@@ -67,31 +67,31 @@ class NewsController extends Controller
     }
 
     public function updateAction(Request $request, $id) {
-        
-        
+
+
         try {
             $user = $this->getUser();
             $news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->find($id);
-            
+
             if (false === $this->get('security.context')->isGranted('edit', $news)) {
                 throw new AccessDeniedException('Unauthorised access!');
             }
-            
+
             $serializer = $this->get('jms_serializer');
             /* @var $serializer JMSSerializer */
             $data = $serializer->deserialize($request->get('data'), 'array', 'json');
             /* @var $news News*/
-            
-            
+
+
             $this->newsMassAssignment($news, $data);
             // $news->setLastUpdate(new \DateTime());
             // $news->setHtmlLastUpdate(new \DateTime());
             $news->setUser($user);
-            
+
             if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
                 $news->setVerify(false);
             }
-            
+
             $validator = $this->get('validator');
             $errors = $validator->validate($news);
 
@@ -108,14 +108,14 @@ class NewsController extends Controller
                 }
                 return new JsonResponse($error_msgs, 403);
             } else {
-                
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($news);
-                
+
                 $em->flush();
-                
+
                 $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
-                
+
                 return new Response($serializer->serialize($news, 'json', SerializationContext::create()->setGroups(array('news.details'))));
 
             };
@@ -178,10 +178,10 @@ class NewsController extends Controller
                 $data['audios'] = (isset($data['audios']))?$data['audios']:[];
                 $data['body_audios'] = (isset($data['body_audios']))?$data['body_audios']:[];
                 $data['body_docs'] = (isset($data['body_docs']))?$data['body_docs']:[];
-                
+
                 $this->setContinualThumbnailAction($data['images'], $data['body_images'], $data['videos'], $data['body_videos'], $data['audios'], $data['body_audios'], $data['body_docs']);
-                
-                
+
+
 
                 return new Response($serializer->serialize(array($news), 'json', SerializationContext::create()->setGroups(array('news.details'))));
 
@@ -194,9 +194,9 @@ class NewsController extends Controller
 
     }
 
-    
-    
-    
+
+
+
 
     public function newsMassAssignment(News &$news, $data) {
 
@@ -215,7 +215,7 @@ class NewsController extends Controller
             $date = new \DateTime($data['expire_date']);
             $news->setExpireDate($date);
         }
-        
+
         if(isset($data['body'])) {
             $news->setBody($data['body']);
         }
@@ -225,31 +225,31 @@ class NewsController extends Controller
         if(isset($data['video'])) {
             $news->setVideo($data['video']);
         }
-        
+
         if(isset($data['continual'])) {
             $news->setContinual($data['continual']);
         }
-        
+
         if(isset($data['immediate'])) {
             $news->setImmediate($data['immediate']);
         }
-        
+
         if(isset($data['list_rank'])) {
             $news->setListRank($data['list_rank']);
         }
-        
+
         if(isset($data['is_competition'])) {
             $news->setIsCompetition($data['is_competition']);
         }
-        
+
         if(isset($data['true_answer'])) {
             $news->setTrueAnswer($data['true_answer']);
         }
-        
+
         if(isset($data['rate'])) {
             $news->setRate($data['rate']);
         }
-        
+
         if(isset($data['commentable'])) {
             $news->setCommentable($data['commentable']);
         }
@@ -287,7 +287,7 @@ class NewsController extends Controller
             } else {
                 $news->setIcon();
             }
-            
+
         }
         if(isset($data['trees'])) {
             $currentTrees = $news->getTrees();
@@ -354,7 +354,7 @@ class NewsController extends Controller
             foreach($data['newstrees'] as $tree) {
                 $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
                 $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title']];
-            }   
+            }
             $news->setTreeJson($treeJson);
 
             $newTreesIterator = $newTrees->getIterator();
@@ -647,7 +647,7 @@ class NewsController extends Controller
 
             //$news->setImages($data['images']);
         }
-        
+
         if(isset($data['body_docs'])) {
 
             $currentBodyDocs = $news->getBodyDocs();
@@ -691,8 +691,8 @@ class NewsController extends Controller
             //$news->setImages($data['images']);
         }
     }
-    
-    
+
+
     private function setContinualThumbnailAction($images, $body_images, $videos, $body_videos, $audios, $body_audios, $body_docs) {
 //        $serializer = $this->get('jms_serializer');
 //            /* @var $serializer JMSSerializer */
@@ -700,21 +700,21 @@ class NewsController extends Controller
 //        $images = $data['images'];
 //        $videos = $data['videos'];
 //        $audios = $data['audios'];
-//        
+//
 //        $body_images = $data['body_images'];
 //        $body_audios = $data['body_audios'];
 //        $body_videos = $data['body_videos'];
-        
+
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
         $em = $this->getDoctrine()->getManager();
-        
+
         $files = array_merge($images, $audios, $videos, $body_audios, $body_images, $body_videos, $body_docs);
-        
-        
+
+
         /**
          * settings isThumbnail and continual for files
          */
-        
+
         foreach($files as $key => $file) {
             /* @var $managedFile \Darkish\CategoryBundle\Entity\ManagedFile */
             $managedFile = $repo->find($file['id']);
@@ -728,14 +728,14 @@ class NewsController extends Controller
             } else {
                 $managedFile->setContinual(false);
             }
-            
-            
+
+
             $em->persist($managedFile);
-            
+
         }
         $em->flush();
 //        return new Response('Operation done succesfully', 200);
-        
+
     }
 
     public function getTreeAction() {
@@ -745,9 +745,10 @@ class NewsController extends Controller
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:NewsTree');
         // $categories = $repository->findAll();
-        
-        
-        
+
+
+        // $tree = $repository->find(39);
+        // return new Response($tree->getParentTreeTitle());
 
         $qb = $repository->createQueryBuilder('t');
         $qb->orderBy('t.upTreeIndex', 'Asc');
@@ -821,10 +822,11 @@ class NewsController extends Controller
 
 
 
-    private function buildTree(array $elements, $parentId = "00") {
+    private function buildTree(array $elements, $parentId = "##") {
         $branch = array();
 
         foreach ($elements as $element) {
+            $element['children'] = [];
             if ($element['up_tree_index'] === $parentId) {
                 $children = $this->buildTree($elements, $element['tree_index']);
                 if ($children) {
@@ -833,7 +835,6 @@ class NewsController extends Controller
                 $branch[] = $element;
             }
         }
-
         return $branch;
     }
 
@@ -941,7 +942,7 @@ class NewsController extends Controller
                 $serialized
                 , 200);
         }
-        
+
         if($cid == -3) {
 
             $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
@@ -995,15 +996,15 @@ class NewsController extends Controller
 //
 //            $query = $queryBuilder->getQuery();
 //            $newsList =  $query->getResult();
-            
+
             $children = $this->getTreeChildren($category);
-            
+
             $treesIds = array();
             $treesIds[] = $category->getId();
             foreach($children as $child) {
                 $treesIds[] = $child->getId();
             }
-            
+
             /* @var $repository \Darkish\CategoryBundle\Entity\NewsRepository */
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:News');
@@ -1015,7 +1016,7 @@ class NewsController extends Controller
 
             $res = $qb->setFirstResult($count)
                 ->setMaxResults($this->numPerPage)->getQuery()->getResult();
-            
+
             $serialized = $this->get('jms_serializer')->
                 serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list')));
 
@@ -1036,7 +1037,7 @@ class NewsController extends Controller
         }
 
     }
-    
+
     private function getTreeChildren($category) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
         /* @var $repo \Darkish\CategoryBundle\Entity\MainTree  */
@@ -1085,7 +1086,7 @@ class NewsController extends Controller
         return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list'))));
     }
 
-    
+
 
     public function getNewsAction($id) {
         $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
@@ -1191,8 +1192,8 @@ class NewsController extends Controller
         return new JsonResponse($voter->isGranted('view', $news));
     }
 
-    
-    
+
+
     public function checkPermissionAction($attribute, $id = null) {
         try {
             if($id) {
@@ -1205,10 +1206,10 @@ class NewsController extends Controller
         } catch(Exception $e) {
             return new Response($e->getMessage(), $e->getCode());
         }
-        
+
         return new JsonResponse(array($attribute,$class, $id));
     }
-    
+
     public function getNewsByIdAction($id) {
         try {
             $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
@@ -1221,9 +1222,9 @@ class NewsController extends Controller
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-            
+
     }
-    
+
     public function getTreeByIndexAction($index) {
         try {
             $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
@@ -1238,12 +1239,12 @@ class NewsController extends Controller
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getTestTreeAction($id) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
         return new Response($this->get('jms_serializer')->serialize($repo->find($id), 'json'));
     }
-    
+
     public function totalSearchNewssAction($keyword, $search_by, $sort_by) {
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
         $qb = $repo->createQueryBuilder('r');
@@ -1294,15 +1295,15 @@ class NewsController extends Controller
         }
 
         $qb->setFirstResult(0);
-        
+
         $res = $qb->getQuery()->getSingleScalarResult();
 
         return new Response($this->get('jms_serializer')->serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list'))));
     }
-    
-    
+
+
     public function getTotalNewsForCategoryAction($cid) {
-        
+
 
         if($cid == -1) {
 
@@ -1312,7 +1313,7 @@ class NewsController extends Controller
 
             $queryBuilder = $repository->createQueryBuilder('n');
             /* @var $queryBuilder QueryBuilder */
-            
+
             $queryBuilder->select('count(n.id)');
             $queryBuilder->where('n.verify= :verify')
                 ->setParameter('verify', false)
@@ -1383,7 +1384,7 @@ class NewsController extends Controller
                 $serialized
                 , 200);
         }
-        
+
         if($cid == -3) {
 
             $repository = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
@@ -1411,7 +1412,7 @@ class NewsController extends Controller
                 , 200);
         }
 
-        
+
         $repository = $this->getDoctrine()
             ->getRepository('DarkishCategoryBundle:NewsTree');
         /* @var $repository \Darkish\CategoryBundle\Entity\MainTreeRepository */
@@ -1437,9 +1438,9 @@ class NewsController extends Controller
 //
 //            $query = $queryBuilder->getQuery();
 //            $newsList =  $query->getResult();
-            
+
             $children = $this->getTreeChildren($category);
-            
+
             $treesIds = array();
             $treesIds[] = $category->getId();
             foreach($children as $child) {
@@ -1448,12 +1449,12 @@ class NewsController extends Controller
             /* @var $repository \Darkish\CategoryBundle\Entity\NewsRepository */
             $repository = $this->getDoctrine()
                 ->getRepository('DarkishCategoryBundle:News');
-            $qb = $repository->createQueryBuilder('r'); 
+            $qb = $repository->createQueryBuilder('r');
             $qb->select('count(r.id)');
             $qb->join('r.trees','t', 'WITH',$qb->expr()->in('t.id', $treesIds))->distinct();
             $qb->orderBy('r.listRank', 'Asc');
             $res = $qb->setFirstResult(0)->getQuery()->getSingleScalarResult();
-            
+
             $serialized = $this->get('jms_serializer')->
                 serialize($res, 'json', SerializationContext::create()->setGroups(array('news.list')));
 
@@ -1485,13 +1486,13 @@ class NewsController extends Controller
                     case 'name':
                         $qb->where($qb->expr()->like('r.title', $qb->expr()->literal('%' . $value . '%')));
                         break;
-                    
+
                     case 'number':
                         $qb->where($qb->expr()->like('r.recordNumber', $qb->expr()->literal('%' . $value . '%')));
                         break;
                 }
                 break;
-            
+
             case 'news':
                 $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
                 $qb = $repo->createQueryBuilder('n');
@@ -1499,7 +1500,7 @@ class NewsController extends Controller
                     case 'name':
                         $qb->where($qb->expr()->like('n.title', $qb->expr()->literal('%' . $value . '%')));
                         break;
-                    
+
                     case 'number':
                         $qb->where($qb->expr()->like('n.id', $qb->expr()->literal('%' . $value . '%')));
                         break;
@@ -1521,10 +1522,9 @@ class NewsController extends Controller
             case 'news':
                 $serialized = $this->get('jms_serializer')->serialize(array('results' => $results), 'json', SerializationContext::create()->setGroups(array('news.list')));
                 break;
-            
+
         }
 
         return new Response($serialized);
     }
 }
-            
