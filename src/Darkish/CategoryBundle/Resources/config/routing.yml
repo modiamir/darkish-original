@@ -5,6 +5,10 @@ darkish_category_homepage:
     defaults: { _controller: DarkishCategoryBundle:Default:index }
 
 
+darkish_category_testjson:
+    path:    /testjson
+    defaults: {_controller: DarkishCategoryBundle:Default:testJson}
+
 darkish_newstree_gettreejson:
     pattern:  /admin/newstree/getjsontree
     defaults: { _controller: DarkishCategoryBundle:NewsTree:getJsonTree }

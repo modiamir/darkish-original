@@ -1078,9 +1078,10 @@ class DefaultController extends Controller
             $record->setMarketTemplate($template);   
         }
 
-        if($request->get('online_order')) {
-            $val = ($request->get('online_order') == false) ? 0 : 1;
-            $record->setMarketOnlineOrder($val);    
+        if($request->request->has('online_order')) {
+            // die($request->get('online_order'));
+            // $val = ($request->get('online_order') == false) ? 0 : 1;
+            $record->setMarketOnlineOrder($request->get('online_order'));    
         }
 
         if($request->get('groups')) {

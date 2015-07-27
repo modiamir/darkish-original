@@ -1,0 +1,45 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+
+{% block page_header %}
+	<div class="page-header-box">
+		{% if news.icon %}
+			<div class="image-box">
+				{# <img src="./assets/images/news-image.png"> #}
+				<img src="{{news.icon.webAbsolutePath}}">
+			</div>
+		{% endif %}
+		<div class="date">
+			<span class="day">{{ news.creationDate | jdate("j") }}</span>
+			<span class="month">{{ news.creationDate | jdate("F") }}</span>
+			<span class="time">{{ news.creationDate | jdate("H:i") }}</span>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block page_title %}
+	<h2 class="page-title">
+		{{news.title}}
+	</h2>
+{% endblock %}
+
+{% block page_subtitle %}
+	<h4 class="page-subtitle">
+		{{news.subTitle}}
+	</h4>
+{% endblock %}
+
+{% block content %}
+	
+
+
+	{{ include('DarkishWebsiteBundle:News:news-full.html.twig', {'news': news}) }}
+
+{% endblock %}
+
+{% block sidebar %}
+	{{ sonata_block_render({
+		'type': 'darkish_website.block.rss'
+	}) }}
+{% endblock %}

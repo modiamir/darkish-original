@@ -19,7 +19,7 @@
 	<span class="store-template" ng-bind="storeData.market_template.title"></span>
 	<hr/>
 	<label class="store-online-order-label">امکان سفارش آنلاین:</label>
-	<span class="store-online-order" ng-bind="storeData.market_online_order == true ?'دارد':'ندارد'"></span>
+	<span class="store-online-order" ng-bind="storeData.market_online_order == false ?'دارد':'ندارد'"></span>
 	<hr/>
 	<label><h3>گروه ها</h3></label>
 

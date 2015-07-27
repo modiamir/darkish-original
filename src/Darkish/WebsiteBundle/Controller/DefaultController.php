@@ -14,7 +14,7 @@ use Darkish\CustomerBundle\Entity\Customer;
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/")
+	 * @Route("/", name="website_home")
 	 */
     public function indexAction()
     {

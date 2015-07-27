@@ -144,10 +144,18 @@ class ManagedFile
     /**
      * @var string
      *
+     * @ORM\Column(name="video_thumbnail", type="string", length=255, nullable=true)
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "api.list"})
+     */
+    private $videoThumbnail;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="type", type="string", nullable=true)
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "store", "product", "database", "comment"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -547,6 +555,20 @@ class ManagedFile
         return null === $this->path
             ? null
             : "http://".$_SERVER['SERVER_NAME'].'/n-darkish/web/uploads/'.$this->getUploadDir().'/'.$this->path;
+    }
+
+
+    /**
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("video_thumbnail_absolute_path")
+     */
+    public function getVideoThumbnailAbsolutePath()
+    {
+
+        return null === $this->videoThumbnail
+            ? null
+            : "http://".$_SERVER['SERVER_NAME'].'/n-darkish/web/uploads/video_thumbnail/'.$this->videoThumbnail;
     }
 
     public function getWebPath()
@@ -1046,5 +1068,39 @@ class ManagedFile
     public function getIconForSponsor()
     {
         return $this->iconForSponsor;
+    }
+
+    /**
+     * Add bannerForSponsor
+     *
+     * @param \Darkish\CategoryBundle\Entity\Sponsor $bannerForSponsor
+     *
+     * @return ManagedFile
+     */
+    public function addBannerForSponsor(\Darkish\CategoryBundle\Entity\Sponsor $bannerForSponsor)
+    {
+        $this->bannerForSponsor[] = $bannerForSponsor;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannerForSponsor
+     *
+     * @param \Darkish\CategoryBundle\Entity\Sponsor $bannerForSponsor
+     */
+    public function removeBannerForSponsor(\Darkish\CategoryBundle\Entity\Sponsor $bannerForSponsor)
+    {
+        $this->bannerForSponsor->removeElement($bannerForSponsor);
+    }
+
+    /**
+     * Get bannerForSponsor
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBannerForSponsor()
+    {
+        return $this->bannerForSponsor;
     }
 }

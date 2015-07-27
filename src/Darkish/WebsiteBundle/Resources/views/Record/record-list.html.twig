@@ -1,0 +1,8 @@
+<div class="news mode-list">
+	{% if news.icon %}
+	<img width="48" src="{{news.icon.iconAbsolutePath}}" />
+	{% endif %}
+	<strong><a href="{{ path('website_news_single', {'news': news.id}) }}" rel="nofollow" title="{{ news.title }}">{{ news.title }}</a></strong>
+
+	<div>{{news.creationDate | jdate("l j F Y H:i")}}</div>
+</div>

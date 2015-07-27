@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/print.css') }}" media="print" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+	  <link href="{{ asset('bundles/darkishwebsite/stylesheets/ie.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+	<![endif]-->
+
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/darkish-bootstrap.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/darkishwebsite/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+	
+	
+	
+
+	
+	<link href="{{ asset('bundles/darkishwebsite/stylesheets/website.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+
+{% block javascripts %}
+	<script src="{{ asset('bundles/darkishwebsite/bower_components/jquery/jquery.min.js') }}"></script>
+	
+	
+	<script src="{{ asset('bundles/darkishwebsite/plugins/darkish-bootstrap/js/bootstrap.min.js') }}"></script>
+	
+	
+
+{% endblock %}
+{% block  dir %}dir="rtl" class="register-customer"{% endblock %}
+
+{% block  body %}
+
+	<div class="header-wrapper">
+		<div class="container">	
+			<!-- Static navbar -->
+      		{{ include('DarkishWebsiteBundle:Default:layout/header.html.twig') }}
+		</div>
+	</div>
+
+	{% if wo_breadcrumbs()|length %}
+		<div class="breadcrumb-wrapper">
+			<div class="container">
+				{{ wo_render_breadcrumbs() }}
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="container main-container">
+
+		<div class="col col-xs-8 content">
+			
+			{% block page_header %}
+			{% endblock %}
+
+			{% block page_title %}
+			{% endblock %}
+
+			{% block page_subtitle %}
+			{% endblock %}
+
+			{% block content %}
+			{% endblock %}
+
+		</div>
+
+		<div class="col col-xs-4 sidebar">
+			{% block sidebar %}
+
+			{% endblock %}
+    	</div>
+
+    </div>
+
+    <div class="footer-wrapper">
+    	<div class="container">
+	    	<div class="col col-xs-4 footer-first">
+	    		
+	    	</div>
+	    	<div class="col col-xs-4 footer-second">
+	    		
+	    	</div>
+	    	<div class="col col-xs-4 footer-third">
+	    		
+	    	</div>
+	    </div>
+    </div>
+
+    <div class="bottom-wrapper">
+    	<div class="container">
+	    	<div class="col-xs-8 copyright">
+	    		کلیه حقوق مادی و معنوی این وبسایت متعلق به درکیش میباشد.
+	    	</div>
+	    	<div class="col-xs-4 social-link">
+	    		<ul>
+	    		  <li>
+	    		    <a href="#"><i class="fa fa-google-plus"></i></a>
+	    		  </li>
+	    		  <li>
+	    		    <a href="#"><i class="fa fa-facebook"></i></a>
+	    		  </li>
+	    		  <li>
+	    		    <a href="#"><i class="fa fa-twitter"></i></a>
+	    		  </li>
+	    		  <li>
+	    		    <a href="#"><i class="fa fa-rss"></i></a>
+	    		  </li>
+	    		</ul>
+	    	</div>
+	    </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+ul.newstree-list {
+	display: inline-block;
+	width: 100%;
+	li {
+		float: right;
+		width: 50%;
+	}
+}
+
+div.news-list {
+	display: inline-block;
+	width: 100%;
+	.news-item {
+		float: right;
+		width: 50%;
+	}
+}

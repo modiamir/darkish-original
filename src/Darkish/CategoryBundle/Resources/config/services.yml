@@ -52,6 +52,9 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    darkish_jdate:
+        class:        Darkish\CategoryBundle\Date\JalaliDate
+
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example
 

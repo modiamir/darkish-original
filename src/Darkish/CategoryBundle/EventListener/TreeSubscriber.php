@@ -43,13 +43,22 @@ class TreeSubscriber implements EventSubscriber
                 $repo = $args->getEntityManager()->getRepository('DarkishCategoryBundle:NewsTree');
                 // $parentTreeIndex = substr($treeIndex, 0, strlen($treeIndex) - 2);
                 // $parentTree = $repo->findByTreeIndex($parentTreeIndex)[0];
+                
+                if($entity->getUpTreeIndex() == "##") {
+                    return;
+                }
+
                 $parents = array();
                 $parentTreeIndex = substr($treeIndex, 0, strlen($treeIndex) - 2);
-                while($parentTreeIndex != '00') {
+                
+                // while(!in_array($parentTreeIndex, array("00", "01", "02", "03")) ) {
+                while( $parentTreeIndex != "" ) {
                     $parents[] = $parentTreeIndex;
                     $parentTreeIndex = substr($parentTreeIndex, 0, strlen($parentTreeIndex) - 2);
                 }
 
+                
+                
                 $query = $args->getEntityManager()->createQuery('SELECT nt FROM \Darkish\CategoryBundle\Entity\NewsTree nt WHERE nt.treeIndex IN (:tindexes)');
                 $query->setParameter('tindexes', $parents);
                 $trees = $query->getResult();

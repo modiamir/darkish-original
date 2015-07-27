@@ -208,20 +208,20 @@ class News
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"news.details", "api.list"})
      */
-    private $visitCount;
+    private $visitCount = 0;
 
     /**
      * @ORM\Column(name="LikeCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"news.details", "api.list"})
      */
-    private $likeCount;
+    private $likeCount = 0;
 
 
     /**
      * @ORM\Column(name="CommentCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"news.details", "api.list"})
      */
-    private $commentCount;
+    private $commentCount = 0;
     
 
     /**
@@ -363,7 +363,7 @@ class News
 
 
     /**
-     * @ORM\Column(name="treejson", type="json_array")
+     * @ORM\Column(name="treejson", type="json_array", nullable=true)
      * @Groups({"news.details", "api.list"})
      **/
     private $treeJson;
@@ -821,7 +821,13 @@ class News
      */
     public function getIcon()
     {
-        return $this->icon;
+        if($this->icon) {
+            return $this->icon;
+        } elseif($this->images->count()) {
+            return $this->images->first();
+        } else {
+            return $this->icon;
+        }
     }
 
    

@@ -430,7 +430,7 @@ body #fullpage .section#section-5 .main-subsection .description .description-inn
 /* line 464, ../sass/style.scss */
 body #fullpage .section#section-5 .main-subsection .description .description-inner p.stores-section-description-text {
   font-family: cocon;
-  color: #62c2cc;
+  color: #008be4;
   text-shadow: 1px 1px #222222;
   font-size: 22px;
   text-align: center;
@@ -444,7 +444,7 @@ body #fullpage .section#section-5 .main-subsection .store {
 }
 /* line 479, ../sass/style.scss */
 body #fullpage .section#section-5 .main-subsection .store .store-inner {
-  background-color: #62c2cc;
+  background-color: #008be4;
   height: 250px;
   width: 85%;
   margin: auto;
@@ -519,7 +519,7 @@ body #fullpage .section#section-6 .main-subsection {
 body #fullpage .section#section-6 .main-subsection .section-title {
   text-align: center;
   font-family: cocon;
-  color: #62c2cc;
+  color: #008be4;
   text-shadow: 1px 1px black;
   font-size: 35px;
 }
@@ -546,7 +546,7 @@ body #fullpage .section#section-6 .main-subsection .notification-news h3.notific
 body #fullpage .section#section-6 .main-subsection .notification-news p.notification-news-text {
   padding-right: 80px;
   padding-left: 31px;
-  color: #62c2cc;
+  color: #008be4;
   font-size: 18px;
 }
 /* line 577, ../sass/style.scss */
@@ -602,7 +602,7 @@ body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-lis
 }
 /* line 616, ../sass/style.scss */
 body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-list li.news-item .news-info .news-summary {
-  color: #62c2cc;
+  color: #008be4;
 }
 /* line 626, ../sass/style.scss */
 body #fullpage .section#section-8 {
@@ -631,7 +631,7 @@ body #fullpage .section#section-8 .main-subsection .container h2.download-app-ti
 /* line 643, ../sass/style.scss */
 body #fullpage .section#section-8 .main-subsection .container p.download-app-description {
   width: 50%;
-  color: #62c2cc;
+  color: #008be4;
   font-size: 18px;
 }
 /* line 648, ../sass/style.scss */
@@ -677,12 +677,12 @@ body #fullpage .section#section-8 .main-subsection .container .last-update-app {
   clear: both;
   float: right;
   width: 50%;
-  color: #62c2cc;
+  color: #008be4;
   font-size: 20px;
 }
 /* line 695, ../sass/style.scss */
 body #fullpage .section#section-9 {
-  background-color: #6ccecb;
+  background-color: #008be4;
   min-height: 600px;
 }
 /* line 698, ../sass/style.scss */

@@ -174,19 +174,36 @@
 					    </ul>
 					</div>
 
-					<div ng-show="child.state == 3" class="btn-group">
-					    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-					    	تایید <span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu dropdown-menu-left" role="menu">
-					    	<li role="presentation" class="dropdown-header">آیا از تایید اطمینان دارید؟</li>
-						    <li role="menuitem"><a ng-click="setState(child, 0)">بله</a></li>
-					    </ul>
+					<div class="btn-group" role="group" >
+						<div  class="btn-group">
+						    <button ng-disabled="child.state == 0 || child.claim_type" ng-class="{'btn-default': (child.state == 3), 'btn-success':  (child.state == 0)}" type="button" class="btn  btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						    	فعال <span class="caret"></span>
+						    </button>
+						    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+						    	<li role="presentation" class="dropdown-header">آیا از تایید اطمینان دارید؟</li>
+							    <li role="menuitem"><a ng-click="setState(child, 0)">بله</a></li>
+						    </ul>
+						</div>
+						<div class="btn-group">
+						    <button ng-disabled="child.state == 3" ng-class="{'btn-danger': (child.state == 3), 'btn-default':  (child.state == 0)}"  type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						    	غیر فعال <span class="caret"></span>
+						    </button>
+						    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+						    	<li role="presentation" class="dropdown-header">آیا از عدم تایید اطمینان دارید؟</li>
+							    <li role="menuitem"><a ng-click="setState(child, 3)">بله</a></li>
+						    </ul>
+						</div>
 					</div>
+					<div ng-show="child.owner_type == 'client'" class="send-message">
+						<button class="btn btn-default" ng-click="openSendMessageModal(child)">ارسال پیام</button>
+					</div>
+					
 
 					<span ng-show="child.claim_type" class="claim-type">
 						شکایت: {{claimTypes[child.claim_type-1].label}}
 					</span>
+
+
 				</div>	
 				
 			</div>

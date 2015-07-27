@@ -8,6 +8,7 @@ use JMS\Serializer\SerializationContext;
 use \Wa72\HtmlPageDom\HtmlPageCrawler;
 use Doctrine\Common\Collections\ArrayCollection as Collection;
 
+
 class DefaultController extends Controller
 {
 
@@ -18,7 +19,12 @@ class DefaultController extends Controller
     public function indexAction($name)
     {
 
+        
         return $this->render('DarkishCategoryBundle:Default:index.html.twig', array('name' => $name));
+    }
+
+    public function testJsonAction() {
+        return new Response($this->get('jms_serializer')->serialize(['with json character' => '{asd, "asd"}'],'json'));
     }
 
 
@@ -41,7 +47,7 @@ class DefaultController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$em->flush();
     	return new Response($this->get('jms_serializer')->serialize($hasImageWithoutClass, 'json', SerializationContext::create()->setGroups(array('record.details'))));
-        
+
     }
 
 
@@ -81,7 +87,7 @@ class DefaultController extends Controller
     		}
     		$this->fixedRecords[] = $record->getRecordNumber();
     	}
-    	
+
     	$em = $this->getDoctrine()->getManager();
     	$em->persist($record);
 
@@ -110,7 +116,7 @@ class DefaultController extends Controller
     		$c->attr('class', '');
     		$c->addClass(str_replace('.', '-', $fileName));
     	});
-    	
+
     	return $crawler->saveHTML();
     }
 
@@ -133,51 +139,25 @@ class DefaultController extends Controller
             $regCode->setRecordNumber($record->getRecordNumber());
             $regCode->setUsername(rand(10000,99999).$record->getRecordNumber());
             $regCode->setPassword(rand(10000000, 99999999));
-            
-            $regCode->setUsed(false);    
+
+            $regCode->setUsed(false);
 
             $regCodes[] = $regCode;
         }
 
-        
 
-        
-        
-        
+
+
+
+
 
         // foreach ($regCodes as $entity) {
         //     $em->persist($entity);
         // }
-        
-        
+
+
         // $em->flush();
-        
+
         return new Response($this->get('jms_serializer')->serialize($regCodes,'json'));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

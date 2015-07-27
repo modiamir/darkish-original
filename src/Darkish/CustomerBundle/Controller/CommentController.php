@@ -236,6 +236,10 @@ class CommentController extends Controller
 
 		if (!$thread) {
 		    $thread = new \Darkish\CommentBundle\Entity\RecordThread();
+		    $thread->setLastCommentAt(new \DateTime());
+		    $thread->setNumComments(1);
+		    $thread->setIsCommentable(true);
+		    $thread->setTarget($record);
 		}
 
 	    
@@ -260,6 +264,7 @@ class CommentController extends Controller
 	    		}
 	    	}
 	    	$em->persist($comment);
+	    	$em->persist($thread);
 	        if ($em->flush() !== false) {
 	            return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
 	        }

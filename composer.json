@@ -38,7 +38,11 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "sonata-project/admin-bundle": "^2.3",
         "sonata-project/doctrine-orm-admin-bundle": "^2.3",
-        "gregwar/captcha-bundle": "dev-master"
+        "gregwar/captcha-bundle": "dev-master",
+        "symfony_persia/symfonyjdate": "~1.1",
+        "knplabs/knp-paginator-bundle": "^2.4.1",
+        "whiteoctober/breadcrumbs-bundle": "^1.2"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

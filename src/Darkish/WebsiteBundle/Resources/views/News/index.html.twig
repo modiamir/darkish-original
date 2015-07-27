@@ -1,0 +1,35 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block breadcrumb %}
+<span class="breadcrumb-label"> شما اینجا هستید:</span> <a href="{{path('website_home')}}">خانه</a>
+
+{% endblock %}
+	
+{% block page_title %}
+	<h2 class="page-title"> 
+		اخبار
+	</h2>
+{% endblock %}
+
+{% block page_subtitle %}
+	<h4 class="page-subtitle">
+		شاخه بندی اخبار
+	</h4>
+	
+{% endblock %}
+
+{% block content %}
+	{% if trees %}
+		<ul class="newstree-list">
+			{% for tree in trees %}
+				<li>
+		    		<a href="{{path('website_news_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
+	    		</li>
+			{% endfor %}	
+		</ul>
+	{% endif %}
+	
+
+	 
+	
+{% endblock %}
