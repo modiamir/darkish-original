@@ -102,6 +102,8 @@ font-style: normal;
 }
 
 
+@import 'base/_variables.scss';
+
 $screen-sm-min: 768px;
 $screen-xs-max: ($screen-sm-min - 1);
 $screen-md-min: 992px;
@@ -123,8 +125,8 @@ body {
 		text-align: center;
 		z-index: 10000;
 		height: 60px;
-		background-color: #fafafa;
-		border-bottom: 2px solid #bababa;
+		background-color: #6bcecb;
+		border-bottom: 2px solid #f17022;
 		transition: height 0.3s;
 		-webkit-transition: height 0.3s;
 		-moz-transition: height 0.3s;
@@ -178,8 +180,9 @@ body {
 							-o-transition: all 0.3s;
 							-ms-transition: all 0.3s;
 							height: 60px !important;
+							color: white;
 						}
-						&.active {
+						&.active, &:hover {
 							a {
 								border-bottom: 2px solid;	
 								-webkit-transition: all 0.3s;
@@ -187,18 +190,25 @@ body {
 								-o-transition: all 0.3s;
 								-ms-transition: all 0.3s;
 								height: 60px !important;
+
 							}
-							&.section-2 {
-								a {
-									color: #00c140;
-								}
-							}
-							&.section-3 {
-								a {
-									color: #fe7d22;
-								}
-							}
+							// &.section-2 {
+							// 	a {
+							// 		color: #00c140;
+							// 	}
+							// }
+							// &.section-3 {
+							// 	a {
+							// 		color: #fe7d22;
+							// 	}
+							// }
 							
+						}
+						&.active {
+							a {
+								background-color: #f17022;
+								border-color: white;
+							}
 						}
 					}
 				}
@@ -307,14 +317,14 @@ body {
 				.container {
 					.description {
 						h1 {
-							color: #00c140;
+							// color: #00c140;
 							margin: 0;
 							padding-top: 30px;
 							padding-bottom: 20px;
 							font-size: 60px;
 						}
 						p { 
-							color: #5D913F;
+							// color: #5D913F;
 							font-size: 18px;
 							text-align: center;
 							margin: auto;
@@ -385,7 +395,7 @@ body {
 						margin-top: 0;
 						padding-top: 20px;
 						margin-bottom: 20px;
-						color: white;
+						// color: white;
 					}
 					p {
 						color: white;
@@ -404,7 +414,7 @@ body {
 						font-size: 15px;
 						margin-right: 20px;
 						&:hover, &.active, &:focus {
-							background-color: #008be4;
+							background-color: $green;
 							color: white;
 							outline: none;
 							height: initial;
@@ -413,7 +423,7 @@ body {
 					#automobiles-container {
 						padding-top: 20px;
 						margin-top: 20px;
-						border-top: 2px solid #008be4;
+						border-top: 2px solid $green;
 						height: 75%;
 						.mix{
 						    display: none;
@@ -463,7 +473,7 @@ body {
 
 			        p.stores-section-description-text {
 			          font-family: cocon;
-			          color: #008be4;
+			          color: $green;
 			          text-shadow: 1px 1px #222222;
 			          font-size: 22px;
 			          text-align: center;
@@ -477,7 +487,7 @@ body {
 						min-height: 250px;
 						margin-bottom: 50px;
 						.store-inner {
-							background-color: #008be4;
+							background-color: $green;
 							height: 250px;
 							width: 85%;
 							margin: auto;
@@ -547,7 +557,7 @@ body {
 			    .section-title {
 			      text-align: center;
 			      font-family: cocon;
-			      color: #008be4;
+			      color: $green;
 			      text-shadow: 1px 1px black;
 			      font-size: 35px;
 			    }
@@ -570,7 +580,7 @@ body {
 			      p.notification-news-text {
 			        padding-right: 80px;
 			        padding-left: 31px;
-			        color: #008be4;
+			        color: $green;
 			        font-size: 18px;
 			      }
 			    }
@@ -614,7 +624,7 @@ body {
 			              margin: 0;
 			            }
 			            .news-summary {
-			              color: #008be4;
+			              color: $green;
 			            }
 			          }
 			        }
@@ -642,7 +652,7 @@ body {
 			      }
 			      p.download-app-description {
 			        width: 50%;
-			        color: #008be4;
+			        color: $green;
 			        font-size: 18px;
 			      }
 			      hr {
@@ -671,12 +681,17 @@ body {
 			          line-height: 25px;
 			          font-family: cocon;
 			          margin-left: 10px;
+			          color: white;
 			        }
 			        &:hover {
 			          text-decoration: none;
 			          background: white;
 			          color:#f17022;
 			          border: 1px solid #f17022;
+			          color: #f17022;
+			          h4 {
+			          	color: #f17022;
+			          }
 			        }
 
 			      }
@@ -684,7 +699,7 @@ body {
 			        clear: both;
 			        float: right;
 			        width: 50%;
-			        color: #008be4;
+			        color: $green;
 			        font-size: 20px;
 			      }
 
@@ -693,7 +708,7 @@ body {
 			}
 
 			&#section-9 {
-			  background-color: #008be4;
+			  background-color: $green;
 			  min-height: 600px;
 			  .main-subsection {
 			    min-height: 600px;
@@ -817,7 +832,7 @@ body {
 			}
 			h1 {
 				text-align: center;
-				color: white;
+				// color: white;
 			}
 			&:nth-child(2n+7) {
 				background: blue;
@@ -836,7 +851,8 @@ body {
 
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: BMitra;
+	font-family: cocon;
+	color: $orange;
 }
 
 
@@ -916,7 +932,7 @@ h1, h2, h3, h4, h5, h6 {
 	overflow: hidden;
 	position: relative;
 	opacity: 0.8;
-	border-bottom: 2px solid #00c140;
+	border-bottom: 2px solid $orange;
 	.record-list-caption {
 		position: absolute;
 		bottom: -100%;
@@ -1018,7 +1034,7 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 	overflow: hidden;
 	position: relative;
-	border-bottom: 2px solid #008be4;
+	border-bottom: 2px solid $green;
 	.automobile-photo {
 		background-image: url(../images/car.jpg);
 		background-size: cover;
@@ -1029,7 +1045,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 	.automobile-title {
 		padding: 0 10px;
-		color: #008be4;
+		color: $green;
 	}
 	.automobile-price {
 		font-size: 25px;

@@ -20,6 +20,8 @@
 @brand-warning:         #f0ad4e;
 @brand-danger:          #d9534f;
 
+@green-text: 			#4E6E6D;
+
 
 //== Scaffolding
 //
@@ -28,10 +30,10 @@
 //** Background color for `<body>`.
 @body-bg:               #fff;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @green-text;
 
 //** Global textual link color.
-@link-color:            @brand-primary;
+@link-color:            darken(@brand-primary, 15%);
 //** Link hover color set via `darken()` function.
 @link-hover-color:      darken(@link-color, 15%);
 //** Link hover decoration.
@@ -102,8 +104,8 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        1px;
-@border-radius-large:       3px;
+@border-radius-base:        0px;
+@border-radius-large:       0px;
 @border-radius-small:       0px;
 
 //** Global color for active items (e.g., navs or dropdowns).
