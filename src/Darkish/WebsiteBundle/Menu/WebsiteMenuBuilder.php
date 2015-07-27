@@ -28,7 +28,7 @@ class WebsiteMenuBuilder extends ContainerAware
         $menu->addChild('اخبار', array('route' => 'website_news'))
         ->setAttribute('icon', 'fa fa-newspaper-o');
         $menu->addChild('رکوردها', array('route' => 'website_record'))
-        ->setAttribute('icon', 'fa fa-newspaper-o');
+        ->setAttribute('icon', 'fa fa-hotel');
         // ... add more children
 
         return $menu;
