@@ -25,7 +25,7 @@ class MainTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list", "details", "record.details"})
+     * @Groups({"list", "details", "record.details", "api.list"})
      */
     private $id;
 
@@ -47,7 +47,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="TreeIndex", type="string", length=255)
-     * @Groups({"list", "details", "record.details"})
+     * @Groups({"list", "details", "record.details", "api.list"})
      */
     private $treeIndex;
 
@@ -63,7 +63,7 @@ class MainTree
      * @var string
      *
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"list", "details", "record.details"})
+     * @Groups({"list", "details", "record.details", "api.list"})
      */
     private $title;
 
@@ -276,9 +276,9 @@ class MainTree
     /**
      * @var string
      *
-     * @ORM\Column(name="SubUnitHeightScale", type="string", length=255, nullable=true)
+     * @ORM\Column(name="GroupFilter", type="boolean", length=255, nullable=true)
      */
-    private $subUnitHeightScale;
+    private $groupFilter;
 
     /**
      * @var boolean
@@ -1068,28 +1068,7 @@ class MainTree
         return $this->subBackground;
     }
 
-    /**
-     * Set subUnitHeightScale
-     *
-     * @param string $subUnitHeightScale
-     * @return MainTree
-     */
-    public function setSubUnitHeightScale($subUnitHeightScale)
-    {
-        $this->subUnitHeightScale = $subUnitHeightScale;
-
-        return $this;
-    }
-
-    /**
-     * Get subUnitHeightScale
-     *
-     * @return string 
-     */
-    public function getSubUnitHeightScale()
-    {
-        return $this->subUnitHeightScale;
-    }
+    
 
     /**
      * Set hiddenTree
@@ -1169,5 +1148,38 @@ class MainTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainrecords
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords
+     * @return MainTree
+     */
+    public function addMainrecord(\Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords)
+    {
+        $this->mainrecords[] = $mainrecords;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainrecords
+     *
+     * @param \Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords
+     */
+    public function removeMainrecord(\Darkish\CategoryBundle\Entity\RecordMainTree $mainrecords)
+    {
+        $this->mainrecords->removeElement($mainrecords);
+    }
+
+    /**
+     * Get mainrecords
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainrecords()
+    {
+        return $this->mainrecords;
     }
 }

@@ -276,9 +276,9 @@ class MainTree
     /**
      * @var string
      *
-     * @ORM\Column(name="SubUnitHeightScale", type="string", length=255, nullable=true)
+     * @ORM\Column(name="GroupFilter", type="boolean", length=255, nullable=true)
      */
-    private $subUnitHeightScale;
+    private $groupFilter;
 
     /**
      * @var boolean
@@ -1068,28 +1068,7 @@ class MainTree
         return $this->subBackground;
     }
 
-    /**
-     * Set subUnitHeightScale
-     *
-     * @param string $subUnitHeightScale
-     * @return MainTree
-     */
-    public function setSubUnitHeightScale($subUnitHeightScale)
-    {
-        $this->subUnitHeightScale = $subUnitHeightScale;
-
-        return $this;
-    }
-
-    /**
-     * Get subUnitHeightScale
-     *
-     * @return string 
-     */
-    public function getSubUnitHeightScale()
-    {
-        return $this->subUnitHeightScale;
-    }
+    
 
     /**
      * Set hiddenTree
@@ -1202,5 +1181,29 @@ class MainTree
     public function getMainrecords()
     {
         return $this->mainrecords;
+    }
+
+    /**
+     * Set groupFilter
+     *
+     * @param boolean $groupFilter
+     *
+     * @return MainTree
+     */
+    public function setGroupFilter($groupFilter)
+    {
+        $this->groupFilter = $groupFilter;
+
+        return $this;
+    }
+
+    /**
+     * Get groupFilter
+     *
+     * @return boolean
+     */
+    public function getGroupFilter()
+    {
+        return $this->groupFilter;
     }
 }
