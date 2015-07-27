@@ -1,0 +1,32 @@
+.record {
+	&.mode-full {
+		
+	}
+	&.mode-list {
+		img {
+			float: right;
+			margin-left: 10px;
+		}
+		clear: both;
+		display: inline-block;
+		width: 100%;
+		margin-bottom: 5px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $orange;
+	}
+
+	&.mode-grid {
+		max-width: 320px;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid $orange;
+
+		img {
+			clear: both;
+			display: block;
+		}
+		h4 {
+			margin: 10px 0 0 0;
+		}
+	}
+}

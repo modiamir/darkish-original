@@ -1,0 +1,17 @@
+ul.recordtree-list {
+	display: inline-block;
+	width: 100%;
+	li {
+		float: right;
+		width: 50%;
+	}
+}
+
+div.record-list {
+	display: inline-block;
+	width: 100%;
+	.record-item {
+		float: right;
+		width: 50%;
+	}
+}
