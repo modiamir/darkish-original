@@ -161,7 +161,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="OwnerPhone", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $ownerPhone;
 
@@ -185,7 +185,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ManagerPhone", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $managerPhone;
 
@@ -312,7 +312,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberOne;
 
@@ -320,7 +320,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberTwo;
 
@@ -328,7 +328,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberThree", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberThree;
 
@@ -336,7 +336,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberFour", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberFour;
 
@@ -344,7 +344,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="FaxNumberOne", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $faxNumberOne;
 
@@ -352,7 +352,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="FaxNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $faxNumberTwo;
 
@@ -360,7 +360,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MobileNumberOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mobileNumberOne;
 
@@ -368,7 +368,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MobileNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mobileNumberTwo;
 
