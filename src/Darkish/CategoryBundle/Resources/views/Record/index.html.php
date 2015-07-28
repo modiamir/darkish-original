@@ -299,16 +299,18 @@
 
                                 </div>
                                 <select multiple id="tree-list-input" ng-model="secondTreeSelected" ng-disabled="!RecordService.isEditing()"
-                                        ng-options="(tree.tree.parent_tree_title + '-->' +tree.tree.title + '(' + tree.sort + ')' ) for tree in RecordService.currentRecord.treeList.all()">
+                                        ng-options="(tree.tree.parent_tree_title + '-->' +tree.tree.title + '(' + tree.sort + ')' + ':' + ((tree.group_filter.filter_name)?tree.group_filter.filter_name:((tree.tree.group_filter.filter_name)?tree.tree.group_filter.filter_name:'بدون فیلتر') ) ) for tree in RecordService.currentRecord.treeList.all()">
                                         <!-- <option ng-repeat="center in ValuesService.centers" value="{{center}}" > {{center.name}} </option> -->
 
 
 
                                 </select>
+                                
                                 <div class="tree-ranks">
                                     <select class="ranklist-combo" ng-repeat="tree in RecordService.currentRecord.treeList.array" ng-model="tree.sort" ng-disabled="!RecordService.isEditing()">
                                         <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" ng-selected="treeRank.id == tree.sort" > {{treeRank.name}}</option>
                                     </select>
+
                                 </div>
                                 <script type="text/ng-template" id="treeModal.html">
                                     <div class="modal-header">
@@ -318,6 +320,7 @@
                                         <treecontrol class="tree-classic"
                                                     tree-model="tree()"
                                                     options="tOptions"
+                                                    on-selection="selectTree(node)"
                                                     selected-node="TreeService.currentSecondTreeNode">
                                            {{node.title}}
                                         </treecontrol>
@@ -327,7 +330,13 @@
                                         <select class="tree-modal-tree-rank pull-left" ng-model="list_rank">
                                             <option ng-repeat="treeRank in ValuesService.treeRanks" value="{{treeRank.id}}" > {{treeRank.name}} </option>
                                         </select>
-                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5" class="btn btn-info pull-left" data-ng-click="message = RecordService.addToTreeList(TreeService.currentSecondTreeNode, list_rank)">اضافه</button>
+                                        <select 
+                                            class="tree-modal-tree-group-filter pull-left" 
+                                            ng-options="groupFilter as groupFilter.filter_name for groupFilter in groupFilters"
+                                            ng-model="group_filter"></select>
+                                            
+                                        
+                                        <button ng-disabled="RecordService.currentRecord.treeList.length >= 5 || !group_filter" class="btn btn-info pull-left" data-ng-click="message = RecordService.addToTreeList(TreeService.currentSecondTreeNode, list_rank, group_filter)">اضافه</button>
                                     </div>
                                 </script>
                                 

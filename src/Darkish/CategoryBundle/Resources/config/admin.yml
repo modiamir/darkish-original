@@ -139,4 +139,13 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [DarkishCategoryBundle]]
-
+    sonata.admin.group_filter:
+        class: Darkish\CategoryBundle\Admin\GroupFilterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Group Filter" }
+        arguments:
+            - ~
+            - Darkish\CategoryBundle\Entity\GroupFilter
+            - ~
+        calls:
+            - [ setTranslationDomain, [DarkishCategoryBundle]]

@@ -598,7 +598,8 @@ class RecordController extends Controller
             $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree');
             $treeJson = array();
             foreach($data['maintrees'] as $tree) {
-                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+                // die(print_r($data['maintrees'], true));
+                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'], 'group_filter' =>  ( isset($tree['group_filter']) )?$tree['group_filter']:0  ));
                 $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title']];
             }   
             $record->setTreeJson($treeJson);
@@ -636,6 +637,7 @@ class RecordController extends Controller
                 $tmp->setRecord($record);
                 $tmp->setTree($cur['tree']);
                 $tmp->setSort($cur['sort']);
+                $tmp->setGroupFilter($this->getDoctrine()->getRepository('DarkishCategoryBundle:GroupFilter')->find($cur['group_filter']));
                 $em->persist($tmp);
                 $neCollecIterator->next();
             }
@@ -2131,5 +2133,12 @@ class RecordController extends Controller
         }
         return $str;
 
+    }
+
+    public function getGroupFilterForTreeAction($treeIndex) 
+    {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:GroupFilter');
+        $groupFilters = $repo->findBy(['treeIndex' => $treeIndex]);
+        return new Response($this->get('jms_serializer')->serialize($groupFilters, 'json'));
     }
 }
