@@ -132,3 +132,8 @@ record_total_search_record:
 record_get_entities: 
     path:     /ajax/get_entity_list/{type}/{field}/{value}
     defaults: { _controller: "DarkishCategoryBundle:Record:getEntityList", _format: json}
+
+
+record_get_group_filter: 
+    path:     /ajax/get_group_filter/{treeIndex}
+    defaults: { _controller: "DarkishCategoryBundle:Record:getGroupFilterForTree", _format: json}

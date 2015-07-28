@@ -45,18 +45,25 @@ class RecordMainTree
     private $record;
     
     /**
-     * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="maintrecords")
+     * @ORM\ManyToOne(targetEntity="MainTree",  inversedBy="mainrecords")
      * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
-     * @Groups({"record.list", "record.details"})
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
      **/
     private $tree;
     
     /**
      *
      * @var integer
-     * @ORM\Column(name="sort", type="string", nullable=true) 
+     * @ORM\Column(name="sort", type="integer", nullable=true) 
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
      */
     private $sort;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GroupFilter")
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
+     */
+    private $groupFilter;
 
     /**
      * Set record
@@ -102,5 +109,28 @@ class RecordMainTree
     public function getTree()
     {
         return $this->tree;
+    }
+
+    /**
+     * Set sort
+     *
+     * @param string $sort
+     * @return RecordMainTree
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * Get sort
+     *
+     * @return string 
+     */
+    public function getSort()
+    {
+        return $this->sort;
     }
 }

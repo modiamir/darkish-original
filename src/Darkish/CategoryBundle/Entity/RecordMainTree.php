@@ -60,6 +60,12 @@ class RecordMainTree
     private $sort;
 
     /**
+     * @ORM\ManyToOne(targetEntity="GroupFilter")
+     * @Groups({"maintree.list", "maintree.details", "record.list", "record.details", "api.list"})
+     */
+    private $groupFilter;
+
+    /**
      * Set record
      *
      * @param \Darkish\CategoryBundle\Entity\Record $record
@@ -126,5 +132,29 @@ class RecordMainTree
     public function getSort()
     {
         return $this->sort;
+    }
+
+    /**
+     * Set groupFilter
+     *
+     * @param \Darkish\CategoryBundle\Entity\GroupFilter $groupFilter
+     *
+     * @return RecordMainTree
+     */
+    public function setGroupFilter(\Darkish\CategoryBundle\Entity\GroupFilter $groupFilter = null)
+    {
+        $this->groupFilter = $groupFilter;
+
+        return $this;
+    }
+
+    /**
+     * Get groupFilter
+     *
+     * @return \Darkish\CategoryBundle\Entity\GroupFilter
+     */
+    public function getGroupFilter()
+    {
+        return $this->groupFilter;
     }
 }

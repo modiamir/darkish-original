@@ -1867,16 +1867,18 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-        self.addToTreeList = function(obj, sort)  {
+        self.addToTreeList = function(obj, sort, group_filter)  {
             angular.forEach(self.currentRecord.treeList.array, function(value, key){
                 if(obj.id == value.tree.id) {
                     self.currentRecord.treeList.remove(value);
                 }
             });
             obj.sort = sort;
+            obj.group_filter = group_filter;
             var tree = {};
             tree.tree = obj;
             tree.sort = (sort)?sort:60;
+            tree.group_filter = (group_filter)?group_filter.id:0;
             self.currentRecord.treeList.update(tree);
             self.currentRecord.maintrees = self.currentRecord.treeList.all() ;
             return obj.title+" به رکورد اضافه شد.";
@@ -2011,7 +2013,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         });
     }).
 
-    controller('treeModalCtrl', ['$scope', 'RecordService','TreeService', 'ValuesService', '$modalInstance', function ($scope, RecordService, TreeService, ValuesService, $modalInstance) {
+    controller('treeModalCtrl', ['$scope', 'RecordService','TreeService', 'ValuesService', '$modalInstance', '$http', function ($scope, RecordService, TreeService, ValuesService, $modalInstance, $http) {
         $scope.RecordService = RecordService;
         $scope.TreeService = TreeService;
         $scope.ValuesService = ValuesService;
@@ -2025,6 +2027,33 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
         $scope.tOptions = angular.copy($scope.TreeService.treeOptions());
         $scope.tOptions.dirSelectable = false;
+
+        $scope.groupFilters = []
+
+        $scope.selectTree = function(node) {
+            $http.get('ajax/get_group_filter/'+node.tree_index).then(
+                function(response){
+                    if(response.data.length) {
+                        $scope.group_filter = null;
+                        $scope.groupFilters = response.data;
+                    } else {
+                        $scope.group_filter = {id: 0, filter_name: 'بدون فیلتر'};
+                        $scope.groupFilters = [$scope.group_filter];
+                    }
+                    console.log($scope.groupFilters);
+                },
+                function(responseErr) {
+                    $scope.group_filter = {id: 0, filter_name: 'بدون فیلتر'};
+                    $scope.groupFilters = [$scope.group_filter];
+
+                }
+            )
+            
+        }
+
+        $scope.showCurrentFulter = function() {
+            console.log($scope.group_filter);
+        }
 
         $scope.close = function () {
             $modalInstance.close();
