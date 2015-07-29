@@ -44,6 +44,7 @@ class RecordController extends Controller
     		
     	}
 
+
     	
     	$breadcrumbs = $this->get("white_october_breadcrumbs");
 	    // Simple example
@@ -56,6 +57,7 @@ class RecordController extends Controller
 
 
     	$newsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getRecordsForCat($tree);
+
 
     	$paginator  = $this->get('knp_paginator');
     	$pagination = $paginator->paginate(
