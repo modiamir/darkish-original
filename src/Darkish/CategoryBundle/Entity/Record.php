@@ -2108,7 +2108,7 @@ class Record
         return $this->getFormattedCount($this->likeCount);
     }
 
-    private function getFormattedCount($count) {
+    public function getFormattedCount($count) {
         if(!$count) {
             return "0";
         } elseif($count <1000) {
