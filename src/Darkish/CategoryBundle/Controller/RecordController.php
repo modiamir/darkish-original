@@ -637,7 +637,7 @@ class RecordController extends Controller
                 $tmp->setRecord($record);
                 $tmp->setTree($cur['tree']);
                 $tmp->setSort($cur['sort']);
-                $tmp->setGroupFilter($this->getDoctrine()->getRepository('DarkishCategoryBundle:GroupFilter')->find($cur['group_filter']));
+                $tmp->setGroupFilter($this->getDoctrine()->getRepository('DarkishCategoryBundle:GroupFilter')->findOneBy(['id' => $cur['group_filter']]));
                 $em->persist($tmp);
                 $neCollecIterator->next();
             }
