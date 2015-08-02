@@ -1,10 +1,23 @@
 <div class="record mode-full">
-	
-	
-	
+
 
 	<div class="record-body">
 		{{record.body | raw}}
+	</div>
+
+	<hr/>
+	<div class="panel panel-primary">
+		  <div class="panel-heading">
+				<h3 class="panel-title">نظرات</h3>
+		  </div>
+		  <div class="panel-body">
+
+			  {{ sonata_block_render({
+				  'type': 'darkish_website.block.comment'
+			  }) }}
+
+
+		  </div>
 	</div>
 
 </div>
