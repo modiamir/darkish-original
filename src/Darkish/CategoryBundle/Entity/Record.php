@@ -153,7 +153,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="Owner", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $owner;
 
@@ -169,7 +169,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="OwnerMail", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $ownerMail;
 
@@ -177,7 +177,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="Manager", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $manager;
 
@@ -193,7 +193,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ManagerMail", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $managerMail;
 
@@ -201,7 +201,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LegalName", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $legalName;
 
@@ -270,7 +270,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageValidityDate", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageValidityDate;
 
@@ -376,7 +376,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $email;
 
@@ -384,7 +384,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $website;
     
@@ -400,7 +400,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="PostalCode", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $postalCode;
 
@@ -408,7 +408,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $address;
 
@@ -500,7 +500,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MOpeningHoursFrom", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mOpeningHoursFrom;
 
@@ -508,7 +508,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MOpeningHoursTo", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mOpeningHoursTo;
 
@@ -516,7 +516,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="AOpeningHoursFrom", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $aOpeningHoursFrom;
 
@@ -524,7 +524,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="AOpeningHoursTo", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $aOpeningHoursTo;
 
@@ -703,7 +703,7 @@ class Record
      *
      * @var string
      * @ORM\Column(name="InfoOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoOne;
     
@@ -711,7 +711,7 @@ class Record
      *
      * @var string
      * @ORM\Column(name="InfoTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoTwo;
     
