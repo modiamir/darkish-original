@@ -19,6 +19,7 @@ class ApiStoreController extends Controller
      * @Get("/get_store_info/{record}", name="_api_store")
      * @Template()
      * @View(serializerGroups={"api.store", "file.details"})
+     * @ApiDoc()
      */
     public function getStoreInfoAction(Record $record)
     {
