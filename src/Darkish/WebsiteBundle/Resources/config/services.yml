@@ -21,4 +21,13 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - {name: "sonata.block"}
+    darkish_website.block.comment:
+            class: Darkish\WebsiteBundle\Block\CommentsBlock
+            arguments:
+                - "darkish_website.block.comment"
+                - "@templating"
+                - "@service_container"
+            tags:
+                - {name: "sonata.block", scope: "request" }
+
 

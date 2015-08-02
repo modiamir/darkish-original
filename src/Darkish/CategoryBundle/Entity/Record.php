@@ -775,6 +775,7 @@ class Record
 
     /**
      * @ORM\Column(name="MarketDescription", type="text", nullable=true)
+     * @Groups({"api.store"})
      */
     private $marketDescription;
 
@@ -782,11 +783,13 @@ class Record
     /**
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="recordForMarketBanner")
      * @ORM\JoinColumn(name="MarketBanner", referencedColumnName="id")
+     * @Groups({"api.store"})
      */
     private $marketBanner;
 
     /**
      * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record", cascade={"remove"})
+     * @Groups({"api.store"})
      */
     private $marketGroups;
 

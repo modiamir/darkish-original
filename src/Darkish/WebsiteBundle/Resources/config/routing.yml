@@ -1,21 +1,20 @@
 darkish_website:
-    resource: "Darkish\WebsiteBundle\Controller\DefaultController"
+    resource: "@DarkishWebsiteBundle/Controller/"
     type:     annotation
-    prefix:   /
-darkish_website_record_request:
-    resource: "Darkish\WebsiteBundle\Controller\RecordRequestController"
-    type:     annotation
-    prefix:   /
-darkish_website_customer_remember_password:
-    resource: "Darkish\WebsiteBundle\Controller\CustomerPasswordRequestController"
-    type:     annotation
-    prefix:   /password/customer
-darkish_website_news:
-    resource: "Darkish\WebsiteBundle\Controller\MewsController"
-    type:     annotation
-    prefix:   /
-
-darkish_website_record:
-    resource: "Darkish\WebsiteBundle\Controller\RecordController"
-    type:     annotation
-    prefix:   /
+#darkish_website_record_request:
+#    resource: "Darkish\WebsiteBundle\Controller\RecordRequestController"
+#    type:     annotation
+#    prefix:   /
+#darkish_website_customer_remember_password:
+#    resource: "Darkish\WebsiteBundle\Controller\CustomerPasswordRequestController"
+#    type:     annotation
+#    prefix:   /
+#darkish_website_news:
+#    resource: "Darkish\WebsiteBundle\Controller\MewsController"
+#    type:     annotation
+#    prefix:   /
+#
+#darkish_website_record:
+#    resource: "Darkish\WebsiteBundle\Controller\RecordController"
+#    type:     annotation
+#    prefix:   /

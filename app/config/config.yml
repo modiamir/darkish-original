@@ -358,6 +358,7 @@ sonata_block:
 
         sonata.block.service.text:
         darkish_website.block.rss: ~
+        darkish_website.block.comment: ~
 
 
 

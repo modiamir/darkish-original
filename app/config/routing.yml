@@ -47,6 +47,11 @@ darkish_api_cno:
     type:     rest
     prefix:   api/rest/cno
 
+darkish_api_store:
+    resource: "Darkish\UserBundle\Controller\ApiStoreController"
+    type:     rest
+    prefix:   api/rest/store
+
 darkish_user:
     resource: "Darkish\UserBundle\Controller\OperatorController"
     type:     annotation

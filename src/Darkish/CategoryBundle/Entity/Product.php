@@ -28,69 +28,69 @@ class Product
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="code", type="string")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      * @Type("integer")
      */
     private $code;
 
     /**
      * @ORM\Column(name="title", type="string")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity="StoreGroup")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $group;
 
     /**
      * @ORM\Column(name="sort", type="integer", options={"default" = 0})
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      * @Type("integer")
      */
     private $sort = 0;
 
     /**
      * @ORM\Column(name="special_text", type="string", nullable= true)
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $specialText;
 
     /**
      * @ORM\Column(name="description", type="text", nullable= true)
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $description;
 
     /**
      * @ORM\Column(name="price", type="bigint")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $price;
 
     /**
      * @ORM\Column(name="discounted_price", type="bigint", nullable= true)
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $discountedPrice;
 
     /**
      * @ORM\Column(name="availability", type="smallint")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $availability;
 
     /**
      * @ORM\Column(name="special_tag", type="smallint")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $specialTag;    
 
@@ -101,19 +101,19 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $customer;
 
     /**
      * @ORM\Column(name="status", type="boolean")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $status;
 
     /**
      * @ORM\Column(name="created", type="datetime")
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      */
     private $created;
 
@@ -123,7 +123,7 @@ class Product
      *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
      *      )
-     * @Groups({"product.list", "product.details"})
+     * @Groups({"product.list", "product.details", "api.list"})
      **/
     private $photos;
 
