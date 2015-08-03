@@ -511,7 +511,7 @@ class RecordController extends Controller
             //$record->setSafarsazTypeIndex($data['safarsaz_type_index']);
         }
         if(isset($data['dbase_type_index'])) {
-            //$record->setDbaseTypeIndex($data['dbase_type_index']);
+            $record->setDbaseTypeIndex($this->getDoctrine()->getRepository('DarkishCategoryBundle:DbaseType')->find($data['dbase_type_index']['id']));
         }
         if(isset($data['icon'])) {
             $iconRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
