@@ -805,6 +805,16 @@ class Record
     private $marketOnlineOrder;
 
     /**
+     * @ORM\Column(name="MarketLastUpdate", type="datetime", nullable=true)
+     */
+    private $marketLastUpdate;
+
+    /**
+     * @ORM\Column(name="MarketLastCacheCreate", type="datetime", nullable=true)
+     */
+    private $marketLastCacheCreate;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="TicketSeller", type="boolean", nullable=true)
@@ -828,7 +838,6 @@ class Record
      */
     private $ticketServer;
 
-
     /**
      * @var integer
      *
@@ -836,7 +845,6 @@ class Record
      * @Groups({"record.details"})
      */
     private $ticketServerTreeSort;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="TicketServerTree", inversedBy="records")
@@ -4304,5 +4312,53 @@ class Record
     public function getLatLongEncoded()
     {
         return $this->latLongEncoded;
+    }
+
+    /**
+     * Set marketLastUpdate
+     *
+     * @param \DateTime $marketLastUpdate
+     *
+     * @return Record
+     */
+    public function setMarketLastUpdate($marketLastUpdate)
+    {
+        $this->marketLastUpdate = $marketLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get marketLastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getMarketLastUpdate()
+    {
+        return $this->marketLastUpdate;
+    }
+
+    /**
+     * Set marketLastCacheCreate
+     *
+     * @param \DateTime $marketLastCacheCreate
+     *
+     * @return Record
+     */
+    public function setMarketLastCacheCreate($marketLastCacheCreate)
+    {
+        $this->marketLastCacheCreate = $marketLastCacheCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get marketLastCacheCreate
+     *
+     * @return \DateTime
+     */
+    public function getMarketLastCacheCreate()
+    {
+        return $this->marketLastCacheCreate;
     }
 }

@@ -41,6 +41,11 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    my_store.subscriber:
+        class: Darkish\CategoryBundle\EventListener\StoreSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
     my_cnor.subscriber:
         class: Darkish\CategoryBundle\EventListener\CnorSubscriber
         arguments: ["@service_container", "@request_stack"]
