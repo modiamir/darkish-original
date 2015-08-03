@@ -193,7 +193,7 @@ class DatabaseController extends Controller
                     $rCollec = new ArrayCollection();
                     $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
                     foreach($photos as $image) {
-                        $newImages->add($rep->find($image));
+                        $newImages->add($rep->find($image['id']));
                     }
 
                     $newImagesIterator = $newImages->getIterator();
