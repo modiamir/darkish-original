@@ -153,7 +153,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="Owner", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $owner;
 
@@ -161,7 +161,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="OwnerPhone", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $ownerPhone;
 
@@ -169,7 +169,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="OwnerMail", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $ownerMail;
 
@@ -177,7 +177,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="Manager", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $manager;
 
@@ -185,7 +185,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ManagerPhone", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $managerPhone;
 
@@ -193,7 +193,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="ManagerMail", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $managerMail;
 
@@ -201,7 +201,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LegalName", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $legalName;
 
@@ -210,7 +210,7 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="Center", inversedBy="records")
      * @ORM\JoinColumn(name="CenterIndex", referencedColumnName="id")
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerIndex;
 
@@ -220,7 +220,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CenterFloor", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerFloor;
 
@@ -228,7 +228,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="CenterUnitNumber", type="smallint", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $centerUnitNumber;
 
@@ -245,7 +245,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="MessageEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageEnable;
 
@@ -253,7 +253,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageText", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageText;
 
@@ -270,7 +270,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MessageValidityDate", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $messageValidityDate;
 
@@ -278,7 +278,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="safarsaz", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      *
      */
     private $safarsaz;
@@ -312,7 +312,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberOne;
 
@@ -320,7 +320,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberTwo;
 
@@ -328,7 +328,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberThree", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberThree;
 
@@ -336,7 +336,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberFour", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $telNumberFour;
 
@@ -344,7 +344,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="FaxNumberOne", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $faxNumberOne;
 
@@ -352,7 +352,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="FaxNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $faxNumberTwo;
 
@@ -360,7 +360,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MobileNumberOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mobileNumberOne;
 
@@ -368,7 +368,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MobileNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mobileNumberTwo;
 
@@ -376,7 +376,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $email;
 
@@ -384,7 +384,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $website;
     
@@ -392,7 +392,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SmsNumber", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $smsNumber;
     
@@ -400,7 +400,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="PostalCode", type="string",  nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $postalCode;
 
@@ -408,7 +408,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $address;
 
@@ -416,7 +416,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Longitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $longitude;
 
@@ -424,7 +424,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Latitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $latitude;
 
@@ -500,7 +500,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MOpeningHoursFrom", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mOpeningHoursFrom;
 
@@ -508,7 +508,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="MOpeningHoursTo", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $mOpeningHoursTo;
 
@@ -516,7 +516,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="AOpeningHoursFrom", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $aOpeningHoursFrom;
 
@@ -524,7 +524,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="AOpeningHoursTo", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $aOpeningHoursTo;
 
@@ -532,7 +532,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="WorkingDays", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $workingDays;
 
@@ -556,7 +556,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $lastUpdate;
     
@@ -564,7 +564,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $htmlLastUpdate;
 
@@ -572,7 +572,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="FavoriteEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $favoriteEnable;
 
@@ -580,7 +580,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="LikeEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $likeEnable;
 
@@ -604,7 +604,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="SendSmsEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $sendSmsEnable;
 
@@ -612,7 +612,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="InfoKeyEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoKeyEnable;
 
@@ -620,7 +620,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="CommentEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $commentEnable;
 
@@ -628,7 +628,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlyHtml", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $onlyHtml;
 
@@ -636,7 +636,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="OnlineEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $onlineEnable;
     
@@ -665,7 +665,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="DbaseEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $dbaseEnable;
 
@@ -703,7 +703,7 @@ class Record
      *
      * @var string
      * @ORM\Column(name="InfoOne", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoOne;
     
@@ -711,7 +711,7 @@ class Record
      *
      * @var string
      * @ORM\Column(name="InfoTwo", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $infoTwo;
     
@@ -775,6 +775,7 @@ class Record
 
     /**
      * @ORM\Column(name="MarketDescription", type="text", nullable=true)
+     * @Groups({"api.store"})
      */
     private $marketDescription;
 
@@ -782,11 +783,13 @@ class Record
     /**
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="recordForMarketBanner")
      * @ORM\JoinColumn(name="MarketBanner", referencedColumnName="id")
+     * @Groups({"api.store"})
      */
     private $marketBanner;
 
     /**
-     * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record")
+     * @ORM\OneToMany(targetEntity="StoreGroup", mappedBy="record", cascade={"remove"})
+     * @Groups({"api.store"})
      */
     private $marketGroups;
 
@@ -797,9 +800,19 @@ class Record
     private $marketTemplate;
 
     /**
-     * @ORM\Column(name="MarketOnlineOrder", type="smallint", nullable=true, options={"default":0})
+     * @ORM\Column(name="MarketOnlineOrder", type="boolean", nullable=true, options={"default":false})
      */
     private $marketOnlineOrder;
+
+    /**
+     * @ORM\Column(name="MarketLastUpdate", type="datetime", nullable=true)
+     */
+    private $marketLastUpdate;
+
+    /**
+     * @ORM\Column(name="MarketLastCacheCreate", type="datetime", nullable=true)
+     */
+    private $marketLastCacheCreate;
 
     /**
      * @var boolean
@@ -825,7 +838,6 @@ class Record
      */
     private $ticketServer;
 
-
     /**
      * @var integer
      *
@@ -833,7 +845,6 @@ class Record
      * @Groups({"record.details"})
      */
     private $ticketServerTreeSort;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="TicketServerTree", inversedBy="records")
@@ -870,7 +881,7 @@ class Record
      * @var integer
      *
      * @ORM\Column(name="FavoriteCount", type="integer", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      */
     private $favoriteCount = 0;
 
@@ -961,7 +972,7 @@ class Record
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $videos;
 
@@ -981,7 +992,7 @@ class Record
      *      joinColumns={@ORM\JoinColumn(name="record_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list"})
      **/
     private $audios;
 
@@ -1023,7 +1034,7 @@ class Record
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"detach"})
+     * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
      * @Groups({"record.details"})
      */
     private $customers;
@@ -2108,7 +2119,7 @@ class Record
         return $this->getFormattedCount($this->likeCount);
     }
 
-    private function getFormattedCount($count) {
+    public function getFormattedCount($count) {
         if(!$count) {
             return "0";
         } elseif($count <1000) {
@@ -3085,7 +3096,13 @@ class Record
      */
     public function getIcon()
     {
-        return $this->icon;
+        if($this->icon) {
+            return $this->icon;
+        } elseif($this->images->count()) {
+            return $this->images->first();
+        } else {
+            return $this->icon;
+        }
     }
 
     /**
@@ -4271,5 +4288,53 @@ class Record
     public function getManagerMail()
     {
         return $this->managerMail;
+    }
+
+    /**
+     * Set latLongEncoded
+     *
+     * @param string $latLongEncoded
+     *
+     * @return Record
+     */
+    public function setLatLongEncoded($latLongEncoded)
+    {
+        $this->latLongEncoded = $latLongEncoded;
+
+        return $this;
+    }
+
+    /**
+     * Get latLongEncoded
+     *
+     * @return string
+     */
+    public function getLatLongEncoded()
+    {
+        return $this->latLongEncoded;
+    }
+
+    /**
+     * Set marketLastUpdate
+     *
+     * @param \DateTime $marketLastUpdate
+     *
+     * @return Record
+     */
+    public function setMarketLastUpdate($marketLastUpdate)
+    {
+        $this->marketLastUpdate = $marketLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get marketLastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getMarketLastUpdate()
+    {
+        return $this->marketLastUpdate;
     }
 }

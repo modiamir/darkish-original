@@ -2,6 +2,7 @@
 
 namespace Darkish\UserBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\Cache\StoreCache;
 use Darkish\CategoryBundle\Entity\Record;
 use Darkish\CategoryBundle\Entity\StoreGroup;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -16,16 +17,44 @@ class ApiStoreController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Get("/get_store_info/{record}", name="_api_store")
-     * @Template()
-     * @View(serializerGroups={"api.store", "file.details"})
+     * @Route("/get_store_info/{record}/{lastUpdate}", name="_api_store")
      * @ApiDoc()
+     * @View
      */
-    public function getStoreInfoAction(Record $record)
+    public function getStoreInfoAction(Record $record, $lastUpdate)
     {
+        $em = $this->getDoctrine()->getManager();
+        $storeCache = $this->getDoctrine()
+                      ->getRepository('DarkishCategoryBundle:Cache\StoreCache')
+                      ->findOneBy(['recordId' => $record->getId()]);
+        if(!$storeCache ) {
+            $storeCache = new StoreCache();
+            $storeCache->setJson($this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->generateStoreCache($record, $this->get('jms_serializer')));
+            $storeCache->setRecordId($record);
+            if($record->getMarketLastUpdate()) {
+                $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
+            } else {
+                $now = new \DateTime();
+                $record->setMarketLastCacheCreate($now);
+                $record->setMarketLastUpdate($now);
 
-        return $record;
+            }
+            $em->persist($storeCache);
+            $em->persist($record);
+            $em->flush();
+
+        } elseif($record->getMarketLastUpdate() > $record->getMarketLastCacheCreate()) {
+            $storeCache->setJson($this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->generateStoreCache($record, $this->get('jms_serializer')));
+            $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
+        }
+
+
+
+        return $storeCache->getJson();
+
     }
+
+
 
 
     /**
@@ -40,7 +69,6 @@ class ApiStoreController extends Controller
                          ->findBy(['record' => $record->getId()]);
 
         return $products;
-
 
     }
 
