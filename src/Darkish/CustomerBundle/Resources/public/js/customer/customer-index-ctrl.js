@@ -1,4 +1,4 @@
-var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload', 
+var customerApp = angular.module('CustomerApp', ['ui.router', 'oitozero.ngSweetAlert', 'angularFileUpload',
 								'ngPasswordStrength', 'validation.match', 'angularMoment', 'ui.utils', 'duScroll', 'decipher.tags',
                 'ui.bootstrap', 'monospaced.elastic', 'ngSanitize', 'validation', 'validation.rule'
                 , 'angAccordion', 'ui.sortable', 'angular-loading-bar', 'ngDialog', 'ngCkeditor', 'validation.match']);
@@ -554,6 +554,7 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
     function(response){
 		  $scope.user = response.data;
       $scope.access = $scope.getAccess();
+      console.log($scope.user.record);
       $scope.state = $state;
       $scope.window = $window;
       $scope.isXSmall = function() {
