@@ -17,11 +17,11 @@ class ApiStoreController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/get_store_info/{record}/{lastUpdate}", name="_api_store")
+     * @Route("/get_store_info/{record}", name="_api_store")
      * @ApiDoc()
      * @View
      */
-    public function getStoreInfoAction(Record $record, $lastUpdate)
+    public function getStoreInfoAction(Record $record)
     {
         $em = $this->getDoctrine()->getManager();
         $storeCache = $this->getDoctrine()
