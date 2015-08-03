@@ -57,32 +57,5 @@ class ApiStoreController extends Controller
 
 
 
-    /**
-     * @param Record $record
-     * @return array|\Darkish\CategoryBundle\Entity\Product[]
-     * @Get("/get_store_products/{record}", name="_api_store")
-     * @View(serializerGroups={"api.list", "file.details", "api.store"})
-     * @ApiDoc()
-     */
-    public function getStoreProductsAction(Record $record) {
-        $products = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Product')
-                         ->findBy(['record' => $record->getId()]);
 
-        return $products;
-
-    }
-
-    /**
-     * @param Record $record
-     * @return array|\Darkish\CategoryBundle\Entity\Product[]
-     * @Get("/get_store_products_per_group/{storeGroup}", name="_api_store")
-     * @View(serializerGroups={"api.list", "file.details", "api.store"})
-     * @ApiDoc()
-     */
-    public function getStoreProductsPerGroupAction(StoreGroup $storeGroup) {
-        $products = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Product')
-            ->findBy(['group' => $storeGroup->getId()]);
-
-        return $products;
-    }
 }
