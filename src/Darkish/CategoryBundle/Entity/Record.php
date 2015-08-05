@@ -806,6 +806,7 @@ class Record
 
     /**
      * @ORM\Column(name="MarketLastUpdate", type="datetime", nullable=true)
+     * @Groups({"record.details", "record.list", "api.list"})
      */
     private $marketLastUpdate;
 
