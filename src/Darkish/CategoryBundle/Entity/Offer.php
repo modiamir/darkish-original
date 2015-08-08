@@ -24,7 +24,7 @@ class Offer
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"offer.list", "offer.details", "api.list"})
+     * @Groups({"offer.list", "offer.details", "api.list", "api.body"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Offer
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"offer.list", "offer.details", "api.list"})
+     * @Groups({"offer.list", "offer.details", "api.list", "api.body"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"offer.list", "offer.details", "api.list"})
+     * @Groups({"offer.list", "offer.details", "api.list", "api.body"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -64,7 +64,7 @@ class Offer
      * @var datetime
      *
      * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $creationDate;
     
@@ -76,7 +76,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $lastUpdate;
     
@@ -85,7 +85,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $htmlLastUpdate;
 
@@ -93,7 +93,7 @@ class Offer
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $publishDate;
     
@@ -101,7 +101,7 @@ class Offer
      * @var datetime
      *
      * @ORM\Column(name="ExpireDate", type="datetime", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $expireDate;
     
@@ -110,7 +110,7 @@ class Offer
      * @var boolean
      * 
      * @ORM\Column(name="Continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"offer.details"}) 
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $continual;
     
@@ -120,7 +120,7 @@ class Offer
      * @var boolean
      * 
      * @ORM\Column(name="Immediate", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"offer.details"}) 
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $immediate;
     
@@ -129,7 +129,7 @@ class Offer
      * @var integer
      * 
      * @ORM\Column(name="ListRank", type="integer", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $listRank;
     
@@ -139,7 +139,7 @@ class Offer
      * @var boolean
      * 
      * @ORM\Column(name="IsCompetition", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"offer.details"}) 
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $isCompetition;
     
@@ -148,7 +148,7 @@ class Offer
      * @var integer
      * 
      * @ORM\Column(name="TrueAnswer", type="integer", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $trueAnswer;
     
@@ -157,7 +157,7 @@ class Offer
      * @var integer
      * 
      * @ORM\Column(name="Rate", type="integer", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $rate;
     
@@ -169,7 +169,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"offer.details", "api.body"})
+     * @Groups({"offer.details", "api.body", "api.list"})
      */
     private $body;
 
@@ -178,7 +178,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="SubmitterNumber", type="string", nullable=true)
-     * @Groups({"offer.details", "api.body"})
+     * @Groups({"offer.details", "api.body", "api.list"})
      */
     private $submitterNumber;
 
@@ -187,7 +187,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="SubmitterTitle", type="string", nullable=true)
-     * @Groups({"offer.details", "api.body"})
+     * @Groups({"offer.details", "api.body", "api.list"})
      */
     private $submitterTitle;
 
@@ -195,7 +195,7 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $audio;
 
@@ -203,14 +203,14 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $video;
 
     
     /**
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $visitCount;
 
@@ -220,7 +220,7 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Active", type="boolean", nullable=false, options={"default":0})
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $active;
 
@@ -228,7 +228,7 @@ class Offer
      * @var boolean
      *
      * @ORM\Column(name="Verify", type="boolean", nullable=false, options={"default": 0})
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $verify;
 
@@ -238,7 +238,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $address;
     
@@ -246,7 +246,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $telNumberOne;
 
@@ -254,7 +254,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $telNumberTwo;
 
@@ -262,7 +262,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $telNumberThree;
 
@@ -270,7 +270,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $telNumberFour;
 
@@ -278,7 +278,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="FaxNumberOne", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $faxNumberOne;
 
@@ -286,7 +286,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $faxNumberTwo;
 
@@ -294,7 +294,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $mobileNumberOne;
 
@@ -302,7 +302,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $mobileNumberTwo;
 
@@ -310,7 +310,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $email;
 
@@ -318,7 +318,7 @@ class Offer
      * @var string
      *
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      */
     private $website;
     
@@ -327,7 +327,7 @@ class Offer
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $trees
      *
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\OfferTree", inversedBy="offer")
      * @ORM\JoinTable(name="offer_offertrees",
@@ -339,7 +339,7 @@ class Offer
 
     /**
      * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer")
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      **/
     private $offertrees;
 
@@ -349,7 +349,7 @@ class Offer
      *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      **/
     private $images;
     
@@ -358,7 +358,7 @@ class Offer
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForOffer")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"offer.details"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      * 
      **/
     private $icon;
@@ -369,7 +369,7 @@ class Offer
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="bannerForOffer")
      * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id")
-     * @Groups({"offer.details", "api.list"})
+     * @Groups({"offer.details", "api.list", "api.body"})
      * 
      **/
     private $banner;

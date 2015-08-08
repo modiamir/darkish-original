@@ -24,7 +24,7 @@ class Classified
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"classified.list", "classified.details", "api.list"})
+     * @Groups({"classified.list", "classified.details", "api.list", "api.body"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class Classified
     /**
      * @var string
      * @ORM\Column(name="Title", type="string", length=255)
-     * @Groups({"classified.list", "classified.details", "api.list"})
+     * @Groups({"classified.list", "classified.details", "api.list", "api.body"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -48,7 +48,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="SubTitle", type="string", length=255, nullable=true)
-     * @Groups({"classified.list", "classified.details", "api.list"})
+     * @Groups({"classified.list", "classified.details", "api.list", "api.body"})
      * @Assert\Length(
      *      min = "2",
      *      max = "70",
@@ -64,7 +64,7 @@ class Classified
      * @var datetime
      *
      * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $creationDate;
     
@@ -76,7 +76,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $lastUpdate;
     
@@ -85,7 +85,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $htmlLastUpdate;
 
@@ -93,7 +93,7 @@ class Classified
      * @var datetime
      *
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $publishDate;
     
@@ -101,7 +101,7 @@ class Classified
      * @var datetime
      *
      * @ORM\Column(name="ExpireDate", type="datetime", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $expireDate;
     
@@ -110,7 +110,7 @@ class Classified
      * @var boolean
      * 
      * @ORM\Column(name="Continual", type="boolean", nullable=true, options={"default":0})
-     * @Groups({"classified.details"}) 
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $continual;
     
@@ -120,7 +120,7 @@ class Classified
      * @var integer
      * 
      * @ORM\Column(name="ListRank", type="integer", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $listRank;
     
@@ -130,7 +130,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Body", type="text", nullable=true)
-     * @Groups({"classified.details", "api.body"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $body;
 
@@ -138,7 +138,7 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $audio;
 
@@ -146,21 +146,21 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Video", type="boolean", nullable=true)
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $video;
 
     
     /**
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $visitCount;
 
 
     /**
      * @ORM\Column(name="price", type="bigint", nullable=true)
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $price;
     
@@ -169,7 +169,7 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Active", type="boolean", nullable=false, options={"default":0})
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $active;
 
@@ -177,7 +177,7 @@ class Classified
      * @var boolean
      *
      * @ORM\Column(name="Verify", type="boolean", nullable=false, options={"default": 0})
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $verify;
 
@@ -191,7 +191,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $address;
     
@@ -199,7 +199,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $telNumberOne;
 
@@ -207,7 +207,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $telNumberTwo;
 
@@ -215,7 +215,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $telNumberThree;
 
@@ -223,7 +223,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $telNumberFour;
 
@@ -231,7 +231,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="FaxNumberOne", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $faxNumberOne;
 
@@ -239,7 +239,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $faxNumberTwo;
 
@@ -247,7 +247,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $mobileNumberOne;
 
@@ -255,7 +255,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $mobileNumberTwo;
 
@@ -263,7 +263,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $email;
 
@@ -271,7 +271,7 @@ class Classified
      * @var string
      *
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      */
     private $website;
     
@@ -280,7 +280,7 @@ class Classified
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $trees
      *
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\ClassifiedTree", inversedBy="classified")
      * @ORM\JoinTable(name="classified_classifiedtrees",
@@ -292,7 +292,7 @@ class Classified
 
     /**
      * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified")
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      **/
     private $classifiedtrees;
 
@@ -302,7 +302,7 @@ class Classified
      *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
-     * @Groups({"classified.details"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      **/
     private $images;
     
@@ -311,7 +311,7 @@ class Classified
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForClassified")
      * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
-     * @Groups({"classified.details", "api.list"})
+     * @Groups({"classified.details", "api.list", "api.body"})
      * 
      **/
     private $icon;
