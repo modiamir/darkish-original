@@ -155,7 +155,7 @@ class Classified
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $visitCount;
+    private $visitCount = 0;
 
 
     /**
