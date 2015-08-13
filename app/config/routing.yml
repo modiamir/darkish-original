@@ -52,6 +52,11 @@ darkish_api_store:
     type:     rest
     prefix:   api/rest/store
 
+darkish_api_database:
+    resource: "Darkish\UserBundle\Controller\ApiDatabaseController"
+    type:     rest
+    prefix:   api/rest/database
+
 darkish_user:
     resource: "Darkish\UserBundle\Controller\OperatorController"
     type:     annotation
