@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Product
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\AutomobileRepository")
  * @UniqueEntity(
  *     fields={"code", "record"},
  *     errorPath="code",
@@ -28,7 +28,7 @@ class Automobile extends DBase
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $id;
 
@@ -40,109 +40,109 @@ class Automobile extends DBase
 
     /**
      * @var string
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      * @Type("integer")
      */
     protected $code;
 
     /**
      * @var string
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $title;
 
     /**
      * @var string
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $description;
 
     /**
      * @var boolean
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $status;
 
     /**
      * @var \DateTime
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $created;
 
     /**
      * @var \Darkish\CategoryBundle\Entity\Record
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $record;
 
     /**
      * @var \Darkish\CustomerBundle\Entity\Customer
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $customer;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $photos;
 
     /**
      * @var integer
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $price;
 
     /**
      * @var integer
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     protected $secondaryPrice;
 
 
     /**
      * @ORM\Column(name="automobile_created_year", type="smallint")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $createdYear;
 
     /**
      * @ORM\Column(name="automobile_usage", type="integer")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $usage;
 
     /**
      * @ORM\Column(name="automobile_tip", type="string")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $tip;
 
     /**
      * @ORM\ManyToOne(targetEntity="AutomobileColor")
      * @ORM\JoinColumn("automobile_automobileColor_id")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $automobileColor;
 
     /**
      * @ORM\ManyToOne(targetEntity="AutomobileBrand")
      * @ORM\JoinColumn("automobile_automobileBrand_id")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $automobileBrand;
 
     /**
      * @ORM\ManyToOne(targetEntity="AutomobileType")
      * @ORM\JoinColumn("automobile_automobileType_id")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      */
     private $automobileType;
 
 
     /**
      * @ORM\Column(name="automobile_features", type="json_array")
-     * @Groups({"database.list", "database.details"})
+     * @Groups({"database.list", "database.details", "api.details"})
      **/
     private $automobileFeatures;
 

@@ -9,11 +9,12 @@ use JMS\Serializer\Annotation\Groups;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darkish\CommentBundle\Entity\CommentRepository")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="owner_type", type="string")
- * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment"})
+ * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment",
+ *  "anonymous" = "AnonymousComment"})
  */
 abstract class Comment
 {

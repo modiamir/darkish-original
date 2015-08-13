@@ -1,0 +1,9 @@
+{{ form_start(comment_form) }}
+    {{ form_widget(comment_form) }}
+
+    <input type="hidden" value="{{ entity_type }}" name="entity_type" />
+    <input type="hidden" value="{{ entity_id }}" name="entity_id" />
+
+    <input type="submit" value="ارسال"
+           class="btn btn-default pull-right" />
+{{ form_end(comment_form) }}

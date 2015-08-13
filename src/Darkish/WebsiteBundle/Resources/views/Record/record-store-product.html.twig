@@ -1,0 +1,21 @@
+<div class="record-store-product">
+    {% if product.photos | length %}
+        {% set image_path = "uploads/" ~ product.photos.0.upload_dir ~ "/" ~ product.photos.0.path %}
+    {% else %}
+        {% set image_path = "bundles/darkishwebsite/images/default_image.png" %}
+    {% endif %}
+    <img class="product-image" src="{{ image_path | imagine_filter('product_thumb')}}" alt="">
+    <h4>
+        {{ product.title }}
+    </h4>
+    <h5 class="price {% if product.discounted_price is defined %}discounted{% endif %}">
+        {{ product.price }} تومان 
+    </h5>
+    {% if product.discounted_price is defined %}
+        <h5 class="discounted-price">
+            {{ product.discounted_price  }} تومان
+        </h5>
+    {% endif %}
+    
+
+</div>

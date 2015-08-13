@@ -20,7 +20,7 @@ class EstateType
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $id;
 
@@ -28,7 +28,7 @@ class EstateType
      * @var integer
      *
      * @ORM\Column(name="type", type="integer")
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $type;
 
@@ -36,7 +36,7 @@ class EstateType
      * @var string
      *
      * @ORM\Column(name="value", type="string", length=255)
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $value;
 
@@ -44,7 +44,7 @@ class EstateType
      * @var integer
      *
      * @ORM\Column(name="parentId", type="integer", nullable=true)
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $parentId;
 
@@ -52,7 +52,7 @@ class EstateType
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer")
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $sort;
 
@@ -60,7 +60,7 @@ class EstateType
      * @var boolean
      *
      * @ORM\Column(name="visible", type="boolean")
-     * @Groups({"estatetype.list", "estatetype.details"})
+     * @Groups({"api.details","estatetype.list", "estatetype.details"})
      */
     private $visible;
 

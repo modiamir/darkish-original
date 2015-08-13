@@ -5,6 +5,17 @@
 		{{record.body | raw}}
 	</div>
 
+
+	{{ sonata_block_render({'type': 'darkish_website.block.database'},{
+		'id': record.id
+	}) }}
+
+
+	{% if products | length %}
+		<hr/>
+		{{ include('DarkishWebsiteBundle:Record:record-products.html.twig', {'products': products}) }}
+	{% endif %}
+
 	<hr/>
 	<div class="panel panel-primary">
 		  <div class="panel-heading">
@@ -12,8 +23,10 @@
 		  </div>
 		  <div class="panel-body">
 
-			  {{ sonata_block_render({
-				  'type': 'darkish_website.block.comment'
+
+			  {{ sonata_block_render({'type': 'darkish_website.block.comment'},{
+				  'entity_type': 'record',
+				  'id': record.id
 			  }) }}
 
 

@@ -189,7 +189,13 @@ body {
 								    height: 95px;
 								    background-size: cover;
 								    background-position: center;
-								    background-image: url(../images/product-default.png);
+
+								  	&.automobile-image {
+									  background-image: url(../images/automobile-default.jpg);
+									}
+								  	&.estate-image {
+									  background-image: url(../images/estate-default.jpg);
+									}
 								    border-right: 1px solid #d2d2d2;
 								    img {
 								        

@@ -185,7 +185,9 @@ liip_imagine:
                     image: Resources/data/watermark.png
                     # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
                     position: topright
-
+        product_thumb:
+            filters:
+                thumbnail: {size: [194, 194], mode: outbound }
 
 dubture_f_fmpeg:
     ffmpeg_binary: ffmpeg
@@ -359,6 +361,7 @@ sonata_block:
         sonata.block.service.text:
         darkish_website.block.rss: ~
         darkish_website.block.comment: ~
+        darkish_website.block.database: ~
 
 
 

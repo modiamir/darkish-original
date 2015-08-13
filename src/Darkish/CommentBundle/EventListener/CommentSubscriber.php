@@ -3,6 +3,7 @@
 // src/Acme/SearchBundle/EventListener/SearchIndexerSubscriber.php
 namespace Darkish\CommentBundle\EventListener;
 
+use Darkish\CommentBundle\Entity\AnonymousComment;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -36,10 +37,14 @@ class CommentSubscriber implements EventSubscriber
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
             //set created time before saving to database
-            $user = $this->container->get('security.context')->getToken()->getUser();
+//            $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setCreatedAt(new \DateTime());
             $this->setUnseen($args);
             $this->setStates($args);
+
+        }
+        if($entity instanceof Thread) {
+            $entity->setIsCommentable(true);
         }
         
     }
@@ -55,7 +60,7 @@ class CommentSubscriber implements EventSubscriber
 
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Comment) {
-            $user = $this->container->get('security.context')->getToken()->getUser();
+//            $user = $this->container->get('security.context')->getToken()->getUser();
             $this->setUnseenReplies($args);
             $thread = $entity->getThread();
             
@@ -107,38 +112,38 @@ class CommentSubscriber implements EventSubscriber
     }
 
     private function setHasLiked(LifecycleEventArgs $args) {
-        $user = $this->container->get('security.context')->getToken()->getUser();
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        $userType = null;
-        if($user instanceof \Darkish\UserBundle\Entity\Client) {
-            $userType = 'client';
-        } elseif($user instanceof \Darkish\UserBundle\Entity\Operator) {
-            $userType = 'operator';
-        } elseif($user instanceof \Darkish\CustomerBundle\Entity\Customer) {
-            $userType = 'customer';
-        } else {
+        if($this->container->get('security.context')->getToken()) {
+            $user = $this->container->get('security.context')->getToken()->getUser();
+
             $userType = null;
-            $entity->setHasLiked(false);
-            return;
+            if ($user instanceof \Darkish\UserBundle\Entity\Client) {
+                $userType = 'client';
+            } elseif ($user instanceof \Darkish\UserBundle\Entity\Operator) {
+                $userType = 'operator';
+            } elseif ($user instanceof \Darkish\CustomerBundle\Entity\Customer) {
+                $userType = 'customer';
+            } else {
+                $userType = null;
+                $entity->setHasLiked(false);
+                return;
+            }
+
+
+            $repo = $entityManager->getRepository('DarkishCategoryBundle:CommentLike');
+            $qb = $repo->createQueryBuilder('cl');
+
+            $qb->where("cl.userType = :userType")->andWhere('cl.userId = :userId')->andWhere('cl.target = :cid');
+
+
+            $qb->setParameter('userType', $userType);
+            $qb->setParameter('userId', $user->getId());
+            $qb->setParameter('cid', $entity->getId());
+
+            $result = $qb->getQuery()->getResult();
+            $entity->setHasLiked(count($result) > 0);
         }
-
-
-
-
-        $repo = $entityManager->getRepository('DarkishCategoryBundle:CommentLike');
-        $qb = $repo->createQueryBuilder('cl');
-        
-        $qb->where("cl.userType = :userType")->andWhere('cl.userId = :userId')->andWhere('cl.target = :cid');
-        
-
-
-        $qb->setParameter('userType', $userType);
-        $qb->setParameter('userId', $user->getId());
-        $qb->setParameter('cid', $entity->getId());
-        
-        $result = $qb->getQuery()->getResult();
-        $entity->setHasLiked(count($result) > 0);
 
     }
 
@@ -158,40 +163,42 @@ class CommentSubscriber implements EventSubscriber
     private function setUnseen(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        
-        if( !($user instanceof \Darkish\UserBundle\Entity\Operator) ) {
-            $entity->setUnseenByOperators(true);
-        }
-        if( !($user instanceof \Darkish\CustomerBundle\Entity\Customer) ) {
-            $entity->setUnseenByCustomers(true);
+        if(!($entity instanceof AnonymousComment) ) {
+            $user = $this->container->get('security.context')->getToken()->getUser();
+
+            if (!($user instanceof \Darkish\UserBundle\Entity\Operator)) {
+                $entity->setUnseenByOperators(true);
+            }
+            if (!($user instanceof \Darkish\CustomerBundle\Entity\Customer)) {
+                $entity->setUnseenByCustomers(true);
+            }
         }
     }
 
     private function setUnseenReplies(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+        if(!($entity instanceof AnonymousComment) ) {
+            $user = $this->container->get('security.context')->getToken()->getUser();
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
-
-        $parent = $entity->getParent();
-        if($parent instanceof Comment) {
-            $parent->setReplyCount($parent->getReplyCount() + 1);
-            if( !($user instanceof \Darkish\UserBundle\Entity\Operator) ) {
-                $parent->setUnseenRepliesByOperators($parent->getUnseenRepliesByOperators() + 1);
+            $parent = $entity->getParent();
+            if ($parent instanceof Comment) {
+                $parent->setReplyCount($parent->getReplyCount() + 1);
+                if (!($user instanceof \Darkish\UserBundle\Entity\Operator)) {
+                    $parent->setUnseenRepliesByOperators($parent->getUnseenRepliesByOperators() + 1);
+                }
+                if (!($user instanceof \Darkish\CustomerBundle\Entity\Customer)) {
+                    $parent->setUnseenRepliesByCustomers($parent->getUnseenRepliesByCustomers() + 1);
+                }
+                $entityManager->persist($parent);
+                $entityManager->flush();
             }
-            if( !($user instanceof \Darkish\CustomerBundle\Entity\Customer) ) {
-                $parent->setUnseenRepliesByCustomers($parent->getUnseenRepliesByCustomers() + 1);
-            }
-            $entityManager->persist($parent);
-            $entityManager->flush();
         }
-
     }
 
 
     public function setStates(LifecycleEventArgs $args) {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+//        $user = $this->container->get('security.context')->getToken()->getUser();
         $entity = $args->getEntity();
         $owner = $entity->getOwner();
         $entityManager = $args->getEntityManager();

@@ -208,10 +208,17 @@ body .database-page .master .database-list ul li .middle-row .left-col .image-wr
   height: 95px;
   background-size: cover;
   background-position: center;
-  background-image: url(../images/product-default.png);
   border-right: 1px solid #d2d2d2;
 }
-/* line 199, ../sass/customer-database.scss */
+/* line 193, ../sass/customer-database.scss */
+body .database-page .master .database-list ul li .middle-row .left-col .image-wrapper.automobile-image {
+  background-image: url(../images/automobile-default.jpg);
+}
+/* line 196, ../sass/customer-database.scss */
+body .database-page .master .database-list ul li .middle-row .left-col .image-wrapper.estate-image {
+  background-image: url(../images/estate-default.jpg);
+}
+/* line 205, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons {
   position: absolute;
   top: 0;
@@ -219,7 +226,7 @@ body .database-page .master .database-list ul li .middle-row .left-col .edit-but
   right: 0;
   bottom: 0;
 }
-/* line 206, ../sass/customer-database.scss */
+/* line 212, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button {
   width: 50%;
   border: 0;
@@ -229,73 +236,73 @@ body .database-page .master .database-list ul li .middle-row .left-col .edit-but
   height: 100%;
   font-size: 30px;
 }
-/* line 216, ../sass/customer-database.scss */
+/* line 222, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.remove-button {
   float: left;
   background-color: rgba(231, 76, 60, 0.7);
 }
-/* line 219, ../sass/customer-database.scss */
+/* line 225, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.remove-button:hover {
   background-color: rgba(214, 44, 26, 0.7);
 }
-/* line 223, ../sass/customer-database.scss */
+/* line 229, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.disable-button {
   float: right;
   background-color: rgba(243, 156, 18, 0.7);
 }
-/* line 226, ../sass/customer-database.scss */
+/* line 232, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.disable-button:hover {
   background-color: rgba(200, 127, 10, 0.7);
 }
-/* line 230, ../sass/customer-database.scss */
+/* line 236, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.enable-button {
   float: right;
   background-color: rgba(52, 152, 219, 0.7);
 }
-/* line 233, ../sass/customer-database.scss */
+/* line 239, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .middle-row .left-col .edit-buttons button.enable-button:hover {
   background-color: rgba(33, 125, 187, 0.7);
 }
-/* line 241, ../sass/customer-database.scss */
+/* line 247, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .footer-row {
   background-color: #cecece;
   font-size: 13px;
   height: 30px;
   line-height: 30px;
 }
-/* line 246, ../sass/customer-database.scss */
+/* line 252, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .footer-row .col {
   padding: 0 5px;
 }
-/* line 249, ../sass/customer-database.scss */
+/* line 255, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .footer-row .left-col {
   text-align: center;
 }
-/* line 253, ../sass/customer-database.scss */
+/* line 259, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .bottom-row {
   background-color: #e6e6e6;
   border-top: 1px solid #d3d3d3;
   font-size: 13px;
   text-align: center;
 }
-/* line 258, ../sass/customer-database.scss */
+/* line 264, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .bottom-row .right-col {
   padding: 5px;
   color: #378375;
 }
-/* line 263, ../sass/customer-database.scss */
+/* line 269, ../sass/customer-database.scss */
 body .database-page .master .database-list ul li .bottom-row .left-col {
   border-right: 1px solid #d3d3d3;
   padding: 5px 0;
   text-align: center;
 }
-/* line 278, ../sass/customer-database.scss */
+/* line 284, ../sass/customer-database.scss */
 body .database-page .details .database-form .database-features ul li {
   float: right;
   margin-left: 40px;
 }
 
-/* line 291, ../sass/customer-database.scss */
+/* line 297, ../sass/customer-database.scss */
 span.required-field {
   color: red;
 }

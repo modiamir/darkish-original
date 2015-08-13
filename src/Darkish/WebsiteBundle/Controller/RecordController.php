@@ -88,14 +88,21 @@ class RecordController extends Controller
 	    // Simple example
 	    $breadcrumbs->addItem("خانه", $this->get("router")->generate("website_home"));
 		// Example without URL
-	    $breadcrumbs->addItem("خبر", $this->get("router")->generate("website_news"));
+	    $breadcrumbs->addItem("رکوردها", $this->get("router")->generate("website_record"));
 
 	    $breadcrumbs->addItem($record->getTitle());
 
 	    // Example with parameter injected into translation "user.profile"
 	    // $breadcrumbs->addItem($txt, $url, ["%user%" => $user->getName()]);
 
-    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record]);
+		$products = $this->getDoctrine()
+						  	->getRepository('DarkishCategoryBundle:Record')
+							->getStoreInfo($record, $this->get('jms_serializer'));
+
+
+
+
+    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record, 'products' => $products]);
     }
 
 

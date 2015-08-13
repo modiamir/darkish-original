@@ -227,6 +227,8 @@ class DatabaseController extends Controller
 
 
                 
+            } else {
+                $entity->getPhotos()->clear();
             }
             
             $em->persist($entity);
@@ -234,7 +236,7 @@ class DatabaseController extends Controller
             $em->flush();
 
 
-            
+
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('database.details', 'autobrand.list', 'autotype.list', 'autocolor.list', 'estatecontract.list', 'estatetype.list', 'file.details'))));
 
         }

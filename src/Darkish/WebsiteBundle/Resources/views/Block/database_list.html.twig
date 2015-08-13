@@ -1,0 +1,16 @@
+
+{{ form_start(search_form) }}
+    {{ form_widget(search_form) }}
+
+    <input type="submit" value="ارسال"
+       class="btn btn-default pull-right" />
+{{ form_end(search_form) }}
+
+
+{% for database in pagination %}
+    {% set objClass = database | obj_class %}
+    {% if objClass == 'Estate' %}
+        {{ include('DarkishWebsiteBundle:Record:record-database-estate.html.twig', {'estate': database}) }}
+    {% endif %}
+{% endfor %}
+{{ pagination.getTotalItemCount }}
