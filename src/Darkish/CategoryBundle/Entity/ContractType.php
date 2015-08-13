@@ -19,7 +19,7 @@ class ContractType
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class ContractType
      * @var integer
      *
      * @ORM\Column(name="type", type="integer")
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $type;
 
@@ -35,7 +35,7 @@ class ContractType
      * @var string
      *
      * @ORM\Column(name="value", type="string", length=255)
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $value;
 
@@ -43,7 +43,7 @@ class ContractType
      * @var integer
      *
      * @ORM\Column(name="parentId", type="integer")
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $parentId;
 
@@ -51,7 +51,7 @@ class ContractType
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer", nullable=true)
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $sort;
 
@@ -59,7 +59,7 @@ class ContractType
      * @var boolean
      *
      * @ORM\Column(name="visible", type="boolean")
-     * @Groups({"estatecontract.list", "estatecontract.details"})
+     * @Groups({"api.details","estatecontract.list", "estatecontract.details"})
      */
     private $visible;
 

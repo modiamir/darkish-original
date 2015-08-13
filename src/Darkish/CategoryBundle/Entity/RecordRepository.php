@@ -5,6 +5,7 @@ namespace Darkish\CategoryBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Darkish\CategoryBundle\Entity\MainTree;
 use Darkish\CategoryBundle\Entity\Record;
+use Darkish\CategoryBundle\Entity\Cache\StoreCache;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,6 +75,38 @@ class RecordRepository extends EntityRepository implements ContainerAwareInterfa
         ];
     }
 
+
+    public function getStoreInfo(Record $record, $serializer) {
+        $em = $this->getEntityManager();
+        $storeCache = $em->getRepository('DarkishCategoryBundle:Cache\StoreCache')
+            ->findOneBy(['recordId' => $record->getId()]);
+
+        if(!$storeCache ) {
+            $storeCache = new StoreCache();
+            $storeCache->setJson($this->generateStoreCache($record, $serializer));
+            $storeCache->setRecordId($record);
+            if($record->getMarketLastUpdate()) {
+                $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
+            } else {
+                $now = new \DateTime();
+                $record->setMarketLastCacheCreate($now);
+                $record->setMarketLastUpdate($now);
+
+            }
+            $em->persist($storeCache);
+            $em->persist($record);
+            $em->flush();
+
+        } elseif($record->getMarketLastUpdate() > $record->getMarketLastCacheCreate()) {
+            $storeCache->setJson($this->generateStoreCache($record, $serializer));
+            $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
+            $em->persist($storeCache);
+            $em->persist($record);
+            $em->flush();
+        }
+
+        return $storeCache;
+    }
 
     /**
      * Sets the Container.

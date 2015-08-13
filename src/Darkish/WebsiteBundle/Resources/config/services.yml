@@ -22,12 +22,42 @@ services:
         tags:
             - {name: "sonata.block"}
     darkish_website.block.comment:
-            class: Darkish\WebsiteBundle\Block\CommentsBlock
-            arguments:
-                - "darkish_website.block.comment"
-                - "@templating"
-                - "@service_container"
-            tags:
-                - {name: "sonata.block", scope: "request" }
-
+        class: Darkish\WebsiteBundle\Block\CommentsBlock
+        arguments:
+            - "darkish_website.block.comment"
+            - "@templating"
+            - "@service_container"
+        tags:
+            - {name: "sonata.block", scope: "request" }
+    darkish_website.block.database:
+        class: Darkish\WebsiteBundle\Block\DatabaseBlock
+        arguments:
+            - "darkish_website.block.daabase"
+            - "@templating"
+            - "@service_container"
+        tags:
+            - {name: "sonata.block", scope: "request" }
+    darkish_website.user_extension:
+        class: Darkish\WebsiteBundle\Twig\Extension\UserExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+    darkish_website.comment_extension:
+        class: Darkish\WebsiteBundle\Twig\Extension\CommentExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+    darkish_website.class_extension:
+        class: Darkish\WebsiteBundle\Twig\Extension\ClassExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
+    darkish_website.type.entity_hidden:
+        class: Darkish\WebsiteBundle\Form\Type\EntityHiddenType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: entity_hidden }
 

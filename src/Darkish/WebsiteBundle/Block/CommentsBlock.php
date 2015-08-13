@@ -2,6 +2,8 @@
 
 namespace Darkish\WebsiteBundle\Block;
 
+use Darkish\CommentBundle\Entity\AnonymousComment;
+use Darkish\WebsiteBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -35,7 +37,7 @@ class CommentsBlock extends BaseBlockService
 	    $resolver->setDefaults(array(
 	        'entity_type'      => null,
 	        'id'    => null,
-	        'template' => 'DarkishWebsiteBundle:Comment:comment_list.html.twig',
+	        'template' => 'DarkishWebsiteBundle:Block:comment_list.html.twig',
 	    ));
 	}
 
@@ -58,15 +60,16 @@ class CommentsBlock extends BaseBlockService
 
 		// finding thread based on entity_type and id
 		switch($settings['entity_type']) {
+
 			case "record":
-				$entity= $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($settings['id']);
+				$entity= $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:Record')->find($settings['id']);
 				if(!$entity) {
 					throw new Exception("Id is not valid");
 				}
 				$thread = $entity->getThread();
 				break;
 			case "news":
-				$entity= $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find($settings['id']);
+				$entity= $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:Record')->find($settings['id']);
 				if(!$entity) {
 					throw new Exception("Id is not valid");
 				}
@@ -78,21 +81,37 @@ class CommentsBlock extends BaseBlockService
 				break;
 		}
 
-		$repo = $this->container->get('doctrine')->getRepository('DarkishCommentBundle:Comment');
-		$qb = $repo->createQueryBuilder('c');
-		$qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
-		$qb->orderBy('c.id', 'Desc');
-		$pagination = $this->container->get('knp_paginator')->paginate(
-			$qb->getQuery(),
-			$this->container->get('request')->query->getInt('page', 1)/*page number*/,
-			10/*limit per page*/
-		);
+		if($thread) {
+			$repo = $this->container->get('doctrine')->getRepository('DarkishCommentBundle:Comment');
+			$qb = $repo->createQueryBuilder('c');
+			$qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
+			$qb->andWhere('c.parent IS NULL');
+			$qb->orderBy('c.id', 'Desc');
+			$pagination = $this->container->get('knp_paginator')->paginate(
+				$qb->getQuery(),
+				$this->container->get('request')->query->getInt('page', 1)/*page number*/,
+				10/*limit per page*/
+			);
+		} else {
+			$pagination = null;
+		}
+
+		$comment = new AnonymousComment();
+		$form = $this->container->get('form.factory')->create(new CommentType(), $comment,[
+			'action' => $this->container->get('router')->generate('website_comment_post'),
+			'method' => 'POST',
+		]);
+
 
 
 	    return $this->renderResponse($blockContext->getTemplate(), array(
-	            'block'     => $blockContext->getBlock(),
-	            'settings'  => $settings
-	        ), $response);
+			'block'     	=> $blockContext->getBlock(),
+			'settings'  	=> $settings,
+			'thread'    	=> $thread,
+			'entity'		=> $entity,
+			'pagination'	=> $pagination,
+			'comment_form'	=> $form->createView()
+		), $response);
 	}
 
 

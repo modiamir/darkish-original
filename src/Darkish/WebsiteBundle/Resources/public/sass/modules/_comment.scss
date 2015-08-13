@@ -1,0 +1,37 @@
+.comment {
+  border-top: 1px solid rgb(231, 231, 231);
+  margin-top: 10px;
+  padding-top: 10px;
+  &:first-child {
+    border-top: none;
+  }
+
+  .media-left {
+    a {
+      img.media-object {
+        width: 32px;
+        height: 32px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+
+
+      }
+    }
+  }
+  .media-body {
+    span.comment-date {
+      color: rgb(178, 178, 178);
+      font-weight: normal;
+    }
+    .media-heading {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .media {
+      border-top: 1px solid rgb(231, 231, 231);
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+  }
+}

@@ -348,6 +348,40 @@ body .bottom-wrapper .social-link ul li a i.fa {
 .record.mode-grid h4 {
   margin: 10px 0 0 0;
 }
+/* line 44, ../sass/modules/_record.scss */
+.record .store-products-title {
+  border-bottom: 1px solid #f17022;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+/* line 50, ../sass/modules/_record.scss */
+.record .record-store-product {
+  float: right;
+  margin: 10px;
+  margin-top: 0;
+  -webkit-box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
+  -moz-box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
+  padding: 10px;
+}
+/* line 58, ../sass/modules/_record.scss */
+.record .record-store-product .product-image {
+  width: 194px;
+  height: 194px;
+}
+/* line 62, ../sass/modules/_record.scss */
+.record .record-store-product .price {
+  color: lightseagreen;
+}
+/* line 64, ../sass/modules/_record.scss */
+.record .record-store-product .price.discounted {
+  color: darkred;
+  text-decoration: line-through;
+}
+/* line 69, ../sass/modules/_record.scss */
+.record .record-store-product .discounted-price {
+  color: lightseagreen;
+}
 
 /* line 2, ../sass/modules/_block.scss */
 .cms-block .block-title {
@@ -399,4 +433,39 @@ div.record-list {
 div.record-list .record-item {
   float: right;
   width: 50%;
+}
+
+/* line 1, ../sass/modules/_comment.scss */
+.comment {
+  border-top: 1px solid #e7e7e7;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+/* line 5, ../sass/modules/_comment.scss */
+.comment:first-child {
+  border-top: none;
+}
+/* line 11, ../sass/modules/_comment.scss */
+.comment .media-left a img.media-object {
+  width: 32px;
+  height: 32px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+}
+/* line 23, ../sass/modules/_comment.scss */
+.comment .media-body span.comment-date {
+  color: #b2b2b2;
+  font-weight: normal;
+}
+/* line 27, ../sass/modules/_comment.scss */
+.comment .media-body .media-heading {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* line 31, ../sass/modules/_comment.scss */
+.comment .media-body .media {
+  border-top: 1px solid #e7e7e7;
+  margin-top: 10px;
+  padding-top: 10px;
 }

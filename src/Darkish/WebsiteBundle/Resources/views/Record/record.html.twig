@@ -1,6 +1,12 @@
 {% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
 
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css') }}" rel="stylesheet" />
+
+{% endblock %}
+
 {% block page_header %}
 	<div class="page-header-box">
 		{% if record.icon %}

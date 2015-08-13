@@ -19,7 +19,7 @@ class AutomobileBrand
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class AutomobileBrand
      * @var integer
      *
      * @ORM\Column(name="type", type="integer")
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $type;
 
@@ -35,7 +35,7 @@ class AutomobileBrand
      * @var string
      *
      * @ORM\Column(name="value", type="string", length=255)
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $value;
 
@@ -43,7 +43,7 @@ class AutomobileBrand
      * @var integer
      *
      * @ORM\Column(name="parentId", type="integer", nullable=true)
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $parentId;
 
@@ -51,7 +51,7 @@ class AutomobileBrand
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer")
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $sort;
 
@@ -59,7 +59,7 @@ class AutomobileBrand
      * @var boolean
      *
      * @ORM\Column(name="visible", type="boolean")
-     * @Groups({"autobrand.list", "autobrand.details"})
+     * @Groups({"api.details","autobrand.list", "autobrand.details"})
      */
     private $visible;
 

@@ -23,31 +23,7 @@ class ApiStoreController extends Controller
      */
     public function getStoreInfoAction(Record $record)
     {
-        $em = $this->getDoctrine()->getManager();
-        $storeCache = $this->getDoctrine()
-                      ->getRepository('DarkishCategoryBundle:Cache\StoreCache')
-                      ->findOneBy(['recordId' => $record->getId()]);
-        if(!$storeCache ) {
-            $storeCache = new StoreCache();
-            $storeCache->setJson($this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->generateStoreCache($record, $this->get('jms_serializer')));
-            $storeCache->setRecordId($record);
-            if($record->getMarketLastUpdate()) {
-                $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
-            } else {
-                $now = new \DateTime();
-                $record->setMarketLastCacheCreate($now);
-                $record->setMarketLastUpdate($now);
-
-            }
-            $em->persist($storeCache);
-            $em->persist($record);
-            $em->flush();
-
-        } elseif($record->getMarketLastUpdate() > $record->getMarketLastCacheCreate()) {
-            $storeCache->setJson($this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->generateStoreCache($record, $this->get('jms_serializer')));
-            $record->setMarketLastCacheCreate($record->getMarketLastUpdate());
-        }
-
+        $storeCache = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getStoreInfo($record, $this->get('jms_serializer'));
 
 
         return $storeCache->getJson();

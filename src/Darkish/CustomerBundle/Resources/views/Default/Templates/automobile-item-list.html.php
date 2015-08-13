@@ -19,7 +19,7 @@
 
 	<div class="col col-xs-4 left-col">
 		<div ng-init="imageUrl = item.photos[0].icon_absolute_path ? item.photos[0].icon_absolute_path : null" 
-			class="image-wrapper" 
+			class="image-wrapper automobile-image"
 			ng-style="(imageUrl) ? {'background-image': 'url('+imageUrl+')'} : null">
 		</div>
 		<div class="edit-buttons" ng-show="editmode">
