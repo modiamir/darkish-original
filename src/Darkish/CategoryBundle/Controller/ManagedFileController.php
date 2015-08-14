@@ -101,10 +101,9 @@ class ManagedFileController extends Controller
                             ->format($ufile->getRealPath()) // extracts file informations
                             ->get('duration');             // returns the duration property
 
-                        if( $duration > 600) {
+                        if( $duration > 7200) {
                             // return new Response(, 500);
                             throw new \Exception("طول فایل بارگذاری شده نباید بیشتر از ۱۰ دقیقه باشد.", 445);
-                            
                         }
 
 
