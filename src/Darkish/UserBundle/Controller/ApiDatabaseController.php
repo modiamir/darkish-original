@@ -86,6 +86,6 @@ class ApiDatabaseController extends Controller
 
 
 
-        return new Response($this->get('jms_serializer')->serialize($query->getResult(), 'json', SerializationContext::create()->setGroups(['api.details', 'file.details'])));
+        return new Response($this->get('jms_serializer')->serialize($query->getResult(), 'json', SerializationContext::create()->setGroups(['api.details', 'api.list', 'file.details', 'customer.list'])));
     }
 }
