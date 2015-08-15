@@ -174,7 +174,60 @@ class FileSubscriber implements EventSubscriber
                         'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
                         '1024'              // filter defined in config.yml
             );
-            
+
+
+            //generate 64px width image without thumbnail
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                ->filterAction(
+                    $request,          // http request
+                    'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                    '64n'              // filter defined in config.yml
+                );
+
+
+            //generate 128px width image without thumbnail
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                ->filterAction(
+                    $request,          // http request
+                    'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                    '128n'              // filter defined in config.yml
+                );
+
+            //generate 256px width image without thumbnail
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                ->filterAction(
+                    $request,          // http request
+                    'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                    '256n'              // filter defined in config.yml
+                );
+
+
+            //generate 512px width image without thumbnail
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                ->filterAction(
+                    $request,          // http request
+                    'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                    '512n'              // filter defined in config.yml
+                );
+
+
+            //generate 1024px width image without thumbnail
+
+            $imagemanagerResponse = $this->container
+                ->get('liip_imagine.controller')
+                ->filterAction(
+                    $request,          // http request
+                    'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
+                    '1024n'              // filter defined in config.yml
+                );
 
             // string to put directly in the "src" of the tag <img>
             

@@ -118,10 +118,7 @@ class ManagedFileController extends Controller
                         $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
                         if($audio->save($format, '/tmp/'.$newTmpName)) {
                             $ufile = new File('/tmp/'.$newTmpName, true);
-                                
                         }  
-
-                        
 
                     }
                 }
