@@ -185,6 +185,21 @@ liip_imagine:
                     image: Resources/data/watermark.png
                     # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
                     position: topright
+        64n:
+            filters:
+                relative_resize: { widen: 64 }
+        128n:
+            filters:
+                relative_resize: { widen: 128 }
+        256n:
+            filters:
+                relative_resize: { widen: 256 }
+        512n:
+            filters:
+                relative_resize: { widen: 512 }
+        1024n:
+            filters:
+                relative_resize: { widen: 1024 }
         product_thumb:
             filters:
                 thumbnail: {size: [194, 194], mode: outbound }
