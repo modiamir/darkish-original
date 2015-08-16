@@ -13,6 +13,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
 
+
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('pagetitle') ?>مدیریت رکوردها<?php $view['slots']->stop() ?>
@@ -1318,7 +1319,7 @@
 
                 <div class="row html-wrapper">
                     <div class="col-xs-12">
-                        <div class="html-preview" ng-bind-html="trustedBody()">
+                        <div class="html-preview"  bind-html-compile="trustedBody()">
 
                         </div>
                         <button data-ng-show="RecordService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
@@ -1327,6 +1328,18 @@
                         <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
                             پیش نمایش صفحه
                         </button>
+                        <script type="text/ng-template" id="bodyVideoModal.html">
+                            <div class="modal-body">
+                                <p class=""  style="text-align:center;" ><video  controls="" name="media" width="300"><source ng-src="{{video}}"></video></p>
+                            </div>
+
+                        </script>
+                        <script type="text/ng-template" id="bodyAudioModal.html">
+                            <div class="modal-body">
+                                <p class=""  style="text-align:center;" ><audio  controls="" name="media" width="300"><source ng-src="{{audio}}"></audio></p>
+                            </div>
+
+                        </script>
                         <script type="text/ng-template" id="bodyPreviewModal.html">
                             <div class="modal-body">
                                 <i ng-click="close()" class="fa fa-close"></i>
@@ -1338,7 +1351,7 @@
                                 </button>
                                 <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>
                                 <div class="body-preview-box">
-                                    <div ng-show="innerLink" class="body-preview-content" ng-bind-html="trustedBody">
+                                    <div ng-show="innerLink" class="body-preview-content" bind-html-compile="trustedBody">
                                     </div>
                                     <div ng-show="externalLink" class="body-preview-content external-link">
                                         <iframe ng-src="{{trustedUrl}}" width="362" height="588" />

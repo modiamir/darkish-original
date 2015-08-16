@@ -25,11 +25,54 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
           input.push(i);
         return input;
       };
-    }).controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
+    }).directive('bindHtmlCompile', ['$compile', '$timeout', function ($compile, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                scope.$watch(function () {
+                    return scope.$eval(attrs.bindHtmlCompile).toString();
+
+                }, function (value) {
+
+                    var trueHtml = scope.$eval(attrs.bindHtmlCompile).toString();
+
+
+                    //var elem = angular.element(element);
+                    var elem = angular.element('<div>'+trueHtml+'</div>');
+
+                    var videos = $('video[class^="record-"]', elem);
+
+                    videos.each(function( index ) {
+                        var el = this;
+                        var img = document.createElement('img');
+                        $(img).attr('src', '../../assets/images/video-default.jpg');
+                        $(img).attr('ng-click', "openBodyVideoModal('lg', '"+$('source',el).attr('src')+"')");
+                        $(el).replaceWith(img);
+                    });
+
+                    var audios = $('audio[class^="record-"]', elem);
+
+                    audios.each(function( index ) {
+                        var el = this;
+                        var img = document.createElement('img');
+                        $(img).attr('src', '../../assets/images/audio-default.png');
+                        $(img).attr('width', '100');
+                        $(img).attr('ng-click', "openBodyAudioModal('lg', '"+$('source',el).attr('src')+"')");
+                        $(el).replaceWith(img);
+                    });
+
+                    var compileScope = scope;
+
+                    element.html($compile(elem.html())(compileScope));
+
+                });
+            }
+        };
+    }]).controller('RecordIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'RecordService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   RecordService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
 
-
+        $scope.scope = $scope;
         /**
          * initializing config for list endless scroll
          */
@@ -645,6 +688,38 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         ///////////////
 
         /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyVideoModal = function (size, video) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyVideoModal.html',
+                controller: 'bodyVideoModalCtrl',
+                size: size,
+                resolve: {
+                    video: function() {
+                        return video;
+                    }
+                },
+                windowClass: 'video-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
+
+
+        /**
          * audio modal initialization
          */
 
@@ -672,6 +747,38 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             }, function () {
 
             });
+        };
+
+        ///////////////
+
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyAudioModal = function (size, audio) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyAudioModal.html',
+                controller: 'bodyAudioModalCtrl',
+                size: size,
+                resolve: {
+                    audio: function() {
+                        return audio;
+                    }
+                },
+                windowClass: 'audo-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
         };
 
         ///////////////
@@ -2333,6 +2440,62 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         }
 
     }]).
+    controller('bodyVideoModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', 'video', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService, video) {
+        //$scope.RecordService = RecordService;
+        //$scope.ValuesService = ValuesService;
+        //$scope.close = function(){ValuesService.currentVideoModal = {}; $modalInstance.close();}
+        //$scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //$scope.totalVideo = RecordService.currentRecord.videos.length;
+        //$scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //$scope.next = function() {
+        //    ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index + 1;
+        //    $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //    $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //    var videoPlayer = document.getElementById('modal-video-player');
+        //    videoPlayer.src = $scope.currentVideo.absolute_path;
+        //    videoPlayer.load();
+        //    videoPlayer.play();
+        //}
+        //$scope.prev = function() {
+        //    ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index -1;
+        //    $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //    $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //    var videoPlayer = document.getElementById('modal-video-player');
+        //    videoPlayer.src = $scope.currentVideo.absolute_path;
+        //    videoPlayer.load();
+        //    videoPlayer.play();
+        //}
+        $scope.video = video;
+
+    }]).
+    controller('bodyAudioModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', 'audio', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService, audio) {
+        //$scope.RecordService = RecordService;
+        //$scope.ValuesService = ValuesService;
+        //$scope.close = function(){ValuesService.currentVideoModal = {}; $modalInstance.close();}
+        //$scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //$scope.totalVideo = RecordService.currentRecord.videos.length;
+        //$scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //$scope.next = function() {
+        //    ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index + 1;
+        //    $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //    $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //    var videoPlayer = document.getElementById('modal-video-player');
+        //    videoPlayer.src = $scope.currentVideo.absolute_path;
+        //    videoPlayer.load();
+        //    videoPlayer.play();
+        //}
+        //$scope.prev = function() {
+        //    ValuesService.currentVideoModal.index = ValuesService.currentVideoModal.index -1;
+        //    $scope.currentVideo = RecordService.currentRecord.videos[ValuesService.currentVideoModal.index];
+        //    $scope.currentIndex = ValuesService.currentVideoModal.index + 1;
+        //    var videoPlayer = document.getElementById('modal-video-player');
+        //    videoPlayer.src = $scope.currentVideo.absolute_path;
+        //    videoPlayer.load();
+        //    videoPlayer.play();
+        //}
+        $scope.audio = audio;
+
+    }]).
     controller('audioModalCtrl', ['$scope', '$sce', '$modalInstance', 'RecordService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, RecordService, TreeService, ValuesService) {
         $scope.RecordService = RecordService;
         $scope.ValuesService = ValuesService;
@@ -2422,7 +2585,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.close = function(){$modalInstance.close(false);}
 
     }]).
-    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, RecordService, ValuesService, SecurityService) {
+    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'RecordService','ValuesService', 'SecurityService', '$modal', function ($scope, $http, $sce, $collection, $modalInstance, RecordService, ValuesService, SecurityService, $modal) {
         $scope.RecordService = RecordService;
         $scope.close = function(){$modalInstance.close(false);}
         $scope.getTrustedBody =  function(untrustedBody) {
@@ -2433,6 +2596,68 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
         $scope.trustedBody = $scope.getTrustedBody(RecordService.currentRecord.body);
         $scope.innerLink = true;
         $scope.externalLink = false;
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyVideoModal = function (size, video) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyVideoModal.html',
+                controller: 'bodyVideoModalCtrl',
+                size: size,
+                resolve: {
+                    video: function() {
+                        return video;
+                    }
+                },
+                windowClass: 'video-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyAudioModal = function (size, audio) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyAudioModal.html',
+                controller: 'bodyAudioModalCtrl',
+                size: size,
+                resolve: {
+                    audio: function() {
+                        return audio;
+                    }
+                },
+                windowClass: 'audo-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
 
         $scope.loadRecord = function(recordNumber) {
             $scope.innerLink = true;
@@ -3075,6 +3300,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                 case 'video':
                     var fileClass = RecordService.selectedBodyVideo.file_name.replace(".", "-");
                     CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
+                    //CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><img width="240" height="180" ng-click="openBodyVideoModal(\'video\', \''+RecordService.selectedBodyVideo.absolute_path+'\')" src="../../assets/images/video-default.jpg" video-url="'+RecordService.selectedBodyVideo.absolute_path+'" /></p>');
                     break;
                 case 'audio':
                     var fileClass = RecordService.selectedBodyAudio.file_name.replace(".", "-");
