@@ -23,14 +23,14 @@ class AutomobileSearchType extends AbstractType
                 'required' => false,
             ])
             ->add('createdYear', 'choice', [
-                'choices' => [1,2,3,4,5,6,7,8,9,10],
+                'choices' => [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016],
                 'required' => false,
             ])
-            ->add('price', 'money',[
-                'grouping'=> true,
-                'currency'=>'IRR',
-                'required' => false,
-            ])
+//            ->add('price', 'money',[
+//                'grouping'=> true,
+//                'currency'=>'IRR',
+//                'required' => false,
+//            ])
 
         ;
     }

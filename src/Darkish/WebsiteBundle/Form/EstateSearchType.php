@@ -29,11 +29,11 @@ class EstateSearchType extends AbstractType
             ->add('dimension', 'number',[
                 'required' => false,
             ])
-            ->add('price', 'money',[
-                'grouping'=> true,
-                'currency'=>'IRR',
-                'required' => false,
-            ])
+//            ->add('price', 'money',[
+//                'grouping'=> true,
+//                'currency'=>'IRR',
+//                'required' => false,
+//            ])
 
         ;
     }

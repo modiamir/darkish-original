@@ -18,7 +18,7 @@ class AutomobileRepository extends EntityRepository
      * @param Request $request
      * @return \Doctrine\ORM\Query
      */
-    public function search(Automobile $automobile, Record $record = null)
+    public function search(Automobile $automobile, $prices, Record $record = null)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -46,13 +46,25 @@ class AutomobileRepository extends EntityRepository
                 ->setParameter('createdYear', $automobile->getCreatedYear());
         }
 
-        if($automobile->getPrice())
+//        if($automobile->getPrice())
+//        {
+//            $qb->andWhere('a.price >= :minPrice')
+//                ->setParameter('minPrice', (int)($automobile->getPrice() - 0.1 * $automobile->getPrice() ));
+//
+//            $qb->andWhere('a.price <= :maxPrice')
+//                ->setParameter('maxPrice', (int)($automobile->getPrice() + 0.1 * $automobile->getPrice() ));
+//        }
+
+        if(isset($prices['from']))
         {
             $qb->andWhere('a.price >= :minPrice')
-                ->setParameter('minPrice', (int)($automobile->getPrice() - 0.1 * $automobile->getPrice() ));
+                ->setParameter('minPrice', $prices['from']);
+        }
 
+        if(isset($prices['to']))
+        {
             $qb->andWhere('a.price <= :maxPrice')
-                ->setParameter('maxPrice', (int)($automobile->getPrice() + 0.1 * $automobile->getPrice() ));
+                ->setParameter('maxPrice', $prices['to']);
         }
 
         return $qb->getQuery();

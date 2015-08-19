@@ -17,7 +17,7 @@ class EstateRepository extends EntityRepository
      * @param Request $request
      * @return \Doctrine\ORM\Query
      */
-    public function search(Estate $estate, Record $record = null)
+    public function search(Estate $estate, $prices, Record $record = null)
     {
         $qb = $this->createQueryBuilder('e');
 
@@ -54,16 +54,30 @@ class EstateRepository extends EntityRepository
                 ->setParameter('maxDimension', (int)($estate->getDimension() + 0.1 * $estate->getDimension() ));
         }
 
-        if($estate->getPrice())
+//        if($estate->getPrice())
+//        {
+//            $qb->andWhere('e.price >= :minPrice')
+//                ->setParameter('minPrice', (int)($estate->getPrice() - 0.1 * $estate->getPrice() ));
+//
+//            $qb->andWhere('e.price <= :maxPrice')
+//                ->setParameter('maxPrice', (int)($estate->getPrice() + 0.1 * $estate->getPrice() ));
+//        }
+
+        if(isset($prices['from']))
         {
             $qb->andWhere('e.price >= :minPrice')
-                ->setParameter('minPrice', (int)($estate->getPrice() - 0.1 * $estate->getPrice() ));
+                ->setParameter('minPrice', $prices['from']);
+        }
 
+        if(isset($prices['to']))
+        {
             $qb->andWhere('e.price <= :maxPrice')
-                ->setParameter('maxPrice', (int)($estate->getPrice() + 0.1 * $estate->getPrice() ));
+                ->setParameter('maxPrice', $prices['to']);
         }
 
         return $qb->getQuery();
 
     }
+
+
 }
