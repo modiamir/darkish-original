@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentType extends AbstractType
+class AnonymousType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,11 +15,8 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($builder->create('owner', new AnonymousType()))
-            ->add('body')
-            ->add('parent', 'entity_hidden', [
-                'class' => 'Darkish\CommentBundle\Entity\Comment',
-            ])
+            ->add('fullName', null , ['label' => 'نام و نام خانوادگی'])
+            ->add('email', null, ['label' => 'پست الکترونیکی'])
         ;
     }
     
@@ -29,7 +26,7 @@ class CommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Darkish\CommentBundle\Entity\AnonymousComment'
+            'data_class' => 'Darkish\UserBundle\Entity\Anonymous'
         ));
     }
 
@@ -38,6 +35,6 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'submit_anonymous_comment';
+        return 'anonymous';
     }
 }

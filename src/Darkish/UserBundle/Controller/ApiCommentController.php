@@ -42,8 +42,8 @@ class ApiCommentController extends FOSRestController
      *     "type":"news|record|forum|safarnameh",
      *     "lowest_id": "\d+"
      * })
-     * @View(serializerGroups={"api.list"})
-     * 
+     * @View(serializerGroups={"api.list", "file.details"})
+     *
      * @ApiDoc(
      *  resource=true,
      *  section="Comment API"
@@ -55,17 +55,17 @@ class ApiCommentController extends FOSRestController
                 $entityType = 'DarkishCategoryBundle:News';
                 $threadType = 'Darkish\CommentBundle\Entity\NewsThread';
                 break;
-            
+
             case 'record':
                 $entityType = 'DarkishCategoryBundle:Record';
                 $threadType = 'Darkish\CommentBundle\Entity\RecordThread';
                 break;
-            
+
             case 'forum':
                 $entityType = 'DarkishCategoryBundle:ForumTree';
                 $threadType = 'Darkish\CommentBundle\Entity\ForumTreeThread';
                 break;
-            
+
             case 'safarnameh':
                 $entityType = 'DarkishCategoryBundle:Safarsaz';
                 $threadType = 'Darkish\CommentBundle\Entity\SafarsazThread';
@@ -81,7 +81,7 @@ class ApiCommentController extends FOSRestController
         $thread = $entity->getThread();
 
         if(!$thread) {
-            return [];  
+            return [];
         }
 
 
@@ -110,8 +110,8 @@ class ApiCommentController extends FOSRestController
      *     "comment": "\d+",
      *     "lowestId": "\d+"
      * })
-     * @View(serializerGroups={"api.list"})
-     * 
+     * @View(serializerGroups={"api.list", "file.details"})
+     *
      */
     public function getRepliesAction(Comment $comment, $lowestId) {
         $qb = $this->getDoctrine()->getRepository('DarkishCommentBundle:Comment')->createQueryBuilder('c');
@@ -125,9 +125,9 @@ class ApiCommentController extends FOSRestController
 
         $qb->setMaxResults($this->numOfChilds);
         $qb->orderBy('c.id', 'DESC');
-        
 
-        
+
+
         $comments = $qb->getQuery()->getResult();
         return ['comments' => $comments];
     }
@@ -146,8 +146,8 @@ class ApiCommentController extends FOSRestController
      *  }
      * )
      * @RouteAnnot\Post("submit_comment")
-     * @View(serializerGroups={"api.list"})
-     * 
+     * @View(serializerGroups={"api.list", "file.details"})
+     *
      */
     public function postCommentAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -191,7 +191,7 @@ class ApiCommentController extends FOSRestController
                                                             )
                                                         ))
         ));
-        
+
         //validate data with created validation constraint
         $errorList = $this->get('validator')->validateValue($data, $collectionConstraint);
 
@@ -208,36 +208,36 @@ class ApiCommentController extends FOSRestController
 
             return array('success' => false, 'errors' => $errors);
         }
-        
+
 
 
         $client = $this->getUser();
-        
 
-        
+
+
         switch ($data['type']) {
             case 'news':
                 $entityType = 'DarkishCategoryBundle:News';
                 $threadType = 'Darkish\CommentBundle\Entity\NewsThread';
                 break;
-            
+
             case 'record':
                 $entityType = 'DarkishCategoryBundle:Record';
                 $threadType = 'Darkish\CommentBundle\Entity\RecordThread';
                 break;
-            
+
             case 'forum':
                 $entityType = 'DarkishCategoryBundle:ForumTree';
                 $threadType = 'Darkish\CommentBundle\Entity\ForumTreeThread';
                 break;
-            
+
             case 'safarnameh':
                 $entityType = 'DarkishCategoryBundle:Safarsaz';
                 $threadType = 'Darkish\CommentBundle\Entity\SafarsazThread';
                 break;
         }
 
-        
+
         $entity = $this->getDoctrine()->getRepository($entityType)->find($data['id']);
 
         if(!$entity) {
@@ -255,21 +255,21 @@ class ApiCommentController extends FOSRestController
             $em->persist($thread);
         }
 
-        
 
-        
+
+
         $comment = new \Darkish\CommentBundle\Entity\ClientComment();
-        
+
         $comment->setOwner($client);
         $comment->setThread($thread);
         $comment->setCreatedAt(new \DateTime());
 
         $form = $this->createForm(new \Darkish\CommentBundle\Form\CommentType(), $comment);
         $form->handleRequest($request);
-        
+
 
         if ($form->isValid()) {
-            
+
             if($request->get('photos')) {
                 foreach ($request->get('photos') as $key => $value) {
                     $photo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find($value);
@@ -286,7 +286,7 @@ class ApiCommentController extends FOSRestController
 
         return new Response($this->get('jms_serializer')->serialize(array($form->getErrors()->__toString(),$request->request), 'json'));
     }
-    
+
 
     /**
      * @ApiDoc(
@@ -294,12 +294,12 @@ class ApiCommentController extends FOSRestController
      *  section="Comment API"
      * )
      * @RouteAnnot\Post("set_claim/{comment}/{claim}")
-     * @View(serializerGroups={"api.list"})
+     * @View(serializerGroups={"api.list", "file.details"})
      */
     public function setClaimAction(Comment $comment, \Darkish\CommentBundle\Entity\ClaimTypes $claim) {
         try {
-            
-            
+
+
             $comment->setClaimType($claim->getId());
             $comment->setState(3);
             $em = $this->getDoctrine()->getManager();
@@ -314,7 +314,7 @@ class ApiCommentController extends FOSRestController
 
     /**
      * @RouteAnnot\Post("like/{comment}")
-     * @View(serializerGroups={"api.list"})
+     * @View(serializerGroups={"api.list", "file.details"})
      * @ApiDoc(
      *  resource=true,
      *  section="Comment API"
@@ -333,7 +333,7 @@ class ApiCommentController extends FOSRestController
             $em->persist($comment);
             $em->flush();
             return ["code"=>200, "message"=>'liked'];
-            
+
 
         }
         return new Response('You have liked before', 403);
@@ -347,7 +347,7 @@ class ApiCommentController extends FOSRestController
      *  section="Comment API"
      * )
      * @RouteAnnot\Post("reply/{comment}")
-     * @View(serializerGroups={"api.list"})
+     * @View(serializerGroups={"api.list", "file.details"})
      */
     public function replyCommentAction(Request $request, Comment $comment) {
 
@@ -413,6 +413,22 @@ class ApiCommentController extends FOSRestController
         }
 
         return new Response($this->get('jms_serializer')->serialize(array($form->getErrors()->__toString(),$request->request), 'json'));
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Comment API"
+     * )
+     * @RouteAnnot\Get("get_claim_types")
+     * @View()
+     */
+    public function getClaimTypesAction() {
+        $claimTypes = $this->getDoctrine()->getRepository('DarkishCommentBundle:ClaimTypes')
+                                        ->findAll();
+
+        return new Response($this->get('jms_serializer')->serialize($claimTypes, 'json'));
+
     }
 
 }

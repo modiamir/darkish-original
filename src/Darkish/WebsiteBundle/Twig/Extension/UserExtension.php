@@ -3,6 +3,7 @@
 namespace Darkish\WebsiteBundle\Twig\Extension;
 
 use Darkish\CustomerBundle\Entity\Customer;
+use Darkish\UserBundle\Entity\Anonymous;
 use Darkish\UserBundle\Entity\Client;
 use Darkish\UserBundle\Entity\Operator;
 use Symfony\Component\DependencyInjection\Container;
@@ -37,8 +38,10 @@ class UserExtension extends \Twig_Extension
             return $user->getFullName();
         } elseif($user instanceof Client) {
             return ($user->getFullName())?$user->getFullName():$user->getUsername();
+        } elseif($user instanceof Anonymous) {
+            return $user->getFullName();
         } else {
-            return $user;
+            return "";
         }
 
     }

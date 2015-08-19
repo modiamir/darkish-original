@@ -312,33 +312,66 @@ class Record
      * @var string
      *
      * @ORM\Column(name="TelNumberOne", type="string", nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $telNumberOne;
 
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberOneLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberOneLabel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TelNumberTwo", type="string", nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $telNumberTwo;
 
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberTwoLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberTwoLabel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TelNumberThree", type="string", nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $telNumberThree;
 
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberThreeLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberThreeLabel;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TelNumberFour", type="string", nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $telNumberFour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberFourLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberFourLabel;
 
     /**
      * @var string
@@ -432,7 +465,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="LatLongEncoded", type="string", length=255, nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $latLongEncoded;
 
@@ -591,6 +624,13 @@ class Record
      * @Groups({"record.details"})
      */
     private $showContactOnList;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="path", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $path;
     
     /**
      * @var boolean
@@ -1036,7 +1076,7 @@ class Record
     /**
      *
      * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $customers;
 
@@ -4361,5 +4401,125 @@ class Record
     public function getMarketLastCacheCreate()
     {
         return $this->marketLastCacheCreate;
+    }
+
+    /**
+     * Set telNumberOneLabel
+     *
+     * @param string $telNumberOneLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberOneLabel($telNumberOneLabel)
+    {
+        $this->telNumberOneLabel = $telNumberOneLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberOneLabel
+     *
+     * @return string
+     */
+    public function getTelNumberOneLabel()
+    {
+        return $this->telNumberOneLabel;
+    }
+
+    /**
+     * Set telNumberTwoLabel
+     *
+     * @param string $telNumberTwoLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberTwoLabel($telNumberTwoLabel)
+    {
+        $this->telNumberTwoLabel = $telNumberTwoLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberTwoLabel
+     *
+     * @return string
+     */
+    public function getTelNumberTwoLabel()
+    {
+        return $this->telNumberTwoLabel;
+    }
+
+    /**
+     * Set telNumberThreeLabel
+     *
+     * @param string $telNumberThreeLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberThreeLabel($telNumberThreeLabel)
+    {
+        $this->telNumberThreeLabel = $telNumberThreeLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberThreeLabel
+     *
+     * @return string
+     */
+    public function getTelNumberThreeLabel()
+    {
+        return $this->telNumberThreeLabel;
+    }
+
+    /**
+     * Set telNumberFourLabel
+     *
+     * @param string $telNumberFourLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberFourLabel($telNumberFourLabel)
+    {
+        $this->telNumberFourLabel = $telNumberFourLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFourLabel
+     *
+     * @return string
+     */
+    public function getTelNumberFourLabel()
+    {
+        return $this->telNumberFourLabel;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return Record
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

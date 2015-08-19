@@ -160,4 +160,14 @@ class DefaultController extends Controller
 
         return new Response($this->get('jms_serializer')->serialize($regCodes,'json'));
     }
+
+
+	public function convertHtmlVideoTagAction() {
+		$record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(727);
+	}
+
+	private function replaceString($html)
+	{
+
+	}
 }

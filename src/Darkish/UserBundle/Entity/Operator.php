@@ -9,6 +9,8 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -783,4 +785,22 @@ class Operator implements AdvancedUserInterface, \Serializable
     {
         return $this->comments;
     }
+
+
+    /**
+     * @return string
+     * @VirtualProperty
+     * @SerializedName("display_info")
+     * @Groups({"api.list", "api.details"})
+     */
+    public function gedDisplayInfo()
+    {
+        $displayInfo = [];
+        $displayInfo['name'] = $this->getFirstName() . ' ' . $this->getLastName();
+        $displayInfo['photo'] = $this->photo;
+
+        return $displayInfo;
+    }
+
+
 }

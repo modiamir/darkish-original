@@ -64,6 +64,11 @@ DarkishGenerateRecordRegister:
     path:   /darkish/generate_record_register
     defaults: { _controller: DarkishCategoryBundle:Default:generateRecordRegistration }
 
+DarkishConvertHtmlVideoTag:
+    path:   /darkish/convert_html_video_tag
+    defaults: { _controller: DarkishCategoryBundle:Default:convertHtmlVideoTag }
+
+
 managedfile_nervgh:
     path:     /nervgh
     defaults: { _controller: "DarkishCategoryBundle:ManagedFile:nervgh" }

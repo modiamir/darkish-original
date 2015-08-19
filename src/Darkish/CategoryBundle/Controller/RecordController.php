@@ -10,6 +10,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolation;
 use Darkish\CategoryBundle\Entity\Record;
@@ -120,11 +121,7 @@ class RecordController extends Controller
             };
         }catch (\Exception $e) {
             return new Response(
-                $e->getLine().'<br/>'.
-                $e->getMessage().'<br/>'.
-                $e->getCode().'<br/>'.
-                $e->getFile().'<br/>'.
-                $e->getTraceAsString(), 401
+                $e->getMessage(), 500
             );
         }
 
@@ -311,6 +308,18 @@ class RecordController extends Controller
         if(isset($data['tel_number_four'])) {
             $record->setTelNumberFour($data['tel_number_four']);
         }
+        if(isset($data['tel_number_one_label'])) {
+            $record->setTelNumberOneLabel($data['tel_number_one_label']);
+        }
+        if(isset($data['tel_number_two_label'])) {
+            $record->setTelNumberTwoLabel($data['tel_number_two_label']);
+        }
+        if(isset($data['tel_number_three_label'])) {
+            $record->setTelNumberThreeLabel($data['tel_number_three_label']);
+        }
+        if(isset($data['tel_number_four_label'])) {
+            $record->setTelNumberFourLabel($data['tel_number_four_label']);
+        }
         if(isset($data['fax_number_one'])) {
             $record->setFaxNumberOne($data['fax_number_one']);
         }
@@ -322,6 +331,29 @@ class RecordController extends Controller
         }
         if(isset($data['mobile_number_two'])) {
             $record->setMobileNumberTwo($data['mobile_number_two']);
+        }
+        if(isset($data['path'])) {
+            $correct_slug = "/^[a-z0-9-]+$/";
+            if(!preg_match($correct_slug, $data['path']))
+            {
+                throw new \Exception('
+                آدرس صفحه اینترنتی باید فقط از اعداد و حروف انگلیسی و خط فاصله تشکیل شده باشد.
+                ');
+            }
+
+            $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->createQueryBuilder('r');
+            $qb->select('count(r.id)')->where('r.path = :path')->setParameter('path', $data['path'])
+                    ->andWhere('r.id != :id')->setParameter('id', $data['id']);
+            $pathCount = $count = $qb->getQuery()->getSingleScalarResult();
+
+            if($pathCount)
+            {
+                throw new \Exception('
+                آدرس صفحه اینترنتی وارد شده توسط رکوردی دیگر استفاده شده است.
+                ');
+            }
+
+            $record->setPath($data['path']);
         }
         if(isset($data['email'])) {
             $record->setEmail($data['email']);
@@ -346,8 +378,7 @@ class RecordController extends Controller
         }
 
         if(isset($data['longitude']) && isset($data['latitude'])) {
-            // $record->setLatLongEncoded($this->encodeLatLong($data['latitude'], $data['longitude'], 8));
-            // die('asd');
+            $record->setLatLongEncoded($this->encodeLatLong($data['latitude'], $data['longitude'], 8));
         }
 
         if(isset($data['reserved1'])) {
@@ -2107,10 +2138,11 @@ class RecordController extends Controller
 
 
     private function encodeLatLong($lat, $long, $acc) {
-        $encodeBase = rand(0,20) + 20;
+        $encodeBase = rand(0,15) + rand(0,1) * 32 +  65;
         $str = chr($encodeBase);
         $xStr = str_replace('.',"", $long);
         $yStr = str_replace('.',"", $lat);
+
         if(strlen($xStr) < $acc) {
             for($i = 0; $i <= $acc - strlen($xStr) ; $i++) {
                 $xStr = $xStr. '0';
@@ -2122,13 +2154,15 @@ class RecordController extends Controller
                 $yStr = $yStr. '0';
             }
         }
-        
-        
+
         $ch = "";
         for ($i = 0; $i < $acc; $i++) {
 
-            $ch=(intval($xStr[$i]))*10+intval($yStr[$i])+$encodeBase;
-            $str = $str.chr($ch);
+            $ch=intval($xStr[$i]) + $encodeBase;
+            $str = $str . chr($ch);
+            $ch=intval($yStr[$i]) + $encodeBase;
+            $str = $str . chr($ch);
+
 
         }
         return $str;

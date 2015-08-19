@@ -298,11 +298,11 @@ class ApiCnoController extends FOSRestController
                 break;
             
             case 'list':
-                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list')));
+                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list', 'file.details')));
                 break;
             
             case 'listbody':
-                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list', 'api.body')));
+                $entity = $this->get('jms_serializer')->serialize($result[0],'json', SerializationContext::create()->setGroups(array('api.list', 'api.body', 'file.details')));
                 break;
             
             

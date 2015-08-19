@@ -12,6 +12,8 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 
 /**
@@ -32,7 +34,8 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"customer.list", "customer.details", "product.list", "product.details", "message.details", "message.list"})
+     * @Groups({"customer.list", "customer.details", "product.list", "product.details", "message.details",
+     * "message.list", "api.list", "api.body"})
      */
     private $id;
 
@@ -41,7 +44,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @Assert\Email(
      *     message = "The username '{{ value }}' is not a valid email."
      * )
-     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list", "api.list", "api.body"})
      */
     private $username;
 
@@ -80,7 +83,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @var string 
      * @ORM\Column(name="type", type="string")
      * @Assert\Choice(choices = {"owner", "assistant"}, message = "Choose a valid type.")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $type;
     
@@ -88,7 +91,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var integer
      * @ORM\Column(name="phone_one", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneOne;
     
@@ -96,7 +99,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var integer
      * @ORM\Column(name="phone_two", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneTwo;
     
@@ -104,7 +107,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var integer
      * @ORM\Column(name="phone_three", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneThree;
     
@@ -112,7 +115,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var integer
      * @ORM\Column(name="phone_four", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneFour;
     
@@ -120,7 +123,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var string
      * @ORM\Column(name="full_name", type="string", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $fullName;
     
@@ -128,7 +131,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list", "api.list", "api.body"})
      * 
      *
      */
@@ -657,4 +660,20 @@ class Customer implements AdvancedUserInterface, \Serializable
     {
         return $this->fullName;
     }
+
+    /**
+     * @return string
+     * @VirtualProperty
+     * @SerializedName("display_info")
+     * @Groups({"api.list", "api.details"})
+     */
+    public function gedDisplayInfo()
+    {
+        $displayInfo = [];
+        $displayInfo['name'] = $this->getFullName();
+        $displayInfo['photo'] = $this->photo;
+
+        return $displayInfo;
+    }
+
 }

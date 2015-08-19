@@ -319,10 +319,26 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberOneLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $telNumberOneLabel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TelNumberTwo", type="string", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
     private $telNumberTwo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberTwoLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $telNumberTwoLabel;
 
     /**
      * @var string
@@ -335,10 +351,27 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberThreeLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $telNumberThreeLabel;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="TelNumberFour", type="string", nullable=true)
      * @Groups({"record.details", "api.list"})
      */
     private $telNumberFour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberFourLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $telNumberFourLabel;
 
     /**
      * @var string
@@ -591,6 +624,13 @@ class Record
      * @Groups({"record.details"})
      */
     private $showContactOnList;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="path", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $path;
     
     /**
      * @var boolean
@@ -806,6 +846,7 @@ class Record
 
     /**
      * @ORM\Column(name="MarketLastUpdate", type="datetime", nullable=true)
+     * @Groups({"record.details", "record.list", "api.list"})
      */
     private $marketLastUpdate;
 
@@ -1035,7 +1076,7 @@ class Record
     /**
      *
      * @ORM\OneToMany(targetEntity="\Darkish\CustomerBundle\Entity\Customer", mappedBy="record", cascade={"remove"})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $customers;
 
@@ -4336,5 +4377,125 @@ class Record
     public function getMarketLastUpdate()
     {
         return $this->marketLastUpdate;
+    }
+
+    /**
+     * Set marketLastCacheCreate
+     *
+     * @param \DateTime $marketLastCacheCreate
+     *
+     * @return Record
+     */
+    public function setMarketLastCacheCreate($marketLastCacheCreate)
+    {
+        $this->marketLastCacheCreate = $marketLastCacheCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get marketLastCacheCreate
+     *
+     * @return \DateTime
+     */
+    public function getMarketLastCacheCreate()
+    {
+        return $this->marketLastCacheCreate;
+    }
+
+    /**
+     * Set telNumberOneLabel
+     *
+     * @param string $telNumberOneLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberOneLabel($telNumberOneLabel)
+    {
+        $this->telNumberOneLabel = $telNumberOneLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberOneLabel
+     *
+     * @return string
+     */
+    public function getTelNumberOneLabel()
+    {
+        return $this->telNumberOneLabel;
+    }
+
+    /**
+     * Set telNumberTwoLabel
+     *
+     * @param string $telNumberTwoLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberTwoLabel($telNumberTwoLabel)
+    {
+        $this->telNumberTwoLabel = $telNumberTwoLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberTwoLabel
+     *
+     * @return string
+     */
+    public function getTelNumberTwoLabel()
+    {
+        return $this->telNumberTwoLabel;
+    }
+
+    /**
+     * Set telNumberThreeLabel
+     *
+     * @param string $telNumberThreeLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberThreeLabel($telNumberThreeLabel)
+    {
+        $this->telNumberThreeLabel = $telNumberThreeLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberThreeLabel
+     *
+     * @return string
+     */
+    public function getTelNumberThreeLabel()
+    {
+        return $this->telNumberThreeLabel;
+    }
+
+    /**
+     * Set telNumberFourLabel
+     *
+     * @param string $telNumberFourLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberFourLabel($telNumberFourLabel)
+    {
+        $this->telNumberFourLabel = $telNumberFourLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFourLabel
+     *
+     * @return string
+     */
+    public function getTelNumberFourLabel()
+    {
+        return $this->telNumberFourLabel;
     }
 }

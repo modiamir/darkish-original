@@ -539,7 +539,7 @@ h3.block-title {
     display: inline-block;
 }
 .main-fields-first-section{
-    height: 540px;
+    /*height: 540px;*/
     padding-top: 10px;
     direction: rtl;
     margin: 10px 10px 0 10px;
