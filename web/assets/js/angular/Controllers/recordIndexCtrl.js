@@ -38,32 +38,40 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
                     //var elem = angular.element(element);
-                    var elem = angular.element('<div>'+trueHtml+'</div>');
+                    //var elem = angular.element('<div>'+trueHtml+'</div>');
+                    //var elem = angular.element('<div>'+trueHtml+'</div>');
 
-                    var videos = $('video[class^="record-"]', elem);
+                    //var videos = $('video[class^="record-"]', elem);
 
-                    videos.each(function( index ) {
-                        var el = this;
-                        var img = document.createElement('img');
-                        $(img).attr('src', '../../assets/images/video-default.jpg');
-                        $(img).attr('ng-click', "openBodyVideoModal('lg', '"+$('source',el).attr('src')+"')");
-                        $(el).replaceWith(img);
-                    });
-
-                    var audios = $('audio[class^="record-"]', elem);
-
-                    audios.each(function( index ) {
-                        var el = this;
-                        var img = document.createElement('img');
-                        $(img).attr('src', '../../assets/images/audio-default.png');
-                        $(img).attr('width', '100');
-                        $(img).attr('ng-click', "openBodyAudioModal('lg', '"+$('source',el).attr('src')+"')");
-                        $(el).replaceWith(img);
-                    });
+                    //videos.each(function( index ) {
+                    //    var el = this;
+                    //    var img = document.createElement('img');
+                    //    $(img).attr('src', '../../assets/images/video-default.jpg');
+                    //    var src = $('source',el).attr('src');
+                    //    var src1 = src.substring(0,10);
+                    //    var src2 = src.substring(10);
+                    //    $(img).attr('ng-click', "openBodyVideoModal('lg', '"+src1+"', '"+src2+"')");
+                    //    $(el).replaceWith(img);
+                    //});
+                    //
+                    //var audios = $('audio[class^="record-"]', elem);
+                    //
+                    //audios.each(function( index ) {
+                    //    var el = this;
+                    //    var img = document.createElement('img');
+                    //    $(img).attr('src', '../../assets/images/audio-default.png');
+                    //    var src = $('source',el).attr('src');
+                    //    var src1 = src.substring(0,10);
+                    //    var src2 = src.substring(10);
+                    //    $(img).attr('width', '100');
+                    //    $(img).attr('ng-click', "openBodyAudioModal('lg', '"+src1+"', '"+src2+"')");
+                    //    $(el).replaceWith(img);
+                    //});
 
                     var compileScope = scope;
 
-                    element.html($compile(elem.html())(compileScope));
+                    //element.html($compile(elem.html())(compileScope));
+                    element.html($compile(trueHtml)(compileScope));
 
                 });
             }
@@ -3299,12 +3307,13 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
                     break;
                 case 'video':
                     var fileClass = RecordService.selectedBodyVideo.file_name.replace(".", "-");
-                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
-                    //CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><img width="240" height="180" ng-click="openBodyVideoModal(\'video\', \''+RecordService.selectedBodyVideo.absolute_path+'\')" src="../../assets/images/video-default.jpg" video-url="'+RecordService.selectedBodyVideo.absolute_path+'" /></p>');
+                    //CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyVideo.absolute_path+'" type="'+RecordService.selectedBodyVideo.filemime+'"></video></p>');
+                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><img width="240" height="180" ng-click="openBodyVideoModal(\'lg\', \''+RecordService.selectedBodyVideo.absolute_path+'\')" src="../../assets/images/video-default.jpg" video-url="'+RecordService.selectedBodyVideo.absolute_path+'" /></p>');
                     break;
                 case 'audio':
                     var fileClass = RecordService.selectedBodyAudio.file_name.replace(".", "-");
-                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
+                    //CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+RecordService.selectedBodyAudio.absolute_path+'" type="'+RecordService.selectedBodyAudio.filemime+'"></audio></p>');
+                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><img width="240" height="180" ng-click="openBodyAudioModal(\'md\', \''+RecordService.selectedBodyAudio.absolute_path+'\')" src="../../assets/images/audio-default.png" video-url="'+RecordService.selectedBodyAudio.absolute_path+'" /></p>');
                     break;
 
                 case 'doc':

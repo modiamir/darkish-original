@@ -5,6 +5,8 @@ namespace Darkish\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * Darkish\UserBundle\Entity\Client
@@ -372,5 +374,21 @@ class Client implements UserInterface, \Serializable
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+
+    /**
+     * @return string
+     * @VirtualProperty
+     * @SerializedName("display_info")
+     * @Groups({"api.list", "api.details"})
+     */
+    public function gedDisplayInfo()
+    {
+        $displayInfo = [];
+        $displayInfo['name'] = $this->getFullName();
+        $displayInfo['photo'] = $this->photo;
+
+        return $displayInfo;
     }
 }

@@ -234,6 +234,13 @@
                                 <label class="main-fields-searchkey-title first-section-fields-title" for="search-key-input">توضیحات دو:</label>
                                 <textarea ng-maxlength="255" name="info-two-input" id="info-one-input" class="first-section-input" ng-model="RecordService.currentRecord.info_two" ng-disabled="!RecordService.isEditing()"></textarea>
                             </div>
+                            <div class="main-fields-informations">
+                                <label class="main-fields-searchkey-title first-section-fields-title" for="path-input">
+                                    آدرس صفحه رکورد:
+                                </label>
+                                <input ng-maxlength="25" name="path-input" id="path-input" class="first-section-input" ng-model="RecordService.currentRecord.path" ng-disabled="!RecordService.isEditing()"></input>
+
+                            </div>
                             <div id="non-searchable-wrapper" style="margin: 10px 0;">
                                 <label class="main-fields-non-searchable first-section-fields-title" for="non-searchable">عدم جستجو:</label>
                                 <input type="checkbox" id="non-searchable" name="just-html-chk" class="" ng-model="RecordService.currentRecord.non_searchable" ng-disabled="!RecordService.isEditing()">
@@ -676,8 +683,17 @@
                                 </textarea>
                             </div>
 
+
+                             <label for="phone-one">عناوین تلفن</label>
+                             <div class="form-item-wrapper ">
+                                 <input type="text"  id="phone-one-label" ng-model="RecordService.currentRecord.tel_number_one_label" ng-disabled="!RecordService.isEditing()" />
+                                 <input type="text"  id="phone-two-label" ng-model="RecordService.currentRecord.tel_number_two_label" ng-disabled="!RecordService.isEditing()" />
+                                 <input type="text"  id="phone-three-label" ng-model="RecordService.currentRecord.tel_number_three_label" ng-disabled="!RecordService.isEditing()" />
+                                 <input type="text"  id="phone-four-label" ng-model="RecordService.currentRecord.tel_number_four_label" ng-disabled="!RecordService.isEditing()"/>
+                             </div>
+
                             <label for="phone-one">تلفن</label>
-                            <div class="form-item-wrapper phone">
+                            <div class="form-item-wrapper ">
                                 <input type="text" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
                                 <input type="text" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
                                 <input type="text" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />

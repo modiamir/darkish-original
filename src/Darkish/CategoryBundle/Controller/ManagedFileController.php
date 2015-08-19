@@ -94,8 +94,7 @@ class ManagedFileController extends Controller
                     }
 
                     if($ffprobe->streams($ufile->getRealPath())->first()->isAudio()) {
-                        
-                        
+
                         $ffprobe = FFProbe::create();
                         $duration = $ffprobe
                             ->format($ufile->getRealPath()) // extracts file informations
@@ -105,8 +104,6 @@ class ManagedFileController extends Controller
                             // return new Response(, 500);
                             throw new \Exception("طول فایل بارگذاری شده نباید بیشتر از ۱۰ دقیقه باشد.", 445);
                         }
-
-
 
                         $ffmpeg = $this->get('dubture_ffmpeg.ffmpeg');
                         $audio = $ffmpeg->open('/tmp'.'/'.$tmpName);
@@ -118,12 +115,9 @@ class ManagedFileController extends Controller
                         $newTmpName = time().'-'.rand(100000,999999).'-resized.'.$ufile->getExtension();
                         if($audio->save($format, '/tmp/'.$newTmpName)) {
                             $ufile = new File('/tmp/'.$newTmpName, true);
-                        }  
-
+                        }
                     }
                 }
-                
-
                 $file->setFile($ufile);
             }
 
@@ -134,6 +128,7 @@ class ManagedFileController extends Controller
             if($request->request->has('entityId')){
                 $file->setEntityId($request->get('entityId'));
             }
+
             if($request->request->has('uploadKey')) {
                 $file->setUploadKey($request->get('uploadKey'));
             }

@@ -96,7 +96,6 @@ class ClientComment extends Comment
      */
     protected $hasLiked;
 
-
     /**
      * Constructor
      */

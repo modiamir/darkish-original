@@ -24,11 +24,11 @@ class AnonymousComment extends Comment
     protected $id;
 
     /**
-     * @ORM\Column(type="string", name="owner_name")
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Anonymous", cascade={"persist"})
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      * @Groups({"comment.details", "api.list"})
      */
     protected $owner;
-
     
     /**
      * @var integer
