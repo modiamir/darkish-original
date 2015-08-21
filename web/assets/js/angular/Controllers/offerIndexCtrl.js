@@ -9,7 +9,11 @@
 //        }]);
 
 angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.modal', 'ngCollection', 'ngSanitize', 'ngCkeditor', 'ui.bootstrap', 'ui.bootstrap.persian.datepicker', 'checklist-model',
-                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll', 'angucomplete-alt'
+                            ,'mediaPlayer', 'infinite-scroll','angularFileUpload', 'uiGmapgoogle-maps', 'duScroll', 'angucomplete-alt', 'com.2fdevs.videogular', "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster", 'com.2fdevs.videogular', "com.2fdevs.videogular.plugins.controls",
+    "com.2fdevs.videogular.plugins.overlayplay",
+    "com.2fdevs.videogular.plugins.poster"
     ])
     .config(['uiGmapGoogleMapApiProvider', function (GoogleMapApi) {
         GoogleMapApi.configure({
@@ -17,7 +21,97 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
           v: '3.17',
           libraries: 'weather,geometry,visualization'
         });
-    }])      
+    }])
+    .directive('dkVideo', ['$compile', function($compile){
+        return {
+            restrict: 'E',
+            transclude: true,
+            link: function(scope, element, attrs) {
+                //console.log(attrs);
+                var img = document.createElement('img');
+                $(img).attr('src', '../../assets/images/video-default.jpg');
+                var src = attrs.src;
+
+                $(img).attr('ng-click', "openBodyVideoModal('lg', '"+src+"')");
+
+                var compileScope = scope;
+                $(element).replaceWith($compile(img)(compileScope));
+
+                //element.html('test');
+            }
+        }
+    }])
+    .directive('dkAudio', ['$compile', function($compile){
+        return {
+            restrict: 'E',
+            transclude: true,
+            link: function(scope, element, attrs) {
+                //console.log(attrs);
+                var img = document.createElement('img');
+                $(img).attr('src', '../../assets/images/audio-default.png');
+                var src = attrs.src;
+
+                $(img).attr('ng-click', "openBodyAudioModal('lg', '"+src+"')");
+
+                var compileScope = scope;
+                $(element).replaceWith($compile(img)(compileScope));
+
+                //element.html('test');
+            }
+        }
+    }])
+    .directive('bindHtmlCompile', ['$compile', '$timeout', function ($compile, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                scope.$watch(function () {
+                    return scope.$eval(attrs.bindHtmlCompile).toString();
+
+                }, function (value) {
+
+                    var trueHtml = scope.$eval(attrs.bindHtmlCompile).toString();
+
+
+                    //var elem = angular.element(element);
+                    //var elem = angular.element('<div>'+trueHtml+'</div>');
+                    //var elem = angular.element('<div>'+trueHtml+'</div>');
+
+                    //var videos = $('video[class^="record-"]', elem);
+
+                    //videos.each(function( index ) {
+                    //    var el = this;
+                    //    var img = document.createElement('img');
+                    //    $(img).attr('src', '../../assets/images/video-default.jpg');
+                    //    var src = $('source',el).attr('src');
+                    //    var src1 = src.substring(0,10);
+                    //    var src2 = src.substring(10);
+                    //    $(img).attr('ng-click', "openBodyVideoModal('lg', '"+src1+"', '"+src2+"')");
+                    //    $(el).replaceWith(img);
+                    //});
+                    //
+                    //var audios = $('audio[class^="record-"]', elem);
+                    //
+                    //audios.each(function( index ) {
+                    //    var el = this;
+                    //    var img = document.createElement('img');
+                    //    $(img).attr('src', '../../assets/images/audio-default.png');
+                    //    var src = $('source',el).attr('src');
+                    //    var src1 = src.substring(0,10);
+                    //    var src2 = src.substring(10);
+                    //    $(img).attr('width', '100');
+                    //    $(img).attr('ng-click', "openBodyAudioModal('lg', '"+src1+"', '"+src2+"')");
+                    //    $(el).replaceWith(img);
+                    //});
+
+                    var compileScope = scope;
+
+                    //element.html($compile(elem.html())(compileScope));
+                    element.html($compile(trueHtml)(compileScope));
+
+                });
+            }
+        };
+    }])
     .controller('OfferIndexCtrl', ['$scope', '$http', '$location', '$filter', '$sce', 'TreeService', 'OfferService', 'ValuesService', '$interval', 'poollingFactory',
                                      'mapModal','FileUploader', '$modal', 'SecurityService',
     function($scope, $http, $location,  $filter, $sce,   TreeService,   OfferService,   ValuesService, $interval, poollingFactory, mapModal,FileUploader, $modal, SecurityService) {
@@ -663,7 +757,38 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         };
         
         ///////////////
-        
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyVideoModal = function (size, video) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyVideoModal.html',
+                controller: 'bodyVideoModalCtrl as controller',
+                size: size,
+                resolve: {
+                    video: function() {
+                        return video;
+                    }
+                },
+                windowClass: 'video-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
+
         /**
          * audio modal initialization
          */
@@ -694,6 +819,38 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             });
         };
         
+        ///////////////
+
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyAudioModal = function (size, audio) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyAudioModal.html',
+                controller: 'bodyAudioModalCtrl as controller',
+                size: size,
+                resolve: {
+                    audio: function() {
+                        return audio;
+                    }
+                },
+                windowClass: 'audo-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
         ///////////////
 
         /**
@@ -2052,6 +2209,37 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
 
 
     }]).
+
+    controller('bodyVideoModalCtrl', ['$scope', '$sce', '$modalInstance', 'OfferService','TreeService', 'ValuesService', 'video', function ($scope, $sce, $modalInstance, OfferService, TreeService, ValuesService, video) {
+        this.config = {
+            preload: "none",
+            sources: [
+                {src: $sce.trustAsResourceUrl(video), type: "video/mp4"}
+            ],
+            tracks: [
+
+            ],
+            theme: {
+                url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+            }
+        };
+        this.video = video;
+
+    }]).
+    controller('bodyAudioModalCtrl', ['$scope', '$sce', '$modalInstance', 'OfferService','TreeService', 'ValuesService', 'audio', function ($scope, $sce, $modalInstance, OfferService, TreeService, ValuesService, audio) {
+
+        this.config = {
+            sources: [
+                {src: $sce.trustAsResourceUrl(audio), type: "audio/mpeg"},
+                {src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/audios/videogular.ogg"), type: "audio/ogg"}
+            ],
+            theme: {
+                url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+            }
+        };
+        this.audio = audio;
+
+    }]).
     controller('videoModalCtrl', ['$scope', '$sce', '$modalInstance', 'OfferService','TreeService', 'ValuesService', function ($scope, $sce, $modalInstance, OfferService, TreeService, ValuesService) {
         $scope.OfferService = OfferService;
         $scope.ValuesService = ValuesService;
@@ -2168,7 +2356,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         $scope.close = function(){$modalInstance.close(false);}
         
     }]).
-    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'OfferService','ValuesService', 'SecurityService', function ($scope, $http, $sce, $collection, $modalInstance, OfferService, ValuesService, SecurityService) {
+    controller('bodyPreviewModalCtrl', ['$scope', '$http', '$sce', '$collection', '$modalInstance', 'OfferService','ValuesService', 'SecurityService', '$modal', function ($scope, $http, $sce, $collection, $modalInstance, OfferService, ValuesService, SecurityService, $modal) {
         $scope.OfferService = OfferService;
         $scope.close = function(){$modalInstance.close(false);}
         $scope.getTrustedBody =  function(untrustedBody) {
@@ -2179,6 +2367,68 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         $scope.trustedBody = $scope.getTrustedBody(OfferService.currentOffer.body);
         $scope.innerLink = true;
         $scope.externalLink = false;
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyVideoModal = function (size, video) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyVideoModal.html',
+                controller: 'bodyVideoModalCtrl as controller',
+                size: size,
+                resolve: {
+                    video: function() {
+                        return video;
+                    }
+                },
+                windowClass: 'video-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
+
+        /**
+         * body video modal initialization
+         */
+
+
+
+
+        $scope.openBodyAudioModal = function (size, audio) {
+
+            var treeModalInstance = $modal.open({
+                templateUrl: 'bodyAudioModal.html',
+                controller: 'bodyAudioModalCtrl as controller',
+                size: size,
+                resolve: {
+                    audio: function() {
+                        return audio;
+                    }
+                },
+                windowClass: 'audo-modal-window'
+            });
+
+            treeModalInstance.result.then(
+                function () {
+
+                }, function () {
+
+                });
+        };
+
+        ///////////////
         
         $scope.loadOffer = function(offerId) {
             $scope.innerLink = true;
@@ -2770,11 +3020,13 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
                     break;
                 case 'video':
                     var fileClass = OfferService.selectedBodyVideo.file_name.replace(".", "-");
-                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+OfferService.selectedBodyVideo.absolute_path+'" type="'+OfferService.selectedBodyVideo.filemime+'"></video></p>');
+                    //CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+OfferService.selectedBodyVideo.absolute_path+'" type="'+OfferService.selectedBodyVideo.filemime+'"></video></p>');
+                    CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><dk-video class="'+fileClass+'"  controls="" name="media" width="300" src="'+OfferService.selectedBodyVideo.absolute_path+'" type="'+OfferService.selectedBodyVideo.filemime+'"></dk-video></p>');
                     break;
                 case 'audio':
                     var fileClass = OfferService.selectedBodyAudio.file_name.replace(".", "-");
-                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+OfferService.selectedBodyAudio.absolute_path+'" type="'+OfferService.selectedBodyAudio.filemime+'"></audio></p>');
+                    //CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+OfferService.selectedBodyAudio.absolute_path+'" type="'+OfferService.selectedBodyAudio.filemime+'"></audio></p>');
+                    CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><dk-audio class="'+fileClass+'"  controls="" name="media" width="300" src="'+OfferService.selectedBodyAudio.absolute_path+'" type="'+OfferService.selectedBodyAudio.filemime+'"></dk-audio></p>');
                     break;
                     
                 case 'doc':

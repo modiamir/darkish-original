@@ -229,3 +229,17 @@ table.body-table td {
 .body-preview-content table td{
     padding: 2px 4px;
 }
+
+dk-video {
+    width: 240px;
+    height: 180px;
+    background-image: url(../images/video-default.jpg);
+    display: inline-block;
+}
+
+dk-audio {
+    width: 256px;
+    height: 256px;
+    background-image: url(../images/audio-default.png);
+    display: inline-block;
+}
