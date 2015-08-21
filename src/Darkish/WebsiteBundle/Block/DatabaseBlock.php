@@ -137,7 +137,7 @@ class DatabaseBlock extends BaseBlockService
 			'settings'  	=> $settings,
 //			'entity'		=> $entity,
 			'pagination'	=> $pagination,
-			'search_form'   => $form->createView()
+			'search_from'   => $form->createView()
 		), $response);
 	}
 
