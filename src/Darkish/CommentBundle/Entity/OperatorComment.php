@@ -519,7 +519,7 @@ class OperatorComment extends Comment
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Groups({"comment.details"})
+     * @Groups({"comment.details", "api.list"})
      */
     protected $photos;
 

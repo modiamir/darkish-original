@@ -12,6 +12,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
+<link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular/videogular-themes-default/videogular.min.css') ?>" type="text/css" rel="stylesheet" />
 
 
 <?php $view['slots']->stop() ?>
@@ -1346,7 +1347,14 @@
                         </button>
                         <script type="text/ng-template" id="bodyVideoModal.html">
                             <div class="modal-body">
-                                <p class=""  style="text-align:center;" ><video  controls="" name="media" width="300"><source ng-src="{{video}}"></video></p>
+<!--                                <p class=""  style="text-align:center;" ><video  controls="" name="media" width="300"><source ng-src="{{video}}"></video></p>-->
+                                <videogular vg-theme="controller.config.theme.url">
+                                    <vg-media vg-src="controller.config.sources"
+                                              vg-tracks="controller.config.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                                {{controller.video}}
                             </div>
 
                         </script>
@@ -2136,7 +2144,11 @@
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
 
+
+
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular/videogular.min.js') ?>"></script>
     
 <!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 
