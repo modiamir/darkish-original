@@ -12,6 +12,7 @@
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-modal/modal.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-hotkeys/build/hotkeys.min.css') ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angucomplete-alt/angucomplete-alt.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular-themes-default/videogular.min.css') ?>" type="text/css" rel="stylesheet" />
 <?php $view['slots']->stop() ?>
 
 <?php $view['slots']->start('pagetitle') ?>مدیریت پیشنهاد ویژه<?php $view['slots']->stop() ?>
@@ -860,7 +861,7 @@
 
                 <div class="row html-wrapper">
                     <div class="col-xs-12">
-                        <div class="html-preview" ng-bind-html="trustedBody()">
+                        <div class="html-preview" bind-html-compile="trustedBody()">
 
                         </div>
                         <button data-ng-show="OfferService.isEditing()" id="body-modal-button" class="btn btn-info" data-ng-click="openBodyModal('lg')">
@@ -869,6 +870,53 @@
                         <button id="body-preview-modal-button" class="btn btn-info" ng-click="openBodyPreviewModal()">
                             پیش نمایش صفحه
                         </button>
+                        <script type="text/ng-template" id="bodyVideoModal.html">
+                            <div dir="ltr" class="modal-body">
+                                <videogular vg-theme="controller.config.theme">
+                                    <vg-media vg-src="controller.config.sources"
+                                              vg-tracks="controller.config.tracks">
+                                    </vg-media>
+
+                                    <vg-controls>
+                                        <vg-play-pause-button></vg-play-pause-button>
+                                        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        </vg-scrub-bar>
+                                        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                                        <vg-volume>
+                                            <vg-mute-button></vg-mute-button>
+                                            <vg-volume-bar></vg-volume-bar>
+                                        </vg-volume>
+                                        <vg-fullscreen-button></vg-fullscreen-button>
+                                    </vg-controls>
+
+                                    <vg-overlay-play></vg-overlay-play>
+                                    <vg-poster vg-url='controller.config.plugins.poster'></vg-poster>
+                                </videogular>
+                            </div>
+
+                        </script>
+                        <script type="text/ng-template" id="bodyAudioModal.html">
+                            <div dir="ltr" class="modal-body">
+                                <videogular vg-theme="controller.config.theme.url" class="videogular-container audio">
+                                    <vg-media vg-src="controller.config.sources" vg-type="audio"></vg-media>
+
+                                    <vg-controls>
+                                        <vg-play-pause-button></vg-play-pause-button>
+                                        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        </vg-scrub-bar>
+                                        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                                        <vg-volume>
+                                            <vg-mute-button></vg-mute-button>
+                                        </vg-volume>
+                                    </vg-controls>
+                                </videogular>
+                            </div>
+
+                        </script>
                         <script type="text/ng-template" id="bodyPreviewModal.html">
                             <div class="modal-body">
                                 <i ng-click="close()" class="fa fa-close"></i>
@@ -880,7 +928,7 @@
                                 </button>
                                 <span class="rt-title" ng-disabled="true" ng-bind-html="rtTitle"> </span>
                                 <div class="body-preview-box">
-                                    <div ng-show="innerLink" class="body-preview-content" ng-bind-html="trustedBody">
+                                    <div ng-show="innerLink" class="body-preview-content" bind-html-compile="trustedBody">
                                     </div>
                                     <div ng-show="externalLink" class="body-preview-content external-link">
                                         <iframe ng-src="{{trustedUrl}}" width="362" height="588" />
@@ -1545,6 +1593,16 @@
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/lodash/dist/lodash.min.js') ?>"></script>
 
     <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/angular-scroll/angular-scroll.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular/videogular.min.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular-controls/vg-controls.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular-overlay-play/vg-overlay-play.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular-poster/vg-poster.js') ?>"></script>
+
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/videogular-buffering/vg-buffering.js') ?>"></script>
     
 <!--    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>-->
 

@@ -163,11 +163,50 @@ class DefaultController extends Controller
 
 
 	public function convertHtmlVideoTagAction() {
-		$record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(727);
+//		return new Response($this->replaceString('<video class="record-1438286741-44981-mp4" controls="" name="media" width="300"> <source src="http://178.62.236.24/n-darkish/web/uploads/video/record-1438286741-44981.mp4" type="video/mp4" /></video>'));
+//			return new Response('convertHtmlVideoTag');
+		$em = $this->getDoctrine()->getManager();
+		$records = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->findAll();
+		foreach($records as $record)
+		{
+			$record->setBody($this->replaceString($record->getBody()));
+			$em->persist($record);
+		}
+
+		$news = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News')->findAll();
+		foreach($news as $new)
+		{
+			$new->setBody($this->replaceString($new->getBody()));
+			$em->persist($new);
+		}
+
+//		$record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->find(409);
+//
+//		$body = $record->getBody();
+//		return new Response($this->replaceString($body));
+
+		$em->flush();
+		return new Response('done');
 	}
 
 	private function replaceString($html)
 	{
+		$html = preg_replace("/\s+<source/", "<source", $html);
+		$html = preg_replace("/\/><\/video>/", "></video>", $html);
+		$html = preg_replace("/><source/", "", $html);
+		$html = preg_replace("/<video/", "<dk-video", $html);
+		$html = preg_replace("/<\/video/", "</dk-video", $html);
 
+		//		$html = preg_replace("/\s+<source/", "<source", $html);
+		$html = preg_replace("/\/><\/audio>/", "></audio>", $html);
+//		$html = preg_replace("/><source/", "", $html);
+		$html = preg_replace("/<audio/", "<dk-audio", $html);
+		$html = preg_replace("/<\/audio/", "</dk-audio", $html);
+
+//		$html2 = str_replace('/> <video>', '/><video>', $html);
+//		$html3 = str_replace('/><video>', '><video>', $html2);
+//		$html4 = str_replace('><source>', '', $html);
+//		$html5 = str_replace('video', 'dk-video', $htm4);
+		return $html;
 	}
 }
