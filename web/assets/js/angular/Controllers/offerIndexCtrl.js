@@ -195,7 +195,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'icon') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -395,7 +395,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -473,6 +473,115 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             console.info('onCompleteAll');
         };
         
+        ////////////////////
+
+
+        //////////////////////////
+
+
+
+        /**
+         * Vertical Banner Uploader start
+         */
+
+        var verticalBannerUploader = $scope.verticalBannerUploader = new FileUploader({
+            url: '../managedfile/ajax/upload'
+        });
+        verticalBannerUploader.withCredentials = true;
+        verticalBannerUploader.queueLimit =10 ;
+        verticalBannerUploader.autoUpload = true;
+        verticalBannerUploader.removeAfterUpload = true;
+        verticalBannerUploader.formData.push({uploadDir : 'banner'});
+        verticalBannerUploader.formData.push({type : 'offer'});
+        verticalBannerUploader.msg = "";
+
+
+
+        // FILTERS
+
+        verticalBannerUploader.filters.push({
+            name: 'imageTypeFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                if(ValuesService.activeTab == 'image') {
+                    uploadableType = "image";
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+                    fileType = item.type.split("/")[0];
+                    fileExtension = item.type.split("/")[1];
+                    if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
+                        return false;
+                    }
+                }
+                return true;
+
+
+            }
+        });
+
+//        bannerUploader.filters.push({
+//            name: 'imageSizeFilter',
+//            fn: function(item /*{File|FileLikeObject}*/, options) {
+//                if(ValuesService.activeTab == 'image') {
+//                    if(item.size > 300000) {
+//                        return false;
+//                    }
+//                }
+//                return true;
+//
+//
+//            }
+//        });
+
+
+
+        // CALLBACKS
+
+        verticalBannerUploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+            switch(filter.name) {
+                case 'imageTypeFilter':
+                    verticalBannerUploader.msg = "شما فقط میتوانید فایل با پسوند های  png و bmp و jpg آپلود کنید";
+                    break;
+                case 'imageSizeFilter':
+                    verticalBannerUploader.msg = 'imageSizeFilter';
+                    break;
+            }
+        };
+        verticalBannerUploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        verticalBannerUploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        verticalBannerUploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        verticalBannerUploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        verticalBannerUploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        verticalBannerUploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+
+            OfferService.currentOffer.vertical_banner = response;
+
+            verticalBannerUploader.msg = 'فایل با موفقیت بارگزاری شد.';
+        };
+        verticalBannerUploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+            alert(response);
+        };
+        verticalBannerUploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        verticalBannerUploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        verticalBannerUploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+        };
+
         ////////////////////
 
         /**
@@ -1313,6 +1422,10 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
         
         self.removeBanner = function() {
             self.currentOffer.banner = {}
+        }
+
+        self.removeVerticalBanner = function() {
+            self.currentOffer.vertical_banner = {}
         }
         
         self.list = offerList;
@@ -2832,7 +2945,7 @@ angular.module('OfferApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mod
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
