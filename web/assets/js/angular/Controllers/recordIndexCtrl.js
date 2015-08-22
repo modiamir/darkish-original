@@ -169,7 +169,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif","bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -203,7 +203,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.activeTab == 'icon') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "bmp", "gif"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
@@ -1046,6 +1046,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
            $scope.insertDateIsOpen = true;
            $scope.validityDateIsOpen = false;
+            $scope.expireDateIsOpen = false;
         };
         $scope.openValidityDate = function($event) {
            $event.preventDefault();
@@ -1053,6 +1054,16 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
            $scope.validityDateIsOpen = true;
            $scope.insertDateIsOpen = false;
+            $scope.expireDateIsOpen = false;
+        };
+
+        $scope.openExpireDate = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.expireDateIsOpen = true;
+            $scope.ExpireDateIsOpen = false;
+            $scope.insertDateIsOpen = false;
         };
 
         $scope.dateOptions = {
@@ -3135,7 +3146,7 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 if(ValuesService.bodyAttachmentActiveTab == 'image') {
                     uploadableType = "image";
-                    uploadableExtensions = ["jpg", "jpeg", "png"];
+                    uploadableExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
                     fileType = item.type.split("/")[0];
                     fileExtension = item.type.split("/")[1];
                     if(fileType != uploadableType || uploadableExtensions.indexOf(fileExtension) == -1) {
