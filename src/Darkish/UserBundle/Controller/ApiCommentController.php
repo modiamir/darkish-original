@@ -280,7 +280,7 @@ class ApiCommentController extends FOSRestController
             $em->persist($comment);
 
             if ($em->flush() !== false) {
-                return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
+                return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('api.list', 'comment.details', 'file.details'))));
             }
         }
 
