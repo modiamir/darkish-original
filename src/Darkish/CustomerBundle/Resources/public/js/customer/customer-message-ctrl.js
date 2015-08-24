@@ -402,7 +402,11 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', 'recordD
         $scope.groupMessageApprove = false;
         $scope.threads.unshift(response.data);
         $scope.selectThread(response.data);
-        
+
+        $http({method: 'GET', url: 'customer/ajax/html/get_record_details'}).then(function(response){
+          $scope.recordData = response.data;
+        })
+
         console.log($scope.threads);
         
       }
