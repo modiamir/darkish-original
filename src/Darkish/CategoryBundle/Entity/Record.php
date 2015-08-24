@@ -585,7 +585,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="WorkingDaysDesc", type="string" )
+     * @ORM\Column(name="WorkingDaysDesc", type="string", nullable=true )
      * @Groups({"record.details", "api.list"})
      */
     private $workingDaysDesc;
