@@ -552,7 +552,7 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="OpeningHours", type="string" )
+     * @ORM\Column(name="OpeningHours", type="string", nullable=true )
      * @Groups({"record.details", "api.list"})
      */
     private $openingHoursDesc;
