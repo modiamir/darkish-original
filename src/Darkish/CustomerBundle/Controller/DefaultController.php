@@ -2,6 +2,7 @@
 
 namespace Darkish\CustomerBundle\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -37,6 +38,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Darkish\CategoryBundle\Entity\Message;
 use Darkish\CategoryBundle\Entity\MessageThread;
 use Doctrine\Common\Collections\ArrayCollection;
+use Darkish\CustomerBundle\Form\CustomerRecordType;
 
 
 class DefaultController extends Controller
@@ -75,6 +77,22 @@ class DefaultController extends Controller
 
             case 'html-page.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(2);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+            case 'record-edit.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(9);
+                if($assistantAccess->contains($role)) {
+                    return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
+                } else {
+                    throw new AccessDeniedException();
+                }
+                break;
+            case 'special-message.html':
+                $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(1);
                 if($assistantAccess->contains($role)) {
                     return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
                 } else {
@@ -823,7 +841,9 @@ class DefaultController extends Controller
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
         }
-        return new Response($form->getErrorsAsString(), 500);
+//        return new Response($form->getErrorsAsString(), 500);
+//        return new JsonResponse(['success'=>false, 'message'=> (string) $form->getErrors(true, false)], 500);
+        return new JsonResponse(['success'=>false, 'message'=> $this->get('darkish.form_errors')->getFormErrors($form, true)], 500);
     }
 
 
@@ -1142,6 +1162,61 @@ class DefaultController extends Controller
 
         return new Response($this->get('jms_serializer')->serialize($storeData, 'json', SerializationContext::create()->setGroups(array('record.store'))));
 
+    }
+
+    /**
+     * @param Request $request
+     * @Route("customer/ajax/save_record_data", defaults={"_format" = "json"})
+     * @Method({"POST"})
+     */
+    public function saveRecordDataAction(Request $request)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(9);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $record = $user->getRecord();
+
+
+        $form = $this->createForm(new CustomerRecordType(), $record);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $bag = $request->request->all();
+            $formData = $bag['customer_record'];
+            if(isset($formData['sellServicePageCustomer']) && $formData['sellServicePageCustomer'] == 'true')
+            {
+                $record->setSellServicePageCustomer(true);
+            } else {
+                $record->setSellServicePageCustomer(false);
+            }
+
+            if(isset($formData['commentableCustomer']) && $formData['commentableCustomer'] == 'true')
+            {
+                $record->setCommentableCustomer(true);
+            } else {
+                $record->setCommentableCustomer(false);
+            }
+
+            if(isset($formData['dbaseEnableCustomer']) && $formData['dbaseEnableCustomer'] == 'true')
+            {
+                $record->setDbaseEnableCustomer(true);
+            } else {
+                $record->setDbaseEnableCustomer(false);
+            }
+
+            $em->persist($record);
+            $em->flush();
+            return new Response($this->get('jms_serializer')->serialize($record, 'json', SerializationContext::create()->setGroups(["record.details"])));
+        }
+
+        return new Response($this->get('darkish.form_errors')->getFormErrors($form, true));
     }
 
 

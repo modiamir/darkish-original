@@ -53,7 +53,7 @@ class DatabaseController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
         $assistantAccess = $user->getAssistantAccess();
-        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(7);
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
         if(!$assistantAccess->contains($role)) {
             throw new AccessDeniedException();
         }

@@ -146,6 +146,12 @@
                                 
                                 <li ng-class="{'active': (state.current.name == 'user')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="user">کاربران</a></li>
+
+                                <li ng-class="{'active': (state.current.name == 'recordedit')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DETAILS') > -1"><a ui-sref="recordedit">مشخصات</a></li>
+
+                            <li ng-class="{'active': (state.current.name == 'specialmessage')}"
+                                ng-show="access.indexOf('ROLE_CUSTOMER_SPECIAL_MESSAGE') > -1"><a ui-sref="specialmessage">پیام ویژه</a></li>
                         </ul>
                     </div>
                 </div>
@@ -190,6 +196,12 @@
                                 
                                 <li ng-class="{'active': (state.current.name == 'user')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_ASSISTANT') > -1"><a ui-sref="user">کاربران</a></li>
+
+                                <li ng-class="{'active': (state.current.name == 'recordedit')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_DETAILS') > -1"><a ui-sref="recordedit">مشخصات</a></li>
+
+                                <li ng-class="{'active': (state.current.name == 'specialmessage')}"
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_SPECIAL_MESSAGE') > -1"><a ui-sref="specialmessage">پیام ویژه</a></li>
                                 
                             </ul>
                         </li>
@@ -321,6 +333,8 @@
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-comments-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-html-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-attachment-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-record-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-special-message-ctrl.js') ?>" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).keydown(function(e) {
             var nodeName = e.target.nodeName.toLowerCase();

@@ -223,7 +223,7 @@
                             <div class="banner-box">
                                 <div class="banner-head">
                                     <span class="banner-title">
-                                        تابلو
+                                        تابلوی اپ
                                     </span>
                                     <button ng-click="SponsorService.removeBanner()" ng-disabled="!SponsorService.isEditing()" class="banner-delete btn-danger btn">
                                         حذف
@@ -236,6 +236,26 @@
                                 </div>
                                 <div class="banner-body">
                                     <img ng-show="SponsorService.currentSponsor.banner.id" width="80%" ng-src="{{SponsorService.currentSponsor.banner.absolute_path}}" />
+                                </div>
+
+                            </div>
+
+                            <div class="banner-box">
+                                <div class="banner-head">
+                                    <span class="banner-title">
+تابلوی وب
+                                    </span>
+                                    <button ng-click="SponsorService.removeVerticalBanner()" ng-disabled="!SponsorService.isEditing()" class="banner-delete btn-danger btn">
+                                        حذف
+                                    </button>
+                                    <label class="banner-file-select btn btn-info" ng-class="{'disabled': !SponsorService.isEditing()}">
+                                        انتخاب فایل
+                                        <input ng-disabled="!SponsorService.isEditing()  || !SecurityService.connected" type="file" nv-file-select="" uploader="verticalBannerUploader" multiple="true" style="visibility: hidden;display: none"/>
+                                    </label>
+
+                                </div>
+                                <div class="banner-body">
+                                    <img ng-show="SponsorService.currentSponsor.vertical_banner.id" width="80%" ng-src="{{SponsorService.currentSponsor.vertical_banner.absolute_path}}" />
                                 </div>
 
                             </div>

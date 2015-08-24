@@ -57,13 +57,13 @@ class DBase
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Record")
+     * @ORM\ManyToOne(targetEntity="Record", inversedBy="dbaseItems")
      * @Groups({"database.list", "database.details"})
      */
     protected $record;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="dbaseItems")
      * @Groups({"database.list", "database.details"})
      */
     protected $customer;

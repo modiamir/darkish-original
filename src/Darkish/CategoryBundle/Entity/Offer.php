@@ -335,10 +335,10 @@ class Offer
      *      inverseJoinColumns={@ORM\JoinColumn(name="offertree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
-    private $trees;
+//    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer")
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer", cascade={"remove"})
      * @Groups({"offer.details", "api.list", "api.body"})
      **/
     private $offertrees;
@@ -373,6 +373,17 @@ class Offer
      * 
      **/
     private $banner;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\JoinColumn(name="VerticalBannerIndex", referencedColumnName="id")
+     * @Groups({"offer.details", "api.list", "api.body"})
+     *
+     **/
+    private $verticalBanner;
     
 
     /**
@@ -1618,5 +1629,29 @@ class Offer
     public function getSubmitterTitle()
     {
         return $this->submitterTitle;
+    }
+
+    /**
+     * Set verticalBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $verticalBanner
+     *
+     * @return Offer
+     */
+    public function setVerticalBanner(\Darkish\CategoryBundle\Entity\ManagedFile $verticalBanner = null)
+    {
+        $this->verticalBanner = $verticalBanner;
+
+        return $this;
+    }
+
+    /**
+     * Get verticalBanner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
     }
 }

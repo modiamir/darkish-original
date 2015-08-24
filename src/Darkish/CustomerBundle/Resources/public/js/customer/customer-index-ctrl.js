@@ -8,6 +8,98 @@ customerApp.run(function(amMoment) {
     // FastClick.attach(document.body);
 });
 
+customerApp
+    .directive('dkVideo', ['$compile', function($compile){
+      return {
+        restrict: 'E',
+        transclude: true,
+        link: function(scope, element, attrs) {
+          //console.log(attrs);
+          var img = document.createElement('img');
+          $(img).attr('src', './assets/images/video-default.jpg');
+          var src = attrs.src;
+
+          $(img).attr('ng-click', "openBodyVideoModal('lg', '"+src+"')");
+
+          var compileScope = scope;
+          $(element).replaceWith($compile(img)(compileScope));
+
+          //element.html('test');
+        }
+      }
+    }])
+    .directive('dkAudio', ['$compile', function($compile){
+      return {
+        restrict: 'E',
+        transclude: true,
+        link: function(scope, element, attrs) {
+          //console.log(attrs);
+          var img = document.createElement('img');
+          $(img).attr('src', './assets/images/audio-default.png');
+          var src = attrs.src;
+
+          $(img).attr('ng-click', "openBodyAudioModal('lg', '"+src+"')");
+
+          var compileScope = scope;
+          $(element).replaceWith($compile(img)(compileScope));
+
+          //element.html('test');
+        }
+      }
+    }])
+    .directive('bindHtmlCompile', ['$compile', '$timeout', function ($compile, $timeout) {
+      return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          scope.$watch(function () {
+            return scope.$eval(attrs.bindHtmlCompile).toString();
+
+          }, function (value) {
+
+            var trueHtml = scope.$eval(attrs.bindHtmlCompile).toString();
+
+
+            //var elem = angular.element(element);
+            //var elem = angular.element('<div>'+trueHtml+'</div>');
+            //var elem = angular.element('<div>'+trueHtml+'</div>');
+
+            //var videos = $('video[class^="record-"]', elem);
+
+            //videos.each(function( index ) {
+            //    var el = this;
+            //    var img = document.createElement('img');
+            //    $(img).attr('src', '../../assets/images/video-default.jpg');
+            //    var src = $('source',el).attr('src');
+            //    var src1 = src.substring(0,10);
+            //    var src2 = src.substring(10);
+            //    $(img).attr('ng-click', "openBodyVideoModal('lg', '"+src1+"', '"+src2+"')");
+            //    $(el).replaceWith(img);
+            //});
+            //
+            //var audios = $('audio[class^="record-"]', elem);
+            //
+            //audios.each(function( index ) {
+            //    var el = this;
+            //    var img = document.createElement('img');
+            //    $(img).attr('src', '../../assets/images/audio-default.png');
+            //    var src = $('source',el).attr('src');
+            //    var src1 = src.substring(0,10);
+            //    var src2 = src.substring(10);
+            //    $(img).attr('width', '100');
+            //    $(img).attr('ng-click', "openBodyAudioModal('lg', '"+src1+"', '"+src2+"')");
+            //    $(el).replaceWith(img);
+            //});
+
+            var compileScope = scope;
+
+            //element.html($compile(elem.html())(compileScope));
+            element.html($compile(trueHtml)(compileScope));
+
+          });
+        }
+      };
+    }])
+
 
 
 
@@ -278,6 +370,38 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
              .then (function (response) {
                 return response.data;
              });
+        }
+      }
+    })
+    .state('recordedit', {
+      url: "/record-edit",
+      templateUrl: "customer/template/record-edit.html",
+      controller: "RecordEditCtrl",
+      data: {
+        label: 'ویرایش واحد'
+      },
+      resolve: {
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/html/get_record_details'})
+              .then (function (response) {
+            return response.data;
+          });
+        }
+      }
+    })
+    .state('specialmessage', {
+      url: "/special-message",
+      templateUrl: "customer/template/special-message.html",
+      controller: "SpecialMessageCtrl",
+      data: {
+        label: 'پیام ویژه'
+      },
+      resolve: {
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/html/get_record_details'})
+              .then (function (response) {
+            return response.data;
+          });
         }
       }
     })
@@ -730,7 +854,7 @@ customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAle
     	        SweetAlert.swal(
     	            {
     	                title: "ویرایش با خطا مواجه شد", 
-    	                text: responseErr.data.error.message,
+    	                text: responseErr.data.message,
     	                type: "warning"
     	            }
     	        );

@@ -69,7 +69,7 @@ class Sponsor
     private $creationDate;
     
     /**
-     * @ORM\Column(name="MainSponsor", type="boolean", nullable=false)
+     * @ORM\Column(name="MainSponsor", type="boolean", nullable=true)
      * @Groups({"sponsor.details"})
      */
     private $mainSponsor;
@@ -376,6 +376,16 @@ class Sponsor
      * 
      **/
     private $banner;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\JoinColumn(name="VerticalBannerIndex", referencedColumnName="id")
+     * @Groups({"sponsor.details", "api.list"})
+     *
+     **/
+    private $verticalBanner;
     
 
     /**
@@ -1621,5 +1631,29 @@ class Sponsor
     public function getSubmitterTitle()
     {
         return $this->submitterTitle;
+    }
+
+    /**
+     * Set mainSponsor
+     *
+     * @param boolean $mainSponsor
+     *
+     * @return Sponsor
+     */
+    public function setMainSponsor($mainSponsor)
+    {
+        $this->mainSponsor = $mainSponsor;
+
+        return $this;
+    }
+
+    /**
+     * Get mainSponsor
+     *
+     * @return boolean
+     */
+    public function getMainSponsor()
+    {
+        return $this->mainSponsor;
     }
 }

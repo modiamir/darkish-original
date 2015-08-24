@@ -5,4 +5,10 @@ services:
     client_authenticator:
         class:     Darkish\UserBundle\Security\ClientAuthenticator
         arguments: ["@client_user_provider"]
+    darkish.validator.valid_name:
+        class:     Darkish\UserBundle\Validator\Constraints\ValidNameValidator
+        arguments: ["@service_container"]
+        tags:
+            - { name: validator.constraint_validator, alias: darkish_valid_name }
+
 

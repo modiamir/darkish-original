@@ -137,3 +137,7 @@ record_get_entities:
 record_get_group_filter: 
     path:     /ajax/get_group_filter/{treeIndex}
     defaults: { _controller: "DarkishCategoryBundle:Record:getGroupFilterForTree", _format: json}
+
+record_get_access_level:
+    path:     /ajax/get_access_levels
+    defaults: { _controller: "DarkishCategoryBundle:Record:getAccessLevels", _format: json}

@@ -190,6 +190,11 @@ class ManagedFile
     private $recordAsBodyImage;
 
     /**
+     * @ORM\ManyToMany(targetEntity="News", mappedBy="bodyImages")
+     */
+    private $newsAsBodyImage;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
@@ -1130,5 +1135,39 @@ class ManagedFile
     public function getVideoThumbnail()
     {
         return $this->videoThumbnail;
+    }
+
+    /**
+     * Add newsAsBodyImage
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $newsAsBodyImage
+     *
+     * @return ManagedFile
+     */
+    public function addNewsAsBodyImage(\Darkish\CategoryBundle\Entity\News $newsAsBodyImage)
+    {
+        $this->newsAsBodyImage[] = $newsAsBodyImage;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsAsBodyImage
+     *
+     * @param \Darkish\CategoryBundle\Entity\News $newsAsBodyImage
+     */
+    public function removeNewsAsBodyImage(\Darkish\CategoryBundle\Entity\News $newsAsBodyImage)
+    {
+        $this->newsAsBodyImage->removeElement($newsAsBodyImage);
+    }
+
+    /**
+     * Get newsAsBodyImage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNewsAsBodyImage()
+    {
+        return $this->newsAsBodyImage;
     }
 }

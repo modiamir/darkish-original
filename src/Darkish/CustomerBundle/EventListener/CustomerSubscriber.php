@@ -30,6 +30,7 @@ class CustomerSubscriber implements EventSubscriber
             'postLoad',
             'preUpdate',
             'prePersist',
+            'preRemove',
         );
     }
 
@@ -134,6 +135,43 @@ class CustomerSubscriber implements EventSubscriber
                     }
                 }
             }
+        }
+    }
+
+    public function preRemove(LifecycleEventArgs $args)
+    {
+
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        if($entity instanceof Customer && $entity->getType() == 'assistant')
+        {
+            $record = $entity->getRecord();
+
+            $owner = $entityManager
+                        ->getRepository('DarkishCustomerBundle:Customer')
+                        ->findOneBy([
+                            'type' => 'owner',
+                            'record' => $record->getId(),
+                        ]);
+
+//            die('='.$entity->getId());
+            $query = $entityManager->createQuery("
+                Update Darkish\CommentBundle\Entity\CustomerComment comment Set comment.owner = ".$owner->getId()." WHERE comment.owner = ".$entity->getId()." ");
+
+//            die($query->getSQL());
+            $query->execute();
+
+
+            $query2 = $entityManager->createQuery("
+                Update Darkish\CategoryBundle\Entity\Product product Set product.customer = ".$owner->getId()." WHERE product.customer = ".$entity->getId()." ");
+
+//            die($query->getSQL());
+            $query2->execute();
+
+
+
+
+
         }
     }
 }

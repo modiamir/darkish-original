@@ -295,7 +295,8 @@ class ManageCustomerController extends Controller
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
         }
-        return new Response($form->getErrorsAsString(), 500);
+
+        return new JsonResponse(['success'=>false, 'message'=> $this->get('darkish.form_errors')->getFormErrors($form, true)], 500);
     }
     
     
@@ -324,7 +325,7 @@ class ManageCustomerController extends Controller
             $em->flush();
             return new Response($this->get('jms_serializer')->serialize($customer, 'json', SerializationContext::create()->setGroups(array('customer.details'))));
         }
-        return new Response($form->getErrorsAsString(), 500);
+        return new JsonResponse(['success'=>false, 'message'=> $this->get('darkish.form_errors')->getFormErrors($form, true)], 500);
     }
     
     /**

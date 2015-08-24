@@ -27,7 +27,7 @@ class Thread
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="thread")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="thread", cascade={"remove"})
      * @Groups("thread.details")
      */
     protected $comments;

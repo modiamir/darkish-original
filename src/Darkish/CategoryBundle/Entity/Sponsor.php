@@ -338,10 +338,10 @@ class Sponsor
      *      inverseJoinColumns={@ORM\JoinColumn(name="sponsortree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
-    private $trees;
+//    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="SponsorSponsorTree", mappedBy="sponsor")
+     * @ORM\OneToMany(targetEntity="SponsorSponsorTree", mappedBy="sponsor", cascade={"remove"})
      * @Groups({"sponsor.details", "api.list"})
      **/
     private $sponsortrees;
@@ -376,6 +376,16 @@ class Sponsor
      * 
      **/
     private $banner;
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="ManagedFile")
+     * @ORM\JoinColumn(name="VerticalBannerIndex", referencedColumnName="id")
+     * @Groups({"sponsor.details", "api.list"})
+     *
+     **/
+    private $verticalBanner;
     
 
     /**
@@ -1645,5 +1655,29 @@ class Sponsor
     public function getMainSponsor()
     {
         return $this->mainSponsor;
+    }
+
+    /**
+     * Set verticalBanner
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $verticalBanner
+     *
+     * @return Sponsor
+     */
+    public function setVerticalBanner(\Darkish\CategoryBundle\Entity\ManagedFile $verticalBanner = null)
+    {
+        $this->verticalBanner = $verticalBanner;
+
+        return $this;
+    }
+
+    /**
+     * Get verticalBanner
+     *
+     * @return \Darkish\CategoryBundle\Entity\ManagedFile
+     */
+    public function getVerticalBanner()
+    {
+        return $this->verticalBanner;
     }
 }

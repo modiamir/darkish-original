@@ -340,6 +340,28 @@ class SponsorController extends Controller
             }
             
         }
+        if(isset($data['vertical_banner'])) {
+            $verticalBannerRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+            $em = $this->getDoctrine()->getManager();
+            if(isset($data['vertical_banner']['id'])) {
+                $verticalBanner = $verticalBannerRepo->find($data['vertical_banner']['id']);
+                if($verticalBanner) {
+                    $sponsor->setVerticalBanner($verticalBanner);
+                    if(isset($data['vertical_banner']['continual']) && $data['vertical_banner']['continual']) {
+                        $verticalBanner->setContinual(true);
+                        $em->persist($verticalBanner);
+                        $em->flush();
+                    } else {
+                        $verticalBanner->setContinual(false);
+                        $em->persist($verticalBanner);
+                        $em->flush();
+                    }
+                }
+            } else {
+                $sponsor->setVerticalBanner();
+            }
+
+        }
         if(false && isset($data['trees'])) {
             $currentTrees = $sponsor->getTrees();
             $newTrees = new ArrayCollection();

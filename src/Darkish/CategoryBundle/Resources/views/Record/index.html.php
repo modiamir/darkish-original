@@ -284,13 +284,23 @@
                             </div>
 
                             <div class="main-fields-owner">
+
+
+                            </div>
+                            <div id="spec-msg-detail-wrapper">
                                 <label class="trip-maker-title first-section-fields-title" for="trip-maker-combo">
                                     سطح دسترسی
                                 </label>
                                 <select id="trip-maker-combo" ng-model="RecordService.currentRecord.access_class" ng-disabled="!RecordService.isEditing()" class="first-section-input">
-                                    <option ng-selected="class.value == RecordService.currentRecord.access_class" ng-repeat="class in ValuesService.accessClasses" value="{{class.value}}" > {{class.label}} </option>
+                                    <option ng-selected="class.value == RecordService.currentRecord.access_class" ng-repeat="class in ValuesService.accessClasses" value="{{class.id}}" > {{class.name}} </option>
 
                                 </select>
+                                <br/><br/>
+                                <label id="expire-date-label" class="third-section-label " for="expire-date-input">
+                                    تاریخ اعتبار رکورد:
+                                </label>
+                                <input ng-click="openExpireDate($event)" type="text" id="expire-date-input" class="third-section-input"  datepicker-popup-persian="{{format}}" ng-model="RecordService.currentRecord.expire_date" is-open="expireDateIsOpen"  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-disabled="!RecordService.isEditing()" close-text="بستن" />
+
                             </div>
                             
 
@@ -402,6 +412,7 @@
 
                                 </select>
 
+
                                 <label class="central-floor-title second-section-fields-title" for="central-floor-input">طبقه</label>
                                 <input type="text" name="central-floor" id="central-floor-input" class="second-section-input" ng-model="RecordService.currentRecord.center_floor" ng-disabled="!RecordService.isEditing()">
 
@@ -493,6 +504,8 @@
 
                                  </div>
                              </div>
+
+
 
                              <div id="ticket-wrapper">
                                  <div id="spec-msg-text-wrapper">
@@ -599,6 +612,13 @@
                                         ng-class="{'time-disabled': !RecordService.isEditing()}"
                                     ></timepicker>
 
+
+                                 </div>
+                                 <div style="display: inline-block;">
+                                     <label class="central-floor-title second-section-fields-title" for="opening-hours-desc">
+                                         توضیحات ساعات فعالیت
+                                     </label>
+                                     <input type="text" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.opening_hours_desc" ng-disabled="!RecordService.isEditing()">
                                  </div>
                                  <div class="holidays-wrapper">
                                      <span>
@@ -663,7 +683,12 @@
 
 
 
-
+                                     <div style="display: inline-block;">
+                                         <label style="width: 30%;" class="central-floor-title second-section-fields-title" for="opening-hours-desc">
+                                             روزهای تعطیل
+                                         </label>
+                                         <input style="width: 60%;" type="text" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.working_days_desc" ng-disabled="!RecordService.isEditing()">
+                                     </div>
 
 
                                  </div>

@@ -340,6 +340,28 @@ class OfferController extends Controller
             }
             
         }
+        if(isset($data['vertical_banner'])) {
+            $bannerRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
+            $em = $this->getDoctrine()->getManager();
+            if(isset($data['vertical_banner']['id'])) {
+                $verticalBanner = $bannerRepo->find($data['vertical_banner']['id']);
+                if($verticalBanner) {
+                    $offer->setVerticalBanner($verticalBanner);
+                    if(isset($data['vertical_banner']['continual']) && $data['vertical_banner']['continual']) {
+                        $verticalBanner->setContinual(true);
+                        $em->persist($verticalBanner);
+                        $em->flush();
+                    } else {
+                        $verticalBanner->setContinual(false);
+                        $em->persist($verticalBanner);
+                        $em->flush();
+                    }
+                }
+            } else {
+                $offer->setVerticalBanner();
+            }
+
+        }
         if(false && isset($data['trees'])) {
             $currentTrees = $offer->getTrees();
             $newTrees = new ArrayCollection();
