@@ -288,10 +288,10 @@ class Classified
      *      inverseJoinColumns={@ORM\JoinColumn(name="classifiedtree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
-    private $trees;
+//    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified")
+     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove"})
      * @Groups({"classified.details", "api.list", "api.body"})
      **/
     private $classifiedtrees;

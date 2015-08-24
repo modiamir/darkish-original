@@ -82,7 +82,7 @@ security:
         
 
     access_control:
-        
+
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
@@ -94,8 +94,8 @@ security:
         - { path: ^/customer , role: ROLE_CUSTOMER }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/modi/, roles: ROLE_ADMIN }
-        
-        
+
+
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
     acl:
         connection: default

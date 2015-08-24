@@ -95,7 +95,7 @@ class Product
     private $specialTag;    
 
     /**
-     * @ORM\ManyToOne(targetEntity="Record")
+     * @ORM\ManyToOne(targetEntity="Record", inversedBy="products")
      */
     private $record;
 

@@ -154,6 +154,12 @@ class RecordRegisterController extends Controller
 
 
     private function generateCode(Record $record, $regenerate = false) {
+
+        if($record->getAccessClass()->getId() == 1)
+        {
+            return 0;
+        }
+
         if($record->getCustomerRegisterUsed()) {
             return 0;
         }

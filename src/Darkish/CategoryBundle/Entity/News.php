@@ -255,11 +255,11 @@ class News
      *      inverseJoinColumns={@ORM\JoinColumn(name="newstree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
-    private $trees;
+//    private $trees;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="news")
+     * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="news", cascade={"remove"})
      * @Groups({"news.details", "api.list"})
      **/
     private $newstrees;
@@ -286,7 +286,7 @@ class News
     private $icon;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile", inversedBy="newsAsBodyImage")
      * @ORM\JoinTable(name="news_body_images",
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}

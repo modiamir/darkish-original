@@ -24,7 +24,7 @@ class StoreCache
 
     /**
      * @var Record
-     * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record")
+     * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="storeCache")
      */
     private $recordId;
 

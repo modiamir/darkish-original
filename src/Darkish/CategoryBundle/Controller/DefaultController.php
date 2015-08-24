@@ -2,8 +2,11 @@
 
 namespace Darkish\CategoryBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\Record;
+use Darkish\CategoryBundle\Entity\News;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use JMS\Serializer\SerializationContext;
 use \Wa72\HtmlPageDom\HtmlPageCrawler;
 use Doctrine\Common\Collections\ArrayCollection as Collection;
@@ -209,4 +212,65 @@ class DefaultController extends Controller
 //		$html5 = str_replace('video', 'dk-video', $htm4);
 		return $html;
 	}
+
+
+	public function changeGifImagesAction()
+	{
+		$gifFiles = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->findBy(['filemime' => 'image/gif']);
+
+		$files = [];
+
+		foreach($gifFiles as $file)
+		{
+			if($file->getType() == 'record')
+			{
+				$record = $file->getRecordAsBodyImage()->first();
+				if($record instanceof Record)
+				{
+					$recordValue = $record->getId();
+					$files[$file->getFileName()] = $recordValue;
+				}
+
+			}
+
+			if($file->getType() == 'news')
+			{
+				$news = $file->getNewsAsBodyImage()->first();
+				if($news instanceof News)
+				{
+					$newsValue = $news->getId();
+					$files[$file->getFileName()] = $newsValue;
+				}
+
+			}
+
+
+		}
+
+		foreach($files as $fileName => $entity)
+		{
+			$gifFileName = substr($fileName, 0, strlen($fileName) -3) . 'gif';
+//			$this->grab_image('http://178.62.236.24/n-darkish/web/uploads/image/'.$fileName, '/home/amir/Desktop/dkimages/'.$gifFileName);
+
+		}
+
+
+		return new JsonResponse($files);
+	}
+
+	function grab_image($url,$saveto){
+		$ch = curl_init ($url);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+		$raw=curl_exec($ch);
+		curl_close ($ch);
+		if(file_exists($saveto)){
+			unlink($saveto);
+		}
+		$fp = fopen($saveto,'x');
+		fwrite($fp, $raw);
+		fclose($fp);
+	}
+
 }

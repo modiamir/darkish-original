@@ -54,7 +54,7 @@
 			<div ng-show="bodyMode == 'edit'" class="editor-box">
 				<textarea  ckeditor="bodyEditorOptions" ng-model="recordData.body"></textarea>
 			</div>
-			<div ng-show="bodyMode == 'preview'" class="body-preview" ng-bind-html="getTrustBody()"></div>
+			<div ng-show="bodyMode == 'preview'" class="body-preview" bind-html-compile="getTrustBody()"></div>
 
 		</div>
 	

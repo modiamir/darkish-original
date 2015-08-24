@@ -2,6 +2,7 @@
 
 namespace Darkish\CustomerBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -12,6 +13,9 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
+use Darkish\UserBundle\Validator\Constraints\ValidName;
 
 
 /**
@@ -19,6 +23,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="Darkish\CustomerBundle\Entity\CustomerRepository")
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     errorPath="username",
+ *     message="نام کاربری تکراری استss."
+ * )
  *
  */
 class Customer implements AdvancedUserInterface, \Serializable
@@ -27,7 +36,8 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "product.list", "product.details", "message.details",
+     * "message.list", "api.list", "api.body"})
      */
     private $id;
 
@@ -36,12 +46,13 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @Assert\Email(
      *     message = "The username '{{ value }}' is not a valid email."
      * )
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list", "api.list", "api.body"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups({"none"})
      */
     private $password;
     
@@ -64,49 +75,71 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="customers")
-     * @ORM\JoinColumn(name="record_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="record_id", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({"customer.list", "customer.details"})
      */
     private $record;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="record_access_level", type="integer")
+     */
+    private $recordAccessLevel;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\Message", mappedBy="customer", cascade={"remove"})
+     */
+    private $messages;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\DBase", mappedBy="customer", cascade={"remove"})
+     */
+    private $dbaseItems;
+
     
     /**
      *
      * @var string 
      * @ORM\Column(name="type", type="string")
      * @Assert\Choice(choices = {"owner", "assistant"}, message = "Choose a valid type.")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $type;
     
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_one", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @ORM\Column(name="phone_one", type="string", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneOne;
     
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_two", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @ORM\Column(name="phone_two", type="string", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneTwo;
     
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_three", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @ORM\Column(name="phone_three", type="string", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneThree;
     
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_four", type="bigint", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @ORM\Column(name="phone_four", type="string", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneFour;
     
@@ -114,7 +147,8 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @var string
      * @ORM\Column(name="full_name", type="string", nullable=true) 
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
+     * @ValidName
      */
     private $fullName;
     
@@ -122,7 +156,8 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"operator.details"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list", "api.list", "api.body"})
+     * 
      *
      */
     private $photo;
@@ -135,11 +170,32 @@ class Customer implements AdvancedUserInterface, \Serializable
     private $assistantAccess;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\MessageThread", mappedBy="customer", cascade={"remove"})
+     */
+    private $messageThreads;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.details"})
+     */
+    private $expireDate;
+
+    /**
      *
      * @Groups({"customer.list", "customer.details"})
      */
     private $roles;
+
+
     
+    /**
+     * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\CustomerComment", mappedBy="owner")
+     * 
+     */
+    private $comments;
 
     /**
      * @inheritDoc
@@ -232,7 +288,8 @@ class Customer implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        $now = new \DateTime();
+        return ($this->isActive && $this->expireDate > $now);
     }
 
     /**
@@ -398,6 +455,11 @@ class Customer implements AdvancedUserInterface, \Serializable
     {
         return $this->assistantAccess;
     }
+
+    public function clearAssistantAccess() {
+        $this->assistantAccess = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Constructor
      */
@@ -432,12 +494,6 @@ class Customer implements AdvancedUserInterface, \Serializable
         return $this->created;
     }
     
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue() {
-        $this->created = new \DateTime();
-    }
 
 
     /**
@@ -622,5 +678,204 @@ class Customer implements AdvancedUserInterface, \Serializable
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     * @return Customer
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string 
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @return string
+     * @VirtualProperty
+     * @SerializedName("display_info")
+     * @Groups({"api.list", "api.details"})
+     */
+    public function gedDisplayInfo()
+    {
+        $displayInfo = [];
+        $displayInfo['name'] = $this->getFullName();
+        $displayInfo['photo'] = $this->photo;
+
+        return $displayInfo;
+    }
+
+
+    /**
+     * Set expireDate
+     *
+     * @param \DateTime $expireDate
+     *
+     * @return Customer
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expireDate = $expireDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expireDate
+     *
+     * @return \DateTime
+     */
+    public function getExpireDate()
+    {
+        return $this->expireDate;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $message
+     *
+     * @return Customer
+     */
+    public function addMessage(\Darkish\CategoryBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $message
+     */
+    public function removeMessage(\Darkish\CategoryBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * Add dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     *
+     * @return Customer
+     */
+    public function addDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems[] = $dbaseItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     */
+    public function removeDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems->removeElement($dbaseItem);
+    }
+
+    /**
+     * Get dbaseItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDbaseItems()
+    {
+        return $this->dbaseItems;
+    }
+
+    /**
+     * Add messageThread
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThread
+     *
+     * @return Customer
+     */
+    public function addMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThread)
+    {
+        $this->messageThreads[] = $messageThread;
+
+        return $this;
+    }
+
+    /**
+     * Remove messageThread
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThread
+     */
+    public function removeMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThread)
+    {
+        $this->messageThreads->removeElement($messageThread);
+    }
+
+    /**
+     * Get messageThreads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessageThreads()
+    {
+        return $this->messageThreads;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Darkish\CommentBundle\Entity\CustomerComment $comment
+     *
+     * @return Customer
+     */
+    public function addComment(\Darkish\CommentBundle\Entity\CustomerComment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Darkish\CommentBundle\Entity\CustomerComment $comment
+     */
+    public function removeComment(\Darkish\CommentBundle\Entity\CustomerComment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

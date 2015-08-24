@@ -190,6 +190,11 @@ class ManagedFile
     private $recordAsBodyImage;
 
     /**
+     * @ORM\ManyToMany(targetEntity="News", mappedBy="bodyImages")
+     */
+    private $newsAsBodyImage;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="upload_key", type="string", nullable=true)
@@ -584,6 +589,10 @@ class ManagedFile
         // documents should be saved
 
         return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
+    }
+
+    public function getRelativePath() {
+        return 'uploads/'.$this->getUploadDir().'/'.$this->getPath();   
     }
 
     public function getUploadDir()
@@ -1102,5 +1111,29 @@ class ManagedFile
     public function getBannerForSponsor()
     {
         return $this->bannerForSponsor;
+    }
+
+    /**
+     * Set videoThumbnail
+     *
+     * @param string $videoThumbnail
+     *
+     * @return ManagedFile
+     */
+    public function setVideoThumbnail($videoThumbnail)
+    {
+        $this->videoThumbnail = $videoThumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get videoThumbnail
+     *
+     * @return string
+     */
+    public function getVideoThumbnail()
+    {
+        return $this->videoThumbnail;
     }
 }

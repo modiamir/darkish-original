@@ -276,6 +276,10 @@ class RecordController extends Controller
         if(isset($data['message_validity_date'])) {
             $record->setMessageValidityDate($data['message_validity_date']);
         }
+
+        if(isset($data['expire_date'])) {
+            $record->setExpireDate(new \DateTime($data['expire_date']));
+        }
         if(isset($data['archive'])) {
             $record->setArchive($data['archive']);
         }
@@ -367,7 +371,7 @@ class RecordController extends Controller
         if(isset($data['postal_code'])) {
             $record->setPostalCode($data['postal_code']);
         }
-        if(isset($data['address'])) {
+        if(isset($data['address']) && !isset($data['center_index'])) {
             $record->setAddress($data['address']);
         }
         if(isset($data['longitude'])) {
@@ -429,6 +433,13 @@ class RecordController extends Controller
         }
         if(isset($data['a_opening_hours_to'])) {
             $record->setAOpeningHoursTo($data['a_opening_hours_to']);
+        }
+        if(isset($data['opening_hours_desc'])) {
+            $record->setOpeningHoursDesc($data['opening_hours_desc']);
+        }
+
+        if(isset($data['working_days_desc'])) {
+            $record->setWorkingDaysDesc($data['working_days_desc']);
         }
         if(isset($data['working_days'])) {
             $record->setWorkingDays($data['working_days']);
@@ -532,8 +543,24 @@ class RecordController extends Controller
         }        
 
         if(isset($data['center_index'])) {
-            
-            //$record->setCenterIndex($data['center_index']);
+            $center = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Center')->find($data['center_index']['id']);
+            $record->setCenterIndex($center);
+            $address = '';
+            if($center)
+            {
+                $address .= $center->getName();
+            }
+            if(isset($data['center_floor']))
+            {
+                $data['center_floor'] = ($data['center_floor'] == 0) ? ' همکف' : $data['center_floor'];
+                $address = $address.' -طبقه'.$data['center_floor'];
+            }
+            if(isset($data['center_unit_number']))
+            {
+                $address = $address.' -واحد'.$data['center_unit_number'];
+            }
+
+            $record->setAddress($address);
         }
         if(isset($data['area_index'])) {
             //$record->setAreaIndex($data['area_index']);
@@ -2174,5 +2201,12 @@ class RecordController extends Controller
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:GroupFilter');
         $groupFilters = $repo->findBy(['treeIndex' => $treeIndex]);
         return new Response($this->get('jms_serializer')->serialize($groupFilters, 'json'));
+    }
+
+    public function getAccessLevelsAction()
+    {
+        $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:RecordAccessLevel');
+        $accessLevels = $repo->findAll();
+        return new Response($this->get('jms_serializer')->serialize($accessLevels, 'json', SerializationContext::create()->setGroups('record.details')));
     }
 }

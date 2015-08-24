@@ -223,7 +223,7 @@
                             <div class="banner-box">
                                 <div class="banner-head">
                                     <span class="banner-title">
-                                        تابلو
+تابلوی اپ
                                     </span>
                                     <button ng-click="OfferService.removeBanner()" ng-disabled="!OfferService.isEditing()" class="banner-delete btn-danger btn">
                                         حذف
@@ -236,6 +236,26 @@
                                 </div>
                                 <div class="banner-body">
                                     <img ng-show="OfferService.currentOffer.banner.id" width="80%" ng-src="{{OfferService.currentOffer.banner.absolute_path}}" />
+                                </div>
+
+                            </div>
+
+                            <div class="banner-box">
+                                <div class="banner-head">
+                                    <span class="banner-title">
+تابلوی وب
+                                    </span>
+                                    <button ng-click="OfferService.removeVerticalBanner()" ng-disabled="!OfferService.isEditing()" class="banner-delete btn-danger btn">
+                                        حذف
+                                    </button>
+                                    <label class="banner-file-select btn btn-info" ng-class="{'disabled': !OfferService.isEditing()}">
+                                        انتخاب فایل
+                                        <input ng-disabled="!OfferService.isEditing()  || !SecurityService.connected" type="file" nv-file-select="" uploader="verticalBannerUploader" multiple="true" style="visibility: hidden;display: none"/>
+                                    </label>
+
+                                </div>
+                                <div class="banner-body">
+                                    <img ng-show="OfferService.currentOffer.vertical_banner.id" width="80%" ng-src="{{OfferService.currentOffer.vertical_banner.absolute_path}}" />
                                 </div>
 
                             </div>

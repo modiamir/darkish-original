@@ -10,6 +10,7 @@ use Darkish\CategoryBundle\Entity\DeletedRecords;
 use Darkish\CategoryBundle\Entity\News;
 use Darkish\CategoryBundle\Entity\Offer;
 use Darkish\CategoryBundle\Entity\Classified;
+use Proxies\__CG__\Darkish\CategoryBundle\Entity\RecordAccessLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use FFMpeg\Coordinate\Dimension;
@@ -38,6 +39,7 @@ class CnorSubscriber implements EventSubscriber
         return array(
             'prePersist',
             'preUpdate',
+            'postUpdate',
         );
     }
 
@@ -119,6 +121,35 @@ class CnorSubscriber implements EventSubscriber
             } else {
                 $entity->setAudio(false);
             }
+
+        }
+    }
+
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        if($entity instanceof Record)
+        {
+            $record = $entity;
+
+            $query2 = $entityManager->createQuery("
+                Update Darkish\CustomerBundle\Entity\Customer customer Set customer.recordAccessLevel = :recordAccessLevel Where customer.record = :rid
+                ");
+            $query2->setParameter('recordAccessLevel',$record->getAccessClass()->getId());
+            $query2->setParameter('rid', $record->getId());
+            $query2->execute();
+
+            if($record->getExpireDate() instanceof \DateTime)
+            {
+                $query = $entityManager->createQuery("
+                Update Darkish\CustomerBundle\Entity\Customer customer Set customer.expireDate = :expdate Where customer.record = :rid
+                ");
+                $query->setParameter('expdate',$record->getExpireDate());
+                $query->setParameter('rid', $record->getId());
+                $query->execute();
+            }
+
 
         }
     }

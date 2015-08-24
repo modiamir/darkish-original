@@ -87,6 +87,15 @@ class DefaultController extends Controller
 					        return $this->redirect($this->generateUrl('register_customer'));
 
 						}
+						$record = $records[0];
+						if($record->getAccessClass()->getId() == 1)
+						{
+							$this->get('session')->getFlashBag()->add(
+								'danger',
+								'رکورد مربوطه شما دارای دسترسی مورد نظر جهت ثبت مشتری نمیباشد.'
+							);
+							return $this->redirect($this->generateUrl('register_customer'));
+						}
 						$this->get('session')->getFlashBag()->add(
 				            'success',
 				            'رمز های وارد شده صحیح است. اطلاعات تکمیلی جهت ثبت نام را وارد نمایید.'

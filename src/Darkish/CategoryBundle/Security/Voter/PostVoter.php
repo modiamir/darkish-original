@@ -103,7 +103,6 @@ class PostVoter implements VoterInterface
                 
                 
                 $allowed_roles = array(
-                    'ROLE_ADMIN',
                     'ROLE_SUPER_ADMIN',
                 );
                 if(count(array_intersect($allowed_roles, $user->getRolesNames())) ) {

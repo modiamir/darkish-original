@@ -2,6 +2,7 @@
 
 namespace Darkish\CustomerBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\SerializedName;
+use Darkish\UserBundle\Validator\Constraints\ValidName;
 
 
 /**
@@ -77,6 +79,28 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @Groups({"customer.list", "customer.details"})
      */
     private $record;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="record_access_level", type="integer")
+     */
+    private $recordAccessLevel;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\Message", mappedBy="customer", cascade={"remove"})
+     */
+    private $messages;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\DBase", mappedBy="customer", cascade={"remove"})
+     */
+    private $dbaseItems;
+
     
     /**
      *
@@ -90,7 +114,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_one", type="bigint", nullable=true) 
+     * @ORM\Column(name="phone_one", type="string", nullable=true)
      * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneOne;
@@ -98,7 +122,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_two", type="bigint", nullable=true) 
+     * @ORM\Column(name="phone_two", type="string", nullable=true)
      * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneTwo;
@@ -106,7 +130,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_three", type="bigint", nullable=true) 
+     * @ORM\Column(name="phone_three", type="string", nullable=true)
      * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneThree;
@@ -114,7 +138,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      *
      * @var integer
-     * @ORM\Column(name="phone_four", type="bigint", nullable=true) 
+     * @ORM\Column(name="phone_four", type="string", nullable=true)
      * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
      */
     private $phoneFour;
@@ -124,6 +148,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @var string
      * @ORM\Column(name="full_name", type="string", nullable=true) 
      * @Groups({"customer.list", "customer.details", "api.list", "api.body"})
+     * @ValidName
      */
     private $fullName;
     
@@ -145,10 +170,26 @@ class Customer implements AdvancedUserInterface, \Serializable
     private $assistantAccess;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\MessageThread", mappedBy="customer", cascade={"remove"})
+     */
+    private $messageThreads;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
+     * @Groups({"customer.list", "customer.details", "api.list", "api.details"})
+     */
+    private $expireDate;
+
+    /**
      *
      * @Groups({"customer.list", "customer.details"})
      */
     private $roles;
+
+
     
     /**
      * @ORM\OneToMany(targetEntity="\Darkish\CommentBundle\Entity\CustomerComment", mappedBy="owner")
@@ -247,7 +288,8 @@ class Customer implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        $now = new \DateTime();
+        return ($this->isActive && $this->expireDate > $now && $this->recordAccessLevel > 1);
     }
 
     /**
@@ -676,4 +718,188 @@ class Customer implements AdvancedUserInterface, \Serializable
         return $displayInfo;
     }
 
+
+    /**
+     * Set expireDate
+     *
+     * @param \DateTime $expireDate
+     *
+     * @return Customer
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expireDate = $expireDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expireDate
+     *
+     * @return \DateTime
+     */
+    public function getExpireDate()
+    {
+        return $this->expireDate;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $message
+     *
+     * @return Customer
+     */
+    public function addMessage(\Darkish\CategoryBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \Darkish\CategoryBundle\Entity\Message $message
+     */
+    public function removeMessage(\Darkish\CategoryBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * Add dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     *
+     * @return Customer
+     */
+    public function addDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems[] = $dbaseItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     */
+    public function removeDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems->removeElement($dbaseItem);
+    }
+
+    /**
+     * Get dbaseItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDbaseItems()
+    {
+        return $this->dbaseItems;
+    }
+
+    /**
+     * Add messageThread
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThread
+     *
+     * @return Customer
+     */
+    public function addMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThread)
+    {
+        $this->messageThreads[] = $messageThread;
+
+        return $this;
+    }
+
+    /**
+     * Remove messageThread
+     *
+     * @param \Darkish\CategoryBundle\Entity\MessageThread $messageThread
+     */
+    public function removeMessageThread(\Darkish\CategoryBundle\Entity\MessageThread $messageThread)
+    {
+        $this->messageThreads->removeElement($messageThread);
+    }
+
+    /**
+     * Get messageThreads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessageThreads()
+    {
+        return $this->messageThreads;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Darkish\CommentBundle\Entity\CustomerComment $comment
+     *
+     * @return Customer
+     */
+    public function addComment(\Darkish\CommentBundle\Entity\CustomerComment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Darkish\CommentBundle\Entity\CustomerComment $comment
+     */
+    public function removeComment(\Darkish\CommentBundle\Entity\CustomerComment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set recordAccessLevel
+     *
+     * @param integer $recordAccessLevel
+     *
+     * @return Customer
+     */
+    public function setRecordAccessLevel($recordAccessLevel)
+    {
+        $this->recordAccessLevel = $recordAccessLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get recordAccessLevel
+     *
+     * @return integer
+     */
+    public function getRecordAccessLevel()
+    {
+        return $this->recordAccessLevel;
+    }
 }

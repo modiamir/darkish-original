@@ -60,6 +60,11 @@ services:
     darkish_jdate:
         class:        Darkish\CategoryBundle\Date\JalaliDate
 
+    darkish.form_errors:
+        class: Darkish\CategoryBundle\Form\FormErrors
+        arguments: [ "@service_container"]
+
+
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example
 

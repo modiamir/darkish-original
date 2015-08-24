@@ -90,11 +90,13 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 		        break;
 		    case 'video':
 		        var fileClass = media.file_name.replace(".", "-");
-		        CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><video class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+media.absolute_path+'" type="'+media.filemime+'"></video></p>');
+		        CkInstance.insertHtml('<p class="'+fileClass+'"  style="text-align:center;" ><dk-video class="'+fileClass+'"  controls="" name="media" width="300" src="'+media.absolute_path+'" type="'+media.filemime+'"></dk-video></p>');
+
 		        break;
 		    case 'audio':
 		        var fileClass = media.file_name.replace(".", "-");
-		        CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><audio class="'+fileClass+'"  controls="" name="media" width="300"><source src="'+media.absolute_path+'" type="'+media.filemime+'"></audio></p>');
+		        CkInstance.insertHtml('<p class="'+fileClass+'" style="text-align:center;" ><dk-audio class="'+fileClass+'"  controls="" name="media" width="300" src="'+media.absolute_path+'" type="'+media.filemime+'"></dk-audio></p>');
+
 		        break;
 		        
 		    case 'doc':
@@ -155,7 +157,7 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
         'B Koodak;'+
         'Roya;'+
         'Tahoma;',
-        contentsCss : '../../assets/css/ckeditor-body.css',
+        contentsCss : 'assets/css/ckeditor-body.css',
         smiley_path: CKEDITOR.basePath+'plugins/smiley/images/darkish/',
         smiley_images: ['(smiley).png','(sad).png','(wink).png','(angry).png','(yummi).png','(laugh).png','(surprised).png','(happy).png','(cry).png','(sick).png','(shy).png','(teeth).png','(tongue).png','(money).png','(mad).png','(crazy).png','(confused).png','(depressed).png','(scream).png','(nerd).png','(not_sure).png','(cool).png','(sleeping).png','(Q).png','(!).png','($).png','(burger).png','(coffee).png','(cupcake).png','(airplane).png','(car).png','(cloud).png','(rain).png','(sun).png','(flower).png','(music).png','(fire).png','(koala).png','(ladybug).png','(relax).png','(basketball).png','(soccer).png','(baseball).png','(time).png','(bicycle).png','(clap).png','(run).png','(light_bulb).png']//,
         // toolbar: [
@@ -493,8 +495,17 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 		}
 	}
 
-	
 
+
+	$scope.openBodyVideoModal = function (size, video) {
+
+		$scope.openVideoModal([{absolute_path: video}],0);
+	};
+
+	$scope.openBodyAudioModal = function (size, audio) {
+
+		$scope.openVideoModal([{absolute_path: audio}],0);
+	};
 
 
 }])

@@ -172,7 +172,7 @@ class NewsTree
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\News", mappedBy="trees")
      */
-    protected $news;
+//    protected $news;
 
     /**
      * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="tree")

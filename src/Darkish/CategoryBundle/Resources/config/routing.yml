@@ -69,6 +69,10 @@ DarkishConvertHtmlVideoTag:
     defaults: { _controller: DarkishCategoryBundle:Default:convertHtmlVideoTag }
 
 
+DarkishChangeGifImages:
+    path: /darkish/change_gif_images
+    defaults: { _controller: DarkishCategoryBundle:Default:changeGifImages}
+
 managedfile_nervgh:
     path:     /nervgh
     defaults: { _controller: "DarkishCategoryBundle:ManagedFile:nervgh" }

@@ -290,8 +290,8 @@ customerApp.controller('customersAddCtrl', ['$scope', '$stateParams', '$state', 
                 function(responseErr){
                     SweetAlert.swal(
                         {
-                            title: "ویرایش با خطا مواجه شد", 
-                            text: responseErr.data,
+                            title: "ویرایش با خطا مواجه شد",
+                            text: responseErr.data.message,
                             type: "warning"
                         }
                     );
@@ -476,7 +476,7 @@ customerApp.controller('customersEditCtrl', ['$scope', '$stateParams', '$state',
                     SweetAlert.swal(
                         {
                             title: "ویرایش با خطا مواجه شد", 
-                            text: responseErr.data,
+                            text: responseErr.data.message,
                             type: "warning"
                         }
                     );

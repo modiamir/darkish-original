@@ -34,7 +34,7 @@ class MessageThread
     protected $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="thread")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="thread", cascade={"remove"})
      */
     protected $messages;
 

@@ -1851,8 +1851,12 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
                     self.currentRecord.bodyDocsList = Collection.getInstance();
                     self.currentRecord.bodyDocsList.addAll(self.currentRecord.body_docs);
+                    if(self.currentRecord.center_index) {
+                        self.currentRecord.center_index = $filter('filter')(ValuesService.centers, {id: self.currentRecord.center_index.id}, true)[0];
+                    }
 
-                    console.log(self.currentRecord);
+
+
                 },
                 function(errResponse) {
                 }
@@ -3585,24 +3589,22 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
 
 
 
-        self.accessClasses = [
-            {
-                value: 1,
-                label: "سطح اول"
-            },
-            {
-                value: 2,
-                label: "سطح دوم"
-            },
-            {
-                value: 3,
-                label: "سطح سوم"
-            },
-            {
-                value: 4,
-                label: "سطح چهارم"
-            }
-        ];
+        var accessClasses;
+
+        if(!accessClasses) {
+
+            $http.get('ajax/get_access_levels').then(
+                function(response) {
+                    self.accessClasses = response.data;
+
+                },
+                function(errResponse) {
+                }
+            );
+
+
+
+        }
 
         self.commentDefaultStates = [
             {

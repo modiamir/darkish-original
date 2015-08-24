@@ -2,6 +2,8 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
+use Darkish\CategoryBundle\Entity\Cache\StoreCache;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -105,6 +107,8 @@ class Record
      * )
      */
     private $arabicTitle;
+
+
 
     /**
      * @var string
@@ -449,7 +453,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Longitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details"})
      */
     private $longitude;
 
@@ -457,7 +461,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="Latitude", type="string", length=255, nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details"})
      */
     private $latitude;
 
@@ -548,6 +552,15 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="OpeningHours", type="string" )
+     * @Groups({"record.details", "api.list"})
+     */
+    private $openingHoursDesc;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="AOpeningHoursFrom", type="string", length=255, nullable=true)
      * @Groups({"record.details", "api.list"})
      */
@@ -568,6 +581,15 @@ class Record
      * @Groups({"record.details", "api.list"})
      */
     private $workingDays;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="WorkingDaysDesc", type="string" )
+     * @Groups({"record.details", "api.list"})
+     */
+    private $workingDaysDesc;
+
 
     /**
      * @var string
@@ -697,6 +719,14 @@ class Record
     private $sellServicePage;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="SellServicePageCustomer", type="boolean", nullable=true, options={"default": 0})
+     * @Groups({"record.details"})
+     */
+    private $sellServicePageCustomer;
+
+    /**
      * @ORM\Column(type="boolean", name="CustomerRegisterUsed", options={"default"=false})
      */
     private $customerRegisterUsed = false;
@@ -708,6 +738,14 @@ class Record
      * @Groups({"record.details", "api.list"})
      */
     private $dbaseEnable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="DbaseEnableCustomer", type="boolean", nullable=true)
+     * @Groups({"record.details", "api.list"})
+     */
+    private $dbaseEnableCustomer;
 
     /**
      * @var string
@@ -770,6 +808,16 @@ class Record
      * @Groups({"record.details", "record.list", "api.list"})
      */
     private $commentable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="CommentableCustomer", type="boolean", nullable=false, options={"default":1})
+     * @Groups({"record.details", "record.list", "api.list"})
+     */
+    private $commentableCustomer;
+
+
 
 
     /**
@@ -854,6 +902,29 @@ class Record
      * @ORM\Column(name="MarketLastCacheCreate", type="datetime", nullable=true)
      */
     private $marketLastCacheCreate;
+
+    /**
+     * @var StoreCache
+     *
+     * @ORM\OneToOne(targetEntity="Darkish\CategoryBundle\Entity\Cache\StoreCache", mappedBy="recordId", cascade={"remove"})
+     */
+    private $storeCache;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\Product", mappedBy="record", cascade={"remove"})
+     */
+    private $products;
+
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\DBase", mappedBy="record", cascade={"remove"})
+     */
+    private $dbaseItems;
+
 
     /**
      * @var boolean
@@ -949,6 +1020,15 @@ class Record
      * @Groups({"record.details"})
      */
     private $verify;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ExpireDate", type="datetime", nullable=true)
+     * @Groups({"record.details"})
+     */
+    private $expireDate;
 
     /**
      * @var integer
@@ -1068,7 +1148,7 @@ class Record
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\RecordThread", mappedBy="target")
+     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\RecordThread", mappedBy="target", cascade={"remove"})
      *  @Groups({"record.details"})
      */
     private $thread;
@@ -4521,5 +4601,241 @@ class Record
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set expireDate
+     *
+     * @param \DateTime $expireDate
+     *
+     * @return Record
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expireDate = $expireDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expireDate
+     *
+     * @return \DateTime
+     */
+    public function getExpireDate()
+    {
+        return $this->expireDate;
+    }
+
+    /**
+     * Set sellServicePageCustomer
+     *
+     * @param boolean $sellServicePageCustomer
+     *
+     * @return Record
+     */
+    public function setSellServicePageCustomer($sellServicePageCustomer)
+    {
+        $this->sellServicePageCustomer = $sellServicePageCustomer;
+
+        return $this;
+    }
+
+    /**
+     * Get sellServicePageCustomer
+     *
+     * @return boolean
+     */
+    public function getSellServicePageCustomer()
+    {
+        return $this->sellServicePageCustomer;
+    }
+
+    /**
+     * Set dbaseEnableCustomer
+     *
+     * @param boolean $dbaseEnableCustomer
+     *
+     * @return Record
+     */
+    public function setDbaseEnableCustomer($dbaseEnableCustomer)
+    {
+        $this->dbaseEnableCustomer = $dbaseEnableCustomer;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseEnableCustomer
+     *
+     * @return boolean
+     */
+    public function getDbaseEnableCustomer()
+    {
+        return $this->dbaseEnableCustomer;
+    }
+
+    /**
+     * Set commentableCustomer
+     *
+     * @param boolean $commentableCustomer
+     *
+     * @return Record
+     */
+    public function setCommentableCustomer($commentableCustomer)
+    {
+        $this->commentableCustomer = $commentableCustomer;
+
+        return $this;
+    }
+
+    /**
+     * Get commentableCustomer
+     *
+     * @return boolean
+     */
+    public function getCommentableCustomer()
+    {
+        return $this->commentableCustomer;
+    }
+
+    /**
+     * Set storeCache
+     *
+     * @param \Darkish\CategoryBundle\Entity\Cache\StoreCache $storeCache
+     *
+     * @return Record
+     */
+    public function setStoreCache(\Darkish\CategoryBundle\Entity\Cache\StoreCache $storeCache = null)
+    {
+        $this->storeCache = $storeCache;
+
+        return $this;
+    }
+
+    /**
+     * Get storeCache
+     *
+     * @return \Darkish\CategoryBundle\Entity\Cache\StoreCache
+     */
+    public function getStoreCache()
+    {
+        return $this->storeCache;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \Darkish\CategoryBundle\Entity\Product $product
+     *
+     * @return Record
+     */
+    public function addProduct(\Darkish\CategoryBundle\Entity\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \Darkish\CategoryBundle\Entity\Product $product
+     */
+    public function removeProduct(\Darkish\CategoryBundle\Entity\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * Add dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     *
+     * @return Record
+     */
+    public function addDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems[] = $dbaseItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove dbaseItem
+     *
+     * @param \Darkish\CategoryBundle\Entity\DBase $dbaseItem
+     */
+    public function removeDbaseItem(\Darkish\CategoryBundle\Entity\DBase $dbaseItem)
+    {
+        $this->dbaseItems->removeElement($dbaseItem);
+    }
+
+    /**
+     * Get dbaseItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDbaseItems()
+    {
+        return $this->dbaseItems;
+    }
+
+    /**
+     * Set openingHoursDesc
+     *
+     * @param string $openingHoursDesc
+     *
+     * @return Record
+     */
+    public function setOpeningHoursDesc($openingHoursDesc)
+    {
+        $this->openingHoursDesc = $openingHoursDesc;
+
+        return $this;
+    }
+
+    /**
+     * Get openingHoursDesc
+     *
+     * @return string
+     */
+    public function getOpeningHoursDesc()
+    {
+        return $this->openingHoursDesc;
+    }
+
+    /**
+     * Set workingDaysDesc
+     *
+     * @param string $workingDaysDesc
+     *
+     * @return Record
+     */
+    public function setWorkingDaysDesc($workingDaysDesc)
+    {
+        $this->workingDaysDesc = $workingDaysDesc;
+
+        return $this;
+    }
+
+    /**
+     * Get workingDaysDesc
+     *
+     * @return string
+     */
+    public function getWorkingDaysDesc()
+    {
+        return $this->workingDaysDesc;
     }
 }
