@@ -812,7 +812,7 @@ class Record
     /**
      * @var boolean
      *
-     * @ORM\Column(name="CommentableCustomer", type="boolean", nullable=false, options={"default":1})
+     * @ORM\Column(name="CommentableCustomer", type="boolean", nullable=true, options={"default":1})
      * @Groups({"record.details", "record.list", "api.list"})
      */
     private $commentableCustomer;
