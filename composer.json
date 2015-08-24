@@ -41,7 +41,8 @@
         "gregwar/captcha-bundle": "dev-master",
         "symfony_persia/symfonyjdate": "~1.1",
         "knplabs/knp-paginator-bundle": "^2.4.1",
-        "whiteoctober/breadcrumbs-bundle": "^1.2"
+        "whiteoctober/breadcrumbs-bundle": "^1.2",
+        "irazasyed/telegram-bot-sdk": "^0.2.5"
 
     },
     "require-dev": {
