@@ -1,8 +1,8 @@
 
 
 
-customerApp.controller('AttachmentsCtrl', ['$scope', 'recordData', 'FileUploader', '$sce', '$http', 'SweetAlert', 'ngDialog', 
-	function($scope, recordData, FileUploader, $sce, $http, SweetAlert, ngDialog){
+customerApp.controller('AttachmentsCtrl', ['$scope', 'recordData', 'FileUploader', '$sce', '$http', 'SweetAlert', 'ngDialog', '$timeout',
+	function($scope, recordData, FileUploader, $sce, $http, SweetAlert, ngDialog, $timeout){
 	$scope.currentTab = 'image';
 	$scope.recordData = recordData;
 	$scope.bodyMode = 'edit';
@@ -30,10 +30,45 @@ customerApp.controller('AttachmentsCtrl', ['$scope', 'recordData', 'FileUploader
 	$scope.removeFromList = function(media, index) {
 		switch($scope.currentTab) {
 			case 'image':
-			    recordData.images.splice(index, 1);
+                SweetAlert.swal({
+                        title: "آیا از حذف اطمینان دارید؟",
+                        text: "این عملیات قابل برگشت نیست!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "بله, حذف کن!",
+                        cancelButtonText: "انصراف",
+                        imageSize: "40x40",
+                        closeOnConfirm: true},
+                    function(){
+                        $timeout(function(){
+                            recordData.images.splice(index, 1);
+                        }, 50);
+
+
+                    });
+
 				break;
 			case 'video':
-				recordData.videos.splice(index, 1);
+                SweetAlert.swal({
+                        title: "آیا از حذف اطمینان دارید؟",
+                        text: "این عملیات قابل برگشت نیست!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "بله, حذف کن!",
+                        cancelButtonText: "انصراف",
+                        imageSize: "40x40",
+                        closeOnConfirm: true},
+                    function(){
+                        $timeout(function(){
+                            recordData.videos.splice(index, 1);
+                        }, 50);
+
+
+
+
+                    });
 				break;
 			
 		}		

@@ -6,7 +6,7 @@
 	<div class="col-xs-12">
 		<div ng-show="user" class="span3 well profile-page">
 		    <center>
-		    	<h3 class="record-title"><?php print $app->getUser()->getRecord()->getTitle(); ?>
+		    	<h3 class="record-title">{{record.title}}
                         </h3>
 			    <div class="icons">
 			    	<span class="icon favoritcount"><div class="dk icon-heart"></div> <span class="count"><?php echo "".$app->getUser()->getRecord()->getFormattedFavoriteCount(); ?></span></span>
@@ -17,10 +17,14 @@
 			    <h3 ng-bind="user.full_name"></h4>
 			    <h4 ng-bind="user.username"></h4>
 	    	    <div class="last-update">
-	    	    	آخرین بروزرسانی: <span class=""><?php $lastUpdate = $app->getUser()->getRecord()->getLastUpdate(); echo $lastUpdate->format('Y-m-d H:i:s'); ?></span>
+					آخرین بروزرسانی:
+					<span class="">{{record.last_update | amDateFormat:'jYYYY/jMM/jDD hh:mm' }}</span>
+					<br/>
+					تاریخ اعتبار:
+					<span ng-style="{color: (isNearToExpire()) ? 'red': 'green'}" class="">{{record.expire_date | amDateFormat:'jYYYY/jMM/jDD' }}</span>
 	        	</div>
 	        	<div class="record-number">
-	        		شماره رکورد: <span class="">R<?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span>
+	        		شماره پرونده: <span class=""><?php echo $app->getUser()->getRecord()->getRecordNumber() ?></span>
 	        	</div>
 			    <!-- <div class="access">
 				    <span><strong>دسترسی ها: </strong></span>

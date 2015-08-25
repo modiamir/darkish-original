@@ -179,7 +179,7 @@ class Customer implements AdvancedUserInterface, \Serializable
     /**
      * @var \DateTime
      * @ORM\Column(name="expire_date", type="datetime", nullable=true)
-     * @Groups({"customer.list", "customer.details", "api.list", "api.details"})
+     * 
      */
     private $expireDate;
 

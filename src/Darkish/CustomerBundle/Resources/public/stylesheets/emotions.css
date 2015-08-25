@@ -3,212 +3,844 @@
   width: 35px;
   height: 35px;
 }
-/* line 4, ../sass/emotions.scss */
-.dk-emot.emot-cool {
-  background-image: url("../images/emotions/(cool).png");
+/* line 6, ../sass/emotions.scss */
+.dk-emot.emot-smiley {
+  background-image: url("../images/emotions/(smiley).png");
 }
-/* line 7, ../sass/emotions.scss */
-.dk-emot.emot-eskenas {
-  background-image: url("../images/emotions/(eskenas).png");
+/* line 9, ../sass/emotions.scss */
+.dk-emot.emot-happy {
+  background-image: url("../images/emotions/(happy).png");
 }
-/* line 10, ../sass/emotions.scss */
-.dk-emot.emot-airplane {
-  background-image: url("../images/emotions/(airplane).png");
+/* line 12, ../sass/emotions.scss */
+.dk-emot.emot-wink2 {
+  background-image: url("../images/emotions/(wink2).png");
 }
-/* line 13, ../sass/emotions.scss */
-.dk-emot.emot-angry {
-  background-image: url("../images/emotions/(angry).png");
+/* line 15, ../sass/emotions.scss */
+.dk-emot.emot-wink {
+  background-image: url("../images/emotions/(wink).png");
 }
-/* line 16, ../sass/emotions.scss */
-.dk-emot.emot-baseball {
-  background-image: url("../images/emotions/(baseball).png");
+/* line 18, ../sass/emotions.scss */
+.dk-emot.emot-laugh {
+  background-image: url("../images/emotions/(laugh).png");
 }
-/* line 19, ../sass/emotions.scss */
-.dk-emot.emot-basketball {
-  background-image: url("../images/emotions/(basketball).png");
+/* line 21, ../sass/emotions.scss */
+.dk-emot.emot-teeth {
+  background-image: url("../images/emotions/(teeth).png");
 }
-/* line 22, ../sass/emotions.scss */
-.dk-emot.emot-bicycle {
-  background-image: url("../images/emotions/(bicycle).png");
+/* line 24, ../sass/emotions.scss */
+.dk-emot.emot-yummi {
+  background-image: url("../images/emotions/(yummi).png");
 }
-/* line 25, ../sass/emotions.scss */
-.dk-emot.emot-burger {
-  background-image: url("../images/emotions/(burger).png");
+/* line 27, ../sass/emotions.scss */
+.dk-emot.emot-surprised {
+  background-image: url("../images/emotions/(surprised).png");
 }
-/* line 28, ../sass/emotions.scss */
-.dk-emot.emot-car {
-  background-image: url("../images/emotions/(car).png");
-}
-/* line 31, ../sass/emotions.scss */
-.dk-emot.emot-clap {
-  background-image: url("../images/emotions/(clap).png");
-}
-/* line 34, ../sass/emotions.scss */
-.dk-emot.emot-cloud {
-  background-image: url("../images/emotions/(cloud).png");
-}
-/* line 37, ../sass/emotions.scss */
-.dk-emot.emot-coffee {
-  background-image: url("../images/emotions/(coffee).png");
-}
-/* line 40, ../sass/emotions.scss */
-.dk-emot.emot-confused {
-  background-image: url("../images/emotions/(confused).png");
-}
-/* line 43, ../sass/emotions.scss */
+/* line 30, ../sass/emotions.scss */
 .dk-emot.emot-crazy {
   background-image: url("../images/emotions/(crazy).png");
 }
-/* line 46, ../sass/emotions.scss */
+/* line 33, ../sass/emotions.scss */
+.dk-emot.emot-money {
+  background-image: url("../images/emotions/(money).png");
+}
+/* line 36, ../sass/emotions.scss */
+.dk-emot.emot-moa {
+  background-image: url("../images/emotions/(moa).png");
+}
+/* line 39, ../sass/emotions.scss */
+.dk-emot.emot-inlove {
+  background-image: url("../images/emotions/(inlove).png");
+}
+/* line 42, ../sass/emotions.scss */
+.dk-emot.emot-flirt {
+  background-image: url("../images/emotions/(flirt).png");
+}
+/* line 45, ../sass/emotions.scss */
+.dk-emot.emot-teary {
+  background-image: url("../images/emotions/(teary).png");
+}
+/* line 48, ../sass/emotions.scss */
+.dk-emot.emot-mad {
+  background-image: url("../images/emotions/(mad).png");
+}
+/* line 51, ../sass/emotions.scss */
+.dk-emot.emot-upset {
+  background-image: url("../images/emotions/(upset).png");
+}
+/* line 54, ../sass/emotions.scss */
 .dk-emot.emot-cry {
   background-image: url("../images/emotions/(cry).png");
 }
-/* line 49, ../sass/emotions.scss */
+/* line 57, ../sass/emotions.scss */
+.dk-emot.emot-angry {
+  background-image: url("../images/emotions/(angry).png");
+}
+/* line 60, ../sass/emotions.scss */
+.dk-emot.emot-sick {
+  background-image: url("../images/emotions/(sick).png");
+}
+/* line 63, ../sass/emotions.scss */
+.dk-emot.emot-sleeping {
+  background-image: url("../images/emotions/(sleeping).png");
+}
+/* line 66, ../sass/emotions.scss */
+.dk-emot.emot-info {
+  background-image: url("../images/emotions/(info).png");
+}
+/* line 69, ../sass/emotions.scss */
+.dk-emot.emot-Q {
+  background-image: url("../images/emotions/(Q).png");
+}
+/* line 72, ../sass/emotions.scss */
+.dk-emot.emot-heart {
+  background-image: url("../images/emotions/(heart).png");
+}
+/* line 75, ../sass/emotions.scss */
+.dk-emot.emot-purple_heart {
+  background-image: url("../images/emotions/(purple_heart).png");
+}
+/* line 78, ../sass/emotions.scss */
+.dk-emot.emot-clap {
+  background-image: url("../images/emotions/(clap).png");
+}
+/* line 81, ../sass/emotions.scss */
+.dk-emot.emot-like {
+  background-image: url("../images/emotions/(like).png");
+}
+/* line 84, ../sass/emotions.scss */
+.dk-emot.emot-V {
+  background-image: url("../images/emotions/(V).png");
+}
+/* line 87, ../sass/emotions.scss */
+.dk-emot.emot-unlike {
+  background-image: url("../images/emotions/(unlike).png");
+}
+/* line 90, ../sass/emotions.scss */
+.dk-emot.emot-flower {
+  background-image: url("../images/emotions/(flower).png");
+}
+/* line 93, ../sass/emotions.scss */
+.dk-emot.emot-balloon2 {
+  background-image: url("../images/emotions/(balloon2).png");
+}
+/* line 96, ../sass/emotions.scss */
+.dk-emot.emot-balloon1 {
+  background-image: url("../images/emotions/(balloon1).png");
+}
+/* line 99, ../sass/emotions.scss */
+.dk-emot.emot-cake {
+  background-image: url("../images/emotions/(cake).png");
+}
+/* line 102, ../sass/emotions.scss */
+.dk-emot.emot-gift {
+  background-image: url("../images/emotions/(gift).png");
+}
+/* line 105, ../sass/emotions.scss */
+.dk-emot.emot-partyhat {
+  background-image: url("../images/emotions/(partyhat).png");
+}
+/* line 108, ../sass/emotions.scss */
 .dk-emot.emot-cupcake {
   background-image: url("../images/emotions/(cupcake).png");
 }
-/* line 52, ../sass/emotions.scss */
-.dk-emot.emot-darkish_logo {
-  background-image: url("../images/emotions/(darkish_logo).png");
+/* line 111, ../sass/emotions.scss */
+.dk-emot.emot-magnify {
+  background-image: url("../images/emotions/(magnify).png");
+}
+/* line 114, ../sass/emotions.scss */
+.dk-emot.emot-glasses {
+  background-image: url("../images/emotions/(glasses).png");
+}
+/* line 117, ../sass/emotions.scss */
+.dk-emot.emot-letter {
+  background-image: url("../images/emotions/(letter).png");
+}
+/* line 120, ../sass/emotions.scss */
+.dk-emot.emot-thinking {
+  background-image: url("../images/emotions/(thinking).png");
+}
+/* line 123, ../sass/emotions.scss */
+.dk-emot.emot-music {
+  background-image: url("../images/emotions/(music).png");
+}
+/* line 126, ../sass/emotions.scss */
+.dk-emot.emot-pencil {
+  background-image: url("../images/emotions/(pencil).png");
+}
+/* line 129, ../sass/emotions.scss */
+.dk-emot.emot-book {
+  background-image: url("../images/emotions/(book).png");
+}
+/* line 132, ../sass/emotions.scss */
+.dk-emot.emot-ruler {
+  background-image: url("../images/emotions/(ruler).png");
+}
+/* line 135, ../sass/emotions.scss */
+.dk-emot.emot-scissor {
+  background-image: url("../images/emotions/(scissor).png");
+}
+/* line 138, ../sass/emotions.scss */
+.dk-emot.emot-dollar {
+  background-image: url("../images/emotions/(dollar).png");
+}
+/* line 141, ../sass/emotions.scss */
+.dk-emot.emot-run {
+  background-image: url("../images/emotions/(run).png");
+}
+/* line 144, ../sass/emotions.scss */
+.dk-emot.emot-time {
+  background-image: url("../images/emotions/(time).png");
+}
+/* line 147, ../sass/emotions.scss */
+.dk-emot.emot-bell {
+  background-image: url("../images/emotions/(bell).png");
+}
+/* line 150, ../sass/emotions.scss */
+.dk-emot.emot-telephone {
+  background-image: url("../images/emotions/(telephone).png");
+}
+/* line 153, ../sass/emotions.scss */
+.dk-emot.emot-snowman {
+  background-image: url("../images/emotions/(snowman).png");
+}
+/* line 156, ../sass/emotions.scss */
+.dk-emot.emot-snowflake {
+  background-image: url("../images/emotions/(snowflake).png");
+}
+/* line 159, ../sass/emotions.scss */
+.dk-emot.emot-rain {
+  background-image: url("../images/emotions/(rain).png");
+}
+/* line 162, ../sass/emotions.scss */
+.dk-emot.emot-cloud {
+  background-image: url("../images/emotions/(cloud).png");
+}
+/* line 165, ../sass/emotions.scss */
+.dk-emot.emot-moon {
+  background-image: url("../images/emotions/(moon).png");
+}
+/* line 168, ../sass/emotions.scss */
+.dk-emot.emot-sun {
+  background-image: url("../images/emotions/(sun).png");
+}
+/* line 171, ../sass/emotions.scss */
+.dk-emot.emot-angel {
+  background-image: url("../images/emotions/(angel).png");
+}
+/* line 174, ../sass/emotions.scss */
+.dk-emot.emot-palmtreeli > {
+  background-image: url("../images/emotions/(palmtreeli>).png");
+}
+/* line 177, ../sass/emotions.scss */
+.dk-emot.emot-sunflower {
+  background-image: url("../images/emotions/(sunflower).png");
+}
+/* line 180, ../sass/emotions.scss */
+.dk-emot.emot-cactus {
+  background-image: url("../images/emotions/(cactus).png");
+}
+/* line 183, ../sass/emotions.scss */
+.dk-emot.emot-sprout {
+  background-image: url("../images/emotions/(sprout).png");
+}
+/* line 186, ../sass/emotions.scss */
+.dk-emot.emot-clover {
+  background-image: url("../images/emotions/(clover).png");
+}
+/* line 189, ../sass/emotions.scss */
+.dk-emot.emot-koala {
+  background-image: url("../images/emotions/(koala).png");
+}
+/* line 192, ../sass/emotions.scss */
+.dk-emot.emot-bunny {
+  background-image: url("../images/emotions/(bunny).png");
+}
+/* line 195, ../sass/emotions.scss */
+.dk-emot.emot-squirrel {
+  background-image: url("../images/emotions/(squirrel).png");
+}
+/* line 198, ../sass/emotions.scss */
+.dk-emot.emot-goldfish {
+  background-image: url("../images/emotions/(goldfish).png");
+}
+/* line 201, ../sass/emotions.scss */
+.dk-emot.emot-monkey {
+  background-image: url("../images/emotions/(monkey).png");
+}
+/* line 204, ../sass/emotions.scss */
+.dk-emot.emot-cat {
+  background-image: url("../images/emotions/(cat).png");
+}
+/* line 207, ../sass/emotions.scss */
+.dk-emot.emot-kangaroo {
+  background-image: url("../images/emotions/(kangaroo).png");
+}
+/* line 210, ../sass/emotions.scss */
+.dk-emot.emot-ladybug {
+  background-image: url("../images/emotions/(ladybug).png");
+}
+/* line 213, ../sass/emotions.scss */
+.dk-emot.emot-turtle {
+  background-image: url("../images/emotions/(turtle).png");
+}
+/* line 216, ../sass/emotions.scss */
+.dk-emot.emot-sheep {
+  background-image: url("../images/emotions/(sheep).png");
+}
+/* line 219, ../sass/emotions.scss */
+.dk-emot.emot-panda {
+  background-image: url("../images/emotions/(panda).png");
+}
+/* line 222, ../sass/emotions.scss */
+.dk-emot.emot-owl {
+  background-image: url("../images/emotions/(owl).png");
+}
+/* line 225, ../sass/emotions.scss */
+.dk-emot.emot-chick {
+  background-image: url("../images/emotions/(chick).png");
+}
+/* line 228, ../sass/emotions.scss */
+.dk-emot.emot-christmas_tree {
+  background-image: url("../images/emotions/(christmas_tree).png");
+}
+/* line 231, ../sass/emotions.scss */
+.dk-emot.emot-palmtree {
+  background-image: url("../images/emotions/(palmtree).png");
+}
+/* line 234, ../sass/emotions.scss */
+.dk-emot.emot-dog {
+  background-image: url("../images/emotions/(dog).png");
+}
+/* line 237, ../sass/emotions.scss */
+.dk-emot.emot-bee {
+  background-image: url("../images/emotions/(bee).png");
+}
+/* line 240, ../sass/emotions.scss */
+.dk-emot.emot-penguin {
+  background-image: url("../images/emotions/(penguin).png");
+}
+/* line 243, ../sass/emotions.scss */
+.dk-emot.emot-dragonfly {
+  background-image: url("../images/emotions/(dragonfly).png");
+}
+/* line 246, ../sass/emotions.scss */
+.dk-emot.emot-pig {
+  background-image: url("../images/emotions/(pig).png");
+}
+/* line 249, ../sass/emotions.scss */
+.dk-emot.emot-snake {
+  background-image: url("../images/emotions/(snake).png");
+}
+/* line 252, ../sass/emotions.scss */
+.dk-emot.emot-snail {
+  background-image: url("../images/emotions/(snail).png");
+}
+/* line 255, ../sass/emotions.scss */
+.dk-emot.emot-fly {
+  background-image: url("../images/emotions/(fly).png");
+}
+/* line 258, ../sass/emotions.scss */
+.dk-emot.emot-shark {
+  background-image: url("../images/emotions/(shark).png");
+}
+/* line 261, ../sass/emotions.scss */
+.dk-emot.emot-bat {
+  background-image: url("../images/emotions/(bat).png");
+}
+/* line 264, ../sass/emotions.scss */
+.dk-emot.emot-martini {
+  background-image: url("../images/emotions/(martini).png");
+}
+/* line 267, ../sass/emotions.scss */
+.dk-emot.emot-beer {
+  background-image: url("../images/emotions/(beer).png");
+}
+/* line 270, ../sass/emotions.scss */
+.dk-emot.emot-coffee {
+  background-image: url("../images/emotions/(coffee).png");
+}
+/* line 273, ../sass/emotions.scss */
+.dk-emot.emot-soda {
+  background-image: url("../images/emotions/(soda).png");
+}
+/* line 276, ../sass/emotions.scss */
+.dk-emot.emot-burger {
+  background-image: url("../images/emotions/(burger).png");
+}
+/* line 279, ../sass/emotions.scss */
+.dk-emot.emot-pizza {
+  background-image: url("../images/emotions/(pizza).png");
+}
+/* line 282, ../sass/emotions.scss */
+.dk-emot.emot-hotdog {
+  background-image: url("../images/emotions/(hotdog).png");
+}
+/* line 285, ../sass/emotions.scss */
+.dk-emot.emot-popcorn {
+  background-image: url("../images/emotions/(popcorn).png");
+}
+/* line 288, ../sass/emotions.scss */
+.dk-emot.emot-egg {
+  background-image: url("../images/emotions/(egg).png");
+}
+/* line 291, ../sass/emotions.scss */
+.dk-emot.emot-noodles {
+  background-image: url("../images/emotions/(noodles).png");
+}
+/* line 294, ../sass/emotions.scss */
+.dk-emot.emot-chicken {
+  background-image: url("../images/emotions/(chicken).png");
+}
+/* line 297, ../sass/emotions.scss */
+.dk-emot.emot-donut {
+  background-image: url("../images/emotions/(donut).png");
+}
+/* line 300, ../sass/emotions.scss */
+.dk-emot.emot-popsicle {
+  background-image: url("../images/emotions/(popsicle).png");
+}
+/* line 303, ../sass/emotions.scss */
+.dk-emot.emot-ice_cream {
+  background-image: url("../images/emotions/(ice_cream).png");
+}
+/* line 306, ../sass/emotions.scss */
+.dk-emot.emot-lollipop {
+  background-image: url("../images/emotions/(lollipop).png");
+}
+/* line 309, ../sass/emotions.scss */
+.dk-emot.emot-croissant {
+  background-image: url("../images/emotions/(croissant).png");
+}
+/* line 312, ../sass/emotions.scss */
+.dk-emot.emot-chocolate {
+  background-image: url("../images/emotions/(chocolate).png");
+}
+/* line 315, ../sass/emotions.scss */
+.dk-emot.emot-cherry {
+  background-image: url("../images/emotions/(cherry).png");
+}
+/* line 318, ../sass/emotions.scss */
+.dk-emot.emot-grapes {
+  background-image: url("../images/emotions/(grapes).png");
+}
+/* line 321, ../sass/emotions.scss */
+.dk-emot.emot-watermelon {
+  background-image: url("../images/emotions/(watermelon).png");
+}
+/* line 324, ../sass/emotions.scss */
+.dk-emot.emot-strawberry {
+  background-image: url("../images/emotions/(strawberry).png");
+}
+/* line 327, ../sass/emotions.scss */
+.dk-emot.emot-banana {
+  background-image: url("../images/emotions/(banana).png");
+}
+/* line 330, ../sass/emotions.scss */
+.dk-emot.emot-pineapple {
+  background-image: url("../images/emotions/(pineapple).png");
+}
+/* line 333, ../sass/emotions.scss */
+.dk-emot.emot-corn {
+  background-image: url("../images/emotions/(corn).png");
+}
+/* line 336, ../sass/emotions.scss */
+.dk-emot.emot-pea {
+  background-image: url("../images/emotions/(pea).png");
+}
+/* line 339, ../sass/emotions.scss */
+.dk-emot.emot-mushroom {
+  background-image: url("../images/emotions/(mushroom).png");
+}
+/* line 342, ../sass/emotions.scss */
+.dk-emot.emot-bicycle {
+  background-image: url("../images/emotions/(bicycle).png");
+}
+/* line 345, ../sass/emotions.scss */
+.dk-emot.emot-taxi {
+  background-image: url("../images/emotions/(taxi).png");
+}
+/* line 348, ../sass/emotions.scss */
+.dk-emot.emot-ambulance {
+  background-image: url("../images/emotions/(ambulance).png");
+}
+/* line 351, ../sass/emotions.scss */
+.dk-emot.emot-policecar {
+  background-image: url("../images/emotions/(policecar).png");
+}
+/* line 354, ../sass/emotions.scss */
+.dk-emot.emot-car {
+  background-image: url("../images/emotions/(car).png");
+}
+/* line 357, ../sass/emotions.scss */
+.dk-emot.emot-airplane {
+  background-image: url("../images/emotions/(airplane).png");
+}
+/* line 360, ../sass/emotions.scss */
+.dk-emot.emot-rocket {
+  background-image: url("../images/emotions/(rocket).png");
+}
+/* line 363, ../sass/emotions.scss */
+.dk-emot.emot-ufo {
+  background-image: url("../images/emotions/(ufo).png");
+}
+/* line 366, ../sass/emotions.scss */
+.dk-emot.emot-flipflop {
+  background-image: url("../images/emotions/(flipflop).png");
+}
+/* line 369, ../sass/emotions.scss */
+.dk-emot.emot-umbrella {
+  background-image: url("../images/emotions/(umbrella).png");
+}
+/* line 372, ../sass/emotions.scss */
+.dk-emot.emot-fidora {
+  background-image: url("../images/emotions/(fidora).png");
+}
+/* line 375, ../sass/emotions.scss */
+.dk-emot.emot-cap {
+  background-image: url("../images/emotions/(cap).png");
+}
+/* line 378, ../sass/emotions.scss */
+.dk-emot.emot-crown {
+  background-image: url("../images/emotions/(crown).png");
+}
+/* line 381, ../sass/emotions.scss */
+.dk-emot.emot-diamond {
+  background-image: url("../images/emotions/(diamond).png");
+}
+/* line 384, ../sass/emotions.scss */
+.dk-emot.emot-ring {
+  background-image: url("../images/emotions/(ring).png");
+}
+/* line 387, ../sass/emotions.scss */
+.dk-emot.emot-relax {
+  background-image: url("../images/emotions/(relax).png");
+}
+/* line 390, ../sass/emotions.scss */
+.dk-emot.emot-battery {
+  background-image: url("../images/emotions/(battery).png");
+}
+/* line 393, ../sass/emotions.scss */
+.dk-emot.emot-nobattery {
+  background-image: url("../images/emotions/(nobattery).png");
+}
+/* line 396, ../sass/emotions.scss */
+.dk-emot.emot-termometer {
+  background-image: url("../images/emotions/(termometer).png");
+}
+/* line 399, ../sass/emotions.scss */
+.dk-emot.emot-meds {
+  background-image: url("../images/emotions/(meds).png");
+}
+/* line 402, ../sass/emotions.scss */
+.dk-emot.emot-syringe {
+  background-image: url("../images/emotions/(syringe).png");
+}
+/* line 405, ../sass/emotions.scss */
+.dk-emot.emot-golfball {
+  background-image: url("../images/emotions/(golfball).png");
+}
+/* line 408, ../sass/emotions.scss */
+.dk-emot.emot-golf {
+  background-image: url("../images/emotions/(golf).png");
+}
+/* line 411, ../sass/emotions.scss */
+.dk-emot.emot-soccer {
+  background-image: url("../images/emotions/(soccer).png");
+}
+/* line 414, ../sass/emotions.scss */
+.dk-emot.emot-baseball {
+  background-image: url("../images/emotions/(baseball).png");
+}
+/* line 417, ../sass/emotions.scss */
+.dk-emot.emot-basketball {
+  background-image: url("../images/emotions/(basketball).png");
+}
+/* line 420, ../sass/emotions.scss */
+.dk-emot.emot-tennis {
+  background-image: url("../images/emotions/(tennis).png");
+}
+/* line 423, ../sass/emotions.scss */
+.dk-emot.emot-beachball {
+  background-image: url("../images/emotions/(beachball).png");
+}
+/* line 426, ../sass/emotions.scss */
+.dk-emot.emot-8ball {
+  background-image: url("../images/emotions/(8ball).png");
+}
+/* line 429, ../sass/emotions.scss */
+.dk-emot.emot-boxing {
+  background-image: url("../images/emotions/(boxing).png");
+}
+/* line 432, ../sass/emotions.scss */
+.dk-emot.emot-football {
+  background-image: url("../images/emotions/(football).png");
+}
+/* line 435, ../sass/emotions.scss */
+.dk-emot.emot-weight {
+  background-image: url("../images/emotions/(weight).png");
+}
+/* line 438, ../sass/emotions.scss */
+.dk-emot.emot-muscle {
+  background-image: url("../images/emotions/(muscle).png");
+}
+/* line 441, ../sass/emotions.scss */
+.dk-emot.emot-trophy {
+  background-image: url("../images/emotions/(trophy).png");
+}
+/* line 444, ../sass/emotions.scss */
+.dk-emot.emot-happycry {
+  background-image: url("../images/emotions/(happycry).png");
+}
+/* line 447, ../sass/emotions.scss */
+.dk-emot.emot-silly {
+  background-image: url("../images/emotions/(silly).png");
+}
+/* line 450, ../sass/emotions.scss */
+.dk-emot.emot-nerd {
+  background-image: url("../images/emotions/(nerd).png");
+}
+/* line 453, ../sass/emotions.scss */
+.dk-emot.emot-shy {
+  background-image: url("../images/emotions/(shy).png");
+}
+/* line 456, ../sass/emotions.scss */
+.dk-emot.emot-not_sure {
+  background-image: url("../images/emotions/(not_sure).png");
+}
+/* line 459, ../sass/emotions.scss */
+.dk-emot.emot-confused {
+  background-image: url("../images/emotions/(confused).png");
+}
+/* line 462, ../sass/emotions.scss */
+.dk-emot.emot-meh {
+  background-image: url("../images/emotions/(meh).png");
+}
+/* line 465, ../sass/emotions.scss */
+.dk-emot.emot-what {
+  background-image: url("../images/emotions/(what).png");
+}
+/* line 468, ../sass/emotions.scss */
+.dk-emot.emot-yo {
+  background-image: url("../images/emotions/(yo).png");
+}
+/* line 471, ../sass/emotions.scss */
+.dk-emot.emot-wtf {
+  background-image: url("../images/emotions/(wtf).png");
+}
+/* line 474, ../sass/emotions.scss */
+.dk-emot.emot-tongue {
+  background-image: url("../images/emotions/(tongue).png");
+}
+/* line 477, ../sass/emotions.scss */
+.dk-emot.emot-sad {
+  background-image: url("../images/emotions/(sad).png");
+}
+/* line 480, ../sass/emotions.scss */
+.dk-emot.emot-exhausted {
+  background-image: url("../images/emotions/(exhausted).png");
+}
+/* line 483, ../sass/emotions.scss */
+.dk-emot.emot-huh {
+  background-image: url("../images/emotions/(huh).png");
+}
+/* line 486, ../sass/emotions.scss */
+.dk-emot.emot-scream {
+  background-image: url("../images/emotions/(scream).png");
+}
+/* line 489, ../sass/emotions.scss */
+.dk-emot.emot-weak {
+  background-image: url("../images/emotions/(weak).png");
+}
+/* line 492, ../sass/emotions.scss */
+.dk-emot.emot-dead {
+  background-image: url("../images/emotions/(dead).png");
+}
+/* line 495, ../sass/emotions.scss */
+.dk-emot.emot-mischievous {
+  background-image: url("../images/emotions/(mischievous).png");
+}
+/* line 498, ../sass/emotions.scss */
+.dk-emot.emot-ohno {
+  background-image: url("../images/emotions/(ohno).png");
+}
+/* line 501, ../sass/emotions.scss */
+.dk-emot.emot-straight {
+  background-image: url("../images/emotions/(straight).png");
+}
+/* line 504, ../sass/emotions.scss */
+.dk-emot.emot-dizzy {
+  background-image: url("../images/emotions/(dizzy).png");
+}
+/* line 507, ../sass/emotions.scss */
+.dk-emot.emot-cool {
+  background-image: url("../images/emotions/(cool).png");
+}
+/* line 510, ../sass/emotions.scss */
+.dk-emot.emot-spiderman {
+  background-image: url("../images/emotions/(spiderman).png");
+}
+/* line 513, ../sass/emotions.scss */
+.dk-emot.emot-eek {
+  background-image: url("../images/emotions/(eek).png");
+}
+/* line 516, ../sass/emotions.scss */
+.dk-emot.emot-ugh {
+  background-image: url("../images/emotions/(ugh).png");
+}
+/* line 519, ../sass/emotions.scss */
+.dk-emot.emot-devil {
+  background-image: url("../images/emotions/(devil).png");
+}
+/* line 522, ../sass/emotions.scss */
+.dk-emot.emot-oh {
+  background-image: url("../images/emotions/(oh).png");
+}
+/* line 525, ../sass/emotions.scss */
+.dk-emot.emot-depressed {
+  background-image: url("../images/emotions/(depressed).png");
+}
+/* line 528, ../sass/emotions.scss */
+.dk-emot.emot-mwah {
+  background-image: url("../images/emotions/(mwah).png");
+}
+/* line 531, ../sass/emotions.scss */
+.dk-emot.emot-singing {
+  background-image: url("../images/emotions/(singing).png");
+}
+/* line 534, ../sass/emotions.scss */
+.dk-emot.emot-batman {
+  background-image: url("../images/emotions/(batman).png");
+}
+/* line 537, ../sass/emotions.scss */
+.dk-emot.emot-ninja {
+  background-image: url("../images/emotions/(ninja).png");
+}
+/* line 540, ../sass/emotions.scss */
+.dk-emot.emot-light_bulb {
+  background-image: url("../images/emotions/(light_bulb).png");
+}
+/* line 543, ../sass/emotions.scss */
+.dk-emot.emot-fire {
+  background-image: url("../images/emotions/(fire).png");
+}
+/* line 546, ../sass/emotions.scss */
+.dk-emot.emot-torch {
+  background-image: url("../images/emotions/(torch).png");
+}
+/* line 549, ../sass/emotions.scss */
+.dk-emot.emot-sushi1 {
+  background-image: url("../images/emotions/(sushi1).png");
+}
+/* line 552, ../sass/emotions.scss */
+.dk-emot.emot-sushi2 {
+  background-image: url("../images/emotions/(sushi2).png");
+}
+/* line 555, ../sass/emotions.scss */
+.dk-emot.emot-phone {
+  background-image: url("../images/emotions/(phone).png");
+}
+/* line 558, ../sass/emotions.scss */
+.dk-emot.emot-knife {
+  background-image: url("../images/emotions/(knife).png");
+}
+/* line 561, ../sass/emotions.scss */
+.dk-emot.emot-key {
+  background-image: url("../images/emotions/(key).png");
+}
+/* line 564, ../sass/emotions.scss */
+.dk-emot.emot-angrymark {
+  background-image: url("../images/emotions/(angrymark).png");
+}
+/* line 567, ../sass/emotions.scss */
+.dk-emot.emot-bomb {
+  background-image: url("../images/emotions/(bomb).png");
+}
+/* line 570, ../sass/emotions.scss */
+.dk-emot.emot-mapleleaf {
+  background-image: url("../images/emotions/(mapleleaf).png");
+}
+/* line 573, ../sass/emotions.scss */
+.dk-emot.emot-zzz {
+  background-image: url("../images/emotions/(zzz).png");
+}
+/* line 576, ../sass/emotions.scss */
+.dk-emot.emot-guitar {
+  background-image: url("../images/emotions/(guitar).png");
+}
+/* line 579, ../sass/emotions.scss */
+.dk-emot.emot-trumpet {
+  background-image: url("../images/emotions/(trumpet).png");
+}
+/* line 582, ../sass/emotions.scss */
+.dk-emot.emot-hammer {
+  background-image: url("../images/emotions/(hammer).png");
+}
+/* line 585, ../sass/emotions.scss */
+.dk-emot.emot-dice {
+  background-image: url("../images/emotions/(dice).png");
+}
+/* line 588, ../sass/emotions.scss */
+.dk-emot.emot-console {
+  background-image: url("../images/emotions/(console).png");
+}
+/* line 591, ../sass/emotions.scss */
+.dk-emot.emot-lantern {
+  background-image: url("../images/emotions/(lantern).png");
+}
+/* line 594, ../sass/emotions.scss */
+.dk-emot.emot-microphone {
+  background-image: url("../images/emotions/(microphone).png");
+}
+/* line 597, ../sass/emotions.scss */
+.dk-emot.emot-tape {
+  background-image: url("../images/emotions/(tape).png");
+}
+/* line 600, ../sass/emotions.scss */
+.dk-emot.emot-speaker {
+  background-image: url("../images/emotions/(speaker).png");
+}
+/* line 603, ../sass/emotions.scss */
+.dk-emot.emot-video {
+  background-image: url("../images/emotions/(video).png");
+}
+/* line 606, ../sass/emotions.scss */
+.dk-emot.emot-TV {
+  background-image: url("../images/emotions/(TV).png");
+}
+/* line 609, ../sass/emotions.scss */
+.dk-emot.emot-wrench {
+  background-image: url("../images/emotions/(wrench).png");
+}
+/* line 612, ../sass/emotions.scss */
+.dk-emot.emot-lock {
+  background-image: url("../images/emotions/(lock).png");
+}
+/* line 615, ../sass/emotions.scss */
+.dk-emot.emot-paperclip {
+  background-image: url("../images/emotions/(paperclip).png");
+}
+/* line 618, ../sass/emotions.scss */
+.dk-emot.emot-skull {
+  background-image: url("../images/emotions/(skull).png");
+}
+/* line 621, ../sass/emotions.scss */
+.dk-emot.emot-ghost {
+  background-image: url("../images/emotions/(ghost).png");
+}
+/* line 624, ../sass/emotions.scss */
+.dk-emot.emot-paw {
+  background-image: url("../images/emotions/(paw).png");
+}
+/* line 627, ../sass/emotions.scss */
+.dk-emot.emot-darkish-logo {
+  background-image: url("../images/emotions/(darkish-logo).png");
   width: 74px;
   height: 35px;
   background-size: contain;
   background-repeat: no-repeat;
 }
-/* line 59, ../sass/emotions.scss */
-.dk-emot.emot-depressed {
-  background-image: url("../images/emotions/(depressed).png");
-}
-/* line 62, ../sass/emotions.scss */
-.dk-emot.emot-exclam {
-  background-image: url("../images/emotions/(exclam).png");
-}
-/* line 65, ../sass/emotions.scss */
-.dk-emot.emot-fire {
-  background-image: url("../images/emotions/(fire).png");
-}
-/* line 68, ../sass/emotions.scss */
-.dk-emot.emot-flower {
-  background-image: url("../images/emotions/(flower).png");
-}
-/* line 71, ../sass/emotions.scss */
-.dk-emot.emot-happy {
-  background-image: url("../images/emotions/(happy).png");
-}
-/* line 74, ../sass/emotions.scss */
-.dk-emot.emot-koala {
-  background-image: url("../images/emotions/(koala).png");
-}
-/* line 77, ../sass/emotions.scss */
-.dk-emot.emot-ladybug {
-  background-image: url("../images/emotions/(ladybug).png");
-}
-/* line 80, ../sass/emotions.scss */
-.dk-emot.emot-laugh {
-  background-image: url("../images/emotions/(laugh).png");
-}
-/* line 83, ../sass/emotions.scss */
-.dk-emot.emot-light_bulb {
-  background-image: url("../images/emotions/(light_bulb).png");
-}
-/* line 86, ../sass/emotions.scss */
-.dk-emot.emot-mad {
-  background-image: url("../images/emotions/(mad).png");
-}
-/* line 89, ../sass/emotions.scss */
-.dk-emot.emot-money {
-  background-image: url("../images/emotions/(money).png");
-}
-/* line 92, ../sass/emotions.scss */
-.dk-emot.emot-music {
-  background-image: url("../images/emotions/(music).png");
-}
-/* line 95, ../sass/emotions.scss */
-.dk-emot.emot-nerd {
-  background-image: url("../images/emotions/(nerd).png");
-}
-/* line 98, ../sass/emotions.scss */
-.dk-emot.emot-not_sure {
-  background-image: url("../images/emotions/(not_sure).png");
-}
-/* line 101, ../sass/emotions.scss */
-.dk-emot.emot-Q {
-  background-image: url("../images/emotions/(Q).png");
-}
-/* line 104, ../sass/emotions.scss */
-.dk-emot.emot-rain {
-  background-image: url("../images/emotions/(rain).png");
-}
-/* line 107, ../sass/emotions.scss */
-.dk-emot.emot-relax {
-  background-image: url("../images/emotions/(relax).png");
-}
-/* line 110, ../sass/emotions.scss */
-.dk-emot.emot-run {
-  background-image: url("../images/emotions/(run).png");
-}
-/* line 113, ../sass/emotions.scss */
-.dk-emot.emot-sad {
-  background-image: url("../images/emotions/(sad).png");
-}
-/* line 116, ../sass/emotions.scss */
-.dk-emot.emot-scream {
-  background-image: url("../images/emotions/(scream).png");
-}
-/* line 119, ../sass/emotions.scss */
-.dk-emot.emot-shy {
-  background-image: url("../images/emotions/(shy).png");
-}
-/* line 122, ../sass/emotions.scss */
-.dk-emot.emot-sick {
-  background-image: url("../images/emotions/(sick).png");
-}
-/* line 125, ../sass/emotions.scss */
-.dk-emot.emot-dollar {
-  background-image: url("../images/emotions/(dollar).png");
-}
-/* line 128, ../sass/emotions.scss */
-.dk-emot.emot-sleeping {
-  background-image: url("../images/emotions/(sleeping).png");
-}
-/* line 131, ../sass/emotions.scss */
-.dk-emot.emot-smiley {
-  background-image: url("../images/emotions/(smiley).png");
-}
-/* line 134, ../sass/emotions.scss */
-.dk-emot.emot-soccer {
-  background-image: url("../images/emotions/(soccer).png");
-}
-/* line 137, ../sass/emotions.scss */
-.dk-emot.emot-sun {
-  background-image: url("../images/emotions/(sun).png");
-}
-/* line 140, ../sass/emotions.scss */
-.dk-emot.emot-surprised {
-  background-image: url("../images/emotions/(surprised).png");
-}
-/* line 143, ../sass/emotions.scss */
-.dk-emot.emot-teeth {
-  background-image: url("../images/emotions/(teeth).png");
-}
-/* line 146, ../sass/emotions.scss */
-.dk-emot.emot-time {
-  background-image: url("../images/emotions/(time).png");
-}
-/* line 149, ../sass/emotions.scss */
-.dk-emot.emot-tongue {
-  background-image: url("../images/emotions/(tongue).png");
-}
-/* line 152, ../sass/emotions.scss */
-.dk-emot.emot-wink {
-  background-image: url("../images/emotions/(wink).png");
-}
-/* line 155, ../sass/emotions.scss */
-.dk-emot.emot-yummi {
-  background-image: url("../images/emotions/(yummi).png");
-}
 
-/* line 160, ../sass/emotions.scss */
+/* line 636, ../sass/emotions.scss */
 img.dk-emot {
   display: inline-block;
   text-indent: -100000px;
@@ -219,7 +851,7 @@ img.dk-emot {
   float: none !important;
 }
 
-/* line 170, ../sass/emotions.scss */
+/* line 646, ../sass/emotions.scss */
 button.dk-emot {
   border: 0;
   background-size: 24px 24px;
@@ -227,17 +859,17 @@ button.dk-emot {
   width: 24px;
   height: 24px;
 }
-/* line 176, ../sass/emotions.scss */
+/* line 652, ../sass/emotions.scss */
 button.dk-emot:hover {
   background-color: #dfdfdf;
 }
 
-/* line 181, ../sass/emotions.scss */
+/* line 657, ../sass/emotions.scss */
 .emotions-list, .emotions-list .open {
   line-height: 53px;
   text-align: left;
 }
-/* line 184, ../sass/emotions.scss */
+/* line 660, ../sass/emotions.scss */
 .emotions-list button.emotion-add-icon, .emotions-list .open button.emotion-add-icon {
   background-color: transparent;
   border: 0;
@@ -247,28 +879,30 @@ button.dk-emot:hover {
   background-size: 32px 32px;
   line-height: 1;
 }
-/* line 192, ../sass/emotions.scss */
+/* line 668, ../sass/emotions.scss */
 .emotions-list button.emotion-add-icon .dk, .emotions-list .open button.emotion-add-icon .dk {
   color: #c00000;
   font-size: 30px;
 }
-/* line 198, ../sass/emotions.scss */
+/* line 674, ../sass/emotions.scss */
 .emotions-list ul, .emotions-list .open ul {
   width: 245px;
   left: 0;
   right: auto;
   line-height: 1;
+  height: 320px;
+  overflow-y: scroll;
 }
-/* line 203, ../sass/emotions.scss */
+/* line 681, ../sass/emotions.scss */
 .emotions-list ul li, .emotions-list .open ul li {
   float: right;
   margin: 3px;
 }
-/* line 209, ../sass/emotions.scss */
+/* line 687, ../sass/emotions.scss */
 .emotions-list.group-message, .emotions-list .open.group-message {
   margin-right: 15px;
 }
-/* line 212, ../sass/emotions.scss */
+/* line 690, ../sass/emotions.scss */
 .emotions-list.group-message.open button.emotion-add-icon, .emotions-list .open.group-message.open button.emotion-add-icon {
   background-color: transparent;
   border: 0;
@@ -279,19 +913,19 @@ button.dk-emot:hover {
   line-height: 1;
   margin-top: 0 !important;
 }
-/* line 221, ../sass/emotions.scss */
+/* line 699, ../sass/emotions.scss */
 .emotions-list.group-message.open button.emotion-add-icon .dk, .emotions-list .open.group-message.open button.emotion-add-icon .dk {
   color: #c00000;
   font-size: 30px;
 }
-/* line 227, ../sass/emotions.scss */
+/* line 705, ../sass/emotions.scss */
 .emotions-list.group-message.open ul, .emotions-list .open.group-message.open ul {
   width: 245px;
   right: 0;
   left: auto;
   line-height: 1;
 }
-/* line 232, ../sass/emotions.scss */
+/* line 710, ../sass/emotions.scss */
 .emotions-list.group-message.open ul li, .emotions-list .open.group-message.open ul li {
   float: right;
   margin: 3px;

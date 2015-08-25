@@ -132,7 +132,7 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments.all">نظرات</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'attachments')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">گالری</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'database')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1">
@@ -183,7 +183,7 @@
                                     ng-show="access.indexOf('ROLE_CUSTOMER_COMMENT') > -1"><a ui-sref="comments.all">نظرات</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'attachments')}"
-                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">فایل ها</a></li>
+                                    ng-show="access.indexOf('ROLE_CUSTOMER_ATTACHMENT') > -1"><a ui-sref="attachments">گالری</a></li>
                                 
                                 <li ng-class="{'active': (state.current.name == 'database')}"
                                     ng-show="access.indexOf('ROLE_CUSTOMER_DATABASE') > -1">
@@ -273,11 +273,11 @@
             <h3 class="modal-title">پاسخ</h3>
         </div>
         <div class="modal-body">
-            <textarea ng-model="body" class="form-control" row=4></textarea>
+            <textarea ng-model="body" maxlength="1500" class="form-control" row=4></textarea>
         </div>
         <div class="modal-footer">
             <button ng-disabled="" class="btn btn-warning" ng-click="dismiss()">انصراف</button>
-            <button class="btn btn-info pull-left" data-ng-click="reply(body)">ارسال</button>
+            <button ng-disabled="!body" class="btn btn-info pull-left" data-ng-click="reply(body)">ارسال</button>
         </div>
     </script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/jquery/dist/jquery.min.js') ?>" type="text/javascript"></script>

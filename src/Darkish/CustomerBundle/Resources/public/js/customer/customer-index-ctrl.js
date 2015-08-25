@@ -119,156 +119,76 @@ customerApp.filter('smilies', function() {
   return function(input) {
     var smilies = [
       {
-        regex: /\(wink\)/g,
-        name: 'wink'
-      }, 
-      {
-        regex: /\(dollar\)/g,
-        name: 'dollar'
-      }, 
+        regex: /\(smiley\)/g,
+        name: 'smiley'
+      },
       {
         regex: /\(happy\)/g,
         name: 'happy'
       },
       {
-        regex: /\(airplane\)/g,
-        name: 'airplane'
+        regex: /\(wink2\)/g,
+        name: 'wink2'
       },
       {
-        regex: /\(angry\)/g,
-        name: 'angry'
-      },
-      {
-        regex: /\(baseball\)/g,
-        name: 'baseball'
-      },
-      {
-        regex: /\(basketball\)/g,
-        name: 'basketball'
-      },
-      {
-        regex: /\(bicycle\)/g,
-        name: 'bicycle'
-      },
-      {
-        regex: /\(burger\)/g,
-        name: 'burger'
-      },
-      {
-        regex: /\(car\)/g,
-        name: 'car'
-      },
-      {
-        regex: /\(clap\)/g,
-        name: 'clap'
-      },
-      {
-        regex: /\(cloud\)/g,
-        name: 'cloud'
-      },
-      {
-        regex: /\(coffee\)/g,
-        name: 'coffee'
-      },
-      {
-        regex: /\(confused\)/g,
-        name: 'confused'
-      },
-      {
-        regex: /\(cool\)/g,
-        name: 'cool'
-      },
-      {
-        regex: /\(crazy\)/g,
-        name: 'crazy'
-      },
-      {
-        regex: /\(cry\)/g,
-        name: 'cry'
-      },
-      {
-        regex: /\(cupcake\)/g,
-        name: 'cupcake'
-      },
-      {
-        regex: /\(depressed\)/g,
-        name: 'depressed'
-      },
-      {
-        regex: /\(exclam\)/g,
-        name: 'exclam'
-      },
-      {
-        regex: /\(fire\)/g,
-        name: 'fire'
-      },
-      {
-        regex: /\(flower\)/g,
-        name: 'flower'
-      },
-      {
-        regex: /\(koala\)/g,
-        name: 'koala'
-      },
-      {
-        regex: /\(ladybug\)/g,
-        name: 'ladybug'
+        regex: /\(wink\)/g,
+        name: 'wink'
       },
       {
         regex: /\(laugh\)/g,
         name: 'laugh'
       },
       {
-        regex: /\(light_bulb\)/g,
-        name: 'light_bulb'
+        regex: /\(teeth\)/g,
+        name: 'teeth'
       },
       {
-        regex: /\(mad\)/g,
-        name: 'mad'
+        regex: /\(yummi\)/g,
+        name: 'yummi'
+      },
+      {
+        regex: /\(surprised\)/g,
+        name: 'surprised'
+      },
+      {
+        regex: /\(crazy\)/g,
+        name: 'crazy'
       },
       {
         regex: /\(money\)/g,
         name: 'money'
       },
       {
-        regex: /\(music\)/g,
-        name: 'music'
+        regex: /\(moa\)/g,
+        name: 'moa'
       },
       {
-        regex: /\(nerd\)/g,
-        name: 'nerd'
+        regex: /\(inlove\)/g,
+        name: 'inlove'
       },
       {
-        regex: /\(not_sure\)/g,
-        name: 'not_sure'
+        regex: /\(flirt\)/g,
+        name: 'flirt'
       },
       {
-        regex: /\(Q\)/g,
-        name: 'Q'
+        regex: /\(teary\)/g,
+        name: 'teary'
       },
       {
-        regex: /\(rain\)/g,
-        name: 'rain'
+        regex: /\(mad\)/g,
+        name: 'mad'
       },
       {
-        regex: /\(relax\)/g,
-        name: 'relax'
+        regex: /\(upset\)/g,
+        name: 'upset'
       },
       {
-        regex: /\(run\)/g,
-        name: 'run'
+        regex: /\(cry\)/g,
+        name: 'cry'
       },
       {
-        regex: /\(sad\)/g,
-        name: 'sad'
-      },
-      {
-        regex: /\(scream\)/g,
-        name: 'scream'
-      },
-      {
-        regex: /\(shy\)/g,
-        name: 'shy'
+        regex: /\(angry\)/g,
+        name: 'angry'
       },
       {
         regex: /\(sick\)/g,
@@ -279,42 +199,753 @@ customerApp.filter('smilies', function() {
         name: 'sleeping'
       },
       {
-        regex: /\(smiley\)/g,
-        name: 'smiley'
+        regex: /\(info\)/g,
+        name: 'info'
       },
       {
-        regex: /\(soccer\)/g,
-        name: 'soccer'
+        regex: /\(Q\)/g,
+        name: 'Q'
       },
       {
-        regex: /\(sun\)/g,
-        name: 'sun'
+        regex: /\(heart\)/g,
+        name: 'heart'
       },
       {
-        regex: /\(surprised\)/g,
-        name: 'surprised'
+        regex: /\(purple_heart\)/g,
+        name: 'purple_heart'
       },
       {
-        regex: /\(teeth\)/g,
-        name: 'teeth'
+        regex: /\(clap\)/g,
+        name: 'clap'
+      },
+      {
+        regex: /\(like\)/g,
+        name: 'like'
+      },
+      {
+        regex: /\(V\)/g,
+        name: 'V'
+      },
+      {
+        regex: /\(unlike\)/g,
+        name: 'unlike'
+      },
+      {
+        regex: /\(flower\)/g,
+        name: 'flower'
+      },
+      {
+        regex: /\(balloon2\)/g,
+        name: 'balloon2'
+      },
+      {
+        regex: /\(balloon1\)/g,
+        name: 'balloon1'
+      },
+      {
+        regex: /\(cake\)/g,
+        name: 'cake'
+      },
+      {
+        regex: /\(gift\)/g,
+        name: 'gift'
+      },
+      {
+        regex: /\(partyhat\)/g,
+        name: 'partyhat'
+      },
+      {
+        regex: /\(cupcake\)/g,
+        name: 'cupcake'
+      },
+      {
+        regex: /\(magnify\)/g,
+        name: 'magnify'
+      },
+      {
+        regex: /\(glasses\)/g,
+        name: 'glasses'
+      },
+      {
+        regex: /\(letter\)/g,
+        name: 'letter'
+      },
+      {
+        regex: /\(thinking\)/g,
+        name: 'thinking'
+      },
+      {
+        regex: /\(music\)/g,
+        name: 'music'
+      },
+      {
+        regex: /\(pencil\)/g,
+        name: 'pencil'
+      },
+      {
+        regex: /\(book\)/g,
+        name: 'book'
+      },
+      {
+        regex: /\(ruler\)/g,
+        name: 'ruler'
+      },
+      {
+        regex: /\(scissor\)/g,
+        name: 'scissor'
+      },
+      {
+        regex: /\(dollar\)/g,
+        name: 'dollar'
+      },
+      {
+        regex: /\(run\)/g,
+        name: 'run'
       },
       {
         regex: /\(time\)/g,
         name: 'time'
       },
       {
+        regex: /\(bell\)/g,
+        name: 'bell'
+      },
+      {
+        regex: /\(telephone\)/g,
+        name: 'telephone'
+      },
+      {
+        regex: /\(snowman\)/g,
+        name: 'snowman'
+      },
+      {
+        regex: /\(snowflake\)/g,
+        name: 'snowflake'
+      },
+      {
+        regex: /\(rain\)/g,
+        name: 'rain'
+      },
+      {
+        regex: /\(cloud\)/g,
+        name: 'cloud'
+      },
+      {
+        regex: /\(moon\)/g,
+        name: 'moon'
+      },
+      {
+        regex: /\(sun\)/g,
+        name: 'sun'
+      },
+      {
+        regex: /\(angel\)/g,
+        name: 'angel'
+      },
+      {
+        regex: /\(palmtree\)/g,
+        name: 'palmtree'
+      },
+      {
+        regex: /\(christmas_tree\)/g,
+        name: 'christmas_tree'
+      },
+      {
+        regex: /\(sunflower\)/g,
+        name: 'sunflower'
+      },
+      {
+        regex: /\(cactus\)/g,
+        name: 'cactus'
+      },
+      {
+        regex: /\(sprout\)/g,
+        name: 'sprout'
+      },
+      {
+        regex: /\(clover\)/g,
+        name: 'clover'
+      },
+      {
+        regex: /\(koala\)/g,
+        name: 'koala'
+      },
+      {
+        regex: /\(bunny\)/g,
+        name: 'bunny'
+      },
+      {
+        regex: /\(squirrel\)/g,
+        name: 'squirrel'
+      },
+      {
+        regex: /\(goldfish\)/g,
+        name: 'goldfish'
+      },
+      {
+        regex: /\(monkey\)/g,
+        name: 'monkey'
+      },
+      {
+        regex: /\(cat\)/g,
+        name: 'cat'
+      },
+      {
+        regex: /\(kangaroo\)/g,
+        name: 'kangaroo'
+      },
+      {
+        regex: /\(ladybug\)/g,
+        name: 'ladybug'
+      },
+      {
+        regex: /\(turtle\)/g,
+        name: 'turtle'
+      },
+      {
+        regex: /\(sheep\)/g,
+        name: 'sheep'
+      },
+      {
+        regex: /\(panda\)/g,
+        name: 'panda'
+      },
+      {
+        regex: /\(owl\)/g,
+        name: 'owl'
+      },
+      {
+        regex: /\(chick\)/g,
+        name: 'chick'
+      },
+      {
+        regex: /\(dog\)/g,
+        name: 'dog'
+      },
+      {
+        regex: /\(bee\)/g,
+        name: 'bee'
+      },
+      {
+        regex: /\(penguin\)/g,
+        name: 'penguin'
+      },
+      {
+        regex: /\(dragonfly\)/g,
+        name: 'dragonfly'
+      },
+      {
+        regex: /\(pig\)/g,
+        name: 'pig'
+      },
+      {
+        regex: /\(snake\)/g,
+        name: 'snake'
+      },
+      {
+        regex: /\(snail\)/g,
+        name: 'snail'
+      },
+      {
+        regex: /\(fly\)/g,
+        name: 'fly'
+      },
+      {
+        regex: /\(shark\)/g,
+        name: 'shark'
+      },
+      {
+        regex: /\(bat\)/g,
+        name: 'bat'
+      },
+      {
+        regex: /\(martini\)/g,
+        name: 'martini'
+      },
+      {
+        regex: /\(beer\)/g,
+        name: 'beer'
+      },
+      {
+        regex: /\(coffee\)/g,
+        name: 'coffee'
+      },
+      {
+        regex: /\(soda\)/g,
+        name: 'soda'
+      },
+      {
+        regex: /\(burger\)/g,
+        name: 'burger'
+      },
+      {
+        regex: /\(pizza\)/g,
+        name: 'pizza'
+      },
+      {
+        regex: /\(hotdog\)/g,
+        name: 'hotdog'
+      },
+      {
+        regex: /\(popcorn\)/g,
+        name: 'popcorn'
+      },
+      {
+        regex: /\(egg\)/g,
+        name: 'egg'
+      },
+      {
+        regex: /\(noodles\)/g,
+        name: 'noodles'
+      },
+      {
+        regex: /\(chicken\)/g,
+        name: 'chicken'
+      },
+      {
+        regex: /\(donut\)/g,
+        name: 'donut'
+      },
+      {
+        regex: /\(popsicle\)/g,
+        name: 'popsicle'
+      },
+      {
+        regex: /\(ice_cream\)/g,
+        name: 'ice_cream'
+      },
+      {
+        regex: /\(lollipop\)/g,
+        name: 'lollipop'
+      },
+      {
+        regex: /\(croissant\)/g,
+        name: 'croissant'
+      },
+      {
+        regex: /\(chocolate\)/g,
+        name: 'chocolate'
+      },
+      {
+        regex: /\(cherry\)/g,
+        name: 'cherry'
+      },
+      {
+        regex: /\(grapes\)/g,
+        name: 'grapes'
+      },
+      {
+        regex: /\(watermelon\)/g,
+        name: 'watermelon'
+      },
+      {
+        regex: /\(strawberry\)/g,
+        name: 'strawberry'
+      },
+      {
+        regex: /\(banana\)/g,
+        name: 'banana'
+      },
+      {
+        regex: /\(pineapple\)/g,
+        name: 'pineapple'
+      },
+      {
+        regex: /\(corn\)/g,
+        name: 'corn'
+      },
+      {
+        regex: /\(pea\)/g,
+        name: 'pea'
+      },
+      {
+        regex: /\(mushroom\)/g,
+        name: 'mushroom'
+      },
+      {
+        regex: /\(bicycle\)/g,
+        name: 'bicycle'
+      },
+      {
+        regex: /\(taxi\)/g,
+        name: 'taxi'
+      },
+      {
+        regex: /\(ambulance\)/g,
+        name: 'ambulance'
+      },
+      {
+        regex: /\(policecar\)/g,
+        name: 'policecar'
+      },
+      {
+        regex: /\(car\)/g,
+        name: 'car'
+      },
+      {
+        regex: /\(airplane\)/g,
+        name: 'airplane'
+      },
+      {
+        regex: /\(rocket\)/g,
+        name: 'rocket'
+      },
+      {
+        regex: /\(ufo\)/g,
+        name: 'ufo'
+      },
+      {
+        regex: /\(flipflop\)/g,
+        name: 'flipflop'
+      },
+      {
+        regex: /\(umbrella\)/g,
+        name: 'umbrella'
+      },
+      {
+        regex: /\(fidora\)/g,
+        name: 'fidora'
+      },
+      {
+        regex: /\(cap\)/g,
+        name: 'cap'
+      },
+      {
+        regex: /\(crown\)/g,
+        name: 'crown'
+      },
+      {
+        regex: /\(diamond\)/g,
+        name: 'diamond'
+      },
+      {
+        regex: /\(ring\)/g,
+        name: 'ring'
+      },
+      {
+        regex: /\(relax\)/g,
+        name: 'relax'
+      },
+      {
+        regex: /\(battery\)/g,
+        name: 'battery'
+      },
+      {
+        regex: /\(nobattery\)/g,
+        name: 'nobattery'
+      },
+      {
+        regex: /\(termometer\)/g,
+        name: 'termometer'
+      },
+      {
+        regex: /\(meds\)/g,
+        name: 'meds'
+      },
+      {
+        regex: /\(syringe\)/g,
+        name: 'syringe'
+      },
+      {
+        regex: /\(golfball\)/g,
+        name: 'golfball'
+      },
+      {
+        regex: /\(golf\)/g,
+        name: 'golf'
+      },
+      {
+        regex: /\(soccer\)/g,
+        name: 'soccer'
+      },
+      {
+        regex: /\(baseball\)/g,
+        name: 'baseball'
+      },
+      {
+        regex: /\(basketball\)/g,
+        name: 'basketball'
+      },
+      {
+        regex: /\(tennis\)/g,
+        name: 'tennis'
+      },
+      {
+        regex: /\(beachball\)/g,
+        name: 'beachball'
+      },
+      {
+        regex: /\(8ball\)/g,
+        name: '8ball'
+      },
+      {
+        regex: /\(boxing\)/g,
+        name: 'boxing'
+      },
+      {
+        regex: /\(football\)/g,
+        name: 'football'
+      },
+      {
+        regex: /\(weight\)/g,
+        name: 'weight'
+      },
+      {
+        regex: /\(muscle\)/g,
+        name: 'muscle'
+      },
+      {
+        regex: /\(trophy\)/g,
+        name: 'trophy'
+      },
+      {
+        regex: /\(happycry\)/g,
+        name: 'happycry'
+      },
+      {
+        regex: /\(silly\)/g,
+        name: 'silly'
+      },
+      {
+        regex: /\(nerd\)/g,
+        name: 'nerd'
+      },
+      {
+        regex: /\(shy\)/g,
+        name: 'shy'
+      },
+      {
+        regex: /\(not_sure\)/g,
+        name: 'not_sure'
+      },
+      {
+        regex: /\(confused\)/g,
+        name: 'confused'
+      },
+      {
+        regex: /\(meh\)/g,
+        name: 'meh'
+      },
+      {
+        regex: /\(what\)/g,
+        name: 'what'
+      },
+      {
+        regex: /\(yo\)/g,
+        name: 'yo'
+      },
+      {
+        regex: /\(wtf\)/g,
+        name: 'wtf'
+      },
+      {
         regex: /\(tongue\)/g,
         name: 'tongue'
       },
       {
-        regex: /\(yummi\)/g,
-        name: 'yummi'
+        regex: /\(sad\)/g,
+        name: 'sad'
       },
       {
-        regex: /\(darkish_logo\)/g,
-        name: 'darkish_logo'
-      } 
-
+        regex: /\(exhausted\)/g,
+        name: 'exhausted'
+      },
+      {
+        regex: /\(huh\)/g,
+        name: 'huh'
+      },
+      {
+        regex: /\(scream\)/g,
+        name: 'scream'
+      },
+      {
+        regex: /\(weak\)/g,
+        name: 'weak'
+      },
+      {
+        regex: /\(dead\)/g,
+        name: 'dead'
+      },
+      {
+        regex: /\(mischievous\)/g,
+        name: 'mischievous'
+      },
+      {
+        regex: /\(ohno\)/g,
+        name: 'ohno'
+      },
+      {
+        regex: /\(straight\)/g,
+        name: 'straight'
+      },
+      {
+        regex: /\(dizzy\)/g,
+        name: 'dizzy'
+      },
+      {
+        regex: /\(cool\)/g,
+        name: 'cool'
+      },
+      {
+        regex: /\(spiderman\)/g,
+        name: 'spiderman'
+      },
+      {
+        regex: /\(eek\)/g,
+        name: 'eek'
+      },
+      {
+        regex: /\(ugh\)/g,
+        name: 'ugh'
+      },
+      {
+        regex: /\(devil\)/g,
+        name: 'devil'
+      },
+      {
+        regex: /\(oh\)/g,
+        name: 'oh'
+      },
+      {
+        regex: /\(depressed\)/g,
+        name: 'depressed'
+      },
+      {
+        regex: /\(mwah\)/g,
+        name: 'mwah'
+      },
+      {
+        regex: /\(singing\)/g,
+        name: 'singing'
+      },
+      {
+        regex: /\(batman\)/g,
+        name: 'batman'
+      },
+      {
+        regex: /\(ninja\)/g,
+        name: 'ninja'
+      },
+      {
+        regex: /\(light_bulb\)/g,
+        name: 'light_bulb'
+      },
+      {
+        regex: /\(fire\)/g,
+        name: 'fire'
+      },
+      {
+        regex: /\(torch\)/g,
+        name: 'torch'
+      },
+      {
+        regex: /\(sushi1\)/g,
+        name: 'sushi1'
+      },
+      {
+        regex: /\(sushi2\)/g,
+        name: 'sushi2'
+      },
+      {
+        regex: /\(phone\)/g,
+        name: 'phone'
+      },
+      {
+        regex: /\(knife\)/g,
+        name: 'knife'
+      },
+      {
+        regex: /\(key\)/g,
+        name: 'key'
+      },
+      {
+        regex: /\(angrymark\)/g,
+        name: 'angrymark'
+      },
+      {
+        regex: /\(bomb\)/g,
+        name: 'bomb'
+      },
+      {
+        regex: /\(mapleleaf\)/g,
+        name: 'mapleleaf'
+      },
+      {
+        regex: /\(zzz\)/g,
+        name: 'zzz'
+      },
+      {
+        regex: /\(guitar\)/g,
+        name: 'guitar'
+      },
+      {
+        regex: /\(trumpet\)/g,
+        name: 'trumpet'
+      },
+      {
+        regex: /\(hammer\)/g,
+        name: 'hammer'
+      },
+      {
+        regex: /\(dice\)/g,
+        name: 'dice'
+      },
+      {
+        regex: /\(console\)/g,
+        name: 'console'
+      },
+      {
+        regex: /\(lantern\)/g,
+        name: 'lantern'
+      },
+      {
+        regex: /\(microphone\)/g,
+        name: 'microphone'
+      },
+      {
+        regex: /\(tape\)/g,
+        name: 'tape'
+      },
+      {
+        regex: /\(speaker\)/g,
+        name: 'speaker'
+      },
+      {
+        regex: /\(video\)/g,
+        name: 'video'
+      },
+      {
+        regex: /\(TV\)/g,
+        name: 'TV'
+      },
+      {
+        regex: /\(wrench\)/g,
+        name: 'wrench'
+      },
+      {
+        regex: /\(lock\)/g,
+        name: 'lock'
+      },
+      {
+        regex: /\(paperclip\)/g,
+        name: 'paperclip'
+      },
+      {
+        regex: /\(skull\)/g,
+        name: 'skull'
+      },
+      {
+        regex: /\(ghost\)/g,
+        name: 'ghost'
+      },
+      {
+        regex: /\(paw\)/g,
+        name: 'paw'
+      },
+      {
+        regex: /\(darkish-logo\)/g,
+        name: 'darkish-logo'
+      }
     ];
       
     angular.forEach(smilies, function(value, key){
@@ -347,6 +978,14 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       controller: "ProfileCtrl",
       data: {
       	label: 'پروفایل'
+      },
+      resolve: {
+        recordData: function($http){
+          return $http({method: 'GET', url: 'customer/ajax/html/get_record_details'})
+              .then (function (response) {
+            return response.data;
+          });
+        }
       }
     })
     .state('editprofile', {
@@ -410,7 +1049,7 @@ customerApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "customer/template/attachments.html",
       controller: "AttachmentsCtrl",
       data: {
-        label: 'فایل ها'
+        label: 'گالری'
       },
       resolve: {
         recordData: function($http){
@@ -790,10 +1429,16 @@ customerApp.controller('CustomerCtrl', ['$scope', '$state', '$http', '$rootScope
 
 
 
-customerApp.controller('ProfileCtrl', ['$scope', '$http', function($scope, $http){
-	
+customerApp.controller('ProfileCtrl', ['$scope', '$http', 'recordData', function($scope, $http, recordData){
+	$scope.record = recordData;
 
-
+    $scope.isNearToExpire = function()
+    {
+      var now = new Date();
+      var expireDate = new Date($scope.record.expire_date);
+      var validDay = 14;
+      return ( (expireDate - now) < (validDay * 86400 * 1000));
+    }
 }])
 
 customerApp.controller('ProfileEditCtrl', ['$scope', '$http', '$state','SweetAlert', 'FileUploader', function($scope, $http, $state, SweetAlert, FileUploader){

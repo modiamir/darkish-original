@@ -59,7 +59,7 @@
 		<div class="file-name-btns">
 			<span class="file-name" ng-bind="(media.title)? media.title : media.file_name"></span>
 			<button class="btn btn-danger btn-sm" ng-click="removeFromList(media, $index)">حذف</button>
-			<button class="btn btn-info btn-sm" ng-click="insertIntoBody(media)">درج</button>
+
 		</div>
 	</div>
 </script>

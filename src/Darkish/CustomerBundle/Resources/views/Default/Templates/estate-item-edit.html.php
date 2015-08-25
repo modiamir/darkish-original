@@ -72,7 +72,7 @@
 				<div ng-hide="item.estate_type.id == 8" class="col col-xs-12 col-sm-6 col-md-4 form-group">
 				  	<label class="control-label" for="estate-num-of-rooms">تعداد اتاق</label>
 				  	<select    class="form-control" id="estate-num-of-rooms" ng-model="item.num_of_rooms">
-		            	<option ng-selected="item.num_of_rooms == key" ng-repeat="key in [1,2,3,4,5,6,7,8,9,10]" value="{{key}}">{{key}}</option>
+		            	<option ng-selected="item.num_of_rooms == key.value" ng-repeat="key in numOfRooms" value="{{key.value}}">{{key.label}}</option>
 		          	</select>
 				</div>
 
