@@ -35,7 +35,7 @@
 
 		</div>
 		<div ng-show="replyForm" class="input-group reply-form input-group-sm">
-			<textarea ng-model="replyBody" class="form-control"></textarea>
+			<textarea maxlength="3000" ng-model="replyBody" class="form-control"></textarea>
 	  		<span class="input-group-btn">
 	        	<button ng-disabled="!replyBody" class="btn btn-default" ng-click="reply(comment, replyBody); replyBody = ''" type="button">ارسال</button>
       		</span>

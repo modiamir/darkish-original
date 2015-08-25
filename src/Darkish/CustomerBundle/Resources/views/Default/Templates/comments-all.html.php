@@ -1,10 +1,10 @@
 <div class="well database-details details-inner">
 	<a ng-hide="submitCommentForm" ng-click="submitCommentForm = true">+ ارسال نظر</a>
 	<div class="submit-comment-form" ng-show="submitCommentForm">
-		<textarea class="form-control" ng-model="newComment.body"></textarea>
+		<textarea maxlength="3000" class="form-control" ng-model="newComment.body"></textarea>
 		<div class="btn-group btn-group-sm submit-btn-group">
 			<button class="btn btn-danger " ng-click="submitCommentForm = false" >انصراف</button>
-			<button ng-click="postNewComment()" class="btn btn-success">ارسال</button>
+			<button ng-disabled="!newComment.body" ng-click="postNewComment()" class="btn btn-success">ارسال</button>
 		</div>
 		<label ng-disabled="newComment.photos.length >= 3" class="btn btn-info btn-sm upload-label">
 			انتخاب فایل

@@ -28,6 +28,8 @@ customerApp.controller('DatabaseCtrl', ['$scope', '$state', 'databaseData', 'Fil
 
 	$scope.automobileColors = automobileColors;
 
+  $scope.numOfRooms = [{value:1,label:1},{value:2,label:2},{value:3,label:3},{value:4,label:4},{value:5,label:5},{value:1000,label: 'بیشتر از پنج'}];
+
   	$scope.items = []
 
   	$http.post('customer/ajax/database/search').then(
@@ -112,6 +114,7 @@ customerApp.controller('DatabaseCtrl', ['$scope', '$state', 'databaseData', 'Fil
 	      		$scope.items = response.data[0];
 	      	}
 	        $scope.loadingMore = false;
+			$scope.isCollapsed = true;
 	      }, function(responseErr){
 	        SweetAlert.swal({
 	          title: "حذف انجام نشد.",

@@ -186,7 +186,7 @@ class DefaultController extends Controller
 
             case 'database-details.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
-                if($assistantAccess->contains($role)) {
+                if($user->getType() == "owner") {
                     return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
                 } else {
                     throw new AccessDeniedException();
@@ -195,7 +195,7 @@ class DefaultController extends Controller
 
             case 'database-edit.html':
                 $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
-                if($assistantAccess->contains($role)) {
+                if($user->getType() == "owner") {
                     return $this->render('DarkishCustomerBundle:Default:Templates/'.$name.'.php');
                 } else {
                     throw new AccessDeniedException();
