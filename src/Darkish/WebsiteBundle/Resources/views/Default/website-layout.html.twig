@@ -7,15 +7,10 @@
 	<!--[if IE]>
 	  <link href="{{ asset('bundles/darkishwebsite/stylesheets/ie.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
 	<![endif]-->
-
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/darkish-bootstrap.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
-	
-	
-	
-
-	
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/website.css') }}" rel="stylesheet" type="text/css" />
 
 {% endblock %}
@@ -27,6 +22,7 @@
 	
 	<script src="{{ asset('bundles/darkishwebsite/plugins/darkish-bootstrap/js/bootstrap.min.js') }}"></script>
 
+    <script src="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
@@ -35,12 +31,9 @@
 
 {% block  body %}
 
-	<div class="header-wrapper">
-		<div class="container">	
-			<!-- Static navbar -->
-      		{{ include('DarkishWebsiteBundle:Default:layout/header.html.twig') }}
-		</div>
-	</div>
+	{{ include('DarkishWebsiteBundle:Default:layout/header.html.twig') }}
+
+
 
 	{% if wo_breadcrumbs()|length %}
 		<div class="breadcrumb-wrapper">
@@ -51,28 +44,60 @@
 	{% endif %}
 
 	<div class="container main-container">
+		{% set _sidebar_first = block('sidebar_first') %}
+		{% set _sidebar_second = block('sidebar_second') %}
+		{% if _sidebar_first is empty %}
+			{% set _sidebar_first_len = 3 %}
+		{% else %}
+			{% set _sidebar_first_len = 0 %}
+		{% endif %}
 
-		<div class="col col-xs-8 content">
-			
+		{% if _sidebar_second is empty %}
+			{% set _sidebar_second_len = 2 %}
+		{% else %}
+			{% set _sidebar_second_len = 0 %}
+		{% endif %}
+
+		{% set _content_len = 7 + _sidebar_second_len + _sidebar_first_len %}
+
+
+		<div class="col col-xs-{{ _content_len }} content">
+
+
+
 			{% block page_header %}
 			{% endblock %}
 
-			{% block page_title %}
-			{% endblock %}
+			{% if block('page_title') is not empty %}
+			<h2 class="page-title">
+				{% block page_title %}
+				{% endblock %}
+			</h2>
+			{% endif %}
 
-			{% block page_subtitle %}
-			{% endblock %}
+			{% if block('page_subtitle') is not empty %}
+				<h4 class="page-subtitle">
+				{% block page_subtitle %}
+				{% endblock %}
+				</h4>
+			{% endif %}
 
 			{% block content %}
 			{% endblock %}
 
 		</div>
 
-		<div class="col col-xs-4 sidebar">
-			{% block sidebar %}
+        {% if _sidebar_first is not empty %}
+            <div class="col col-xs-3 sidebar-first">
+                {% block sidebar_first %}{% endblock %}
+            </div>
+        {% endif %}
 
-			{% endblock %}
-    	</div>
+		{% if _sidebar_second is not empty %}
+			<div class="col col-xs-2 sidebar-second">
+				{% block sidebar_second %}{% endblock %}
+			</div>
+		{% endif %}
 
     </div>
 
@@ -113,5 +138,9 @@
 	    	</div>
 	    </div>
     </div>
+
+    <script type="text/javascript">
+
+    </script>
 
 {% endblock %}

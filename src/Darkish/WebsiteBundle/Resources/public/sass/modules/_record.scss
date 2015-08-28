@@ -33,13 +33,29 @@
 			background: rgba(255,255,255,0.7);
 			height: 22px;
 			font-size: 16px;
-
 		}
 		h4 {
 			margin: 10px 0 0 0;
-
 		}
 	}
+
+  .image-box {
+    img {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .record-details {
+    .record-details-inner-wrapper {
+      height: 500px;
+      overflow-y: scroll;
+      .record-details-inner {
+        width: 80%;
+      }
+    }
+  }
+
 
   .store-products-title {
 	border-bottom: 1px solid $orange;

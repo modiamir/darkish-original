@@ -26,14 +26,15 @@
                         نام مالک
                     </label>
 					<input type="text" class="form-control" ng-model="recordFormData.owner" id="owner"
-                           placeholder="نام مالک">
+                           maxlength="255"
+                           placeholder="نام مالک" >
 				</div>
 
 				<div class="form-group col col-xs-12 col-sm-4">
 					<label for="ownerMail">
                         پست الکترونیک مالک
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.ownerMail" id="ownerMail"
+					<input type="email" maxlength="255" class="form-control" ng-model="recordFormData.ownerMail" id="ownerMail"
                            placeholder="پست الکترونیک مالک">
 				</div>
 
@@ -41,7 +42,7 @@
 					<label for="ownerPhone">
                         تلفن مالک
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.ownerPhone" id="ownerPhone"
+					<input type="text" maxlength="11" class="form-control" ng-model="recordFormData.ownerPhone" id="ownerPhone"
                            placeholder="تلفن مالک">
 				</div>
             </div>
@@ -50,7 +51,7 @@
 					<label for="manager">
                         نام مدیر
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.manager" id="manager"
+					<input maxlength="255" type="text" class="form-control" ng-model="recordFormData.manager" id="manager"
                            placeholder="نام مدیر">
 				</div>
 
@@ -58,7 +59,7 @@
 					<label for="managerMail">
                         پست الکترونیک مدیر
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.managerMail" id="managerMail"
+					<input type="email" maxlength="255" class="form-control" ng-model="recordFormData.managerMail" id="managerMail"
                            placeholder="پست الکترونیک مدیر">
 				</div>
 
@@ -66,7 +67,7 @@
 					<label for="managerPhone">
                         تلفن مدیر
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.managerPhone" id="managerPhone"
+					<input maxlength="11" type="text" class="form-control" ng-model="recordFormData.managerPhone" id="managerPhone"
                            placeholder="تلفن مدیر">
 				</div>
             </div>
@@ -78,8 +79,8 @@
 تلفن
                     </label>
                     <input type="text" class="form-control" ng-model="recordFormData.telNumberOneLabel" id="telNumberOneLabel"
-                           placeholder="عنوان">
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberOne" id="telNumberOne"
+                           maxlength="255" placeholder="عنوان">
+                    <input type="text" maxlength="11" class="form-control" ng-model="recordFormData.telNumberOne" id="telNumberOne"
                            placeholder="شماره">
 				</div>
 
@@ -87,9 +88,9 @@
 					<label for="telNumberTwo">
 تلفن
                     </label>
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberTwoLabel" id="telNumberTwoLabel"
+                    <input type="text" maxlength="255" class="form-control" ng-model="recordFormData.telNumberTwoLabel" id="telNumberTwoLabel"
                            placeholder="عنوان">
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberTwo" id="telNumberTwo"
+                    <input type="text" maxlength="11" class="form-control" ng-model="recordFormData.telNumberTwo" id="telNumberTwo"
                            placeholder="شماره">
 				</div>
 
@@ -97,9 +98,9 @@
 					<label for="telNumberThree">
 تلفن
                     </label>
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberThreeLabel" id="telNumberThreeLabel"
+                    <input type="text" maxlength="255" class="form-control" ng-model="recordFormData.telNumberThreeLabel" id="telNumberThreeLabel"
                            placeholder="عنوان">
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberThree" id="telNumberThree"
+                    <input type="text" maxlength="11" class="form-control" ng-model="recordFormData.telNumberThree" id="telNumberThree"
                            placeholder="شماره">
 				</div>
 
@@ -107,9 +108,9 @@
 					<label for="telNumberFour">
                         تلفن
                     </label>
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberFourLabel" id="telNumberFourLabel"
+                    <input type="text" maxlength="255" class="form-control" ng-model="recordFormData.telNumberFourLabel" id="telNumberFourLabel"
                            placeholder="عنوان">
-                    <input type="text" class="form-control" ng-model="recordFormData.telNumberFour" id="telNumberFour"
+                    <input type="text" maxlength="11" class="form-control" ng-model="recordFormData.telNumberFour" id="telNumberFour"
                            placeholder="شماره">
 				</div>
 
@@ -119,7 +120,7 @@
 					<label for="faxNumberOne">
                         فکس
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.faxNumberOne" id="faxNumberOne"
+					<input type="text" maxlength="11" class="form-control" ng-model="recordFormData.faxNumberOne" id="faxNumberOne"
                            placeholder="فکس">
 				</div>
 
@@ -127,7 +128,7 @@
 					<label for="faxNumberTwo">
                         فکس
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.faxNumberTwo" id="faxNumberTwo"
+					<input type="text" maxlength="11" class="form-control" ng-model="recordFormData.faxNumberTwo" id="faxNumberTwo"
                            placeholder="فکس">
 				</div>
 
@@ -135,7 +136,7 @@
 					<label for="mobileNumberOne">
                         تلفن همراه
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.mobileNumberOne" id="mobileNumberOne"
+					<input type="text" maxlength="11" class="form-control" ng-model="recordFormData.mobileNumberOne" id="mobileNumberOne"
                            placeholder="تلفن همراه">
 				</div>
 
@@ -143,7 +144,7 @@
 					<label for="mobileNumberTwo">
                         تلفن همراه
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.mobileNumberTwo" id="mobileNumberTwo"
+					<input type="text" maxlength="11" class="form-control" ng-model="recordFormData.mobileNumberTwo" id="mobileNumberTwo"
                            placeholder="تلفن همراه">
 				</div>
             </div>
@@ -153,7 +154,7 @@
                     <label for="email">
                         پست الکترونیک
                     </label>
-                    <input type="text" class="form-control" ng-model="recordFormData.email" id="email"
+                    <input type="email" maxlength="255" class="form-control" ng-model="recordFormData.email" id="email"
                            placeholder="پست الکترونیک">
                 </div>
 
@@ -161,7 +162,7 @@
 					<label for="website">
                         وبسایت
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.website" id="website"
+					<input type="text" maxlength="255" class="form-control" ng-model="recordFormData.website" id="website"
                            placeholder="وبسایت">
 				</div>
 
@@ -169,7 +170,7 @@
 					<label for="smsNumber">
                         شماره پیامک
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.smsNumber" id="smsNumber"
+					<input type="text" maxlength="14"  class="form-control" ng-model="recordFormData.smsNumber" id="smsNumber"
                            placeholder="شماره پیامک">
 				</div>
 
@@ -177,7 +178,7 @@
 					<label for="postalCode">
                         کد پستی
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.postalCode" id="postalCode"
+					<input type="text" maxlength="10" class="form-control" ng-model="recordFormData.postalCode" id="postalCode"
                            placeholder="کد پستی">
 				</div>
             </div>

@@ -1200,6 +1200,13 @@ class Record
      */
     private $lastGroupMessage;
 
+
+    /**
+     * @var booelan
+     * @ORM\Column(name="is_checked_files", type="boolean", options={"default"=false})
+     */
+    private $isCheckedFiles = false;
+    
     /**
      * Get id
      *
@@ -2002,28 +2009,7 @@ class Record
         return $this->dbaseEnable;
     }
 
-    /**
-     * Set dbaseTypeIndex
-     *
-     * @param string $dbaseTypeIndex
-     * @return Record
-     */
-    public function setDbaseTypeIndex($dbaseTypeIndex)
-    {
-        $this->dbaseTypeIndex = $dbaseTypeIndex;
-
-        return $this;
-    }
-
-    /**
-     * Get dbaseTypeIndex
-     *
-     * @return string 
-     */
-    public function getDbaseTypeIndex()
-    {
-        return $this->dbaseTypeIndex;
-    }
+    
 
     /**
      * Set bulkSmsEnable
@@ -2462,28 +2448,7 @@ class Record
         return $this->messageInsertDate;
     }
 
-    /**
-     * Set messageValidityDate
-     *
-     * @param string $messageValidityDate
-     * @return Record
-     */
-    public function setMessageValidityDate($messageValidityDate)
-    {
-        $this->messageValidityDate = $messageValidityDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get messageValidityDate
-     *
-     * @return string 
-     */
-    public function getMessageValidityDate()
-    {
-        return $this->messageValidityDate;
-    }
+  
 
     /**
      * Set mOpeningHoursFrom
@@ -4837,5 +4802,79 @@ class Record
     public function getWorkingDaysDesc()
     {
         return $this->workingDaysDesc;
+    }
+
+
+
+    /**
+     * Set messageValidityDate
+     *
+     * @param string $messageValidityDate
+     *
+     * @return Record
+     */
+    public function setMessageValidityDate($messageValidityDate)
+    {
+        $this->messageValidityDate = $messageValidityDate;
+
+        return $this;
+    }
+
+    /**
+     * Get messageValidityDate
+     *
+     * @return string
+     */
+    public function getMessageValidityDate()
+    {
+        return $this->messageValidityDate;
+    }
+
+    /**
+     * Set isCheckedFiles
+     *
+     * @param boolean $isCheckedFiles
+     *
+     * @return Record
+     */
+    public function setIsCheckedFiles($isCheckedFiles)
+    {
+        $this->isCheckedFiles = $isCheckedFiles;
+
+        return $this;
+    }
+
+    /**
+     * Get isCheckedFiles
+     *
+     * @return boolean
+     */
+    public function getIsCheckedFiles()
+    {
+        return $this->isCheckedFiles;
+    }
+
+    /**
+     * Set dbaseTypeIndex
+     *
+     * @param \Darkish\CategoryBundle\Entity\DbaseType $dbaseTypeIndex
+     *
+     * @return Record
+     */
+    public function setDbaseTypeIndex(\Darkish\CategoryBundle\Entity\DbaseType $dbaseTypeIndex = null)
+    {
+        $this->dbaseTypeIndex = $dbaseTypeIndex;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseTypeIndex
+     *
+     * @return \Darkish\CategoryBundle\Entity\DbaseType
+     */
+    public function getDbaseTypeIndex()
+    {
+        return $this->dbaseTypeIndex;
     }
 }

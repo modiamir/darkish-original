@@ -124,6 +124,21 @@ customerApp.controller('DatabaseCtrl', ['$scope', '$state', 'databaseData', 'Fil
 	      });
   	}
 
+	  $scope.findByCode = function(code)
+	  {
+		  $http.get('./customer/ajax/database/find_by_code/'+code).then(
+			  function(response){
+				  $state.go('database.itemdetails', {iid: response.data});
+			  },
+			  function(responseErr){
+				  SweetAlert.swal({
+					  title: "آیتم با کد وارد شده موجود نیست.",
+					  type: "success"
+				  });
+			  }
+		  );
+	  }
+
   	$scope.clearSearchCriteria = function() {
   		$scope.searchCriteria = {}
   	}
@@ -228,21 +243,21 @@ customerApp.controller('DatabaseItemDetailsCtrl', ['$scope', '$http', '$filter',
     if($scope.dbType() == "estate") {
     	$scope.item.estate_features = {}
     	if($scope.item.estate_type) {
-    		$scope.item.estate_type = $filter('filter')($scope.estateTypes, {id: $scope.item.estate_type.id})[0];
+    		$scope.item.estate_type = $filter('filter')($scope.estateTypes, {id: $scope.item.estate_type.id},true)[0];
     	}
     	if($scope.item.contract_type) {
-    		$scope.item.contract_type = $filter('filter')($scope.contractTypes, {id: $scope.item.contract_type.id})[0];
+    		$scope.item.contract_type = $filter('filter')($scope.contractTypes, {id: $scope.item.contract_type.id},true)[0];
     	}
     } else {
     	$scope.item.automobile_features = {}
     	if($scope.item.automobile_brand) {
-    		$scope.item.automobile_brand = $filter('filter')($scope.automobileBrands, {id: $scope.item.automobile_brand.id})[0];
+    		$scope.item.automobile_brand = $filter('filter')($scope.automobileBrands, {id: $scope.item.automobile_brand.id},true)[0];
     	}
     	if($scope.item.automobile_type) {
-    		$scope.item.automobile_type = $filter('filter')($scope.automobileTypes, {id: $scope.item.automobile_type.id})[0];
+    		$scope.item.automobile_type = $filter('filter')($scope.automobileTypes, {id: $scope.item.automobile_type.id},true)[0];
     	}
     	if($scope.item.automobile_color) {
-    		$scope.item.automobile_color = $filter('filter')($scope.automobileColors, {id: $scope.item.automobile_color.id})[0];
+    		$scope.item.automobile_color = $filter('filter')($scope.automobileColors, {id: $scope.item.automobile_color.id},true)[0];
     	}
     }
     var tempFeaturesJson = {};
@@ -266,21 +281,21 @@ customerApp.controller('DatabaseItemEditCtrl', ['$scope', '$http', '$filter', 'S
     if($scope.dbType() == "estate") {
     	$scope.item.estate_features = {}
     	if($scope.item.estate_type) {
-    		$scope.item.estate_type = $filter('filter')($scope.estateTypes, {id: $scope.item.estate_type.id})[0];
+    		$scope.item.estate_type = $filter('filter')($scope.estateTypes, {id: $scope.item.estate_type.id},true)[0];
     	}
     	if($scope.item.contract_type) {
-    		$scope.item.contract_type = $filter('filter')($scope.contractTypes, {id: $scope.item.contract_type.id})[0];
+    		$scope.item.contract_type = $filter('filter')($scope.contractTypes, {id: $scope.item.contract_type.id},true)[0];
     	}
     } else {
     	$scope.item.automobile_features = {}
     	if($scope.item.automobile_brand) {
-    		$scope.item.automobile_brand = $filter('filter')($scope.automobileBrands, {id: $scope.item.automobile_brand.id})[0];
+    		$scope.item.automobile_brand = $filter('filter')($scope.automobileBrands, {id: $scope.item.automobile_brand.id},true)[0];
     	}
     	if($scope.item.automobile_type) {
-    		$scope.item.automobile_type = $filter('filter')($scope.automobileTypes, {id: $scope.item.automobile_type.id})[0];
+    		$scope.item.automobile_type = $filter('filter')($scope.automobileTypes, {id: $scope.item.automobile_type.id},true)[0];
     	}
     	if($scope.item.automobile_color) {
-    		$scope.item.automobile_color = $filter('filter')($scope.automobileColors, {id: $scope.item.automobile_color.id})[0];
+    		$scope.item.automobile_color = $filter('filter')($scope.automobileColors, {id: $scope.item.automobile_color.id},true)[0];
     	}
     }
     var tempFeaturesJson = {};
@@ -468,6 +483,14 @@ customerApp.controller('DatabaseCreateCtrl', ['$scope', 'FileUploader', '$http',
 
     $scope.item = {};
 
+	$http.get('./customer/ajax/database/find_new_code').then(
+		function(response){
+			$scope.item.code = response.data;
+		},
+		function(responseErr){
+
+		});
+
     if($scope.dbType() == 'estate') {
     	$scope.item.contract_type = $scope.contractTypes[0];
     	$scope.item.estate_type = $scope.estateTypes[0];
@@ -551,6 +574,10 @@ customerApp.controller('DatabaseCreateCtrl', ['$scope', 'FileUploader', '$http',
           	function(response){
               	$scope.items.unshift(response.data);
                 $state.go('database.itemedit', {iid: response.data.id});
+				SweetAlert.swal({
+					title: "ذخیره فایل با موفقیت انجام شد.",
+					type: "success"
+				});
           	}, 
           	function(responseErr){
                 if(responseErr.status == 500 && responseErr.data.code == 13) {

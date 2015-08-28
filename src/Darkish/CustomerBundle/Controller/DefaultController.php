@@ -949,6 +949,18 @@ class DefaultController extends Controller
                 
 
                 $file->setFile($ufile);
+            }elseif($request->request->has('base64')) {
+                $tmpFileName = '/tmp/'.rand(10000,99999).'.jpeg';
+                $ifp = fopen($tmpFileName, "wb");
+
+                $data = explode(',', $request->get('base64'));
+
+                fwrite($ifp, base64_decode($data[1]));
+                fclose($ifp);
+
+                $tmpFile = new File($tmpFileName, true);
+                $file->setFile($tmpFile);
+
             }
 
             if($request->request->has('type')){
@@ -1210,6 +1222,7 @@ class DefaultController extends Controller
             } else {
                 $record->setDbaseEnableCustomer(false);
             }
+
 
             $em->persist($record);
             $em->flush();

@@ -3,9 +3,35 @@ ul.recordtree-list {
 	width: 100%;
 	li {
 		float: right;
-		width: 50%;
+		width: 33%;
 	}
 }
+
+ul.recordtree-grid {
+  display: inline-block;
+  width: 100%;
+  li {
+	float: right;
+	width: 49%;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(237, 237, 237);
+	margin-right: 1%;
+	a.icon {
+	  float: right;
+	  margin-left: 10px;
+	}
+
+	.tree-titles {
+	  float: right;
+	  h3 {
+		margin-top: 5px;
+	  }
+	}
+  }
+}
+
+
 
 div.record-list {
 	display: inline-block;
@@ -15,3 +41,4 @@ div.record-list {
 		width: 50%;
 	}
 }
+

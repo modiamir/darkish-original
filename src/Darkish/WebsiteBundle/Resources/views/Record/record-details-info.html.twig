@@ -1,0 +1,260 @@
+<div class="well well-sm record-details-inner-wrapper" >
+    <div class="record-details-inner">
+
+        {% if record.address %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="record-address">
+                        <h4>
+                                    آدرس
+                        </h4>
+                        <span class="">
+                            {{ record.address }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+        {% endif %}
+
+
+
+
+        {% set hasTel = record.telNumberOne or record.telNumberTwo or record.telNumberThree or record.telNumberFour %}
+        {% set hasContact = record.mobileNumberOne or record.mobileNumberTwo or record.faxNumberOne or record.faxNumberTwo %}
+
+        {% if hasTel or hasContact %}
+            <div class="row">
+                {% if hasTel %}
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        {% if record.telNumberOne %}
+                            <div class="record-tel-number">
+                                <h4>
+                                    {% if record.telNumberOneLabel %}
+                                        {{ record.telNumberOneLabel }}
+                                    {% else %}
+                                        تلفن
+                                    {% endif %}
+                                </h4>
+                                <span class="">
+                            {{ record.telNumberOne }}
+                        </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.telNumberTwo %}
+                            <div class="record-tel-number">
+                                <h4>
+                                    {% if record.telNumberTwoLabel %}
+                                        {{ record.telNumberTwoLabel }}
+                                    {% else %}
+                                        تلفن
+                                    {% endif %}
+                                </h4>
+                                <span class="">
+                                    {{ record.telNumberTwo }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.telNumberThree %}
+                            <div class="record-tel-number">
+                                <h4>
+                                    {% if record.telNumberThreeLabel %}
+                                        {{ record.telNumberThreeLabel }}
+                                    {% else %}
+                                        تلفن
+                                    {% endif %}
+                                </h4>
+                                <span class="">
+                                    {{ record.telNumberThree }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.telNumberFour %}
+                            <div class="record-tel-number">
+                                <h4>
+                                    {% if record.telNumberFourLabel %}
+                                        {{ record.telNumberFourLabel }}
+                                    {% else %}
+                                        تلفن
+                                    {% endif %}
+                                </h4>
+                                <span class="">
+                                    {{ record.telNumberFour }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if hasContact %}
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        {% if record.mobileNumberOne %}
+                            <div class="record-mobile-number">
+                                <h4>
+                                    تلفن همراه
+                                </h4>
+                                <span class="">
+                                    {{ record.mobileNumberOne }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.mobileNumberTwo %}
+                            <div class="record-mobile-number">
+                                <h4>
+                                    تلفن همراه
+                                </h4>
+                                <span class="">
+                                    {{ record.mobileNumberTwo }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.faxNumberOne %}
+                            <div class="record-fax-number">
+                                <h4>
+                                    فکس
+                                </h4>
+                                <span class="">
+                                    {{ record.faxNumberOne }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        {% if record.faxNumberTwo %}
+                            <div class="record-fax-number">
+                                <h4>
+                                    فکس
+                                </h4>
+                                <span class="">
+                                    {{ record.faxNumberTwo }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+
+            </div>
+            <hr/>
+        {% endif %}
+
+
+        {% set hasOwner = record.owner or record.ownerPhone or record.ownerMail %}
+        {% set hasManager = record.manager or record.managerPhone or record.managerMail %}
+
+        {% if hasOwner or hasManager %}
+            <div class="row">
+
+                {% if hasOwner %}
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        {% if record.owner %}
+                            <div class="record-owner">
+                                <h4>
+                                    نام مالک
+                                </h4>
+                                <span class="">
+                                    {{ record.owner }}
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if record.ownerPhone %}
+                            <div class="record-owner-phone">
+                                <h4>
+                                    تلفن مالک
+                                </h4>
+                                <span class="">
+                                    {{ record.ownerPhone }}
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if record.ownerMail %}
+                            <div class="record-owner-mail">
+                                <h4>
+                                    ایمیل مالک
+                                </h4>
+                                <span class="">
+                                    {{ record.ownerMail }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if hasManager %}
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        {% if record.manager %}
+                            <div class="record-manager">
+                                <h4>
+                                    نام مدیر
+                                </h4>
+                                <span class="">
+                                    {{ record.manager }}
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if record.managerPhone %}
+                            <div class="record-manager-phone">
+                                <h4>
+                                    تلفن مدیر
+                                </h4>
+                                <span class="">
+                                    {{ record.managerPhone}}
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if record.managerMail %}
+                            <div class="record-manager-mail">
+                                <h4>
+                                    ایمیل مدیر
+                                </h4>
+                                <span class="">
+                                    {{ record.managerMail }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+            <hr/>
+        {% endif %}
+
+
+
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {% if record.postalCode %}
+                <div class="record-postal-code">
+                    <h4>
+                        کدپستی
+                    </h4>
+                    <span class="">
+                        {{ record.postalCode}}
+                    </span>
+                </div>
+            {% endif %}
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                {% if record.smsNumber %}
+                    <div class="record-sms-number">
+                        <h4>
+                            شماره پیامک
+                        </h4>
+                        <span class="">
+                            {{ record.smsNumber }}
+                        </span>
+                    </div>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>

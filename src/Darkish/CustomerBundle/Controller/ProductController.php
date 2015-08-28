@@ -85,8 +85,9 @@ class ProductController extends Controller
              */
             $errorsString = (string) $errors;
 
-            return new JsonResponse([$errorsString],500);
+//            return new JsonResponse([$errorsString],500);
         }
+
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -137,6 +138,7 @@ class ProductController extends Controller
 
                 
             }
+
             $em->persist($entity);
 
             $em->flush();
@@ -147,7 +149,7 @@ class ProductController extends Controller
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('product.details', 'file.details'))));
         }
 
-        return new Response($form->getErrors()->__toString());
+        return new JsonResponse([$this->get('darkish.form_errors')->getFormErrors($form, true)], 500);
 
         
     }
@@ -356,11 +358,21 @@ class ProductController extends Controller
 
         $group = $request->get('group');
 
+        $allgroups = $this->getDoctrine()->getRepository('DarkishCategoryBundle:StoreGroup')
+            ->findBy(['record' => $record->getId()]);
+
+        if(count($allgroups)  >= 100) {
+            return new JsonResponse(['حداکثر تعداد گروه در این فروشگاه استفاده شده است. امکان درج گروه جدید وجود ندارد.'], 403);
+        }
+
+
         $groups = $this->getDoctrine()->getRepository('DarkishCategoryBundle:StoreGroup')
                 ->findBy(['name' => $group['name'], 'record' => $record->getId()]);
 
         if(count($groups)) {
-            return new JsonResponse(['Cant add group. There is other groop with same name!'], 403);
+            return new JsonResponse(['
+            گروه دیگری با همین نام در این فروشگاه به ثبت رسیده است.
+            '], 403);
         }
 
         

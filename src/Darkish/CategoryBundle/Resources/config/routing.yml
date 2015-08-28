@@ -79,3 +79,7 @@ managedfile_nervgh:
     requirements: { _method: post|options }
 
 
+admin_watermark:
+    resource: "@DarkishCategoryBundle/Controller/WatermarkController.php"
+    type:   annotation
+    prefix: /admin/watermark

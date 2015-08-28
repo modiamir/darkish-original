@@ -198,6 +198,7 @@ customerApp.controller('UserItemEditCtrl', ['$scope', '$http', '$filter', 'Sweet
         delete data.type;
         delete data.roles;
         delete data.username;
+        data.isActive = (data.isActive)? 1 : 0 ;
         postData['darkish_customerbundle_customer'] = data;
 
         
@@ -400,7 +401,7 @@ customerApp.controller('UserCreateCtrl', ['$scope', 'FileUploader', '$http', '$s
         }
         delete data.photo;
         delete data.newPasswordConfirm;
-          
+        data.isActive = (data.isActive)? 1 : 0 ;
         postData['darkish_customerbundle_customer'] = data;
 
         

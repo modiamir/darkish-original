@@ -552,7 +552,8 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="OpeningHours", type="string" )
+     * @ORM\Column(name="OpeningHours", type="string", nullable=true )
+     * @Groups({"record.details", "api.list"})
      */
     private $openingHoursDesc;
 
@@ -584,7 +585,8 @@ class Record
     /**
      * @var string
      *
-     * @ORM\Column(name="WorkingDaysDesc", type="string" )
+     * @ORM\Column(name="WorkingDaysDesc", type="string", nullable=true )
+     * @Groups({"record.details", "api.list"})
      */
     private $workingDaysDesc;
 
@@ -810,7 +812,7 @@ class Record
     /**
      * @var boolean
      *
-     * @ORM\Column(name="CommentableCustomer", type="boolean", nullable=false, options={"default":1})
+     * @ORM\Column(name="CommentableCustomer", type="boolean", nullable=true, options={"default":1})
      * @Groups({"record.details", "record.list", "api.list"})
      */
     private $commentableCustomer;
@@ -1198,6 +1200,13 @@ class Record
      */
     private $lastGroupMessage;
 
+
+    /**
+     * @var booelan
+     * @ORM\Column(name="is_checked_files", type="boolean", options={"default"=false})
+     */
+    private $isCheckedFiles = false;
+    
     /**
      * Get id
      *
@@ -2000,28 +2009,7 @@ class Record
         return $this->dbaseEnable;
     }
 
-    /**
-     * Set dbaseTypeIndex
-     *
-     * @param string $dbaseTypeIndex
-     * @return Record
-     */
-    public function setDbaseTypeIndex($dbaseTypeIndex)
-    {
-        $this->dbaseTypeIndex = $dbaseTypeIndex;
-
-        return $this;
-    }
-
-    /**
-     * Get dbaseTypeIndex
-     *
-     * @return string 
-     */
-    public function getDbaseTypeIndex()
-    {
-        return $this->dbaseTypeIndex;
-    }
+    
 
     /**
      * Set bulkSmsEnable
@@ -2460,28 +2448,7 @@ class Record
         return $this->messageInsertDate;
     }
 
-    /**
-     * Set messageValidityDate
-     *
-     * @param string $messageValidityDate
-     * @return Record
-     */
-    public function setMessageValidityDate($messageValidityDate)
-    {
-        $this->messageValidityDate = $messageValidityDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get messageValidityDate
-     *
-     * @return string 
-     */
-    public function getMessageValidityDate()
-    {
-        return $this->messageValidityDate;
-    }
+  
 
     /**
      * Set mOpeningHoursFrom
@@ -4787,5 +4754,103 @@ class Record
     public function getDbaseItems()
     {
         return $this->dbaseItems;
+    }
+
+    /**
+     * Set openingHoursDesc
+     *
+     * @param string $openingHoursDesc
+     *
+     * @return Record
+     */
+    public function setOpeningHoursDesc($openingHoursDesc)
+    {
+        $this->openingHoursDesc = $openingHoursDesc;
+
+        return $this;
+    }
+
+    /**
+     * Get openingHoursDesc
+     *
+     * @return string
+     */
+    public function getOpeningHoursDesc()
+    {
+        return $this->openingHoursDesc;
+    }
+
+    /**
+     * Set workingDaysDesc
+     *
+     * @param string $workingDaysDesc
+     *
+     * @return Record
+     */
+    public function setWorkingDaysDesc($workingDaysDesc)
+    {
+        $this->workingDaysDesc = $workingDaysDesc;
+
+        return $this;
+    }
+
+    /**
+     * Get workingDaysDesc
+     *
+     * @return string
+     */
+    public function getWorkingDaysDesc()
+    {
+        return $this->workingDaysDesc;
+    }
+
+
+
+    /**
+     * Set messageValidityDate
+     *
+     * @param string $messageValidityDate
+     *
+     * @return Record
+     */
+    public function setMessageValidityDate($messageValidityDate)
+    {
+        $this->messageValidityDate = $messageValidityDate;
+
+        return $this;
+    }
+
+    /**
+     * Get messageValidityDate
+     *
+     * @return string
+     */
+    public function getMessageValidityDate()
+    {
+        return $this->messageValidityDate;
+    }
+
+    /**
+     * Set isCheckedFiles
+     *
+     * @param boolean $isCheckedFiles
+     *
+     * @return Record
+     */
+    public function setIsCheckedFiles($isCheckedFiles)
+    {
+        $this->isCheckedFiles = $isCheckedFiles;
+
+        return $this;
+    }
+
+    /**
+     * Get isCheckedFiles
+     *
+     * @return boolean
+     */
+    public function getIsCheckedFiles()
+    {
+        return $this->isCheckedFiles;
     }
 }

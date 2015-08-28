@@ -9,7 +9,7 @@
         {{ product.title }}
     </h4>
     <h5 class="price {% if product.discounted_price is defined %}discounted{% endif %}">
-        {{ product.price }} تومان 
+        {#{{ product.price }} تومان #}
     </h5>
     {% if product.discounted_price is defined %}
         <h5 class="discounted-price">

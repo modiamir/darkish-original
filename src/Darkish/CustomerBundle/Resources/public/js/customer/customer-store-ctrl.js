@@ -167,9 +167,10 @@ customerApp.controller('StoreDetailsCtrl', ['$scope', '$http', '$filter', 'Sweet
         $scope.storeData.market_groups = angular.copy($scope.tempGroups);
       }, function(responseErr){
         if(responseErr.status == 403) {
+            console.log(responseErr);
           SweetAlert.swal({
             title: "افزودن گروه انجام نشد.",
-            text: "گروه دیگری با همین نام موجود است.",
+            text: responseErr.data[0],
             type: "success"
           });
         }
@@ -325,7 +326,8 @@ customerApp.controller('StoreProductEditCtrl', ['$scope', '$stateParams', 'produ
           function(responseErr){
             if(responseErr.status == 500) {
               SweetAlert.swal({
-                title: "کد محصول تکراری است.",
+                title: "ذخیره انجام نشد",
+                'text': responseErr.data[0],
                 type: "success"
               });
             }
@@ -589,11 +591,13 @@ customerApp.controller('StoreCreateCtrl', ['$scope', 'FileUploader', '$http', '$
               function(response){
                 $scope.products[response.data.group.id].unshift(response.data);
                 $state.go('store.editproduct', {pid: response.data.id});
-              }, 
+              },
               function(responseErr){
                 if(responseErr.status == 500) {
+                    console.log(responseErr);
                   SweetAlert.swal({
-                    title: "کد محصول تکراری است.",
+                    title: "ذخیره انجام نشد",
+                    text: responseErr.data[0],
                     type: "success"
                   });
                 }

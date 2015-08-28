@@ -33,6 +33,22 @@ class RecordRepository extends EntityRepository implements ContainerAwareInterfa
         foreach($children as $child) {
             $treesIds[] = $child->getId();
         }
+        die(print_r($treesIds,true));
+        $recordQuery = $this->createQueryBuilder('r');
+        $recordQuery->join('r.maintrees', 'rt');
+        $recordQuery->join('rt.tree','t', 'WITH',$recordQuery->expr()->in('t.id', $treesIds))->distinct();
+        $recordQuery->orderBy('r.lastUpdate', 'Desc');
+        // $recordQuery->addOrderBy('nt.sort', 'Asc');
+
+        return $recordQuery;
+    }
+
+    public function getRecordsForTreeIds(array $treesIds) {
+
+        if(count($treesIds) == 0) {
+            $treesIds[] = 0;
+        }
+
 
         $recordQuery = $this->createQueryBuilder('r');
         $recordQuery->join('r.maintrees', 'rt');
@@ -42,6 +58,7 @@ class RecordRepository extends EntityRepository implements ContainerAwareInterfa
 
         return $recordQuery;
     }
+
 
 
     public function generateStoreCache(Record $record, $serializer) {

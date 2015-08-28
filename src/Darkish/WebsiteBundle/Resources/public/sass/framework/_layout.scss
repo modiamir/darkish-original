@@ -104,10 +104,14 @@ font-style: normal;
 body {
 	font-family: BMitra;
 	font-size: 16px;
+    .container {
+      min-width: 1170px;
+      width: 90%;
+    }
 	.header-wrapper {
 		background: #6bcecb;
-		border-bottom: 3px solid #f17022;
-		margin-bottom: 10px;
+		border-bottom: 2px solid #f17022;
+		margin-bottom: 0px;
 		.navbar-default {
 			height: 80px;
 			border: 0;
@@ -152,13 +156,44 @@ body {
 						&:hover, &.active {
 							a {
 								background-color: #f17022;
-
 							}
 						}
 					}
 				}	
 			}
 		}
+	}
+
+	.secondary-header-wrapper {
+	  border-bottom: 2px solid $green;
+	  background: #fff;
+	  position: relative;
+	  .container {
+		.navbar-default {
+		  background-color: transparent;
+		  border: 0;
+		  margin-bottom: 0;
+		}
+	  }
+	  ul.nav {
+		clear: both;
+		li {
+		  a {
+			padding: 10px 0 10px 20px;
+		  }
+		}
+	  }
+
+	  .news-mag {
+		position: absolute;
+		top: -43px;
+		left: 45px;
+	  }
+	  .download-app {
+		position: absolute;
+		top: 50px;
+		left: 46px;
+	  }
 	}
 	
 	.breadcrumb-wrapper {
@@ -290,4 +325,14 @@ body {
 		  }
 		}
 	}
+}
+
+.media-right, .media>.pull-right {
+  padding-left: 10px;
+  padding-right: initial;
+}
+
+.media-left, .media>.pull-left {
+  padding-right: 10px;
+  padding-left: initial;
 }

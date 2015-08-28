@@ -1036,7 +1036,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     padding-top: 70px;
   }
   /* line 1147, ../sass/customer.scss */
-  body.messages, body.store, body.store-edit, body.store-details, body.store-productdetails, body.store-editproduct, body.store-create, body.user, body.comments-all, body.comments-news, body.attachments, body.database, body.database-create, body.database-itemdetails, body.database-itemedit, body.htmlpage, body.user-edit, body.user-create {
+  body.messages, body.store, body.store-edit, body.store-details, body.store-productdetails, body.store-editproduct, body.store-create, body.user, body.comments-all, body.comments-news, body.attachments, body.database, body.database-create, body.database-itemdetails, body.database-itemedit, body.htmlpage, body.user-edit, body.user-create, body.editprofile {
     padding-top: 120px;
   }
 
@@ -1205,15 +1205,16 @@ input[type=number] {
 }
 /* line 1320, ../sass/customer.scss */
 .product-item .product-teaser .top-row {
+  overflow: hidden;
   height: 85px;
 }
-/* line 1323, ../sass/customer.scss */
+/* line 1324, ../sass/customer.scss */
 .product-item .product-teaser .top-row .right-col .product-title {
   text-align: center;
   color: #0c9f0c;
   border-left: 1px solid white;
 }
-/* line 1329, ../sass/customer.scss */
+/* line 1330, ../sass/customer.scss */
 .product-item .product-teaser .top-row .right-col .product-special-text {
   text-align: center;
   color: gray;
@@ -1221,12 +1222,12 @@ input[type=number] {
   height: 40px;
   overflow: hidden;
 }
-/* line 1337, ../sass/customer.scss */
+/* line 1338, ../sass/customer.scss */
 .product-item .product-teaser .top-row .left-col {
   padding: 0;
   border-right: 1px solid white;
 }
-/* line 1340, ../sass/customer.scss */
+/* line 1341, ../sass/customer.scss */
 .product-item .product-teaser .top-row .left-col .image-wrapper {
   width: 100%;
   height: 85px;
@@ -1235,42 +1236,42 @@ input[type=number] {
   background-image: url(../images/product-default.png);
   border-right: 1px solid #d2d2d2;
 }
-/* line 1355, ../sass/customer.scss */
+/* line 1356, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row {
   background: #cacaca;
   font-size: 13px;
   line-height: 2;
 }
-/* line 1359, ../sass/customer.scss */
+/* line 1360, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row .right-col {
   text-align: center;
 }
-/* line 1362, ../sass/customer.scss */
+/* line 1363, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row .right-col .product-price {
   color: #0c9f0c;
 }
-/* line 1364, ../sass/customer.scss */
+/* line 1365, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row .right-col .product-price.discounted {
   color: red;
   text-decoration: line-through;
 }
-/* line 1369, ../sass/customer.scss */
+/* line 1370, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row .right-col .product-discounted-price {
   color: #0c9f0c;
 }
-/* line 1374, ../sass/customer.scss */
+/* line 1375, ../sass/customer.scss */
 .product-item .product-teaser .bottom-row .left-col {
   border-right: 1px solid white;
   text-align: center;
   padding: 0;
 }
-/* line 1380, ../sass/customer.scss */
+/* line 1381, ../sass/customer.scss */
 .product-item .product-teaser .product-special-tag {
   position: absolute;
   top: 0;
   right: 3px;
 }
-/* line 1385, ../sass/customer.scss */
+/* line 1386, ../sass/customer.scss */
 .product-item .product-teaser .product-special-tag span {
   display: inline-block;
   text-indent: -1000px;
@@ -1279,24 +1280,24 @@ input[type=number] {
   background-size: 100%;
   background-repeat: no-repeat;
 }
-/* line 1393, ../sass/customer.scss */
+/* line 1394, ../sass/customer.scss */
 .product-item .product-teaser .product-special-tag .new {
   background-image: url(../images/Over-New.png);
 }
-/* line 1397, ../sass/customer.scss */
+/* line 1398, ../sass/customer.scss */
 .product-item .product-teaser .product-special-tag .special {
   background-image: url(../images/Over-Offer.png);
 }
-/* line 1401, ../sass/customer.scss */
+/* line 1402, ../sass/customer.scss */
 .product-item .product-teaser .product-special-tag .discount {
   background-image: url(../images/Over-Discount.png);
 }
-/* line 1405, ../sass/customer.scss */
+/* line 1406, ../sass/customer.scss */
 .product-item .product-teaser.clickable {
   cursor: pointer;
 }
 
-/* line 1413, ../sass/customer.scss */
+/* line 1414, ../sass/customer.scss */
 .ta-editor {
   min-height: 300px;
   height: auto;
@@ -1306,47 +1307,47 @@ input[type=number] {
   margin: 20px 0;
 }
 
-/* line 1424, ../sass/customer.scss */
+/* line 1425, ../sass/customer.scss */
 .sweet-alert h2 {
   font-size: 20px !important;
 }
-/* line 1427, ../sass/customer.scss */
+/* line 1428, ../sass/customer.scss */
 .sweet-alert .icon {
   display: none !important;
 }
 
-/* line 1432, ../sass/customer.scss */
+/* line 1433, ../sass/customer.scss */
 textarea {
   resize: none;
 }
 
-/* line 1436, ../sass/customer.scss */
+/* line 1437, ../sass/customer.scss */
 .image-thumb {
   position: relative;
   margin-bottom: 20px;
 }
-/* line 1439, ../sass/customer.scss */
+/* line 1440, ../sass/customer.scss */
 .image-thumb .thumbnail-remove {
   position: absolute;
   right: 10px;
   bottom: 10px;
   height: 25px;
 }
-/* line 1444, ../sass/customer.scss */
+/* line 1445, ../sass/customer.scss */
 .image-thumb .thumbnail-remove .dk {
   font-size: 22px;
 }
 
-/* line 1452, ../sass/customer.scss */
+/* line 1453, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default {
   padding-top: 40px;
 }
-/* line 1456, ../sass/customer.scss */
+/* line 1457, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal {
   position: relative;
   min-height: 100px;
 }
-/* line 1459, ../sass/customer.scss */
+/* line 1460, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn {
   position: absolute;
   top: 0;
@@ -1358,31 +1359,31 @@ textarea {
   background: rgba(0, 0, 0, 0.3);
   padding: 0;
 }
-/* line 1469, ../sass/customer.scss */
+/* line 1470, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn:hover, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn:hover, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn:hover {
   background: rgba(0, 0, 0, 0.5);
 }
-/* line 1472, ../sass/customer.scss */
+/* line 1473, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn.previous-btn, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn.previous-btn, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn.previous-btn {
   right: 0;
 }
-/* line 1475, ../sass/customer.scss */
+/* line 1476, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn.next-btn, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn.next-btn, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn.next-btn {
   left: 0;
 }
-/* line 1478, ../sass/customer.scss */
+/* line 1479, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn .dk, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn .dk, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn .dk {
   font-size: 60px;
 }
-/* line 1481, ../sass/customer.scss */
+/* line 1482, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn[disabled], .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn[disabled], .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn[disabled] {
   background: rgba(0, 0, 0, 0.1);
 }
-/* line 1483, ../sass/customer.scss */
+/* line 1484, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal button.btn[disabled] .dk, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal button.btn[disabled] .dk, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal button.btn[disabled] .dk {
   color: #848484;
 }
-/* line 1489, ../sass/customer.scss */
+/* line 1490, ../sass/customer.scss */
 .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal img, .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal video, .ngdialog.ngdialog-theme-default .ngdialog-content .photo-modal audio, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal img, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal video, .ngdialog.ngdialog-theme-default .ngdialog-content .video-modal audio, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal img, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal video, .ngdialog.ngdialog-theme-default .ngdialog-content .audio-modal audio {
   max-width: 100%;
   display: block;

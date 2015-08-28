@@ -30,9 +30,11 @@
 <div class="row bottom-row">
 	<div class="col col-xs-9 right-col">
 		<div layout="row">
-			<div class="product-price" ng-class="{'discounted' : product.discounted_price}" flex ng-show="product.price" ng-bind="product.price | currency:'':0">
+			<div flex ng-show="product.availability = 0 || product.availability = 2" ng-bind="(product.availability == 0)?'نا موجود':'به زودی'">
 			</div>
-			<div class="product-discounted-price" flex ng-show="product.discounted_price" ng-bind="product.discounted_price">
+			<div class="product-price" ng-class="{'discounted' : product.discounted_price}" flex ng-show="product.price && availability == 1"  ng-bind="product.price | currency:'':0">
+			</div>
+			<div class="product-discounted-price" flex ng-show="product.discounted_price  && availability == 1"  ng-bind="product.discounted_price">
 			</div>
 		</div>
 	</div>

@@ -1,16 +1,27 @@
+    {#{{ form_start(search_form) }}#}
+        {#{{ form_widget(search_form) }}#}
 
-{{ form_start(search_form) }}
-    {{ form_widget(search_form) }}
-
-    <input type="submit" value="ارسال"
-       class="btn btn-default pull-right" />
-{{ form_end(search_form) }}
+        {#<input type="submit" value="ارسال"#}
+           {#class="btn btn-default pull-right" />#}
+    {#{{ form_end(search_form) }}#}
 
 
+
+<div class="database-list">
 {% for database in pagination %}
+
     {% set objClass = database | obj_class %}
     {% if objClass == 'Estate' %}
-        {{ include('DarkishWebsiteBundle:Record:record-database-estate.html.twig', {'estate': database}) }}
+        {{ include('DarkishWebsiteBundle:Database:database-estate.html.twig', {'estate': database}) }}
+    {% endif %}
+    {% if loop.index is divisible by(3) %}
+        <div class="clearfix">
+        </div>
+        <hr/>
     {% endif %}
 {% endfor %}
-{{ pagination.getTotalItemCount }}
+    <div class="clearfix">
+    </div>
+
+    {{ knp_pagination_render(pagination) }}
+</div>

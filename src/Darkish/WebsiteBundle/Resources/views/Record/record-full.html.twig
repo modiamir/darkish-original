@@ -1,14 +1,47 @@
 <div class="record mode-full">
 
+	{% if record.icon %}
+		<div class="image-box">
+			{# <img src="./assets/images/record-image.png"> #}
+			<img src="{{  ('/uploads/'~record.icon.webPath) | imagine_filter('1024x576')}}">
+			{#<img src="{{  record.icon.absolutePath}}">#}
+		</div>
+	{% endif %}
+
+	{% if not record.onlyHtml or (record.latitude and longitude ) %}
+		<div class="row details" >
+			<div class="record-details col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				{{ include('DarkishWebsiteBundle:Record:record-details-info.html.twig', {'record': record}) }}
+			</div>
+			<div class="record-details col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				{{ google_map(map) }}
+			</div>
+		</div>
+	{% endif %}
 
 	<div class="record-body">
 		{{record.body | raw}}
 	</div>
 
 
+    {% if record.dbaseEnable %}
+    <hr>
+
+    <h3 class="database-title">
+        {% if record.dbaseTypeIndex.id == 1 %}
+        املاک
+        {% elseif record.dbaseTypeIndex.id == 2 %}
+            خودروها
+        {% endif %}
+    </h3>
 	{{ sonata_block_render({'type': 'darkish_website.block.database'},{
 		'id': record.id
 	}) }}
+
+    {% endif %}
+    
+
+
 
 
 	{% if products | length %}

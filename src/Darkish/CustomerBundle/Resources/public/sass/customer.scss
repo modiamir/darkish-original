@@ -1144,7 +1144,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         &.messages, &.store, &.store-edit, &.store-details,
         &.store-productdetails, &.store-editproduct, &.store-create, &.user, &.comments-all, 
         &.comments-news, &.attachments, &.database, &.database-create, &.database-itemdetails,
-        &.database-itemedit, &.htmlpage, &.user-edit, &.user-create {
+        &.database-itemedit, &.htmlpage, &.user-edit, &.user-create, &.editprofile {
             padding-top: 120px;    
         }
 
@@ -1318,6 +1318,7 @@ input[type=number] {
             margin: 0;
         }
         .top-row {
+            overflow: hidden;
             height: 85px;
             .right-col {
                 .product-title {

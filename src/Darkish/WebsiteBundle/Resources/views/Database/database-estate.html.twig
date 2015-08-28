@@ -1,0 +1,34 @@
+
+    <div class="database database-estate">
+        <div class="thumbnail">
+            <a href="#">
+                {% if estate.photos | length %}
+                    {% set image_path = "uploads/" ~ estate.photos.0.uploadDir ~ "/" ~ estate.photos.0.path %}
+                {% else %}
+                    {% set image_path = "bundles/darkishwebsite/images/default_image.png" %}
+                {% endif %}
+                <img class="product-image" src="{{ image_path | imagine_filter('180x120')}}" alt="">
+            </a>
+            <div class="caption">
+                <h4>{{ estate.title }}</h4>
+                <div class="summary">
+                    {{ estate.dimension }} متر
+                    - {{ estate.numOfRooms }} خوابه
+                    - طبقه
+                    {{ estate.floor }}
+                </div>
+
+                {% if estate.secondaryPrice is defined %}
+                    <h4 class="price">
+                        {{ estate.price }} تومان
+                    </h4>
+                {% endif %}
+
+                {% if estate.secondaryPrice is defined %}
+                    <h4 class="secondary-price">
+                        {{ estate.secondaryPrice }}
+                    </h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>

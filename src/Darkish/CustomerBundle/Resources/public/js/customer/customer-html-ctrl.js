@@ -44,7 +44,24 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 				if(filesInEditor.length > 0) {
 				    alert("امکان حذف فایل "+"\n"+media.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
 				}else {
-				    recordData.body_images.splice(index, 1);
+					SweetAlert.swal({
+							title: "آیا از حذف اطمینان دارید؟",
+							text: "این عملیات قابل برگشت نیست!",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "بله, حذف کن!",
+							cancelButtonText: "انصراف",
+							imageSize: "40x40",
+							closeOnConfirm: true},
+						function(){
+							$timeout(function(){
+								recordData.body_images.splice(index, 1);
+							}, 50);
+
+
+						});
+
 				}
 				
 				break;
@@ -54,7 +71,24 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 				if(filesInEditor.length > 0) {
 				    alert("امکان حذف فایل "+"\n"+media.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
 				}else {
-				    recordData.body_videos.splice(index, 1);
+					SweetAlert.swal({
+							title: "آیا از حذف اطمینان دارید؟",
+							text: "این عملیات قابل برگشت نیست!",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "بله, حذف کن!",
+							cancelButtonText: "انصراف",
+							imageSize: "40x40",
+							closeOnConfirm: true},
+						function(){
+							$timeout(function(){
+								recordData.body_videos.splice(index, 1);
+							}, 50);
+
+
+						});
+
 				}
 				break;
 			case 'audio':
@@ -63,7 +97,24 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 				if(filesInEditor.length > 0) {
 				    alert("امکان حذف فایل "+"\n"+media.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
 				}else {
-					recordData.body_audios.splice(index, 1);
+					SweetAlert.swal({
+							title: "آیا از حذف اطمینان دارید؟",
+							text: "این عملیات قابل برگشت نیست!",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "بله, حذف کن!",
+							cancelButtonText: "انصراف",
+							imageSize: "40x40",
+							closeOnConfirm: true},
+						function(){
+							$timeout(function(){
+								recordData.body_audios.splice(index, 1);
+							}, 50);
+
+
+						});
+
 				}
 				break;
 			case 'doc':
@@ -72,7 +123,24 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 				if(filesInEditor.length > 0) {
 				    alert("امکان حذف فایل "+"\n"+media.file_name+"\n"+"وجود ندارد. برای حذف ابتدا این فایل را از ویرایشگر حذف نمایید");
 				}else {
-					recordData.body_docs.splice(index, 1);
+					SweetAlert.swal({
+							title: "آیا از حذف اطمینان دارید؟",
+							text: "این عملیات قابل برگشت نیست!",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "بله, حذف کن!",
+							cancelButtonText: "انصراف",
+							imageSize: "40x40",
+							closeOnConfirm: true},
+						function(){
+							$timeout(function(){
+								recordData.body_docs.splice(index, 1);
+							}, 50);
+
+
+						});
+
 				}
 				break;
 		}		
@@ -137,6 +205,27 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
 	}
 
 
+		
+
+		/**
+		 * Editor initialization
+		 */
+		CKEDITOR.stylesSet.add( 'my_styles', [
+			// سبک های درکیش
+			{ name: 'تیتر اصلی', element: 'h1', attributes: { 'class': 'body primary-header' } },
+			{ name: 'تیتر فرعی',  element: 'h2', attributes: { 'class': 'body secondary-header' } },
+			{ name: 'متن اصلی',  element: 'p', attributes: { 'class': 'body primary-text' } },
+			{ name: 'متن فرعی',  element: 'p',attributes: { 'class': 'body secondary-text' } },
+			{ name: 'متن کوچک',  element: 'p',attributes: { 'class': 'body little-text' } },
+			{ name: 'زیر نویس',  element: 'p',attributes: { 'class': 'body subtitle-text' } },
+			{ name: 'Titr – Latin',  element: 'h1',attributes: { 'class': 'body latin-primary-header' } },
+			{ name: 'SubTitr - Latin',  element: 'h2',attributes: { 'class': 'body latin-secondary-header' } },
+			{ name: 'Text - Latin',  element: 'p',attributes: { 'class': 'body latin-text' } },
+			{ name: 'Link - Latin',  element: 'p',attributes: { 'class': 'body latin-link' } },
+			{ name: 'لینک داخلی',  element: 'span',attributes: { 'class': 'body inner-link' } },
+			{ name: 'لینک اینترنتی',  element: 'span',attributes: { 'class': 'body web-link' } },
+
+		]);
 	$scope.bodyEditorOptions = {
         language: 'fa',
         height: '500px',
@@ -159,40 +248,40 @@ customerApp.controller('HtmlPageCtrl', ['$scope', 'recordData', 'FileUploader', 
         'Tahoma;',
         contentsCss : 'assets/css/ckeditor-body.css',
         smiley_path: CKEDITOR.basePath+'plugins/smiley/images/darkish/',
-        smiley_images: ['(smiley).png','(sad).png','(wink).png','(angry).png','(yummi).png','(laugh).png','(surprised).png','(happy).png','(cry).png','(sick).png','(shy).png','(teeth).png','(tongue).png','(money).png','(mad).png','(crazy).png','(confused).png','(depressed).png','(scream).png','(nerd).png','(not_sure).png','(cool).png','(sleeping).png','(Q).png','(!).png','($).png','(burger).png','(coffee).png','(cupcake).png','(airplane).png','(car).png','(cloud).png','(rain).png','(sun).png','(flower).png','(music).png','(fire).png','(koala).png','(ladybug).png','(relax).png','(basketball).png','(soccer).png','(baseball).png','(time).png','(bicycle).png','(clap).png','(run).png','(light_bulb).png']//,
-        // toolbar: [
-        //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
-        //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-        //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-        //     { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-        //     '/',
-        //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
-        //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
-        //     { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-        //     { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Halfhr', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video', 'Record' ] },
-        //     '/',
-        //     { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'Templates', 'TextColor', 'BGColor', 'lineheight' ] },
-        //     { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
-        //     { name: 'others', items: [ '-' ] },
-        //     { name: 'about', items: [ 'About' ] }
-        // ],
-        // toolbarGroups : [
-        //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-        //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-        //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
-        //     { name: 'forms' },
-        //     '/',
-        //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-        //     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-        //     { name: 'links' },
-        //     { name: 'insert' },
-        //     '/',
-        //     { name: 'styles' },
-        //     { name: 'colors' },
-        //     { name: 'tools' },
-        //     { name: 'others' },
-        //     { name: 'about' }
-        // ]
+        smiley_images: ['(smiley).png','(sad).png','(wink).png','(angry).png','(yummi).png','(laugh).png','(surprised).png','(happy).png','(cry).png','(sick).png','(shy).png','(teeth).png','(tongue).png','(money).png','(mad).png','(crazy).png','(confused).png','(depressed).png','(scream).png','(nerd).png','(not_sure).png','(cool).png','(sleeping).png','(Q).png','(!).png','($).png','(burger).png','(coffee).png','(cupcake).png','(airplane).png','(car).png','(cloud).png','(rain).png','(sun).png','(flower).png','(music).png','(fire).png','(koala).png','(ladybug).png','(relax).png','(basketball).png','(soccer).png','(baseball).png','(time).png','(bicycle).png','(clap).png','(run).png','(light_bulb).png'],
+         toolbar: [
+             { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
+             { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+             { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+             '/',
+             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+             { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+             { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+             { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Halfhr', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'Video', 'Record' ] },
+             '/',
+             { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize', 'Templates', 'TextColor', 'BGColor', 'lineheight' ] },
+             { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+             { name: 'others', items: [ '-' ] },
+             { name: 'about', items: [ 'About' ] }
+         ],
+         toolbarGroups : [
+             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+             { name: 'forms' },
+             '/',
+             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+             { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+             { name: 'links' },
+             { name: 'insert' },
+             '/',
+             { name: 'styles' },
+             { name: 'colors' },
+             { name: 'tools' },
+             { name: 'others' },
+             { name: 'about' }
+         ]
     };
 
 

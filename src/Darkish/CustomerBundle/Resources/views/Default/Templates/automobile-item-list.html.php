@@ -24,8 +24,8 @@
 		</div>
 		<div class="edit-buttons" ng-show="editmode">
 			<button class="btn btn-danger remove-button" ng-click="deleteItem(item); $event.stopPropagation();"><div class="dk icon-trash"></div></button>
-			<button ng-show="item.status" class="btn btn-warning disable-button" ng-click="disableItem(item); $event.stopPropagation();"><div class="dk icon-block"></div></button>
-			<button ng-hide="item.status" class="btn btn-info enable-button" ng-click="enableItem(item); $event.stopPropagation();" ><div class="dk icon-verify-small"></button>
+<!--			<button ng-show="item.status" class="btn btn-warning disable-button" ng-click="disableItem(item); $event.stopPropagation();"><div class="dk icon-block"></div></button>-->
+<!--			<button ng-hide="item.status" class="btn btn-info enable-button" ng-click="enableItem(item); $event.stopPropagation();" ><div class="dk icon-verify-small"></button>-->
 		</div>
 	</div>
 

@@ -127,6 +127,41 @@ class ManagedFile
     private $mobileAbsolutePath;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="darkish_watermark", type="boolean", options={"default"=false})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $darkishWatermark = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="island_watermark", type="boolean", options={"default"=false})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $islandWatermark = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="aruna_watermark", type="boolean", options={"default"=false})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $arunaWatermark = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="label_watermark", type="boolean", options={"default"=false})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $labelWatermark = false;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="cheched", type="boolean", options={"default"=false})
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details"})
+     */
+    private $checked = false;
+
+    /**
      *
      * @var string 
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "comment.details", "message.list", "message.details", "api.list"})
@@ -1169,5 +1204,125 @@ class ManagedFile
     public function getNewsAsBodyImage()
     {
         return $this->newsAsBodyImage;
+    }
+
+    /**
+     * Set darkishWatermark
+     *
+     * @param boolean $darkishWatermark
+     *
+     * @return ManagedFile
+     */
+    public function setDarkishWatermark($darkishWatermark)
+    {
+        $this->darkishWatermark = $darkishWatermark;
+
+        return $this;
+    }
+
+    /**
+     * Get darkishWatermark
+     *
+     * @return boolean
+     */
+    public function getDarkishWatermark()
+    {
+        return $this->darkishWatermark;
+    }
+
+    /**
+     * Set islandWatermark
+     *
+     * @param boolean $islandWatermark
+     *
+     * @return ManagedFile
+     */
+    public function setIslandWatermark($islandWatermark)
+    {
+        $this->islandWatermark = $islandWatermark;
+
+        return $this;
+    }
+
+    /**
+     * Get islandWatermark
+     *
+     * @return boolean
+     */
+    public function getIslandWatermark()
+    {
+        return $this->islandWatermark;
+    }
+
+    /**
+     * Set arunaWatermark
+     *
+     * @param boolean $arunaWatermark
+     *
+     * @return ManagedFile
+     */
+    public function setArunaWatermark($arunaWatermark)
+    {
+        $this->arunaWatermark = $arunaWatermark;
+
+        return $this;
+    }
+
+    /**
+     * Get arunaWatermark
+     *
+     * @return boolean
+     */
+    public function getArunaWatermark()
+    {
+        return $this->arunaWatermark;
+    }
+
+    /**
+     * Set labelWatermark
+     *
+     * @param boolean $labelWatermark
+     *
+     * @return ManagedFile
+     */
+    public function setLabelWatermark($labelWatermark)
+    {
+        $this->labelWatermark = $labelWatermark;
+
+        return $this;
+    }
+
+    /**
+     * Get labelWatermark
+     *
+     * @return boolean
+     */
+    public function getLabelWatermark()
+    {
+        return $this->labelWatermark;
+    }
+
+    /**
+     * Set checked
+     *
+     * @param boolean $checked
+     *
+     * @return ManagedFile
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean
+     */
+    public function getChecked()
+    {
+        return $this->checked;
     }
 }
