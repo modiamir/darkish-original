@@ -103,13 +103,13 @@ font-style: normal;
 
 body {
 	font-family: BMitra;
-	font-size: 16px;
+	font-size: 17px;
     .container {
       min-width: 1170px;
       width: 90%;
     }
 	.header-wrapper {
-		background: #6bcecb;
+		background: $green;
 		border-bottom: 2px solid #f17022;
 		margin-bottom: 0px;
 		.navbar-default {
@@ -335,4 +335,95 @@ body {
 .media-left, .media>.pull-left {
   padding-right: 10px;
   padding-left: initial;
+}
+
+img {
+  max-width: 100%;
+}
+
+.nav-tabs > li > a, .tabs-right>li>a {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+#audio-player {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+  margin-left: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+  margin-right: -1px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+a.dk-video-modal {
+  display: inline-block;
+  position: relative;
+  img {
+    width: 350px;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url(../images/64/cadr-video.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+  }
+  &:hover span {
+    opacity: 0.8;
+  }
+}
+
+a.dk-audio-play {
+  width: 120px;
+  height: 87px;
+  display: inline-block;
+  background-image: url(../images/64/cadr-audio.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+a[data-lightbox] {
+  display: inline-block;
+  position: relative;
+  img {
+    width: 350px;
+  }
+  span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 30px;
+    background-color: rgba(255, 102, 0, 0.6);
+    background-image: url(../images/fullscreen.png);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+  }
+  &:hover span{
+    background-color: rgba(255, 102, 0, 0.2);
+  }
+}
+
+.media {
+  img {
+    max-width: none;
+  }
 }

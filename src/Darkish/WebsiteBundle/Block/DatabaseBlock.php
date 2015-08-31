@@ -142,7 +142,7 @@ class DatabaseBlock extends BaseBlockService
         $pagination = $this->container->get('knp_paginator')->paginate(
 			$repo->search($database, $prices, $record),
 			$this->container->get('request')->query->getInt('page', 1),
-			1
+			5
 		);
 
 

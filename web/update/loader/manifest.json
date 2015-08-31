@@ -1,0 +1,154 @@
+{
+  "files": {
+     "main.js": {
+      "version": "96f1eecd3887e69d7b08c60be4f14f90069ca8b8",
+        "DowURL": "http://192.168.1.111/n-darkish/web/update/loader/app/scripts/",
+        "DesURL": "app/scripts/",
+        "update":"silent"
+    }
+  },
+  "load": [
+    
+    "CordovaAppLoader.js",
+    "CordovaPromiseFS.js",
+    "bluebird.js",
+
+    "app/plugin/jqueryScrollbar/jquery.scrollbar.css",
+    "app/theme/css/scrollbar.css",
+
+    "app/theme/css/fonts/OpenSans/open-sans.css",
+    "app/theme/css/fonts/font-awesome-4.2.0/font-awesome-4.2.0/css/font-awesome.min.css",
+
+    "app/theme/css/fonts/darkish/fonts/font-darkish.css",
+
+
+    "app/theme/bootstrap/css/bootstrap.min.css",
+    "app/theme/bootstrap-rtl/bootstrap-rtl.min.css",
+
+    "app/plugin/bootstrap-slider-master/css/bootstrap-slider.css",
+
+
+
+    "app/theme/css/videogular-themes-default/videogular.css",
+
+
+    "app/plugin/dk-map/css/leaflet.css",
+    "app/plugin/dk-map/css/leaflet.label.css",
+    "app/plugin/dk-map/css/MarkerCluster.css",
+    "app/plugin/dk-map/css/MarkerCluster.Default.css",
+    "app/plugin/dk-map/map.css",
+
+
+
+    "app/theme/css/style.css",
+    "app/theme/css/home.css",
+    "app/theme/css/Register.css",
+    "app/theme/css/Personal.css",
+    "app/theme/css/Record.css",
+    "app/theme/css/Message.css",
+    "app/theme/css/news.css",
+    "app/theme/css/classify.css",
+    "app/theme/css/offer.css",
+    "app/theme/css/setting.css",
+    "app/theme/css/ticket.css",
+    "app/theme/css/templates.css",
+    "app/theme/css/Search.css",
+
+
+    "app/theme/css/modals.css",
+
+    "app/frameworks/Angular/plugin/angular-pan-zoom-master/panzoomwidget.css",
+
+
+    "app/plugin/cropper-master/cropper.min.css",
+    
+    "app/frameworks/Jquery/jquery-1.11.2.min.js",
+
+
+
+
+    "app/scripts/themes.js",
+    "app/theme/bootstrap/js/bootstrap.min.js",
+
+    
+
+    
+
+    "app/frameworks/Angular/angular.min.js",
+   
+
+    "app/frameworks/Angular/plugin/angular-sanitize/angular-sanitize.min.js",
+    "app/frameworks/Angular/plugin/ng-toch/angular-touch.js",
+    "app/frameworks/Angular/plugin/videogular/videogular.min.js",
+    "app/frameworks/Angular/plugin/videogular/plugins/videogular-controls/vg-controls.min.js",
+    "app/frameworks/Angular/plugin/videogular/plugins/videogular-buffering/vg-buffering.min.js",
+    "app/frameworks/Angular/plugin/videogular/plugins/videogular-overlay-play/vg-overlay-play.min.js",
+    "app/frameworks/Angular/plugin/videogular/plugins/videogular-poster/vg-poster.min.js",
+    "app/frameworks/Angular/plugin/videogular/plugins/videogular-dash/vg-dash.min.js",
+
+    "app/frameworks/Angular/plugin/angular-soundmanager2-master/angular-soundmanager2.js",
+
+    "app/plugin/jqueryScrollbar/jquery.scrollbar.min.js",
+    "app/plugin/jquery-resize-master/jquery.ba-resize.min.js",
+
+    "app/frameworks/Angular/angular-ui-router.js",
+    "app/frameworks/Angular/ui-router-extera/ct-ui-router-extras.min.js",
+    "app/theme/bootstrap/Angular-Bootstrap-js/ui-bootstrap-tpls-0.12.1.min.js",
+    
+
+
+    "app/plugin/Blob.js-master/Blob.js",
+
+    "app/plugin/persianDate/moment-with-locales.js",
+    "app/plugin/persianDate/moment-jalaali.js",
+    
+    "app/plugin/persianJS/persian.min.js",
+
+    "app/plugin/dk-map/js/leaflet.js",
+    "app/plugin/dk-map/js/leaflet.label.js",
+    "app/plugin/dk-map/js/leaflet.markercluster.js",
+    "app/plugin/dk-map/js/TileLayer.MBTiles.js",
+    "app/plugin/dk-map/js/math.min.js",
+
+    "app/frameworks/Angular/plugin/angular-pan-zoom-master/mousewheel.js",
+
+    "app/frameworks/Angular/plugin/angular-pan-zoom-master/panzoom.min.js",
+
+    
+    "app/plugin/bootstrap-slider-master/js/bootstrap-slider.js",
+    "app/plugin/bootstrap-slider-master/js/slider-angular-module.js",
+
+    "app/plugin/cropper-master/cropper.min.js",
+
+    "app/frameworks/ng-cordova/dist/ng-cordova.min.js",
+
+    
+    "app/scripts/main.js",
+    "app/scripts/controllers/Record.js",
+    "app/scripts/controllers/RegisterCtrl.js",
+    "app/scripts/controllers/TicketCtrl.js",
+    "app/scripts/controllers/PersonalCtrl.js",
+    "app/scripts/controllers/Record.js",
+    "app/scripts/controllers/PageProfileCtrl.js",
+    "app/scripts/controllers/PageMessageCtrl.js",
+    "app/scripts/controllers/News.js",
+    "app/scripts/controllers/Offer.js",
+    "app/scripts/controllers/Classify.js",
+    "app/scripts/controllers/Setting.js",
+    "app/scripts/controllers/CommentTemplateCtrl.js",
+    "app/scripts/controllers/modals/modals.js",
+    "app/scripts/controllers/CompetitionCtrl.js",
+    "app/scripts/controllers/SearchCtrl.js",
+
+    "app/scripts/controllers/MapCtrl.js",
+    "app/scripts/controllers/MainCtrl.js",
+    "app/scripts/controllers/templates/templatesCtrl.js",
+
+    "app/scripts/services/services.js",
+
+
+    "app/scripts/filters/smiliefilter.js"
+
+  ],
+  "version": "96f1eecd3887e69d7b08c60be4f14f90069ca8b3"
+}

@@ -1,8 +1,7 @@
 {% if thread %}
-    {{ pagination.getTotalItemCount }}
     {% for comment in pagination %}
-        <div class="media comment">
-            <div class="media-left">
+        <div id="comment-{{ comment.id }}" class="media comment">
+            <div class="media-right">
                 <a href="#">
                     {% if comment.owner | user_photo %}
                         <img class="media-object" src="{{ comment.owner | user_photo }}" alt="...">
@@ -13,37 +12,41 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">{{ comment.owner | user_name }} - <span class="comment-date">{{ comment.createdAt | jdate }}</span>   </h4>
+                <h4 class="media-heading"> <span class="owner-name">{{ comment.owner | user_name }} - </span>   <span class="comment-date">{{ comment.createdAt | jdate('Y/m/d H:i') }}</span>   </h4>
 
                 {{ comment.body | raw }}
-                <button type="button" class="comment-reply-button btn btn-default btn-xs" comment-id="{{ comment.id }}"
+
+
+                {% set children = (comment | comment_children) %}
+                {% if children | length %}
+                    <div id="children-{{ comment.id }}" class="children">
+                    {% for child in children %}
+                        {{  include('DarkishWebsiteBundle:Comment:child.html.twig', {"child": child}) }}
+                    {% endfor %}
+                    </div>
+
+                {% endif %}
+
+                {% if children | length %}
+                <button type="button"
+                        class="comment-buttons btn-info comment-more-button btn btn-default btn-sm"
+                        comment-id="{{ comment.id }}">
+                    بیشتر
+                </button>
+                {% endif %}
+
+                <button type="button" class="comment-buttons btn-success comment-reply-button btn btn-default btn-sm" comment-id="{{ comment.id }}"
                         entity-type="{{ settings.entity_type }}" entity-id="{{ entity.id }}">
                     پاسخ
                 </button>
-                {% set children = (comment | comment_children) %}
-                {% if children | length %}
-                    {% for child in children %}
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="#">
-                                    {% if child.owner | user_photo %}
-                                        <img class="media-object" src="{{ child.owner | user_photo }}" alt="...">
-                                    {% else %}
-                                        <img class="media-object" src="{{ asset('bundles/darkishwebsite/images/default_profile.jpg') }}" alt="...">
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">{{ child.owner | user_name }} - <span class="comment-date">{{ child.createdAt | jdate }}</span></h4>
-                                {{ child.body | raw }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+
                 {#{{ comment | comment_children }}#}
             </div>
         </div>
     {% endfor %}
+    <div class="pagination-wrapper">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% else %}
     برای این واحد نظری ثبت نشده است.
 {% endif %}
@@ -58,6 +61,5 @@
            class="btn btn-default pull-right" />
 {{ form_end(comment_form) }}
 
-<button class="testbutton">test</button>
 
-<script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+

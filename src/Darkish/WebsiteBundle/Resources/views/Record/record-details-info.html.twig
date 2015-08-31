@@ -6,9 +6,9 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="record-address">
-                        <h4>
+                        <label>
                                     آدرس
-                        </h4>
+                        :</label>
                         <span class="">
                             {{ record.address }}
                         </span>
@@ -32,13 +32,13 @@
 
                         {% if record.telNumberOne %}
                             <div class="record-tel-number">
-                                <h4>
+                                <label>
                                     {% if record.telNumberOneLabel %}
                                         {{ record.telNumberOneLabel }}
                                     {% else %}
                                         تلفن
                                     {% endif %}
-                                </h4>
+                                :</label>
                                 <span class="">
                             {{ record.telNumberOne }}
                         </span>
@@ -47,13 +47,13 @@
 
                         {% if record.telNumberTwo %}
                             <div class="record-tel-number">
-                                <h4>
+                                <label>
                                     {% if record.telNumberTwoLabel %}
                                         {{ record.telNumberTwoLabel }}
                                     {% else %}
                                         تلفن
                                     {% endif %}
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.telNumberTwo }}
                                 </span>
@@ -62,13 +62,13 @@
 
                         {% if record.telNumberThree %}
                             <div class="record-tel-number">
-                                <h4>
+                                <label>
                                     {% if record.telNumberThreeLabel %}
                                         {{ record.telNumberThreeLabel }}
                                     {% else %}
                                         تلفن
                                     {% endif %}
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.telNumberThree }}
                                 </span>
@@ -77,13 +77,13 @@
 
                         {% if record.telNumberFour %}
                             <div class="record-tel-number">
-                                <h4>
+                                <label>
                                     {% if record.telNumberFourLabel %}
                                         {{ record.telNumberFourLabel }}
                                     {% else %}
                                         تلفن
                                     {% endif %}
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.telNumberFour }}
                                 </span>
@@ -96,9 +96,9 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         {% if record.mobileNumberOne %}
                             <div class="record-mobile-number">
-                                <h4>
+                                <label>
                                     تلفن همراه
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.mobileNumberOne }}
                                 </span>
@@ -107,9 +107,9 @@
 
                         {% if record.mobileNumberTwo %}
                             <div class="record-mobile-number">
-                                <h4>
+                                <label>
                                     تلفن همراه
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.mobileNumberTwo }}
                                 </span>
@@ -118,9 +118,9 @@
 
                         {% if record.faxNumberOne %}
                             <div class="record-fax-number">
-                                <h4>
+                                <label>
                                     فکس
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.faxNumberOne }}
                                 </span>
@@ -129,9 +129,9 @@
 
                         {% if record.faxNumberTwo %}
                             <div class="record-fax-number">
-                                <h4>
+                                <label>
                                     فکس
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.faxNumberTwo }}
                                 </span>
@@ -156,9 +156,9 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         {% if record.owner %}
                             <div class="record-owner">
-                                <h4>
+                                <label>
                                     نام مالک
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.owner }}
                                 </span>
@@ -166,9 +166,9 @@
                         {% endif %}
                         {% if record.ownerPhone %}
                             <div class="record-owner-phone">
-                                <h4>
+                                <label>
                                     تلفن مالک
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.ownerPhone }}
                                 </span>
@@ -176,9 +176,9 @@
                         {% endif %}
                         {% if record.ownerMail %}
                             <div class="record-owner-mail">
-                                <h4>
+                                <label>
                                     ایمیل مالک
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.ownerMail }}
                                 </span>
@@ -191,9 +191,9 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         {% if record.manager %}
                             <div class="record-manager">
-                                <h4>
+                                <label>
                                     نام مدیر
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.manager }}
                                 </span>
@@ -201,9 +201,9 @@
                         {% endif %}
                         {% if record.managerPhone %}
                             <div class="record-manager-phone">
-                                <h4>
+                                <label>
                                     تلفن مدیر
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.managerPhone}}
                                 </span>
@@ -211,9 +211,9 @@
                         {% endif %}
                         {% if record.managerMail %}
                             <div class="record-manager-mail">
-                                <h4>
+                                <label>
                                     ایمیل مدیر
-                                </h4>
+                                :</label>
                                 <span class="">
                                     {{ record.managerMail }}
                                 </span>
@@ -233,9 +233,9 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 {% if record.postalCode %}
                 <div class="record-postal-code">
-                    <h4>
+                    <label>
                         کدپستی
-                    </h4>
+                    :</label>
                     <span class="">
                         {{ record.postalCode}}
                     </span>
@@ -245,9 +245,9 @@
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 {% if record.smsNumber %}
                     <div class="record-sms-number">
-                        <h4>
+                        <label>
                             شماره پیامک
-                        </h4>
+                        :</label>
                         <span class="">
                             {{ record.smsNumber }}
                         </span>

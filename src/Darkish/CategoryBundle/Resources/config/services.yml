@@ -45,6 +45,10 @@ services:
         class: Darkish\CategoryBundle\EventListener\StoreSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+    my_dbase.subscriber:
+        class: Darkish\CategoryBundle\EventListener\DBaseSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
 
     my_cnor.subscriber:
         class: Darkish\CategoryBundle\EventListener\CnorSubscriber

@@ -1,14 +1,28 @@
 
-<h3 class="store-products-title">
-    محصولات
-</h3>
+<h2 id="record-store" class="market-title">
+    {{ record.sellServicePageTitle }}
+</h2>
+
+{% if record.marketBanner %}
+    <img class="record-market-banner" src="{{  ('/uploads/'~record.marketBanner.webPath) | imagine_filter('1024x576')}}">
+{% endif %}
+
+{% if record.marketDescription %}
+    <div class="jumbotron">
+        <p>
+            {{ record.marketDescription }}
+        </p>
+
+    </div>
+{% endif %}
+
+
 <div class="row">
     <div class="col-xs-3"> <!-- required for floating -->
         <ul class="nav nav-tabs tabs-right">
             {% for group in products.json.store_info.market_groups | sort %}
-                <li {% if loop.first %}class="active" {% endif %}><a href="#group-{{ group.id }}" data-toggle="tab">{{ group.name }}</a></li>
+                <li class="{% if loop.first %} active{% endif %}" ><a href="#group-{{ group.id }}" data-toggle="tab">{{ group.name }}</a></li>
             {% endfor %}
-
         </ul>
     </div>
 
@@ -18,8 +32,11 @@
                 <div class="tab-pane {% if loop.first %}active{% endif %}" id="group-{{ group.id }}">
                     <ul>
                         {% for product in products.json.products[group.id] %}
-                            <li>
+                            <li class="product-{{ product.id }}">
+                                <a href="#product-{{ product.id }}" rel="modal:open">
                                 {{ include('DarkishWebsiteBundle:Record:record-store-product.html.twig', {'product': product}) }}
+                                </a>
+                                {{ include('DarkishWebsiteBundle:Record:record-store-product-full.html.twig', {'product': product}) }}
                             </li>
                         {% endfor %}
                     </ul>

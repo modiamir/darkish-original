@@ -4,19 +4,24 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css') }}" rel="stylesheet" />
-
+    <link href="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
 {% endblock %}
 
-{#{% block page_header %}#}
-	{#<div class="page-header-box">#}
-		{#<div class="date">#}
-			{#<span class="day">{{ record.creationDate | jdate("j") }}</span>#}
-			{#<span class="month">{{ record.creationDate | jdate("F") }}</span>#}
-			{#<span class="time">{{ record.creationDate | jdate("H:i") }}</span>#}
-		{#</div>#}
-	{#</div>#}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/cookies-js/dist/cookies.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/record-page.js') }}"></script>
+{% endblock %}
 
-{#{% endblock %}#}
+{% block document_ready %}
+
+{% endblock %}
 
 {% block page_title %}
 

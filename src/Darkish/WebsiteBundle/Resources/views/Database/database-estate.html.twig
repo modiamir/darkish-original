@@ -1,16 +1,23 @@
-
-    <div class="database database-estate">
-        <div class="thumbnail">
-            <a href="#">
+<div class="database database-estate" xmlns="http://www.w3.org/1999/html">
+        <div class="media">
+            <div class="media-right">
                 {% if estate.photos | length %}
                     {% set image_path = "uploads/" ~ estate.photos.0.uploadDir ~ "/" ~ estate.photos.0.path %}
                 {% else %}
                     {% set image_path = "bundles/darkishwebsite/images/default_image.png" %}
                 {% endif %}
-                <img class="product-image" src="{{ image_path | imagine_filter('180x120')}}" alt="">
-            </a>
-            <div class="caption">
-                <h4>{{ estate.title }}</h4>
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="estate-gallery-{{ estate.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('180x120')}}" alt="">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h3>{{ estate.title }}</h3>
+
+                <div class="estate-type">
+                    {{ estate.contractType.value }} / {{ estate.estateType.value }}
+                </div>
+
                 <div class="summary">
                     {{ estate.dimension }} متر
                     - {{ estate.numOfRooms }} خوابه
@@ -20,14 +27,67 @@
 
                 {% if estate.secondaryPrice is defined %}
                     <h4 class="price">
+                        <label>
+                            {% if estate.contractType.id == 2 %}
+                                رهن
+                            {% else %}
+                                قیمت
+                            {% endif %}
+                        </label>
                         {{ estate.price }} تومان
                     </h4>
                 {% endif %}
 
-                {% if estate.secondaryPrice is defined %}
+                {% if estate.secondaryPrice is defined and estate.contractType.id == 2 %}
                     <h4 class="secondary-price">
-                        {{ estate.secondaryPrice }}
+                        <label>
+                            {% if estate.contractType.id == 2 %}
+                                اجاره
+                            {% endif %}
+                        </label>
+                        {{ estate.secondaryPrice }} تومان
                     </h4>
+                {% endif %}
+
+                <button type="button" class="btn btn-default moreless-button collapsed"
+                        data-toggle="collapse"
+                        data-target="#estate-{{ estate.id }}"
+                        aria-expanded="false"
+                        aria-controls="estate-{{ estate.id }}">
+                    <span class="more">
+                        نمایش جزئیات
+                    </span>
+                    <span class="less">
+                        عدم نمایش جزئیات
+                    </span>
+
+                </button>
+
+            </div>
+        </div>
+        <div class="collapse" id="estate-{{ estate.id }}">
+            <div class="well">
+                {% for photo in estate.photos %}
+                    {% if loop.index != 0 %}
+                        <a href="{{ photo.relativePath | imagine_filter("1024") }}" class="hidden" data-lightbox="estate-gallery-{{ estate.id }}">&nbsp;</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if estate.description %}
+                    <div class="row estate-description clearfix">
+                        {{ estate.description }}
+                    </div>
+                {% endif %}
+
+                {% if estate.estateFeatures is defined and estate.estateFeatures|length %}
+                <div class="row estate-features">
+                    <label>
+                        امکانات
+                    </label>
+                    {% for feature in estate.estateFeaturesCollection %}
+                        <span class="label label-info label-lg">{{ feature.value }}</span>
+                    {% endfor %}
+                </div>
                 {% endif %}
             </div>
         </div>

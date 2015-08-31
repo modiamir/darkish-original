@@ -181,9 +181,10 @@ liip_imagine:
 #                    # Position: One of topleft,top,topright,left,center,right,bottomleft,bottom,bottomright
 #                    position: topright
 
-        product_thumb:
+        240x200:
             filters:
-                thumbnail: {size: [194, 194], mode: outbound }
+                upscale: { min: [240,200] }
+                thumbnail: { size: [240,200], mode: outbound }
 
         1024x576:
             filters:
@@ -193,6 +194,11 @@ liip_imagine:
             filters:
                 upscale: { min: [180,120] }
                 thumbnail: { size: [180,120], mode: outbound }
+
+        84x56:
+            filters:
+                upscale: { min: [84,56] }
+                thumbnail: { size: [84,56], mode: outbound }
 
 dubture_f_fmpeg:
     ffmpeg_binary: ffmpeg

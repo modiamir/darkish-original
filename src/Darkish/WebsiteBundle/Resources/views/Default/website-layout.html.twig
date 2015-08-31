@@ -10,7 +10,7 @@
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/darkish-bootstrap.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
+
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/website.css') }}" rel="stylesheet" type="text/css" />
 
 {% endblock %}
@@ -22,9 +22,11 @@
 	
 	<script src="{{ asset('bundles/darkishwebsite/plugins/darkish-bootstrap/js/bootstrap.min.js') }}"></script>
 
-    <script src="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/music-client.js') }}"></script>
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+
 
 {% endblock %}
 {% block  dir %}dir="rtl" class="register-customer"{% endblock %}
@@ -88,7 +90,7 @@
 		</div>
 
         {% if _sidebar_first is not empty %}
-            <div class="col col-xs-3 sidebar-first">
+            <div data-spy="affix" data-offset-top="500" data-offset-bottom="500" class="col col-xs-3 sidebar-first">
                 {% block sidebar_first %}{% endblock %}
             </div>
         {% endif %}

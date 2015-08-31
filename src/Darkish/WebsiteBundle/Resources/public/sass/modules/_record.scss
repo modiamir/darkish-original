@@ -1,7 +1,164 @@
 .record {
 	&.mode-full {
-		
+      position: relative;
+      .operation-icons {
+        position: absolute;
+        left: 0;
+        top: -92px;
+        text-align: center;
+        margin-bottom: 0;
+        font-size: 16px;
+        &.hidden {
+          display: none;
+        }
+        li {
+          float: left;
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+          margin: 0 5px;
+          position: relative;
+          &.active {
+            display: none;
+            span {
+              display: block;
+            }
+          }
+          a{
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            display: inline-block;
+            background-color: $orange;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            text-indent: -10000px;
+            background-position: center center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+            
+            
+            &:hover {
+              background-color: $green;
+            }
+          }
+          &:hover {
+            span {
+              display: block;
+            }
+          }
+          span {
+
+            display: none;
+            position: absolute;
+            bottom: -20px;
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            width: 60px;
+          }
+
+          &#show-gallery-operation {
+            a {
+              background-image: url('../images/64/icon-gallery.png');
+            }
+          }
+
+          &#show-map-operation {
+            a {
+              background-image: url('../images/64/icon-map.png');
+            }
+          }
+
+          &#show-dbase-operation {
+            a.estate{
+              background-image: url('../images/64/icon-estate.png');
+            }
+
+            a.automobile{
+              background-image: url('../images/64/icon-car.png');
+            }
+          }
+
+          &#show-store-operation {
+            a {
+              background-image: url('../images/64/icon-store.png');
+            }
+          }
+
+        }
+
+      }
+
+      .gallery-box {
+        margin-bottom: 20px;
+        .map {
+          &.loaded {
+            display:none;
+          }
+          &.active {
+            display: block;
+          }
+        }
+
+        .gallery {
+          display:none;
+          &.active {
+            display: block;
+          }
+        }
+
+        .image {
+          display:none;
+          &.active {
+            display: block;
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
+      
+      .special-message {
+        background: transparent;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .market-title, .database-title {
+        border-bottom: 1px solid #eeeeee;
+        border-top: 2px solid $orange;
+        text-align: center;
+        padding: 10px 0;
+        background-color: #FDF6F6;
+      }
+
+      //.record-body {
+      //  img {
+      //    width: 350px;
+      //  }
+      //}
+      
+      .comments {
+        .panel-title {
+          font-size: 22px;
+        }
+        .panel-body {
+          background: #fafafa;
+        }
+      }
+
+      .record-database-banner, .record-market-banner {
+        width: 100%;
+      }
+
 	}
+  
+  
 	&.mode-list {
 		img {
 			float: right;
@@ -48,11 +205,6 @@
 
   .record-details {
     .record-details-inner-wrapper {
-      height: 500px;
-      overflow-y: scroll;
-      .record-details-inner {
-        width: 80%;
-      }
     }
   }
 
@@ -67,23 +219,225 @@
 	float:right;
 	margin: 10px;
 	margin-top: 0;
-	-webkit-box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
-	-moz-box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
-	box-shadow: inset 0px 0px 0 1px rgba(0, 0, 0, 0.06);
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 	padding: 10px;
-	.product-image {
-	  width: 194px;
-	  height: 194px;
-	}
-	.price {
-	  color: lightseagreen;
-	  &.discounted {
-		color: darkred;
-		text-decoration: line-through;
-	  }
-	}
-	.discounted-price {
-	  color: lightseagreen;
-	}
+
+    .product-thumb-wrapper {
+      position: relative;
+
+      .product-image {
+        width: 240px;
+        height: 200px;
+        margin-bottom: 10px;
+      }
+      .special-tag {
+        background-position: top right;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        height: 70px;
+        background-size: 100%;
+        &.tag-new {
+          background-image: url(../images/Over-New.png);
+        }
+
+        &.tag-special {
+          background-image: url(../images/Over-Offer.png);
+        }
+
+        &.tag-discount {
+          background-image: url(../images/Over-Discount.png);
+        }
+      }
+    }
+
+    .row {
+      margin-right: -1px;
+      margin-left: -1px;
+
+      .col {
+        padding-right: 1px;
+        padding-left: 1px;
+      }
+
+    }
+
+    .product-title {
+      font-size: 18px;
+      color: rgb(0, 128, 36);
+
+    }
+
+
+    .product-code {
+      font-size: 16px;
+      color: rgb(84, 84, 84);
+      text-align: right;
+    }
+
+    .product-price, .product-discounted-price {
+      color: green;
+      font-size: 16px;
+      text-align: left;
+    }
+
+    .product-price.has-discounted-price, .product-price.product-is-unavailable {
+      color:red;
+      text-decoration: line-through;
+    }
+
+    .product-price.product-soon {
+      color:$orange;
+      text-decoration: line-through;
+    }
+
+    .product-unavailable {
+      text-align: left;
+      color: red;
+      font-size: 16px;
+    }
+
+    .product-soon {
+      text-align: left;
+      color: $orange;
+      font-size: 16px;
+    }
   }
+
+
+}
+
+.product.modal {
+  position: absolute !important;
+  .product-title {
+    font-size: 28px;
+    color: rgb(0, 128, 36);
+
+  }
+  .product-group {
+    font-size: 18px;
+  }
+
+  .product-code {
+    font-size: 22px;
+    color: rgb(84, 84, 84);
+    text-align: left;
+  }
+
+  .product-price, .product-discounted-price {
+    color: green;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  .product-price.has-discounted-price, .product-price.product-is-unavailable {
+    color:red;
+    text-decoration: line-through;
+  }
+
+  .product-price.product-soon {
+    color:$orange;
+    text-decoration: line-through;
+  }
+
+  .special-text {
+
+    .well {
+      margin: 10px 0;
+      font-size: 22px;
+      text-align: center;
+    }
+  }
+
+  .first-image, {
+    position: relative;
+
+    margin-left: 0;
+    margin-right: 0;
+    & > .col {
+      padding-left: 0;
+      padding-right: 0;
+      img {
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow:  0 1px 2px rgba(0, 0, 0, 0.25);
+        box-shadow:  0 1px 2px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .special-tag {
+      background-position: top right;
+      background-repeat: no-repeat;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 70px;
+      height: 110px;
+      background-size: 100%;
+      &.tag-new {
+        background-image: url(../images/Over-New.png);
+      }
+
+      &.tag-special {
+        background-image: url(../images/Over-Offer.png);
+      }
+
+      &.tag-discount {
+        background-image: url(../images/Over-Discount.png);
+      }
+    }
+  }
+
+  .other-images {
+    margin-top: 5px;
+    margin-left: -2px;
+    margin-right: -2px;
+    & > .col {
+      padding-left: 2px;
+      padding-right: 2px;
+      img {
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow:  0 1px 2px rgba(0, 0, 0, 0.25);
+        box-shadow:  0 1px 2px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+
+  .product-description {
+    margin-top: 30px;
+    font-size: 20px;
+  }
+
+  .product-unavailable {
+    text-align: left;
+    color: red;
+    font-size: 20px;
+  }
+
+  .product-soon {
+    text-align: left;
+    color: $orange;
+    font-size: 20px;
+  }
+
+
+
+
+}
+
+
+.record-database-section {
+  .jumbotron {
+    margin-bottom: 0;
+  }
+
+  .database-list {
+    padding: 30px;
+    background: #eeeeee;
+  }
+
+
 }

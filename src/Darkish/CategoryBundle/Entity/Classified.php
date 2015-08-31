@@ -135,6 +135,14 @@ class Classified
     private $body;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="WebBody", type="text", nullable=true)
+     * @Groups({"record.details", "api.body"})
+     */
+    private $webBody;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
@@ -1562,5 +1570,29 @@ class Classified
     public function getClaimType()
     {
         return $this->claimType;
+    }
+
+    /**
+     * Set webBody
+     *
+     * @param string $webBody
+     *
+     * @return Classified
+     */
+    public function setWebBody($webBody)
+    {
+        $this->webBody = $webBody;
+
+        return $this;
+    }
+
+    /**
+     * Get webBody
+     *
+     * @return string
+     */
+    public function getWebBody()
+    {
+        return $this->webBody;
     }
 }
