@@ -1,0 +1,143 @@
+<div class="product product-{{ product.id }} modal" id="product-{{ product.id  }}">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            {%  if product.title is defined %}
+                <div class="product-title">
+                    {{ product.title  }}
+                </div>
+            {% endif %}
+            {%  if product.group is not empty  %}
+                <div class="product-group">
+                    {{ product.group.name  }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            {%  if product.code  is defined %}
+                <div class="product-code">
+                    کد:
+                    {{ product.code }}
+                </div>
+            {% endif %}
+
+
+            {%  if product.price is defined %}
+                <div class="product-price {%  if product.discounted_price is defined %}has-discounted-price{% endif %} {% if product.availability == 0 %}product-is-unavailable{% endif %} {% if product.availability == 2 %}product-soon{% endif %}">
+                    {{ product.price }} تومان
+                </div>
+            {% endif %}
+
+            {%  if product.discounted_price is defined and product.availability == 1 %}
+                <div class="product-discounted-price">
+                    {{ product.discounted_price }} تومان
+                </div>
+            {% endif %}
+
+            {%  if product.availability is defined %}
+                {% if product.availability == 0 %}
+                    <div class="product-unavailable">
+                        نا موجود
+                    </div>
+                {% endif %}
+
+                {% if product.availability == 2 %}
+                    <div class="product-soon">
+                        به زودی
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+
+
+        </div>
+    </div>
+
+    {% if product.special_text is defined %}
+    <div class="row special-text">
+    	<div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="well">
+                {{ product.special_text }}
+            </div>
+    	</div>
+    </div>
+    {% endif %}
+
+
+    {% if product.photos | length %}
+        <div class="row first-image">
+            <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {% set image_path = "uploads/" ~ product.photos.0.upload_dir ~ "/" ~ product.photos.0.path %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="product-gallery-{{ product.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('256')}}" alt="">
+                </a>
+
+                {% if product.special_tag is defined %}
+                    {% if product.special_tag == 1 %}
+                        <span class="special-tag tag-new">&nbsp;</span>
+                    {% endif %}
+
+
+                    {% if product.special_tag == 2 %}
+                        <span class="special-tag tag-special">&nbsp;</span>
+                    {% endif %}
+
+                    {% if product.special_tag == 3 %}
+                        <span class="special-tag tag-discount">&nbsp;</span>
+                    {% endif %}
+
+
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row other-images">
+        {% if (product.photos | length) and  product.photos.1 is defined %}
+            <div class="col col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {% set image_path = "uploads/" ~ product.photos.1.upload_dir ~ "/" ~ product.photos.1.path %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="product-gallery-{{ product.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('128')}}" alt="">
+                </a>
+            </div>
+        {% endif %}
+        {% if (product.photos | length) and  product.photos.2 is defined %}
+            <div class="col col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {% set image_path = "uploads/" ~ product.photos.2.upload_dir ~ "/" ~ product.photos.2.path %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="product-gallery-{{ product.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('128')}}" alt="">
+                </a>
+            </div>
+        {% endif %}
+        {% if (product.photos | length) and  product.photos.3 is defined %}
+            <div class="col col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {% set image_path = "uploads/" ~ product.photos.3.upload_dir ~ "/" ~ product.photos.3.path %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="product-gallery-{{ product.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('128')}}" alt="">
+                </a>
+            </div>
+        {% endif %}
+        {% if (product.photos | length) and  product.photos.4 is defined %}
+            <div class="col col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                {% set image_path = "uploads/" ~ product.photos.4.upload_dir ~ "/" ~ product.photos.4.path %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="product-gallery-{{ product.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('128')}}" alt="">
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if product.description is defined %}
+        <div class="row product-description">
+            <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {{ product.description }}
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+</div>
