@@ -1,25 +1,206 @@
+{% set hasMap = record.latitude and record.longitude %}
+{% set hasGallery = ( (record.images|length) > 1) %}
+{% set hasImage = ( (record.images|length) == 1 ) %}
+{% set hasStore = record.sellServicePage %}
+{% set hasDBase = record.dbaseEnable %}
+
+
+{% if hasDBase %}
+    {% if record.dbaseTypeIndex.id == 1 %}
+        {% set storeDbaseLabel = 'بانک املاک'  %}
+        {% set storeDbaseClass = 'estate' %}
+    {% else %}
+        {% set storeDbaseClass = 'automobile' %}
+    {% endif %}
+{% endif %}
+
+
+
+
 <div class="record mode-full">
 
 
+
+    {% if hasGallery or hasMap or hasStore or hasDBase or hasImage %}
+        <ul class="operation-icons hidden">
+
+
+
+            {% if hasMap %}
+                <li id="show-gallery-operation" class="operation switch" dk-open="image">
+                    <a>
+گالری
+                    </a>
+                    <span>
+                        گالری
+                    </span>
+
+                </li>
+            {% endif %}
+
+
+            {% if hasMap %}
+                <li id="show-map-operation" class="operation switch" dk-open="map">
+                    <a>
+                        نقشه
+                    </a>
+                    <span>
+                        نقشه
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if hasGallery %}
+                <li id="show-gallery-operation" class="operation switch" dk-open="gallery">
+                    <a>
+گالری
+                    </a>
+                    <span>
+                        گالری
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if hasStore %}
+                <li id="show-store-operation" class="operation">
+                    <a href="#record-store">
+                        فروشگاه
+                    </a>
+                    <span href="#record-store">
+                        فروشگاه
+                    </span>
+                </li>
+            {% endif %}
+
+            {% if hasDBase %}
+                <li id="show-dbase-operation" class="operation">
+                    <a href="#record-database" class="{{ storeDbaseClass }}">
+                        {{ storeDbaseLabel }}
+                    </a>
+                    <span href="#record-database">
+                        {{ storeDbaseLabel }}
+                    </span>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+
+
+    {% if hasImage or hasGallery or hasMap %}
+        <div class="gallery-box">
+
+
+
+            {% if hasImage %}
+                <div class="image switchable">
+                    <img src="{{  ('/uploads/'~record.images[0].webPath) | imagine_filter('1024x576')}}">
+                </div>
+            {% endif %}
+
+            {% if hasMap %}
+                <div class="map switchable">
+                    {{ google_map(map) }}
+                </div>
+            {% endif %}
+
+            {% if hasGallery %}
+                <div class="gallery switchable">
+                    <div class="fotorama" data-nav="thumbs">
+                        {% for image in record.images %}
+                            <a href="{{  ('/uploads/'~image.webPath) | imagine_filter('1024x576')}}"
+                                data-thumb="{{  ('/uploads/'~image.webPath) | imagine_filter('84x56')}}">
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    {% endif %}
+
+
+    {% if record.messageEnable and record.messageText %}
+        <div class="alert alert-danger special-message" role="alert">
+            {{ record.messageText }}
+        </div>
+
+    {% endif %}
+
+    {% if record.infoOne or record.infoTwo %}
+        <div class="alert alert-info info-one-two" role="alert">
+            {% if record.infoOne %}
+                {{ record.infoOne }}
+            {% endif %}
+            {% if record.infoOne and record.infoTwo %}
+            <br/><br/>
+            {% endif %}
+            {% if record.infoTwo %}
+                {{ record.infoTwo }}
+            {% endif %}
+        </div>
+    {% endif %}
+
+
+
+
+
+	{% if not record.onlyHtml %}
+		<div class="row details" >
+			<div class="record-details col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				{{ include('DarkishWebsiteBundle:Record:record-details-info.html.twig', {'record': record}) }}
+			</div>
+		</div>
+	{% endif %}
+
 	<div class="record-body">
-		{{record.body | raw}}
+		{{record.webBody | raw}}
 	</div>
 
 
-	{{ sonata_block_render({'type': 'darkish_website.block.database'},{
-		'id': record.id
-	}) }}
+    {% if record.dbaseEnable %}
+        <div class="record-database-section">
+
+            <h2 id="record-database" class="database-title">
+                {% if record.dbaseTypeIndex.id == 1 %}
+                بانک اطلاعات املاک
+                {% elseif record.dbaseTypeIndex.id == 2 %}
+                    بانک اطلاعات خودرو
+                {% endif %}
+            </h2>
+
+
+            {% if record.dbaseBanner %}
+                <img class="record-database-banner" src="{{  ('/uploads/'~record.dbaseBanner.webPath) | imagine_filter('1024x576')}}">
+            {% endif %}
+
+            {% if record.dbaseDescription %}
+                <div class="jumbotron">
+                    <p>
+                        {{ record.dbaseDescription}}
+                    </p>
+
+                </div>
+            {% endif %}
+
+            {{ sonata_block_render({'type': 'darkish_website.block.database'},{
+                'id': record.id
+            }) }}
+        </div>
+    {% endif %}
+    
+
+
 
 
 	{% if products | length %}
-		<hr/>
 		{{ include('DarkishWebsiteBundle:Record:record-products.html.twig', {'products': products}) }}
 	{% endif %}
 
 	<hr/>
-	<div class="panel panel-primary">
+	<div class="comments panel panel-primary">
 		  <div class="panel-heading">
-				<h3 class="panel-title">نظرات</h3>
+				<h2 class="panel-title">نظرات</h2>
 		  </div>
 		  <div class="panel-body">
 

@@ -24,10 +24,30 @@ class FileSubscriber implements EventSubscriber
 {
     protected $container;
     protected $requestStack;
+    protected $darkishWatermark;
+    protected $watermarks = [
+        'darkish' => [
+            'image' => 'Resources/data/watermark.png',
+            'position' => 'topright',
+        ],
+        'island' => [
+            'image' => 'Resources/data/watermark.png',
+            'position' => 'bottomright',
+        ],
+        'aruna' => [
+            'image' => 'Resources/data/watermark.png',
+            'position' => 'bottomleft',
+        ],
+        'label' => [
+            'image' => 'Resources/data/watermark.png',
+            'position' => 'topleft',
+        ],
+    ];
     
-    public function __construct(ContainerInterface $container, RequestStack $requestStack) {
+    public function __construct(ContainerInterface $container, RequestStack $requestStack, $darkishWatermark) {
         $this->container = $container;
         $this->requestStack = $requestStack;
+        $this->darkishWatermark = $darkishWatermark;
     }
 
 
@@ -45,25 +65,152 @@ class FileSubscriber implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $args)
     {
-        $this->index($args);
+        $this->runImageFilters($args, false);
+//        $this->index($args);
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {
-        $this->index($args);
+        $this->runImageFilters($args, false);
+//        $this->index($args);
         // $this->videConvert($args);
     }
 
     public function prePersist(LifecycleEventArgs $args)
     {
-         $this->getFrameFromVideo($args);
+        $this->getFrameFromVideo($args);
         // $this->videConvert($args);
     }
     
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $this->index($args);
+        $this->runImageFilters($args, true);
+//        $this->index($args);
         // $this->videConvert($args);
+    }
+
+    public function runImageFilters(LifecycleEventArgs $args, $force = false) {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof ManagedFile && substr($entity->getFilemime(), 0, 5) == "image" &&
+            file_exists($this->container->get('kernel')->getRootDir().'/../web/uploads/'.$entity->getWebPath())) {
+
+
+            $path = 'uploads/'.$entity->getWebPath();
+
+            /**
+             * Generating web_thumb Filter
+             */
+            $filter = "web_thumb";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '50%');
+            $entity->setWebAbsolutePath($srcPath);
+
+            /**
+             * Generating mobile_thumb Filter
+             */
+            $filter = "mobile_thumb";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '30%');
+            $entity->setMobileAbsolutePath($srcPath);
+
+            /**
+             * Generating mobile_thumb Filter
+             */
+            $filter = "icon_thumb";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '20%');
+            $entity->setIconAbsolutePath($srcPath);
+
+            /**
+             * Generating 64 Filter
+             */
+            $filter = "64";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force);
+
+            /**
+             * Generating 128 Filter
+             */
+            $filter = "128";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force);
+
+            /**
+             * Generating 256 Filter
+             */
+            $filter = "256";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '10%');
+
+            /**
+             * Generating 64 Filter
+             */
+            $filter = "512";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '10%');
+
+            /**
+             * Generating 1024 Filter
+             */
+            $filter = "1024";
+            $srcPath = $this->runFilter($path, $filter, $entity, $force, '10%');
+        }
+    }
+
+    private function runFilter($path, $filter, ManagedFile $entity, $force, $watermarkSize = null)
+    {
+
+
+        $cacheManager = $this->container->get('liip_imagine.cache.manager');
+        $dataManager = $this->container->get('liip_imagine.data.manager');
+        $filterManager = $this->container->get('liip_imagine.filter.manager');
+        $watermarks = [];
+
+        if(
+            (in_array($entity->getType() , ['record', 'news']) && $entity->getDarkishWatermark() ) ||
+            (!in_array($entity->getType() , ['record', 'news']) && $this->darkishWatermark[$entity->getType()] == true)
+        )
+        {
+            if($watermarkSize)
+            {
+                $tempWatermark = $this->watermarks['darkish'];
+                $tempWatermark['size'] = $watermarkSize;
+                $watermarks[] = $tempWatermark;
+            }
+        }
+
+        if(in_array($entity->getType() , ['record', 'news']) && $entity->getIslandWatermark() && $watermarkSize)
+        {
+            $tempWatermark = $this->watermarks['island'];
+            $tempWatermark['size'] = $watermarkSize;
+            $watermarks[] = $tempWatermark;
+        }
+
+        if(in_array($entity->getType() , ['record', 'news']) && $entity->getArunaWatermark() && $watermarkSize)
+        {
+            $tempWatermark = $this->watermarks['aruna'];
+            $tempWatermark['size'] = $watermarkSize;
+            $watermarks[] = $tempWatermark;
+        }
+
+        if(in_array($entity->getType() , ['database', 'product', 'classified']) && $watermarkSize)
+        {
+            $tempWatermark = $this->watermarks['label'];
+            $tempWatermark['size'] = $watermarkSize;
+            $watermarks[] = $tempWatermark;
+        }
+
+        if($force || !$cacheManager->isStored($path, $filter)) {
+            $binary = $dataManager->find($filter, $path);
+
+            $filteredBinary = $filterManager->applyFilter($binary, $filter, array(
+                'filters' => array(
+                    'custom_watermark' => array(
+                        'watermarks' => $watermarks
+                    )
+                )
+            ));
+
+            $cacheManager->store($filteredBinary, $path, $filter);
+        }
+
+        return $cacheManager->getBrowserPath($path, $filter);
+
     }
     
     public function index(LifecycleEventArgs $args)
@@ -85,11 +232,11 @@ class FileSubscriber implements EventSubscriber
                         'uploads/'.$entity->getWebPath(),      // original image you want to apply a filter to
                         'web_thumb'              // filter defined in config.yml
             );
-            
-            
+
+
 
             // string to put directly in the "src" of the tag <img>
-            
+
             $srcPath = $cacheManager->getBrowserPath('uploads/'.$entity->getWebPath(), 'web_thumb');
             
             $entity->setWebAbsolutePath($srcPath);

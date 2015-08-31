@@ -126,18 +126,36 @@ class DatabaseBlock extends BaseBlockService
 
 		$form->handleRequest($this->container->get('request'));
 
-		$pagination = $this->container->get('knp_paginator')->paginate(
-			$repo->search($database, $record),
+		$request = $this->container->get('request');
+
+		$prices = [];
+		if($request->request->has('priceFrom'))
+		{
+			$prices['from'] = $request->get('priceFrom');
+		}
+
+		if($request->request->has('priceTo'))
+		{
+			$prices['to'] = $request->get('priceTo');
+		}
+        /* @var $pagination \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination */
+        $pagination = $this->container->get('knp_paginator')->paginate(
+			$repo->search($database, $prices, $record),
 			$this->container->get('request')->query->getInt('page', 1),
 			5
 		);
+
+
+
+
+
 
 	    return $this->renderResponse($blockContext->getTemplate(), array(
 			'block'     	=> $blockContext->getBlock(),
 			'settings'  	=> $settings,
 //			'entity'		=> $entity,
 			'pagination'	=> $pagination,
-			'search_from'   => $form->createView()
+			'search_form'   => $form->createView()
 		), $response);
 	}
 

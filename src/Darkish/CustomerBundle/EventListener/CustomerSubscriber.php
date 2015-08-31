@@ -2,6 +2,7 @@
 
 namespace Darkish\CustomerBundle\EventListener;
 
+use Darkish\CategoryBundle\Entity\Record;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -41,6 +42,12 @@ class CustomerSubscriber implements EventSubscriber
             $encoder = $this->getEncoder($customer);
             $customer->setPassword($encoder->encodePassword($newPassword, $customer->getSalt()));
             
+        }
+
+        if($customer->getRecord() instanceof Record)
+        {
+            $customer->setExpireDate($customer->getRecord()->getExpireDate());
+            $customer->setRecordAccessLevel($customer->getRecord()->getAccessClass()->getId());
         }
     }
     

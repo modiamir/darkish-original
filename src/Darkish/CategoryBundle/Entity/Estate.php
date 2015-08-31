@@ -102,6 +102,11 @@ class Estate extends DBase
     private $estateFeatures;
 
     /**
+     *
+     */
+    private $estateFeaturesCollection;
+
+    /**
      * @ORM\ManyToOne(targetEntity="EstateType")
      * @ORM\JoinColumn("estate_estateType_id")
      * @Groups({"database.list", "database.details", "api.details"})
@@ -392,5 +397,28 @@ class Estate extends DBase
     public function getEstateFeatures()
     {
         return $this->estateFeatures;
+    }
+
+    /**
+     * Set estateFeatures
+     *
+     * @param array $estateFeatures
+     * @return Estate
+     */
+    public function setEstateFeaturesCollection($estateFeaturesCollection)
+    {
+        $this->estateFeaturesCollection = $estateFeaturesCollection;
+
+        return $this;
+    }
+
+    /**
+     * Get estateFeatures
+     *
+     * @return array
+     */
+    public function getEstateFeaturesCollection()
+    {
+        return $this->estateFeaturesCollection;
     }
 }

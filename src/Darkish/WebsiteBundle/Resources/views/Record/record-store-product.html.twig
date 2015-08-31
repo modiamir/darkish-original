@@ -4,18 +4,74 @@
     {% else %}
         {% set image_path = "bundles/darkishwebsite/images/default_image.png" %}
     {% endif %}
-    <img class="product-image" src="{{ image_path | imagine_filter('product_thumb')}}" alt="">
-    <h4>
-        {{ product.title }}
-    </h4>
-    <h5 class="price {% if product.discounted_price is defined %}discounted{% endif %}">
-        {{ product.price }} تومان 
-    </h5>
-    {% if product.discounted_price is defined %}
-        <h5 class="discounted-price">
-            {{ product.discounted_price  }} تومان
-        </h5>
-    {% endif %}
+    <div class="product-thumb-wrapper">
+        <img class="product-image" src="{{ image_path | imagine_filter('240x200')}}" alt="">
+        {% if product.special_tag is defined %}
+            {% if product.special_tag == 1 %}
+                <span class="special-tag tag-new">&nbsp;</span>
+            {% endif %}
+
+
+            {% if product.special_tag == 2 %}
+                <span class="special-tag tag-special">&nbsp;</span>
+            {% endif %}
+
+            {% if product.special_tag == 3 %}
+                <span class="special-tag tag-discount">&nbsp;</span>
+            {% endif %}
+
+
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col col-xs-7 col-sm-7 col-md-7 col-lg-7">
+            {%  if product.title is defined %}
+                <div class="product-title">
+                    {{ product.title  }}
+                </div>
+            {% endif %}
+            {%  if product.code  is defined %}
+                <div class="product-code">
+                    کد:
+                    {{ product.code }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col col-xs-5 col-sm-5 col-md-5 col-lg-5">
+
+            {%  if product.price is defined %}
+                <div class="product-price {%  if product.discounted_price is defined %}has-discounted-price{% endif %} {% if product.availability == 0 %}product-is-unavailable{% endif %} {% if product.availability == 2 %}product-soon{% endif %}">
+                    {{ product.price }} تومان
+                </div>
+            {% endif %}
+
+            {%  if product.discounted_price is defined and product.availability == 1 %}
+                <div class="product-discounted-price">
+                    {{ product.discounted_price }} تومان
+                </div>
+            {% endif %}
+
+            {%  if product.availability is defined %}
+                {% if product.availability == 0 %}
+                    <div class="product-unavailable">
+                        نا موجود
+                    </div>
+                {% endif %}
+
+                {% if product.availability == 2 %}
+                    <div class="product-soon">
+                        به زودی
+                    </div>
+                {% endif %}
+            {% endif %}
+
+
+
+
+        </div>
+    </div>
     
 
 </div>

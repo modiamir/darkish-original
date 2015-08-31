@@ -27,28 +27,54 @@
 {% endblock %}
 
 {% block content %}
+
+
 	{% if trees %}
-		<ul class="recordtree-list">
-			{% for tree in trees %}
-				<li>
-		    		<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
-	    		</li>
-			{% endfor %}	
-		</ul>
+
+			{% if tree.treesIds is not empty %}
+				<ul class="recordtree-list">
+					{% for tree in trees %}
+							<li>
+								<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
+							</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<ul class="recordtree-grid">
+					{% for tree in trees %}
+						<li>
+							<a class="icon" href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">
+								<img src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ tree.iconFileName ~ ".png") }}">
+							</a>
+							<div class="tree-titles">
+								<h3><a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a></h3>
+								<span class="tree-subtitle">{{ tree.subTitle }}</span>
+							</div>
+
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
 		<hr/>
 	{% endif %}
-	
 
-	
 
-	<div class="record-list">
-		{% for record in pagination %}
-			<div class="record-item">
-				{{ include('DarkishWebsiteBundle:Record:record-grid.html.twig', {'record': record}) }}
-			</div>
-		{% endfor %}
-	</div>
+	{% if tree.treesIds is not empty %}
 
- 	{{ knp_pagination_render(pagination) }}
-	
+
+		<div class="record-list">
+			{% for record in pagination %}
+				<div class="record-item">
+					{{ include('DarkishWebsiteBundle:Record:record-grid.html.twig', {'record': record}) }}
+				</div>
+			{% endfor %}
+		</div>
+		{{ knp_pagination_render(pagination) }}
+
+	{% endif %}
+
+
+
+
 {% endblock %}

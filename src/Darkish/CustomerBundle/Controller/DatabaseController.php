@@ -511,4 +511,75 @@ class DatabaseController extends Controller
         $em->flush();
         return new JsonResponse(['Delete done']);
     }
+
+    /**
+     * @param $code
+     * @Route("customer/ajax/database/find_by_code/{code}", defaults={"_format"="json"})
+     */
+    public function findByCode($code) {
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $record = $user->getRecord();
+
+        $db = $this
+                ->getDoctrine()
+                ->getRepository('DarkishCategoryBundle:DBase')
+                ->findOneBy(['code' => $code, 'record' => $record->getId()]);
+
+        if($db)
+        {
+            return new Response($db->getId());
+        }
+        else
+        {
+            return new JsonResponse(["Not Found"],404);
+        }
+    }
+
+    /**
+     * @Route("customer/ajax/database/find_new_code", defaults={"_format"="json"})
+     */
+    public function findNewCode()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
+        $assistantAccess = $user->getAssistantAccess();
+        $role = $this->getDoctrine()->getRepository('DarkishCustomerBundle:CustomerRole')->find(6);
+        if(!$assistantAccess->contains($role)) {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $record = $user->getRecord();
+        /* @var $query \Doctrine\ORM\Query */
+        $query = $this->getDoctrine()->getManager()->createQuery("
+        Select db.code From \Darkish\CategoryBundle\Entity\DBase db Where db.code >= 100 and db.record = :rid
+        ")->setParameter('rid', $record->getId());
+        $codes = $query->execute();
+        $codesRaw = [];
+        foreach($codes as $code) {
+            $codesRaw[] = (int)$code['code'];
+        }
+        $code = null;
+        for($i = 100; $i <= 9999; $i++) {
+            if(!in_array($i, $codesRaw))
+            {
+                $code = $i;
+                break;
+            }
+        }
+
+        if($code) {
+            return new Response($this->get('jms_serializer')->serialize($code, 'json'));
+        }
+
+        return new JsonResponse(['There is no code available'], 404);
+
+    }
 }

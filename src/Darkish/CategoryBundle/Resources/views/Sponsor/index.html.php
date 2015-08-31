@@ -385,7 +385,7 @@
                     
                     
                 </div>
-                <div class="row attachements-wrapper">
+                <div class="row attachements-wrapper" ng-init="selectTab('icon')">
                     <div class="col-xs-2 right">
                         <ul class="tab-list" ng-init="ValuesService.activeTab = 'icon'">
                             <li class="pure-button"

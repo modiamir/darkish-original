@@ -208,7 +208,6 @@
                                         <label id="publish-date-label" class="third-section-label " for="publish-date-picker">تاریخ انتشار</label>
                                         <input ng-click="openPublishDate($event)" type="text" id="publish-date-picker" class=" third-section-input"  datepicker-popup-persian="{{format}}" ng-model="OfferService.currentOffer.publish_date" is-open="publishDateIsOpen"  datepicker-options="publishDateOptions" date-disabled="disabled(date, mode)" ng-disabled="!OfferService.isEditing()" close-text="بستن" required />
                                     </div>
-
                                 </div>
                                 <div class="dates col col-xs-6">
                                     <div class="expire-date-box">
@@ -385,7 +384,7 @@
                     
                     
                 </div>
-                <div class="row attachements-wrapper">
+                <div class="row attachements-wrapper" ng-init="selectTab('icon')">
                     <div class="col-xs-2 right">
                         <ul class="tab-list" ng-init="ValuesService.activeTab = 'icon'">
                             <li class="pure-button"

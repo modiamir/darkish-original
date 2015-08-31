@@ -91,7 +91,7 @@ body #main-menu {
   z-index: 10000;
   height: 60px;
   background-color: #6bcecb;
-  border-bottom: 2px solid #f17022;
+  border-bottom: 2px solid #ff6600;
   transition: height 0.3s;
   -webkit-transition: height 0.3s;
   -moz-transition: height 0.3s;
@@ -167,7 +167,7 @@ body #main-menu .container #main-navigation .navbar-nav li.active a, body #main-
 }
 /* line 208, ../sass/style.scss */
 body #main-menu .container #main-navigation .navbar-nav li.active a {
-  background-color: #f17022;
+  background-color: #ff6600;
   border-color: white;
 }
 /* line 219, ../sass/style.scss */
@@ -363,7 +363,7 @@ body #fullpage .section#section-4 .automobiles button.filter {
 }
 /* line 417, ../sass/style.scss */
 body #fullpage .section#section-4 .automobiles button.filter:hover, body #fullpage .section#section-4 .automobiles button.filter.active, body #fullpage .section#section-4 .automobiles button.filter:focus {
-  background-color: #6bcecb;
+  background-color: #00c8ff;
   color: white;
   outline: none;
   height: initial;
@@ -372,7 +372,7 @@ body #fullpage .section#section-4 .automobiles button.filter:hover, body #fullpa
 body #fullpage .section#section-4 .automobiles #automobiles-container {
   padding-top: 20px;
   margin-top: 20px;
-  border-top: 2px solid #6bcecb;
+  border-top: 2px solid #00c8ff;
   height: 75%;
 }
 /* line 429, ../sass/style.scss */
@@ -410,7 +410,7 @@ body #fullpage .section#section-5 .main-subsection .description .description-inn
 body #fullpage .section#section-5 .main-subsection .description .description-inner h3.stores-section-title {
   font-family: cocon;
   margin: 0;
-  color: #f17022;
+  color: #ff6600;
   font-size: 33px;
   text-align: center;
   font-weight: lighter;
@@ -426,7 +426,7 @@ body #fullpage .section#section-5 .main-subsection .description .description-inn
 /* line 475, ../sass/style.scss */
 body #fullpage .section#section-5 .main-subsection .description .description-inner p.stores-section-description-text {
   font-family: cocon;
-  color: #6bcecb;
+  color: #00c8ff;
   text-shadow: 1px 1px #222222;
   font-size: 22px;
   text-align: center;
@@ -440,7 +440,7 @@ body #fullpage .section#section-5 .main-subsection .store {
 }
 /* line 490, ../sass/style.scss */
 body #fullpage .section#section-5 .main-subsection .store .store-inner {
-  background-color: #6bcecb;
+  background-color: #00c8ff;
   height: 250px;
   width: 85%;
   margin: auto;
@@ -453,7 +453,7 @@ body #fullpage .section#section-5 .main-subsection .store .store-inner .store-he
 }
 /* line 499, ../sass/style.scss */
 body #fullpage .section#section-5 .main-subsection .store .store-inner .store-header h4.store-header-title {
-  color: #f17022;
+  color: #ff6600;
   display: inline-block;
   width: 100%;
   font-size: 25px;
@@ -497,7 +497,7 @@ body #fullpage .section#section-5 .main-subsection .store .store-inner .store-pr
   bottom: 0;
   width: 90px;
   font-family: BMitra;
-  color: #f17022;
+  color: #ff6600;
   font-size: 17px;
   line-height: 1;
   padding-top: 4px;
@@ -515,7 +515,7 @@ body #fullpage .section#section-6 .main-subsection {
 body #fullpage .section#section-6 .main-subsection .section-title {
   text-align: center;
   font-family: cocon;
-  color: #6bcecb;
+  color: #00c8ff;
   text-shadow: 1px 1px black;
   font-size: 35px;
 }
@@ -535,14 +535,14 @@ body #fullpage .section#section-6 .main-subsection .notification-news h3.notific
   text-align: center;
   padding-right: 60px;
   padding-left: 11px;
-  color: #f17022;
+  color: #ff6600;
   font-family: cocon;
 }
 /* line 581, ../sass/style.scss */
 body #fullpage .section#section-6 .main-subsection .notification-news p.notification-news-text {
   padding-right: 80px;
   padding-left: 31px;
-  color: #6bcecb;
+  color: #00c8ff;
   font-size: 18px;
 }
 /* line 588, ../sass/style.scss */
@@ -554,7 +554,7 @@ body #fullpage .section#section-6 .main-subsection .latest-news {
 body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-title {
   font-family: cocon;
   font-size: 23px;
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 596, ../sass/style.scss */
 body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-list {
@@ -593,12 +593,12 @@ body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-lis
 }
 /* line 623, ../sass/style.scss */
 body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-list li.news-item .news-info .news-title {
-  color: #f17022;
+  color: #ff6600;
   margin: 0;
 }
 /* line 627, ../sass/style.scss */
 body #fullpage .section#section-6 .main-subsection .latest-news .latest-news-list li.news-item .news-info .news-summary {
-  color: #6bcecb;
+  color: #00c8ff;
 }
 /* line 637, ../sass/style.scss */
 body #fullpage .section#section-8 {
@@ -622,18 +622,18 @@ body #fullpage .section#section-8 .main-subsection .container h2.download-app-ti
   width: 50%;
   font-family: cocon;
   font-size: 32px;
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 654, ../sass/style.scss */
 body #fullpage .section#section-8 .main-subsection .container p.download-app-description {
   width: 50%;
-  color: #6bcecb;
+  color: #00c8ff;
   font-size: 18px;
 }
 /* line 659, ../sass/style.scss */
 body #fullpage .section#section-8 .main-subsection .container hr {
   width: 50%;
-  border-color: #f17022;
+  border-color: #ff6600;
   border-width: 2px;
   float: right;
   clear: both;
@@ -642,7 +642,7 @@ body #fullpage .section#section-8 .main-subsection .container hr {
 body #fullpage .section#section-8 .main-subsection .container .download-app-android, body #fullpage .section#section-8 .main-subsection .container .download-app-ios {
   float: right;
   clear: both;
-  background-color: #f17022;
+  background-color: #ff6600;
   color: white;
   padding: 15px 10px;
   line-height: 25px;
@@ -666,25 +666,25 @@ body #fullpage .section#section-8 .main-subsection .container .download-app-andr
 body #fullpage .section#section-8 .main-subsection .container .download-app-android:hover, body #fullpage .section#section-8 .main-subsection .container .download-app-ios:hover {
   text-decoration: none;
   background: white;
-  color: #f17022;
-  border: 1px solid #f17022;
-  color: #f17022;
+  color: #ff6600;
+  border: 1px solid #ff6600;
+  color: #ff6600;
 }
 /* line 693, ../sass/style.scss */
 body #fullpage .section#section-8 .main-subsection .container .download-app-android:hover h4, body #fullpage .section#section-8 .main-subsection .container .download-app-ios:hover h4 {
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 699, ../sass/style.scss */
 body #fullpage .section#section-8 .main-subsection .container .last-update-app {
   clear: both;
   float: right;
   width: 50%;
-  color: #6bcecb;
+  color: #00c8ff;
   font-size: 20px;
 }
 /* line 711, ../sass/style.scss */
 body #fullpage .section#section-9 {
-  background-color: #6bcecb;
+  background-color: #00c8ff;
   min-height: 600px;
 }
 /* line 714, ../sass/style.scss */
@@ -704,7 +704,7 @@ body #fullpage .section#section-9 .main-subsection .container > .row .about-subs
 }
 /* line 728, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .about-subsection .about-title span {
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 732, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .about-subsection .about-description {
@@ -733,7 +733,7 @@ body #fullpage .section#section-9 .main-subsection .container > .row .about-subs
   display: inline-block;
   text-align: center;
   border-radius: 20px;
-  background-color: #f17022;
+  background-color: #ff6600;
 }
 /* line 756, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .about-subsection .social-links ul li a:hover {
@@ -741,7 +741,7 @@ body #fullpage .section#section-9 .main-subsection .container > .row .about-subs
 }
 /* line 758, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .about-subsection .social-links ul li a:hover i.fa {
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 762, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .about-subsection .social-links ul li a i.fa {
@@ -758,7 +758,7 @@ body #fullpage .section#section-9 .main-subsection .container > .row .contact-su
 }
 /* line 780, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .contact-subsection .contact-title span {
-  color: #f17022;
+  color: #ff6600;
 }
 /* line 784, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .contact-subsection .contact-form {
@@ -801,7 +801,7 @@ body #fullpage .section#section-9 .main-subsection .container > .row .contact-su
 /* line 817, ../sass/style.scss */
 body #fullpage .section#section-9 .main-subsection .container > .row .contact-subsection button {
   font-family: cocon;
-  background-color: #f17022;
+  background-color: #ff6600;
   color: white;
   border-radius: 0;
   border: 0;
@@ -826,7 +826,7 @@ body.register-customer #fullpage {
 /* line 854, ../sass/style.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: cocon;
-  color: #f17022;
+  color: #ff6600;
 }
 
 /* line 927, ../sass/style.scss */
@@ -839,7 +839,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   position: relative;
   opacity: 0.8;
-  border-bottom: 2px solid #f17022;
+  border-bottom: 2px solid #ff6600;
 }
 /* line 937, ../sass/style.scss */
 .record-list .record-list-caption {
@@ -942,7 +942,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   overflow: hidden;
   position: relative;
-  border-bottom: 2px solid #6bcecb;
+  border-bottom: 2px solid #00c8ff;
 }
 /* line 1039, ../sass/style.scss */
 .automobile-list .automobile-photo {
@@ -956,7 +956,7 @@ h1, h2, h3, h4, h5, h6 {
 /* line 1047, ../sass/style.scss */
 .automobile-list .automobile-title {
   padding: 0 10px;
-  color: #6bcecb;
+  color: #00c8ff;
 }
 /* line 1051, ../sass/style.scss */
 .automobile-list .automobile-price {

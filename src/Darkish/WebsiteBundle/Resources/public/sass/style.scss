@@ -126,7 +126,7 @@ body {
 		z-index: 10000;
 		height: 60px;
 		background-color: #6bcecb;
-		border-bottom: 2px solid #f17022;
+		border-bottom: 2px solid $orange;
 		transition: height 0.3s;
 		-webkit-transition: height 0.3s;
 		-moz-transition: height 0.3s;
@@ -206,7 +206,7 @@ body {
 						}
 						&.active {
 							a {
-								background-color: #f17022;
+								background-color: $orange;
 								border-color: white;
 							}
 						}
@@ -459,7 +459,7 @@ body {
 			        h3.stores-section-title {
 			          font-family: cocon;
 			          margin: 0;
-			          color: #f17022;
+			          color: $orange;
 			          font-size: 33px;
 			          text-align: center;
 			          font-weight: lighter;
@@ -497,7 +497,7 @@ body {
 			          font-family: BMitra;
 			          padding-right: 10px;
 			          h4.store-header-title {
-			            color: #f17022;
+			            color: $orange;
 			            display: inline-block;
 			            width: 100%;
 			            font-size: 25px;
@@ -535,7 +535,7 @@ body {
 			                bottom: 0;
 			                width: 90px;
 			                font-family: BMitra;
-			                color: #f17022;
+			                color: $orange;
 			                font-size: 17px;
 			                line-height: 1;
 			                padding-top: 4px;
@@ -575,7 +575,7 @@ body {
 			        text-align: center;
 			        padding-right: 60px;
 			        padding-left: 11px;
-			        color: #f17022;
+			        color: $orange;
 			        font-family: cocon;
 			      }
 			      p.notification-news-text {
@@ -591,7 +591,7 @@ body {
 			      .latest-news-title {
 			        font-family: cocon;
 			        font-size: 23px;
-			        color: #f17022;
+			        color: $orange;
 			      }
 			      .latest-news-list {
 			        width: 100%;
@@ -621,7 +621,7 @@ body {
 			              color: gray;
 			            }
 			            .news-title {
-			              color: #f17022;
+			              color: $orange;
 			              margin: 0;
 			            }
 			            .news-summary {
@@ -649,7 +649,7 @@ body {
 			        width: 50%;
 			        font-family: cocon;
 			        font-size: 32px;
-			        color: #f17022;
+			        color: $orange;
 			      }
 			      p.download-app-description {
 			        width: 50%;
@@ -658,7 +658,7 @@ body {
 			      }
 			      hr {
 			        width: 50%;
-			        border-color: #f17022;
+			        border-color: $orange;
 			        border-width: 2px;
 			        float: right;
 			        clear: both;
@@ -666,7 +666,7 @@ body {
 			      .download-app-android, .download-app-ios {
 			        float: right;
 			        clear: both;
-			        background-color: #f17022;
+			        background-color: $orange;
 			        color: white;
 			        padding: 15px 10px;
 			        line-height: 25px;
@@ -687,11 +687,11 @@ body {
 			        &:hover {
 			          text-decoration: none;
 			          background: white;
-			          color:#f17022;
-			          border: 1px solid #f17022;
-			          color: #f17022;
+			          color:$orange;
+			          border: 1px solid $orange;
+			          color: $orange;
 			          h4 {
-			          	color: #f17022;
+			          	color: $orange;
 			          }
 			        }
 
@@ -726,7 +726,7 @@ body {
 			            font-family: cocon;
 			            font-size: 32px;
 			            span {
-			              color:#f17022;
+			              color:$orange;
 			            }
 			          }
 			          .about-description {
@@ -752,11 +752,11 @@ body {
 			                    display: inline-block;
 			                    text-align: center;
 			                    border-radius: 20px;
-			                    background-color: #f17022;
+			                    background-color: $orange;
 			                    &:hover {
 			                      background-color: white;
 			                      i.fa {
-			                        color: #f17022;
+			                        color: $orange;
 			                      }
 			                    }
 			                    i.fa {
@@ -778,7 +778,7 @@ body {
 			            font-family: cocon;
 			            font-size: 32px;
 			            span {
-			              color:#f17022;
+			              color:$orange;
 			            }
 			          }
 			          .contact-form {
@@ -816,7 +816,7 @@ body {
 			          }
 			          button {
 			            font-family: cocon;
-			            background-color: #f17022;
+			            background-color: $orange;
 			            color: white;
 			            border-radius: 0;
 			            border: 0;

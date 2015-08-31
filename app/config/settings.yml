@@ -10,3 +10,15 @@ parameters:
             - "0005"
         forum_default_state: 1 # 0: not commentable, 1: commentable
         safarsaz_default_state: 1 # 0: not commentable, 1: commentable
+
+    darkish.watermark:
+        classified: false
+        offer: false
+        sponsor: true
+        operator: true
+        customer: true
+        client: true
+        store: true
+        product: false
+        database: false
+        comment: true

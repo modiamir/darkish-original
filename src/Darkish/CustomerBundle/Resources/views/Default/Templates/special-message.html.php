@@ -26,7 +26,7 @@
 					<label for="messageText">
                         متن پیام ویژه
                     </label>
-					<input type="text" class="form-control" ng-model="recordFormData.messageText" id="messageText"
+					<input type="text" maxlength="255" class="form-control" ng-model="recordFormData.messageText" id="messageText"
                            placeholder="متن پیام ویژه">
 				</div>
 

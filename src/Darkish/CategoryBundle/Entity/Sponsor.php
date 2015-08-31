@@ -176,6 +176,13 @@ class Sponsor
      */
     private $body;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="WebBody", type="text", nullable=true)
+     * @Groups({"record.details", "api.body"})
+     */
+    private $webBody;
 
     /**
      * @var string
@@ -1679,5 +1686,29 @@ class Sponsor
     public function getVerticalBanner()
     {
         return $this->verticalBanner;
+    }
+
+    /**
+     * Set webBody
+     *
+     * @param string $webBody
+     *
+     * @return Sponsor
+     */
+    public function setWebBody($webBody)
+    {
+        $this->webBody = $webBody;
+
+        return $this;
+    }
+
+    /**
+     * Get webBody
+     *
+     * @return string
+     */
+    public function getWebBody()
+    {
+        return $this->webBody;
     }
 }

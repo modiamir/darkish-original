@@ -11,7 +11,7 @@ function($scope, recordData, FileUploader, $sce, $http, SweetAlert, ngDialog){
 		var tempData = angular.copy(record);
 		$scope.recordFormData.owner = tempData.owner;
 		$scope.recordFormData.ownerMail = tempData.owner_mail;
-		$scope.recordFormData.ownerPhone = tempData.owner_phone;
+		$scope.recordFormData.ownerPhone = Number(tempData.owner_phone);
 		$scope.recordFormData.manager = tempData.manager;
 		$scope.recordFormData.managerMail = tempData.manager_mail;
 		$scope.recordFormData.managerPhone = tempData.manager_phone;

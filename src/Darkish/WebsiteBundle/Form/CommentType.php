@@ -15,8 +15,11 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($builder->create('owner', new AnonymousType()))
-            ->add('body')
+            ->add('body', null, ['label' => 'متن پاسخ'])
+            ->add($builder->create('owner', new AnonymousType(), [
+                'label' => 'مشخصات نویسنده پاسخ',
+                'attr' => array('class' => 'anonymous-comment-form-owner'),
+            ]))
             ->add('parent', 'entity_hidden', [
                 'class' => 'Darkish\CommentBundle\Entity\Comment',
             ])

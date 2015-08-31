@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  *     fields={"code", "record"},
  *     errorPath="code",
- *     message="This code is already in use on that record."
+ *     message="کد وارد شده  تکراری است."
  * )
  */
 class Product
@@ -71,7 +71,7 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(name="price", type="bigint")
+     * @ORM\Column(name="price", type="bigint", nullable=true)
      * @Groups({"product.list", "product.details", "api.list"})
      */
     private $price;

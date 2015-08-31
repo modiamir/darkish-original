@@ -38,6 +38,7 @@ use Darkish\CategoryBundle\Entity\DBase;
 use Darkish\CategoryBundle\Entity\Estate;
 use Darkish\CategoryBundle\Entity\Automobile;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 
 
 class UserController extends Controller
@@ -87,9 +88,11 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            
-        
-            
+
+
+            if( !isset($data['isActive']) ||  $data['isActive'] == 0) {
+                $entity->setIsActive(false);
+            }
             
             $em->persist($entity);
 
@@ -127,10 +130,16 @@ class UserController extends Controller
 
         $record = $user->getRecord();
 
-        
+        $customersCollection = $record->getCustomers();
+
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->neq("id", $user->getId()))
+        ;
+
+        $customers = $customersCollection->matching($criteria);
         
 
-        return new Response($this->get('jms_serializer')->serialize(array('customers' => $record->getCustomers() ), 'json', SerializationContext::create()->setGroups(array('customer.details', 'file.details'))));
+        return new Response($this->get('jms_serializer')->serialize(array('customers' => $customers ), 'json', SerializationContext::create()->setGroups(array('customer.details', 'file.details'))));
     }
 
 
@@ -237,6 +246,9 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $data = $request->request->get('darkish_customerbundle_customer');
 
+//            if($data['isActive'] == true) {
+//                return new Response($data['isActive'], 500);
+//            }
             if( !isset($data['isActive']) ||  $data['isActive'] == 0) {
                 $entity->setIsActive(false);
             }

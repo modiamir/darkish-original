@@ -2,6 +2,7 @@
 
 namespace Darkish\CategoryBundle\EventListener;
 
+use Darkish\CategoryBundle\Entity\Sponsor;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -20,6 +21,7 @@ use Alchemy\BinaryDriver\Listeners\DebugListener;
 use Symfony\Component\HttpFoundation\File\File;
 use JMS\Serializer\SerializationContext;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use \Wa72\HtmlPageDom\HtmlPageCrawler as Crawler;
 
 
 
@@ -46,7 +48,12 @@ class CnorSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
+        $entity = $args->getEntity();
         $this->setHasMedias($args);
+        if($entity instanceof Record || $entity instanceof News || $entity instanceof Offer || $entity instanceof Classified || $entity instanceof Sponsor )
+        {
+            $this->copyWebBody($entity);
+        }
         // $this->updateTreeJson($args);
     }
 
@@ -92,6 +99,11 @@ class CnorSubscriber implements EventSubscriber
             if(count($changes) > 0) {
                 $entity->setLastUpdate(new \DateTime());
             }
+        }
+
+        if($entity instanceof Record || $entity instanceof News || $entity instanceof Offer || $entity instanceof Classified || $entity instanceof Sponsor )
+        {
+            $this->copyWebBody($entity);
         }
 
 
@@ -152,6 +164,41 @@ class CnorSubscriber implements EventSubscriber
 
 
         }
+    }
+
+    public function copyWebBody($entity) {
+        $body = $entity->getBody();
+        $webBody = str_replace('<img', '<dk-img', $body);
+
+        $crawler = new Crawler($webBody);
+        $crawler->filter("a[record-id]")->each(function(Crawler $node, $i){
+            $node->setAttribute('href',
+                $this->container->get('router')->generate('website_record_single', ['record' => $node->attr('record-id')])
+            );
+        });
+
+        $crawler->filter("a[news-id]")->each(function(Crawler $node, $i){
+            $node->setAttribute('href',
+                $this->container->get('router')->generate('website_news_single', ['news' => substr($node->attr('news-id'),1)])
+            );
+        });
+
+        $crawler->filter("a[tree-index]")->each(function(Crawler $node, $i){
+            $node->setAttribute('href',
+                $this->container->get('router')->generate('website_record_tree', ['treeIndex' => $node->attr('tree-index')])
+            );
+        });
+
+
+
+
+
+        $webBody = $crawler->saveHtml();
+
+
+        $entity->setWebBody($webBody);
+
+
     }
 
 

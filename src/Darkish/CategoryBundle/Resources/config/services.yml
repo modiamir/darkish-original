@@ -37,12 +37,16 @@ services:
             - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
     my_file.subscriber:
         class: Darkish\CategoryBundle\EventListener\FileSubscriber
-        arguments: ["@service_container", "@request_stack"]
+        arguments: ["@service_container", "@request_stack", "%darkish.watermark%"]
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
     my_store.subscriber:
         class: Darkish\CategoryBundle\EventListener\StoreSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+    my_dbase.subscriber:
+        class: Darkish\CategoryBundle\EventListener\DBaseSubscriber
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
@@ -64,6 +68,11 @@ services:
         class: Darkish\CategoryBundle\Form\FormErrors
         arguments: [ "@service_container"]
 
+    darkish_category.filter.loader.custom_watermark:
+        class: Darkish\CategoryBundle\Imagine\Filter\Loader\CustomWatermarkFilterLoader
+        arguments: ["@service_container", "@liip_imagine", "%kernel.root_dir%"]
+        tags:
+            - { name: liip_imagine.filter.loader, loader: custom_watermark }
 
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example

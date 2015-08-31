@@ -29,7 +29,7 @@
 
 				<div class="col col-xs-12 col-sm-2 form-group">
 					<label class="control-label">وضعیت</label>
-					<button type="button" class="btn btn-primary" ng-class="{'btn-success': newUser.is_active, 'btn-danger': !newUser.is_active}" ng-model="newUser.is_active" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+					<button type="button" class="btn btn-primary" ng-class="{'btn-success': newUser.is_active, 'btn-danger': !newUser.is_active}" ng-model="newUser.is_active" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
 				       	{{(newUser.is_active) ? 'فعال' : 'غیر فعال'}}
 				    </button>
 				</div>
@@ -45,11 +45,24 @@
 				  <input match="newUser.new_password" class="form-control" id="password-confirm" type="password"
 				  		 maxlength="255" placeholder="رمز عبور" ng-model="newUser.new_password_confirm" required>
 				</div>
+				<div class="col col-xs-12 ">
+					<ul>
+						<li>
+							رمز عبور باید حداقل دارای یک حرف باشد.
+						</li>
+						<li>
+							رمز عبور باید حداقل دارای یک  عدد باشد.
+						</li>
+						<li>
+							رمز عبور باید حداقل از 6 کاراکتر تشکیل شده باشد.
+						</li>
+					</ul>
+				</div>
 
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-one">تلفن یک</label>
 				  	<input class="form-control" id="phone-one" type="number"
-				  		minlength="1" maxlength="10" ng-model="newUser.phone_one"
+				  		minlength="1" maxlength="11" ng-model="newUser.phone_one"
 				  	>
 
 				</div>
@@ -57,14 +70,14 @@
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-two">تلفن دو</label>
 				  	<input class="form-control" id="phone-two" type="number"
-				  		minlength="1" maxlength="10" ng-model="newUser.phone_two"
+				  		minlength="1" maxlength="11" ng-model="newUser.phone_two"
 				  	>
 			 	</div>
 
 			  	<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-three">تلفن دو</label>
 				  	<input class="form-control" id="phone-three" type="number"
-				  		minlength="1" maxlength="10" ng-model="newUser.phone_three"
+				  		minlength="1" maxlength="11" ng-model="newUser.phone_three"
 				  	>
 
 				</div>
@@ -72,7 +85,7 @@
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-four">تلفن دو</label>
 				  	<input class="form-control" id="phone-four" type="number"
-				  		minlength="1" maxlength="10" ng-model="newUser.phone_four"
+				  		minlength="1" maxlength="11" ng-model="newUser.phone_four"
 				  	>
 			  	</div>
 				
@@ -89,7 +102,7 @@
 
 				</div>
 
-				<div class="col col-xs-12 col-sm-6 form-group user-photo">
+				<div ng-show="false" class="col col-xs-12 col-sm-6 form-group user-photo">
 					<label class="control-label">تصویر پروفایل</label>
 					<label ng-disabled="newUser.photo" class="btn btn-info btn-sm">
 						انتخاب فایل

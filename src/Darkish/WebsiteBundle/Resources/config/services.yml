@@ -13,6 +13,20 @@ services:
         arguments: ["@request_stack"]
         tags:
             - { name: knp_menu.menu, alias: website_main } # The alias is what is used to retrieve the menu
+    website.secondary_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: website.menu_builder
+        factory_method: createSecondaryMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: website_secondary } # The alias is what is used to retrieve the menu
+    website.third_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: website.menu_builder
+        factory_method: createThirdMenu
+        arguments: ["@request_stack"]
+        tags:
+            - { name: knp_menu.menu, alias: website_third } # The alias is what is used to retrieve the menu
     darkish_website.block.rss:
         class: Darkish\WebsiteBundle\Block\NewsBlock
         arguments:

@@ -44,6 +44,7 @@ class AppKernel extends Kernel
             new SymfonyPersia\JalaliDateBundle\SymfonyPersiaJalaliDateBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
 
         );
 

@@ -64,8 +64,11 @@
 				</div>
 
 				<div class="col col-xs-12 col-sm-6 col-md-4 form-group">
-				  <label class="control-label" for="automobile-color">رنگ</label>
-				  <select   class="form-control" id="automobile-color" ng-model="item.automobile_color"
+				  <label class="control-label" for="automobile-color">
+					  رنگ
+					  <span class="required-field">*</span>
+					  </label>
+				  <select  required class="form-control" id="automobile-color" ng-model="item.automobile_color"
 				  			ng-options="automobileColor.value for automobileColor in automobileColors">
 		            
 		          </select>

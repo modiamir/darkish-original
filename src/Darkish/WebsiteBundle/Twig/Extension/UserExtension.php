@@ -33,7 +33,13 @@ class UserExtension extends \Twig_Extension
 
     public function userName($user) {
         if($user instanceof Operator) {
-            return $user->getFirstName().' '.$user->getLastName();
+            if($user->getFirstName() || $user->getLastName())
+            {
+                return $user->getFirstName().' '.$user->getLastName();
+            } else {
+                return $user->getUsername();
+            }
+
         } elseif($user instanceof Customer) {
             return $user->getFullName();
         } elseif($user instanceof Client) {

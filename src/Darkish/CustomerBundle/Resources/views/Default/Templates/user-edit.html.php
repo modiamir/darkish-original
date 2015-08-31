@@ -17,7 +17,7 @@
 				
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  <label class="control-label" for="user-name">نام کاربری<span class="required-field">*</span></label>
-				  <input class="form-control" id="user-name" type="text"
+				  <input ng-disabled="true" class="form-control" id="user-name" type="text"
 				  		 placeholder="نام کاربری" ng-model="curUser.username"
 				  		 maxlength="255" required>
 				</div>
@@ -28,15 +28,16 @@
 				</div>
 
 				<div class="col col-xs-12 col-sm-2 form-group">
-					<label class="control-label">وضعیت</label>
-					<button ng-disabled="curUser.type == 'owner' || curUser.id == user.id" type="button" class="btn btn-primary" ng-class="{'btn-success': curUser.is_active, 'btn-danger': !curUser.is_active}" ng-model="curUser.is_active" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+					<label for="user-is-active" class="control-label">وضعیت</label>
+					<button ng-disabled="curUser.type == 'owner' || curUser.id == user.id" type="button" class="btn btn-primary" ng-class="{'btn-success': curUser.is_active, 'btn-danger': !curUser.is_active}" ng-model="curUser.is_active" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
 				       	{{(curUser.is_active) ? 'فعال' : 'غیر فعال'}}
 				    </button>
+<!--					<input type="checkbox" ng-model="curUser.is_active" id="user-is-active">-->
 				</div>
 
 				<div class="col col-xs-12 col-sm-6 col-md-6 form-group">
 				  <label class="control-label" for="password">رمز عبور</label>
-				  <input ng-pattern="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/" class="form-control" id="password" type="text"
+				  <input ng-pattern="/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/" class="form-control" id="password" type="password"
 				  		 maxlength="255" placeholder="رمز عبور" ng-model="curUser.new_password" >
 				</div>
 				
@@ -46,12 +47,24 @@
 				  		 maxlength="255" placeholder="رمز عبور" ng-model="curUser.new_password_confirm">
 				</div>
 
-				
+				<div class="col col-xs-12 ">
+					<ul>
+						<li>
+							رمز عبور باید حداقل دارای یک حرف باشد.
+						</li>
+						<li>
+							رمز عبور باید حداقل دارای یک  عدد باشد.
+						</li>
+						<li>
+							رمز عبور باید حداقل از 6 کاراکتر تشکیل شده باشد.
+						</li>
+					</ul>
+				</div>
 
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-one">تلفن یک</label>
 				  	<input class="form-control" id="phone-one" type="number"
-				  		minlength="1" maxlength="10" ng-model="curUser.phone_one"
+				  		minlength="1" maxlength="11" ng-model="curUser.phone_one"
 				  	>
 
 				</div>
@@ -59,14 +72,14 @@
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-two">تلفن دو</label>
 				  	<input class="form-control" id="phone-two" type="number"
-				  		minlength="1" maxlength="10" ng-model="curUser.phone_two"
+				  		minlength="1" maxlength="11" ng-model="curUser.phone_two"
 				  	>
 			 	</div>
 
 			  	<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-three">تلفن دو</label>
 				  	<input class="form-control" id="phone-three" type="number"
-				  		minlength="1" maxlength="10" ng-model="curUser.phone_three"
+				  		minlength="1" maxlength="11" ng-model="curUser.phone_three"
 				  	>
 
 				</div>
@@ -74,7 +87,7 @@
 				<div class="col col-xs-12 col-sm-6 form-group">
 				  	<label class="control-label" for="phone-four">تلفن دو</label>
 				  	<input class="form-control" id="phone-four" type="number"
-				  		minlength="1" maxlength="10" ng-model="curUser.phone_four"
+				  		minlength="1" maxlength="11" ng-model="curUser.phone_four"
 				  	>
 			  	</div>
 				
@@ -91,7 +104,7 @@
 
 				</div>
 
-				<div class="col col-xs-12 col-sm-6 form-group user-photo">
+				<div ng-show="false" class="col col-xs-12 col-sm-6 form-group user-photo">
 					<label class="control-label">تصویر پروفایل</label>
 					<label ng-disabled="curUser.photo" class="btn btn-info btn-sm">
 						انتخاب فایل

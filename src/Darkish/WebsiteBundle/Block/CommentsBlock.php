@@ -87,11 +87,20 @@ class CommentsBlock extends BaseBlockService
 			$qb->where('c.thread = :thid')->setParameter('thid', $thread->getId());
 			$qb->andWhere('c.parent IS NULL');
 			$qb->orderBy('c.id', 'Desc');
+            /* @var $pagination \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination */
 			$pagination = $this->container->get('knp_paginator')->paginate(
 				$qb->getQuery(),
-				$this->container->get('request')->query->getInt('page', 1)/*page number*/,
-				10/*limit per page*/
+				$this->container->get('request')->query->getInt('cm-page', 1)/*page number*/,
+				2/*limit per page*/
 			);
+            $pagination->setPaginatorOptions([
+                'pageParameterName' => 'cm-page',
+                'sortFieldParameterName' => 'cm-sort',
+                'sortDirectionParameterName' => 'cm-direction',
+                'filterFieldParameterName' => 'cm-filterParam',
+                'filterValueParameterName' => 'cm-filterValue',
+                'distinct' => true
+            ]);
 		} else {
 			$pagination = null;
 		}

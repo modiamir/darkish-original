@@ -12,6 +12,17 @@
 			</div>
 		</div>
 		<div class="master-inner well" ng-class="{'scrollable': !isXSmall()}">
+			<div class="get-db-by-code">
+				<div class="input-group">
+					<input type="text" class="form-control" ng-model="findingCode" placeholder="کد فایل">
+					  <span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="findByCode(findingCode)">
+							برو
+						</button>
+					  </span>
+				</div>
+			</div>
+
 			<div class="database-list">
 				<div class="collapsible-search">
 					<div class="search-collapse-header" ng-click="isCollapsed = !isCollapsed">

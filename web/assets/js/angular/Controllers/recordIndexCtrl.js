@@ -162,6 +162,8 @@ angular.module('RecordApp', ['treeControl', 'ui.grid', 'smart-table', 'btford.mo
             uploader.formData.push({uploadDir : ValuesService.activeTab});
         }
 
+        
+
         // FILTERS
 
         uploader.filters.push({

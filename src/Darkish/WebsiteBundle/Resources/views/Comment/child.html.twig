@@ -1,0 +1,15 @@
+<div id="child-{{ child.id }}" child-id="{{ child.id }}" class="media">
+    <div class="media-right">
+        <a href="#">
+            {% if child.owner | user_photo %}
+                <img class="media-object" src="{{ child.owner | user_photo }}" alt="...">
+            {% else %}
+                <img class="media-object" src="{{ asset('bundles/darkishwebsite/images/default_profile.jpg') }}" alt="...">
+            {% endif %}
+        </a>
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"><span class="owner-name">{{ child.owner | user_name }} - </span><span class="comment-date">{{ child.createdAt | jdate('Y/m/d H:i') }}</span></h4>
+        {{ child.body | raw }}
+    </div>
+</div>

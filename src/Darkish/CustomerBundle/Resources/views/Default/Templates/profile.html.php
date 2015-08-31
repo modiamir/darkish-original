@@ -18,7 +18,7 @@
 			    <h4 ng-bind="user.username"></h4>
 	    	    <div class="last-update">
 					آخرین بروزرسانی:
-					<span class="">{{record.last_update | amDateFormat:'jYYYY/jMM/jDD hh:mm' }}</span>
+					<span class="">{{record.last_update | amDateFormat:'jYYYY/jMM/jDD - hh:mm' }}</span>
 					<br/>
 					تاریخ اعتبار:
 					<span ng-style="{color: (isNearToExpire()) ? 'red': 'green'}" class="">{{record.expire_date | amDateFormat:'jYYYY/jMM/jDD' }}</span>

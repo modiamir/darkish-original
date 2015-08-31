@@ -37,6 +37,8 @@ class CustomerRecordType extends AbstractType
             ->add('sellServicePageCustomer', null, ['required' => false])
             ->add('dbaseEnableCustomer', null, ['required' => false])
             ->add('commentableCustomer', null, ['required' => false])
+            ->add('messageValidityDate', null, ['required' => false])
+
         ;
 
 

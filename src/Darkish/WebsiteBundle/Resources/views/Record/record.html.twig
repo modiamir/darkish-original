@@ -4,48 +4,49 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css') }}" rel="stylesheet" />
-
+    <link href="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
 {% endblock %}
 
-{% block page_header %}
-	<div class="page-header-box">
-		{% if record.icon %}
-			<div class="image-box">
-				{# <img src="./assets/images/record-image.png"> #}
-				<img src="{{record.icon.webAbsolutePath}}">
-			</div>
-		{% endif %}
-		<div class="date">
-			<span class="day">{{ record.creationDate | jdate("j") }}</span>
-			<span class="month">{{ record.creationDate | jdate("F") }}</span>
-			<span class="time">{{ record.creationDate | jdate("H:i") }}</span>
-		</div>
-	</div>
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/cookies-js/dist/cookies.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/record-page.js') }}"></script>
+{% endblock %}
+
+{% block document_ready %}
 
 {% endblock %}
 
 {% block page_title %}
-	<h2 class="page-title">
+
 		{{record.title}}
-	</h2>
+
 {% endblock %}
 
 {% block page_subtitle %}
-	<h4 class="page-subtitle">
+
 		{{record.subTitle}}
-	</h4>
+
 {% endblock %}
 
 {% block content %}
-	
+
 
 
 	{{ include('DarkishWebsiteBundle:Record:record-full.html.twig', {'record': record}) }}
 
+
+
 {% endblock %}
 
-{% block sidebar %}
-	{{ sonata_block_render({
-		'type': 'darkish_website.block.rss'
-	}) }}
+{% block sidebar_first %}
+    {{ sonata_block_render({
+        'type': 'darkish_website.block.rss'
+    }) }}
 {% endblock %}

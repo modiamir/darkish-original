@@ -2,10 +2,13 @@
 
 namespace Darkish\WebsiteBundle\Controller;
 
+use Ivory\GoogleMap\Overlays\Marker;
+use Ivory\GoogleMap\Overlays\Animation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints\Length;
 use Darkish\CustomerBundle\Entity\Customer;
@@ -27,7 +30,7 @@ class RecordController extends Controller
 	    $breadcrumbs->addItem('رکوردها');
 
 
-    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree')->getSubTrees();
+    	$trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees();
     	return $this->render('DarkishWebsiteBundle:Record:index.html.twig', ['trees' => $trees]);
     }
 
@@ -37,8 +40,8 @@ class RecordController extends Controller
 	 */
     public function recordTreeAction($treeIndex, $page = 1, Request $request)
     {
-    	$tree = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree')->findOneBy(['treeIndex' => $treeIndex]);
-    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:MainTree')->getSubTrees($treeIndex);
+    	$tree = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->findOneBy(['treeIndex' => $treeIndex]);
+    	$trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees($treeIndex);
     	if(!$tree) {
     		throw new NotFoundHttpException("TreeIndex NotFound");
     		
@@ -56,7 +59,7 @@ class RecordController extends Controller
 
 
 
-    	$newsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getRecordsForCat($tree);
+    	$newsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getRecordsForTreeIds($tree->getTreesIds());
 
 
     	$paginator  = $this->get('knp_paginator');
@@ -99,11 +102,49 @@ class RecordController extends Controller
 						  	->getRepository('DarkishCategoryBundle:Record')
 							->getStoreInfo($record, $this->get('jms_serializer'));
 
+		$map = $this->get('ivory_google_map.map');
+		$map->setAutoZoom(false);
+		$map->setCenter($record->getLatitude(), $record->getLongitude(), true);
+		$map->setMapOption('zoom', 16);
 
+		$map->setStylesheetOptions(array(
+			'width'  => '100%',
+			'height' => '500px',
+		));
 
+		$marker = new Marker();
 
-    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record, 'products' => $products]);
+// Configure your marker options
+		$marker->setPrefixJavascriptVariable('marker_');
+		$marker->setPosition($record->getLatitude(), $record->getLongitude(), true);
+		$marker->setAnimation(Animation::DROP);
+
+		$marker->setOption('clickable', false);
+		$marker->setOption('flat', true);
+		$marker->setOptions(array(
+			'clickable' => false,
+			'flat'      => true,
+		));
+		$map->addMarker($marker);
+
+    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record, 'products' => $products, 'map' => $map]);
     }
 
+	/**
+	 * @Route("test_image")
+	 */
+	public function testAction() {
+
+		$file = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile')->find(35836);
+
+		$file->setDarkishWatermark(true);
+		$file->setIslandWatermark(true);
+		$file->setArunaWatermark(false);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($file);
+		$em->flush();
+		return new Response('done');
+	}
 
 }

@@ -11,7 +11,10 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use Proxies\__CG__\Darkish\CommentBundle\Entity\NewsThread;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\SerializationContext;
 
 class CommentController extends Controller
 {
@@ -97,6 +100,26 @@ class CommentController extends Controller
             'entity_type' => $entityType,
             'entity_id' => $entityId
         ];
+    }
+
+
+    /**
+     * @param Comment $comment
+     * @param $lastId
+     * @return Response
+     * @Route("comment/get_children/{comment}/{lastId}", name="website_get_comment_children", options={"expose"=true})
+     */
+    public function loadMoreChildren(Comment $comment, $lastId)
+    {
+        $children = $this->getDoctrine()
+            ->getRepository('DarkishCommentBundle:Comment')
+            ->getChildren($comment, $lastId);
+        $childrenJson = [];
+        $childrenJson['count'] = count($children);
+        $childrenJson['children'] = $this->renderView('DarkishWebsiteBundle:Comment:get_children.html.twig',['children'=> $children]);
+
+        return new JsonResponse($childrenJson);
+
     }
 
 

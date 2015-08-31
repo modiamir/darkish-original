@@ -19,7 +19,7 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('specialText')
             ->add('description')
-            ->add('price')
+            ->add('price', null, ['required' => true])
             ->add('discountedPrice')
             ->add('sort')
             ->add('availability','integer', array(

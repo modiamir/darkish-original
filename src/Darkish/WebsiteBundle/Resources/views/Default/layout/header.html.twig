@@ -1,16 +1,42 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#"><img src="{{asset('assets/images/darkishlogo.png') }}"/></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      {{ knp_menu_render('website_main', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}
-    </div><!--/.nav-collapse -->
-  </div><!--/.container-fluid -->
-</nav>
+<div class="header-wrapper">
+  <div class="container">
+    <!-- Static navbar -->
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="{{asset('assets/images/darkishlogo.png') }}"/></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          {{ knp_menu_render('website_main', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+
+  </div>
+</div>
+
+<div class="secondary-header-wrapper">
+
+  <div class="container">
+    <!-- Static navbar -->
+
+    <nav class="navbar navbar-default">
+
+        <div id="navbar" class="navbar-collapse collapse">
+          {{ knp_menu_render('website_secondary', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+          {{ knp_menu_render('website_third', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}
+        </div><!--/.nav-collapse -->
+    </nav>
+
+  </div>
+  <a class="news-mag" href="{{ path('website_home') }}"><img  src="{{ asset('bundles/darkishwebsite/images/web-magazin.png') }}"/></a>
+  <a class="download-app" href="{{ path('website_home') }}"><img src="{{ asset('bundles/darkishwebsite/images/web-app.png') }}"/></a>
+
+</div>

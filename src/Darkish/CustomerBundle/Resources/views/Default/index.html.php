@@ -45,7 +45,8 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngDialog/css/ngDialog-theme-default.min.css') ?>" rel="stylesheet" type="text/css" />
 
     <link href="<?php echo $view['assets']->getUrl('assets/js/angular/bower_components/ng-ckeditor/ng-ckeditor.css') ?>" type="text/css" rel="stylesheet" />
-
+    <link href="<?php echo $view['assets']->getUrl('assets/css/ckeditor-body.css') ?>" type="text/css" rel="stylesheet" />
+    <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngImgCrop/compile/minified/ng-img-crop.css') ?>" type="text/css" rel="stylesheet" />
 
 
     <!-- Custom styles for this template -->
@@ -60,6 +61,7 @@
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/font-darkish.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/stylesheets/emotions.css') ?>" rel="stylesheet">
     <link href="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/sweetalert/lib/sweet-alert.css') ?>" type="text/css" rel="stylesheet" />
+
 
 </head>
 <body ng-class="state.current.name | dotToDash">
@@ -321,11 +323,19 @@
     
     <!-- <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/angular-contenteditable/angular-contenteditable.js') ?>"></script> -->
 
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/bower_components/ngImgCrop/compile/minified/ng-img-crop.js') ?>"></script>
 
-    
-    
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/dateparser.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/position.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/datepicker-tpls.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persiandate.js') ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/angular/persian-datepicker-tpls.js') ?>"></script>
+
+
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-index-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-directives.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-profile-ctrl.js') ?>" type="text/javascript"></script>
+    <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-profile-edit-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-message-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-store-ctrl.js') ?>" type="text/javascript"></script>
     <script src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/js/customer/customer-database-ctrl.js') ?>" type="text/javascript"></script>

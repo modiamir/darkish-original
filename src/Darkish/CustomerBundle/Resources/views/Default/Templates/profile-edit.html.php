@@ -1,15 +1,61 @@
-    <h2 class="page-title">ویرایش پروفایل</h2>
+
+
+<div class="row profile-edit-page page">
+    <div class="col col-xs-12 details">
+        <div class="details-header" id="details-header" ng-class="{'fixed': isXSmall()}">
+
+            <button class="return-button" ui-sref="profile" href="#/store" aria-disabled="false">
+                <div class="dk icon-arrow-right"></div>
+                <span class="hidden-xs">بازگشت</span>
+            </button>
+
+            <button ng-click="saveProfile(editinguser)"
+                    ng-disabled="profileeditform.$invalid || isUnchanged(editinguser)" class="details-header-button btn btn-sm btn-primary">
+                <span class="">ذخیره</span>
+                <div class="dk icon-arrow-left"></div>
+            </button>
+
+
+        </div>
+        <div class="store-create-product details-inner well">
+
+<h2 class="page-title">ویرایش پروفایل</h2>
   	<hr>
-	<div class="row profile-edit">
+
+    <div ng-show="uploading"  class="row">
+        <div class="col col-xs-12">
+            <div ng-show="myImage" class="cropArea" style="overflow: hidden;
+                                        width: 500px;
+                                        height: 350px;
+                                        margin: auto;
+                                        margin-bottom: 40px;">
+                <img-crop on-change="onChangeCrop()" change-on-fly="true" result-image-format="image/jpeg" image="myImage" result-image="myCroppedImage"></img-crop>
+            </div>
+
+            <button class="btn btn-info" ng-show="myImage" ng-click="logFile()">
+                بارگزاری
+            </button>
+        </div>
+    </div>
+
+	<div ng-hide="uploading"  class="row profile-edit">
       <!-- left column -->
       <div class="col  col-xs-12 col-sm-3">
         <div class="text-center">
-          <img width="130" src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>" ng-src="{{editinguser.photo.icon_absolute_path}}" class="avatar img-circle" alt="avatar">
+
+          <img ng-show="myImage" width="130" src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>"
+               ng-src="{{myCroppedImage}}"
+               class="avatar img-circle" alt="avatar">
+        <img ng-hide="myImage" width="130" src="<?php echo $view['assets']->getUrl('bundles/darkishcustomer/images/default_profile.jpg') ?>"
+             ng-src="{{editinguser.photo.icon_absolute_path}}"
+             class="avatar img-circle" alt="avatar">
           <label class="file-select btn btn-success">
               تصویر دیگری آپلود کنید...
-              <input ng-init="photo = editinguser.photo"  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>
+<!--              <input ng-init="photo = editinguser.photo"  type="file" nv-file-select="" uploader="uploader" multiple="true" style="visibility: hidden;display: none"/>-->
+              <input type="file" id="fileInput" style="visibility: hidden;display: none" />
           </label>
-          
+            <br/>
+            <br/>
         </div>
         <div class="row file-upload-row">
             <div ng-show="uploader.isUploading" class="col col-md-8 col-md-offset-2">
@@ -31,7 +77,6 @@
 
         </div>
       </div>
-      
       <!-- edit form column -->
       <div class="col col-xs-12 col-sm-9 personal-info">
         
@@ -46,7 +91,7 @@
           <div class="form-group">
             <label for="profile-username" class="col-lg-2 control-label">نام کاربری:</label>
             <div class="col-lg-8">
-              <input id="profile-username" class="form-control" type="text" ng-model="editinguser.username">
+              <input ng-disabled="true"  id="profile-username" class="form-control" type="text" ng-model="editinguser.username">
             </div>
           </div>
           <div class="form-group">
@@ -109,20 +154,10 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-2 control-label"></label>
-            <div class="col-md-8">
-              <input type="button" class="btn btn-primary save-btn" value="ذخیره"
-                     ng-click="saveProfile(editinguser)"
-                     ng-disabled="profileeditform.$invalid || isUnchanged(editinguser)"
-              >
-              <input type="reset" class="btn btn-default cancel-btn" value="انصراف"
-                     ng-click="state.go('profile')"
-
-              >
-            </div>
-          </div>
         </form>
       </div>
   </div>
 <hr>
+        </div>
+    </div>
+</div>
