@@ -837,6 +837,14 @@ class Record
     private $body;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="WebBody", type="text", nullable=true)
+     * @Groups({"record.details", "api.body"})
+     */
+    private $webBody;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
@@ -4852,5 +4860,29 @@ class Record
     public function getIsCheckedFiles()
     {
         return $this->isCheckedFiles;
+    }
+
+    /**
+     * Set dbaseTypeIndex
+     *
+     * @param \Darkish\CategoryBundle\Entity\DbaseType $dbaseTypeIndex
+     *
+     * @return Record
+     */
+    public function setDbaseTypeIndex(\Darkish\CategoryBundle\Entity\DbaseType $dbaseTypeIndex = null)
+    {
+        $this->dbaseTypeIndex = $dbaseTypeIndex;
+
+        return $this;
+    }
+
+    /**
+     * Get dbaseTypeIndex
+     *
+     * @return \Darkish\CategoryBundle\Entity\DbaseType
+     */
+    public function getDbaseTypeIndex()
+    {
+        return $this->dbaseTypeIndex;
     }
 }
