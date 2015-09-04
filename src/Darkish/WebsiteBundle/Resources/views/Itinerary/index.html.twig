@@ -1,0 +1,62 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/Readmore.js/readmore.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/itinerary/itinerary.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <span class="breadcrumb-label"> شما اینجا هستید:</span> <a href="{{path('website_home')}}">خانه</a>
+{% endblock %}
+{% block page_title %}
+    سفرنامه
+
+{% endblock %}
+{% block page_subtitle %}
+    زیرعنوان سفرنامه
+{% endblock %}
+
+{% block content %}
+    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#itinerary-form" aria-expanded="false" aria-controls="itinerary-form">
+        +
+        ثبت سفرنامه
+    </a>
+    <div class="itinerary-form collapse collapsed" id="itinerary-form">
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">
+            ثبت
+        </button>
+
+
+        {{ form_end(form) }}
+        <script>
+
+
+
+        </script>
+    </div>
+
+    {% for itinerary in itineraries %}
+        {{ include('@DarkishWebsite/Itinerary/itinerary-item.html.twig', {"itinerary": itinerary}) }}
+    {% endfor %}
+
+
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
+    {{ sonata_block_render({'type': 'darkish_website.block.sponsors'},{
+        'mode': 'random'
+    }) }}
+{% endblock %}

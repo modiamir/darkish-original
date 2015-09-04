@@ -1,0 +1,20 @@
+{% extends '@DarkishWebsite/Block/block_base.html.twig' %}
+{% block class %}sponsors-block{% endblock %}
+{% block block %}
+
+
+
+
+    <div class="block-container">
+        <div class="sponsors-list">
+            {% for sponsor in sponsors %}
+                {% if sponsor.banner is defined %}
+                    <a href="{{ path('website_record_single', {'record': sponsor.submitter_number }) }}">
+                        <img  src="{{ sponsor.banner.relative_path | imagine_filter('256') }}"/>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

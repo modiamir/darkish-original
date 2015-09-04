@@ -1,0 +1,67 @@
+{{ form_start(form) }}
+<div class="row">
+
+
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.automobileBrand) }}
+            {{ form_widget(form.automobileBrand) }}
+        </div>
+
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.automobileType) }}
+            {{ form_widget(form.automobileType) }}
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.automobileColor) }}
+            {{ form_widget(form.automobileColor) }}
+        </div>
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.createdYear) }}
+            {{ form_widget(form.createdYear) }}
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            {{ form_label(form.price) }}
+            {{ form_widget(form.price) }}
+        </div>
+
+    </div>
+
+
+    {% if record.id is not defined %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                {{ form_label(form.record) }}
+                {{ form_widget(form.record) }}
+            </div>
+
+
+        </div>
+    {% endif %}
+</div>
+
+
+<input class="btn btn-success" type="submit" value="جستجو">
+
+
+{{ form_end(form) }}

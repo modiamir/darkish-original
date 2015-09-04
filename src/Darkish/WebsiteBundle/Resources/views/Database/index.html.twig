@@ -1,0 +1,63 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css') }}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/URIjs/src/URI.min.js') }}"></script>
+    {% if type == 'estate' %}
+        <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/database-estate.js') }}"></script>
+    {% else  %}
+        <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/database-automobile.js') }}"></script>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block page_title %}
+    {% if record %}
+        {% if type == 'estate' %}
+        بانک اطلاعات
+        {{ record.title }}
+        {% else %}
+            بانک اطلاعات خودرو،
+            {{ record.title }}
+        {% endif %}
+    {% else %}
+        {% if type == 'estate' %}
+        بانک اطلاعات املاک
+        {% else %}
+            بانک اطلاعات خودرو
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+
+
+{{ include('@DarkishWebsite/Block/database_list.html.twig', {'pagination': pagination}) }}
+
+
+
+{% endblock %}
+
+
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
+    <div class="database-search-form cms-block cms-block-element ">
+        <h3 class="block-title">
+            جسجتو
+        </h3>
+        {{ include(form_template, {'form': form}) }}
+    </div>
+{% endblock %}

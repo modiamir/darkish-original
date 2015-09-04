@@ -1,0 +1,58 @@
+.forumtree-select-option {
+  display: inline-block;
+  width: 100%;
+  a.icon {
+    float: right;
+    margin-left: 5%;
+    width: 20%;
+  }
+
+  .tree-titles {
+    float: right;
+    width: 75%;
+    h3 {
+      margin-top: 5px;
+      font-size: 15px;
+      margin-bottom: 0px;
+    }
+    span.tree-subtitle {
+      font-size: 12px;
+    }
+  }
+}
+
+.forumtree-operations {
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: -90px;
+  .select2-container .select2-selection--single {
+    height: 35px;
+  }
+  #select2-forumtree-select-container {
+    height: 35px;
+    line-height: 35px;
+  }
+  
+  .select2-selection__arrow {
+    height: 30px;
+  }
+
+  
+}
+#safarname-button {
+  width: 70px;
+  background: #FF9A14;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+  position: absolute;
+  top: -90px;
+  left: 0;
+}
+
+.main-content {
+  position: relative;
+}

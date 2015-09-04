@@ -1,0 +1,67 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/js/classified/classified-form.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+ثبت آگهی
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="col-sm-12">
+        {{ form_row(form.classifiedtrees) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.address) }}
+    </div>
+    <div class="col-sm-12">
+        {{ form_row(form.body) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.telNumberOne) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.telNumberTwo) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.telNumberThree) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.telNumberFour) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.faxNumberOne) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.faxNumberTwo) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.mobileNumberOne) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.mobileNumberTwo) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.website) }}
+    </div>
+    <div class="col-sm-12">
+        {{ form_row(form.price) }}
+    </div>
+    <button type="submit" class="btn btn-primary">
+        ثبت
+    </button>
+
+    {{ form_end(form) }}
+
+{% endblock %}

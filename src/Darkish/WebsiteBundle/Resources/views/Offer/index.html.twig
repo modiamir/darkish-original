@@ -1,0 +1,45 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/js/offer/offer.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+پیشنهاد ویژه
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block content %}
+
+    <div class="offer-operations">
+        <select class="form-control col-xs-12" id="offer-uptree-select">
+            <option value="0">
+--- همه شاخه ها ---
+            </option>
+            {% for upTree in upTrees %}
+                <option
+                        data-tree-icon-src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ upTree.iconFileName ~ ".png") }}"
+                        data-tree-title="{{ upTree.title }}"
+                        data-tree-subtitle="{{ upTree.subTitle }}"
+                        data-tree-index="{{ upTree.treeIndex }}"
+                        value="{{ upTree.treeIndex }}"
+                        {% if offerTree  and upTree.treeIndex == offerTree.treeIndex %}selected{% endif %}
+                        >{{ upTree.title }}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    <div class="offer-list">
+    {% for offer in paginator %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        	<div class="offer">
+        		<img class="banner thumbnail" src="{{ offer.banner.relativePath | imagine_filter('1024') }}" alt="">
+        	</div>
+        </div>
+
+
+    {% endfor %}
+    </div>
+    {{ knp_pagination_render(paginator) }}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block breadcrumb %}
+    <span class="breadcrumb-label"> شما اینجا هستید:</span> <a href="{{path('website_home')}}">خانه</a>
+
+{% endblock %}
+{% block page_title %}
+        تالار گفتگو
+
+{% endblock %}
+
+
+{% block content %}
+    {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees}) }}
+{% endblock %}
+

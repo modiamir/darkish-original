@@ -1,0 +1,19 @@
+<div class="media itinerary">
+    {% if itinerary.photos|length %}
+    <a class="media-right" href="#">
+        <img src="{{ itinerary.photos.0.relativePath | imagine_filter('128') }}" style="">
+    </a>
+    {% endif %}
+    <div class="media-body">
+        <h3 class="media-heading">{{ itinerary.title }}</h3>
+        <div class="itinerary-body">
+            {{ itinerary.body }}
+        </div>
+        <button type="submit" data-itinerary-id="{{ itinerary.id }}" class="btn btn-default">
+            نظرات
+        </button>
+        <div id="itinerary-comments-{{ itinerary.id }}" class="itinerary-comments"></div>
+    </div>
+</div>
+
+<hr/>

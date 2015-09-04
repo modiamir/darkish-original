@@ -1,0 +1,77 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/js/classified/classified.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+آگهی ها
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block content %}
+
+    <div class="classified-operations">
+        <select class="form-control col-xs-6" id="classified-uptree-select">
+            <option value="0">
+                ---انتخاب شاخه---
+            </option>
+            {% for upTree in upTrees %}
+                <option
+                        data-tree-icon-src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ upTree.iconFileName ~ ".png") }}"
+                        data-tree-title="{{ upTree.title }}"
+                        data-tree-subtitle="{{ upTree.subTitle }}"
+                        data-tree-index="{{ upTree.treeIndex }}"
+                        value="{{ upTree.treeIndex }}"
+                        {% if classifiedTree  and upTree.treeIndex == classifiedTree.upTreeIndex %}selected{% endif %}
+                        >{{ upTree.title }}</option>
+            {% endfor %}
+        </select>
+        <select class="form-control col-xs-6" id="classified-subtree-select">
+            {% for subTree in subTrees %}
+                <option
+                        data-tree-icon-src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ subTree.iconFileName ~ ".png") }}"
+                        data-tree-title="{{ subTree.title }}"
+                        data-tree-subtitle="{{ subTree.subTitle }}"
+                        data-tree-id="{{ subTree.id }}"
+                        data-tree-index="{{ subTree.treeIndex }}"
+                        data-uptree-index="{{ subTree.upTreeIndex }}"
+                        value="{{ subTree.treeIndex }}"
+                        {% if classifiedTree  and subTree.treeIndex == classifiedTree.treeIndex %}selected{% endif %}
+                        >{{ subTree.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% for classified in paginator %}
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        	<div class="thumbnail">
+                {% if classified.images|length %}
+                    <img src="{{ classified.images.0.relativePath | imagine_filter('240x200') }}" alt="">
+                {% else %}
+        		    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150" alt="">
+                {% endif %}
+        		<div class="caption">
+        			<h3>{{ classified.title }}</h3>
+        			<p>
+                        {{ classified.subTitle }}
+        			</p>
+                    {% if classified.classifiedtrees | length %}
+                    <p>
+                        {{ classified.classifiedtrees.0.tree.treeIndex }}
+                    </p>
+                    {% endif %}
+        			{% if classified.price %}
+                        <div class="classified-price">
+                            {{ classified.price }} تومان
+                        </div>
+                    {% endif %}
+        		</div>
+        	</div>
+        </div>
+
+
+    {% endfor %}
+    {{ knp_pagination_render(paginator) }}
+{% endblock %}
