@@ -1,0 +1,72 @@
+<div class="database database-automobile">
+        <div class="media">
+            <div class="media-right">
+                {% if automobile.photos | length %}
+                    {% set image_path = "uploads/" ~ automobile.photos.0.uploadDir ~ "/" ~ automobile.photos.0.path %}
+                {% else %}
+                    {% set image_path = "bundles/darkishwebsite/images/default_image.png" %}
+                {% endif %}
+                <a href="{{ image_path | imagine_filter('1024') }}" data-lightbox="automobile-gallery-{{ automobile.id }}">
+                    <img class="product-image" src="{{ image_path | imagine_filter('180x120')}}" alt="">
+                </a>
+            </div>
+
+            <div class="media-body">
+                <h3>{{ automobile.title }}</h3>
+
+                <div class="automobile-type">
+                    {{ automobile.automobileBrand.value }} / {{ automobile.automobileType.value }}
+                </div>
+
+                <div class="summary">
+                    {{ automobile.createdYear }} /
+                    {% if automobile.automobileColor %}
+                    {{ automobile.automobileColor.value }}
+                    {% endif %}
+                </div>
+
+                {% if automobile.price  %}
+                    <h4 class="price">
+                        <label>
+                                قیمت
+                        </label>
+                        {{ automobile.price }} تومان
+                    </h4>
+                {% endif %}
+
+
+
+                <button type="button" class="btn btn-default moreless-button collapsed"
+                        data-toggle="collapse"
+                        data-target="#automobile-{{ automobile.id }}"
+                        aria-expanded="false"
+                        aria-controls="automobile-{{ automobile.id }}">
+                    <span class="more">
+                        نمایش جزئیات
+                    </span>
+                    <span class="less">
+                        عدم نمایش جزئیات
+                    </span>
+
+                </button>
+
+            </div>
+        </div>
+        <div class="collapse" id="automobile-{{ automobile.id }}">
+            <div class="well">
+                {% for photo in automobile.photos %}
+                    {% if loop.index != 0 %}
+                        <a href="{{ photo.relativePath | imagine_filter("1024") }}" class="hidden" data-lightbox="automobile-gallery-{{ automobile.id }}">&nbsp;</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if automobile.description %}
+                    <div class="row automobile-description clearfix">
+                        {{ automobile.description }}
+                    </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>

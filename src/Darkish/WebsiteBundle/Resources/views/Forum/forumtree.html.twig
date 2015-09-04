@@ -1,0 +1,64 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/bower_components/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/forum/forumtree.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <span class="breadcrumb-label"> شما اینجا هستید:</span> <a href="{{path('website_home')}}">خانه</a>
+{% endblock %}
+{% block page_title %}
+        تالار گفتگو -
+    {{ forumtree.title }}
+
+{% endblock %}
+{% block page_subtitle %}
+    {{ forumtree.subTitle }}
+{% endblock %}
+
+{% block content %}
+    <div class="forumtree-operations">
+        <select id="forumtree-select">
+            {% for tree in trees %}
+                <option
+                        tree-icon-src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ tree.iconFileName ~ ".png") }}"
+                        tree-title="{{ tree.title }}"
+                        tree-subtitle="{{ tree.subTitle }}"
+                        tree-index="{{ tree.treeIndex }}"
+                        value=""
+                        {% if tree.id == forumtree.id %}selected{% endif %}
+                        >{{ tree.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+{% if forumtree.description %}
+    <div class="well well-sm">
+        {{ forumtree.description|raw }}
+    </div>
+{% endif %}
+    <div class="panel panel-primary comments">
+        <div class="panel-body">
+            {{ sonata_block_render({'type': 'darkish_website.block.comment'},{
+                'entity_type': 'forumtree',
+                'id': forumtree.id
+            }) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
+
+    {{ sonata_block_render({'type': 'darkish_website.block.sponsors'},{
+        'mode': 'random'
+    }) }}
+{% endblock %}

@@ -1,0 +1,73 @@
+{{ form_start(form) }}
+<div class="row">
+
+
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.contractType) }}
+            {{ form_widget(form.contractType) }}
+        </div>
+
+
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.estateType) }}
+            {{ form_widget(form.estateType) }}
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.numOfRooms) }}
+            {{ form_widget(form.numOfRooms) }}
+        </div>
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+            {{ form_label(form.dimension) }}
+            {{ form_widget(form.dimension) }}
+        </div>
+
+    </div>
+</div>
+<div class="row">
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            {{ form_label(form.price) }}
+            {{ form_widget(form.price) }}
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            {{ form_label(form.secondaryPrice) }}
+            {{ form_widget(form.secondaryPrice) }}
+        </div>
+
+    </div>
+
+    {% if record.id is not defined %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                {{ form_label(form.record) }}
+                {{ form_widget(form.record) }}
+            </div>
+
+
+        </div>
+    {% endif %}
+</div>
+
+
+<input class="btn btn-success" type="submit" value="جستجو">
+
+
+{{ form_end(form) }}

@@ -1,0 +1,35 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+
+    {% if app.request.query.has('centers') %}
+        {% set queryCenters = app.request.query.get('centers') %}
+    {% endif %}
+
+    <h3 class="block-title">{{ settings.title }}</h3>
+
+    <div class="block-container">
+        <div class="centers-input-list">
+            <form class="centers-form" method="get">
+                {% for center in centers %}
+                    <div class="checkbox">
+                        <label>
+                            <input
+                                    name="centers[]"
+                                    type="checkbox"
+                                    value="{{ center.id }}"
+                                    id="center-{{ center.id }}"
+                                    {% if queryCenters is defined and  center.id in queryCenters %}checked{% endif %}
+                                    >
+                            {{ center.name }}
+                        </label>
+                    </div>
+                {% endfor %}
+                <button class="btn btn-info">
+                    جستجو
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
