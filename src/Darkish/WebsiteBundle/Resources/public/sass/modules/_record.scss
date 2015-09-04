@@ -3,11 +3,13 @@
       position: relative;
       .operation-icons {
         position: absolute;
-        left: 0;
-        top: -92px;
+        left: 20px;
+        top: -83px;
         text-align: center;
         margin-bottom: 0;
         font-size: 16px;
+        padding: 0 5px 0 5px;
+        background-color: white;
         &.hidden {
           display: none;
         }
@@ -155,10 +157,7 @@
       .record-database-banner, .record-market-banner {
         width: 100%;
       }
-
 	}
-  
-  
 	&.mode-list {
 		img {
 			float: right;
@@ -171,7 +170,6 @@
 		padding-bottom: 5px;
 		border-bottom: 1px solid $orange;
 	}
-
 	&.mode-grid {
 		max-width: 320px;
 		padding-bottom: 10px;

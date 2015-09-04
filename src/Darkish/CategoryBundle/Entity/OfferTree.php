@@ -166,17 +166,24 @@ class OfferTree
     private $hiddenTree;
 
 
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $offer
-     *
-     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Offer", mappedBy="trees")
-     */
-    protected $offer;
+//    /**
+//     * @var \Doctrine\Common\Collections\ArrayCollection $offer
+//     *
+//     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Offer", mappedBy="trees")
+//     */
+//    protected $offer;
 
     /**
      * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="tree")
      **/
     private $mainoffers;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * Get id
@@ -697,5 +704,29 @@ class OfferTree
     public function getMainoffers()
     {
         return $this->mainoffers;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return OfferTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

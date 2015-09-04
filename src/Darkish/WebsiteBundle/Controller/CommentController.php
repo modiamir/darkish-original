@@ -5,7 +5,9 @@ namespace Darkish\WebsiteBundle\Controller;
 use Darkish\CategoryBundle\Entity\Record;
 use Darkish\CommentBundle\Entity\AnonymousComment;
 use Darkish\CommentBundle\Entity\Comment;
+use Darkish\CommentBundle\Entity\ForumTreeThread;
 use Darkish\CommentBundle\Entity\RecordThread;
+use Darkish\CommentBundle\Entity\ItineraryThread;
 use Darkish\WebsiteBundle\Form\CommentType;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Proxies\__CG__\Darkish\CommentBundle\Entity\NewsThread;
@@ -63,6 +65,34 @@ class CommentController extends Controller
                         $thread->setNumComments(1);
                     }
                     $url = $this->generateUrl('website_news_single', ['news' => $entity->getId()]);
+                    break;
+                case 'forumtree':
+                    $entity = $this->getDoctrine()
+                        ->getRepository('DarkishCategoryBundle:ForumTree')
+                        ->find($request->get('entity_id'));
+                    $thread = $this->getDoctrine()->getRepository('DarkishCommentBundle:ForumTreeThread')
+                        ->findOneBy(['target'=>$request->get('entity_id')]);
+                    if(!$thread) {
+                        $thread = new ForumTreeThread();
+                        $thread->setTarget($entity);
+                        $thread->setLastCommentAt(new \DateTime());
+                        $thread->setNumComments(1);
+                    }
+                    $url = $this->generateUrl('website_forum_tree', ['tree_index' => $entity->getTreeIndex()]);
+                    break;
+                case 'itinerary':
+                    $entity = $this->getDoctrine()
+                        ->getRepository('DarkishCategoryBundle:Itinerary')
+                        ->find($request->get('entity_id'));
+                    $thread = $this->getDoctrine()->getRepository('DarkishCommentBundle:ItineraryThread')
+                        ->findOneBy(['target'=>$request->get('entity_id')]);
+                    if(!$thread) {
+                        $thread = new ItineraryThread();
+                        $thread->setTarget($entity);
+                        $thread->setLastCommentAt(new \DateTime());
+                        $thread->setNumComments(1);
+                    }
+                    $url = $this->generateUrl('website_itinerary');
                     break;
             }
 //            $comment->setCreatedAt(new \DateTime());

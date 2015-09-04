@@ -706,7 +706,7 @@ class Record
      * @var string
      *
      * @ORM\Column(name="SellServicePageTitle", type="string", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $sellServicePageTitle;
     
@@ -714,7 +714,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="SellServicePage", type="boolean", nullable=true, options={"default": 0})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $sellServicePage;
 
@@ -722,7 +722,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="SellServicePageCustomer", type="boolean", nullable=true, options={"default": 0})
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $sellServicePageCustomer;
 
@@ -1201,6 +1201,15 @@ class Record
      * @Groups({"record.details", "api.list"})
      **/
     private $treeJson;
+
+
+    /**
+     * @var
+     * @ORM\Column(name="disable_recommendation", type="boolean", nullable=true, options={"default"=false})
+     */
+    private $disableRecommendation = false;
+
+
 
     /**
      * @ORM\Column(name="last_group_message", type="datetime", nullable=true)
@@ -4908,5 +4917,29 @@ class Record
     public function getWebBody()
     {
         return $this->webBody;
+    }
+
+    /**
+     * Set disableRecommendation
+     *
+     * @param boolean $disableRecommendation
+     *
+     * @return Record
+     */
+    public function setDisableRecommendation($disableRecommendation)
+    {
+        $this->disableRecommendation = $disableRecommendation;
+
+        return $this;
+    }
+
+    /**
+     * Get disableRecommendation
+     *
+     * @return boolean
+     */
+    public function getDisableRecommendation()
+    {
+        return $this->disableRecommendation;
     }
 }

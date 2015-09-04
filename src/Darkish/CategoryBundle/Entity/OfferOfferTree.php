@@ -39,14 +39,14 @@ class OfferOfferTree
     
     /**
      * @ORM\ManyToOne(targetEntity="Offer",  inversedBy="offertrees")
-     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({ "offertree.list", "offertree.details"})
      **/
     private $offer;
     
     /**
      * @ORM\ManyToOne(targetEntity="OfferTree",  inversedBy="mainoffers")
-     * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tree_id", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({"offertree.list", "offertree.details", "offer.list", "offer.details", "api.list"})
      **/
     private $tree;

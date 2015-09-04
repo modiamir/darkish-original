@@ -1,3 +1,14 @@
+form[name="estate_search"], form[name="automobile_search"] {
+  margin-bottom: 10px;
+  label {
+    width: 100%;
+  }
+  .slider-horizontal {
+    width: 100%;
+  }
+
+}
+
 .database-list {
   display: inline-block;
   width: 100%;

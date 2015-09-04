@@ -12,7 +12,7 @@
 	<link href="{{ asset('bundles/darkishwebsite/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/website.css') }}" rel="stylesheet" type="text/css" />
-
+    {{ sonata_block_include_stylesheets('all') }}
 {% endblock %}
 
 
@@ -25,7 +25,7 @@
     <script src="{{ asset('bundles/darkishwebsite/js/music-client.js') }}"></script>
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-
+    {{ sonata_block_include_javascripts('all') }}
 
 
 {% endblock %}
@@ -46,15 +46,15 @@
 	{% endif %}
 
 	<div class="container main-container">
-		{% set _sidebar_first = block('sidebar_first') %}
-		{% set _sidebar_second = block('sidebar_second') %}
-		{% if _sidebar_first is empty %}
+		{#{% set _sidebar_first = block('sidebar_first') %}#}
+		{#{% set _sidebar_second = block('sidebar_second') %}#}
+		{% if _sidebar_first is not defined %}
 			{% set _sidebar_first_len = 3 %}
 		{% else %}
 			{% set _sidebar_first_len = 0 %}
 		{% endif %}
 
-		{% if _sidebar_second is empty %}
+		{% if _sidebar_second is not defined %}
 			{% set _sidebar_second_len = 2 %}
 		{% else %}
 			{% set _sidebar_second_len = 0 %}
@@ -79,23 +79,22 @@
 
 			{% if block('page_subtitle') is not empty %}
 				<h4 class="page-subtitle">
-				{% block page_subtitle %}
-				{% endblock %}
+				{% block page_subtitle %}{% endblock %}
 				</h4>
 			{% endif %}
-
+            <div class="main-content">
 			{% block content %}
 			{% endblock %}
-
+            </div>
 		</div>
 
-        {% if _sidebar_first is not empty %}
+        {% if _sidebar_first is defined %}
             <div data-spy="affix" data-offset-top="500" data-offset-bottom="500" class="col col-xs-3 sidebar-first">
                 {% block sidebar_first %}{% endblock %}
             </div>
         {% endif %}
 
-		{% if _sidebar_second is not empty %}
+		{% if _sidebar_second is defined %}
 			<div class="col col-xs-2 sidebar-second">
 				{% block sidebar_second %}{% endblock %}
 			</div>

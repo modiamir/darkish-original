@@ -35,6 +35,23 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - {name: "sonata.block"}
+    darkish_website.block.centers:
+        class: Darkish\WebsiteBundle\Block\CentersBlock
+        arguments:
+            - "darkish_website.block.centers"
+            - "@templating"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - {name: "sonata.block"}
+    darkish_website.block.sponsors:
+        class: Darkish\WebsiteBundle\Block\SponsorsBlock
+        arguments:
+            - "darkish_website.block.sponsors"
+            - "@templating"
+            - "@doctrine.orm.entity_manager"
+            - "@service_container"
+        tags:
+            - {name: "sonata.block"}
     darkish_website.block.comment:
         class: Darkish\WebsiteBundle\Block\CommentsBlock
         arguments:

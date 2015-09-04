@@ -64,16 +64,16 @@
 	</div>
 </div>
 
-<div class="search-entity-box search-safarsaz-box" ng-show="stateParams.type == 'safarsaz'">
+<div class="search-entity-box search-itinerary-box" ng-show="stateParams.type == 'itinerary'">
 	<h3>
 		جستجوی اخبار
 	</h3>
-	<div class="search-safarsaz-by-number-box">
+	<div class="search-itinerary-by-number-box">
 		<angucomplete-alt id="news"
 		              placeholder="شماره سفرساز"
 		              pause="400"
 		              selected-object="selectEntityCallback"
-		              remote-url="comment/ajax/get_entity_list/safarsaz/number/"
+		              remote-url="comment/ajax/get_entity_list/itinerary/number/"
 		              remote-url-data-field="results"
 		              title-field="id,title"
 		              description-field="sub_title"
@@ -82,12 +82,12 @@
 		              input-class="form-control form-control-small"/>
 	</div>
 
-	<div class="search-safarsaz-by-name-box">
+	<div class="search-itinerary-by-name-box">
 		<angucomplete-alt id="news"
 		              placeholder="عنوان سفرساز"
 		              pause="400"
 		              selected-object="selectEntityCallback"
-		              remote-url="comment/ajax/get_entity_list/safarsaz/name/"
+		              remote-url="comment/ajax/get_entity_list/itinerary/name/"
 		              remote-url-data-field="results"
 		              title-field="id,title"
 		              description-field="sub_title"

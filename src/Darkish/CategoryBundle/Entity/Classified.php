@@ -299,13 +299,13 @@ class Classified
 //    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove", "persist"})
      * @Groups({"classified.details", "api.list", "api.body"})
      **/
     private $classifiedtrees;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="classified_images",
      *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}

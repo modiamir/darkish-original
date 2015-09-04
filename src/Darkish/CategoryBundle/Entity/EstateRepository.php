@@ -54,14 +54,31 @@ class EstateRepository extends EntityRepository
                 ->setParameter('maxDimension', (int)($estate->getDimension() + 0.1 * $estate->getDimension() ));
         }
 
-//        if($estate->getPrice())
-//        {
-//            $qb->andWhere('e.price >= :minPrice')
-//                ->setParameter('minPrice', (int)($estate->getPrice() - 0.1 * $estate->getPrice() ));
-//
-//            $qb->andWhere('e.price <= :maxPrice')
-//                ->setParameter('maxPrice', (int)($estate->getPrice() + 0.1 * $estate->getPrice() ));
-//        }
+        if($estate->getPrice())
+        {
+            $priceRange = explode(',', $estate->getPrice());
+            list($minPrice, $maxPrice) = $priceRange;
+
+
+            $qb->andWhere('e.price >= :minPrice')
+                ->setParameter('minPrice', $minPrice);
+
+            $qb->andWhere('e.price <= :maxPrice')
+                ->setParameter('maxPrice', $maxPrice);
+        }
+
+        if($estate->getContractType() && $estate->getContractType()->getId() == 2 && $estate->getSecondaryPrice())
+        {
+            $priceRange = explode(',', $estate->getSecondaryPrice());
+            list($minSecondaryPrice, $maxSecondaryPrice) = $priceRange;
+
+
+            $qb->andWhere('e.secondaryPrice >= :minSecondaryPrice')
+                ->setParameter('minSecondaryPrice', $minSecondaryPrice);
+
+            $qb->andWhere('e.secondaryPrice <= :maxSecondaryPrice')
+                ->setParameter('maxSecondaryPrice', $maxSecondaryPrice);
+        }
 
         if(isset($prices['from']))
         {

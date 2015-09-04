@@ -12,7 +12,7 @@ use Darkish\CommentBundle\Entity\Thread;
 use Darkish\CommentBundle\Entity\RecordThread;
 use Darkish\CommentBundle\Entity\NewsThread;
 use Darkish\CommentBundle\Entity\ForumTreeThread;
-use Darkish\CommentBundle\Entity\SafarsazThread;
+use Darkish\CommentBundle\Entity\ItineraryThread;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use JMS\Serializer\SerializationContext;
 
@@ -206,8 +206,8 @@ class CommentSubscriber implements EventSubscriber
             $entity->setState(0);
         } elseif($owner instanceof \Darkish\UserBundle\Entity\Client) {
             $thread = $entity->getThread();
-            if($thread instanceof SafarsazThread) {
-                if($this->commentSettings['safarsaz_default_state'] == 1) {
+            if($thread instanceof ItineraryThread) {
+                if($this->commentSettings['itinerary_default_state'] == 1) {
                     $entity->setState(0);
                 } else {
                     $entity->setState(3);

@@ -17,6 +17,7 @@
                 {{ comment.body | raw }}
 
 
+
                 {% set children = (comment | comment_children) %}
                 {% if children | length %}
                     <div id="children-{{ comment.id }}" class="children">
@@ -26,6 +27,8 @@
                     </div>
 
                 {% endif %}
+
+                <hr/>
 
                 {% if children | length %}
                 <button type="button"
@@ -50,7 +53,7 @@
 {% else %}
     برای این واحد نظری ثبت نشده است.
 {% endif %}
-
+<hr/>
 {{ form_start(comment_form) }}
     {{ form_widget(comment_form) }}
 
@@ -59,6 +62,7 @@
 
     <input type="submit" value="ارسال"
            class="btn btn-default pull-right" />
+
 {{ form_end(comment_form) }}
 
 

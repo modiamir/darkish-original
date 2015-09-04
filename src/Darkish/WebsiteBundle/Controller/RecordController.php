@@ -2,6 +2,9 @@
 
 namespace Darkish\WebsiteBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\Estate;
+use Darkish\WebsiteBundle\Form\AutomobileSearchType;
+use Darkish\WebsiteBundle\Form\EstateSearchType;
 use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Overlays\Animation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,6 +17,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Darkish\CustomerBundle\Entity\Customer;
 use Darkish\CategoryBundle\Entity\Record;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Zend\I18n\Validator\DateTime;
 
 class RecordController extends Controller
 {
@@ -36,16 +40,27 @@ class RecordController extends Controller
 
 
     /**
-	 * @Route("/record/tree/{treeIndex}/{page}", name="website_record_tree", defaults={"page" = 1})
+	 * @Route("/record/tree/{treeIndex}", name="website_record_tree")
 	 */
-    public function recordTreeAction($treeIndex, $page = 1, Request $request)
+    public function recordTreeAction($treeIndex, Request $request)
     {
-    	$tree = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->findOneBy(['treeIndex' => $treeIndex]);
-    	$trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees($treeIndex);
-    	if(!$tree) {
-    		throw new NotFoundHttpException("TreeIndex NotFound");
-    		
-    	}
+
+        $tree = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->findOneBy(['treeIndex' => $treeIndex]);
+        $trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees($treeIndex);
+        if (!$tree) {
+            throw new NotFoundHttpException("TreeIndex NotFound");
+
+        }
+
+        if ($request->query->has('centers'))
+        {
+            $centers = $request->query->get('centers');
+        } else {
+            $centers = [];
+        }
+
+//        return new Response($this->get('jms_serializer')->serialize($centers, 'json'));
+
 
 
     	
@@ -59,7 +74,7 @@ class RecordController extends Controller
 
 
 
-    	$newsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getRecordsForTreeIds($tree->getTreesIds());
+    	$newsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')->getRecordsForTreeIds($tree->getTreesIds(), $centers);
 
 
     	$paginator  = $this->get('knp_paginator');
@@ -146,5 +161,8 @@ class RecordController extends Controller
 		$em->flush();
 		return new Response('done');
 	}
+
+
+
 
 }

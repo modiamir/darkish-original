@@ -202,55 +202,27 @@ class ProductController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             if($producPhotos) {
-                
-                
+
+
                 $currentImages = $entity->getPhotos();
-                if($currentImages) {
-                    $newImages = new ArrayCollection();
-                    $eCollec = new ArrayCollection();
-                    $neCollec = new ArrayCollection();
-                    $rCollec = new ArrayCollection();
-                    $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
-                    foreach($producPhotos as $image) {
-                        $newImages->add($rep->find($image));
-                    }
+                $currentImages->clear();
 
-                    $newImagesIterator = $newImages->getIterator();
-                    while($newImagesIterator->valid()) {
-                        if($currentImages->contains($newImagesIterator->current())) {
-                            $eCollec->add($newImagesIterator->current());
-                        } else {
-                            $neCollec->add($newImagesIterator->current());
-                        }
-                        $newImagesIterator->next();
-                    }
+                $em->persist($product);
+                $em->flush();
 
-                    $currentImagesIterator = $currentImages->getIterator();
-                    while($currentImagesIterator->valid()) {
-                        if(!$eCollec->contains($currentImagesIterator->current()) && !$neCollec->contains($currentImagesIterator->current())) {
-                            $currentImages->removeElement($currentImagesIterator->current());
-                        }
-                        $currentImagesIterator->next();
-                    }
+                $filerep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ManagedFile');
 
-                    $neCollecIterator = $neCollec->getIterator();
-                    while($neCollecIterator->valid()) {
-                        $currentImages->add($neCollecIterator->current());
-                        $neCollecIterator->next();
-                    }
+                foreach($producPhotos as $productId) {
+                    $file = $filerep->find($productId);
+                    $product->addPhoto($file);
+                    $em->persist($file);
                 }
 
-
-
-
-
-
-                
             }
 
             
 
-            $em->persist($entity);
+            $em->persist($product);
             $em->flush();
             // return new Response($this->get('jms_serializer')->serialize($err, 'json'));
             return new Response($this->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('product.details', 'file.details'))));

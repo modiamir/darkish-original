@@ -179,6 +179,13 @@ class SponsorTree
     private $mainsponsors;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -697,5 +704,29 @@ class SponsorTree
     public function getMainsponsors()
     {
         return $this->mainsponsors;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return SponsorTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

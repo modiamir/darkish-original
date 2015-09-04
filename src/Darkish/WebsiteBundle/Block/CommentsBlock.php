@@ -41,8 +41,16 @@ class CommentsBlock extends BaseBlockService
 	    ));
 	}
 
-	
-	public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    public function getJavascripts($media)
+    {
+        return array(
+            $this->container->get('templating.helper.assets')->getUrl('bundles/darkishwebsite/js/comment.js')
+        );
+    }
+
+
+
+    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
         throw new \Exception();
     }
@@ -76,9 +84,19 @@ class CommentsBlock extends BaseBlockService
 				$thread = $entity->getThread();
 				break;
 			case "forumtree":
+                $entity= $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:ForumTree')->find($settings['id']);
+                if(!$entity) {
+                    throw new Exception("Id is not valid");
+                }
+                $thread = $entity->getThread();
 				break;
-			case "safarsaz":
-				break;
+			case "itinerary":
+                $entity= $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:Itinerary')->find($settings['id']);
+                if(!$entity) {
+                    throw new Exception("Itinerary doesn't exist.");
+                }
+                $thread = $entity->getThread();
+                break;
 		}
 
 		if($thread) {

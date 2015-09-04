@@ -166,7 +166,12 @@ class ForumTree
      */
     private $hiddenTree;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
     
 
     
@@ -645,5 +650,29 @@ class ForumTree
     public function getThread()
     {
         return $this->thread;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return ForumTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

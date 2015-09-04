@@ -180,6 +180,13 @@ class NewsTree
     private $mainnews;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -698,5 +705,29 @@ class NewsTree
     public function getMainnews()
     {
         return $this->mainnews;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return NewsTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

@@ -80,7 +80,7 @@
 /* line 104, ../sass/framework/_layout.scss */
 body {
   font-family: BMitra;
-  font-size: 17px;
+  font-size: 18px;
 }
 /* line 107, ../sass/framework/_layout.scss */
 body .container {
@@ -253,43 +253,49 @@ body .main-container .content .page-header-box .date .time {
 body .main-container .content .page-title {
   color: #ff6600;
   font-family: cocon;
+  border-bottom: 2px solid;
+  padding-bottom: 3px;
 }
-/* line 273, ../sass/framework/_layout.scss */
+/* line 275, ../sass/framework/_layout.scss */
 body .main-container .content .page-subtitle {
   font-family: cocon;
-  border-bottom: 2px solid #ff6600;
+  border-bottom: 2px solid #eee;
   padding-bottom: 10px;
 }
-/* line 281, ../sass/framework/_layout.scss */
+/* line 282, ../sass/framework/_layout.scss */
+body .main-container .sidebar-first {
+  margin-top: 5px;
+}
+/* line 287, ../sass/framework/_layout.scss */
 body .footer-wrapper {
   background: #00c8ff;
   border-top: 3px solid #f17022;
   margin-top: 10px;
   color: white;
 }
-/* line 288, ../sass/framework/_layout.scss */
+/* line 294, ../sass/framework/_layout.scss */
 body .bottom-wrapper {
   background-color: #ff6600;
   color: white;
 }
-/* line 291, ../sass/framework/_layout.scss */
+/* line 297, ../sass/framework/_layout.scss */
 body .bottom-wrapper .copyright {
   height: 50px;
   line-height: 50px;
 }
-/* line 296, ../sass/framework/_layout.scss */
+/* line 302, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul {
   display: inline-block;
   float: left;
   margin: 5px 0;
 }
-/* line 300, ../sass/framework/_layout.scss */
+/* line 306, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul li {
   float: right;
   list-style: none;
   margin-right: 10px;
 }
-/* line 304, ../sass/framework/_layout.scss */
+/* line 310, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul li a {
   width: 40px;
   height: 40px;
@@ -298,53 +304,53 @@ body .bottom-wrapper .social-link ul li a {
   border-radius: 20px;
   background-color: #6bcecb;
 }
-/* line 311, ../sass/framework/_layout.scss */
+/* line 317, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul li a:hover {
   background-color: white;
 }
-/* line 313, ../sass/framework/_layout.scss */
+/* line 319, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul li a:hover i.fa {
   color: #f17022;
 }
-/* line 317, ../sass/framework/_layout.scss */
+/* line 323, ../sass/framework/_layout.scss */
 body .bottom-wrapper .social-link ul li a i.fa {
   color: white;
   font-size: 20px;
   margin-top: 10px;
 }
 
-/* line 330, ../sass/framework/_layout.scss */
+/* line 336, ../sass/framework/_layout.scss */
 .media-right, .media > .pull-right {
   padding-left: 10px;
   padding-right: initial;
 }
 
-/* line 335, ../sass/framework/_layout.scss */
+/* line 341, ../sass/framework/_layout.scss */
 .media-left, .media > .pull-left {
   padding-right: 10px;
   padding-left: initial;
 }
 
-/* line 340, ../sass/framework/_layout.scss */
+/* line 346, ../sass/framework/_layout.scss */
 img {
   max-width: 100%;
 }
 
-/* line 344, ../sass/framework/_layout.scss */
+/* line 350, ../sass/framework/_layout.scss */
 .nav-tabs > li > a, .tabs-right > li > a {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
-/* line 350, ../sass/framework/_layout.scss */
+/* line 356, ../sass/framework/_layout.scss */
 #audio-player {
   position: fixed;
   left: 0;
   top: 0;
 }
 
-/* line 356, ../sass/framework/_layout.scss */
+/* line 362, ../sass/framework/_layout.scss */
 .pagination > li:first-child > a, .pagination > li:first-child > span {
   margin-left: 0;
   border-bottom-right-radius: 0;
@@ -353,7 +359,7 @@ img {
   border-top-left-radius: 0;
 }
 
-/* line 364, ../sass/framework/_layout.scss */
+/* line 370, ../sass/framework/_layout.scss */
 .pagination > li:last-child > a, .pagination > li:last-child > span {
   margin-right: -1px;
   border-bottom-left-radius: 0;
@@ -362,16 +368,16 @@ img {
   border-top-right-radius: 0;
 }
 
-/* line 372, ../sass/framework/_layout.scss */
+/* line 378, ../sass/framework/_layout.scss */
 a.dk-video-modal {
   display: inline-block;
   position: relative;
 }
-/* line 375, ../sass/framework/_layout.scss */
+/* line 381, ../sass/framework/_layout.scss */
 a.dk-video-modal img {
   width: 350px;
 }
-/* line 378, ../sass/framework/_layout.scss */
+/* line 384, ../sass/framework/_layout.scss */
 a.dk-video-modal span {
   position: absolute;
   top: 0;
@@ -383,12 +389,12 @@ a.dk-video-modal span {
   background-repeat: no-repeat;
   opacity: 0.5;
 }
-/* line 389, ../sass/framework/_layout.scss */
+/* line 395, ../sass/framework/_layout.scss */
 a.dk-video-modal:hover span {
   opacity: 0.8;
 }
 
-/* line 394, ../sass/framework/_layout.scss */
+/* line 400, ../sass/framework/_layout.scss */
 a.dk-audio-play {
   width: 120px;
   height: 87px;
@@ -398,16 +404,16 @@ a.dk-audio-play {
   background-repeat: no-repeat;
 }
 
-/* line 403, ../sass/framework/_layout.scss */
+/* line 409, ../sass/framework/_layout.scss */
 a[data-lightbox] {
   display: inline-block;
   position: relative;
 }
-/* line 406, ../sass/framework/_layout.scss */
+/* line 412, ../sass/framework/_layout.scss */
 a[data-lightbox] img {
   width: 350px;
 }
-/* line 409, ../sass/framework/_layout.scss */
+/* line 415, ../sass/framework/_layout.scss */
 a[data-lightbox] span {
   position: absolute;
   bottom: 0;
@@ -419,14 +425,42 @@ a[data-lightbox] span {
   background-position: bottom right;
   background-repeat: no-repeat;
 }
-/* line 420, ../sass/framework/_layout.scss */
+/* line 426, ../sass/framework/_layout.scss */
 a[data-lightbox]:hover span {
   background-color: rgba(255, 102, 0, 0.2);
 }
 
-/* line 426, ../sass/framework/_layout.scss */
+/* line 432, ../sass/framework/_layout.scss */
 .media img {
   max-width: none;
+}
+
+/* line 437, ../sass/framework/_layout.scss */
+.panel {
+  border: 0;
+}
+/* line 439, ../sass/framework/_layout.scss */
+.panel .panel-heading {
+  border-bottom: 1px solid #eeeeee;
+  border-top: 2px solid #ff6600;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #FDF6F6;
+  color: inherit;
+  font-size: 30px;
+}
+/* line 447, ../sass/framework/_layout.scss */
+.panel .panel-heading .panel-title {
+  font-size: 30px;
+}
+/* line 451, ../sass/framework/_layout.scss */
+.panel .panel-body {
+  background-color: #F7F7F7;
+}
+
+/* line 456, ../sass/framework/_layout.scss */
+.jumbotron {
+  background-color: #F7F7F7;
 }
 
 /* line 5, ../sass/modules/_news.scss */
@@ -467,17 +501,19 @@ a[data-lightbox]:hover span {
 /* line 4, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons {
   position: absolute;
-  left: 0;
-  top: -92px;
+  left: 20px;
+  top: -83px;
   text-align: center;
   margin-bottom: 0;
   font-size: 16px;
+  padding: 0 5px 0 5px;
+  background-color: white;
 }
-/* line 11, ../sass/modules/_record.scss */
+/* line 13, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons.hidden {
   display: none;
 }
-/* line 14, ../sass/modules/_record.scss */
+/* line 16, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li {
   float: left;
   width: 60px;
@@ -486,15 +522,15 @@ a[data-lightbox]:hover span {
   margin: 0 5px;
   position: relative;
 }
-/* line 21, ../sass/modules/_record.scss */
+/* line 23, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li.active {
   display: none;
 }
-/* line 23, ../sass/modules/_record.scss */
+/* line 25, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li.active span {
   display: block;
 }
-/* line 27, ../sass/modules/_record.scss */
+/* line 29, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li a {
   width: 60px;
   height: 60px;
@@ -512,15 +548,15 @@ a[data-lightbox]:hover span {
   background-size: 60%;
   background-repeat: no-repeat;
 }
-/* line 45, ../sass/modules/_record.scss */
+/* line 47, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li a:hover {
   background-color: #00c8ff;
 }
-/* line 50, ../sass/modules/_record.scss */
+/* line 52, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li:hover span {
   display: block;
 }
-/* line 54, ../sass/modules/_record.scss */
+/* line 56, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li span {
   display: none;
   position: absolute;
@@ -530,65 +566,65 @@ a[data-lightbox]:hover span {
   line-height: 20px;
   width: 60px;
 }
-/* line 66, ../sass/modules/_record.scss */
+/* line 68, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li#show-gallery-operation a {
   background-image: url("../images/64/icon-gallery.png");
 }
-/* line 72, ../sass/modules/_record.scss */
+/* line 74, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li#show-map-operation a {
   background-image: url("../images/64/icon-map.png");
 }
-/* line 78, ../sass/modules/_record.scss */
+/* line 80, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li#show-dbase-operation a.estate {
   background-image: url("../images/64/icon-estate.png");
 }
-/* line 82, ../sass/modules/_record.scss */
+/* line 84, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li#show-dbase-operation a.automobile {
   background-image: url("../images/64/icon-car.png");
 }
-/* line 88, ../sass/modules/_record.scss */
+/* line 90, ../sass/modules/_record.scss */
 .record.mode-full .operation-icons li#show-store-operation a {
   background-image: url("../images/64/icon-store.png");
 }
-/* line 97, ../sass/modules/_record.scss */
+/* line 99, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box {
   margin-bottom: 20px;
 }
-/* line 100, ../sass/modules/_record.scss */
+/* line 102, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .map.loaded {
   display: none;
 }
-/* line 103, ../sass/modules/_record.scss */
+/* line 105, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .map.active {
   display: block;
 }
-/* line 108, ../sass/modules/_record.scss */
+/* line 110, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .gallery {
   display: none;
 }
-/* line 110, ../sass/modules/_record.scss */
+/* line 112, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .gallery.active {
   display: block;
 }
-/* line 115, ../sass/modules/_record.scss */
+/* line 117, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .image {
   display: none;
 }
-/* line 117, ../sass/modules/_record.scss */
+/* line 119, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .image.active {
   display: block;
 }
-/* line 120, ../sass/modules/_record.scss */
+/* line 122, ../sass/modules/_record.scss */
 .record.mode-full .gallery-box .image img {
   width: 100%;
 }
-/* line 126, ../sass/modules/_record.scss */
+/* line 128, ../sass/modules/_record.scss */
 .record.mode-full .special-message {
   background: transparent;
   font-size: 20px;
   text-align: center;
 }
-/* line 132, ../sass/modules/_record.scss */
+/* line 134, ../sass/modules/_record.scss */
 .record.mode-full .market-title, .record.mode-full .database-title {
   border-bottom: 1px solid #eeeeee;
   border-top: 2px solid #ff6600;
@@ -596,19 +632,19 @@ a[data-lightbox]:hover span {
   padding: 10px 0;
   background-color: #FDF6F6;
 }
-/* line 147, ../sass/modules/_record.scss */
+/* line 149, ../sass/modules/_record.scss */
 .record.mode-full .comments .panel-title {
   font-size: 22px;
 }
-/* line 150, ../sass/modules/_record.scss */
+/* line 152, ../sass/modules/_record.scss */
 .record.mode-full .comments .panel-body {
   background: #fafafa;
 }
-/* line 155, ../sass/modules/_record.scss */
+/* line 157, ../sass/modules/_record.scss */
 .record.mode-full .record-database-banner, .record.mode-full .record-market-banner {
   width: 100%;
 }
-/* line 162, ../sass/modules/_record.scss */
+/* line 161, ../sass/modules/_record.scss */
 .record.mode-list {
   clear: both;
   display: inline-block;
@@ -617,12 +653,12 @@ a[data-lightbox]:hover span {
   padding-bottom: 5px;
   border-bottom: 1px solid #ff6600;
 }
-/* line 163, ../sass/modules/_record.scss */
+/* line 162, ../sass/modules/_record.scss */
 .record.mode-list img {
   float: right;
   margin-left: 10px;
 }
-/* line 175, ../sass/modules/_record.scss */
+/* line 173, ../sass/modules/_record.scss */
 .record.mode-grid {
   max-width: 320px;
   padding-bottom: 10px;
@@ -630,12 +666,12 @@ a[data-lightbox]:hover span {
   border-bottom: 1px solid #ff6600;
   position: relative;
 }
-/* line 181, ../sass/modules/_record.scss */
+/* line 179, ../sass/modules/_record.scss */
 .record.mode-grid img {
   clear: both;
   display: block;
 }
-/* line 185, ../sass/modules/_record.scss */
+/* line 183, ../sass/modules/_record.scss */
 .record.mode-grid .stats {
   position: absolute;
   top: 150px;
@@ -645,22 +681,22 @@ a[data-lightbox]:hover span {
   height: 22px;
   font-size: 16px;
 }
-/* line 194, ../sass/modules/_record.scss */
+/* line 192, ../sass/modules/_record.scss */
 .record.mode-grid h4 {
   margin: 10px 0 0 0;
 }
-/* line 200, ../sass/modules/_record.scss */
+/* line 198, ../sass/modules/_record.scss */
 .record .image-box img {
   width: 100%;
   margin-bottom: 10px;
 }
-/* line 212, ../sass/modules/_record.scss */
+/* line 210, ../sass/modules/_record.scss */
 .record .store-products-title {
   border-bottom: 1px solid #ff6600;
   display: inline-block;
   margin-bottom: 30px;
 }
-/* line 218, ../sass/modules/_record.scss */
+/* line 216, ../sass/modules/_record.scss */
 .record .record-store-product {
   float: right;
   margin: 10px;
@@ -670,17 +706,17 @@ a[data-lightbox]:hover span {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   padding: 10px;
 }
-/* line 227, ../sass/modules/_record.scss */
+/* line 225, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper {
   position: relative;
 }
-/* line 230, ../sass/modules/_record.scss */
+/* line 228, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper .product-image {
   width: 240px;
   height: 200px;
   margin-bottom: 10px;
 }
-/* line 235, ../sass/modules/_record.scss */
+/* line 233, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper .special-tag {
   background-position: top right;
   background-repeat: no-repeat;
@@ -691,127 +727,127 @@ a[data-lightbox]:hover span {
   height: 70px;
   background-size: 100%;
 }
-/* line 244, ../sass/modules/_record.scss */
+/* line 242, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper .special-tag.tag-new {
   background-image: url(../images/Over-New.png);
 }
-/* line 248, ../sass/modules/_record.scss */
+/* line 246, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper .special-tag.tag-special {
   background-image: url(../images/Over-Offer.png);
 }
-/* line 252, ../sass/modules/_record.scss */
+/* line 250, ../sass/modules/_record.scss */
 .record .record-store-product .product-thumb-wrapper .special-tag.tag-discount {
   background-image: url(../images/Over-Discount.png);
 }
-/* line 258, ../sass/modules/_record.scss */
+/* line 256, ../sass/modules/_record.scss */
 .record .record-store-product .row {
   margin-right: -1px;
   margin-left: -1px;
 }
-/* line 262, ../sass/modules/_record.scss */
+/* line 260, ../sass/modules/_record.scss */
 .record .record-store-product .row .col {
   padding-right: 1px;
   padding-left: 1px;
 }
-/* line 269, ../sass/modules/_record.scss */
+/* line 267, ../sass/modules/_record.scss */
 .record .record-store-product .product-title {
   font-size: 18px;
   color: #008024;
 }
-/* line 276, ../sass/modules/_record.scss */
+/* line 274, ../sass/modules/_record.scss */
 .record .record-store-product .product-code {
   font-size: 16px;
   color: #545454;
   text-align: right;
 }
-/* line 282, ../sass/modules/_record.scss */
+/* line 280, ../sass/modules/_record.scss */
 .record .record-store-product .product-price, .record .record-store-product .product-discounted-price {
   color: green;
   font-size: 16px;
   text-align: left;
 }
-/* line 288, ../sass/modules/_record.scss */
+/* line 286, ../sass/modules/_record.scss */
 .record .record-store-product .product-price.has-discounted-price, .record .record-store-product .product-price.product-is-unavailable {
   color: red;
   text-decoration: line-through;
 }
-/* line 293, ../sass/modules/_record.scss */
+/* line 291, ../sass/modules/_record.scss */
 .record .record-store-product .product-price.product-soon {
   color: #ff6600;
   text-decoration: line-through;
 }
-/* line 298, ../sass/modules/_record.scss */
+/* line 296, ../sass/modules/_record.scss */
 .record .record-store-product .product-unavailable {
   text-align: left;
   color: red;
   font-size: 16px;
 }
-/* line 304, ../sass/modules/_record.scss */
+/* line 302, ../sass/modules/_record.scss */
 .record .record-store-product .product-soon {
   text-align: left;
   color: #ff6600;
   font-size: 16px;
 }
 
-/* line 314, ../sass/modules/_record.scss */
+/* line 312, ../sass/modules/_record.scss */
 .product.modal {
   position: absolute !important;
 }
-/* line 316, ../sass/modules/_record.scss */
+/* line 314, ../sass/modules/_record.scss */
 .product.modal .product-title {
   font-size: 28px;
   color: #008024;
 }
-/* line 321, ../sass/modules/_record.scss */
+/* line 319, ../sass/modules/_record.scss */
 .product.modal .product-group {
   font-size: 18px;
 }
-/* line 325, ../sass/modules/_record.scss */
+/* line 323, ../sass/modules/_record.scss */
 .product.modal .product-code {
   font-size: 22px;
   color: #545454;
   text-align: left;
 }
-/* line 331, ../sass/modules/_record.scss */
+/* line 329, ../sass/modules/_record.scss */
 .product.modal .product-price, .product.modal .product-discounted-price {
   color: green;
   font-size: 20px;
   text-align: left;
 }
-/* line 337, ../sass/modules/_record.scss */
+/* line 335, ../sass/modules/_record.scss */
 .product.modal .product-price.has-discounted-price, .product.modal .product-price.product-is-unavailable {
   color: red;
   text-decoration: line-through;
 }
-/* line 342, ../sass/modules/_record.scss */
+/* line 340, ../sass/modules/_record.scss */
 .product.modal .product-price.product-soon {
   color: #ff6600;
   text-decoration: line-through;
 }
-/* line 349, ../sass/modules/_record.scss */
+/* line 347, ../sass/modules/_record.scss */
 .product.modal .special-text .well {
   margin: 10px 0;
   font-size: 22px;
   text-align: center;
 }
-/* line 356, ../sass/modules/_record.scss */
+/* line 354, ../sass/modules/_record.scss */
 .product.modal .first-image {
   position: relative;
   margin-left: 0;
   margin-right: 0;
 }
-/* line 361, ../sass/modules/_record.scss */
+/* line 359, ../sass/modules/_record.scss */
 .product.modal .first-image > .col {
   padding-left: 0;
   padding-right: 0;
 }
-/* line 364, ../sass/modules/_record.scss */
+/* line 362, ../sass/modules/_record.scss */
 .product.modal .first-image > .col img {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
-/* line 371, ../sass/modules/_record.scss */
+/* line 369, ../sass/modules/_record.scss */
 .product.modal .first-image .special-tag {
   background-position: top right;
   background-repeat: no-repeat;
@@ -822,58 +858,58 @@ a[data-lightbox]:hover span {
   height: 110px;
   background-size: 100%;
 }
-/* line 380, ../sass/modules/_record.scss */
+/* line 378, ../sass/modules/_record.scss */
 .product.modal .first-image .special-tag.tag-new {
   background-image: url(../images/Over-New.png);
 }
-/* line 384, ../sass/modules/_record.scss */
+/* line 382, ../sass/modules/_record.scss */
 .product.modal .first-image .special-tag.tag-special {
   background-image: url(../images/Over-Offer.png);
 }
-/* line 388, ../sass/modules/_record.scss */
+/* line 386, ../sass/modules/_record.scss */
 .product.modal .first-image .special-tag.tag-discount {
   background-image: url(../images/Over-Discount.png);
 }
-/* line 394, ../sass/modules/_record.scss */
+/* line 392, ../sass/modules/_record.scss */
 .product.modal .other-images {
   margin-top: 5px;
   margin-left: -2px;
   margin-right: -2px;
 }
-/* line 398, ../sass/modules/_record.scss */
+/* line 396, ../sass/modules/_record.scss */
 .product.modal .other-images > .col {
   padding-left: 2px;
   padding-right: 2px;
 }
-/* line 401, ../sass/modules/_record.scss */
+/* line 399, ../sass/modules/_record.scss */
 .product.modal .other-images > .col img {
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
-/* line 409, ../sass/modules/_record.scss */
+/* line 407, ../sass/modules/_record.scss */
 .product.modal .product-description {
   margin-top: 30px;
   font-size: 20px;
 }
-/* line 414, ../sass/modules/_record.scss */
+/* line 412, ../sass/modules/_record.scss */
 .product.modal .product-unavailable {
   text-align: left;
   color: red;
   font-size: 20px;
 }
-/* line 420, ../sass/modules/_record.scss */
+/* line 418, ../sass/modules/_record.scss */
 .product.modal .product-soon {
   text-align: left;
   color: #ff6600;
   font-size: 20px;
 }
 
-/* line 433, ../sass/modules/_record.scss */
+/* line 431, ../sass/modules/_record.scss */
 .record-database-section .jumbotron {
   margin-bottom: 0;
 }
-/* line 437, ../sass/modules/_record.scss */
+/* line 435, ../sass/modules/_record.scss */
 .record-database-section .database-list {
   padding: 30px;
   background: #eeeeee;
@@ -1026,7 +1062,7 @@ div.record-list .record-item {
 }
 /* line 60, ../sass/modules/_comment.scss */
 .comment .media-body .comment-buttons {
-  margin: 20px 0 10px 5px;
+  margin: 0 0 10px 5px;
   font-size: 18px;
   min-width: 80px;
 }
@@ -1048,11 +1084,24 @@ ul.pagination li {
 }
 
 /* line 1, ../sass/modules/_database.scss */
+form[name="estate_search"], form[name="automobile_search"] {
+  margin-bottom: 10px;
+}
+/* line 3, ../sass/modules/_database.scss */
+form[name="estate_search"] label, form[name="automobile_search"] label {
+  width: 100%;
+}
+/* line 6, ../sass/modules/_database.scss */
+form[name="estate_search"] .slider-horizontal, form[name="automobile_search"] .slider-horizontal {
+  width: 100%;
+}
+
+/* line 12, ../sass/modules/_database.scss */
 .database-list {
   display: inline-block;
   width: 100%;
 }
-/* line 4, ../sass/modules/_database.scss */
+/* line 15, ../sass/modules/_database.scss */
 .database-list .database {
   position: relative;
   border-radius: 0;
@@ -1069,44 +1118,145 @@ ul.pagination li {
   font-size: 14px;
   margin-bottom: 10px;
 }
-/* line 19, ../sass/modules/_database.scss */
+/* line 30, ../sass/modules/_database.scss */
 .database-list .database .price {
   position: absolute;
   left: 10px;
   top: 30px;
 }
-/* line 24, ../sass/modules/_database.scss */
+/* line 35, ../sass/modules/_database.scss */
 .database-list .database .secondary-price {
   position: absolute;
   left: 10px;
   top: 60px;
 }
-/* line 29, ../sass/modules/_database.scss */
+/* line 40, ../sass/modules/_database.scss */
 .database-list .database .moreless-button {
   margin: 10px;
   float: left;
 }
-/* line 32, ../sass/modules/_database.scss */
+/* line 43, ../sass/modules/_database.scss */
 .database-list .database .moreless-button .more {
   display: none;
 }
-/* line 35, ../sass/modules/_database.scss */
+/* line 46, ../sass/modules/_database.scss */
 .database-list .database .moreless-button .less {
   display: block;
 }
-/* line 39, ../sass/modules/_database.scss */
+/* line 50, ../sass/modules/_database.scss */
 .database-list .database .moreless-button.collapsed .more {
   display: block;
 }
-/* line 42, ../sass/modules/_database.scss */
+/* line 53, ../sass/modules/_database.scss */
 .database-list .database .moreless-button.collapsed .less {
   display: none;
 }
-/* line 48, ../sass/modules/_database.scss */
+/* line 59, ../sass/modules/_database.scss */
 .database-list .database a[data-lightbox] img {
   width: initial;
 }
-/* line 52, ../sass/modules/_database.scss */
+/* line 63, ../sass/modules/_database.scss */
 .database-list .database .estate-features span.label {
   font-size: 14px;
+}
+
+/* line 2, ../sass/modules/_sponsors.scss */
+.sponsors-block a {
+  margin-bottom: 10px;
+  display: block;
+}
+/* line 6, ../sass/modules/_sponsors.scss */
+.sponsors-block a img {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* line 1, ../sass/modules/_forum.scss */
+.forumtree-select-option {
+  display: inline-block;
+  width: 100%;
+}
+/* line 4, ../sass/modules/_forum.scss */
+.forumtree-select-option a.icon {
+  float: right;
+  margin-left: 5%;
+  width: 20%;
+}
+/* line 10, ../sass/modules/_forum.scss */
+.forumtree-select-option .tree-titles {
+  float: right;
+  width: 75%;
+}
+/* line 13, ../sass/modules/_forum.scss */
+.forumtree-select-option .tree-titles h3 {
+  margin-top: 5px;
+  font-size: 15px;
+  margin-bottom: 0px;
+}
+/* line 18, ../sass/modules/_forum.scss */
+.forumtree-select-option .tree-titles span.tree-subtitle {
+  font-size: 12px;
+}
+
+/* line 24, ../sass/modules/_forum.scss */
+.forumtree-operations {
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: -90px;
+}
+/* line 29, ../sass/modules/_forum.scss */
+.forumtree-operations .select2-container .select2-selection--single {
+  height: 35px;
+}
+/* line 32, ../sass/modules/_forum.scss */
+.forumtree-operations #select2-forumtree-select-container {
+  height: 35px;
+  line-height: 35px;
+}
+/* line 37, ../sass/modules/_forum.scss */
+.forumtree-operations .select2-selection__arrow {
+  height: 30px;
+}
+
+/* line 43, ../sass/modules/_forum.scss */
+#safarname-button {
+  width: 70px;
+  background: #FF9A14;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+  position: absolute;
+  top: -90px;
+  left: 0;
+}
+
+/* line 56, ../sass/modules/_forum.scss */
+.main-content {
+  position: relative;
+}
+
+/* line 1, ../sass/modules/_classified.scss */
+.classified-operations {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 300px;
+}
+
+/* line 1, ../sass/modules/_offer.scss */
+.offer-operations {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 200px;
+}
+
+/* line 10, ../sass/modules/_offer.scss */
+.offer-list .offer .banner {
+  width: 100%;
+  height: 300px;
 }

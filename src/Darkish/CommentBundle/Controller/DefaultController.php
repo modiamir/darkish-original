@@ -68,8 +68,8 @@ class DefaultController extends Controller
     			$qb->join('c.thread', 'th', 'WITH', 'th INSTANCE OF Darkish\CommentBundle\Entity\NewsThread');
     			break;
 
-			case 'safarsaz':
-    			$qb->join('c.thread', 'th', 'WITH', 'th INSTANCE OF Darkish\CommentBundle\Entity\SafarsazThread');
+			case 'itinerary':
+    			$qb->join('c.thread', 'th', 'WITH', 'th INSTANCE OF Darkish\CommentBundle\Entity\ItineraryThread');
     			break;
 
 			case 'forum':
@@ -124,11 +124,11 @@ class DefaultController extends Controller
                         }
                         break;
 
-                    case 'safarsaz':
-                        $safarsazes = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->findBy(array('id'=>$keyword));
-                        if(count($safarsazes)) {
-                            $safarsaz = $safarsazes[0];
-                            $th = $safarsaz->getThread();
+                    case 'itinerary':
+                        $itineraries = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary')->findBy(array('id'=>$keyword));
+                        if(count(itineraries)) {
+                            $itinerary = $itineraies[0];
+                            $th = $itinerary->getThread();
                             $threadId = $th->getId();
                             $qb->where('th.id = :id')->setParameter('id', $threadId);
 
@@ -303,8 +303,8 @@ class DefaultController extends Controller
                 $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'news.list')));
                 break;
 
-            case 'safarsaz':
-                $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz');
+            case 'itinerary':
+                $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary');
                 /* @var $qb \Doctrine\ORM\QueryBuilder */
                 $qb = $repo->createQueryBuilder('e');
                 switch ($by) {
@@ -319,7 +319,7 @@ class DefaultController extends Controller
                         # code...
                         break;
                 }
-                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'safarsaz.list')));
+                $result = $this->get('jms_serializer')->serialize(array('results' => $qb->getQuery()->getResult()), 'json', SerializationContext::create()->setGroups(array( 'itinerary.list')));
                 break;
 
             case 'forum':
@@ -414,12 +414,12 @@ class DefaultController extends Controller
                 return new Response($this->get('jms_serializer')->serialize($result, 'json', SerializationContext::create()->setGroups(array( 'comment.details'))));
                 break;
 
-            case 'safarsaz':
-                $safarsaz = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
-                if(!$safarsaz) {
-                    return new Response('Safarsaz not found', 404);
+            case 'itinerary':
+                $itinerary = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary')->find($id);
+                if(!$itinerary) {
+                    return new Response('Itinerary not found', 404);
                 }
-                $thread = $safarsaz->getThread();
+                $thread = $itinerary->getThread();
                 if(!$thread) {
                     $result['comments'] = [];
                     $result['count'] = 0 ;
@@ -547,8 +547,8 @@ class DefaultController extends Controller
                 $state = $entity->getCommentDefaultState();
                 break;
 
-            case 'safarsaz':
-                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Safarsaz')->find($id);
+            case 'itinerary':
+                $entity = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary')->find($id);
                 $state = 0;
                 break;
 
@@ -576,8 +576,8 @@ class DefaultController extends Controller
                     $thread = new \Darkish\CommentBundle\Entity\NewsThread();
                     break;
 
-                case 'safarsaz':
-                    $thread = new \Darkish\CommentBundle\Entity\SafarsazThread();
+                case 'itinerary':
+                    $thread = new \Darkish\CommentBundle\Entity\ItineraryThread();
                     break;
 
                 case 'forum':

@@ -373,6 +373,8 @@ sonata_block:
         darkish_website.block.rss: ~
         darkish_website.block.comment: ~
         darkish_website.block.database: ~
+        darkish_website.block.centers: ~
+        darkish_website.block.sponsors: ~
 
 
 

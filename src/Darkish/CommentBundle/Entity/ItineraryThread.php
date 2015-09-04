@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\Table()
  * @ORM\Entity
  */
-class SafarsazThread extends Thread
+class ItineraryThread extends Thread
 {
     /**
      * @var integer
@@ -27,7 +27,7 @@ class SafarsazThread extends Thread
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Safarsaz", inversedBy="thread")
+     * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Itinerary", inversedBy="thread")
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      * @Groups({"comment.details", "api.list"})
      */
@@ -73,7 +73,7 @@ class SafarsazThread extends Thread
      * Set numComments
      *
      * @param integer $numComments
-     * @return SafarsazThread
+     * @return ItineraryThread
      */
     public function setNumComments($numComments)
     {
@@ -96,7 +96,7 @@ class SafarsazThread extends Thread
      * Set isCommentable
      *
      * @param boolean $isCommentable
-     * @return SafarsazThread
+     * @return ItineraryThread
      */
     public function setIsCommentable($isCommentable)
     {
@@ -118,10 +118,10 @@ class SafarsazThread extends Thread
     /**
      * Set target
      *
-     * @param \Darkish\CategoryBundle\Entity\Safarsaz $target
-     * @return SafarsazThread
+     * @param \Darkish\CategoryBundle\Entity\Itinerary $target
+     * @return ItineraryThread
      */
-    public function setTarget(\Darkish\CategoryBundle\Entity\Safarsaz $target = null)
+    public function setTarget(\Darkish\CategoryBundle\Entity\Itinerary $target = null)
     {
         $this->target = $target;
 
@@ -131,7 +131,7 @@ class SafarsazThread extends Thread
     /**
      * Get target
      *
-     * @return \Darkish\CategoryBundle\Entity\Safarsaz 
+     * @return \Darkish\CategoryBundle\Entity\Itinerary
      */
     public function getTarget()
     {
@@ -142,7 +142,7 @@ class SafarsazThread extends Thread
      * Add comments
      *
      * @param \Darkish\CommentBundle\Entity\Comment $comments
-     * @return SafarsazThread
+     * @return ItineraryThread
      */
     public function addComment(\Darkish\CommentBundle\Entity\Comment $comments)
     {
@@ -180,7 +180,7 @@ class SafarsazThread extends Thread
      * Set lastCommentAt
      *
      * @param \DateTime $lastCommentAt
-     * @return SafarsazThread
+     * @return ItineraryThread
      */
     public function setLastCommentAt($lastCommentAt)
     {
