@@ -14,7 +14,7 @@ parameters:
     darkish.watermark:
         classified: false
         offer: false
-        sponsor: true
+        sponsor: false
         operator: true
         customer: true
         client: true
