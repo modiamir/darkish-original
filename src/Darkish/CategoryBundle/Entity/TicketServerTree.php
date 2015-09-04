@@ -167,6 +167,12 @@ class TicketServerTree
     private $hiddenTree;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
 
     /**
@@ -674,5 +680,29 @@ class TicketServerTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return TicketServerTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

@@ -190,7 +190,7 @@ class ManagedFile
      * @ORM\Column(name="type", type="string", nullable=true)
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment", "itinerary"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -626,6 +626,11 @@ class ManagedFile
         return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
     }
 
+    /**
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("relative_path")
+     */
     public function getRelativePath() {
         return 'uploads/'.$this->getUploadDir().'/'.$this->getPath();   
     }

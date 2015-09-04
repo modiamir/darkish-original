@@ -13,6 +13,8 @@
     {% set objClass = database | obj_class %}
     {% if objClass == 'Estate' %}
         {{ include('DarkishWebsiteBundle:Database:database-estate.html.twig', {'estate': database}) }}
+    {% else %}
+        {{ include('DarkishWebsiteBundle:Database:database-automobile.html.twig', {'automobile': database}) }}
     {% endif %}
     {% if loop.index is divisible by(3) %}
         <div class="clearfix">

@@ -100,7 +100,9 @@
 
             {% if hasMap %}
                 <div class="map switchable">
-                    {{ google_map(map) }}
+                    <div id="map" data-latitude="{{ record.latitude }}" data-longitude="{{ record.longitude }}" style="width: 100%; height: 464px; " >
+
+                    </div>
                 </div>
             {% endif %}
 

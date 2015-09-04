@@ -103,7 +103,7 @@ font-style: normal;
 
 body {
 	font-family: BMitra;
-	font-size: 17px;
+	font-size: 18px;
     .container {
       min-width: 1170px;
       width: 90%;
@@ -268,14 +268,20 @@ body {
 			.page-title {
 				color: $orange;
 				font-family: cocon;
+                border-bottom: 2px solid;
+                padding-bottom: 3px;
 			}
 
 			.page-subtitle {
 				font-family: cocon;
-				border-bottom: 2px solid $orange;
-				padding-bottom: 10px;	
+				border-bottom: 2px solid #eee;
+				padding-bottom: 10px;
 			}
 		}
+
+      .sidebar-first {
+        margin-top: 5px;
+      }
 	}
 
 	.footer-wrapper {
@@ -426,4 +432,27 @@ a[data-lightbox] {
   img {
     max-width: none;
   }
+}
+
+.panel {
+  border: 0;
+  .panel-heading {
+    border-bottom: 1px solid #eeeeee;
+    border-top: 2px solid #ff6600;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #FDF6F6;
+    color: inherit;
+    font-size: 30px;
+    .panel-title {
+      font-size: 30px;
+    }
+  }
+  .panel-body {
+    background-color: #F7F7F7;
+  }
+}
+
+.jumbotron {
+  background-color: #F7F7F7;
 }

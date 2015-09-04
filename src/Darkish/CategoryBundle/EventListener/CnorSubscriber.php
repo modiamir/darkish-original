@@ -122,13 +122,13 @@ class CnorSubscriber implements EventSubscriber
             $entity instanceof Offer ||
             $entity instanceof Classified ) {
 
-            if($entity->getVideos()->count()) {
+            if($entity->getVideos() && $entity->getVideos()->count()) {
                 $entity->setVideo(true);
             } else {
                 $entity->setVideo(false);
             }
 
-            if($entity->getAudios()->count()) {
+            if($entity->getAudios() && $entity->getAudios()->count()) {
                 $entity->setAudio(true);
             } else {
                 $entity->setAudio(false);
@@ -163,6 +163,11 @@ class CnorSubscriber implements EventSubscriber
             }
 
 
+        }
+
+        if($entity instanceof Sponsor)
+        {
+            $this->generateSponsorJson($entity);
         }
     }
 
@@ -202,13 +207,43 @@ class CnorSubscriber implements EventSubscriber
     }
 
 
-    // private function updateTreeJson(LifecycleEventArgs $args) {
-    //     $entity = $args->getEntity();
-    //     $entityManager = $args->getEntityManager();
-    //     if($entity instanceof News) {
-    //         $trees = $entity->getNewstrees();
-    //         die($this->container->get('jms_serializer')->serialize($entity, 'json', SerializationContext::create()->setGroups(array('news.details'))));
+    private function generateSponsorJson(Sponsor $sponsor)
+    {
+        $sponsorTrees = $this
+            ->container->get('doctrine')
+            ->getRepository('DarkishCategoryBundle:SponsorTree')
+            ->findAll();
 
-    //     }
-    // }
+        $sponsorRepo = $this
+            ->container->get('doctrine')
+            ->getRepository('DarkishCategoryBundle:Sponsor');
+
+        $sponsorJson = [];
+
+
+        foreach($sponsorTrees as $sponsorTree)
+        {
+            $qb = $sponsorRepo->createQueryBuilder('s');
+            $qb->join('s.sponsortrees', 'st');
+            $qb->join('st.tree','t', 'WITH','t.id = :tid')->setParameter('tid', $sponsorTree->getId());
+            $res = $qb->getQuery()->getResult();
+            $sponsorJson[$sponsorTree->getTreeIndex()] = $res;
+        }
+
+
+        $queryBuilder = $sponsorRepo->createQueryBuilder('s');
+        /* @var $queryBuilder QueryBuilder */
+        $sponsorWithTree = $queryBuilder->select('s.id')->join('s.sponsortrees','st')->join('st.tree','t', 'WITH')->distinct();
+        $qb2 = $sponsorRepo->createQueryBuilder('ss');
+        $sponsorWithoutTree = $qb2->where($queryBuilder->expr()->notIn('ss.id',$sponsorWithTree->getDQL()))->getQuery()->getResult();
+
+        $sponsorJson["#"] = $sponsorWithoutTree;
+
+        file_put_contents($this->container->get('kernel')->getRootDir().'/Resources/data/sponsors.json',
+            $this->container->get('jms_serializer')->serialize($sponsorJson, 'json', SerializationContext::create()->setGroups(array('sponsor.details')))
+            );
+
+
+    }
+
 }

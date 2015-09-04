@@ -85,7 +85,7 @@ class DatabaseBlock extends BaseBlockService
 //				break;
 //			case "forumtree":
 //				break;
-//			case "safarsaz":
+//			case "itinerary":
 //				break;
 //		}
 //

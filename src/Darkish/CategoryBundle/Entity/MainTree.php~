@@ -300,6 +300,11 @@ class MainTree
     private $mainrecords;
 
     /**
+     * @ORM\Column(name="recommend_ids", type="json_array", nullable=true)
+     */
+    private $recommendIds;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -1181,5 +1186,29 @@ class MainTree
     public function getMainrecords()
     {
         return $this->mainrecords;
+    }
+
+    /**
+     * Set groupFilter
+     *
+     * @param boolean $groupFilter
+     *
+     * @return MainTree
+     */
+    public function setGroupFilter($groupFilter)
+    {
+        $this->groupFilter = $groupFilter;
+
+        return $this;
+    }
+
+    /**
+     * Get groupFilter
+     *
+     * @return boolean
+     */
+    public function getGroupFilter()
+    {
+        return $this->groupFilter;
     }
 }

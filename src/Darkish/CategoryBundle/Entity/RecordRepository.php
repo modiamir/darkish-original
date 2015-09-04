@@ -43,7 +43,7 @@ class RecordRepository extends EntityRepository implements ContainerAwareInterfa
         return $recordQuery;
     }
 
-    public function getRecordsForTreeIds(array $treesIds) {
+    public function getRecordsForTreeIds(array $treesIds, array $centers) {
 
         if(count($treesIds) == 0) {
             $treesIds[] = 0;
@@ -53,6 +53,9 @@ class RecordRepository extends EntityRepository implements ContainerAwareInterfa
         $recordQuery = $this->createQueryBuilder('r');
         $recordQuery->join('r.maintrees', 'rt');
         $recordQuery->join('rt.tree','t', 'WITH',$recordQuery->expr()->in('t.id', $treesIds))->distinct();
+        if(count($centers)) {
+            $recordQuery->where('r.centerIndex in (:centers)')->setParameter('centers', $centers);
+        }
         $recordQuery->orderBy('r.lastUpdate', 'Desc');
         // $recordQuery->addOrderBy('nt.sort', 'Asc');
 

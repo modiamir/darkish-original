@@ -38,8 +38,8 @@ commentApp.config(function($stateProvider, $urlRouterProvider){
   		      		case 'news':
       		      		$currentState = 'اخبار';
       		      		break;
-  		      		case 'safarsaz':
-  		      			$currentState = 'سفرساز';
+  		      		case 'itinerary':
+  		      			$currentState = 'سفرنامه';
   		      			break;
 	      			case 'forum':
       		      		$currentState = 'تالار گفتگو';
@@ -122,7 +122,7 @@ commentApp.controller('commentIndexCtrl', [
 	      		case 'news':
 		      		return 'خبر';
 		      		break;
-	      		case 'safarsaz':
+	      		case 'itinerary':
 	      			return 'سفرساز';
 	      			break;
 				case 'forum':
@@ -139,7 +139,7 @@ commentApp.controller('commentIndexCtrl', [
 	      		case 'news':
 		      		if(entity.commentable) {return true; } else {return false;}
 		      		break;
-	      		case 'safarsaz':
+	      		case 'itinerary':
 	      			return true;
 	      			break;
 				case 'forum':

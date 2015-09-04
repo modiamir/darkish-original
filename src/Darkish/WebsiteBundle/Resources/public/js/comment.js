@@ -1,4 +1,4 @@
-$('.media.comment > .media-body > .comment-reply-button').bind('click', function(event){
+$('.content').on('click', '.media.comment > .media-body > .comment-reply-button', function(event){
     var settings = {
         "async": true,
         "crossDomain": false,

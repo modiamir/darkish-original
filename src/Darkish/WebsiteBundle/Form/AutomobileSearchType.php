@@ -2,6 +2,7 @@
 
 namespace Darkish\WebsiteBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -10,27 +11,55 @@ class AutomobileSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $years = [];
+        $date = new \DateTime();
+        for($i = (int)$date->format("Y") - 10 ; $i <= (int)$date->format("Y") + 1; $i++)
+        {
+            $years[] = $i;
+        }
+
         $builder
+            ->add('record', 'entity', [
+                'class' => 'Darkish\CategoryBundle\Entity\Record',
+                'property' => 'title',
+                'required' => false,
+                'expanded' => false,
+                'multiple' => false,
+                'label' => 'نمایشگاه',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.dbaseEnable = :dbe')->setParameter('dbe', true)
+                        ->andWhere('r.dbaseTypeIndex = :dbt')->setParameter('dbt', 2);
+                }
+            ])
             ->add('automobileBrand', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\AutomobileBrand',
                 'property' => 'value',
                 'required' => false,
+                'label' => 'برند'
 
+            ])
+            ->add('automobileColor', 'entity', [
+                'class' => 'Darkish\CategoryBundle\Entity\AutomobileColor',
+                'property' => 'value',
+                'required' => false,
+                'label' => 'رنگ'
             ])
             ->add('automobileType', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\AutomobileType',
                 'property' => 'value',
                 'required' => false,
+                'label' => 'نوع'
             ])
             ->add('createdYear', 'choice', [
-                'choices' => [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016],
+                'choices' => $years,
                 'required' => false,
+                'label' => 'سال ساخت'
             ])
-//            ->add('price', 'money',[
-//                'grouping'=> true,
-//                'currency'=>'IRR',
-//                'required' => false,
-//            ])
+            ->add('price', 'text',[
+                'required' => false,
+                'label' => 'قیمت'
+            ])
 
         ;
     }

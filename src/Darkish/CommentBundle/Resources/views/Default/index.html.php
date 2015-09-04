@@ -88,7 +88,7 @@
     					    <li role="presentation"><a role="menuitem" tabindex="-1" ui-sref="default({type: 'forum'})">تالار گفتگو</a></li>
     					    <li role="presentation"><a role="menuitem" tabindex="-1" ui-sref="default({type: 'record'})">رکورد</a></li>
     					    <li role="presentation"><a role="menuitem" tabindex="-1" ui-sref="default({type: 'news'})">اخبار</a></li>
-    					    <li role="presentation"><a role="menuitem" tabindex="-1" ui-sref="default({type: 'safarsaz'})">سفر ساز</a></li>
+    					    <li role="presentation"><a role="menuitem" tabindex="-1" ui-sref="default({type: 'itinerary'})">سفرنامه</a></li>
     					  </ul>
     					</div>
     				</div>

@@ -1,0 +1,221 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Itinerary
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Itinerary
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text", nullable=true)
+     */
+    private $body;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"persist"})
+     * @ORM\JoinTable(name="itinerary_photos",
+     *      joinColumns={@ORM\JoinColumn(name="itinerary_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
+     *      )
+     * @Assert\Count(
+     *      max = "5",
+     *      maxMessage = "تعداد تصاویر بیش از حد مجاز است."
+     * )
+     **/
+    private $photos;
+
+    /**
+     * @var
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\ItineraryThread", mappedBy="target")
+     * 
+     */
+    private $thread;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\ItineraryThread $thread
+     * @return Itinerary
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\ItineraryThread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\ItineraryThread
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Itinerary
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     *
+     * @return Itinerary
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function setPhotos(\Doctrine\Common\Collections\ArrayCollection $photos)
+    {
+        $this->photos = $photos;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photo
+     *
+     * @return Itinerary
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photo
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Itinerary
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+}

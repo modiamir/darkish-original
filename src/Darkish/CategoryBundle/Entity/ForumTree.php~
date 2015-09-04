@@ -32,13 +32,13 @@ class ForumTree
      * @var string
      *
      * @ORM\Column(name="up_tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "forum.details"})
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $upTreeIndex;
     
     /**
      *
-     * @Groups({"list", "details", "forum.details"})
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $parentTreeTitle;
 
@@ -46,7 +46,7 @@ class ForumTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "forum.details"})
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $treeIndex;
 
@@ -54,6 +54,7 @@ class ForumTree
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer", nullable=true)
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $sort;
 
@@ -61,7 +62,7 @@ class ForumTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "forum.details"})
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $title;
 
@@ -69,7 +70,7 @@ class ForumTree
      * @var string
      *
      * @ORM\Column(name="sub_title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "forum.details"})
+     * @Groups({"forum.list", "forum.details", "comment.details"})
      */
     private $subTitle;
 
@@ -165,7 +166,12 @@ class ForumTree
      */
     private $hiddenTree;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
     
 
     
@@ -622,4 +628,27 @@ class ForumTree
     }
 
     
+
+    /**
+     * Set thread
+     *
+     * @param \Darkish\CommentBundle\Entity\ForumTreeThread $thread
+     * @return ForumTree
+     */
+    public function setThread(\Darkish\CommentBundle\Entity\ForumTreeThread $thread = null)
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Get thread
+     *
+     * @return \Darkish\CommentBundle\Entity\ForumTreeThread 
+     */
+    public function getThread()
+    {
+        return $this->thread;
+    }
 }

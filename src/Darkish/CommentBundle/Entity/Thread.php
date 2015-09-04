@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="thread_type", type="string")
- * @ORM\DiscriminatorMap({"record" = "RecordThread", "news" = "NewsThread", "forum_tree": "ForumTreeThread", "safarsaz": "SafarsazThread" ,"thread" = "Thread"})
+ * @ORM\DiscriminatorMap({"record" = "RecordThread", "news" = "NewsThread", "forum_tree": "ForumTreeThread", "itinerary": "ItineraryThread" ,"thread" = "Thread"})
  */
 class Thread
 {

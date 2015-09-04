@@ -7,6 +7,7 @@
     <link href="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/leaflet/dist/leaflet.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
@@ -15,8 +16,9 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/plugins/fotorama/fotorama.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/leaflet/dist/leaflet.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/record-page.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/map-min.js') }}"></script>
 {% endblock %}
 
 {% block document_ready %}
@@ -44,7 +46,7 @@
 
 
 {% endblock %}
-
+{% set _sidebar_first = true %}
 {% block sidebar_first %}
     {{ sonata_block_render({
         'type': 'darkish_website.block.rss'

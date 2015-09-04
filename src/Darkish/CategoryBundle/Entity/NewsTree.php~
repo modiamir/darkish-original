@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\SerializedName;
  * NewsTree
  *
  * @ORM\Table(name="newstree")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\NewsTreeRepository")
  */
 class NewsTree
 {
@@ -24,7 +24,7 @@ class NewsTree
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $id;
 
@@ -46,7 +46,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="tree_index", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $treeIndex;
 
@@ -54,6 +54,7 @@ class NewsTree
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer", nullable=true)
+     * 
      */
     private $sort;
 
@@ -61,7 +62,7 @@ class NewsTree
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     * @Groups({"list", "details", "news.details"})
+     * @Groups({"list", "details", "news.details", "api.list"})
      */
     private $title;
 
@@ -171,12 +172,19 @@ class NewsTree
      *
      * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\News", mappedBy="trees")
      */
-    protected $news;
+//    protected $news;
 
     /**
      * @ORM\OneToMany(targetEntity="NewsNewsTree", mappedBy="tree")
      **/
     private $mainnews;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * Get id
@@ -664,5 +672,38 @@ class NewsTree
      */
     public function getParentTreeTitle() {
         return $this->parentTreeTitle;
+    }
+
+    /**
+     * Add mainnews
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews
+     * @return NewsTree
+     */
+    public function addMainnews(\Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews)
+    {
+        $this->mainnews[] = $mainnews;
+
+        return $this;
+    }
+
+    /**
+     * Remove mainnews
+     *
+     * @param \Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews
+     */
+    public function removeMainnews(\Darkish\CategoryBundle\Entity\NewsNewsTree $mainnews)
+    {
+        $this->mainnews->removeElement($mainnews);
+    }
+
+    /**
+     * Get mainnews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMainnews()
+    {
+        return $this->mainnews;
     }
 }

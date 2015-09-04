@@ -39,7 +39,7 @@ class ClassifiedClassifiedTree
     
     /**
      * @ORM\ManyToOne(targetEntity="Classified",  inversedBy="classifiedtrees")
-     * @ORM\JoinColumn(name="classified_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="classified_id", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({ "classifiedtree.list", "classifiedtree.details"})
      **/
     private $classified;

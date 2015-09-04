@@ -12,7 +12,7 @@ use Darkish\CustomerBundle\Entity\Customer;
 use Darkish\CategoryBundle\Entity\News;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class MewsController extends Controller
+class NewsController extends Controller
 {
 	/**
 	 * @Route("/news", name="website_news")

@@ -30,6 +30,11 @@
 	{% endif %}
 {% endblock %}
 
+{% set _sidebar_first = true %}
 {% block sidebar_first %}
-	asd
+
+    {{ sonata_block_render({'type': 'darkish_website.block.sponsors'},{
+        'mode': 'random'
+    }) }}
+
 {% endblock %}

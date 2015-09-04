@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints\Length;
 use Darkish\CustomerBundle\Entity\Customer;
+use Faker;
 
 
 class DefaultController extends Controller
@@ -203,6 +204,52 @@ class DefaultController extends Controller
 	    	return $this->render('DarkishWebsiteBundle:Default:RegisterCustomer/register-customer-done.html.twig');
 	    }
     }
-    
+
+
+    /**
+     * @Route("entity/generator")
+     */
+    public function generateEntity() {
+        $str = '';
+        $generator = Faker\Factory::create('fa_IR');
+        $populator = new Faker\ORM\Doctrine\Populator($generator,$this->getDoctrine()->getManager());
+        $populator->addEntity('\Darkish\CategoryBundle\Entity\Offer', 10,[
+            'title' => $generator->realText(50),
+            'subTitle' => $generator->realText(100),
+            'publishDate' => $generator->dateTimeBetween('-30 days'),
+            'expireDate' => $generator->dateTimeBetween('now', '+30 days'),
+            'body' => $generator->realText(1000),
+            'webBody' => null,
+            'website' => $generator->url,
+            'active' => true,
+            'verify' => true,
+            'offertrees' => function($entity) use ($generator) {
+//                $trees = $generator->randomElements(['4','5','6','7','8','9','10','13','14','15','16','18','19','24','25','26','28','29','30','31','32','36','39','41','43','44','45','53','54','56','58','62','73','74','75','76','78','79','80','81','83','84','85','86','92','103','111','114','115','116','117','118','119','120','121','122','123','124','125'], 1);
+                $trees = $generator->randomElements([1,2,3,4,5,6,7,8,9,10,11,12], 1);
+                $offertrees= new ArrayCollection();
+
+                $offertree = new OfferOfferTree();
+                $offertree->setTree($this->getDoctrine()->getRepository('DarkishCategoryBundle:OfferTree')->find($trees[0]));
+
+                $offertrees->add($offertree);
+
+                return $offertrees;
+
+            }
+
+        ],[
+            function($offer){
+                $iterator = $offer->getOffertrees()->getIterator();
+
+                while($iterator->valid()) {
+                    $cur = $iterator->current();
+                    $cur->setOffer($offer);
+                    $iterator->next();
+                }
+            }
+        ]);
+        $insertedPKs = $populator->execute();
+        return new Response($this->get('jms_serializer')->serialize($insertedPKs, 'json', SerializationContext::create()->setGroups(["offer.details"])));
+    }
 
 }

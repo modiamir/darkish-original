@@ -8,8 +8,17 @@ $(document).ready(function(){
         $('ul.operation-icons li.switch').removeClass('active');
         $(this).addClass('active');
 
+
+
         $('.gallery-box .switchable').removeClass('active');
         $('.gallery-box .switchable.'+$(this).attr('dk-open')).addClass('active');
+        if($(this).attr('dk-open') == 'map' && $('.gallery-box .switchable.map #map').attr('dk-displayed') != "1") {
+            var center= $('.gallery-box .switchable.map #map').data();
+            console.log(center);
+            addMarker([center.latitude, center.longitude]);
+            $('.gallery-box .switchable.map #map').attr('dk-displayed', "1");
+
+        }
     })
 
     $('ul.operation-icons li.switch:first-child').addClass('active');
@@ -153,7 +162,7 @@ $(document).ready(function(){
     })
 
 
-    setTimeout(function(){ $('.gallery-box .switchable.map').addClass('loaded');}, 1000);
+    //setTimeout(function(){ $('.gallery-box .switchable.map').addClass('loaded');}, 1000);
 
 
     function addLink() {

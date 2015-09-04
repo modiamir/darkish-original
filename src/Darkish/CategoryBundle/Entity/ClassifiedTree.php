@@ -166,17 +166,24 @@ class ClassifiedTree
     private $hiddenTree;
 
 
-    /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $classified
-     *
-     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Classified", mappedBy="trees")
-     */
-    protected $classified;
+//    /**
+//     * @var \Doctrine\Common\Collections\ArrayCollection $classified
+//     *
+//     * @ORM\ManyToMany(targetEntity="Darkish\CategoryBundle\Entity\Classified", mappedBy="trees")
+//     */
+//    protected $classified;
 
     /**
      * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="tree")
      **/
     private $mainclassifieds;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * Get id
@@ -697,5 +704,29 @@ class ClassifiedTree
     public function getMainclassifieds()
     {
         return $this->mainclassifieds;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return ClassifiedTree
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

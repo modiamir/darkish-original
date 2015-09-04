@@ -40,20 +40,29 @@ class AutomobileRepository extends EntityRepository
                 ->setParameter('automobileType', $automobile->getAutomobileType()->getId());
         }
 
+        if($automobile->getAutomobileColor())
+        {
+            $qb->andWhere('a.automobileColor = :automobileColor')
+                ->setParameter('automobileColor', $automobile->getAutomobileColor()->getId());
+        }
+
         if($automobile->getCreatedYear())
         {
             $qb->andWhere('a.createdYear = :createdYear')
                 ->setParameter('createdYear', $automobile->getCreatedYear());
         }
 
-//        if($automobile->getPrice())
-//        {
-//            $qb->andWhere('a.price >= :minPrice')
-//                ->setParameter('minPrice', (int)($automobile->getPrice() - 0.1 * $automobile->getPrice() ));
-//
-//            $qb->andWhere('a.price <= :maxPrice')
-//                ->setParameter('maxPrice', (int)($automobile->getPrice() + 0.1 * $automobile->getPrice() ));
-//        }
+        if($automobile->getPrice())
+        {
+            $priceRange = explode(',', $automobile->getPrice());
+            list($minPrice, $maxPrice) = $priceRange;
+
+            $qb->andWhere('a.price >= :minPrice')
+                ->setParameter('minPrice', $minPrice);
+
+            $qb->andWhere('a.price <= :maxPrice')
+                ->setParameter('maxPrice', $maxPrice);
+        }
 
         if(isset($prices['from']))
         {

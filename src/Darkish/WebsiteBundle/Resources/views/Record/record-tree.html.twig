@@ -35,25 +35,12 @@
 				<ul class="recordtree-list">
 					{% for tree in trees %}
 							<li>
-								<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
+								<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex, 'centers': app.request.query.get('centers') })}}">{{tree.title}}</a>
 							</li>
 					{% endfor %}
 				</ul>
 			{% else %}
-				<ul class="recordtree-grid">
-					{% for tree in trees %}
-						<li>
-							<a class="icon" href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">
-								<img src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ tree.iconFileName ~ ".png") }}">
-							</a>
-							<div class="tree-titles">
-								<h3><a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a></h3>
-								<span class="tree-subtitle">{{ tree.subTitle }}</span>
-							</div>
-
-						</li>
-					{% endfor %}
-				</ul>
+                {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees}) }}
 			{% endif %}
 
 		<hr/>
@@ -76,5 +63,25 @@
 
 
 
+
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
+    {% if tree.centersGroupIndex %}
+        {{ sonata_block_render({'type': 'darkish_website.block.centers'},{
+            'center_type': tree.centersGroupIndex
+        }) }}
+    {% endif %}
+    {% if tree.sponsorGroup %}
+        {{ sonata_block_render({'type': 'darkish_website.block.sponsors'},{
+            'mode': 'treeindex',
+            'tree_index': tree.sponsorGroup
+        }) }}
+    {% else %}
+        {{ sonata_block_render({'type': 'darkish_website.block.sponsors'},{
+            'mode': 'random'
+        }) }}
+    {% endif %}
 
 {% endblock %}

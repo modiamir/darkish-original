@@ -66,9 +66,9 @@ class ApiCommentController extends FOSRestController
                 $threadType = 'Darkish\CommentBundle\Entity\ForumTreeThread';
                 break;
 
-            case 'safarnameh':
-                $entityType = 'DarkishCategoryBundle:Safarsaz';
-                $threadType = 'Darkish\CommentBundle\Entity\SafarsazThread';
+            case 'itinerary':
+                $entityType = 'DarkishCategoryBundle:Itinerary';
+                $threadType = 'Darkish\CommentBundle\Entity\Itinerary';
                 break;
         }
 
@@ -232,8 +232,8 @@ class ApiCommentController extends FOSRestController
                 break;
 
             case 'safarnameh':
-                $entityType = 'DarkishCategoryBundle:Safarsaz';
-                $threadType = 'Darkish\CommentBundle\Entity\SafarsazThread';
+                $entityType = 'DarkishCategoryBundle:Itinerary';
+                $threadType = 'Darkish\CommentBundle\Entity\ItineraryThread';
                 break;
         }
 
