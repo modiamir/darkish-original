@@ -12,10 +12,13 @@ use Darkish\CustomerBundle\Entity\Customer;
 use Darkish\CategoryBundle\Entity\News;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NewsController extends Controller
+/**
+ * @Route("/", host="%news_subdomain%")
+ */
+class MewsController extends Controller
 {
 	/**
-	 * @Route("/news", name="website_news")
+	 * @Route("/", name="website_news")
 	 */
     public function indexAction()
     {
@@ -27,13 +30,13 @@ class NewsController extends Controller
 	    $breadcrumbs->addItem('اخبار');
 
 
-    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree')->getSubTrees();
+    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree')->getSubTrees("00");
     	return $this->render('DarkishWebsiteBundle:News:index.html.twig', ['trees' => $trees]);
     }
 
 
     /**
-	 * @Route("/news/tree/{treeIndex}/{page}", name="website_news_tree", defaults={"page" = 1})
+	 * @Route("/tree/{treeIndex}/{page}", name="website_news_tree", defaults={"page" = 1})
 	 */
     public function newsTreeAction($treeIndex, $page = 1, Request $request)
     {
@@ -78,7 +81,7 @@ class NewsController extends Controller
 
 
     /**
-     * @Route("/news/{news}", name="website_news_single")
+     * @Route("/{news}", name="website_news_single")
      */
     public function newsAction(News $news) {
 

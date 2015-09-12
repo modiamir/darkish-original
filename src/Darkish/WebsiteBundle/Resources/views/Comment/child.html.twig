@@ -11,5 +11,28 @@
     <div class="media-body">
         <h4 class="media-heading"><span class="owner-name">{{ child.owner | user_name }} - </span><span class="comment-date">{{ child.createdAt | jdate('Y/m/d H:i') }}</span></h4>
         {{ child.body | raw }}
+        <hr/>
+        <a type="button"
+                class="comment-buttons comment-like btn-sm"
+                comment-id="{{ child.id }}"
+                data-like-count="{% if child.likeCount %}{{ child.likeCount }}{% else %}۰{% endif %}">
+            لایک (
+            <span class="like-count">{% if child.likeCount %}{{ child.likeCount }}{% else %}۰{% endif %}</span>
+            )
+        </a>
+        <div class="btn-group">
+            <button {% if child.claimType %}disabled{% endif %} type="button" data-comment-id="{{ child.id }}" class="comment-buttons comment-report btn-sm btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if child.claimType %}
+                    در حال بررسی
+                {% else %}
+                    گزارش<span class="caret"></span>
+                {% endif %}
+            </button>
+            <ul class="dropdown-menu comment-report">
+                {% for claimType in claim_types %}
+                    <li><a data-claim-type-id="{{ claimType.id }}" data-comment-id="{{ child.id }}" >{{ claimType.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>

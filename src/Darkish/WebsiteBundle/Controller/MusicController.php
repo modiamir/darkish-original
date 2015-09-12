@@ -5,6 +5,9 @@ namespace Darkish\WebsiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class MusicController extends Controller
 {
 

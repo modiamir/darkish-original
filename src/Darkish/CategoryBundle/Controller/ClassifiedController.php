@@ -371,7 +371,7 @@ class ClassifiedController extends Controller
             
             $rep = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ClassifiedTree');
             foreach($data['classifiedtrees'] as $tree) {
-                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'] ));
+                $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => (isset($tree['sort'])?$tree['sort']:60) ));
             }   
 
 

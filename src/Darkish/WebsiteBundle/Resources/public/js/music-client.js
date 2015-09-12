@@ -34,7 +34,7 @@ function DarkishMusicClient() {
             Cookies.expire('darkish_music_current');
             Cookies.set('darkish_music_current', fileName);
             Cookies.set('command', 'play');
-            var win = window.open('http://localhost/n-darkish/web/app_dev.php/play','darkish_audioplayer','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=400,height=350');
+            var win = window.open(window.location.origin+'/app_dev.php/play','darkish_audioplayer','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=400,height=350');
 
         }
     }

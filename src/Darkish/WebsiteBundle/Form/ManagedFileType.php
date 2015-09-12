@@ -11,21 +11,22 @@ class ManagedFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', [
-                'required' => false
-            ])
+            ->add('uploadDir', 'hidden')
+            ->add('type', 'hidden')
+            ->add('fileName', 'hidden')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Darkish\CategoryBundle\Entity\ManagedFile'
+            'data_class' => 'Darkish\CategoryBundle\Entity\ManagedFile',
+            'csrf_protection'=> false
         ]);
     }
 
     public function getName()
     {
-        return 'darkish_website_bundle_file_type';
+        return 'managedfile_type';
     }
 }

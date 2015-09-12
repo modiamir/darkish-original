@@ -380,6 +380,71 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberFive", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberFive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberFiveLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberFiveLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSix", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSix;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSixLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSixLabel;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSeven", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSeven;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSevenLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSevenLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberEight", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberEight;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberEightLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberEightLabel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="FaxNumberOne", type="string",  nullable=true)
      * @Groups({"record.details", "api.list"})
      */
@@ -4917,5 +4982,29 @@ class Record
     public function getWebBody()
     {
         return $this->webBody;
+    }
+
+    /**
+     * Set disableRecommendation
+     *
+     * @param boolean $disableRecommendation
+     *
+     * @return Record
+     */
+    public function setDisableRecommendation($disableRecommendation)
+    {
+        $this->disableRecommendation = $disableRecommendation;
+
+        return $this;
+    }
+
+    /**
+     * Get disableRecommendation
+     *
+     * @return boolean
+     */
+    public function getDisableRecommendation()
+    {
+        return $this->disableRecommendation;
     }
 }

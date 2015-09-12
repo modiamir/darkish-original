@@ -4,20 +4,28 @@ namespace Darkish\WebsiteBundle\Controller;
 
 use Darkish\CategoryBundle\Entity\Record;
 use Darkish\CommentBundle\Entity\AnonymousComment;
+use Darkish\CommentBundle\Entity\ClaimTypes;
 use Darkish\CommentBundle\Entity\Comment;
 use Darkish\CommentBundle\Entity\ForumTreeThread;
 use Darkish\CommentBundle\Entity\RecordThread;
 use Darkish\CommentBundle\Entity\ItineraryThread;
 use Darkish\WebsiteBundle\Form\CommentType;
 use FOS\RestBundle\Controller\Annotations\Route;
-use Proxies\__CG__\Darkish\CommentBundle\Entity\NewsThread;
+use Darkish\CommentBundle\Entity\NewsThread;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+
+/**
+ * @Route("/", host="%domain%")
+ */
 class CommentController extends Controller
 {
     public function indexAction($name)
@@ -78,7 +86,7 @@ class CommentController extends Controller
                         $thread->setLastCommentAt(new \DateTime());
                         $thread->setNumComments(1);
                     }
-                    $url = $this->generateUrl('website_forum_tree', ['tree_index' => $entity->getTreeIndex()]);
+                    $url = $this->generateUrl('website_forum_tree', ['treeIndex' => $entity->getTreeIndex()]);
                     break;
                 case 'itinerary':
                     $entity = $this->getDoctrine()
@@ -92,7 +100,12 @@ class CommentController extends Controller
                         $thread->setLastCommentAt(new \DateTime());
                         $thread->setNumComments(1);
                     }
-                    $url = $this->generateUrl('website_itinerary');
+                    $parameters = [];
+                    if($request->request->has('page')) {
+                        $parameters['page'] = $request->request->get('page');
+                    }
+                    $parameters['commented'] = $request->get('entity_id');
+                    $url = $this->generateUrl('website_itinerary', $parameters);
                     break;
             }
 //            $comment->setCreatedAt(new \DateTime());
@@ -149,6 +162,62 @@ class CommentController extends Controller
         $childrenJson['children'] = $this->renderView('DarkishWebsiteBundle:Comment:get_children.html.twig',['children'=> $children]);
 
         return new JsonResponse($childrenJson);
+
+    }
+
+
+
+
+    /**
+     * @Route("comment/like/{comment}", name="website_comment_like", options={"expose"=true})
+     * @Method({"POST"})
+     */
+    public function likeCommentAction(Comment $comment) {
+        $session = new Session();
+        $session->start();
+
+        $commentLikes = $session->get('commentLikes');
+
+        if($commentLikes && in_array($comment->getId(), $commentLikes)) {
+            throw new AccessDeniedHttpException();
+        }
+
+
+        if(true || !$comment->getHasLiked()) {
+            $em = $this->getDoctrine()->getManager();
+            $comment->setLikeCount($comment->getLikeCount() + 1);
+            $em->persist($comment);
+            $em->flush();
+            if($commentLikes) {
+                $commentLikes[] = $comment->getId();
+            } else {
+                $commentLikes = [];
+                $commentLikes[] = $comment->getId();
+            }
+            $session->set('commentLikes', $commentLikes);
+            return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
+        }
+        return new Response('You have liked before', 403);
+    }
+
+
+    /**
+     * @Route("comment/report/{comment}/{report}", name="website_comment_report", options={"expose"=true})
+     * @Method({"POST"})
+     */
+    public function reportCommentAction(Comment $comment, $report) {
+
+        if($comment->getClaimType()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $comment->setClaimType($report);
+
+        $em = $this->getDoctrine()->getManager();
+        $comment->setLikeCount($comment->getLikeCount() + 1);
+        $em->persist($comment);
+        $em->flush();
+        return new Response($this->get('jms_serializer')->serialize($comment, 'json', SerializationContext::create()->setGroups(array('comment.details', 'file.details'))));
 
     }
 

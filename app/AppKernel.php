@@ -45,6 +45,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
+            new Oneup\UploaderBundle\OneupUploaderBundle(),
 
         );
 

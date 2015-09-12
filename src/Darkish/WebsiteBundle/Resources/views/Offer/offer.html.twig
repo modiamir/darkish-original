@@ -1,0 +1,46 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/js/offer/offer.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+پیشنهاد ویژه -
+    {{ offer.title }}
+{% endblock %}
+
+{% if offer.subTitle %}
+    {% block page_subtitle %}
+        {{ offer.subTitle }}
+    {% endblock %}
+{% endif %}
+
+{% set _sidebar_first = true %}
+{% block content %}
+
+    {% if offer.submitterNumber or offer.website %}
+    <div class="offer-single-operations">
+        {% if offer.submitterNumber %}
+            <a class="record-link" href="{{ path('website_record_single', {"record": offer.submitterNumber}) }}">
+                واحد
+            </a>
+        {% endif %}
+
+        {% if offer.website %}
+            <a class="website-link" href="{{ offer.website }}">
+                وبسایت
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="offer-banner-wrapper">
+        <img class="offer-banner thumbnail" src="{{ offer.banner.relativePath | imagine_filter('1024') }}">
+    </div>
+
+    <div class="offer-body">
+        {{ offer.webBody|raw }}
+
+    </div>
+{% endblock %}

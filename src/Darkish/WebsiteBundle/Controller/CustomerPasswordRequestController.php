@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * 
- * @Route("/password/customer")
+ * @Route("/password/customer", host="%domain%")
  */
 class CustomerPasswordRequestController extends Controller
 {

@@ -12,7 +12,7 @@
 		<span class="comment-count">{{ record.getFormattedCount(record.commentCount)}}<i class="fa fa-comments"></i></span>
 	</div>
 
-	<h4><a href="{{ path('website_record_single', {'record': record.id}) }}" rel="nofollow" title="{{ record.title }}">{{ record.title |truncate(30,true) }}</a></h4>
+	<h4><a href="{{ path('website_record_single', {'record': record.recordNumber}) }}" rel="nofollow" title="{{ record.title }}">{{ record.title |truncate(30,true) }}</a></h4>
 
 	<div>{{record.subTitle|truncate(40,true)}}</div>
 </div>

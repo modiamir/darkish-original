@@ -4,3 +4,43 @@
   left: 0;
   width: 300px;
 }
+
+.classified-list {
+  .classified-item {
+    h3 {
+      font-size: 18px;
+      margin-top: 3px;
+      line-height: 25px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+}
+
+
+.classified-images {
+  width: 90%;
+  margin: auto;
+  img {
+    padding:3px;
+    border: 1px solid #e3e3e3;
+  }
+  & > a {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .row {
+    margin: 0;
+    .col {
+      padding: 0;
+      margin: 4%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -98,27 +98,24 @@
 
       .gallery-box {
         margin-bottom: 20px;
-        .map {
-          &.loaded {
-            display:none;
-          }
+        height: 469px;
+        .switchable {
+          z-index: 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
           &.active {
-            display: block;
+            z-index: 2;
           }
+        }
+        .map {
         }
 
         .gallery {
-          display:none;
-          &.active {
-            display: block;
-          }
         }
 
         .image {
-          display:none;
-          &.active {
-            display: block;
-          }
           img {
             width: 100%;
           }
@@ -156,6 +153,28 @@
 
       .record-database-banner, .record-market-banner {
         width: 100%;
+      }
+
+      a[data-lightbox] {
+        display: inline-block;
+        position: relative;
+        img {
+          width: 350px;
+        }
+        span {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 60px;
+          height: 30px;
+          background-color: rgba(255, 102, 0, 0.6);
+          background-image: url(../images/fullscreen.png);
+          background-position: bottom right;
+          background-repeat: no-repeat;
+        }
+        &:hover span{
+          background-color: rgba(255, 102, 0, 0.2);
+        }
       }
 	}
 	&.mode-list {
@@ -207,104 +226,159 @@
   }
 
 
-  .store-products-title {
-	border-bottom: 1px solid $orange;
-	display: inline-block;
-	margin-bottom: 30px;
+  .record-store-section {
+
+    margin-bottom: 20px;
+
+    .jumbotron {
+      margin: 0;
+    }
+    .row-table {
+      display: table;
+      & > [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+        padding: 0;
+      }
+    }
+
+    ul.nav
+    {
+      padding-top: 0;
+      li {
+        a {
+          border: 0;
+        }
+
+        &.active a {
+          border: 0;
+        }
+      }
+    }
+
+    .tabs-right {
+      border-left: 0;
+    }
+
+
+
+    .products-wrapper {
+      background: #F7F7F7;
+      padding: 10px 30px;
+      .products {
+        .col-xs-9 {
+          background: white;
+          padding-right: 20px;
+        }
+      }
+    }
+
+    .store-products-title {
+      border-bottom: 1px solid $orange;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+
+    .record-store-product {
+      float:right;
+      margin: 10px;
+      width: 260px;
+      margin-top: 0;
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      padding: 10px;
+
+      .product-thumb-wrapper {
+        position: relative;
+
+        .product-image {
+          width: 240px;
+          height: 200px;
+          margin-bottom: 10px;
+        }
+        .special-tag {
+          background-position: top right;
+          background-repeat: no-repeat;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 50px;
+          height: 70px;
+          background-size: 100%;
+          &.tag-new {
+            background-image: url(../images/Over-New.png);
+          }
+
+          &.tag-special {
+            background-image: url(../images/Over-Offer.png);
+          }
+
+          &.tag-discount {
+            background-image: url(../images/Over-Discount.png);
+          }
+        }
+      }
+
+      .row {
+        margin-right: -1px;
+        margin-left: -1px;
+
+        .col {
+          padding-right: 1px;
+          padding-left: 1px;
+        }
+
+      }
+
+      .product-title {
+        font-size: 18px;
+        color: rgb(0, 128, 36);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+
+      }
+
+
+      .product-code {
+        font-size: 16px;
+        color: rgb(84, 84, 84);
+        text-align: right;
+      }
+
+      .product-price, .product-discounted-price {
+        color: green;
+        font-size: 16px;
+        text-align: left;
+      }
+
+      .product-price.has-discounted-price, .product-price.product-is-unavailable {
+        color:red;
+        text-decoration: line-through;
+      }
+
+      .product-price.product-soon {
+        color:$orange;
+        text-decoration: line-through;
+      }
+
+      .product-unavailable {
+        text-align: left;
+        color: red;
+        font-size: 16px;
+      }
+
+      .product-soon {
+        text-align: left;
+        color: $orange;
+        font-size: 16px;
+      }
+    }
   }
-  
-  .record-store-product {
-	float:right;
-	margin: 10px;
-	margin-top: 0;
-	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	padding: 10px;
 
-    .product-thumb-wrapper {
-      position: relative;
-
-      .product-image {
-        width: 240px;
-        height: 200px;
-        margin-bottom: 10px;
-      }
-      .special-tag {
-        background-position: top right;
-        background-repeat: no-repeat;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 50px;
-        height: 70px;
-        background-size: 100%;
-        &.tag-new {
-          background-image: url(../images/Over-New.png);
-        }
-
-        &.tag-special {
-          background-image: url(../images/Over-Offer.png);
-        }
-
-        &.tag-discount {
-          background-image: url(../images/Over-Discount.png);
-        }
-      }
-    }
-
-    .row {
-      margin-right: -1px;
-      margin-left: -1px;
-
-      .col {
-        padding-right: 1px;
-        padding-left: 1px;
-      }
-
-    }
-
-    .product-title {
-      font-size: 18px;
-      color: rgb(0, 128, 36);
-
-    }
-
-
-    .product-code {
-      font-size: 16px;
-      color: rgb(84, 84, 84);
-      text-align: right;
-    }
-
-    .product-price, .product-discounted-price {
-      color: green;
-      font-size: 16px;
-      text-align: left;
-    }
-
-    .product-price.has-discounted-price, .product-price.product-is-unavailable {
-      color:red;
-      text-decoration: line-through;
-    }
-
-    .product-price.product-soon {
-      color:$orange;
-      text-decoration: line-through;
-    }
-
-    .product-unavailable {
-      text-align: left;
-      color: red;
-      font-size: 16px;
-    }
-
-    .product-soon {
-      text-align: left;
-      color: $orange;
-      font-size: 16px;
-    }
-  }
 
 
 }

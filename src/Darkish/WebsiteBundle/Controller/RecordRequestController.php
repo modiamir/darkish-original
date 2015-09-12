@@ -13,7 +13,7 @@ use Darkish\WebsiteBundle\Form\RecordRequestType;
 /**
  * RecordRequest controller.
  *
- * @Route("/request/record")
+ * @Route("/request/record", host="%domain%")
  */
 class RecordRequestController extends Controller
 {

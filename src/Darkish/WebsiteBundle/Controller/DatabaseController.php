@@ -20,6 +20,9 @@ use Darkish\CategoryBundle\Entity\Record;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\I18n\Validator\DateTime;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class DatabaseController extends Controller
 {
     /**

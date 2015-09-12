@@ -14,7 +14,6 @@ use Darkish\CategoryBundle\Entity\MainTree;
 class WebMainTreeRepository extends EntityRepository
 {
     public function getTreeChildren(MainTree $tree) {
-        
         /* @var $repo \Darkish\CategoryBundle\Entity\MainTree  */
         $qb = $this->createQueryBuilder('r');
         /* @var $qb QueryBuilder */
@@ -22,10 +21,11 @@ class WebMainTreeRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-
     public function getSubTrees($upTreeIndex = '00') {
         $qb = $this->createQueryBuilder('rt');
         $qb->where('rt.upTreeIndex = :upTreeIndex')->setParameter('upTreeIndex', $upTreeIndex);
+        $qb->andWhere('rt.hiddenTree = :false')->setParameter('false', false);
+        $qb->orderBy('rt.sort','asc');
         return $qb->getQuery()->getResult();   
     }
 }

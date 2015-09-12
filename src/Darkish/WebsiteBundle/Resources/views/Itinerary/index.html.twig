@@ -2,10 +2,23 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/ui/minified/widget.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-load-image/js/load-image.all.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-process.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-image.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-video.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-audio.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/Readmore.js/readmore.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/URIjs/src/URI.min.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/itinerary/itinerary.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/upload.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
@@ -25,31 +38,52 @@
 {% endblock %}
 
 {% block content %}
-    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#itinerary-form" aria-expanded="false" aria-controls="itinerary-form">
+    <a class="insert-itinerary btn btn-primary" role="button" data-toggle="collapse" href="#itinerary-form" aria-expanded="false" aria-controls="itinerary-form">
         +
         ثبت سفرنامه
     </a>
-    <div class="itinerary-form collapse collapsed" id="itinerary-form">
+    <div class=" well itinerary-form collapse collapsed" id="itinerary-form">
         {{ form_errors(form) }}
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        <ul id="oneup-photos" data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
 
+        </ul>
+        {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">
             ثبت
         </button>
 
+        <div class="well">
+
+        <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add files...</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files[]" data-url="{{ oneup_uploader_endpoint('image') }}" multiple>
+        </span>
+            <br>
+            <br>
+            <!-- The global progress bar -->
+            <div id="progress" class="progress">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+            <!-- The container for the uploaded files -->
+            <div id="files" class="files"></div>
+            <br>
+
+        </div>
 
         {{ form_end(form) }}
-        <script>
 
-
-
-        </script>
     </div>
 
-    {% for itinerary in itineraries %}
+
+
+    {% for itinerary in paginator %}
         {{ include('@DarkishWebsite/Itinerary/itinerary-item.html.twig', {"itinerary": itinerary}) }}
     {% endfor %}
+
+    {{ knp_pagination_render(paginator) }}
 
 
 {% endblock %}

@@ -1,18 +1,37 @@
 <div class="media itinerary">
     {% if itinerary.photos|length %}
-    <a class="media-right" href="#">
+    <a class="media-right" data-lightbox="itinerary-gallery-{{ itinerary.id }}" href="{{ itinerary.photos.0.relativePath | imagine_filter('1024') }}">
         <img src="{{ itinerary.photos.0.relativePath | imagine_filter('128') }}" style="">
     </a>
     {% endif %}
     <div class="media-body">
         <h3 class="media-heading">{{ itinerary.title }}</h3>
+        <h4 class="media-heading">نام و نام خانوادگی{{ itinerary.fullName }}</h4>
         <div class="itinerary-body">
             {{ itinerary.body }}
+            {% if itinerary.photos|length > 1 %}
+            <div class="row">
+                {% for photo in itinerary.photos %}
+                    {% if loop.index > 1 %}
+                        <a class="itinerary-image" href="{{ photo.relativePath | imagine_filter('1024') }}" data-lightbox="itinerary-gallery-{{ itinerary.id }}">
+                            <img src="{{ photo.relativePath | imagine_filter('128') }}" alt="">
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        <button type="submit" data-itinerary-id="{{ itinerary.id }}" class="btn btn-default">
-            نظرات
-        </button>
-        <div id="itinerary-comments-{{ itinerary.id }}" class="itinerary-comments"></div>
+        {% if app.request.query.has('commented') and app.request.query.get('commented') == itinerary.id %}
+            <div id="itinerary-comments-{{ itinerary.id }}" class="itinerary-comments">
+                {{ include("@DarkishWebsite/Itinerary/get-comments.html.twig", {'itinerary': itinerary}) }}
+            </div>
+        {% else %}
+            <button type="submit" data-itinerary-id="{{ itinerary.id }}" class="btn btn-default">
+                نظرات
+            </button>
+            <div id="itinerary-comments-{{ itinerary.id }}" class="itinerary-comments"></div>
+        {% endif %}
+
     </div>
 </div>
 

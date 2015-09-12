@@ -12,7 +12,7 @@
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
-        "symfony/assetic-bundle": "~2.3",
+        "symfony/assetic-bundle": "2.6.1",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0",
@@ -44,8 +44,9 @@
         "whiteoctober/breadcrumbs-bundle": "^1.2",
         "irazasyed/telegram-bot-sdk": "^0.2.5",
         "egeloen/google-map-bundle": "^2.2",
-        "fzaninotto/faker": "^1.5"
-
+        "fzaninotto/faker": "^1.5",
+        "misd/phone-number-bundle": "~1.0",
+        "oneup/uploader-bundle": "~1.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

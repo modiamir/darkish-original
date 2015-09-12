@@ -15,7 +15,34 @@
                 <h4 class="media-heading"> <span class="owner-name">{{ comment.owner | user_name }} - </span>   <span class="comment-date">{{ comment.createdAt | jdate('Y/m/d H:i') }}</span>   </h4>
 
                 {{ comment.body | raw }}
+                <hr>
+                <a type="button"
+                        class="comment-buttons comment-like btn-sm"
+                        comment-id="{{ comment.id }}"
+                        data-like-count="{% if comment.likeCount %}{{ comment.likeCount }}{% else %}۰{% endif %}">
+                    لایک (
+                    <span class="like-count">{% if comment.likeCount %}{{ comment.likeCount }}{% else %}۰{% endif %}</span>
+                    )
+                </a>
+                <div class="btn-group">
+                    <button {% if comment.claimType %}disabled{% endif %} type="button" data-comment-id="{{ comment.id }}" class="comment-buttons comment-report btn-sm btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if comment.claimType %}
+                            در حال بررسی
+                        {% else %}
+                            گزارش<span class="caret"></span>
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu comment-report">
+                        {% for claimType in claim_types %}
+                            <li><a data-claim-type-id="{{ claimType.id }}" data-comment-id="{{ comment.id }}" >{{ claimType.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
 
+                <button type="button" class="comment-buttons btn-success comment-reply-button btn btn-default btn-sm" comment-id="{{ comment.id }}"
+                        entity-type="{{ settings.entity_type }}" entity-id="{{ entity.id }}">
+                    پاسخ
+                </button>
 
 
                 {% set children = (comment | comment_children) %}
@@ -25,10 +52,10 @@
                         {{  include('DarkishWebsiteBundle:Comment:child.html.twig', {"child": child}) }}
                     {% endfor %}
                     </div>
-
                 {% endif %}
 
                 <hr/>
+
 
                 {% if children | length %}
                 <button type="button"
@@ -38,10 +65,6 @@
                 </button>
                 {% endif %}
 
-                <button type="button" class="comment-buttons btn-success comment-reply-button btn btn-default btn-sm" comment-id="{{ comment.id }}"
-                        entity-type="{{ settings.entity_type }}" entity-id="{{ entity.id }}">
-                    پاسخ
-                </button>
 
                 {#{{ comment | comment_children }}#}
             </div>
@@ -51,7 +74,7 @@
         {{ knp_pagination_render(pagination) }}
     </div>
 {% else %}
-    برای این واحد نظری ثبت نشده است.
+در حال حاضر هیچ نظری ثبت نشده است.
 {% endif %}
 <hr/>
 {{ form_start(comment_form) }}

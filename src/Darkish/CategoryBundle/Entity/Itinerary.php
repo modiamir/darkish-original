@@ -5,6 +5,7 @@ namespace Darkish\CategoryBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Itinerary
  *
@@ -24,15 +25,27 @@ class Itinerary
 
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *      max = 100,
+     * )
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
+    /**
+     * @var string
+     * @ORM\Column(name="full_name", type="string", length=255)
+     * @Assert\Length(
+     *      max = 50,
+     * )
+     */
+    private $fullName;
 
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *      max = 5000,
+     * )
      * @ORM\Column(name="body", type="text", nullable=true)
      */
     private $body;
@@ -217,5 +230,29 @@ class Itinerary
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     *
+     * @return Itinerary
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 }

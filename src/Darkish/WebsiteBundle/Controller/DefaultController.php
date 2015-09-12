@@ -11,11 +11,13 @@ use Symfony\Component\Validator\Constraints\Length;
 use Darkish\CustomerBundle\Entity\Customer;
 use Faker;
 
-
+/**
+ * @Route("/", host="%domain%")
+ */
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/", name="website_home")
+	 * @Route("/", name="website_home", host="%domain%")
 	 */
     public function indexAction()
     {
@@ -206,6 +208,8 @@ class DefaultController extends Controller
     }
 
 
+
+
     /**
      * @Route("entity/generator")
      */
@@ -251,5 +255,8 @@ class DefaultController extends Controller
         $insertedPKs = $populator->execute();
         return new Response($this->get('jms_serializer')->serialize($insertedPKs, 'json', SerializationContext::create()->setGroups(["offer.details"])));
     }
+
+
+
 
 }

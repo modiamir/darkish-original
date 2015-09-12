@@ -31,10 +31,9 @@ class Itinerary
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="sub_title", type="string", length=255)
+     * @ORM\Column(name="full_name", type="string", length=255)
      */
-    private $subTitle;
+    private $fullName;
 
     /**
      * @var string
@@ -50,7 +49,7 @@ class Itinerary
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
      *      )
      * @Assert\Count(
-     *      max = "3",
+     *      max = "5",
      *      maxMessage = "تعداد تصاویر بیش از حد مجاز است."
      * )
      **/
@@ -127,28 +126,7 @@ class Itinerary
         return $this->title;
     }
 
-    /**
-     * Set subTitle
-     *
-     * @param string $subTitle
-     * @return Itinerary
-     */
-    public function setSubTitle($subTitle)
-    {
-        $this->subTitle = $subTitle;
 
-        return $this;
-    }
-
-    /**
-     * Get subTitle
-     *
-     * @return string 
-     */
-    public function getSubTitle()
-    {
-        return $this->subTitle;
-    }
 
     /**
      * Set body
@@ -220,5 +198,29 @@ class Itinerary
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Itinerary
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

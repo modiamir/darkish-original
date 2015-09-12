@@ -1,0 +1,99 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/classified/classified.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block page_title %}
+آگهی -
+    {{ classified.title }}
+{% endblock %}
+
+{% set _sidebar_first = true %}
+{% block content %}
+    <div class="col-xs-6">
+        <div class="classified-images">
+    {% if classified.images | length %}
+        <a href="{{ classified.images.0.relativePath | imagine_filter('1024') }}" data-lightbox="classified-gallery">
+            <img src="{{ classified.images.0.relativePath | imagine_filter('240x200') }}" alt="">
+        </a>
+        {% if classified.images|length > 1 %}
+            <div class="row">
+            {% for image in classified.images %}
+                {% if loop.index > 1 %}
+                    <div class="col col-xs-3">
+                        <a  href="{{ image.relativePath | imagine_filter('1024') }}" data-lightbox="classified-gallery">
+                            <img src="{{ image.relativePath | imagine_filter('64') }}" alt="">
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="well well-sm">
+            {% if classified.price %}
+            <div class="classified-price">
+                <label>
+                    قیمت:
+                </label>
+                {{ classified.price }} تومان
+            </div>
+            {% endif %}
+            {% if classified.telNumberOne %}
+            <div class="classified-phone">
+                <label>
+                    تلفن:
+                </label>
+                {{ classified.telNumberOne }}
+            </div>
+            {% endif %}
+            {% if classified.telNumberTwo %}
+            <div class="classified-phone">
+                <label>
+تلفن:
+                </label>
+                {{ classified.telNumberTwo }}
+            </div>
+            {% endif %}
+            {% if classified.email %}
+            <div class="classified-email">
+                <label>
+پست الکنرونیک:
+                </label>
+                {{ classified.email }}
+            </div>
+            {% endif %}
+            {% if classified.website %}
+            <div class="classified-website">
+                <a href="{{ classified.website }}">
+                    وبسایت
+                </a>
+            </div>
+            {% endif %}
+
+            {% if classified.creationDate %}
+                <div class="classified-date">
+                    <label>
+تاریخ ثبت:
+                    </label>
+                    {{ classified.creationDate| jdate('Y/m/d H:i') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col col-xs-12">
+        {{ classified.body }}
+    </div>
+{% endblock %}

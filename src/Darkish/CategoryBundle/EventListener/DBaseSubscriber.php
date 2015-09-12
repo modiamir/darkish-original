@@ -10,6 +10,7 @@ use Darkish\CategoryBundle\Entity\Record;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\DependencyInjection\Container;
 
 
@@ -96,65 +97,113 @@ class DBaseSubscriber implements EventSubscriber
         $estateQB= $em->getRepository('DarkishCategoryBundle:Estate')->createQueryBuilder('es');
         $automobileQB = $em->getRepository('DarkishCategoryBundle:Automobile')->createQueryBuilder('au');
 
-        $boundries = [];
+        $oldBoundries = file_get_contents('/home/shahed/www/web/dbase_range_slider_boundries.json');
 
-        $estateMinSellPrice = $estateQB
-            ->select('min(es.price)')
-            ->where('es.contractType != :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
+        $arrayBoundries = $this->container->get('jms_serializer')->deserialize($oldBoundries, 'array', 'json');
 
-        $estateMaxSellPrice = $estateQB
-            ->select('max(es.price)')
-            ->where('es.contractType != :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
+        $date = new \DateTime($arrayBoundries['date']);
+        $now = new \DateTime();
 
-        $boundries['estate_sell_price'] = [
-            'min' => $estateMinSellPrice,
-            'max' => $estateMaxSellPrice,
-        ];
+        if( (int)(($now->getTimestamp() - $date->getTimestamp()) / (60)) <= 60)
+        {
+            return;
+        }
 
-        $estateMaxRentPrice = $estateQB
-            ->select('max(es.price)')
-            ->where('es.contractType = :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
-
-        $estateMinRentPrice = $estateQB
-            ->select('min(es.price)')
-            ->where('es.contractType = :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
-
-        $boundries['estate_rent_price'] = [
-            'min' => $estateMinRentPrice,
-            'max' => $estateMaxRentPrice,
-        ];
+        $boundries = $this->generatePrices($estateQB, $automobileQB);
 
 
-        $estateMaxRentSecondaryPrice = $estateQB
-            ->select('max(es.price)')
-            ->where('es.contractType = :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
+        file_put_contents('/home/shahed/www/web/dbase_range_slider_boundries.json',
+            $this->container->get('jms_serializer')->serialize($boundries, 'json')
+        );
 
-        $estateMinRentSecondaryPrice = $estateQB
-            ->select('min(es.price)')
-            ->where('es.contractType = :cid')
-            ->setParameter('cid', 2)
-            ->getQuery()->getSingleScalarResult()
-        ;
 
-        $boundries['estate_rent_secondary_price'] = [
-            'min' => $estateMinRentSecondaryPrice,
-            'max' => $estateMaxRentSecondaryPrice,
-        ];
+    }
+
+
+    private function generatePrices(QueryBuilder $estateQB, QueryBuilder $automobileQB) {
+        $estateTypes = $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:EstateType')
+            ->findAll();
+
+        $rentPrices = [];
+        $sellPrices = [];
+
+        foreach($estateTypes as $estateType)
+        {
+
+            $estateMinRentPrice = $estateQB
+                ->select('min(es.price)')
+                ->where('es.contractType = :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $estateMaxRentPrice = $estateQB
+                ->select('max(es.price)')
+                ->where('es.contractType = :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $estateMinRentSecondaryPrice = $estateQB
+                ->select('min(es.secondaryPrice)')
+                ->where('es.contractType = :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $estateMaxRentSecondaryPrice = $estateQB
+                ->select('max(es.secondaryPrice)')
+                ->where('es.contractType = :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $estateMinSellPrice = $estateQB
+                ->select('min(es.price)')
+                ->where('es.contractType != :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $estateMaxSellPrice = $estateQB
+                ->select('max(es.price)')
+                ->where('es.contractType != :cid')
+                ->setParameter('cid', 2)
+                ->andWhere('es.estateType = :etid')
+                ->setParameter('etid', $estateType->getId())
+                ->getQuery()->getSingleScalarResult()
+            ;
+
+            $rentPrices[$estateType->getId()] = [
+                'price' => [
+                    'min' => $estateMinRentPrice,
+                    'max' => $estateMaxRentPrice
+                ],
+                'secondaryPrice' => [
+                    'min' => $estateMinRentSecondaryPrice,
+                    'max' => $estateMaxRentSecondaryPrice
+                ]
+            ];
+
+            $sellPrices[$estateType->getId()] = [
+                'price' => [
+                    'min' => $estateMinSellPrice,
+                    'max' => $estateMaxSellPrice
+                ]
+            ];
+
+        }
+
 
         $automobileMaxPrice = $automobileQB
             ->select('max(au.price)')
@@ -166,23 +215,18 @@ class DBaseSubscriber implements EventSubscriber
             ->getQuery()->getSingleScalarResult()
         ;
 
-        $boundries['automobile_price'] = [
+        $automobilePrices = [
             'min' => $automobileMinPrice,
             'max' => $automobileMaxPrice,
         ];
 
+        $boundries = [];
+        $boundries['estate_rent'] = $rentPrices;
+        $boundries['estate_sell'] = $sellPrices;
+        $boundries['automobile'] = $automobilePrices;
+        $boundries['date'] = new \DateTime();
 
-
-        file_put_contents('/home/shahed/www/web/dbase_range_slider_boundries.json',
-            $this->container->get('jms_serializer')->serialize($boundries, 'json')
-        );
-
-
-
-
-
-
-
+        return $boundries;
     }
 
 }

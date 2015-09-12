@@ -1,33 +1,27 @@
 {% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
 
-{% block page_header %}
-	<div class="page-header-box">
-		{% if news.icon %}
-			<div class="image-box">
-				{# <img src="./assets/images/news-image.png"> #}
-				<img src="{{news.icon.webAbsolutePath}}">
-			</div>
-		{% endif %}
-		<div class="date">
-			<span class="day">{{ news.creationDate | jdate("j") }}</span>
-			<span class="month">{{ news.creationDate | jdate("F") }}</span>
-			<span class="time">{{ news.creationDate | jdate("H:i") }}</span>
-		</div>
-	</div>
 
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/dk-elements.js') }}"></script>
+{% endblock %}
+
+
 {% block page_title %}
-	<h2 class="page-title">
 		{{news.title}}
-	</h2>
 {% endblock %}
 
 {% block page_subtitle %}
-	<h4 class="page-subtitle">
 		{{news.subTitle}}
-	</h4>
 {% endblock %}
 
 {% block content %}
@@ -38,7 +32,8 @@
 
 {% endblock %}
 
-{% block sidebar %}
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
 	{{ sonata_block_render({
 		'type': 'darkish_website.block.rss'
 	}) }}

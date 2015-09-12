@@ -15,8 +15,10 @@ class AnonymousType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fullName', null , ['label' => 'نام و نام خانوادگی'])
-            ->add('email', null, ['label' => 'پست الکترونیکی'])
+            ->add('fullName', null , ['label' => 'نام'])
+            ->add('email', 'email', ['label' => '
+            پست الکترونیک (پست الکترونیک شما نمایش داده نخواهد شد. جهت پیگیری های بعدی حتما آن را وارد کنید.)
+            '])
         ;
     }
     

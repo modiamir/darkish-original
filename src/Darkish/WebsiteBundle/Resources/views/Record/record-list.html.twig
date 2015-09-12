@@ -2,7 +2,7 @@
 	{% if record.icon %}
 	<img width="48" src="{{record.icon.iconAbsolutePath}}" />
 	{% endif %}
-	<strong><a href="{{ path('website_record_single', {'record': record.id}) }}" rel="nofollow" title="{{ record.title }}">{{ record.title }}</a></strong>
+	<strong><a href="{{ path('website_record_single', {'record': record.recordNumber}) }}" rel="nofollow" title="{{ record.title }}">{{ record.title }}</a></strong>
 
 	<div>{{record.creationDate | jdate("l j F Y H:i")}}</div>
 </div>

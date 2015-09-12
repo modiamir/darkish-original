@@ -1,19 +1,20 @@
-<ul class="recordtree-grid">
+<ul class="tree-grid">
     {% for tree in trees %}
         <li>
-            {% if tree.iconFileName %}
-            <a class="icon" href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">
-                <img src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ tree.iconFileName ~ ".png") }}">
+            <a class="" href="{{path(routename, {'treeIndex': tree.treeIndex})}}">
+                {% if tree.iconFileName %}
+                <span class="icon">
+                    <img src="{{ asset("bundles/darkishwebsite/images/ticons/" ~ tree.iconFileName ~ ".png") }}">
+                </span>
+                {% endif %}
+
+                <div class="tree-titles">
+                    <h3>
+                        {{tree.title}}
+                    </h3>
+                    <span class="tree-subtitle">{{ tree.subTitle }}</span>
+                </div>
             </a>
-            {% endif %}
-
-            <div class="tree-titles">
-                <h3>
-                    <a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex})}}">{{tree.title}}</a>
-                </h3>
-                <span class="tree-subtitle">{{ tree.subTitle }}</span>
-            </div>
-
         </li>
     {% endfor %}
 </ul>

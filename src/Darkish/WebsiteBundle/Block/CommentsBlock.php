@@ -74,7 +74,7 @@ class CommentsBlock extends BaseBlockService
 				if(!$entity) {
 					throw new Exception("Id is not valid");
 				}
-				$thread = $entity->getThread();
+                $thread = $entity->getThread();
 				break;
 			case "news":
 				$entity= $this->container->get('doctrine')->getRepository('DarkishCategoryBundle:Record')->find($settings['id']);
@@ -129,7 +129,9 @@ class CommentsBlock extends BaseBlockService
 			'method' => 'POST',
 		]);
 
-
+        $claimTypes = $this->container->get('doctrine')
+            ->getRepository('DarkishCommentBundle:ClaimTypes')
+            ->findBy(['onlyCustomer' => false]);
 
 	    return $this->renderResponse($blockContext->getTemplate(), array(
 			'block'     	=> $blockContext->getBlock(),
@@ -137,7 +139,8 @@ class CommentsBlock extends BaseBlockService
 			'thread'    	=> $thread,
 			'entity'		=> $entity,
 			'pagination'	=> $pagination,
-			'comment_form'	=> $form->createView()
+			'comment_form'	=> $form->createView(),
+            'claim_types'   => $claimTypes
 		), $response);
 	}
 

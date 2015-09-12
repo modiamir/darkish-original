@@ -301,6 +301,7 @@ class MainTree
 
     /**
      * @ORM\Column(name="recommend_ids", type="json_array", nullable=true)
+     * @Groups({"list", "details", "record.details", "api.list"})
      */
     private $recommendIds;
 
