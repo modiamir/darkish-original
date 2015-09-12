@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class ClassifiedController extends Controller
 {
     /**
@@ -105,5 +108,16 @@ class ClassifiedController extends Controller
         ]);
     }
 
+    /**
+     * @param Classified $classified
+     * @Route("classified/{classified}", name="website_classified_single")
+     */
+    public function classifiedSingleAction(Classified $classified)
+    {
+
+        return $this->render('DarkishWebsiteBundle:Classified:classified.html.twig', [
+            'classified' => $classified
+        ]);
+    }
 
 }

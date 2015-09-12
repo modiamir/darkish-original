@@ -1,3 +1,22 @@
 .itinerary.media {
+  a.itinerary-image {
+    float: right;
+    margin: 10px;
+  }
+}
 
+#darkish_category_bundle_itinerary_form_photos {
+  label {
+    display: none;
+  }
+}
+
+.itinerary-body  {
+  width: 100%;
+}
+
+a.insert-itinerary {
+  position: absolute;
+  left: 10px;
+  top: -95px;
 }

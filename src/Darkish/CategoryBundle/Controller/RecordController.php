@@ -312,6 +312,18 @@ class RecordController extends Controller
         if(isset($data['tel_number_four'])) {
             $record->setTelNumberFour($data['tel_number_four']);
         }
+        if(isset($data['tel_number_five'])) {
+            $record->setTelNumberFive($data['tel_number_five']);
+        }
+        if(isset($data['tel_number_six'])) {
+            $record->setTelNumberSix($data['tel_number_six']);
+        }
+        if(isset($data['tel_number_seven'])) {
+            $record->setTelNumberSeven($data['tel_number_seven']);
+        }
+        if(isset($data['tel_number_eight'])) {
+            $record->setTelNumberEight($data['tel_number_eight']);
+        }
         if(isset($data['tel_number_one_label'])) {
             $record->setTelNumberOneLabel($data['tel_number_one_label']);
         }
@@ -324,7 +336,20 @@ class RecordController extends Controller
         if(isset($data['tel_number_four_label'])) {
             $record->setTelNumberFourLabel($data['tel_number_four_label']);
         }
+        if(isset($data['tel_number_five_label'])) {
+            $record->setTelNumberFiveLabel($data['tel_number_five_label']);
+        }
+        if(isset($data['tel_number_six_label'])) {
+            $record->setTelNumberSixLabel($data['tel_number_six_label']);
+        }
+        if(isset($data['tel_number_seven_label'])) {
+            $record->setTelNumberSevenLabel($data['tel_number_seven_label']);
+        }
+        if(isset($data['tel_number_eight_label'])) {
+            $record->setTelNumberEightLabel($data['tel_number_eight_label']);
+        }
         if(isset($data['fax_number_one'])) {
+            $record->setFaxNumberOne($data['fax_number_one']);
             $record->setFaxNumberOne($data['fax_number_one']);
         }
         if(isset($data['fax_number_two'])) {
@@ -658,7 +683,7 @@ class RecordController extends Controller
             foreach($data['maintrees'] as $tree) {
                 // die(print_r($data['maintrees'], true));
                 $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'], 'group_filter' =>  ( isset($tree['group_filter']) )?$tree['group_filter']:0  ));
-                $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title']];
+                $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title'], 'recommendIds'=>$tree['tree']['recommend_ids']];
             }   
             $record->setTreeJson($treeJson);
 

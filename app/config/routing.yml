@@ -88,3 +88,7 @@ _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin/panel
+
+oneup_uploader:
+    resource: .
+    type: uploader

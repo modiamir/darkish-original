@@ -8,6 +8,7 @@
     <link href="{{ asset('bundles/darkishwebsite/bower_components/jquery-modal/jquery.modal.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/darkishwebsite/bower_components/leaflet/dist/leaflet.css') }}" rel="stylesheet" />
+
 {% endblock %}
 
 {% block javascripts %}
@@ -18,7 +19,23 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/leaflet/dist/leaflet.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/record/record-page.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/map-min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/dk-elements.js') }}"></script>
+
+    {% if record.latitude and record.longitude %}
+        <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/map-min.js') }}"></script>
+
+        {% if record.images|length <= 0 %}
+
+            <script>
+                var center= $('.gallery-box .switchable.map #map').data();
+                console.log(center);
+                addMarker([center.latitude, center.longitude]);
+                $('.gallery-box .switchable.map #map').attr('dk-displayed', "1");
+            </script>
+        {% endif %}
+    {% endif %}
+
+
 {% endblock %}
 
 {% block document_ready %}

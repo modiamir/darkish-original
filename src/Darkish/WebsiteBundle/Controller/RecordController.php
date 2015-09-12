@@ -7,6 +7,7 @@ use Darkish\WebsiteBundle\Form\AutomobileSearchType;
 use Darkish\WebsiteBundle\Form\EstateSearchType;
 use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Overlays\Animation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -19,6 +20,9 @@ use Darkish\CategoryBundle\Entity\Record;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\I18n\Validator\DateTime;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class RecordController extends Controller
 {
 	/**
@@ -26,13 +30,11 @@ class RecordController extends Controller
 	 */
     public function indexAction()
     {
-
     	$breadcrumbs = $this->get("white_october_breadcrumbs");
 	    // Simple example
 	    $breadcrumbs->addItem("خانه", $this->get("router")->generate("website_home"));
 		// Example without URL
 	    $breadcrumbs->addItem('رکوردها');
-
 
     	$trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees();
     	return $this->render('DarkishWebsiteBundle:Record:index.html.twig', ['trees' => $trees]);
@@ -44,24 +46,18 @@ class RecordController extends Controller
 	 */
     public function recordTreeAction($treeIndex, Request $request)
     {
-
         $tree = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->findOneBy(['treeIndex' => $treeIndex]);
         $trees = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')->getSubTrees($treeIndex);
         if (!$tree) {
             throw new NotFoundHttpException("TreeIndex NotFound");
-
         }
-
         if ($request->query->has('centers'))
         {
             $centers = $request->query->get('centers');
         } else {
             $centers = [];
         }
-
 //        return new Response($this->get('jms_serializer')->serialize($centers, 'json'));
-
-
 
     	
     	$breadcrumbs = $this->get("white_october_breadcrumbs");
@@ -100,7 +96,15 @@ class RecordController extends Controller
     /**
      * @Route("/record/{record}", name="website_record_single")
      */
-    public function recordAction(Record $record) {
+    public function recordAction($record) {
+
+        $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+            ->findOneBy(['recordNumber' => $record]);
+
+        if(!$record)
+        {
+            throw new NotFoundHttpException("The recordNumber is invalid");
+        }
 
     	$breadcrumbs = $this->get("white_october_breadcrumbs");
 	    // Simple example
@@ -117,32 +121,32 @@ class RecordController extends Controller
 						  	->getRepository('DarkishCategoryBundle:Record')
 							->getStoreInfo($record, $this->get('jms_serializer'));
 
-		$map = $this->get('ivory_google_map.map');
-		$map->setAutoZoom(false);
-		$map->setCenter($record->getLatitude(), $record->getLongitude(), true);
-		$map->setMapOption('zoom', 16);
+//		$map = $this->get('ivory_google_map.map');
+//		$map->setAutoZoom(false);
+//		$map->setCenter($record->getLatitude(), $record->getLongitude(), true);
+//		$map->setMapOption('zoom', 16);
+//
+//		$map->setStylesheetOptions(array(
+//			'width'  => '100%',
+//			'height' => '500px',
+//		));
+//
+//		$marker = new Marker();
+//
+//// Configure your marker options
+//		$marker->setPrefixJavascriptVariable('marker_');
+//		$marker->setPosition($record->getLatitude(), $record->getLongitude(), true);
+//		$marker->setAnimation(Animation::DROP);
+//
+//		$marker->setOption('clickable', false);
+//		$marker->setOption('flat', true);
+//		$marker->setOptions(array(
+//			'clickable' => false,
+//			'flat'      => true,
+//		));
+//		$map->addMarker($marker);
 
-		$map->setStylesheetOptions(array(
-			'width'  => '100%',
-			'height' => '500px',
-		));
-
-		$marker = new Marker();
-
-// Configure your marker options
-		$marker->setPrefixJavascriptVariable('marker_');
-		$marker->setPosition($record->getLatitude(), $record->getLongitude(), true);
-		$marker->setAnimation(Animation::DROP);
-
-		$marker->setOption('clickable', false);
-		$marker->setOption('flat', true);
-		$marker->setOptions(array(
-			'clickable' => false,
-			'flat'      => true,
-		));
-		$map->addMarker($marker);
-
-    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record, 'products' => $products, 'map' => $map]);
+    	return $this->render('DarkishWebsiteBundle:Record:record.html.twig', ['record' => $record, 'products' => $products]);
     }
 
 	/**

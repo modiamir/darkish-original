@@ -76,7 +76,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="customers")
      * @ORM\JoinColumn(name="record_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Groups({"customer.list", "customer.details"})
+     * @Groups({"customer.details"})
      */
     private $record;
 
@@ -100,7 +100,6 @@ class Customer implements AdvancedUserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Darkish\CategoryBundle\Entity\DBase", mappedBy="customer", cascade={"remove"})
      */
     private $dbaseItems;
-
     
     /**
      *
@@ -156,7 +155,7 @@ class Customer implements AdvancedUserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list", "api.list", "api.body"})
+     * @Groups({"customer.list", "customer.details", "comment.details", "message.details", "message.list"})
      * 
      *
      */

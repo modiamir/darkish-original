@@ -1,10 +1,15 @@
 <div class="news mode-full">
-	
-	
+
+    <div class="date">
+        <span class="day">{{ news.creationDate | jdate("j") }}</span>
+        <span class="month">{{ news.creationDate | jdate("F") }}</span>
+        <span class="time">{{ news.creationDate | jdate("H:i") }}</span>
+    </div>
+
 	
 
 	<div class="news-body">
-		{{news.body | raw}}
+		{{news.webBody | raw}}
 	</div>
 
 </div>

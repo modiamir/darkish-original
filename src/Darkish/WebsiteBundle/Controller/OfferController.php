@@ -4,6 +4,7 @@ namespace Darkish\WebsiteBundle\Controller;
 
 use Darkish\CategoryBundle\Entity\ClassifiedClassifiedTree;
 use Darkish\CategoryBundle\Entity\OfferOfferTree;
+use Darkish\CategoryBundle\Entity\Offer;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class OfferController extends Controller
 {
     /**
@@ -47,6 +51,18 @@ class OfferController extends Controller
             'upTrees' => $upTrees,
             'offerTree' => $offerTree
         ));
+    }
+
+    /**
+     * @param Offer $offer
+     * @Route("offer/{offer}", name="website_offer_single")
+     */
+    public function offerSingleAction(Offer $offer)
+    {
+        return $this->render('DarkishWebsiteBundle:Offer:offer.html.twig', [
+            'offer' => $offer
+        ]);
+
     }
 
 }

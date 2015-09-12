@@ -1,9 +1,10 @@
 {% set hasMap = record.latitude and record.longitude %}
 {% set hasGallery = ( (record.images|length) > 1) %}
 {% set hasImage = ( (record.images|length) == 1 ) %}
-{% set hasStore = record.sellServicePage %}
-{% set hasDBase = record.dbaseEnable %}
+{% set hasStore = record.sellServicePage and record.sellServicePageCustomer %}
+{% set hasDBase = record.dbaseEnable and record.dbaseEnableCustomer %}
 
+{% set imagesCount = record.images|length %}
 
 {% if hasDBase %}
     {% if record.dbaseTypeIndex.id == 1 %}
@@ -27,7 +28,7 @@
 
 
 
-            {% if hasMap %}
+            {% if hasImage %}
                 <li id="show-gallery-operation" class="operation switch" dk-open="image">
                     <a>
 گالری
@@ -161,7 +162,7 @@
 	</div>
 
 
-    {% if record.dbaseEnable %}
+    {% if hasDBase %}
         <div class="record-database-section">
 
             <h2 id="record-database" class="database-title">
@@ -196,11 +197,14 @@
 
 
 
-	{% if products | length %}
-		{{ include('DarkishWebsiteBundle:Record:record-products.html.twig', {'products': products}) }}
+	{% if hasStore %}
+        <div class="record-store-section">
+		    {{ include('DarkishWebsiteBundle:Record:record-products.html.twig', {'products': products}) }}
+        </div>
 	{% endif %}
 
-	<hr/>
+
+    {% if record.commentable and record.commentableCustomer %}
 	<div class="comments panel panel-primary">
 		  <div class="panel-heading">
 				<h2 class="panel-title">نظرات</h2>
@@ -216,5 +220,6 @@
 
 		  </div>
 	</div>
+    {% endif %}
 
 </div>

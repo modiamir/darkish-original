@@ -3,25 +3,17 @@
 
 {% block page_title %}
 	{% if tree %}
-		<h2 class="page-title">
 			{{tree.title}}
-		</h2>
 	{% else %}
-		<h2 class="page-title">
 			اخبار
-		</h2>
 	{% endif %}
 {% endblock %}
 
 {% block page_subtitle %}
 	{% if tree %}
-		<h4 class="page-subtitle">
 			{{tree.subTitle}}
-		</h4>
 	{% else %}
-		<h4 class="page-subtitle">
 			شاخه بندی اخبار
-		</h4>
 	{% endif %}
 	
 {% endblock %}

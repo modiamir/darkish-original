@@ -262,7 +262,7 @@ class ManagedFile
      */
     protected $iconForSponsor;
     
-
+    protected $oneup = false;
 
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
@@ -1329,5 +1329,22 @@ class ManagedFile
     public function getChecked()
     {
         return $this->checked;
+    }
+
+    public function setOneup($oneup)
+    {
+        $this->oneup = $oneup;
+
+        return $oneup;
+    }
+
+    /**
+     * Get oneup
+     *
+     * @return boolean
+     */
+    public function getOneup()
+    {
+        return $this->oneup;
     }
 }

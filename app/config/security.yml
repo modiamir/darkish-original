@@ -22,12 +22,10 @@ security:
             entity: { class: DarkishCustomerBundle:Customer, property: username }
         client_user_provider:
             id: client_user_provider
-
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
         admin_area:
             pattern:    ^/admin
             http_basic: ~
@@ -66,20 +64,10 @@ security:
             stateless: true
             simple_preauth:
                 authenticator: client_authenticator
+        main:
+            pattern: ^/
+            anonymous: true
 
-#        admin:
-#            pattern:            /admin(.*)
-#            context:            user
-#            form_login:
-#                provider:       fos_userbundle
-#                login_path:     /admin/login
-#                use_forward:    false
-#                check_path:     /admin/login_check
-#                failure_path:   null
-#            logout:
-#                path:           /admin/logout
-#            anonymous:          true
-        
 
     access_control:
 

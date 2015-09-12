@@ -71,7 +71,7 @@ class Automobile extends DBase
 
     /**
      * @var \Darkish\CategoryBundle\Entity\Record
-     * @Groups({"database.list", "database.details", "api.details"})
+     * @Groups({"database.list", "database.details"})
      */
     protected $record;
 

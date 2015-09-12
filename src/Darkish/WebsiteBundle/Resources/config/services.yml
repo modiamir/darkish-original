@@ -91,4 +91,12 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: entity_hidden }
-
+    darkish_website.upload_listener:
+        class: Darkish\WebsiteBundle\EventListener\UploadListener
+        arguments: ["@doctrine", "@service_container"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.pre_upload, method: preUpload}
+            - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: postUpload}
+    darkish_website.uploader_namer:
+        class: Darkish\WebsiteBundle\Uploader\UploadNamer
+        arguments: ["@service_container"]

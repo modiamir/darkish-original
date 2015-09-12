@@ -18,7 +18,7 @@ function formatState (state) {
 };
 
 function forwardToForumTree(evt) {
-    var path = Routing.generate('website_forum_tree', {'tree_index': $(evt.params.data.element).attr('tree-index')});
+    var path = Routing.generate('website_forum_tree', {'treeIndex': $(evt.params.data.element).attr('tree-index')});
     window.location.href = path;
 }
 

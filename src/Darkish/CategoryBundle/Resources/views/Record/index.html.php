@@ -710,21 +710,65 @@
                             </div>
 
 
-                             <label for="phone-one">عناوین تلفن</label>
+                             <label for="phone-one">
+                                 تلفن
+                             </label>
                              <div class="form-item-wrapper ">
-                                 <input type="text"  id="phone-one-label" ng-model="RecordService.currentRecord.tel_number_one_label" ng-disabled="!RecordService.isEditing()" />
-                                 <input type="text"  id="phone-two-label" ng-model="RecordService.currentRecord.tel_number_two_label" ng-disabled="!RecordService.isEditing()" />
-                                 <input type="text"  id="phone-three-label" ng-model="RecordService.currentRecord.tel_number_three_label" ng-disabled="!RecordService.isEditing()" />
-                                 <input type="text"  id="phone-four-label" ng-model="RecordService.currentRecord.tel_number_four_label" ng-disabled="!RecordService.isEditing()"/>
+                                 <input type="text"  id="phone-one-label" ng-model="RecordService.currentRecord.tel_number_one_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+                                 <input type="text"  id="phone-two-label" ng-model="RecordService.currentRecord.tel_number_two_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+                                 <input type="text"  id="phone-three-label" ng-model="RecordService.currentRecord.tel_number_three_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+
+                                 <input type="text"  id="phone-four-label" ng-model="RecordService.currentRecord.tel_number_four_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+
+                                 <input type="text"  id="phone-five-label" ng-model="RecordService.currentRecord.tel_number_five_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-five" ng-model="RecordService.currentRecord.tel_number_five" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+
+                                 <input type="text"  id="phone-six-label" ng-model="RecordService.currentRecord.tel_number_six_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-six" ng-model="RecordService.currentRecord.tel_number_six" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+                                 <input type="text"  id="phone-seven-label" ng-model="RecordService.currentRecord.tel_number_seven_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-seven" ng-model="RecordService.currentRecord.tel_number_seven" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+
+                                 <input type="text"  id="phone-eight-label" ng-model="RecordService.currentRecord.tel_number_eight_label" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="عنوان"
+                                     />
+                                 <input type="text" ng-maxlength="11" id="phone-eight" ng-model="RecordService.currentRecord.tel_number_eight" ng-disabled="!RecordService.isEditing()"
+                                        placeholder="شماره"
+                                     />
+
                              </div>
 
-                            <label for="phone-one">تلفن</label>
-                            <div class="form-item-wrapper ">
-                                <input type="text" ng-maxlength="11" id="phone-one" ng-model="RecordService.currentRecord.tel_number_one" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" ng-maxlength="11" id="phone-two" ng-model="RecordService.currentRecord.tel_number_two" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" ng-maxlength="11" id="phone-three" ng-model="RecordService.currentRecord.tel_number_three" ng-disabled="!RecordService.isEditing()" />
-                                <input type="text" ng-maxlength="11" id="phone-four" ng-model="RecordService.currentRecord.tel_number_four" ng-disabled="!RecordService.isEditing()"/>
-                            </div>
 
                             <label for="fax-one">فکس</label>
                             <div class="form-item-wrapper fax">

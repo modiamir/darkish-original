@@ -6,7 +6,9 @@ use Darkish\CategoryBundle\Entity\ForumTree;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+/**
+ * @Route("/", host="%domain%")
+ */
 class ForumController extends Controller
 {
     /**
@@ -22,8 +24,8 @@ class ForumController extends Controller
 
     /**
      * @param $forumtree
-     * @Route("/forum/{tree_index}", name="website_forum_tree", options={"expose"=true})
-     * @ParamConverter("forumtree", options={"mapping": {"tree_index": "treeIndex"}})
+     * @Route("/forum/{treeIndex}", name="website_forum_tree", options={"expose"=true})
+     * @ParamConverter("forumtree", options={"mapping": {"treeIndex": "treeIndex"}})
      */
     public function forumTreeAction(ForumTree $forumtree) {
         $trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:ForumTree')->findBy(['upTreeIndex'=>'00']);

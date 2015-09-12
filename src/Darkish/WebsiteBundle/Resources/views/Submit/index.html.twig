@@ -1,0 +1,131 @@
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/darkishwebsite/plugins/bootstrap-jalali-datepicker/bootstrap-datepicker.min.css') }}" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/darkishwebsite/plugins/bootstrap-jalali-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/plugins/bootstrap-jalali-datepicker/bootstrap-datepicker.fa.min.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/submit-record/submit-record.js') }}"></script>
+{% endblock %}
+
+
+{% block page_title %}
+
+    ثبت مشاغل
+
+{% endblock %}
+
+{% block page_subtitle %}
+
+    زیر عنوان صفحه
+
+{% endblock %}
+
+{% block content %}
+
+
+    {% if submitted %}
+        <div class="jumbotron">
+        	<div class="container">
+        		درخواست شما با موفقیت ثبت شد. کارشناسان ما بعد از بررسی درخواست شما با شما تماس خواهند گرفت.
+
+        	</div>
+        </div>
+    {% else %}
+
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="form-group col-xs-6">
+                {{ form_row(form.firstName) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.firstName) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.lastName) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.lastName) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.phone) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.phone) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.mobile) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.mobile) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                {{ form_row(form.title) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.title) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                {{ form_row(form.description) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.description) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.companyName) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.companyName) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.companyRegNumber) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.companyRegNumber) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.companyRegDate) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.companyRegDate) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6">
+                {{ form_row(form.licenseNumber) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.licenseNumber) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-6 col-">
+                {{ form_row(form.email) }}
+                <div class="col-xs-12">
+                    {{ form_widget(form.email) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                {{ form_widget(form.captcha) }}
+            </div>
+            <div class="col-xs-6">
+                <input class="btn btn-success btn-lg" type="submit" value="ارسال درخواست">
+            </div>
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+
+    {% endif %}
+
+{% endblock %}
+{% set _sidebar_first = true %}
+{% block sidebar_first %}
+
+{% endblock %}

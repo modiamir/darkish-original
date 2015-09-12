@@ -34,7 +34,21 @@
     {% for offer in paginator %}
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         	<div class="offer">
-        		<img class="banner thumbnail" src="{{ offer.banner.relativePath | imagine_filter('1024') }}" alt="">
+                {% if offer.body %}
+                    {% set url = path('website_offer_single', {"offer":offer.id}) %}
+                {% elseif offer.submitterNumber %}
+                    {% set url = path('website_record_single', {"record":offer.submitterNumber}) %}
+                {% else %}
+                    {% set url = offer.website %}
+                {% endif %}
+                <div class="offer-list-item">
+                    <img class="banner thumbnail" src="{{ offer.banner.relativePath | imagine_filter('1024') }}" alt="">
+                    {% if url is defined %}
+                    <a href="{{ url }}">
+                        مشاهده
+                    </a>
+                    {% endif %}
+                </div>
         	</div>
         </div>
 

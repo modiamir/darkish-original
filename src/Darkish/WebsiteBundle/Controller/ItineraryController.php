@@ -11,6 +11,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/", host="%domain%")
+ */
 class ItineraryController extends Controller
 {
     /**
@@ -28,16 +31,13 @@ class ItineraryController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
+
             $itineraryIterators = $itinerary->getPhotos()->getIterator();
             while($itineraryIterators->valid()) {
                 $photo = $itineraryIterators->current();
-                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
-                $photo->setUploadDir('image');
-                $photo->setType('comment');
                 $photo->setUserId(0);
-                $photo->upload();
-                $photo->setStatus(false);
-                $photo->setTimestamp(new \DateTime());
+                $photo->setOneup(true);
+                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
                 $itineraryIterators->next();
             }
             $itinerary->setCreated(new \DateTime);
@@ -47,10 +47,19 @@ class ItineraryController extends Controller
             return $this->redirect('itinerary');
         }
 
-        $itineraries = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary')->findBy([],['id' => 'desc']);
+        $qb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Itinerary')->createQueryBuilder('it');
+        $qb->orderBy('it.id', 'desc');
+
+
+        $paginator  = $this->get('knp_paginator');
+        $paginator = $paginator->paginate(
+            $qb->getQuery(),
+            (int)$request->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
 
         return $this->render('DarkishWebsiteBundle:Itinerary:index.html.twig', [
-            'itineraries' => $itineraries,
+            'paginator' => $paginator,
             'form' => $form->createView()
         ]);
 

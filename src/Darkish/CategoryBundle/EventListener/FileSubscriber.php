@@ -78,6 +78,9 @@ class FileSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
+
+
+        $this->moveOrphanageFiles($args);
         $this->getFrameFromVideo($args);
         // $this->videConvert($args);
     }
@@ -428,6 +431,43 @@ class FileSubscriber implements EventSubscriber
             } 
             
 
+        }
+    }
+
+    public function moveOrphanageFiles(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
+
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof ManagedFile && $entity->getUploadDir()== "image") {
+            if($entity->getOneup() == false) {
+                return;
+            }
+            $manager = $this->container->get('oneup_uploader.orphanage_manager')->get('image');
+            // get files
+            /* @var $manager \Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage */
+            $files = $manager->getFiles();
+//
+            $files->files()->name($entity->getFileName());
+            /* @var $file \Symfony\Component\Finder\SplFileInfo */
+            foreach($files as $f) {
+                $file = $f;
+                break;
+            }
+
+
+            $entity->setUserId(0);
+            $entity->setStatus(false);
+            $entity->setTimestamp(new \DateTime());
+            $sfile = new File($file->getPath().'/'.$file->getFilename());
+            $entity->setPath($entity->getFileName());
+            $entity->setFilemime($sfile->getMimeType());
+            $entity->setFilesize($file->getSize());
+
+            $manager->uploadFiles(iterator_to_array($files));
         }
     }
 }

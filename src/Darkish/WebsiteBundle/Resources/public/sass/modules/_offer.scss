@@ -3,13 +3,50 @@
   top: -50px;
   left: 0;
   width: 200px;
+
+}
+
+.offer-single-operations {
+  position: absolute;
+  top: -83px;
+  left: 20px;
+  background-color: white;
+  a {
+    float: left;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: $orange;
+    color: white;
+    font-size: 18px;
+    border-radius: 30px;
+    margin: 0 5px;
+    &:hover {
+      background-color: #00c8ff;
+      text-decoration: none;
+    }
+  }
 }
 
 .offer-list {
   .offer {
+    position: relative;
     .banner {
       width: 100%;
       height: 300px;
+    }
+    a {
+      position: absolute;
+      bottom: 30px;
+      left: 40px;
+      padding: 10px 20px;
+      background: white;
+      &:hover {
+        background: $orange;
+        color: white;
+        text-decoration: none;
+      }
     }
   }
 }

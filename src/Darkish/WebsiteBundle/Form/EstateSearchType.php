@@ -29,7 +29,7 @@ class EstateSearchType extends AbstractType
                 'class' => 'Darkish\CategoryBundle\Entity\ContractType',
                 'property' => 'value',
                 'required' => false,
-                'label' => 'نوع قرارداد'
+                'label' => 'نوع واگذاری'
             ])
             ->add('estateType', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\EstateType',

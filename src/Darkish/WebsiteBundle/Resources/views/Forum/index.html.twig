@@ -11,6 +11,13 @@
 
 
 {% block content %}
-    {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees}) }}
+    <div class="itinerary-box">
+        <a href="{{ path('website_itinerary') }}">
+            <h1>
+                سفر نامه
+            </h1>
+        </a>
+    </div>
+    {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees, 'routename': 'website_forum_tree'}) }}
 {% endblock %}
 

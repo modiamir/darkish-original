@@ -3,19 +3,14 @@
 
 {% block page_title %}
 	{% if tree %}
-		<h2 class="page-title">
 			{{tree.title}}
-		</h2>
 	{% else %}
-		<h2 class="page-title">
 			اخبار
-		</h2>
 	{% endif %}
 {% endblock %}
 
 {% block page_subtitle %}
 	{% if tree %}
-		<h4 class="page-subtitle">
 			{{tree.subTitle}}
 		</h4>
 	{% else %}
@@ -29,10 +24,25 @@
 {% block content %}
 
 
+    {% if tree.showDbaseKey %}
+        <div class="record-tree-operation">
+            {% if tree.dbaseType == 1 %}
+                <a class="dbase-link" href="{{ path('website_record_database', {"type": 'estate'}) }}">
+                  {{ tree.dbaseKeyTitle }}
+                </a>
+            {% elseif tree.dbaseType == 2 %}
+                <a class="dbase-link" href="{{ path('website_record_database', {"type": 'automobile'}) }}">
+                    {{ tree.dbaseKeyTitle }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+
 	{% if trees %}
 
 			{% if tree.treesIds is not empty %}
-				<ul class="recordtree-list">
+				<ul class="tree-list">
 					{% for tree in trees %}
 							<li>
 								<a href="{{path('website_record_tree', {'treeIndex': tree.treeIndex, 'centers': app.request.query.get('centers') })}}">{{tree.title}}</a>
@@ -40,7 +50,7 @@
 					{% endfor %}
 				</ul>
 			{% else %}
-                {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees}) }}
+                {{ include('DarkishWebsiteBundle:Tree:tree-list.html.twig', {"trees":trees, 'routename': 'website_record_tree'}) }}
 			{% endif %}
 
 		<hr/>

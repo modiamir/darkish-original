@@ -1,0 +1,66 @@
+
+ul.tree-grid {
+  display: inline-block;
+  width: 100%;
+  li > a {
+    float: right;
+    width: 49%;
+    padding: 20px 10px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+    margin-right: 1%;
+
+    &:hover {
+      -webkit-box-shadow: 0 0 3px 0 rgba(180, 180, 180, 0.6);
+      -moz-box-shadow: 0 0 3px 0 rgba(180, 180, 180, 0.6);
+      box-shadow: 0 0 3px 0 rgba(180, 180, 180, 0.6);
+    }
+
+
+    span.icon {
+      float: right;
+      margin-left: 2%;
+      width: 15%;
+    }
+
+    .tree-titles {
+      float: right;
+      width: 83%;
+      h3 {
+        margin-top: 5px;
+        width: 99%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+      }
+      .tree-subtitle {
+        width: 99%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+ul.tree-list {
+  display: inline-block;
+  width: 100%;
+  li {
+    float: right;
+    margin: 10px;
+    padding: 0;
+    border: 1px solid #EDEDED;
+    a {
+      text-decoration: none;
+      padding:5px 10px;
+      display: block;
+      &:hover {
+        background-color: $orange;
+        color: white;
+      }
+
+    }
+  }
+}

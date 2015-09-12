@@ -16,34 +16,35 @@
     </div>
 {% endif %}
 
-
-<div class="row">
-    <div class="col-xs-3"> <!-- required for floating -->
-        <ul class="nav nav-tabs tabs-right">
-            {% for group in products.json.store_info.market_groups | sort %}
-                <li class="{% if loop.first %} active{% endif %}" ><a href="#group-{{ group.id }}" data-toggle="tab">{{ group.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="col-xs-9">
-        <div class="tab-content">
-            {% for index,group in products.json.store_info.market_groups %}
-                <div class="tab-pane {% if loop.first %}active{% endif %}" id="group-{{ group.id }}">
-                    <ul>
-                        {% for product in products.json.products[group.id] %}
-                            <li class="product-{{ product.id }}">
-                                <a href="#product-{{ product.id }}" rel="modal:open">
-                                {{ include('DarkishWebsiteBundle:Record:record-store-product.html.twig', {'product': product}) }}
-                                </a>
-                                {{ include('DarkishWebsiteBundle:Record:record-store-product-full.html.twig', {'product': product}) }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                </div>
-            {% endfor %}
+<div class="products-wrapper">
+    <div class="row row-table  products">
+        <div class="col-xs-3"> <!-- required for floating -->
+            <ul class="nav nav-tabs tabs-right">
+                {% for group in products.json.store_info.market_groups | sort %}
+                    <li class="{% if loop.first %} active{% endif %}" ><a href="#group-{{ group.id }}" data-toggle="tab">{{ group.name }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
 
+        <div class="col-xs-9">
+            <div class="tab-content">
+                {% for index,group in products.json.store_info.market_groups %}
+                    <div class="tab-pane {% if loop.first %}active{% endif %}" id="group-{{ group.id }}">
+                        <ul>
+                            {% for product in products.json.products[group.id] %}
+                                <li class="product-{{ product.id }}">
+                                    <a href="#product-{{ product.id }}" rel="modal:open">
+                                    {{ include('DarkishWebsiteBundle:Record:record-store-product.html.twig', {'product': product}) }}
+                                    </a>
+                                    {{ include('DarkishWebsiteBundle:Record:record-store-product-full.html.twig', {'product': product}) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 </div>

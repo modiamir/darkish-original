@@ -1,29 +1,5 @@
-var $collectionHolder;
-
-// setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link">Add a file</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
 
 $(document).ready(function() {
-    // Get the ul that holds the collection of tags
-    $collectionHolder = $('#darkish_category_bundle_itinerary_form_photos');
-
-    // add the "add a tag" anchor and li to the tags ul
-    $collectionHolder.append($addTagLink);
-
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-    $addTagLink.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // add a new tag form (see next code block)
-        addTagForm($collectionHolder, $addTagLink);
-    });
-
-
 
 
 
@@ -47,6 +23,11 @@ $(document).ready(function() {
         $.get(Routing.generate('website_itinerary_get_comments', { itinerary: itineraryId }), function(data, status){
             $('#itinerary-comments-'+itineraryId).html(data);
             $(self).remove();
+            var uri = new URI(window.location.href);
+            if(uri.search(true).page) {
+                $('form[name="submit_anonymous_comment"]').append('<input type="hidden" name="page" value="'+uri.search(true).page+'" />');
+            }
+
         });
 
     })
@@ -60,24 +41,8 @@ $(document).ready(function() {
             wrapper.html(data);
         });
     })
+
+
+
+
 });
-
-
-function addTagForm($collectionHolder, $newLinkLi) {
-    // Get the data-prototype explained earlier
-    var prototype = $collectionHolder.data('prototype');
-
-    // get the new index
-    var index = $collectionHolder.data('index');
-
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
-
-    // increase the index with one for the next item
-    $collectionHolder.data('index', index + 1);
-
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before(newForm);
-}

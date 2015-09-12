@@ -1,3 +1,4 @@
+
 darkish_website:
     resource: "@DarkishWebsiteBundle/Controller/"
     type:     annotation

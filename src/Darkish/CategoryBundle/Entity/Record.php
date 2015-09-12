@@ -380,6 +380,71 @@ class Record
     /**
      * @var string
      *
+     * @ORM\Column(name="TelNumberFive", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberFive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberFiveLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberFiveLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSix", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSix;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSixLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSixLabel;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSeven", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSeven;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberSevenLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberSevenLabel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberEight", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberEight;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TelNumberEightLabel", type="string", nullable=true)
+     * @Groups({"record.details", "api.list", "api.body"})
+     */
+    private $telNumberEightLabel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="FaxNumberOne", type="string",  nullable=true)
      * @Groups({"record.details", "api.list"})
      */
@@ -4941,5 +5006,197 @@ class Record
     public function getDisableRecommendation()
     {
         return $this->disableRecommendation;
+    }
+
+    /**
+     * Set telNumberFive
+     *
+     * @param string $telNumberFive
+     *
+     * @return Record
+     */
+    public function setTelNumberFive($telNumberFive)
+    {
+        $this->telNumberFive = $telNumberFive;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFive
+     *
+     * @return string
+     */
+    public function getTelNumberFive()
+    {
+        return $this->telNumberFive;
+    }
+
+    /**
+     * Set telNumberFiveLabel
+     *
+     * @param string $telNumberFiveLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberFiveLabel($telNumberFiveLabel)
+    {
+        $this->telNumberFiveLabel = $telNumberFiveLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberFiveLabel
+     *
+     * @return string
+     */
+    public function getTelNumberFiveLabel()
+    {
+        return $this->telNumberFiveLabel;
+    }
+
+    /**
+     * Set telNumberSix
+     *
+     * @param string $telNumberSix
+     *
+     * @return Record
+     */
+    public function setTelNumberSix($telNumberSix)
+    {
+        $this->telNumberSix = $telNumberSix;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberSix
+     *
+     * @return string
+     */
+    public function getTelNumberSix()
+    {
+        return $this->telNumberSix;
+    }
+
+    /**
+     * Set telNumberSixLabel
+     *
+     * @param string $telNumberSixLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberSixLabel($telNumberSixLabel)
+    {
+        $this->telNumberSixLabel = $telNumberSixLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberSixLabel
+     *
+     * @return string
+     */
+    public function getTelNumberSixLabel()
+    {
+        return $this->telNumberSixLabel;
+    }
+
+    /**
+     * Set telNumberSeven
+     *
+     * @param string $telNumberSeven
+     *
+     * @return Record
+     */
+    public function setTelNumberSeven($telNumberSeven)
+    {
+        $this->telNumberSeven = $telNumberSeven;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberSeven
+     *
+     * @return string
+     */
+    public function getTelNumberSeven()
+    {
+        return $this->telNumberSeven;
+    }
+
+    /**
+     * Set telNumberSevenLabel
+     *
+     * @param string $telNumberSevenLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberSevenLabel($telNumberSevenLabel)
+    {
+        $this->telNumberSevenLabel = $telNumberSevenLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberSevenLabel
+     *
+     * @return string
+     */
+    public function getTelNumberSevenLabel()
+    {
+        return $this->telNumberSevenLabel;
+    }
+
+    /**
+     * Set telNumberEight
+     *
+     * @param string $telNumberEight
+     *
+     * @return Record
+     */
+    public function setTelNumberEight($telNumberEight)
+    {
+        $this->telNumberEight = $telNumberEight;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberEight
+     *
+     * @return string
+     */
+    public function getTelNumberEight()
+    {
+        return $this->telNumberEight;
+    }
+
+    /**
+     * Set telNumberEightLabel
+     *
+     * @param string $telNumberEightLabel
+     *
+     * @return Record
+     */
+    public function setTelNumberEightLabel($telNumberEightLabel)
+    {
+        $this->telNumberEightLabel = $telNumberEightLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get telNumberEightLabel
+     *
+     * @return string
+     */
+    public function getTelNumberEightLabel()
+    {
+        return $this->telNumberEightLabel;
     }
 }

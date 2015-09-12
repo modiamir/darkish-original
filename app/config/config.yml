@@ -58,7 +58,8 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        types: ~
+        types:
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: "%kernel.root_dir%/data/data.db3"
         # path:     "%database_path%"
@@ -185,6 +186,13 @@ liip_imagine:
             filters:
                 upscale: { min: [240,200] }
                 thumbnail: { size: [240,200], mode: outbound }
+
+        240x200default:
+            filters:
+                background: { size: [240, 200], color: '#eee' }
+#                watermark:
+#                  image: Resources/data/watermark.png
+#                  position: center
 
         1024x576:
             filters:
@@ -412,3 +420,14 @@ white_october_breadcrumbs:
     viewTemplate:       'DarkishWebsiteBundle:Breadcrumbs:breadcrumbs.html.twig'
 
 
+oneup_uploader:
+    mappings:
+        image:
+            frontend: blueimp
+            use_orphanage: true
+            namer: darkish_website.uploader_namer
+            storage:
+                directory:            uploads/image
+    orphanage:
+        maxage: 86400
+        directory: %kernel.cache_dir%/uploader/orphanage
