@@ -134,13 +134,13 @@
     {% if record.infoOne or record.infoTwo %}
         <div class="alert alert-info info-one-two" role="alert">
             {% if record.infoOne %}
-                {{ record.infoOne }}
+                {{ record.infoOne|nl2br }}
             {% endif %}
             {% if record.infoOne and record.infoTwo %}
             <br/><br/>
             {% endif %}
             {% if record.infoTwo %}
-                {{ record.infoTwo }}
+                {{ record.infoTwo|nl2br }}
             {% endif %}
         </div>
     {% endif %}

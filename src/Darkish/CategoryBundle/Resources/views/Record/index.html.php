@@ -614,11 +614,11 @@
 
 
                                  </div>
-                                 <div style="display: inline-block;">
+                                 <div style="display: inline-block; width:100%">
                                      <label class="central-floor-title second-section-fields-title" for="opening-hours-desc">
                                          توضیحات ساعات فعالیت
                                      </label>
-                                     <input type="text" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.opening_hours_desc" ng-disabled="!RecordService.isEditing()">
+                                     <textarea style="width:60%;" maxlength="255" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.opening_hours_desc" ng-disabled="!RecordService.isEditing()"></textarea>
                                  </div>
                                  <div class="holidays-wrapper">
                                      <span>
@@ -683,11 +683,11 @@
 
 
 
-                                     <div style="display: inline-block;">
+                                     <div style="display: inline-block; width:100%">
                                          <label style="width: 30%;" class="central-floor-title second-section-fields-title" for="opening-hours-desc">
                                              روزهای تعطیل
                                          </label>
-                                         <input style="width: 60%;" type="text" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.working_days_desc" ng-disabled="!RecordService.isEditing()">
+                                         <textarea maxlength="255" style="width: 60%;" id="opening-hours-desc" class="" ng-model="RecordService.currentRecord.working_days_desc" ng-disabled="!RecordService.isEditing()"></textarea>
                                      </div>
 
 
