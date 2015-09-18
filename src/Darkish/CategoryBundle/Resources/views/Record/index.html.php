@@ -940,7 +940,7 @@
                                 <div ng-switch-when="image" class="image">
                                     <ul class="image-list">
                                         <li ng-repeat="image in RecordService.currentRecord.images" style="float: right"  ng-class="{'selected' : RecordService.selectedImage.id == image.id}">
-                                            <img ng-click="RecordService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.icon_absolute_path}}"  />
+                                                <img ng-click="RecordService.selectedImage = image ;openImageModal('lg',image, $index)" ng-src="{{image.icon_absolute_path}}"  />
                                             <input
                                                 type="checkbox"
                                                 checklist-model="RecordService.selectedImages"
@@ -968,8 +968,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="RecordService.currentRecord.icon.id" ng-click="openIconModal('sm',RecordService.currentRecord.icon)" ng-src="{{RecordService.currentRecord.icon.absolute_path}}"  />
-                                    <img ng-show="!RecordService.currentRecord.icon.id &&  RecordService.currentRecord.images.length >= 1 " ng-click="openIconModal('sm',RecordService.currentRecord.images[0])" ng-src="{{RecordService.currentRecord.images[0].absolute_path}}"  />
+                                    <img ng-show="RecordService.currentRecord.icon.id" ng-click="openIconModal('sm',RecordService.currentRecord.icon)" ng-src="{{RecordService.currentRecord.icon.icon_absolute_path}}"  />
+                                    <img ng-show="!RecordService.currentRecord.icon.id &&  RecordService.currentRecord.images.length >= 1 " ng-click="openIconModal('sm',RecordService.currentRecord.images[0])" ng-src="{{RecordService.currentRecord.images[0].icon_absolute_path}}"  />
                                     <input
                                         ng-show="RecordService.currentRecord.icon.id"
                                         type="checkbox"
