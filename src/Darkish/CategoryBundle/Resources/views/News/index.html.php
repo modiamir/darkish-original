@@ -377,8 +377,8 @@
                                 </div>
                                 <div ng-switch-when="icon" class="icon">
                                     
-                                    <img ng-show="NewsService.currentNews.icon.id" ng-click="openIconModal('sm',NewsService.currentNews.icon)" ng-src="{{NewsService.currentNews.icon.absolute_path}}"  />
-                                    <img ng-show="!NewsService.currentNews.icon.id &&  NewsService.currentNews.images.length >= 1 " ng-click="openIconModal('sm',NewsService.currentNews.images[0])" ng-src="{{NewsService.currentNews.images[0].absolute_path}}"  />
+                                    <img ng-show="NewsService.currentNews.icon.id" ng-click="openIconModal('sm',NewsService.currentNews.icon)" ng-src="{{NewsService.currentNews.icon.icon_absolute_path}}"  />
+                                    <img ng-show="!NewsService.currentNews.icon.id &&  NewsService.currentNews.images.length >= 1 " ng-click="openIconModal('sm',NewsService.currentNews.images[0])" ng-src="{{NewsService.currentNews.images[0].icon_absolute_path}}"  />
                                     <input
                                         ng-show="NewsService.currentNews.icon.id"
                                         type="checkbox"
