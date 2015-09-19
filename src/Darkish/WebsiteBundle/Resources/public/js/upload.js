@@ -130,22 +130,19 @@ $(function () {
 });
 
 
-function addTagForm($collectionHolder, $newLinkLi) {
-    var prototype = $collectionHolder.data('prototype');
+function addTagForm($imageHolder, $newImageDiv) {
+    var prototype = $imageHolder.data('prototype');
 
     // get the new index
-    var index = $collectionHolder.data('index');
+    var index = $imageHolder.data('index');
     var newIndex = index + 1;
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
 
     // increase the index with one for the next item
-    $collectionHolder.data('index', newIndex);
+    $imageHolder.data('index', newIndex);
 
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
+    $newImageDiv.append(newForm);
 
-    return newIndex;
 }

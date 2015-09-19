@@ -2,28 +2,38 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/ui/minified/widget.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-load-image/js/load-image.all.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-process.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-image.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-video.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-audio.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js') }}"></script>
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/jquery-ui/ui/minified/widget.min.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-load-image/js/load-image.all.min.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.min.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-process.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-image.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-video.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-audio.js') }}"></script>#}
+    {#<script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js') }}"></script>#}
+
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/plugins/plupload/js/plupload.full.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/Readmore.js/readmore.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/URIjs/src/URI.min.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/itinerary/itinerary.js') }}"></script>
-    <script src="{{ asset('bundles/darkishwebsite/js/upload.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/plupload.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+
+    <style>
+        #upload-container div.moxie-shim {
+            width: 100% !important;
+            height: 100% !important;
+
+        }
+    </style>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -45,33 +55,31 @@
     <div class=" well itinerary-form collapse collapsed" id="itinerary-form">
         {{ form_errors(form) }}
         {{ form_start(form) }}
-        <ul id="oneup-photos" data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
+        <div class="well">
 
-        </ul>
+            <div id="filelist" class="row"
+                 data-url="{{ oneup_uploader_endpoint('image') }}"
+                 data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
+            </div>
+
+            <br />
+
+            <div id="upload-container">
+                <label><a id="browse" href="javascript:;">[Browse...]</a></label>
+
+                <a id="start-upload" href="javascript:;">[Start Upload]</a>
+            </div>
+
+            <br />
+            <pre id="console"></pre>
+
+        </div>
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">
             ثبت
         </button>
 
-        <div class="well">
 
-        <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-plus"></i>
-            <span>Add files...</span>
-            <!-- The file input field used as target for the file upload widget -->
-            <input id="fileupload" type="file" name="files[]" data-url="{{ oneup_uploader_endpoint('image') }}" multiple>
-        </span>
-            <br>
-            <br>
-            <!-- The global progress bar -->
-            <div id="progress" class="progress">
-                <div class="progress-bar progress-bar-success"></div>
-            </div>
-            <!-- The container for the uploaded files -->
-            <div id="files" class="files"></div>
-            <br>
-
-        </div>
 
         {{ form_end(form) }}
 

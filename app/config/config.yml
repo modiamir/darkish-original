@@ -423,11 +423,11 @@ white_october_breadcrumbs:
 oneup_uploader:
     mappings:
         image:
-            frontend: blueimp
+            frontend: plupload
             use_orphanage: true
             namer: darkish_website.uploader_namer
             storage:
                 directory:            uploads/image
     orphanage:
         maxage: 86400
-        directory: %kernel.cache_dir%/uploader/orphanage
+        directory: %kernel.root_dir%/../web/uploader/cache

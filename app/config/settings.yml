@@ -22,3 +22,4 @@ parameters:
         product: false
         database: false
         comment: true
+        itinerary: false
