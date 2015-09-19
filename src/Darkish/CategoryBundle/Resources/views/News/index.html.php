@@ -409,7 +409,7 @@
                                     </ul>
                                     <script type="text/ng-template" id="videoModal.html">
                                         
-                                        <div class="modal-body">
+                                        <div class="modal-body">ن
                                             <video id="modal-video-player" controls="" autoplay=""  width="320" height="240" name="media"><source ng-src="{{currentVideo.absolute_path}}" type="{{currentVideo.filemime}}"></video>
                                         </div>
                                         <div class="modal-footer">

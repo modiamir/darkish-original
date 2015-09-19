@@ -36,7 +36,7 @@ $(function () {
         uploadButton = $('<button/>')
             .addClass('btn btn-primary')
             .prop('disabled', true)
-            .text('Processing...')
+            .text('Processing؟...')
             .on('click', function () {
                 var $this = $(this),
                     data = $this.data();

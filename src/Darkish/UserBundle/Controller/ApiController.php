@@ -106,7 +106,7 @@ class ApiController extends FOSRestController
      */
     public function postLoginAction(Request $request) {
     	if(!$request->request->has('phone') || strlen($request->request->get('phone')) < 1) {
-    		throw new HttpException(400, "'phone' is required !");
+            throw new HttpException(400, "'phone' is required !");
     	}
     	$username = $request->request->get('phone');
     	if(!$request->request->has('device_id') || strlen($request->request->get('device_id')) < 1) {
@@ -171,7 +171,9 @@ class ApiController extends FOSRestController
     	$em = $this->getDoctrine()->getManager();
     	$em->persist($ac);
     	$em->flush();
-    	// return $this->view("The approve code created and sent you via sms. (This is code: $code )", 200);
+        $smsClient = $this->get('darkish.category.sms');
+        $smsClient->sendSms($username, $code);
+    	return $this->view("The approve code created and sent you via sms.", 200);
     	return $this->view($code, 200);
     	
     }
