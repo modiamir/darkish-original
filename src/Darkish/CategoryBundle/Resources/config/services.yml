@@ -75,6 +75,9 @@ services:
         tags:
             - { name: liip_imagine.filter.loader, loader: custom_watermark }
 
+    darkish.category.sms:
+        class: Darkish\CategoryBundle\Sms\SmsClient
+
 parameters:
 #    darkish_category.example.class: Darkish\CategoryBundle\Example
 
