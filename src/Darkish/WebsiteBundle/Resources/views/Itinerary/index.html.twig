@@ -56,6 +56,10 @@
         {{ form_errors(form) }}
         {{ form_start(form) }}
         <div class="well">
+            <h3>
+                تصاویر
+            </h3>
+            تصویر اول به عنوان تصویر اصلی در نظر گرفته خواهد شد.
 
             <div id="filelist" class="row"
                  data-url="{{ oneup_uploader_endpoint('image') }}"
@@ -65,9 +69,13 @@
             <br />
 
             <div id="upload-container">
-                <label><a id="browse" href="javascript:;">[Browse...]</a></label>
+                <label><a id="browse" href="javascript:;">[
+                        انتخاب فایل
+                        ...]</a></label>
 
-                <a id="start-upload" href="javascript:;">[Start Upload]</a>
+                <a id="start-upload" href="javascript:;">[
+                    بارگزاری فایل ها
+                    ]</a>
             </div>
 
             <br />

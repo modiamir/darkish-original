@@ -25,8 +25,8 @@ $(document).ready(function () {
         var html = '';
         plupload.each(files, function(file) {
             var preloader = new mOxie.Image();
-            html +=
-                '<div class="col-xs-3" id="' + file.id + '">' +
+            html =
+                '<div class="col-xs-4" id="' + file.id + '">' +
                     '<div class="thumbnail">' +
                         '<img width="100%" src="'+''+'" alt="...">'+
                         '<div class="caption">'+
@@ -34,7 +34,8 @@ $(document).ready(function () {
                                 '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'+
                                 '</div>'+
                             '</div>'+
-                            file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>'+
+                            file.name + ' <br/>' + plupload.formatSize(file.size) + '<br/>'+
+                            '<a href="javascript:;" class="btn btn-sm btn-danger remove">حذف</a>'+
                         '</div>'+
                     '</div>'+
                 '</div>';
@@ -44,15 +45,26 @@ $(document).ready(function () {
                 $('#'+file.id+' img').prop( "src", preloader.getAsDataURL() );
             }
             preloader.load(file.getSource());
+
+
+            $('#filelist').append(html);
+            insertHr();
+
+            $('#' + file.id + ' a.remove').first().on('click', function() {
+                uploader.removeFile(file);
+                $('#' + file.id).remove();
+                insertHr();
+            });
+
         });
-        document.getElementById('filelist').innerHTML += html;
+        //document.getElementById('filelist').innerHTML += html;
     });
 
     uploader.bind('UploadProgress', function(up, file) {
         $('#'+file.id+' .progress-bar').css('width', file.percent+'%').attr('aria-valuenow', file.percent)
             .text(file.percent+'%');
 
-        document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+
     });
 
     uploader.bind('Error', function(up, err) {
@@ -75,6 +87,13 @@ $(document).ready(function () {
         uploader.start();
     };
 })
+
+function insertHr() {
+    $('#filelist hr').remove();
+
+    $('#filelist div[class^="col-xs"]:nth-child(3n+3)').after('<hr style="display: inline-block; width: 100%;" />')
+}
+
 
 function addImageForm($imageHolder, file, response) {
     var prototype = $imageHolder.data('prototype');
