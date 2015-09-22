@@ -6,7 +6,7 @@
     {% endif %}
     <div class="media-body">
         <h3 class="media-heading">{{ itinerary.title }}</h3>
-        <h4 class="media-heading">نام و نام خانوادگی{{ itinerary.fullName }}</h4>
+        <h4 class="media-heading">نام و نام خانوادگی:{{ itinerary.fullName }}</h4>
         <div class="itinerary-body">
             {{ itinerary.body }}
             {% if itinerary.photos|length > 1 %}
@@ -22,6 +22,9 @@
             {% endif %}
         </div>
         {% if app.request.query.has('commented') and app.request.query.get('commented') == itinerary.id %}
+            <button type="submit" data-itinerary-id="{{ itinerary.id }}" class="btn btn-default" disabled>
+                نظرات
+            </button>
             <div id="itinerary-comments-{{ itinerary.id }}" class="itinerary-comments">
                 {{ include("@DarkishWebsite/Itinerary/get-comments.html.twig", {'itinerary': itinerary}) }}
             </div>

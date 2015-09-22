@@ -43,6 +43,7 @@ class CommentController extends Controller
         $form = $this->createForm(new CommentType(), $comment);
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()) {
             switch($request->get('entity_type'))
             {
@@ -111,6 +112,16 @@ class CommentController extends Controller
 //            $comment->setCreatedAt(new \DateTime());
 //            $comment->setReplyCount(0);
             $comment->setThread($thread);
+
+            $photosIterators = $comment->getPhotos()->getIterator();
+            while($photosIterators->valid()) {
+                $photo = $photosIterators->current();
+                $photo->setUserId(0);
+                $photo->setOneup(true);
+                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
+                $photosIterators->next();
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->persist($thread);
@@ -118,7 +129,31 @@ class CommentController extends Controller
             $em->flush();
             return $this->redirect($url);
         }
-        die($form->getErrorsAsString());
+
+
+
+        switch($request->get('entity_type'))
+        {
+            case 'record':
+                $url = $this->generateUrl('website_record_single', ['record' => $request->get('entity_id')]);
+                break;
+            case 'news':
+                $url = $this->generateUrl('website_news_single', ['news' => $request->get('entity_id')]);
+                break;
+            case 'forumtree':
+                $url = $this->generateUrl('website_forum_tree', ['treeIndex' => $request->get('entity_id')]);
+                break;
+            case 'itinerary':
+                $parameters = [];
+                if($request->request->has('page')) {
+                    $parameters['page'] = $request->request->get('page');
+                }
+                $parameters['commented'] = $request->get('entity_id');
+                $url = $this->generateUrl('website_itinerary', $parameters);
+                break;
+        }
+        return $this->redirect($url);
+
     }
 
     /**

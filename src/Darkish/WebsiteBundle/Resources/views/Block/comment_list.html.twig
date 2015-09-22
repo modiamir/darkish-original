@@ -15,7 +15,23 @@
                 <h4 class="media-heading"> <span class="owner-name">{{ comment.owner | user_name }} - </span>   <span class="comment-date">{{ comment.createdAt | jdate('Y/m/d H:i') }}</span>   </h4>
 
                 {{ comment.body | raw }}
+
+                {% if comment.photos|length > 1 %}
+                    <hr>
+                    <div class="row">
+                        {% for photo in comment.photos %}
+                            {% if loop.index > 1 %}
+                                <a class="comment-image" href="{{ photo.relativePath | imagine_filter('1024') }}" data-lightbox="comment-gallery-{{ comment.id }}">
+                                    <img src="{{ photo.relativePath | imagine_filter('128') }}" alt="">
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <hr>
+
+
                 <a type="button"
                         class="comment-buttons comment-like btn-sm"
                         comment-id="{{ comment.id }}"
@@ -78,6 +94,35 @@
 {% endif %}
 <hr/>
 {{ form_start(comment_form) }}
+
+    <div class="well">
+        <h3>
+            تصاویر
+        </h3>
+        تصویر اول به عنوان تصویر اصلی در نظر گرفته خواهد شد.
+
+        <div id="comment-file-list" class="row"
+             data-url="{{ oneup_uploader_endpoint('image') }}"
+             data-prototype="{{ form_widget(comment_form.photos.vars.prototype)|e }}">
+        </div>
+
+        <br />
+
+        <div id="upload-container">
+            <label><a id="comment-file-browse" href="javascript:;">[
+                    انتخاب فایل
+                    ...]</a></label>
+
+            <a id="comment-start-upload" href="javascript:;">[
+                بارگزاری فایل ها
+                ]</a>
+        </div>
+
+        <br />
+        <pre id="console"></pre>
+
+    </div>
+
     {{ form_widget(comment_form) }}
 
     <input type="hidden" value="{{ settings.entity_type }}" name="entity_type" />

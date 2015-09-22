@@ -1,148 +1,143 @@
-var $collectionHolder;
-
-
-// setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
-
-
-$(function () {
-    'use strict';
-
-
-    $collectionHolder = $('ul#oneup-photos');
-
-    // add the "add a tag" anchor and li to the tags ul
-    $collectionHolder.append($newLinkLi);
-
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-    $addTagLink.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // add a new tag form (see next code block)
-        addTagForm($collectionHolder, $newLinkLi);
-    });
+(function( $ ) {
 
 
 
 
+    $.fn.dkUpload = function(options) {
 
 
-    var url = $('#fileupload').data().url,
-        uploadButton = $('<button/>')
-            .addClass('btn btn-primary')
-            .prop('disabled', true)
-            .text('Processing؟...')
-            .on('click', function () {
-                var $this = $(this),
-                    data = $this.data();
-                $this
-                    .off('click')
-                    .text('Abort')
-                    .on('click', function () {
-                        $this.remove();
-                        data.abort();
-                    });
-                data.submit().always(function () {
-                    $this.remove();
+        var self = this;
+
+        function insertHr() {
+            self.find('hr').remove();
+
+            self.find('div[class^="col-xs"]:nth-child(3n+3)').after('<hr style="display: inline-block; width: 100%;" />')
+        }
+
+
+        function addImageForm($imageHolder, file, response) {
+            var prototype = $imageHolder.data('prototype');
+
+            $newImageDiv = $('#'+file.id);
+
+            // get the new index
+            var index = $imageHolder.data('index');
+            var newIndex = index + 1;
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $imageHolder.data('index', newIndex);
+
+            $newImageDiv.append(newForm);
+
+            $('#'+file.id+ ' input[id$="fileName"]').attr('value', response.name);
+            $('#'+file.id+ ' input[id$="type"]').attr('value', 'itinerary');
+            $('#'+file.id+ ' input[id$="uploadDir"]').attr('value', 'image');
+
+
+
+        }
+
+        // This is the easiest way to have default options.
+        var settings = $.extend({
+            // These are the defaults.
+            browse_button: "browse",
+            max_file_size: "5mb",
+            extensions: "jpg, png",
+            start_upload_button: "start-upload"
+        }, options );
+
+        this.data('index', 0);
+
+        var url = this.data().url;
+        var uploader = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight,html4',
+            browse_button: settings.browse_button, // this can be an id of a DOM element or the DOM element itself
+            url: url,
+            filters : {
+                max_file_size : settings.max_file_size,
+                mime_types: [
+                    {title : "Image files", extensions : settings.extensions}
+                ]
+            },
+        });
+
+        uploader.init();
+
+
+        uploader.bind('FilesAdded', function(up, files) {
+            var html = '';
+            plupload.each(files, function(file) {
+                var preloader = new mOxie.Image();
+                html =
+                    '<div class="col-xs-4" id="' + file.id + '">' +
+                        '<div class="thumbnail">' +
+                            '<img width="100%" style="object-fit:contain; height:150px" src="'+''+'" alt="...">'+
+                            '<div class="caption">'+
+                                '<div class="progress">'+
+                                    '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'+
+                                    '</div>'+
+                                '</div>'+
+                                plupload.formatSize(file.size) +
+                                '<a href="javascript:;" class="btn pull-left btn-sm btn-danger remove">حذف</a>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>';
+
+                preloader.onload = function(){
+                    preloader.downsize( 300, 300 );
+
+                    $('#'+file.id+' img').prop( "src", preloader.getAsDataURL() );
+                }
+                preloader.load(file.getSource());
+
+
+                self.append(html);
+                insertHr();
+
+                $('#' + file.id + ' a.remove').first().on('click', function() {
+                    uploader.removeFile(file);
+                    $('#' + file.id).remove();
+                    insertHr();
                 });
+
             });
-    $('#fileupload').fileupload({
-        url: url,
-        dataType: 'json',
-        autoUpload: false,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        maxFileSize: 999000,
-        // Enable image resizing, except for Android and Opera,
-        // which actually support image resizing, but fail to
-        // send Blob objects via XHR requests:
-        disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator.userAgent),
-        previewMaxWidth: 100,
-        previewMaxHeight: 100,
-        previewCrop: true
-    }).on('fileuploadadd', function (e, data) {
-        data.context = $('<div/>').appendTo('#files');
-        $.each(data.files, function (index, file) {
-            var node = $('<p/>')
-                .append($('<span/>').text(file.name));
-            if (!index) {
-                node
-                    .append('<br>')
-                    .append(uploadButton.clone(true).data(data));
+            //document.getElementById('filelist').innerHTML += html;
+        });
+
+        uploader.bind('UploadProgress', function(up, file) {
+            $('#'+file.id+' .progress-bar').css('width', file.percent+'%').attr('aria-valuenow', file.percent)
+                .text(file.percent+'%');
+
+        });
+
+
+        uploader.bind('Error', function(up, err) {
+            self.find('console').append("\nError #" + err.code + ": " + err.message);
+        });
+
+
+        uploader.bind('FileUploaded', function(up, file, object) {
+            var response;
+            try {
+                response = eval(object.response);
+            } catch(err) {
+                response = eval('(' + object.response + ')');
             }
-            node.appendTo(data.context);
+
+            addImageForm(self, file, response);
         });
-    }).on('fileuploadprocessalways', function (e, data) {
-        var index = data.index,
-            file = data.files[index],
-            node = $(data.context.children()[index]);
-        if (file.preview) {
-            node
-                .prepend('<br>')
-                .prepend(file.preview);
-        }
-        if (file.error) {
-            node
-                .append('<br>')
-                .append($('<span class="text-danger"/>').text(file.error));
-        }
-        if (index + 1 === data.files.length) {
-            data.context.find('button')
-                .text('Upload')
-                .prop('disabled', !!data.files.error);
-        }
-    }).on('fileuploadprogressall', function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress .progress-bar').css(
-            'width',
-            progress + '%'
-        );
-    }).on('fileuploaddone', function (e, data) {
-        $.each(data.result.files, function (index, file) {
-            if (file.url) {
-                var link = $('<a>')
-                    .attr('target', '_blank')
-                    .prop('href', file.url);
-                $(data.context.children()[index])
-                    .wrap(link);
-            } else if (file.error) {
-                var error = $('<span class="text-danger"/>').text(file.error);
-                $(data.context.children()[index])
-                    .append('<br>')
-                    .append(error);
-            }
+
+        $('#'+settings.start_upload_button).on('click', function() {
+            uploader.start();
         });
-    }).on('fileuploadfail', function (e, data) {
-        $.each(data.files, function (index) {
-            var error = $('<span class="text-danger"/>').text('File upload failed.');
-            $(data.context.children()[index])
-                .append('<br>')
-                .append(error);
-        });
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
-});
+        console.log(uploader);
 
+        return this;
 
-function addTagForm($imageHolder, $newImageDiv) {
-    var prototype = $imageHolder.data('prototype');
+    };
 
-    // get the new index
-    var index = $imageHolder.data('index');
-    var newIndex = index + 1;
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
-
-    // increase the index with one for the next item
-    $imageHolder.data('index', newIndex);
-
-    $newImageDiv.append(newForm);
-
-}
+}( jQuery ));
