@@ -22,14 +22,15 @@
     <script src="{{ asset('bundles/darkishwebsite/js/upload.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/itinerary/itinerary.js') }}"></script>
     <script>
-        $('#filelist').dkUpload({
-            browse_button: 'browse'
-        });
 
-        $('#comment-file-list').dkUpload({
-            browse_button: 'comment-file-browse',
-            start_upload_button: 'comment-start-upload'
-        });
+        $(document).ready(function(){
+            $('#filelist').dkUpload({
+                browse_button: 'browse'
+            });
+
+
+        })
+
     </script>
 {% endblock %}
 
@@ -73,7 +74,9 @@
 
             <div id="filelist" class="row"
                  data-url="{{ oneup_uploader_endpoint('image') }}"
-                 data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
+                 data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}"
+                 data-entity-type="itinerary"
+                 data-upload-dir="image" >
             </div>
 
             <br />

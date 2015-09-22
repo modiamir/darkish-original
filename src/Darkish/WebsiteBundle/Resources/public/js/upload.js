@@ -1,3 +1,5 @@
+
+
 (function( $ ) {
 
 
@@ -33,8 +35,8 @@
             $newImageDiv.append(newForm);
 
             $('#'+file.id+ ' input[id$="fileName"]').attr('value', response.name);
-            $('#'+file.id+ ' input[id$="type"]').attr('value', 'itinerary');
-            $('#'+file.id+ ' input[id$="uploadDir"]').attr('value', 'image');
+            $('#'+file.id+ ' input[id$="type"]').attr('value', $imageHolder.data().entityType);
+            $('#'+file.id+ ' input[id$="uploadDir"]').attr('value', $imageHolder.data().uploadDir);
 
 
 
@@ -52,6 +54,9 @@
         this.data('index', 0);
 
         var url = this.data().url;
+        var entityType = this.data().entityType;
+        var uploadDir = this.data().uploadDir;
+
         var uploader = new plupload.Uploader({
             runtimes : 'html5,flash,silverlight,html4',
             browse_button: settings.browse_button, // this can be an id of a DOM element or the DOM element itself
@@ -62,6 +67,10 @@
                     {title : "Image files", extensions : settings.extensions}
                 ]
             },
+            multipart_params : {
+                "type" : entityType
+            }
+
         });
 
         uploader.init();

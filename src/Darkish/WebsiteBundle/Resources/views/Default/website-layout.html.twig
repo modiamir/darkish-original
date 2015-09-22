@@ -13,7 +13,7 @@
 
 	<link href="{{ asset('bundles/darkishwebsite/stylesheets/website.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/ckeditor-body.css') }}" rel="stylesheet" />
-    {{ sonata_block_include_stylesheets('all') }}
+
 {% endblock %}
 
 
@@ -24,7 +24,7 @@
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
-    {{ sonata_block_include_javascripts('all') }}
+
 
 {% endblock %}
 {% block  dir %}dir="rtl" class="register-customer"{% endblock %}

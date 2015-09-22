@@ -59,7 +59,7 @@ class CommentController extends Controller
                         $thread->setLastCommentAt(new \DateTime());
                         $thread->setNumComments(1);
                     }
-                    $url = $this->generateUrl('website_record_single', ['record' => $entity->getId()]);
+                    $url = $this->generateUrl('website_record_single', ['record' => $entity->getRecordNumber()]);
                     break;
                 case 'news':
                     $entity = $this->getDoctrine()

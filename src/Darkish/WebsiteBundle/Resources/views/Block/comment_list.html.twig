@@ -101,7 +101,10 @@
 
         <div id="comment-file-list" class="row"
              data-url="{{ oneup_uploader_endpoint('image') }}"
-             data-prototype="{{ form_widget(comment_form.photos.vars.prototype)|e }}">
+             data-prototype="{{ form_widget(comment_form.photos.vars.prototype)|e }}"
+             data-entity-type="comment"
+             data-upload-dir="image"
+            >
         </div>
 
         <br />
