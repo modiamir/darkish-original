@@ -20,11 +20,9 @@
                     <hr>
                     <div class="row">
                         {% for photo in comment.photos %}
-                            {% if loop.index > 1 %}
-                                <a class="comment-image" href="{{ photo.relativePath | imagine_filter('1024') }}" data-lightbox="comment-gallery-{{ comment.id }}">
-                                    <img src="{{ photo.relativePath | imagine_filter('128') }}" alt="">
-                                </a>
-                            {% endif %}
+                            <a class="comment-image" href="{{ photo.relativePath | imagine_filter('1024') }}" data-lightbox="comment-gallery-{{ comment.id }}">
+                                <img src="{{ photo.relativePath | imagine_filter('128') }}" alt="">
+                            </a>
                         {% endfor %}
                     </div>
                 {% endif %}
