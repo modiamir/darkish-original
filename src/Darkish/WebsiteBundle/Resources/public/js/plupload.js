@@ -28,14 +28,14 @@ $(document).ready(function () {
             html =
                 '<div class="col-xs-4" id="' + file.id + '">' +
                     '<div class="thumbnail">' +
-                        '<img width="100%" src="'+''+'" alt="...">'+
+                        '<img width="100%" style="object-fit:contain; height:150px" src="'+''+'" alt="...">'+
                         '<div class="caption">'+
                             '<div class="progress">'+
                                 '<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'+
                                 '</div>'+
                             '</div>'+
-                            file.name + ' <br/>' + plupload.formatSize(file.size) + '<br/>'+
-                            '<a href="javascript:;" class="btn btn-sm btn-danger remove">حذف</a>'+
+                            plupload.formatSize(file.size) +
+                            '<a href="javascript:;" class="btn pull-left btn-sm btn-danger remove">حذف</a>'+
                         '</div>'+
                     '</div>'+
                 '</div>';
@@ -88,11 +88,7 @@ $(document).ready(function () {
     };
 })
 
-function insertHr() {
-    $('#filelist hr').remove();
 
-    $('#filelist div[class^="col-xs"]:nth-child(3n+3)').after('<hr style="display: inline-block; width: 100%;" />')
-}
 
 
 function addImageForm($imageHolder, file, response) {

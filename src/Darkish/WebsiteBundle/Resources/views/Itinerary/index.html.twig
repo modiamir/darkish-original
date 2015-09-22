@@ -19,8 +19,18 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/Readmore.js/readmore.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/URIjs/src/URI.min.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/comment.js') }}"></script>
+    <script src="{{ asset('bundles/darkishwebsite/js/upload.js') }}"></script>
     <script src="{{ asset('bundles/darkishwebsite/js/itinerary/itinerary.js') }}"></script>
-    <script src="{{ asset('bundles/darkishwebsite/js/plupload.js') }}"></script>
+    <script>
+        $('#filelist').dkUpload({
+            browse_button: 'browse'
+        });
+
+        $('#comment-file-list').dkUpload({
+            browse_button: 'comment-file-browse',
+            start_upload_button: 'comment-start-upload'
+        });
+    </script>
 {% endblock %}
 
 {% block stylesheets %}

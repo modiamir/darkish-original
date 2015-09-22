@@ -2,9 +2,14 @@
 
 namespace Darkish\WebsiteBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+
 
 class CommentType extends AbstractType
 {
@@ -25,6 +30,23 @@ class CommentType extends AbstractType
             ])
             ->add('captcha', 'captcha')
         ;
+
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $comment = $event->getData();
+            $form = $event->getForm();
+
+            // check if the Product object is "new"
+            // If no data is passed to the form, the data is "null".
+            // This should be considered a new "Product"
+            if (!$comment->getParent()) {
+                $form->add('photos', 'collection', array(
+                    'type' => new ManagedFileType(),
+                    'allow_add' => true,
+                    'label' => 'تصاویر'
+                ));
+            }
+        });
     }
     
     /**

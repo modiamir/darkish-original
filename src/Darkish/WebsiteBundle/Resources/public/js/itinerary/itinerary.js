@@ -21,13 +21,19 @@ $(document).ready(function() {
         var itineraryId = $(this).data().itineraryId;
         var self = this;
         $.get(Routing.generate('website_itinerary_get_comments', { itinerary: itineraryId }), function(data, status){
+            $('.itinerary-comments').empty();
             $('#itinerary-comments-'+itineraryId).html(data);
-            $(self).remove();
+            $('button[data-itinerary-id]').prop('disabled', false);
+            $(self).prop('disabled', true);
             var uri = new URI(window.location.href);
             if(uri.search(true).page) {
                 $('form[name="submit_anonymous_comment"]').append('<input type="hidden" name="page" value="'+uri.search(true).page+'" />');
             }
 
+            $('#comment-file-list').dkUpload({
+                browse_button: 'comment-file-browse',
+                start_upload_button: 'comment-start-upload'
+            });
         });
 
     })

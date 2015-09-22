@@ -102,6 +102,7 @@ class AnonymousComment extends Comment
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

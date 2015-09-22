@@ -116,7 +116,7 @@ abstract class Comment
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile", cascade={"persist"})
      * @ORM\JoinTable(name="comment_photos",
      *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
