@@ -441,6 +441,366 @@ a.dk-audio-play {
   background-color: #F7F7F7;
 }
 
+/* Style the Sequence container */
+/* line 3, ../sass/modules/_front.scss */
+.sequence-wrapper {
+  padding: 0;
+  /* Reset */
+  /* Make the canvas the same dimensions as the container and prevent lines from
+     wrapping so each step can sit side-by-side */
+  /* Make the steps the same size as the container and sit side-by-side */
+  /* Used to vertically center align the .content element */
+  /* Vertically center align the .content element */
+  /* Starting positions */
+  /* Animate in positions for content */
+  /* Animate out positions for content */
+  /* Starting positions */
+  /* Animate in positions for content */
+  /* Animate out positions for content */
+}
+/* line 5, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence {
+  position: relative;
+  width: 100%;
+  height: 466px;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+  font-family: sans-serif;
+}
+/* line 18, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-canvas,
+.sequence-wrapper #sequence .seq-canvas > * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 26, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
+  font-size: 0;
+}
+/* line 35, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-canvas > .row {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  height: 100%;
+  white-space: normal;
+  text-align: center;
+  color: white;
+  padding: 50px 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+/* line 51, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-canvas > .row:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+/* line 59, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .content {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  float: none;
+}
+/* line 64, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .content.top {
+  vertical-align: top;
+}
+/* line 68, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .content.bottom {
+  vertical-align: bottom;
+}
+/* line 71, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .content h2, .sequence-wrapper #sequence .content h3 {
+  font-family: cocon;
+}
+/* line 74, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .content h2 {
+  text-shadow: 1px 4px 4px darkslategray;
+  font-size: 50px;
+}
+/* line 80, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .step1 {
+  background-color: #279fe5;
+}
+/* line 84, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .step2 {
+  background-color: #f96852;
+}
+/* line 88, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .step3 {
+  background-color: #2bbf8e;
+}
+/* line 93, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2,
+.sequence-wrapper #sequence h3 {
+  margin: 0;
+  display: block;
+  line-height: 120%;
+}
+/* line 99, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2 {
+  margin-bottom: .5em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.6em;
+}
+/* line 105, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h3 {
+  font-size: 1.4em;
+}
+/* line 112, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2,
+.sequence-wrapper #sequence h3 {
+  opacity: 0;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+/* line 118, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2 {
+  -webkit-transform: translate(0, -20px);
+  transform: translate(0, -20px);
+}
+/* line 123, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h3 {
+  -webkit-transform: translate(0, 20px);
+  transform: translate(0, 20px);
+}
+/* line 130, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-in h2,
+.sequence-wrapper #sequence .seq-in h3 {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+/* line 138, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-out h2,
+.sequence-wrapper #sequence .seq-out h3 {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+/* line 147, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2,
+.sequence-wrapper #sequence h3 {
+  opacity: 0;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+/* line 153, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h2 {
+  -webkit-transform: translate(0, -20px);
+  transform: translate(0, -20px);
+}
+/* line 158, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence h3 {
+  -webkit-transform: translate(0, 20px);
+  transform: translate(0, 20px);
+}
+/* line 165, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-in h2,
+.sequence-wrapper #sequence .seq-in h3 {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+/* line 174, ../sass/modules/_front.scss */
+.sequence-wrapper #sequence .seq-out h2,
+.sequence-wrapper #sequence .seq-out h3 {
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+/* line 180, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-next {
+  position: absolute;
+  top: 45%;
+  right: 2%;
+}
+/* line 186, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-prev {
+  position: absolute;
+  top: 45%;
+  left: 2%;
+}
+/* line 192, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-pagination {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  color: white;
+  bottom: 30px;
+}
+/* line 198, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-pagination li {
+  display: inline-block;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 10px;
+}
+/* line 205, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-pagination li:hover {
+  cursor: pointer;
+}
+/* line 208, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-pagination li.seq-current {
+  color: #ff6600;
+  background-color: #ff6600;
+}
+/* line 211, ../sass/modules/_front.scss */
+.sequence-wrapper .seq-pagination li.seq-current:hover {
+  cursor: auto;
+}
+
+/* line 221, ../sass/modules/_front.scss */
+.about-kish-wrapper {
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  position: relative;
+}
+/* line 224, ../sass/modules/_front.scss */
+.about-kish-wrapper > .row {
+  background-color: #264a60;
+  padding: 50px 100px;
+}
+/* line 228, ../sass/modules/_front.scss */
+.about-kish-wrapper > .row > .col .info-box {
+  background-color: #1D4259;
+  margin: 20px;
+  text-align: center;
+  padding: 20px 40px;
+}
+/* line 233, ../sass/modules/_front.scss */
+.about-kish-wrapper > .row > .col .info-box h2 {
+  color: #00AED3;
+  margin: 10px 0;
+  font-size: 22px;
+}
+/* line 238, ../sass/modules/_front.scss */
+.about-kish-wrapper > .row > .col .info-box h3 {
+  color: #E2E9ED;
+  font-size: 18px;
+}
+/* line 243, ../sass/modules/_front.scss */
+.about-kish-wrapper > .row > .col .info-box button {
+  background-color: #00B3D8;
+  color: #E2E9ED;
+  border: none;
+  font-size: 18px;
+  padding: 4px 10px;
+  margin-top: 20px;
+}
+/* line 256, ../sass/modules/_front.scss */
+.about-kish-wrapper img.center-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 100px;
+  border: 10px solid #264a60;
+  margin-left: -100px;
+  margin-top: -100px;
+}
+
+/* line 271, ../sass/modules/_front.scss */
+.jashnvareh-wrapper {
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  background-color: #DFE6EB;
+  text-align: center;
+  padding: 40px 200px 30px 200px;
+}
+/* line 276, ../sass/modules/_front.scss */
+.jashnvareh-wrapper > .row {
+  margin-top: 30px;
+}
+/* line 279, ../sass/modules/_front.scss */
+.jashnvareh-wrapper > .row .thumbnail img {
+  height: 150px;
+  object-fit: cover;
+  -o-object-fit: cover;
+  width: 100%;
+}
+
+/* line 291, ../sass/modules/_front.scss */
+.records-wrapper {
+  background-color: #3B4B54;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  text-align: center;
+  color: #E2E9ED;
+}
+/* line 296, ../sass/modules/_front.scss */
+.records-wrapper > h3 {
+  color: #00ACCE;
+  margin-top: 30px;
+}
+/* line 300, ../sass/modules/_front.scss */
+.records-wrapper .first-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 303, ../sass/modules/_front.scss */
+.records-wrapper .first-row .description {
+  color: #E2E9ED;
+}
+/* line 307, ../sass/modules/_front.scss */
+.records-wrapper .first-row .submit-record .arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #00B3D8;
+  display: inline-flex;
+}
+/* line 317, ../sass/modules/_front.scss */
+.records-wrapper .first-row .submit-record button {
+  background-color: #00B3D8;
+  color: #E2E9ED;
+}
+/* line 324, ../sass/modules/_front.scss */
+.records-wrapper .trees {
+  background-color: #26343F;
+  padding: 50px 20px;
+  margin-bottom: 50px;
+}
+/* line 328, ../sass/modules/_front.scss */
+.records-wrapper .trees > .col {
+  height: 220px;
+}
+/* line 330, ../sass/modules/_front.scss */
+.records-wrapper .trees > .col img {
+  width: 96px;
+  height: 96px;
+  object-fit: scale-down;
+  border: 4px solid #3B4B54;
+  border-radius: 48px;
+}
+/* line 339, ../sass/modules/_front.scss */
+.records-wrapper .trees h3 {
+  color: #00ACCE;
+  height: 40px;
+  object-fit: contain;
+  font-size: 16px;
+  margin: 10px 0 0 0;
+}
+/* line 347, ../sass/modules/_front.scss */
+.records-wrapper .trees h4 {
+  font-size: 14px;
+  margin: 5px 0 0 0;
+}
+
 /* line 3, ../sass/modules/_news.scss */
 .news.mode-full .date {
   position: absolute;

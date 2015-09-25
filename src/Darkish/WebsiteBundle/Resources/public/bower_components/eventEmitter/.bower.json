@@ -26,14 +26,14 @@
     ".gitignore",
     "package.json"
   ],
-  "homepage": "https://github.com/Wolfy87/EventEmitter",
+  "homepage": "https://github.com/Olical/EventEmitter",
   "_release": "4.2.11",
   "_resolution": {
     "type": "version",
     "tag": "v4.2.11",
     "commit": "5da7b55b628b210f2e9b8bd87ae6e4035321d72b"
   },
-  "_source": "git://github.com/Wolfy87/EventEmitter.git",
+  "_source": "git://github.com/Olical/EventEmitter.git",
   "_target": "4.x",
   "_originalSource": "eventEmitter"
 }

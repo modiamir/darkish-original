@@ -21,7 +21,25 @@ class DefaultController extends Controller
 	 */
     public function indexAction()
     {
-    	return $this->render('DarkishWebsiteBundle:Default:index.html.twig');
+        $params = $this->container->getParameter('darkish.front_page');
+        $jashnvareha = [];
+        foreach($params['jashnvareh'] as $jashnvarehNumber) {
+            $jashnvareha[] = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+                ->findOneBy(['recordNumber' => $jashnvarehNumber]);
+        }
+
+        $webMainTrees = [];
+        foreach($params['records']['trees'] as $treeIndex)
+        {
+            $webMainTrees[] = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')
+                ->findOneBy(['treeIndex' => $treeIndex]);
+        }
+
+    	return $this->render('DarkishWebsiteBundle:Default:index.html.twig', [
+            'params' => $params,
+            'jashnvareha' => $jashnvareha,
+            'webmaintrees' => $webMainTrees
+        ]);
     }
 
     /**
