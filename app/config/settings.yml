@@ -23,3 +23,62 @@ parameters:
         database: false
         comment: true
         itinerary: false
+
+    darkish.front_page:
+        slideshow:
+            -
+                image: "00-0.png"
+                right:
+                    text: نگاهی متفاوت به جزیره کیش
+                    sub_text: زیر متن
+                    color: ffffff
+                    position: middle
+                left:
+                    text: جزیره کیش در جیب شما
+                    sub_text: زیر متن سمت چپ
+                    color: ffffff
+                    position: top
+
+            -
+                image: "00-1.png"
+                right:
+                    text: "سمت راست"
+                    sub_text: زیر متن
+                    color: ffffff
+                    position: top
+                left:
+                    text: "سمت چپ"
+                    sub_text: زیر متن سمت چپ
+                    color: ffffff
+                    position: top
+
+            -
+                image: "00-2.png"
+                right:
+                    text: "سمت راست"
+                    sub_text: زیر متن
+                    color: ffffff
+                    position: bottom
+                left:
+                    text: "سمت چپ"
+                    sub_text: زیر متن سمت چپ
+                    color: ffffff
+                    position: middle
+        about_kish:
+            -
+                title: درباره جزیره کیش
+                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            -
+                title: سفر و زندگی در کیش
+                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            -
+                title: گردشگری کیش
+                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            -
+                title: تفریحات جزیره
+                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+
+        jashnvareh: ["001000","001000","001000"]
+        records:
+            text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            trees: ["0001", "0002", "0003", "0004",  "0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012"]
