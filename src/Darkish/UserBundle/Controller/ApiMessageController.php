@@ -114,7 +114,7 @@ class ApiMessageController extends FOSRestController
      *  }
      * )
      */
-    public function postAction(\Darkish\CategoryBundle\Entity\Record $record, Request $request) {
+    public function postAction(Customer $customer, Request $request) {
         $client = $this->get('security.context')->getToken()->getUser();
         /* @var $assistantAccess \Doctrine\Common\Collections\ArrayCollection */
         
@@ -126,7 +126,7 @@ class ApiMessageController extends FOSRestController
                    ->createQueryBuilder('pmt');
 
         $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
-        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+        $qb->andWhere('pmt.customer = :cid')->setParameter('rid', $customer->getId());
 
         $qb->setMaxResults(1);
         $res = $qb->getQuery()->getResult();
@@ -140,7 +140,7 @@ class ApiMessageController extends FOSRestController
             $thread->setDeletedByClient(false);
         } else{
             $thread = new \Darkish\CategoryBundle\Entity\PrivateMessageThread();
-            $thread->setRecord($record);
+            $thread->setCustomer($customer);
             $thread->setClient($client);
             $thread->setLastRecordSeen(0);
             $thread->setLastRecordDelivered(0);
@@ -149,7 +149,6 @@ class ApiMessageController extends FOSRestController
             $thread->setDeletedByClient(false);
             $thread->setDeletedByRecord(false);
 
-        
         }
 
         $message = new \Darkish\CategoryBundle\Entity\Message();
