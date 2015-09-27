@@ -57,6 +57,18 @@ class Message
      */
     private $customer;
 
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordTitle;
+
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordNumber;
+
 
     /**
      * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
@@ -240,5 +252,53 @@ class Message
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+
+    /**
+     * Set recordTitle
+     *
+     * @param string $recordTitle
+     * @return Message
+     */
+    public function setRecordTitle($recordTitle)
+    {
+        $this->recordTitle = $recordTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get recordTitle
+     *
+     * @return string
+     */
+    public function getRecordTitle()
+    {
+        return $this->recordTitle;
+    }
+
+
+    /**
+     * Set recordTitle
+     *
+     * @param string $recordNumber
+     * @return Message
+     */
+    public function setRecordNumber($recordNumber)
+    {
+        $this->recordNumber = $recordNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get recordTitle
+     *
+     * @return string
+     */
+    public function getRecordNumber()
+    {
+        return $this->recordNumber;
     }
 }
