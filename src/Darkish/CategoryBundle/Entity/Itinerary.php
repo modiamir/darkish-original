@@ -3,6 +3,7 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -11,6 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\DiscriminatorColumn("type")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"client" = "ClientItinerary", "anonymous" = "AnonymousItinerary", "itinerary" = "Itinerary"})
  */
 class Itinerary
 {
@@ -20,17 +25,20 @@ class Itinerary
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"itinerary.list.api"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      * @Assert\Length(
      *      max = 100,
      * )
+     * @Assert\NotNull()
      * @ORM\Column(name="title", type="string", length=255)
+     * @Groups({"itinerary.list.api"})
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
@@ -38,17 +46,21 @@ class Itinerary
      * @Assert\Length(
      *      max = 50,
      * )
+     * @Assert\NotNull()
+     * @Groups({"itinerary.list.api"})
      */
-    private $fullName;
+    protected $fullName;
 
     /**
      * @var string
      * @Assert\Length(
      *      max = 5000,
      * )
+     * @Assert\NotNull()
      * @ORM\Column(name="body", type="text", nullable=true)
+     * @Groups({"itinerary.list.api"})
      */
-    private $body;
+    protected $body;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"persist"})
@@ -60,21 +72,42 @@ class Itinerary
      *      max = "5",
      *      maxMessage = "تعداد تصاویر بیش از حد مجاز است."
      * )
+     * @Groups({"itinerary.list.api"})
      **/
-    private $photos;
+    protected $photos;
 
     /**
      * @var
      * @ORM\Column(name="created", type="datetime")
+     * @Groups({"itinerary.list.api"})
      */
-    private $created;
+    protected $created;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="visit_count", type="integer", options={"default"=0}, nullable=true)
+     * @Groups({"itinerary.list.api"})
+     */
+    protected $visitCount = 0;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="comment_count", type="integer", options={"default"=0}, nullable=true)
+     * @Groups({"itinerary.list.api"})
+     */
+    protected $commentCount = 0 ;
+
+    /**
+     * @var integer
+     * @ORM\Column(name="like_count", type="integer", options={"default"=0}, nullable=true)
+     * @Groups({"itinerary.list.api"})
+     */
+    protected $likeCount = 0;
 
     /**
      * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\ItineraryThread", mappedBy="target")
-     * 
      */
-    private $thread;
-
+    protected $thread;
 
     /**
      * Get id
@@ -254,5 +287,77 @@ class Itinerary
     public function getFullName()
     {
         return $this->fullName;
+    }
+
+    /**
+     * Set visitCount
+     *
+     * @param integer $visitCount
+     *
+     * @return Itinerary
+     */
+    public function setVisitCount($visitCount)
+    {
+        $this->visitCount = $visitCount;
+
+        return $this;
+    }
+
+    /**
+     * Get visitCount
+     *
+     * @return integer
+     */
+    public function getVisitCount()
+    {
+        return $this->visitCount;
+    }
+
+    /**
+     * Set commentCount
+     *
+     * @param integer $commentCount
+     *
+     * @return Itinerary
+     */
+    public function setCommentCount($commentCount)
+    {
+        $this->commentCount = $commentCount;
+
+        return $this;
+    }
+
+    /**
+     * Get commentCount
+     *
+     * @return integer
+     */
+    public function getCommentCount()
+    {
+        return $this->commentCount;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     *
+     * @return Itinerary
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return integer
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
     }
 }

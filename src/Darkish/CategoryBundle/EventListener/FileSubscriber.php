@@ -442,15 +442,28 @@ class FileSubscriber implements EventSubscriber
 
 
         // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof ManagedFile && $entity->getUploadDir()== "image") {
+        if ($entity instanceof ManagedFile) {
             if($entity->getOneup() == false) {
                 return;
             }
-            $manager = $this->container->get('oneup_uploader.orphanage_manager')->get('image');
-            // get files
-            /* @var $manager \Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage */
+
+
+            $directories = ManagedFile::$uploadDirectories;
+
+            foreach($directories as $uploadDir)
+            {
+                /* @var $manager \Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage */
+                $manager = $this->container->get('oneup_uploader.orphanage_manager')->get('image');
+                if($manager->getFiles()->files()->name($entity->getFileName($entity->getFileName()))->count())
+                {
+                    $entity->setUploadDir($uploadDir);
+                    break;
+                }
+            }
+
+
+
             $files = $manager->getFiles();
-//
             $files->files()->name($entity->getFileName());
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach($files as $f) {
@@ -458,7 +471,9 @@ class FileSubscriber implements EventSubscriber
                 break;
             }
 
+            $type = explode("-", $entity->getFileName())[0];
 
+            $entity->setType($type);
             $entity->setUserId(0);
             $entity->setStatus(false);
             $entity->setTimestamp(new \DateTime());

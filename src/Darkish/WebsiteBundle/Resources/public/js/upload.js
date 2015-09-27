@@ -35,8 +35,8 @@
             $newImageDiv.append(newForm);
 
             $('#'+file.id+ ' input[id$="fileName"]').attr('value', response.name);
-            $('#'+file.id+ ' input[id$="type"]').attr('value', $imageHolder.data().entityType);
-            $('#'+file.id+ ' input[id$="uploadDir"]').attr('value', $imageHolder.data().uploadDir);
+            //$('#'+file.id+ ' input[id$="type"]').attr('value', $imageHolder.data().entityType);
+            //$('#'+file.id+ ' input[id$="uploadDir"]').attr('value', $imageHolder.data().uploadDir);
 
 
 
@@ -55,7 +55,7 @@
 
         var url = this.data().url;
         var entityType = this.data().entityType;
-        var uploadDir = this.data().uploadDir;
+        //var uploadDir = this.data().uploadDir;
 
         var uploader = new plupload.Uploader({
             runtimes : 'html5,flash,silverlight,html4',
@@ -135,7 +135,6 @@
             } catch(err) {
                 response = eval('(' + object.response + ')');
             }
-
             addImageForm(self, file, response);
         });
 

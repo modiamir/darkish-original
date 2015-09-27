@@ -39,7 +39,7 @@ class ApiCommentController extends FOSRestController
      * 
      * @RouteAnnot\Get("get_comments/{type}/{id}/{lowest_id}", requirements={
      *     "id": "\d+",
-     *     "type":"news|record|forum|safarnameh",
+     *     "type":"news|record|forum|itinerary",
      *     "lowest_id": "\d+"
      * })
      * @View(serializerGroups={"api.list", "file.details"})
@@ -68,7 +68,7 @@ class ApiCommentController extends FOSRestController
 
             case 'itinerary':
                 $entityType = 'DarkishCategoryBundle:Itinerary';
-                $threadType = 'Darkish\CommentBundle\Entity\Itinerary';
+                $threadType = 'Darkish\CommentBundle\Entity\ItineraryThread';
                 break;
         }
 
@@ -139,7 +139,7 @@ class ApiCommentController extends FOSRestController
      *  resource=true,
      *  section="Comment API",
      *  parameters={
-     *      {"name"="type", "dataType"="string", "required"=true, "description"="Type of entity and should be one of 'record', 'forum', 'news', 'safarnameh'"},
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="Type of entity and should be one of 'record', 'forum', 'news', 'itinerary'"},
      *      {"name"="id", "dataType"="numeric string", "required"=true },
      *      {"name"="photos", "dataType"="string", "required"=true, "description"="array of photo ids"},
      *      {"name"="darkish_commentbundle_comment[body]", "dataType"="text", "required"=true, "description"="body of comment"}
@@ -166,8 +166,8 @@ class ApiCommentController extends FOSRestController
                                                         new Assert\NotBlank(),
                                                         new Assert\Choice(
                                                                 array(
-                                                                    'choices' => array('record', 'forum', 'news', 'safarnameh'),
-                                                                    'message' => "The value must be one of ('record', 'forum', 'news', 'safarnameh')"
+                                                                    'choices' => array('record', 'forum', 'news', 'itinerary'),
+                                                                    'message' => "The value must be one of ('record', 'forum', 'news', 'itinerary')"
                                                                 )
                                                             )
                                                     ),
@@ -231,7 +231,7 @@ class ApiCommentController extends FOSRestController
                 $threadType = 'Darkish\CommentBundle\Entity\ForumTreeThread';
                 break;
 
-            case 'safarnameh':
+            case 'itinerary':
                 $entityType = 'DarkishCategoryBundle:Itinerary';
                 $threadType = 'Darkish\CommentBundle\Entity\ItineraryThread';
                 break;

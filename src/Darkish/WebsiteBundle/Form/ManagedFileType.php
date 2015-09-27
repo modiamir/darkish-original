@@ -11,8 +11,8 @@ class ManagedFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('uploadDir', 'hidden')
-            ->add('type', 'hidden')
+//            ->add('uploadDir', 'hidden')
+//            ->add('type', 'hidden')
             ->add('fileName', 'hidden')
         ;
     }

@@ -42,6 +42,11 @@ darkish_api_comment:
     type:     rest
     prefix:   api/rest/comment
 
+darkish_api_itinerary:
+    resource: "Darkish\UserBundle\Controller\ApiItineraryController"
+    type:     rest
+    prefix:   api/rest/itinerary
+
 darkish_api_cno:
     resource: "Darkish\UserBundle\Controller\ApiCnoController"
     type:     rest

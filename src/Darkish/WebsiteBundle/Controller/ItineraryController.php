@@ -2,6 +2,7 @@
 
 namespace Darkish\WebsiteBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\AnonymousItinerary;
 use Darkish\CategoryBundle\Entity\Itinerary;
 use Darkish\CategoryBundle\Entity\ManagedFile;
 use Darkish\WebsiteBundle\Form\ItineraryType;
@@ -24,14 +25,13 @@ class ItineraryController extends Controller
     public function indexAction(Request $request) {
 
 
-        $itinerary = new Itinerary();
+        $itinerary = new AnonymousItinerary();
 
         $form =  $this->createForm(new ItineraryType(), $itinerary);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-
             $itineraryIterators = $itinerary->getPhotos()->getIterator();
             while($itineraryIterators->valid()) {
                 $photo = $itineraryIterators->current();
