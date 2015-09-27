@@ -1,0 +1,20 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ClientItinerary
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class AnonymousItinerary extends Itinerary
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="Darkish\UserBundle\Entity\Anonymous")
+     */
+    private $owner;
+
+}

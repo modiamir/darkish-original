@@ -15,18 +15,22 @@ class ItineraryType extends AbstractType
 
         $builder
             ->add('title', null, [
-                'label' => 'عنوان'
+                'label' => 'عنوان',
+                'required' => true
             ])
             ->add('body', null, [
-                'label' => 'متن'
+                'label' => 'متن',
+                'required' => true
             ])
             ->add('fullName', null, [
-                'label' => 'نام و نام خانوادگی'
+                'label' => 'نام و نام خانوادگی',
+                'required' => true
             ])
             ->add('photos', 'collection', array(
                 'type' => new ManagedFileType(),
                 'allow_add' => true,
-                'label' => 'تصاویر'
+                'label' => 'تصاویر',
+                'required'=>false
             ))
 //            ->add('photos', 'collection', array(
 //                'type' => 'entity_hidden',
@@ -45,7 +49,8 @@ class ItineraryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Darkish\CategoryBundle\Entity\Itinerary',
-            'csrf_protection' => false
+            'csrf_protection' => false,
+            'cascade_validation' => true
         ));
     }
 

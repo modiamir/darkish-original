@@ -21,6 +21,8 @@ use JMS\Serializer\Annotation\SerializedName;
 class ManagedFile
 {
 
+    public static $uploadDirectories = ["image", "video", "audio", "icon", "doc", "banner"];
+
     /**
      * 
      */

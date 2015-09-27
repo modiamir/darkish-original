@@ -37,7 +37,7 @@ class Client implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", name="fullname", nullable = true)
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "itinerary.list.api"})
      */
     private $fullName;  
 
@@ -50,7 +50,7 @@ class Client implements UserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "itinerary.list.api"})
      *
      */
     private $photo;

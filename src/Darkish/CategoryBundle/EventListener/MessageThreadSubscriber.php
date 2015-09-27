@@ -59,7 +59,6 @@ class MessageThreadSubscriber implements EventSubscriber
             if($entity->getThread() && $entity->getThread()->getCustomer() && $entity->getThread()->getCustomer()->getRecord())
             {
                 $entity->setRecordTitle($entity->getThread()->getCustomer()->getRecord()->getTitle());
-
                 $entity->setRecordNumber($entity->getThread()->getCustomer()->getRecord()->getRecordNumber());
                 $entity->setRecordId($entity->getThread()->getCustomer()->getRecord()->getId());
             }
