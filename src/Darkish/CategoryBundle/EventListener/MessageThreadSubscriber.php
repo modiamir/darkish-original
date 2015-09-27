@@ -55,9 +55,15 @@ class MessageThreadSubscriber implements EventSubscriber
 
         // perhaps you only want to act on some "Product" entity
         if ($entity instanceof Message) {
-            $entity->setRecordTitle($entity->getThread()->getCustomer()->getRecord()->getTitle());
-            $entity->setRecordNumber($entity->getThread()->getCustomer()->getRecord()->getRecordNumber());
-            $entity->setRecordId($entity->getThread()->getCustomer()->getRecord()->getId());
+
+            if($entity->getThread() && $entity->getThread()->getCustomer() && $entity->getThread()->getCustomer()->getRecord())
+            {
+                $entity->setRecordTitle($entity->getThread()->getCustomer()->getRecord()->getTitle());
+
+                $entity->setRecordNumber($entity->getThread()->getCustomer()->getRecord()->getRecordNumber());
+                $entity->setRecordId($entity->getThread()->getCustomer()->getRecord()->getId());
+            }
+
         }
     }
 }
