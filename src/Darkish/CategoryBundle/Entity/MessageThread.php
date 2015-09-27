@@ -79,6 +79,8 @@ class MessageThread
     protected $deletedByClient = false;
 
 
+
+
     /**
      * Get id
      *

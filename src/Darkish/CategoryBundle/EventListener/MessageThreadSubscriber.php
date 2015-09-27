@@ -2,6 +2,7 @@
 
 namespace Darkish\CategoryBundle\EventListener;
 
+use Darkish\CategoryBundle\Entity\Message;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -19,6 +20,7 @@ class MessageThreadSubscriber implements EventSubscriber
     public function postLoad(LifecycleEventArgs $args)
     {
         $this->index($args);
+        $this->setRecordInfoMessage($args);
     }
 
 
@@ -42,6 +44,19 @@ class MessageThreadSubscriber implements EventSubscriber
 	        	$entity->setLastMessage($res[0]);	
 	        }
 	        
+        }
+    }
+
+    public function setRecordInfoMessage(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
+
+        // perhaps you only want to act on some "Product" entity
+        if ($entity instanceof Message) {
+            $entity->setRecordTitle($entity->getThread()->getCustomer()->getRecord()->getTitle());
+            $entity->setRecordNumber($entity->getThread()->getCustomer()->getRecord()->getRecordNumber());
         }
     }
 }
