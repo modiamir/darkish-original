@@ -69,6 +69,12 @@ class Message
      */
     private $recordNumber;
 
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordId;
+
 
     /**
      * @ORM\Column(name="deleted_by_record", type="boolean", options={"default"=false})
@@ -300,5 +306,28 @@ class Message
     public function getRecordNumber()
     {
         return $this->recordNumber;
+    }
+
+    /**
+     * Set recordId
+     *
+     * @param string $recordId
+     * @return Message
+     */
+    public function setRecordId($recordId)
+    {
+        $this->recordId = $recordId;
+
+        return $this;
+    }
+
+    /**
+     * Get recordId
+     *
+     * @return string
+     */
+    public function getRecordId()
+    {
+        return $this->recordId;
     }
 }
