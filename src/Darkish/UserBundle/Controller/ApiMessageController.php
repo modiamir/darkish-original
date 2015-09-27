@@ -126,7 +126,7 @@ class ApiMessageController extends FOSRestController
                    ->createQueryBuilder('pmt');
 
         $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
-        $qb->andWhere('pmt.customer = :cid')->setParameter('rid', $customer->getId());
+        $qb->andWhere('pmt.customer = :cid')->setParameter('cid', $customer->getId());
 
         $qb->setMaxResults(1);
         $res = $qb->getQuery()->getResult();
