@@ -249,7 +249,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="MessageEnable", type="boolean", nullable=true)
-     * @Groups({"record.details", "api.list", , "api.body"})
+     * @Groups({"record.details", "api.list", "api.body"})
      */
     private $messageEnable;
 
