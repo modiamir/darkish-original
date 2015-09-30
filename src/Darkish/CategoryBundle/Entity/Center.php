@@ -19,7 +19,7 @@ class Center
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"center.list", "record.details"})
+     * @Groups({"center.list", "record.details", "api.list", "api.body"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Center
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Groups({"center.list", "record.details"})
+     * @Groups({"center.list", "record.details", "api.list", "api.body"})
      */
     private $name;
 
