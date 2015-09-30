@@ -249,7 +249,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="MessageEnable", type="boolean", nullable=true)
-     * @Groups({"record.details", "api.list"})
+     * @Groups({"record.details", "api.list", , "api.body"})
      */
     private $messageEnable;
 
@@ -558,7 +558,7 @@ class Record
      * @var boolean
      *
      * @ORM\Column(name="BrandEnable", type="boolean", nullable=true)
-     * @Groups({"record.details"})
+     * @Groups({"record.details", "api.body", "api.list"})
      */
     private $brandEnable;
 
@@ -817,7 +817,7 @@ class Record
      *
      * @ORM\ManyToOne(targetEntity="DbaseType", inversedBy="records")
      * @ORM\JoinColumn(name="DbaseTypeIndex", referencedColumnName="id")
-     * @Groups({"record.details", "customer.details"})
+     * @Groups({"record.details", "customer.details", "api.list", "api.body"})
      */
     private $dbaseTypeIndex;
 
