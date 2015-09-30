@@ -189,7 +189,7 @@ class ApiMessageController extends FOSRestController
                    ->createQueryBuilder('pmt');
 
         $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
-        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+        $qb->andWhere('pmt.customer = :cid')->setParameter('cid', $customer->getId());
 
         $qb->setMaxResults(1);
         $res = $qb->getQuery()->getResult();
@@ -232,7 +232,7 @@ class ApiMessageController extends FOSRestController
                    ->createQueryBuilder('pmt');
 
         $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
-        $qb->andWhere('pmt.record = :rid')->setParameter('rid', $record->getId());
+        $qb->andWhere('pmt.customer = :cid')->setParameter('cid', $customer->getId());
 
         $qb->setMaxResults(1);
         $res = $qb->getQuery()->getResult();
@@ -251,6 +251,44 @@ class ApiMessageController extends FOSRestController
         $em->persist($thread);
         $em->flush();
         return new Response($this->get('jms_serializer')->serialize(array('done'), 'json'));
+    }
+
+    /**
+     *  @ApiDoc(
+     *      resource=true
+     * )
+     */
+    public function getCustomerLastSeenDelivered(Customer $customer)
+    {
+        $client = $this->get('security.context')->getToken()->getUser();
+
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $this->getDoctrine()
+            ->getRepository('DarkishCategoryBundle:PrivateMessageThread')
+            ->createQueryBuilder('pmt');
+
+        $qb->where('pmt.client = :clid')->setParameter('clid', $client->getId());
+        $qb->andWhere('pmt.customer = :cid')->setParameter('cid', $customer->getId());
+
+        $qb->setMaxResults(1);
+        $res = $qb->getQuery()->getResult();
+
+        // return new Response($this->get('jms_serializer')->serialize($res, 'json'
+        //     ,SerializationContext::create()->setGroups(array('thread.details'))));
+
+        if(count($res)){
+            $thread = $res[0];
+            // $thread->setDeletedByRecord(false);
+            // $thread->setDeletedByClient(false);
+        } else{
+            throw HttpException('Invalid MessageThread', 404);
+        }
+
+        return new Response($this->get('jms_serializer')->serialize($thread, 'json'
+            ,SerializationContext::create()->setGroups(array('thread.details'))));
     }
 
 
