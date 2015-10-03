@@ -1,0 +1,24 @@
+<div class="container">
+    <h3 class="{{ map.text_class }}">
+        {{ map.text }}
+    </h3>
+
+    <div class="col col-xs-offset-4 col-xs-4 {{ map.sub_text_class }}">
+            {{ map.sub_text }}
+    </div>
+
+    <div class="col col-xs-3 {{ map.button.class }}">
+        <div class="arrow-right"></div>
+        <a href="{{ map.button.link }}" class="btn btn-lg">
+            {{ map.button.text }}
+        </a>
+    </div>
+
+    <div class="col col-xs-12 map-images">
+        {% for image in map.images %}
+        <a href="{{ image.link }}" class="{{ image.class }}">
+            <img src="{{ asset('bundles/darkishwebsite/images/front_images/'~image.url) }}" />
+        </a>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+
+
+    <div class="row">
+        {% for center in centers.cards %}
+            <div class="col col-xs-4 {{ center.class }}">
+                <div>
+                    <a href="{{ path('website_record_single', {"record": center.link}) }}">
+                        <h3 class="{{ center.text_class }}">
+                            {{ center.text }}
+                        </h3>
+                    </a>
+                    <p class="{{ center.sub_text_class }}">
+                        {{ center.sub_text }}
+                    </p>
+                    <a class="{{ center.icon.class }}" href="{{ path('website_record_single', {"record": center.link}) }}">
+                        <img  src="{{ asset('bundles/darkishwebsite/images/front_images/'~center.icon.url) }}" />
+                    </a>
+
+                    <a class="btn {{ center.button.class }}" href="{{ path('website_record_single', {"record": center.link}) }}">
+                        {{ center.button.text }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

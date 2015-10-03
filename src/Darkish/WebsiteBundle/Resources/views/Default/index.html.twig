@@ -14,70 +14,46 @@
 	{{ include('DarkishWebsiteBundle:Default:layout/header.html.twig') }}
 
     <div class="container-fluid sequence-wrapper">
-        <div id="sequence">
-            <div class="seq-canvas">
-
-                {% for slide in params.slideshow  %}
-                <div
-                    class="row"
-                    style="background-image: url({{ asset('bundles/darkishwebsite/images/front_images/slideshow/')~slide.image }});"
-
-                        >
-
-                    {% if slide.right is defined %}
-                    <div class="col col-xs-6 content {% if slide.right.position is defined %}{{ slide.right.position }}{% endif %}"
-                        style="{% if slide.right.color is defined %}color: {{ slide.right.color }}{% endif %}">
-                        {% if slide.right.text is defined %}
-                        <h2 data-seq>{{ slide.right.text }}</h2>
-                        {% endif %}
-                        {% if slide.right.sub_text is defined %}
-                        <h3 data-seq>{{ slide.right.sub_text }}</h3>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-
-                    {% if slide.left is defined %}
-                    <div class="col col-xs-6 content {% if slide.left.position is defined %}{{ slide.left.position }}{% endif %}"
-                         style="{% if slide.left.color is defined %}color: {{ slide.left.color }}{% endif %}" >
-                        {% if slide.left.text is defined %}
-                        <h2 data-seq>{{ slide.left.text }}</h2>
-                        {% endif %}
-                        {% if slide.left.sub_text is defined %}
-                        <h3 data-seq>{{ slide.left.sub_text }}</h3>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-
-                </div>
-                {% endfor %}
-
-
-            </div>
-            <button type="button" class="seq-next">Next</button>
-            <button type="button" class="seq-prev">Prev</button>
-            <ul class="seq-pagination">
-                {% for slide in params.slideshow %}
-                    <li>{{ loop.index }}</li>
-                {% endfor %}
-            </ul>
-
-        </div>
+        {{ include("DarkishWebsiteBundle:Default/front:slideshow.html.twig", {"slideshow": params.slideshow }) }}
 
     </div>
 
-    <div class="container-fluid about-kish-wrapper">
-        {{ include("DarkishWebsiteBundle:Default/front:about-kish.html.twig", {"items": params.about_kish }) }}
+    <div class="container-fluid {{ params.about_kish.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:about-kish.html.twig", {"about": params.about_kish }) }}
     </div>
 
-    <div class="container-fluid jashnvareh-wrapper">
-        {{ include("DarkishWebsiteBundle:Default/front:jashnvareh.html.twig", {"items": jashnvareha }) }}
+    <div class="container-fluid {{ params.kish_festival.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:festival.html.twig", {"festival": params.kish_festival, "items": festivals  }) }}
     </div>
 
-    <div class="container-fluid records-wrapper">
-        {{ include("DarkishWebsiteBundle:Default/front:records.html.twig", {"params": params, "webmaintrees": webmaintrees }) }}
+    <div class="container-fluid {{ params.kish_jobs.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:jobs.html.twig", {"jobs": params.kish_jobs, "webmaintrees": webmaintrees, "sponsor": params.kish_sponsor,
+            "sponsors": sponsors }) }}
     </div>
 
+    <div class="container-fluid {{ params.kish_map.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:map.html.twig", {"map": params.kish_map}) }}
+    </div>
 
+    <div class="container-fluid {{ params.kish_centers.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:centers.html.twig", {"centers": params.kish_centers}) }}
+    </div>
+
+    <div class="container-fluid {{ params.kish_news.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:news.html.twig", {"kish_news": params.kish_news, "latest_news": latest_news}) }}
+    </div>
+
+    <div class="container-fluid {{ params.kish_forum.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:forum.html.twig", {"kish_forum": params.kish_forum }) }}
+    </div>
+
+    <div class="container-fluid {{ params.kish_classified.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:classified.html.twig", {"kish_classified": params.kish_classified }) }}
+    </div>
+
+    <div class="container-fluid {{ params.kish_app.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:app.html.twig", {"kish_app": params.kish_app }) }}
+    </div>
 
     <div dir="ltr">
     {{ krumo(params) }}

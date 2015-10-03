@@ -30,7 +30,7 @@ class MewsController extends Controller
 	    $breadcrumbs->addItem('اخبار');
 
 
-    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree')->getSubTrees("00");
+    	$trees = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree')->getSubTrees("##");
     	return $this->render('DarkishWebsiteBundle:News:index.html.twig', ['trees' => $trees]);
     }
 

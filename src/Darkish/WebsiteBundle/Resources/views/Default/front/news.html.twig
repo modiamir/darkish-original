@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="col col-xs-6 right">
+        <h3 class="{{ kish_news.right.text_class }}">
+            {{ kish_news.right.text }}
+        </h3>
+        <p class="{{ kish_news.right.sub_text_class }}">
+            {{ kish_news.right.sub_text }}
+        </p>
+        {% for news in latest_news.kish_news %}
+            <div class="media {{ kish_news.right.card_class }}">
+                <a class="media-right {{ kish_news.right.card_image_class }}" href="#">
+                    <img src="http://placehold.it/96x96" style="width: 96px; height: 96px;">
+                </a>
+
+                <div class="media-body">
+                    <h3 class="media-heading {{ kish_news.right.card_text_class }}">{{ news.title }}</h3>
+                    <p class="{{ kish_news.right.card_subtext_class }}">
+                        {{ news.subTitle}}
+                    </p>
+                    <div class="{{ kish_news.right.card_date_class }}">{{ news.creationDate  | jdate('Y/m/d H:i')  }}</div>
+                </div>
+            </div>
+
+        {% endfor %}
+
+        <a class="btn {{ kish_news.right.button.class }}" href="{{ url('website_news_tree', {"treeIndex": kish_news.right.button.link}) }}">
+            {{ kish_news.right.button.text }}
+        </a>
+
+    </div>
+    <div class="col col-xs-6 left">
+        <h3 class="{{ kish_news.left.text_class }}">
+            {{ kish_news.left.text }}
+        </h3>
+        <p class="{{ kish_news.left.sub_text_class }}">
+            {{ kish_news.left.sub_text }}
+        </p>
+        {% for announcement in latest_news.announcement_news %}
+            <div class="media {{ kish_news.left.card_class }}">
+                <div class="media-body">
+                    <h3 class="media-heading {{ kish_news.left.card_text_class }}">{{ announcement.title }}</h3>
+                    <p class="{{ kish_news.left.card_subtext_class }}">
+                        {{ announcement.subTitle}}
+                    </p>
+                    <div class="{{ kish_news.left.card_date_class }}">{{ announcement.creationDate  | jdate('Y/m/d H:i')  }}</div>
+                </div>
+                <a class="media-left {{ kish_news.left.card_image_class }}" href="#">
+                    <img src="http://placehold.it/96x96" style="width: 96px; height: 96px;">
+                </a>
+            </div>
+        {% endfor %}
+        <a class="btn {{ kish_news.left.button.class }}" href="{{ url('website_news_tree', {"treeIndex": kish_news.left.button.link}) }}">
+            {{ kish_news.left.button.text }}
+        </a>
+    </div>
+</div>
