@@ -1,0 +1,22 @@
+<div class="container">
+    <h3 class="{{ kish_classified.text_class }}">
+        {{ kish_classified.text }}
+    </h3>
+
+    <div class="col col-xs-offset-4 col-xs-4 {{ kish_classified.sub_text_class }}">
+        {{ kish_classified.sub_text }}
+    </div>
+
+    <div class="col col-xs-3 {{ kish_classified.button.class }}">
+        <div class="arrow-right"></div>
+        <a href="{{ url('website_classified') }}" class="btn btn-lg  {{ kish_classified.button.class }}">
+            {{ kish_classified.button.text }}
+        </a>
+    </div>
+
+    <div class="col col-xs-12 kish_classified-images">
+        <img src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_classified.image.url) }}" />
+    </div>
+
+</div>
+

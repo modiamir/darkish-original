@@ -22,23 +22,54 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $params = $this->container->getParameter('darkish.front_page');
-        $jashnvareha = [];
-        foreach($params['jashnvareh'] as $jashnvarehNumber) {
-            $jashnvareha[] = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
-                ->findOneBy(['recordNumber' => $jashnvarehNumber]);
+        $festivals = [];
+        foreach($params['kish_festival']['record_numbers'] as $festivalNumber) {
+            $festivals[] = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+                ->findOneBy(['recordNumber' => $festivalNumber]);
         }
 
         $webMainTrees = [];
-        foreach($params['records']['trees'] as $treeIndex)
+        foreach($params['kish_jobs']['trees'] as $treeIndex)
         {
-            $webMainTrees[] = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')
+            $webMainTree = $this->getDoctrine()->getRepository('DarkishWebsiteBundle:WebMainTree')
                 ->findOneBy(['treeIndex' => $treeIndex]);
+            if($webMainTree)
+            {
+                $webMainTrees[] = $webMainTree;
+            }
+
         }
+
+        $sponsorsQb = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Sponsor')
+            ->createQueryBuilder('s');
+
+        $sponsorsQb->join('s.sponsortrees', 'st', 'WITH')
+            ->join('st.tree','t', 'WITH',$sponsorsQb->expr()->in('t.id', [1]))
+            ->distinct()->setMaxResults(3);
+
+        $sponsors = $sponsorsQb->getQuery()->getResult();
+
+        // News Section
+        $newsTreeRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:NewsTree');
+        $kishNewsTree = $newsTreeRepo->findOneBy(['treeIndex' => "02"]);
+        $announcementNewsTree = $newsTreeRepo->findOneBy(['treeIndex' => "01"]);
+
+        $newsRepo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:News');
+
+        $kishNews = $newsRepo->getNewsForCat($kishNewsTree)->setMaxResults(3)->getQuery()->getResult();
+        $announcementNews = $newsRepo->getNewsForCat($announcementNewsTree)->setMaxResults(3)->getQuery()->getResult();
+
+
 
     	return $this->render('DarkishWebsiteBundle:Default:index.html.twig', [
             'params' => $params,
-            'jashnvareha' => $jashnvareha,
-            'webmaintrees' => $webMainTrees
+            'festivals' => $festivals,
+            'webmaintrees' => $webMainTrees,
+            'sponsors' => $sponsors,
+            'latest_news' => [
+                'kish_news' => $kishNews,
+                'announcement_news' => $announcementNews
+            ]
         ]);
     }
 

@@ -693,7 +693,7 @@ a.dk-audio-play {
   font-size: 18px;
 }
 /* line 243, ../sass/modules/_front.scss */
-.about-kish-wrapper > .row > .col .info-box button {
+.about-kish-wrapper > .row > .col .info-box a.btn {
   background-color: #00B3D8;
   color: #E2E9ED;
   border: none;
@@ -716,47 +716,52 @@ a.dk-audio-play {
 }
 
 /* line 271, ../sass/modules/_front.scss */
-.jashnvareh-wrapper {
+.kish-festival-wrapper {
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   background-color: #DFE6EB;
   text-align: center;
   padding: 40px 200px 30px 200px;
+  background-image: url(../images/front_images/kish_festival_background.png);
+  background-position: center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-/* line 276, ../sass/modules/_front.scss */
-.jashnvareh-wrapper > .row {
+/* line 281, ../sass/modules/_front.scss */
+.kish-festival-wrapper > .row {
   margin-top: 30px;
 }
-/* line 279, ../sass/modules/_front.scss */
-.jashnvareh-wrapper > .row .thumbnail img {
+/* line 284, ../sass/modules/_front.scss */
+.kish-festival-wrapper > .row .thumbnail img {
   height: 150px;
   object-fit: cover;
   -o-object-fit: cover;
   width: 100%;
 }
 
-/* line 291, ../sass/modules/_front.scss */
-.records-wrapper {
+/* line 296, ../sass/modules/_front.scss */
+.kish-jobs-wrapper {
   background-color: #3B4B54;
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   text-align: center;
   color: #E2E9ED;
 }
-/* line 296, ../sass/modules/_front.scss */
-.records-wrapper > h3 {
+/* line 301, ../sass/modules/_front.scss */
+.kish-jobs-wrapper > h3.blue-text-class {
   color: #00ACCE;
   margin-top: 30px;
 }
-/* line 300, ../sass/modules/_front.scss */
-.records-wrapper .first-row {
+/* line 305, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .first-row {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-/* line 303, ../sass/modules/_front.scss */
-.records-wrapper .first-row .description {
+/* line 308, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .first-row .blue-subtext-class {
   color: #E2E9ED;
 }
-/* line 307, ../sass/modules/_front.scss */
-.records-wrapper .first-row .submit-record .arrow-right {
+/* line 312, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .first-row .blue-button-class .arrow-right {
   width: 0;
   height: 0;
   border-top: 20px solid transparent;
@@ -764,41 +769,373 @@ a.dk-audio-play {
   border-left: 20px solid #00B3D8;
   display: inline-flex;
 }
-/* line 317, ../sass/modules/_front.scss */
-.records-wrapper .first-row .submit-record button {
+/* line 322, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .first-row .blue-button-class button {
   background-color: #00B3D8;
   color: #E2E9ED;
 }
-/* line 324, ../sass/modules/_front.scss */
-.records-wrapper .trees {
+/* line 329, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .trees {
   background-color: #26343F;
   padding: 50px 20px;
   margin-bottom: 50px;
 }
-/* line 328, ../sass/modules/_front.scss */
-.records-wrapper .trees > .col {
+/* line 333, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .trees > .kish-jobs-card-class {
   height: 220px;
 }
-/* line 330, ../sass/modules/_front.scss */
-.records-wrapper .trees > .col img {
+/* line 335, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .trees > .kish-jobs-card-class img {
   width: 96px;
   height: 96px;
   object-fit: scale-down;
   border: 4px solid #3B4B54;
   border-radius: 48px;
 }
-/* line 339, ../sass/modules/_front.scss */
-.records-wrapper .trees h3 {
+/* line 343, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .trees > .kish-jobs-card-class h3 {
   color: #00ACCE;
   height: 40px;
   object-fit: contain;
   font-size: 16px;
   margin: 10px 0 0 0;
 }
-/* line 347, ../sass/modules/_front.scss */
-.records-wrapper .trees h4 {
+/* line 351, ../sass/modules/_front.scss */
+.kish-jobs-wrapper .trees > .kish-jobs-card-class h4 {
   font-size: 14px;
   margin: 5px 0 0 0;
+}
+
+/* line 360, ../sass/modules/_front.scss */
+.kish-sponsor-wrapper {
+  background-color: #26343F;
+  padding: 50px 20px;
+  margin-bottom: 50px;
+}
+
+/* line 366, ../sass/modules/_front.scss */
+.kish-map-wrapper {
+  background-color: #DFE6EB;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+}
+/* line 370, ../sass/modules/_front.scss */
+.kish-map-wrapper .dark-text-class {
+  text-align: center;
+}
+/* line 373, ../sass/modules/_front.scss */
+.kish-map-wrapper .dark-subtext-class {
+  text-align: center;
+}
+/* line 377, ../sass/modules/_front.scss */
+.kish-map-wrapper .green-button-class {
+  text-align: center;
+}
+/* line 379, ../sass/modules/_front.scss */
+.kish-map-wrapper .green-button-class .arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #00B4A0;
+  display: inline-flex;
+}
+/* line 389, ../sass/modules/_front.scss */
+.kish-map-wrapper .green-button-class a.btn {
+  background-color: #00B4A0;
+  color: #E2E9ED;
+}
+/* line 395, ../sass/modules/_front.scss */
+.kish-map-wrapper .map-images {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* line 402, ../sass/modules/_front.scss */
+.kish-centers-wrapper {
+  background-color: #2C485F;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding: 40px;
+}
+/* line 406, ../sass/modules/_front.scss */
+.kish-centers-wrapper .container {
+  width: 70%;
+  min-width: 960px;
+}
+/* line 410, ../sass/modules/_front.scss */
+.kish-centers-wrapper .kish-centers-card-class {
+  text-align: center;
+}
+/* line 413, ../sass/modules/_front.scss */
+.kish-centers-wrapper .kish-centers-card-class > div {
+  background-color: #152935;
+  padding: 10px;
+  margin: 10px 0;
+  border-bottom: 3px solid #00C0A9;
+}
+/* line 420, ../sass/modules/_front.scss */
+.kish-centers-wrapper .kish-centers-card-class a.btn {
+  display: block;
+  width: 130px;
+  margin: auto;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+/* line 429, ../sass/modules/_front.scss */
+.kish-centers-wrapper a.btn.dark-button-class {
+  border: 2px solid #264054;
+  color: #00C0A9;
+  background-color: transparent;
+}
+/* line 433, ../sass/modules/_front.scss */
+.kish-centers-wrapper a.btn.dark-button-class:hover {
+  color: white;
+}
+
+/* line 441, ../sass/modules/_front.scss */
+.kish-news-wrapper {
+  background-image: url(../images/front_images/kish_news_background.png);
+  background-position: center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+}
+/* line 448, ../sass/modules/_front.scss */
+.kish-news-wrapper .right {
+  text-align: center;
+}
+/* line 450, ../sass/modules/_front.scss */
+.kish-news-wrapper .right a.btn {
+  margin: 20px;
+}
+/* line 454, ../sass/modules/_front.scss */
+.kish-news-wrapper .left {
+  text-align: center;
+}
+/* line 456, ../sass/modules/_front.scss */
+.kish-news-wrapper .left a.btn {
+  margin: 20px;
+}
+/* line 463, ../sass/modules/_front.scss */
+.kish-news-wrapper .news-card-class {
+  background-color: rgba(33, 62, 82, 0.8);
+  padding: 5px;
+}
+/* line 466, ../sass/modules/_front.scss */
+.kish-news-wrapper .news-card-class .news-card-text-class {
+  color: #00ACCE;
+  font-size: 20px;
+}
+/* line 470, ../sass/modules/_front.scss */
+.kish-news-wrapper .news-card-class .news-card-subtext-class {
+  color: #BDC6CC;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+/* line 476, ../sass/modules/_front.scss */
+.kish-news-wrapper .news-card-class .media-body {
+  position: relative;
+}
+/* line 480, ../sass/modules/_front.scss */
+.kish-news-wrapper .news-card-class .news-card-date-class {
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  color: #BDC6CC;
+  font-size: 13px;
+}
+/* line 490, ../sass/modules/_front.scss */
+.kish-news-wrapper .announcement-card-class {
+  background-color: rgba(33, 62, 82, 0.6);
+  padding: 5px;
+}
+/* line 493, ../sass/modules/_front.scss */
+.kish-news-wrapper .announcement-card-class .announcement-card-text-class {
+  color: #00ACCE;
+  font-size: 20px;
+}
+/* line 497, ../sass/modules/_front.scss */
+.kish-news-wrapper .announcement-card-class .announcement-card-subtext-class {
+  color: #BDC6CC;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+/* line 503, ../sass/modules/_front.scss */
+.kish-news-wrapper .announcement-card-class .media-body {
+  position: relative;
+}
+/* line 507, ../sass/modules/_front.scss */
+.kish-news-wrapper .announcement-card-class .announcement-card-date-class {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  color: #BDC6CC;
+  font-size: 13px;
+}
+
+/* line 519, ../sass/modules/_front.scss */
+.kish-forum-wrapper {
+  background-color: #00A5C9;
+  background-image: url(../images/front_images/kish_forum_background.png);
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  position: relative;
+}
+/* line 525, ../sass/modules/_front.scss */
+.kish-forum-wrapper .light-text-class {
+  font-size: 20px;
+}
+/* line 529, ../sass/modules/_front.scss */
+.kish-forum-wrapper .light-subtext-class {
+  font-size: 18px;
+  margin-bottom: 100px;
+}
+/* line 536, ../sass/modules/_front.scss */
+.kish-forum-wrapper .right {
+  text-align: center;
+}
+/* line 538, ../sass/modules/_front.scss */
+.kish-forum-wrapper .right a.btn {
+  margin: 50px;
+}
+/* line 542, ../sass/modules/_front.scss */
+.kish-forum-wrapper .left {
+  text-align: center;
+}
+/* line 544, ../sass/modules/_front.scss */
+.kish-forum-wrapper .left a.btn {
+  margin: 50px;
+}
+/* line 549, ../sass/modules/_front.scss */
+.kish-forum-wrapper .kish-forum-over-image-class {
+  position: absolute;
+  left: 50%;
+  margin-left: -123px;
+  bottom: 30px;
+}
+
+/* line 557, ../sass/modules/_front.scss */
+.kish-classified-wrapper {
+  background-color: #DFE6EB;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  text-align: center;
+}
+/* line 562, ../sass/modules/_front.scss */
+.kish-classified-wrapper .dark-text-class {
+  text-align: center;
+}
+/* line 565, ../sass/modules/_front.scss */
+.kish-classified-wrapper .dark-subtext-class {
+  text-align: center;
+}
+/* line 569, ../sass/modules/_front.scss */
+.kish-classified-wrapper .green-button-class {
+  text-align: center;
+}
+/* line 571, ../sass/modules/_front.scss */
+.kish-classified-wrapper .green-button-class .arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #00B4A0;
+  display: inline-flex;
+}
+/* line 581, ../sass/modules/_front.scss */
+.kish-classified-wrapper .green-button-class a.btn {
+  background-color: #00B4A0;
+  color: #E2E9ED;
+}
+/* line 587, ../sass/modules/_front.scss */
+.kish-classified-wrapper .kish_classified-images {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* line 595, ../sass/modules/_front.scss */
+.kish-app-wrapper {
+  background-color: #050F1E;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  position: relative;
+}
+/* line 599, ../sass/modules/_front.scss */
+.kish-app-wrapper .right {
+  text-align: center;
+  z-index: 2;
+}
+/* line 602, ../sass/modules/_front.scss */
+.kish-app-wrapper .right .kish-app-image-right-class {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+/* line 607, ../sass/modules/_front.scss */
+.kish-app-wrapper .left {
+  text-align: center;
+}
+/* line 609, ../sass/modules/_front.scss */
+.kish-app-wrapper .left .kish-app-image-left-class {
+  margin-bottom: 20px;
+}
+/* line 612, ../sass/modules/_front.scss */
+.kish-app-wrapper .left .light-subtext-class {
+  color: #CDE1E9;
+}
+/* line 617, ../sass/modules/_front.scss */
+.kish-app-wrapper .kish-app-button-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: #252F3D;
+  z-index: 1;
+}
+/* line 625, ../sass/modules/_front.scss */
+.kish-app-wrapper .kish-app-button-wrapper > .col {
+  text-align: center;
+  padding: 10px;
+}
+/* line 628, ../sass/modules/_front.scss */
+.kish-app-wrapper .kish-app-button-wrapper > .col a {
+  margin: 0 10px;
+}
+
+/* line 642, ../sass/modules/_front.scss */
+.green-text-class {
+  color: #00C0A9;
+}
+
+/* line 646, ../sass/modules/_front.scss */
+.green-subtext-class {
+  color: #BDC6CC;
+}
+
+/* line 652, ../sass/modules/_front.scss */
+a.btn.green-button-class {
+  background-color: #00B4A0;
+  color: #E2E9ED;
+}
+
+/* line 657, ../sass/modules/_front.scss */
+a.btn.dark-button-class {
+  background-color: #24638A;
+  border: 0;
+  color: #E2E9ED;
+}
+
+/* line 664, ../sass/modules/_front.scss */
+.light-text-class {
+  color: #CDE1E9;
+}
+
+/* line 668, ../sass/modules/_front.scss */
+.light-subtext-class {
+  color: #005B94;
 }
 
 /* line 3, ../sass/modules/_news.scss */

@@ -1,0 +1,23 @@
+<div class="col col-xs-7 right">
+    <img class="{{ kish_app.images.right.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_app.images.right.url) }}" />
+</div>
+<div class="col col-xs-5 left">
+    <img class="{{ kish_app.images.left.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_app.images.left.url) }}" />
+    <h3 class="{{ kish_app.text_class }}">
+        {{ kish_app.text }}
+    </h3>
+
+    <p class="{{ kish_app.sub_text_class }}">
+        {{ kish_app.sub_text }}
+    </p>
+</div>
+<div class="{{ kish_app.sub_class }}">
+    <div class="col col-xs-5 col-xs-offset-7">
+        <a href="">
+            <img class="app-download" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_app.icons.ios.url) }}" />
+        </a>
+        <a href="">
+            <img class="app-download" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_app.icons.android.url) }}" />
+        </a>
+    </div>
+</div>

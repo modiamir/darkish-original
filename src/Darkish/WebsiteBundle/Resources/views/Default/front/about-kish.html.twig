@@ -1,20 +1,33 @@
 <div class="row">
-    {% for item in items %}
-    <div class="col col-xs-6">
+    {% for item in about.cards %}
+    <div class="col col-xs-6 {{ item.class }}">
         <div class="info-box">
-            <h2>
-                {{ item.title }}
-            </h2>
-            <h3>
-                {{ item.subtitle }}
-            </h3>
-            <button>
-                بیشتر بدانیم
-            </button>
+            {% if item.text is defined and item.text %}
+                <h2 class="{{ item.text_class }}">
+                    {% if item.link is defined and item.link %}
+                        <a href="{{ path('website_record_single', {"record": item.link}) }}">
+                    {% endif %}
+                    {{ item.text }}
+                    {% if item.link is defined and item.link %}
+                        </a>
+                    {% endif %}
+                </h2>
+            {% endif %}
+            {% if item.sub_text is defined and item.sub_text %}
+                <h3 class="{{ item.sub_text_class }}">
+                    {{ item.sub_text }}
+                </h3>
+            {% endif %}
+
+            {% if item.button is defined %}
+                <a href="{{ path('website_record_single', {"record": item.button.link}) }}" class="btn {{ item.button.class }}">
+                    {{ item.button.text }}
+                </a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
 
 </div>
 
-<img class="center-image" src="{{ asset("bundles/darkishwebsite/images/256/cadr-audio.png") }}" />
+<img class="center-image {{ about.image.class }}" src="{{ asset("bundles/darkishwebsite/images/front_images/"~about.image.url) }}" />

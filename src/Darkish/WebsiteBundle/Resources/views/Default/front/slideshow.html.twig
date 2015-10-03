@@ -1,0 +1,66 @@
+<div id="sequence">
+    <div class="seq-canvas">
+
+        {% for slide in slideshow  %}
+            <div
+                    class="row {% if loop.index == 1 %}seq-in{% endif %}"
+                    style="background-image: url({{ asset('bundles/darkishwebsite/images/front_images/slideshow/')~slide.image }});"
+
+                    >
+
+                {% if slide.right is defined and slide.right %}
+                    <div class="col col-xs-6 content {% if slide.right.position is defined %}{{ slide.right.position }}{% endif %}"
+                         style="{% if slide.right.color is defined %}color: {{ slide.right.color }}{% endif %}">
+                        {% if slide.right.text is defined and slide.right.text %}
+                            <h2 class="{{ slide.right.class }}" data-seq>
+                                {% if slide.right.icon is defined and slide.right.icon.position == 'right' %}
+                                    <img class="{{ slide.right.icon.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/')~slide.right.icon.image }}" />
+                                {% endif %}
+                                {{ slide.right.text }}
+                                {% if slide.right.icon is defined and slide.right.icon.position == 'left' %}
+                                    <img class="{{ slide.right.icon.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/')~slide.right.icon.image }}" />
+                                {% endif %}
+                            </h2>
+                        {% endif %}
+                        {% if slide.right.sub_text is defined and slide.right.sub_text %}
+                            <h3 class="{{ slide.right.subtext_class }}" data-seq>{{ slide.right.sub_text }}</h3>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if slide.left is defined and slide.left %}
+                    <div class="col col-xs-6 content {% if slide.left.position is defined %}{{ slide.left.position }}{% endif %}"
+                         style="{% if slide.left.color is defined %}color: {{ slide.left.color }}{% endif %}" >
+                        {% if slide.left.text is defined and slide.left.text %}
+                            <h2 class="{{ slide.left.class }}" data-seq>
+                                {% if slide.left.icon is defined and slide.left.icon.position == 'right' %}
+                                    <img class="{{ slide.left.icon.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/')~slide.left.icon.image }}" />
+                                {% endif %}
+                                {{ slide.left.text }}
+                                {% if slide.left.icon is defined and slide.left.icon.position == 'left' %}
+                                    <img class="{{ slide.left.icon.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/')~slide.left.icon.image }}" />
+                                {% endif %}
+
+                            </h2>
+
+                        {% endif %}
+                        {% if slide.left.sub_text is defined and slide.left.sub_text %}
+                            <h3 class="{{ slide.left.subtext_class }}" data-seq>{{ slide.left.sub_text }}</h3>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+
+
+    </div>
+    <button type="button" class="seq-next">Next</button>
+    <button type="button" class="seq-prev">Prev</button>
+    <ul class="seq-pagination">
+        {% for slide in params.slideshow %}
+            <li>{{ loop.index }}</li>
+        {% endfor %}
+    </ul>
+
+</div>

@@ -1,0 +1,41 @@
+<h3 class="{{ jobs.text_class }}">
+{{ jobs.text }}
+</h3>
+<div class="container">
+    <div class="row first-row">
+        <div class="col col-xs-4 {{ jobs.icon.class }} mobile-app">
+            <a class="download-app" href="/app_dev.php/"><img  src="{{ asset('bundles/darkishwebsite/images/front_images/'~jobs.icon.url) }}"></a>
+        </div>
+        <div class="col col-xs-4 {{ jobs.sub_text_class }} description">
+            {{ jobs.sub_text }}
+        </div>
+        <div class="col col-xs-4 {{ jobs.button.class }}">
+            <div class="arrow-right"></div>
+            <button class="btn btn-lg">
+                {{ jobs.button.text }}
+            </button>
+        </div>
+    </div>
+
+    <div class="row trees">
+        {% for webmaintree in webmaintrees %}
+            <div class="col col-xs-2 {{ jobs.card_class }}">
+                <a href="{{ path('website_record_tree', {"treeIndex": webmaintree.treeIndex}) }}"><img src="{{ asset('bundles/darkishwebsite/images/ticons/'~webmaintree.iconFileName~'.png') }}" /></a>
+                <a href="{{ path('website_record_tree', {"treeIndex": webmaintree.treeIndex}) }}"><h3>{{ webmaintree.title }}</h3></a>
+                <h4>{{ webmaintree.subTitle }}</h4>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container {{ sponsor.class }}">
+    <div class="row">
+    	{% for sponsorItem in sponsors %}
+            <div class="col col-xs-4 {{ sponsor.card_class }}">
+                <a href="">
+                    <img src="{{ sponsorItem.banner.relativePath | imagine_filter('512') }}" />
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

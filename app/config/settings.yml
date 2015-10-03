@@ -30,55 +30,367 @@ parameters:
                 image: "00-0.png"
                 right:
                     text: نگاهی متفاوت به جزیره کیش
-                    sub_text: زیر متن
-                    color: ffffff
-                    position: middle
+                    class: slider-text-class
+                    sub_text:
+                    sub_text_class: slider-subtext-class
+
+                    position: top
                 left:
                     text: جزیره کیش در جیب شما
-                    sub_text: زیر متن سمت چپ
-                    color: ffffff
+                    class: slider-text-class
+                    sub_text:
+                    subtext_class: slider-subtext-class
+
                     position: top
+
+                    icon:
+                        image: "slider_icon_00.png"
+                        class: slider_icon_class
+                        position: left
 
             -
                 image: "00-1.png"
                 right:
-                    text: "سمت راست"
-                    sub_text: زیر متن
-                    color: ffffff
+                    text: نگاهی متفاوت به جزیره کیش
+                    class: slider-text-class
+                    sub_text:
+                    sub_text_class: slider-subtext-class
+
                     position: top
                 left:
-                    text: "سمت چپ"
-                    sub_text: زیر متن سمت چپ
-                    color: ffffff
+                    text: جزیره کیش در جیب شما
+                    class: slider-text-class
+                    sub_text:
+                    subtext_class: slider-subtext-class
+
                     position: top
 
+                    icon:
+                        image: "slider_icon_00.png"
+                        class: slider_icon_class
+                        position: left
             -
                 image: "00-2.png"
                 right:
-                    text: "سمت راست"
-                    sub_text: زیر متن
-                    color: ffffff
-                    position: bottom
-                left:
-                    text: "سمت چپ"
-                    sub_text: زیر متن سمت چپ
-                    color: ffffff
-                    position: middle
-        about_kish:
-            -
-                title: درباره جزیره کیش
-                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
-            -
-                title: سفر و زندگی در کیش
-                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
-            -
-                title: گردشگری کیش
-                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
-            -
-                title: تفریحات جزیره
-                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    text: نگاهی متفاوت به جزیره کیش
+                    class: slider-text-class
+                    sub_text:
+                    sub_text_class: slider-subtext-class
 
-        jashnvareh: ["002807","002807","002807"]
-        records:
-            text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    position: top
+                left:
+                    text: جزیره کیش در جیب شما
+                    class: slider-text-class
+                    sub_text:
+                    subtext_class: slider-subtext-class
+
+                    position: top
+
+                    icon:
+                        image: "slider_icon_00.png"
+                        class: slider_icon_class
+                        position: left
+        about_kish:
+            class: about-kish-wrapper
+            image:
+                url: "about_kish.png"
+                class: about_kish_over_image_class
+                position: over
+
+            cards:
+                -
+                    class: about-kish-card-class
+
+                    text: "درباره جزیره کیش"
+                    text_class: blue-text-class
+                    link: "0000"
+
+                    sub_text:  متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: blue-subtext-class
+
+                    button:
+                        text: "بیشتر بدانیم"
+                        class: blue-button-class
+                        link: "0000"
+                -
+                    class: about-kish-card-class
+
+                    text: "سفر و زندگی در کیش"
+                    text_class: blue-text-class
+                    link: "0014"
+
+                    sub_text:  متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: blue-subtext-class
+
+                    button:
+                        text: "بیشتر بدانیم"
+                        class: blue-button-class
+                        link: "0014"
+                -
+                    class: about-kish-card-class
+
+                    text: "گردشگری در کیش"
+                    text_class: blue-text-class
+                    link: "000005"
+
+                    sub_text:  متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: blue-subtext-class
+
+                    button:
+                        text: "بیشتر بدانیم"
+                        class: blue-button-class
+                        link: "000005"
+                -
+                    class: about-kish-card-class
+
+                    text: "تفریحات جزیره"
+                    text_class: blue-text-class
+                    link: "0003"
+
+                    sub_text:  متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: blue-subtext-class
+
+                    button:
+                        text: "بیشتر بدانیم"
+                        class: blue-button-class
+                        link: "0003"
+
+#            -
+#                title: درباره جزیره کیش
+#                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+#            -
+#                title: سفر و زندگی در کیش
+#                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+#            -
+#                title: گردشگری کیش
+#                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+#            -
+#                title: تفریحات جزیره
+#                subtitle: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+
+
+        kish_festival:
+            class: kish-festival-wrapper
+            text: "جشنواره ها"
+            text_class: dark_text_class
+            sub_text:
+            sub_text_class: dark-subtext-class
+            card_class: kish-festival-card-class
+            card_text_class: dark-text-class
+            card_sub_text_class: dark-subtext-class
+            card_icon_class: festival-card-image-class
+            record_numbers: ["002146","002148","002151"]
+
+        kish_jobs:
+            class: kish-jobs-wrapper
+
+            text: مشاغل و خدمات
+            text_class: blue-text-class
+            sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            sub_text_class: blue-subtext-class
+
+            card_class: kish-jobs-card-class
+
+            button:
+                text: "ثبت مشاغل"
+                class: blue-button-class
+
+            icon:
+                url: "darkish_app_button_small.png"
+                class: kish-jobs-app-icon-class
+
             trees: ["0001", "0002", "0003", "0004",  "0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012"]
+
+        kish_sponsor:
+            class: kish-sponsor-wrapper
+            card_class: kish-sponsor-card-class
+
+        kish_map:
+            class: kish-map-wrapper
+            text: نقشه جدید کیش
+            text_class: dark-text-class
+            sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات
+            sub_text_class: dark-subtext-class
+
+            button:
+                text: "مشاهده نقشه"
+                class: green-button-class
+                link: "http://map.darkish.ir"
+            images:
+                -
+                    url: "kish_map_mobile.png"
+                    link: "http://map.darkish.ir"
+                    class: kish-map-image-right-class
+                -
+                    url: "kish_map.png"
+                    link: "http://map.darkish.ir"
+                    class: kish-map-image-left-class
+        kish_centers:
+            class: kish-centers-wrapper
+
+            cards:
+                -
+                    class: kish-centers-card-class
+
+                    text: "بازارهای تجاری"
+                    text_class: green-text-class
+                    link: "0001"
+
+                    sub_text: متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: green-subtext-class
+
+                    button:
+                        text: "مشاهده بازارها"
+                        class: dark-button-class
+                        link: link
+
+                    icon:
+                        url: "kish_centers_commercial.png"
+                        class: kish-centers-image-class
+                        link: link
+
+                -
+                    class: kish-centers-card-class
+                    text: "مراکز خدماتی"
+                    text_class: green-text-class
+                    link: "0009"
+
+                    sub_text: متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: green-subtext-class
+
+                    button:
+                        text: "مشاهده مراکز"
+                        class: dark-button-class
+                        link: link
+
+                    icon:
+                        url: "kish_centers_service.png"
+                        class: kish-centers-image-class
+                        link: link
+
+                -
+                    class: kish-centers-card-class
+
+                    text: "مراکز خرید روزانه"
+                    text_class: green-text-class
+                    link: "0004"
+
+                    sub_text: متن توضیحات، متن توضیحات، متن توضیحات
+                    sub_text_class: green-subtext-class
+
+                    button:
+                        text: "مشاهده مراکز"
+                        class: dark-button-class
+                        link: link
+
+                    icon:
+                        url: "kish_centers_daily.png"
+                        class: kish-centers-image-class
+                        link: link
+
+        kish_news:
+            class: kish-news-wrapper
+            image:
+                url:"kish_news_background.png"
+            right:
+                text: "اخبار کیش"
+                text_class: green-text-class
+                sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+                sub_text_class: green-subtext-class
+
+                button:
+                    text: "ورود به صفحه اخبار"
+                    class: green-button-class
+                    link: "02"
+                card_count: 3
+                card_class: news-card-class
+                card_text_class: news-card-text-class
+                card_subtext_class: news-card-subtext-class
+                card_date_class: news-card-date-class
+                card_image_class: news-card-image-class
+
+
+            left:
+                text: "اطلاعیه ها"
+                text_class: green-text-class
+                sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+                sub_text_class: green-subtext-class
+                button:
+                    text: "ورود به صفحه اطلاعیه ها"
+                    class: green-button-class
+                    link: "02"
+
+                card_count: 3
+                card_class: announcement-card-class
+                card_text_class: announcement-card-text-class
+                card_subtext_class: announcement-card-subtext-class
+                card_date_class: announcement-card-date-class
+                card_image_class: announcement-card-image-class
+
+
+        kish_forum:
+            class: kish-forum-wrapper
+            image:
+                url: kish_forum.png
+                class: kish-forum-over-image-class
+
+            right:
+                text: تالار گفتگو
+                text_class: light-text-class
+                sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+                sub_text_class: light-subtext-class
+
+                button:
+                    text: ورود به تالار گفتگو
+                    class: dark-button-class
+                    link: link
+
+            left:
+                text: سفرنامه های کیش
+                text_class: light-text-class
+                sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+                sub_text_class: light-subtext-class
+
+                button:
+                    text: مشاهده سفرنامه ها
+                    class: dark-button-class
+                    link: link
+
+        kish_classified:
+            class: kish-classified-wrapper
+            image:
+                url: kish_classified.png
+                class: kish-classified-image-class
+            text: نیازمندی های جزیره کیش
+            text_class: green-text-class
+            sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+            sub_text_class: dark-subtext-class
+
+            button:
+                text: صفحه نیازمندی ها
+                class: green-button-class
+        kish_app:
+            class: kish-app-wrapper
+            sub_class: kish-app-button-wrapper
+            images:
+                right:
+                    url: kish_app_right.png
+                    link:
+                    class: kish-app-image-right-class
+                    position: right
+                left:
+                    url: kish_app_left.png
+                    link:
+                    class: kish-app-image-left-class
+                    position: left
+            text: دریافت اپلیکیشن موبایل
+            text_class: light-text-class
+            sub_text: متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات، متن توضیحات،
+            sub_text_class: light-subtext-class
+            icons:
+                ios:
+                    url: kish_app_ios.png
+                    link:
+                android:
+                    url: kish_app_android.png
+                    link:

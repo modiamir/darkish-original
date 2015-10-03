@@ -240,7 +240,7 @@
           font-size: 18px;
         }
 
-        button {
+        a.btn {
           background-color: #00B3D8;
           color: #E2E9ED;
           border: none;
@@ -268,11 +268,16 @@
 
 }
 
-.jashnvareh-wrapper {
+.kish-festival-wrapper {
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   background-color: #DFE6EB;
   text-align: center;
   padding: 40px 200px 30px 200px;
+  background-image: url(../images/front_images/kish_festival_background.png);
+  background-position: center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
   & > .row {
     margin-top: 30px;
     .thumbnail {
@@ -288,22 +293,22 @@
 }
 
 
-.records-wrapper {
+.kish-jobs-wrapper {
   background-color: #3B4B54;
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   text-align: center;
   color: #E2E9ED;
-  &>h3 {
+  &>h3.blue-text-class {
     color:#00ACCE;
     margin-top: 30px;
   }
   .first-row {
     margin-top:20px;
     margin-bottom: 20px;
-    .description {
+    .blue-subtext-class {
       color: #E2E9ED;
     }
-    .submit-record {
+    .blue-button-class {
       .arrow-right {
         width: 0;
         height: 0;
@@ -325,7 +330,7 @@
     background-color: #26343F;
     padding: 50px 20px;
     margin-bottom: 50px;
-    & > .col {
+    & > .kish-jobs-card-class {
       height: 220px;
       img {
         width: 96px;
@@ -335,18 +340,331 @@
         border-radius: 48px;
 
       }
-    }
-    h3 {
-      color: #00ACCE;
-      height: 40px;
-      object-fit: contain;
-      font-size: 16px;
-      margin: 10px 0 0 0;
+      h3 {
+        color: #00ACCE;
+        height: 40px;
+        object-fit: contain;
+        font-size: 16px;
+        margin: 10px 0 0 0;
 
+      }
+      h4 {
+        font-size: 14px;
+        margin: 5px 0 0 0;
+      }
     }
-    h4 {
-      font-size: 14px;
-      margin: 5px 0 0 0;
+
+  }
+}
+
+.kish-sponsor-wrapper {
+  background-color: #26343F;
+  padding: 50px 20px;
+  margin-bottom: 50px;
+}
+
+.kish-map-wrapper {
+  background-color:#DFE6EB;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  .dark-text-class {
+    text-align: center;
+  }
+  .dark-subtext-class {
+    text-align: center;
+  }
+
+  .green-button-class {
+    text-align: center;
+    .arrow-right {
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+
+      border-left: 20px solid #00B4A0;
+      display: inline-flex;
+    }
+
+    a.btn {
+      background-color: #00B4A0;
+      color: #E2E9ED;
     }
   }
+
+  .map-images {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+
+.kish-centers-wrapper {
+  background-color: #2C485F;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding: 40px;
+  .container {
+    width: 70%;
+    min-width: 960px;
+  }
+  .kish-centers-card-class {
+    text-align: center;
+
+    & > div {
+      background-color: #152935;
+      padding: 10px;
+      margin: 10px 0;
+      border-bottom: 3px solid #00C0A9;
+    }
+
+    a.btn {
+      display: block;width: 130px;
+      margin: auto;
+      height: 40px;
+      line-height: 40px;
+      margin-top: 20px;
+      padding: 0 10px;
+    }
+  }
+  a.btn.dark-button-class {
+    border: 2px solid #264054;
+    color: #00C0A9;
+    background-color: transparent;
+    &:hover {
+      color: white;
+    }
+  }
+
+}
+
+
+.kish-news-wrapper {
+  background-image: url(../images/front_images/kish_news_background.png);
+  background-position: center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  .right {
+    text-align: center;
+    a.btn {
+      margin: 20px;
+    }
+  }
+  .left {
+    text-align: center;
+    a.btn {
+      margin: 20px;
+    }
+  }
+
+
+
+  .news-card-class {
+    background-color: rgba(33, 62, 82, 0.8);
+    padding: 5px;
+    .news-card-text-class {
+      color: #00ACCE;
+      font-size: 20px;
+    }
+    .news-card-subtext-class {
+      color: #BDC6CC;
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+
+    .media-body {
+      position: relative;
+    }
+
+    .news-card-date-class {
+      position: absolute;
+      left: 3px;
+      bottom: 3px;
+      color: #BDC6CC;
+      font-size: 13px;
+    }
+
+  }
+
+  .announcement-card-class {
+    background-color: rgba(33, 62, 82, 0.6);
+    padding: 5px;
+    .announcement-card-text-class {
+      color: #00ACCE;
+      font-size: 20px;
+    }
+    .announcement-card-subtext-class {
+      color: #BDC6CC;
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+
+    .media-body {
+      position: relative;
+    }
+
+    .announcement-card-date-class {
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      color: #BDC6CC;
+      font-size: 13px;
+    }
+
+  }
+
+}
+
+.kish-forum-wrapper {
+  background-color: #00A5C9;
+  background-image: url(../images/front_images/kish_forum_background.png);
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  position: relative;
+  .light-text-class {
+    font-size: 20px;
+  }
+
+  .light-subtext-class {
+    font-size: 18px;
+    margin-bottom: 100px;
+  }
+
+
+
+  .right {
+    text-align: center;
+    a.btn {
+      margin: 50px;
+    }
+  }
+  .left {
+    text-align: center;
+    a.btn {
+      margin: 50px;
+    }
+  }
+
+  .kish-forum-over-image-class {
+    position: absolute;
+    left: 50%;
+    margin-left: -123px;
+    bottom: 30px;
+  }
+}
+
+.kish-classified-wrapper {
+  background-color: #DFE6EB;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  padding-top: 20px;
+  text-align: center;
+  .dark-text-class {
+    text-align: center;
+  }
+  .dark-subtext-class {
+    text-align: center;
+  }
+
+  .green-button-class {
+    text-align: center;
+    .arrow-right {
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+
+      border-left: 20px solid #00B4A0;
+      display: inline-flex;
+    }
+
+    a.btn {
+      background-color: #00B4A0;
+      color: #E2E9ED;
+    }
+  }
+
+  .kish_classified-images {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+}
+
+
+.kish-app-wrapper {
+  background-color: #050F1E;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  position: relative;
+  .right {
+    text-align: center;
+    z-index: 2;
+    .kish-app-image-right-class {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+  }
+  .left {
+    text-align: center;
+    .kish-app-image-left-class {
+      margin-bottom: 20px;
+    }
+    .light-subtext-class {
+      color: #CDE1E9;
+    }
+
+  }
+  .kish-app-button-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #252F3D;
+    z-index: 1;
+    & > .col {
+      text-align: center;
+      padding: 10px;
+      a {
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+.green-text-class {
+  color: #00C0A9;
+}
+
+.green-subtext-class {
+  color: #BDC6CC;
+}
+
+
+
+a.btn.green-button-class {
+  background-color: #00B4A0;
+  color: #E2E9ED;
+}
+
+a.btn.dark-button-class {
+  background-color: #24638A;
+  border: 0;
+  color: #E2E9ED;
+}
+
+
+.light-text-class {
+  color: #CDE1E9;
+}
+
+.light-subtext-class {
+  color: #005B94;
 }
