@@ -259,7 +259,7 @@ class ApiMessageController extends FOSRestController
 
     /**
      *  @ApiDoc(
-     *      resource=true
+     *      resource=true,
      * section="Message API"
      * )
      */
