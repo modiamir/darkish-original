@@ -35,6 +35,7 @@ class ApiMessageController extends FOSRestController
      * 
      * @ApiDoc(
      *  resource=true,
+     *  section="Message API",
      *  description="This is for refresh messages to get new messages.",
      *  statusCodes={
      *      200="Returned when successful",
@@ -103,6 +104,7 @@ class ApiMessageController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
+     *  section="Message API",
      *  description="This is for posting new message to record",
      *  parameters={
      *      {"name"="text", "dataType"="string", "required"=true, "description"="message text"}
@@ -171,7 +173,8 @@ class ApiMessageController extends FOSRestController
 
     /**
      * @ApiDoc(
-     *  resource=true
+     *  resource=true,
+     *  section="Message API"
      * )
      */
     public function postLastClientDeliveredAction(Customer $customer, Message $message, Request $request) {
@@ -216,7 +219,8 @@ class ApiMessageController extends FOSRestController
 
     /**
      *  @ApiDoc(
-     *      resource=true
+     *  resource=true,
+     *  section="Message API"
      * )
      */
     public function postLastClientSeenAction(Customer $customer, Message $message, Request $request) {
@@ -256,6 +260,7 @@ class ApiMessageController extends FOSRestController
     /**
      *  @ApiDoc(
      *      resource=true
+     * section="Message API"
      * )
      */
     public function getCustomerLastSeenDeliveredAction(Customer $customer)
