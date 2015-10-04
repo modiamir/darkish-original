@@ -258,7 +258,7 @@ class ApiMessageController extends FOSRestController
      *      resource=true
      * )
      */
-    public function getCustomerLastSeenDelivered(Customer $customer)
+    public function getCustomerLastSeenDeliveredAction(Customer $customer)
     {
         $client = $this->get('security.context')->getToken()->getUser();
 
