@@ -3,7 +3,7 @@
 
     <div class="row">
         {% for center in centers.cards %}
-            <div class="col col-xs-4 {{ center.class }}">
+            <div class="col col-xs-12 col-sm-4 {{ center.class }}">
                 <div>
                     <a href="{{ path('website_record_single', {"record": center.link}) }}">
                         <h3 class="{{ center.text_class }}">

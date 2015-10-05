@@ -1,0 +1,41 @@
+{% extends '@DarkishWebsite/Block/block_base.html.twig' %}
+{% block class %}offer-block{% endblock %}
+{% block block %}
+
+    <h2 class="offer-block-title">
+        پیشنهادات ویژه درکیش
+    </h2>
+
+    <div id="offer-carousel" class="owl-carousel" dir="ltr">
+        {% for offer in paginator %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="offer">
+                    {% if offer.body %}
+                        {% set url = path('website_offer_single', {"offer":offer.id}) %}
+                    {% elseif offer.submitterNumber %}
+                        {% set url = path('website_record_single', {"record":offer.submitterNumber}) %}
+                    {% else %}
+                        {% set url = offer.website %}
+                    {% endif %}
+                    <div class="offer-list-item">
+                        {% if url is defined %}
+                            <a href="{{ url }}">
+                        {% endif %}
+                        <img class="banner thumbnail" src="{{ offer.banner.relativePath | imagine_filter('300x200') }}" alt="">
+                        {% if url is defined %}
+
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+        {% endfor %}
+    </div>
+
+    <img class="offer-right" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_right.png') }}">
+    <img class="offer-left" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_left.png') }}">
+
+{% endblock %}
+

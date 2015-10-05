@@ -1,0 +1,73 @@
+
+        <nav class="navbar navbar-default front-navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="{{asset('bundles/darkishwebsite/images/logo.png') }}"/></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse navbar-primary-menu navbar-right">
+                    {#{{ knp_menu_render('website_main', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}#}
+                    <ul class="nav navbar-nav navbar-right menu-primary">
+                        <li class="first">
+                            <a href="#about-kish-wrapper">
+                                درباره جزیره
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#kish-festival-wrapper">
+جشنواره ها
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#kish-jobs-wrapper">
+مشاغل و خدمات
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#kish-map-wrapper">
+نقشه
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#kish-news-wrapper">
+                                اخبار
+                            </a>
+                        </li>
+                        <li class="last">
+                            <a href="#kish-classified-wrapper">
+                                نیازمندی ها
+                            </a>
+                        </li>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+                <div id="navbar" class="navbar-collapse collapse navbar-app-download navbar-left">
+                    <a href="#">
+                        <img src="{{ asset('bundles/darkishwebsite/images/front_images/darkish_app_button_small.png') }}"/>
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse navbar-secondary-menu navbar-left">
+                    {#{{ knp_menu_render('website_main', {'depth': 2, 'currentAsLink': true, 'currentClass': 'active', 'template': 'DarkishWebsiteBundle:Menu:knp_menu.html.twig'}) }}#}
+                    <ul class="nav navbar-nav navbar-right menu-primary">
+                        <li class="first">
+                            <a href="#about-kish-wrapper">
+                                بانک املاک
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#kish-festival-wrapper">
+                                بانک خودرو
+                            </a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+
+
+

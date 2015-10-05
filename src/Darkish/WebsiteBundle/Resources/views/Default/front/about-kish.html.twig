@@ -1,6 +1,6 @@
 <div class="row">
     {% for item in about.cards %}
-    <div class="col col-xs-6 {{ item.class }}">
+    <div class="col col-xs-12 col-sm-6 {{ item.class }}">
         <div class="info-box">
             {% if item.text is defined and item.text %}
                 <h2 class="{{ item.text_class }}">
