@@ -1,0 +1,101 @@
+.offer-wrapper {
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  border-top: 2px solid #E55D62;
+  position: relative;
+  .offer-block-title {
+    text-align: center;
+    color: #FF0000;
+    font-size: 20px;
+  }
+  img.offer-right {
+    position: absolute;
+    top:0;
+    right: 40px;
+  }
+
+  img.offer-left {
+    position: absolute;
+    top:0;
+    left: 40px;
+  }
+}
+
+.footer-wrapper {
+  border-top: 2px solid #F5FAFF;
+  margin-top: 10px;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  .container-fluid {
+    .footer-box-title {
+      font-family: cocon;
+      color: #5092E5;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 15px;
+      span {
+        color: #FF5900;
+      }
+    }
+    .footer-box-body {
+      font-size: 15px;
+    }
+    & > .col > div {
+      margin: 10px 0 ;
+      padding: 5px 10px;
+      background-color: #F5FAFF;
+    }
+  }
+
+  .contact {
+    .footer-box-body {
+      text-align: center;
+      p {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .contact-link-label {
+        color: #00B4A0;
+        margin-left: 5px;
+      }
+      .contact-button {
+        color: white;
+        background-color: #00B4A0;
+
+      }
+    }
+  }
+}
+
+#offer-carousel {
+  width: 80%;
+  margin: auto;
+  img {
+    margin-bottom: 0;
+  }
+  .owl-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .owl-prev, .owl-next {
+      font-family: cursive;
+      font-size: 60px;
+      border-radius: 0;
+      width: 40px;
+      height: 40px;
+      line-height: 20px;
+      text-align: center;
+    }
+    .owl-prev {
+      position: absolute;
+      right: -50px;
+      bottom: 0;
+    }
+    .owl-next {
+      position: absolute;
+      left: -50px;
+      bottom: 0;
+
+
+    }
+  }
+}

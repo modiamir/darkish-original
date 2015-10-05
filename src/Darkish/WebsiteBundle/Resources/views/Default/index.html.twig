@@ -7,56 +7,74 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/sequencejs/scripts/hammer.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/sequencejs/scripts/sequence.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/sequencejs/sequence-theme.basic.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('a[href^="#"]').on('click',function (e) {
+                e.preventDefault();
+
+                var target = this.hash;
+                var $target = $(target);
+
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top - 50
+                }, 900, 'swing', function () {
+                    window.location.hash = target;
+                });
+            });
+        });
+
+    </script>
 {% endblock %}
 
 {% block  body %}
 
-	{{ include('DarkishWebsiteBundle:Default:layout/header.html.twig') }}
+	{{ include('DarkishWebsiteBundle:Default:layout/front-header.html.twig') }}
 
     <div class="container-fluid sequence-wrapper">
         {{ include("DarkishWebsiteBundle:Default/front:slideshow.html.twig", {"slideshow": params.slideshow }) }}
 
     </div>
 
-    <div class="container-fluid {{ params.about_kish.class }}">
+    <div id="{{ params.about_kish.class }}" class="container-fluid {{ params.about_kish.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:about-kish.html.twig", {"about": params.about_kish }) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_festival.class }}">
+    <div id="{{ params.kish_festival.class }}" class="container-fluid {{ params.kish_festival.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:festival.html.twig", {"festival": params.kish_festival, "items": festivals  }) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_jobs.class }}">
+    <div id="{{ params.kish_jobs.class }}" class="container-fluid {{ params.kish_jobs.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:jobs.html.twig", {"jobs": params.kish_jobs, "webmaintrees": webmaintrees, "sponsor": params.kish_sponsor,
             "sponsors": sponsors }) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_map.class }}">
+    <div id="{{ params.kish_map.class }}" class="container-fluid {{ params.kish_map.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:map.html.twig", {"map": params.kish_map}) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_centers.class }}">
+    <div id="{{ params.kish_centers.class }}" class="container-fluid {{ params.kish_centers.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:centers.html.twig", {"centers": params.kish_centers}) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_news.class }}">
+    <div id="{{ params.kish_news.class }}" class="container-fluid {{ params.kish_news.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:news.html.twig", {"kish_news": params.kish_news, "latest_news": latest_news}) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_forum.class }}">
+    <div id="{{ params.kish_forum.class }}" class="container-fluid {{ params.kish_forum.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:forum.html.twig", {"kish_forum": params.kish_forum }) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_classified.class }}">
+    <div id="{{ params.kish_classified.class }}" class="container-fluid {{ params.kish_classified.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:classified.html.twig", {"kish_classified": params.kish_classified }) }}
     </div>
 
-    <div class="container-fluid {{ params.kish_app.class }}">
+    <div id="{{ params.kish_app.class }}" class="container-fluid {{ params.kish_app.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:app.html.twig", {"kish_app": params.kish_app }) }}
     </div>
 
-    <div dir="ltr">
-    {{ krumo(params) }}
-    </div>
+    {{ include('@DarkishWebsite/Default/layout/footer.html.twig') }}
+
+
 
 {% endblock %}
+

@@ -12,7 +12,7 @@
 
 <div class="row">
     {% for item in items %}
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{ festival.card_class }}">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 {{ festival.card_class }}">
         	<a href="{{ url('website_record_single', {"record": item.recordNumber}) }}">
                 <div class="thumbnail">
                     {% if item.images|length > 0 %}

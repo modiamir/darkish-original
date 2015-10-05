@@ -102,9 +102,9 @@ font-style: normal;
 
 
 body {
-	font-family: BMitra;
+	font-family: 'BYekan', 'YekanNumbers', Tahoma;
 	font-size: 18px;
-    .container {
+    & > .container {
       min-width: 1170px;
       width: 90%;
     }
@@ -289,12 +289,7 @@ body {
       }
 	}
 
-	.footer-wrapper {
-		background: $green;
-		border-top: 3px solid #f17022;
-		margin-top: 10px;
-		color: white;
-	}
+
 
 	.bottom-wrapper {
 		background-color: $orange;

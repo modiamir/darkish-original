@@ -35,6 +35,14 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - {name: "sonata.block"}
+    darkish_website.block.offer:
+        class: Darkish\WebsiteBundle\Block\OfferBlock
+        arguments:
+            - "darkish_website.block.offer"
+            - "@templating"
+            - "@service_container"
+        tags:
+            - {name: "sonata.block"}
     darkish_website.block.centers:
         class: Darkish\WebsiteBundle\Block\CentersBlock
         arguments:

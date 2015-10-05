@@ -187,6 +187,12 @@ liip_imagine:
                 upscale: { min: [240,200] }
                 thumbnail: { size: [240,200], mode: outbound }
 
+        300x200:
+            filters:
+                upscale: { min: [300,200] }
+                thumbnail: { size: [300,200], mode: outbound }
+
+
         240x200default:
             filters:
                 background: { size: [240, 200], color: '#eee' }
@@ -379,6 +385,7 @@ sonata_block:
 
         sonata.block.service.text:
         darkish_website.block.rss: ~
+        darkish_website.block.offer: ~
         darkish_website.block.comment: ~
         darkish_website.block.database: ~
         darkish_website.block.centers: ~

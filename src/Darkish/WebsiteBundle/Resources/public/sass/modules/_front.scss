@@ -1,7 +1,38 @@
 /* Style the Sequence container */
 
+
+
+    .navbar-default.front-navbar {
+      background-color: #009BFF;
+      border: 0;
+      border-bottom: 2px solid #F17022;
+      margin-bottom: 0;
+      z-index: 10;
+      & > .container-fluid {
+        .navbar-secondary-menu {
+          @include breakpoint(md, lg) {
+            border-left: 2px solid white;
+          }
+
+        }
+      }
+      .navbar-brand {
+        padding: 10px 20px 0 10px;
+        img {
+          width: 120px;
+        }
+
+      }
+      .navbar-nav > li > a {
+        color: white;
+      }
+
+    }
+
+
 .sequence-wrapper {
   padding: 0;
+  padding-top: 50px;
   #sequence {
     position: relative;
     width: 100%;
@@ -224,6 +255,9 @@
   & > .row {
     background-color: #264a60;
     padding: 50px 100px;
+    @include breakpoint(xs, sm) {
+      padding: 50px 0px;
+    }
     & > .col {
       .info-box {
         background-color: #1D4259;
@@ -264,6 +298,16 @@
     border: 10px solid #264a60;
     margin-left: -100px;
     margin-top: -100px;
+    @include breakpoint(xs) {
+      display: none;
+    }
+    @include breakpoint(sm) {
+      width: 150px;
+      height: 150px;
+      margin-left: -75px;
+      margin-top: -75px;
+    }
+
   }
 
 }
@@ -273,6 +317,9 @@
   background-color: #DFE6EB;
   text-align: center;
   padding: 40px 200px 30px 200px;
+  @include breakpoint(xs, sm) {
+    padding: 40px 50px 30px 50px;
+  }
   background-image: url(../images/front_images/kish_festival_background.png);
   background-position: center;
   -webkit-background-size: cover;
@@ -305,6 +352,13 @@
   .first-row {
     margin-top:20px;
     margin-bottom: 20px;
+
+    & > .col {
+      @include breakpoint(xs) {
+        margin-bottom: 20px;
+      }
+    }
+
     .blue-subtext-class {
       color: #E2E9ED;
     }
@@ -361,6 +415,12 @@
   background-color: #26343F;
   padding: 50px 20px;
   margin-bottom: 50px;
+  img {
+    @include breakpoint(xs) {
+      max-width: 320px;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .kish-map-wrapper {
@@ -395,6 +455,15 @@
   .map-images {
     margin-top: 10px;
     text-align: center;
+    & > a {
+
+    }
+  }
+
+  & > .container {
+    @include breakpoint(md, lg) {
+      width: 100%;
+    }
   }
 }
 
@@ -403,20 +472,23 @@
   background-color: #2C485F;
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   padding: 40px;
+  @include breakpoint(xs, sm) {
+    padding: 5px;
+  }
   .container {
-    width: 70%;
-    min-width: 960px;
+    @include breakpoint(lg) {
+      width: 70%;
+      min-width: 960px;
+    }
   }
   .kish-centers-card-class {
     text-align: center;
-
     & > div {
       background-color: #152935;
       padding: 10px;
       margin: 10px 0;
       border-bottom: 3px solid #00C0A9;
     }
-
     a.btn {
       display: block;width: 130px;
       margin: auto;
@@ -434,7 +506,6 @@
       color: white;
     }
   }
-
 }
 
 
@@ -529,6 +600,9 @@
   .light-subtext-class {
     font-size: 18px;
     margin-bottom: 100px;
+    @include breakpoint(xs) {
+      margin-bottom: 20px;
+    }
   }
 
 
@@ -537,12 +611,18 @@
     text-align: center;
     a.btn {
       margin: 50px;
+      @include breakpoint(xs) {
+        margin: 10px 0;
+      }
     }
   }
   .left {
     text-align: center;
     a.btn {
       margin: 50px;
+      @include breakpoint(xs) {
+        margin: 10px 0;
+      }
     }
   }
 
@@ -551,6 +631,12 @@
     left: 50%;
     margin-left: -123px;
     bottom: 30px;
+    @include breakpoint(xs) {
+      position: static;
+      display: block;
+      margin: 10px auto;
+
+    }
   }
 }
 
@@ -622,6 +708,11 @@
     height: 80px;
     background-color: #252F3D;
     z-index: 1;
+    @include breakpoint(xs) {
+      position: static;
+      display: inline-block;
+      width: 100%;
+    }
     & > .col {
       text-align: center;
       padding: 10px;

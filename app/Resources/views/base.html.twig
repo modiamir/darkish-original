@@ -4,7 +4,9 @@
         
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        {{ sonata_block_include_stylesheets('all') }}
+
+
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
 
@@ -13,5 +15,6 @@
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         {{ sonata_block_include_javascripts('all') }}
+        {{ sonata_block_include_stylesheets('all') }}
     </body>
 </html>
