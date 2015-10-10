@@ -7,6 +7,7 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/sequencejs/scripts/hammer.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/sequencejs/scripts/sequence.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/sequencejs/sequence-theme.basic.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('a[href^="#"]').on('click',function (e) {
@@ -23,8 +24,19 @@
             });
         });
 
+
+        $('.open-popup-link').magnificPopup({
+            type:'inline',
+            midClick: true
+        });
     </script>
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/darkishwebsite/bower_components/magnific-popup/dist/magnific-popup.css') }}">
+{% endblock %}
+
 
 {% block  body %}
 
@@ -45,7 +57,7 @@
 
     <div id="{{ params.kish_jobs.class }}" class="container-fluid {{ params.kish_jobs.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:jobs.html.twig", {"jobs": params.kish_jobs, "webmaintrees": webmaintrees, "sponsor": params.kish_sponsor,
-            "sponsors": sponsors }) }}
+            "sponsors": sponsors, "form": submit_record_form }) }}
     </div>
 
     <div id="{{ params.kish_map.class }}" class="container-fluid {{ params.kish_map.class }}">

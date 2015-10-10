@@ -1,0 +1,262 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "darkish";
+  src:url("../fonts/darkish.eot");
+  src:url("../fonts/darkish.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/darkish.woff") format("woff"),
+    url("../fonts/darkish.ttf") format("truetype"),
+    url("../fonts/darkish.svg#darkish") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "darkish" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "darkish" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "a";
+}
+.icon-alarm-clock:before {
+  content: "b";
+}
+.icon-arrow-down:before {
+  content: "c";
+}
+.icon-arrow-left:before {
+  content: "d";
+}
+.icon-arrow-right:before {
+  content: "e";
+}
+.icon-arrow-up:before {
+  content: "f";
+}
+.icon-audio:before {
+  content: "g";
+}
+.icon-bell:before {
+  content: "h";
+}
+.icon-blank-image:before {
+  content: "i";
+}
+.icon-blank-photo:before {
+  content: "j";
+}
+.icon-block:before {
+  content: "k";
+}
+.icon-cache-empty:before {
+  content: "l";
+}
+.icon-cancel-small:before {
+  content: "n";
+}
+.icon-clock:before {
+  content: "o";
+}
+.icon-comment:before {
+  content: "p";
+}
+.icon-contact-us:before {
+  content: "q";
+}
+.icon-deactivate:before {
+  content: "r";
+}
+.icon-display:before {
+  content: "s";
+}
+.icon-download:before {
+  content: "t";
+}
+.icon-empty-cadr:before {
+  content: "u";
+}
+.icon-envelope:before {
+  content: "v";
+}
+.icon-extract-down:before {
+  content: "w";
+}
+.icon-extract-up:before {
+  content: "x";
+}
+.icon-eye:before {
+  content: "y";
+}
+.icon-eye-fill:before {
+  content: "z";
+}
+.icon-folder-open:before {
+  content: "A";
+}
+.icon-heart:before {
+  content: "B";
+}
+.icon-heart-fill:before {
+  content: "C";
+}
+.icon-info:before {
+  content: "D";
+}
+.icon-like:before {
+  content: "E";
+}
+.icon-like-fill:before {
+  content: "F";
+}
+.icon-logo:before {
+  content: "G";
+}
+.icon-logo-english:before {
+  content: "H";
+}
+.icon-logo-farsi:before {
+  content: "I";
+}
+.icon-map-center:before {
+  content: "J";
+}
+.icon-map-city:before {
+  content: "K";
+}
+.icon-nav-home:before {
+  content: "L";
+}
+.icon-nav-map:before {
+  content: "M";
+}
+.icon-nav-search:before {
+  content: "N";
+}
+.icon-nav-setting:before {
+  content: "O";
+}
+.icon-nav-ticket:before {
+  content: "P";
+}
+.icon-nav-user:before {
+  content: "Q";
+}
+.icon-phone:before {
+  content: "R";
+}
+.icon-pin:before {
+  content: "S";
+}
+.icon-pin-fill:before {
+  content: "T";
+}
+.icon-pin-list:before {
+  content: "U";
+}
+.icon-question:before {
+  content: "V";
+}
+.icon-reload:before {
+  content: "W";
+}
+.icon-remove:before {
+  content: "X";
+}
+.icon-safarsaz:before {
+  content: "Y";
+}
+.icon-search:before {
+  content: "Z";
+}
+.icon-share:before {
+  content: "0";
+}
+.icon-spin-large:before {
+  content: "2";
+}
+.icon-spin-refresh:before {
+  content: "3";
+}
+.icon-spin-small:before {
+  content: "4";
+}
+.icon-star:before {
+  content: "5";
+}
+.icon-star-fill:before {
+  content: "6";
+}
+.icon-ticket:before {
+  content: "7";
+}
+.icon-trash:before {
+  content: "8";
+}
+.icon-update:before {
+  content: "9";
+}
+.icon-upload:before {
+  content: "!";
+}
+.icon-verify-small:before {
+  content: "#";
+}
+.icon-video:before {
+  content: "$";
+}
+.icon-sort:before {
+  content: "%";
+}
+.icon-edit:before {
+  content: "&";
+}
+.icon-spin-dot:before {
+  content: "1";
+}
+.icon-map-location:before {
+  content: "'";
+}
+.icon-map-location2:before {
+  content: "(";
+}
+.icon-map-menu:before {
+  content: ")";
+}
+.icon-map-route:before {
+  content: "*";
+}
+.icon-map-search:before {
+  content: "+";
+}
+.icon-map-location-1:before {
+  content: ",";
+}
+.icon-verify:before {
+  content: "m";
+}
+.icon-cancel:before {
+  content: "\"";
+}

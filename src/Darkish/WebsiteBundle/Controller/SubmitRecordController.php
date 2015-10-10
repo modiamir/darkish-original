@@ -18,7 +18,7 @@ class SubmitRecordController extends Controller
     /**
      * @param $name
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/submit/record")
+     * @Route("/submit/record", name="website_submit_record")
      */
     public function indexAction(Request $request)
     {

@@ -43,6 +43,14 @@ services:
             - "@service_container"
         tags:
             - {name: "sonata.block"}
+    darkish_website.block.weather:
+            class: Darkish\WebsiteBundle\Block\WeatherBlock
+            arguments:
+                - "darkish_website.block.weather"
+                - "@templating"
+                - "@service_container"
+            tags:
+                - {name: "sonata.block"}
     darkish_website.block.centers:
         class: Darkish\WebsiteBundle\Block\CentersBlock
         arguments:

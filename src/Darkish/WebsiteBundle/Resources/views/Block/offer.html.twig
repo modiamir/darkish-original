@@ -3,7 +3,8 @@
 {% block block %}
 
     <h2 class="offer-block-title">
-        پیشنهادات ویژه درکیش
+        پیشنهادات ویژه
+        <div class="icon icon-logo-farsi"></div>
     </h2>
 
     <div id="offer-carousel" class="owl-carousel" dir="ltr">
@@ -34,8 +35,8 @@
         {% endfor %}
     </div>
 
-    <img class="offer-right" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_right.png') }}">
-    <img class="offer-left" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_left.png') }}">
+    <img class="offer-right hidden-xs hidden-sm hidden-md" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_right.png') }}">
+    <img class="offer-left hidden-xs hidden-sm hidden-md" src="{{ asset('bundles/darkishwebsite/images/front_images/kish_offers_left.png') }}">
 
 {% endblock %}
 

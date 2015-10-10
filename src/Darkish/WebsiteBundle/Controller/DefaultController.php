@@ -2,6 +2,8 @@
 
 namespace Darkish\WebsiteBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\SubmitRecord;
+use Darkish\WebsiteBundle\Form\SubmitRecordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -60,6 +62,11 @@ class DefaultController extends Controller
         $announcementNews = $newsRepo->getNewsForCat($announcementNewsTree)->setMaxResults(3)->getQuery()->getResult();
 
 
+        $submitRecord = new SubmitRecord();
+        $submitRecordForm = $this->createForm(new SubmitRecordType(), $submitRecord, [
+            'action' => $this->generateUrl('website_submit_record')
+        ]);
+
 
     	return $this->render('DarkishWebsiteBundle:Default:index.html.twig', [
             'params' => $params,
@@ -69,7 +76,8 @@ class DefaultController extends Controller
             'latest_news' => [
                 'kish_news' => $kishNews,
                 'announcement_news' => $announcementNews
-            ]
+            ],
+            'submit_record_form' => $submitRecordForm->createView()
         ]);
     }
 
