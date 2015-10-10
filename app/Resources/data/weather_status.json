@@ -1,0 +1,198 @@
+{
+  "0": {
+    "name":"tornado",
+    "label":"توفان"
+  },
+  "1": {
+    "name":"tropical storm",
+    "label":"توفان گرمسیری"
+  },
+  "2": {
+    "name":"hurricane",
+    "label":"گردباد"
+  },
+  "3": {
+    "name":"severe thunderstorms",
+    "label":"توفان و صاعقه شدید"
+  },
+  "4": {
+    "name":"thunderstorms",
+    "label":"توفان و صاعقه"
+  },
+  "5": {
+    "name":"mixed rain and snow",
+    "label":"برف و باران"
+  },
+  "6": {
+    "name":"mixed rain and sleet",
+    "label":"باران و تگرگ"
+  },
+  "7": {
+    "name":"mixed snow and sleet",
+    "label":"برف و تگرگ"
+  },
+  "8": {
+    "name":"freezing drizzle",
+    "label":"نم نم باران سرد"
+  },
+  "9": {
+    "name":"drizzle",
+    "label":"نم نم باران"
+  },
+  "10": {
+    "name":"freezing rain",
+    "label":"باران سرد"
+  },
+  "11": {
+    "name":"showers",
+    "label":"رگبار"
+  },
+  "12": {
+    "name":"showers",
+    "label":"رگبار"
+  },
+  "13": {
+    "name":"snow flurries",
+    "label":"برف ناگهانی"
+  },
+  "14": {
+    "name":"light snow showers",
+    "label":"برف ناگهانی سبک"
+  },
+  "15": {
+    "name":"blowing snow",
+    "label":"برف ممتد"
+  },
+  "16": {
+    "name":"snow",
+    "label":"برف"
+  },
+  "17": {
+    "name":"hail",
+    "label":"تگرگ ریز"
+  },
+  "18": {
+    "name":"sleet",
+    "label":"تگرگ"
+  },
+  "19": {
+    "name":"dust",
+    "label":"گرد و غبار"
+  },
+  "20": {
+    "name":"foggy",
+    "label":"مه آلود"
+  },
+  "21": {
+    "name":"haze",
+    "label":"مه غلیظ"
+  },
+  "22": {
+    "name":"smoky",
+    "label":"دود آلود"
+  },
+  "23": {
+    "name":"blustery",
+    "label":"وزش باد"
+  },
+  "24": {
+    "name":"windy",
+    "label":"وزش باد ملایم"
+  },
+  "25": {
+    "name":"cold",
+    "label":"سرد"
+  },
+  "26": {
+    "name":"cloudy",
+    "label":"ابری"
+  },
+  "27": {
+    "name":"mostly cloudy (night)",
+    "label":"نیمه ابری"
+  },
+  "28": {
+    "name":"mostly cloudy (day)",
+    "label":"نیمه ابری"
+  },
+  "29": {
+    "name":"partly cloudy (night)",
+    "label":"کمی ابری"
+  },
+  "30": {
+    "name":"partly cloudy (day)",
+    "label":"کمی ابری"
+  },
+  "31": {
+    "name":"clear (night)",
+    "label":"صاف"
+  },
+  "32": {
+    "name":"sunny",
+    "label":"آفتابی"
+  },
+  "33": {
+    "name":"fair (night)",
+    "label":"نسبتا خوب"
+  },
+  "34": {
+    "name":"fair (day)",
+    "label":"نسبتا خوب"
+  },
+  "35": {
+    "name":"mixed rain and hail",
+    "label":"باران و تگرگ ریز"
+  },
+  "36": {
+    "name":"hot",
+    "label":"گرم"
+  },
+  "37": {
+    "name":"isolated thunderstorms",
+    "label":"صاعقه پراکنده"
+  },
+  "38": {
+    "name":"scattered thunderstorms",
+    "label":"توفان و صاعقه پراکنده"
+  },
+  "39": {
+    "name":"scattered thunderstorms",
+    "label":"توفان و صاعقه پراکنده"
+  },
+  "40": {
+    "name":"scattered showers",
+    "label":"رگبار پراکنده"
+  },
+  "41": {
+    "name":"heavy snow",
+    "label":"برف سنگین"
+  },
+  "42": {
+    "name":"scattered snow showers",
+    "label":"برف پراکنده"
+  },
+  "43": {
+    "name":"heavy snow",
+    "label":"برف سنگین"
+  },
+  "44": {
+    "name":"partly cloudy",
+    "label":"کمی ابری"
+  },
+  "45": {
+    "name":"thundershowers",
+    "label":"توفان و صاعقه"
+  },
+  "46": {
+    "name":"snow showers",
+    "label":"برف شدید"
+  },
+  "47": {
+    "name":"isolated thundershowers",
+    "label":"صاعقه پراکنده"
+  },
+  "3200": {
+    "name":"not available",
+    "label":"----"
+  }
+}

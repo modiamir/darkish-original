@@ -436,3 +436,21 @@ a.dk-audio-play {
 .jumbotron {
   background-color: #F7F7F7;
 }
+
+.mfp-content {
+  text-align: right !important;
+  .white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
+
+    .mfp-close {
+      right: inherit;
+      left: 0;
+    }
+
+  }
+}

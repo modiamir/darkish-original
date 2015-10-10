@@ -1,0 +1,56 @@
+/* line 1, ../sass/weather.scss */
+.weather-block {
+  display: inline-block;
+  width: 100%;
+}
+/* line 5, ../sass/weather.scss */
+.weather-block > .col {
+  padding: 0;
+}
+/* line 8, ../sass/weather.scss */
+.weather-block .today {
+  text-align: center;
+}
+/* line 10, ../sass/weather.scss */
+.weather-block .today img {
+  float: right;
+  width: 60%;
+}
+/* line 14, ../sass/weather.scss */
+.weather-block .today .weather-info {
+  float: right;
+  width: 40%;
+}
+/* line 17, ../sass/weather.scss */
+.weather-block .today .weather-info > span {
+  display: block;
+}
+/* line 20, ../sass/weather.scss */
+.weather-block .today .weather-info .city-name {
+  color: #FF5900;
+  font-size: 30px;
+}
+/* line 24, ../sass/weather.scss */
+.weather-block .today .weather-info .current-temp {
+  font-size: 24px;
+}
+/* line 27, ../sass/weather.scss */
+.weather-block .today .weather-info .low-high-temp {
+  font-size: 14px;
+}
+/* line 33, ../sass/weather.scss */
+.weather-block .next-day {
+  text-align: center;
+}
+/* line 35, ../sass/weather.scss */
+.weather-block .next-day > span {
+  display: block;
+}
+/* line 38, ../sass/weather.scss */
+.weather-block .next-day .day {
+  font-size: 14px;
+}
+/* line 41, ../sass/weather.scss */
+.weather-block .next-day .low-high-temp {
+  font-size: 14px;
+}

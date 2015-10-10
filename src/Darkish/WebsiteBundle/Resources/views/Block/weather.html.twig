@@ -1,0 +1,41 @@
+{% extends '@DarkishWebsite/Block/block_base.html.twig' %}
+{% block class %}weather-block{% endblock %}
+{% block block %}
+
+    {% for w in weather.query.results.channel.item.forecast %}
+        {% if loop.index == 1 %}
+            <div class="col col-xs-12 today">
+                <img src="{{ asset('bundles/darkishwebsite/images/weather_icons/' ~ w.code ~ '.png') }}">
+                <div class="weather-info">
+                    <span class="city-name">
+                        کیش
+                    </span>
+                    <span dir="ltr" class="current-temp">
+                        {{ weather.query.results.channel.item.condition.temp }} °c
+                    </span>
+                    <span dir="ltr" class="low-high-temp">
+                        {{ w.low }}° | {{ w.high }}°
+                    </span>
+                    <span class="status">
+                        {{ weather_status[w.code].label }}
+                    </span>
+                </div>
+            </div>
+            <hr class="col col-xs-12">
+        {% else %}
+            <div class="col col-xs-3 next-day">
+                <img src="{{ asset('bundles/darkishwebsite/images/weather_icons_small/' ~ w.code ~ '.png') }}">
+                <span class="day">
+                    {{ day_trans[w.day] }}
+                </span>
+                <span dir="ltr" class="low-high-temp">
+                    {{ w.low }}° | {{ w.high }}°
+                </span>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+
+
+{% endblock %}
+

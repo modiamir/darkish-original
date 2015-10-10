@@ -13,6 +13,7 @@
         </a>
 
     </div>
+    <img class="visible-xs-block visible-sm-block {{ kish_forum.image.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_forum.image.url) }}" />
     <div class="col col-xs-12 col-sm-6 left">
         <h3 class="{{ kish_forum.left.text_class }}">
             {{ kish_forum.left.text }}
@@ -26,4 +27,4 @@
         </a>
     </div>
 </div>
-<img class="{{ kish_forum.image.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_forum.image.url) }}" />
+<img class="hidden-xs hidden-sm {{ kish_forum.image.class }}" src="{{ asset('bundles/darkishwebsite/images/front_images/'~kish_forum.image.url) }}" />

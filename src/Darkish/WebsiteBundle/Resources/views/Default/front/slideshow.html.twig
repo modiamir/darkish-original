@@ -9,7 +9,7 @@
                     >
 
                 {% if slide.right is defined and slide.right %}
-                    <div class="col col-xs-6 content {% if slide.right.position is defined %}{{ slide.right.position }}{% endif %}"
+                    <div class="col col-xs-12 col-sm-6 content {% if slide.right.position is defined %}{{ slide.right.position }}{% endif %}"
                          style="{% if slide.right.color is defined %}color: {{ slide.right.color }}{% endif %}">
                         {% if slide.right.text is defined and slide.right.text %}
                             <h2 class="{{ slide.right.class }}" data-seq>
@@ -29,7 +29,7 @@
                 {% endif %}
 
                 {% if slide.left is defined and slide.left %}
-                    <div class="col col-xs-6 content {% if slide.left.position is defined %}{{ slide.left.position }}{% endif %}"
+                    <div class="col col-xs-12 col-sm-6 content {% if slide.left.position is defined %}{{ slide.left.position }}{% endif %}"
                          style="{% if slide.left.color is defined %}color: {{ slide.left.color }}{% endif %}" >
                         {% if slide.left.text is defined and slide.left.text %}
                             <h2 class="{{ slide.left.class }}" data-seq>
@@ -55,8 +55,8 @@
 
 
     </div>
-    <button type="button" class="seq-next">Next</button>
-    <button type="button" class="seq-prev">Prev</button>
+    <button type="button" class="seq-next"><div class="icon icon-arrow-right"></div></button>
+    <button type="button" class="seq-prev"><div class="icon icon-arrow-left"></div></button>
     <ul class="seq-pagination">
         {% for slide in params.slideshow %}
             <li>{{ loop.index }}</li>

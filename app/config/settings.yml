@@ -41,7 +41,7 @@ parameters:
                     sub_text:
                     subtext_class: slider-subtext-class
 
-                    position: top
+                    position: bottom
 
                     icon:
                         image: "slider_icon_00.png"
@@ -56,7 +56,7 @@ parameters:
                     sub_text:
                     sub_text_class: slider-subtext-class
 
-                    position: top
+                    position: middle
                 left:
                     text: جزیره کیش در جیب شما
                     class: slider-text-class
@@ -224,7 +224,7 @@ parameters:
                 -
                     url: "kish_map.png"
                     link: "http://map.darkish.ir"
-                    class: kish-map-image-left-class
+                    class: kish-map-image-left-class hidden-xs hidden-sm
         kish_centers:
             class: kish-centers-wrapper
 

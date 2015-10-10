@@ -1,0 +1,45 @@
+.weather-block {
+  display: inline-block;
+  width: 100%;
+
+  & > .col {
+    padding: 0;
+  }
+  .today {
+    text-align: center;
+    img {
+      float: right;
+      width: 60%;
+    }
+    .weather-info {
+      float: right;
+      width: 40%;
+      & > span {
+        display: block;
+      }
+      .city-name {
+        color: #FF5900;
+        font-size: 30px;
+      }
+      .current-temp {
+        font-size: 24px;
+      }
+      .low-high-temp {
+        font-size: 14px;
+
+      }
+    }
+  }
+  .next-day {
+    text-align: center;
+    & > span {
+      display: block;
+    }
+    .day {
+      font-size: 14px;
+    }
+    .low-high-temp {
+      font-size: 14px;
+    }
+  }
+}

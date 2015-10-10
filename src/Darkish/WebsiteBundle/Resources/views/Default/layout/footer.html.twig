@@ -56,7 +56,9 @@
         </div>
         <div class="col col-xs-12 col-sm-3 weather">
             <div>
-                weather
+                {{ sonata_block_render({
+                    'type': 'darkish_website.block.weather'
+                }) }}
             </div>
         </div>
         <div class="col col-xs-12 col-sm-3 links">

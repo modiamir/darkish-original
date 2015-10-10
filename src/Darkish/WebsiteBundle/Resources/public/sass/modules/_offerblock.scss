@@ -2,20 +2,39 @@
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   border-top: 2px solid #E55D62;
   position: relative;
+  margin-top: 60px;
+  .cms-block {
+    text-align: center;
+  }
   .offer-block-title {
     text-align: center;
     color: #FF0000;
     font-size: 20px;
+    display: inline-block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 60px;
+    position: relative;
+    line-height: 60px;
+    .icon {
+      position: absolute;
+      left: 0px;
+      top: 0;
+      font-size: 60px;
+      width: 60px;
+      height: 60px;
+    }
   }
   img.offer-right {
     position: absolute;
-    top:0;
+    top: 40px;
     right: 40px;
   }
 
   img.offer-left {
     position: absolute;
-    top:0;
+    top: -5px;
     left: 40px;
   }
 }

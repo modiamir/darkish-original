@@ -8,12 +8,30 @@
       border-bottom: 2px solid #F17022;
       margin-bottom: 0;
       z-index: 10;
+      top: 1px;
+      @include breakpoint(sm, md) {
+        .navbar-nav > li > a {
+          font-size: 14px;
+        }
+      }
+      @include breakpoint(sm) {
+        .navbar-nav > li > a {
+          padding-right: 5px;
+          padding-left: 5px;
+        }
+      }
+
       & > .container-fluid {
         .navbar-secondary-menu {
           @include breakpoint(md, lg) {
             border-left: 2px solid white;
           }
 
+        }
+      }
+      .navbar-app-download.navbar-collapse.collapse {
+        @include breakpoint(xs, sm) {
+          display: none !important;
         }
       }
       .navbar-brand {
@@ -25,6 +43,15 @@
       }
       .navbar-nav > li > a {
         color: white;
+      }
+
+      .navbar-secondary-menu {
+        ul.menu-primary:last-child {
+          margin-left: 0;
+          & > li > a {
+            color: #c1dffa;
+          }
+        }
       }
 
     }
@@ -84,6 +111,9 @@
     display: inline-block;
     vertical-align: middle;
     height: 100%;
+    @include breakpoint(xs) {
+      height: 50%;
+    }
   }
 
   /* Vertically center align the .content element */
@@ -94,17 +124,27 @@
     float: none;
     &.top {
       vertical-align: top;
+      @include breakpoint(xs) {
+        vertical-align: middle;
+      }
     }
 
     &.bottom {
       vertical-align: bottom;
+      @include breakpoint(xs) {
+        vertical-align: middle;
+      }
     }
     h2, h3 {
       font-family: cocon;
     }
     h2 {
       text-shadow: 1px 4px 4px darkslategray;
-      font-size: 50px;
+      font-size: 30px;
+      line-height: 60px;
+      img {
+        height: 60px;
+      }
     }
   }
 
@@ -136,7 +176,6 @@
   #sequence h3 {
     font-size: 1.4em;
   }
-
 
   /* Starting positions */
   #sequence h2,
@@ -171,7 +210,6 @@
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
-
 
   /* Starting positions */
   #sequence h2,
@@ -210,14 +248,60 @@
 
   .seq-next {
     position: absolute;
-    top: 45%;
+    top: 50%;
+    background: transparent;
     right: 2%;
+    border: 0;
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: -30px;
+    text-align: center;
+    padding: 0;
+    .icon {
+      padding: 0;
+      margin: 0;
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    &:hover {
+      color: white;
+    }
   }
 
   .seq-prev {
     position: absolute;
-    top: 45%;
+    top: 50%;
+    background: transparent;
     left: 2%;
+    border: 0;
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: -30px;
+    text-align: center;
+    padding: 0;
+    .icon {
+      padding: 0;
+      margin: 0;
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+    &:hover {
+      color: white;
+    }
+  }
+
+  #sequence:hover {
+    .seq-prev, .seq-next {
+      .icon {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   .seq-pagination {
@@ -229,8 +313,9 @@
     li {
       display: inline-block;
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 12px;
+      height: 12px;
+      text-indent: -10000px;
       background: white;
       border-radius: 10px;
       &:hover {
@@ -248,7 +333,6 @@
 }
 
 
-
 .about-kish-wrapper {
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   position: relative;
@@ -256,7 +340,7 @@
     background-color: #264a60;
     padding: 50px 100px;
     @include breakpoint(xs, sm) {
-      padding: 50px 0px;
+      padding: 0px 0px;
     }
     & > .col {
       .info-box {
@@ -408,6 +492,11 @@
       }
     }
 
+  }
+  #submit-record {
+    width: 90%;
+    margin-left: -45%;
+    margin-right: -45%;
   }
 }
 
@@ -717,7 +806,15 @@
       text-align: center;
       padding: 10px;
       a {
-        margin: 0 10px;
+        margin: 0 2%;
+        float: right;
+        width: 46%;
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          text-align: right;
+        }
       }
     }
   }

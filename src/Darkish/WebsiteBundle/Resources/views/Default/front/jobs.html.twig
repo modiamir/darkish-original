@@ -3,15 +3,15 @@
 </h3>
 <div class="container">
     <div class="row first-row">
-        <div class="col col-xs-12 col-sm-4 {{ jobs.icon.class }} mobile-app">
+        <div class="col col-xs-12 col-sm-4 hidden-xs {{ jobs.icon.class }} mobile-app">
             <a class="download-app" href="/app_dev.php/"><img  src="{{ asset('bundles/darkishwebsite/images/front_images/'~jobs.icon.url) }}"></a>
         </div>
         <div class="col col-xs-12 col-sm-4 {{ jobs.sub_text_class }} description">
             {{ jobs.sub_text }}
         </div>
         <div class="col col-xs-12 col-sm-4 {{ jobs.button.class }}">
-            <div class="arrow-right"></div>
-            <button class="btn btn-lg">
+            <div class="arrow-right hidden-xs"></div>
+            <button href="mobile-friendly-page.html" data-mfp-src="#submit-record" class="btn btn-lg open-popup-link">
                 {{ jobs.button.text }}
             </button>
         </div>
@@ -38,4 +38,87 @@
             </div>
         {% endfor %}
     </div>
+</div>
+
+<div class="white-popup mfp-hide" id="submit-record">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="form-group col-xs-6 ">
+            {{ form_row(form.firstName) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.firstName) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6 ">
+            {{ form_row(form.lastName) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.lastName) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6 ">
+            {{ form_row(form.phone) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.phone) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6 ">
+            {{ form_row(form.mobile) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.mobile) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-12">
+            {{ form_row(form.title) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.title) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-12">
+            {{ form_row(form.description) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.description) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6">
+            {{ form_row(form.companyName) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.companyName) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6">
+            {{ form_row(form.companyRegNumber) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.companyRegNumber) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6">
+            {{ form_row(form.companyRegDate) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.companyRegDate) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6">
+            {{ form_row(form.licenseNumber) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.licenseNumber) }}
+            </div>
+        </div>
+        <div class="form-group col-xs-6">
+            {{ form_row(form.email) }}
+            <div class="col-xs-12">
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            {{ form_widget(form.captcha) }}
+        </div>
+        <div class="col-xs-6">
+            <input class="btn btn-success btn-lg" type="submit" value="ارسال درخواست">
+        </div>
+    </div>
+    {{ form_end(form) }}
+
 </div>
