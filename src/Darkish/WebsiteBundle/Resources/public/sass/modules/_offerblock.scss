@@ -3,6 +3,7 @@
   border-top: 2px solid #E55D62;
   position: relative;
   margin-top: 60px;
+  padding-bottom: 10px;
   .cms-block {
     text-align: center;
   }
@@ -39,50 +40,7 @@
   }
 }
 
-.footer-wrapper {
-  border-top: 2px solid #F5FAFF;
-  margin-top: 10px;
-  font-family: 'BYekan', 'YekanNumbers', Tahoma;
-  .container-fluid {
-    .footer-box-title {
-      font-family: cocon;
-      color: #5092E5;
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 15px;
-      span {
-        color: #FF5900;
-      }
-    }
-    .footer-box-body {
-      font-size: 15px;
-    }
-    & > .col > div {
-      margin: 10px 0 ;
-      padding: 5px 10px;
-      background-color: #F5FAFF;
-    }
-  }
 
-  .contact {
-    .footer-box-body {
-      text-align: center;
-      p {
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .contact-link-label {
-        color: #00B4A0;
-        margin-left: 5px;
-      }
-      .contact-button {
-        color: white;
-        background-color: #00B4A0;
-
-      }
-    }
-  }
-}
 
 #offer-carousel {
   width: 80%;

@@ -315,39 +315,88 @@ body .bottom-wrapper .social-link ul li a i.fa {
   font-size: 20px;
   margin-top: 10px;
 }
+/* line 335, ../sass/framework/_layout.scss */
+body .footer-wrapper {
+  border-top: 2px solid #F5FAFF;
+  margin-top: 10px;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+}
+/* line 340, ../sass/framework/_layout.scss */
+body .footer-wrapper .container-fluid .footer-box-title {
+  font-family: cocon;
+  color: #5092E5;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+/* line 346, ../sass/framework/_layout.scss */
+body .footer-wrapper .container-fluid .footer-box-title span {
+  color: #FF5900;
+}
+/* line 350, ../sass/framework/_layout.scss */
+body .footer-wrapper .container-fluid .footer-box-body {
+  font-size: 15px;
+}
+/* line 353, ../sass/framework/_layout.scss */
+body .footer-wrapper .container-fluid > .col > div {
+  margin: 10px 0;
+  padding: 5px 10px;
+  background-color: #F5FAFF;
+  height: 268px;
+  overflow: hidden;
+}
+/* line 363, ../sass/framework/_layout.scss */
+body .footer-wrapper .contact .footer-box-body {
+  text-align: center;
+}
+/* line 365, ../sass/framework/_layout.scss */
+body .footer-wrapper .contact .footer-box-body p {
+  font-size: 16px;
+  font-weight: bold;
+}
+/* line 369, ../sass/framework/_layout.scss */
+body .footer-wrapper .contact .footer-box-body .contact-link-label {
+  color: #00B4A0;
+  margin-left: 5px;
+}
+/* line 373, ../sass/framework/_layout.scss */
+body .footer-wrapper .contact .footer-box-body .contact-button {
+  color: white;
+  background-color: #00B4A0;
+}
 
-/* line 336, ../sass/framework/_layout.scss */
+/* line 383, ../sass/framework/_layout.scss */
 .media-right, .media > .pull-right {
   padding-left: 10px;
   padding-right: initial;
 }
 
-/* line 341, ../sass/framework/_layout.scss */
+/* line 388, ../sass/framework/_layout.scss */
 .media-left, .media > .pull-left {
   padding-right: 10px;
   padding-left: initial;
 }
 
-/* line 346, ../sass/framework/_layout.scss */
+/* line 393, ../sass/framework/_layout.scss */
 img {
   max-width: 100%;
 }
 
-/* line 350, ../sass/framework/_layout.scss */
+/* line 397, ../sass/framework/_layout.scss */
 .nav-tabs > li > a, .tabs-right > li > a {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
-/* line 356, ../sass/framework/_layout.scss */
+/* line 403, ../sass/framework/_layout.scss */
 #audio-player {
   position: fixed;
   left: 0;
   top: 0;
 }
 
-/* line 362, ../sass/framework/_layout.scss */
+/* line 409, ../sass/framework/_layout.scss */
 .pagination > li:first-child > a, .pagination > li:first-child > span {
   margin-left: 0;
   border-bottom-right-radius: 0;
@@ -356,7 +405,7 @@ img {
   border-top-left-radius: 0;
 }
 
-/* line 370, ../sass/framework/_layout.scss */
+/* line 417, ../sass/framework/_layout.scss */
 .pagination > li:last-child > a, .pagination > li:last-child > span {
   margin-right: -1px;
   border-bottom-left-radius: 0;
@@ -365,16 +414,16 @@ img {
   border-top-right-radius: 0;
 }
 
-/* line 378, ../sass/framework/_layout.scss */
+/* line 425, ../sass/framework/_layout.scss */
 a.dk-video-modal {
   display: inline-block;
   position: relative;
 }
-/* line 381, ../sass/framework/_layout.scss */
+/* line 428, ../sass/framework/_layout.scss */
 a.dk-video-modal img {
   width: 350px;
 }
-/* line 384, ../sass/framework/_layout.scss */
+/* line 431, ../sass/framework/_layout.scss */
 a.dk-video-modal span {
   position: absolute;
   top: 0;
@@ -386,12 +435,12 @@ a.dk-video-modal span {
   background-repeat: no-repeat;
   opacity: 0.5;
 }
-/* line 395, ../sass/framework/_layout.scss */
+/* line 442, ../sass/framework/_layout.scss */
 a.dk-video-modal:hover span {
   opacity: 0.8;
 }
 
-/* line 400, ../sass/framework/_layout.scss */
+/* line 447, ../sass/framework/_layout.scss */
 a.dk-audio-play {
   width: 120px;
   height: 87px;
@@ -401,16 +450,16 @@ a.dk-audio-play {
   background-repeat: no-repeat;
 }
 
-/* line 412, ../sass/framework/_layout.scss */
+/* line 459, ../sass/framework/_layout.scss */
 .media img {
   max-width: none;
 }
 
-/* line 417, ../sass/framework/_layout.scss */
+/* line 464, ../sass/framework/_layout.scss */
 .panel {
   border: 0;
 }
-/* line 419, ../sass/framework/_layout.scss */
+/* line 466, ../sass/framework/_layout.scss */
 .panel .panel-heading {
   border-bottom: 1px solid #eeeeee;
   border-top: 2px solid #ff6600;
@@ -420,25 +469,25 @@ a.dk-audio-play {
   color: inherit;
   font-size: 30px;
 }
-/* line 427, ../sass/framework/_layout.scss */
+/* line 474, ../sass/framework/_layout.scss */
 .panel .panel-heading .panel-title {
   font-size: 30px;
 }
-/* line 431, ../sass/framework/_layout.scss */
+/* line 478, ../sass/framework/_layout.scss */
 .panel .panel-body {
   background-color: #F7F7F7;
 }
 
-/* line 436, ../sass/framework/_layout.scss */
+/* line 483, ../sass/framework/_layout.scss */
 .jumbotron {
   background-color: #F7F7F7;
 }
 
-/* line 440, ../sass/framework/_layout.scss */
+/* line 487, ../sass/framework/_layout.scss */
 .mfp-content {
   text-align: right !important;
 }
-/* line 442, ../sass/framework/_layout.scss */
+/* line 489, ../sass/framework/_layout.scss */
 .mfp-content .white-popup {
   position: relative;
   background: #FFF;
@@ -447,7 +496,7 @@ a.dk-audio-play {
   max-width: 500px;
   margin: 20px auto;
 }
-/* line 450, ../sass/framework/_layout.scss */
+/* line 497, ../sass/framework/_layout.scss */
 .mfp-content .white-popup .mfp-close {
   right: inherit;
   left: 0;
@@ -2554,12 +2603,13 @@ ul.tree-list li a:hover {
   border-top: 2px solid #E55D62;
   position: relative;
   margin-top: 60px;
+  padding-bottom: 10px;
 }
-/* line 6, ../sass/modules/_offerblock.scss */
+/* line 7, ../sass/modules/_offerblock.scss */
 .offer-wrapper .cms-block {
   text-align: center;
 }
-/* line 9, ../sass/modules/_offerblock.scss */
+/* line 10, ../sass/modules/_offerblock.scss */
 .offer-wrapper .offer-block-title {
   text-align: center;
   color: #FF0000;
@@ -2572,7 +2622,7 @@ ul.tree-list li a:hover {
   position: relative;
   line-height: 60px;
 }
-/* line 20, ../sass/modules/_offerblock.scss */
+/* line 21, ../sass/modules/_offerblock.scss */
 .offer-wrapper .offer-block-title .icon {
   position: absolute;
   left: 0px;
@@ -2581,84 +2631,36 @@ ul.tree-list li a:hover {
   width: 60px;
   height: 60px;
 }
-/* line 29, ../sass/modules/_offerblock.scss */
+/* line 30, ../sass/modules/_offerblock.scss */
 .offer-wrapper img.offer-right {
   position: absolute;
   top: 40px;
   right: 40px;
 }
-/* line 35, ../sass/modules/_offerblock.scss */
+/* line 36, ../sass/modules/_offerblock.scss */
 .offer-wrapper img.offer-left {
   position: absolute;
   top: -5px;
   left: 40px;
 }
 
-/* line 42, ../sass/modules/_offerblock.scss */
-.footer-wrapper {
-  border-top: 2px solid #F5FAFF;
-  margin-top: 10px;
-  font-family: 'BYekan', 'YekanNumbers', Tahoma;
-}
-/* line 47, ../sass/modules/_offerblock.scss */
-.footer-wrapper .container-fluid .footer-box-title {
-  font-family: cocon;
-  color: #5092E5;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 15px;
-}
-/* line 53, ../sass/modules/_offerblock.scss */
-.footer-wrapper .container-fluid .footer-box-title span {
-  color: #FF5900;
-}
-/* line 57, ../sass/modules/_offerblock.scss */
-.footer-wrapper .container-fluid .footer-box-body {
-  font-size: 15px;
-}
-/* line 60, ../sass/modules/_offerblock.scss */
-.footer-wrapper .container-fluid > .col > div {
-  margin: 10px 0;
-  padding: 5px 10px;
-  background-color: #F5FAFF;
-}
-/* line 68, ../sass/modules/_offerblock.scss */
-.footer-wrapper .contact .footer-box-body {
-  text-align: center;
-}
-/* line 70, ../sass/modules/_offerblock.scss */
-.footer-wrapper .contact .footer-box-body p {
-  font-size: 16px;
-  font-weight: bold;
-}
-/* line 74, ../sass/modules/_offerblock.scss */
-.footer-wrapper .contact .footer-box-body .contact-link-label {
-  color: #00B4A0;
-  margin-left: 5px;
-}
-/* line 78, ../sass/modules/_offerblock.scss */
-.footer-wrapper .contact .footer-box-body .contact-button {
-  color: white;
-  background-color: #00B4A0;
-}
-
-/* line 87, ../sass/modules/_offerblock.scss */
+/* line 45, ../sass/modules/_offerblock.scss */
 #offer-carousel {
   width: 80%;
   margin: auto;
 }
-/* line 90, ../sass/modules/_offerblock.scss */
+/* line 48, ../sass/modules/_offerblock.scss */
 #offer-carousel img {
   margin-bottom: 0;
 }
-/* line 93, ../sass/modules/_offerblock.scss */
+/* line 51, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 }
-/* line 98, ../sass/modules/_offerblock.scss */
+/* line 56, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-prev, #offer-carousel .owl-controls .owl-next {
   font-family: cursive;
   font-size: 60px;
@@ -2668,13 +2670,13 @@ ul.tree-list li a:hover {
   line-height: 20px;
   text-align: center;
 }
-/* line 107, ../sass/modules/_offerblock.scss */
+/* line 65, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-prev {
   position: absolute;
   right: -50px;
   bottom: 0;
 }
-/* line 112, ../sass/modules/_offerblock.scss */
+/* line 70, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-next {
   position: absolute;
   left: -50px;

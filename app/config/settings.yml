@@ -9,7 +9,7 @@ parameters:
             - "0003"
             - "0005"
         forum_default_state: 1 # 0: not commentable, 1: commentable
-        safarsaz_default_state: 1 # 0: not commentable, 1: commentable
+        itinerary_default_state: 1 # 0: not commentable, 1: commentable
 
     darkish.watermark:
         classified: false
