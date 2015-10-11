@@ -19,6 +19,7 @@ class Task
      * @Assert\NotBlank()
      * @Assert\NotNull()
      * @Assert\Type(type="int")
+     * @Assert\Range(min="1")
      */
     private $id;
 
