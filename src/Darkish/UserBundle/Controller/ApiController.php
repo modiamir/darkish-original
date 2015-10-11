@@ -2,6 +2,7 @@
 
 namespace Darkish\UserBundle\Controller;
 
+use Darkish\UserBundle\Form\ClientProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -588,6 +589,34 @@ class ApiController extends FOSRestController
         $em->flush();
 
         return ['code' => 200, 'message' => 'photo assigned to user profile'];
+    }
+
+    /**
+     * This method is for assign photo to profile.
+     *
+     * @Method({"POST"})
+     * @View()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function postOneupProfileUpdateAction(Request $request)
+    {
+        $client = $this->get('security.token_storage')->getToken()->getUser();
+
+        $form = $this->createForm(new ClientProfileType(), $client);
+
+        $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+//            $em->persist($client);
+//            $em->flush();
+
+            return $client;
+        }
+
+        return ['error' => $form->getErrorsAsString(), 'client' => $client];
+
     }
     
 
