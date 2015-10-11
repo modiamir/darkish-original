@@ -608,9 +608,11 @@ class ApiController extends FOSRestController
 
         if($form->isValid())
         {
+            return $request->request->get('darkish_client[]');
+
             $em = $this->getDoctrine()->getManager();
-//            $em->persist($client);
-//            $em->flush();
+            $em->persist($client);
+            $em->flush();
 
             return $client;
         }

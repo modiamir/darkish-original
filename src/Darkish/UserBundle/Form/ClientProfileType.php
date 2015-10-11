@@ -21,8 +21,12 @@ class ClientProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fullName')
-            ->add('photo', new ManagedFileType())
+            ->add('fullName', null,[
+                'required' => false
+            ])
+            ->add('photo', new ManagedFileType(),[
+                'required' => false
+            ])
         ;
 
 

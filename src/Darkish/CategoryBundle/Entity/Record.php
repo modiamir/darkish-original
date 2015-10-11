@@ -1244,7 +1244,7 @@ class Record implements LikableInterface, CanFavoriteInterface, VisitableInterfa
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Darkish\UserBundle\Entity\Client", mappedBy="favoriteRecords")
+     * @ORM\ManyToMany(targetEntity="Darkish\UserBundle\Entity\Client", mappedBy="favoriteRecords", cascade={"persist"})
      * @Groups({"client.details", "record.details"})
      */
     private $clientsFavorited;
