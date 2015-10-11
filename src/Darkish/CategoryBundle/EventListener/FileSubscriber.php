@@ -453,7 +453,7 @@ class FileSubscriber implements EventSubscriber
             foreach($directories as $uploadDir)
             {
                 /* @var $manager \Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage */
-                $manager = $this->container->get('oneup_uploader.orphanage_manager')->get('image');
+                $manager = $this->container->get('oneup_uploader.orphanage_manager')->get($uploadDir);
                 if($manager->getFiles()->files()->name($entity->getFileName($entity->getFileName()))->count())
                 {
                     $entity->setUploadDir($uploadDir);
@@ -469,6 +469,10 @@ class FileSubscriber implements EventSubscriber
             foreach($files as $f) {
                 $file = $f;
                 break;
+            }
+
+            if(!isset($file) || !$file) {
+                throw new \Exception("File Doesn't exiss");
             }
 
             $type = explode("-", $entity->getFileName())[0];

@@ -18,6 +18,7 @@ use FOS\RestBundle\Controller\Annotations\Prefix,
     FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\Serializer\SerializationContext;
@@ -600,6 +601,10 @@ class ApiController extends FOSRestController
      */
     public function postOneupProfileUpdateAction(Request $request)
     {
+        $session = new Session();
+        $session->start();
+
+        /* @var $client \Darkish\UserBundle\Entity\Client */
         $client = $this->get('security.token_storage')->getToken()->getUser();
 
         $form = $this->createForm(new ClientProfileType(), $client);
@@ -608,7 +613,12 @@ class ApiController extends FOSRestController
 
         if($form->isValid())
         {
-            return $request->request->get('darkish_client[]');
+            if($request->get('darkish_client[photo][fileName]', null, true))
+            {
+                $photo = $client->getPhoto();
+                $photo->setOneup(true);
+                $photo->setUserId($client->getId());
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);

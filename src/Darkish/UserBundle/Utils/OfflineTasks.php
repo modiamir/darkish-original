@@ -141,7 +141,7 @@ class OfflineTasks
 
 
     private function favoriteTask(Task $task) {
-
+        /* @var $client \Darkish\UserBundle\Entity\Client */
         $client = $this->container->get('security.token_storage')->getToken()->getUser();
 
         switch($task->getEntityType())
@@ -170,9 +170,9 @@ class OfflineTasks
             case "1":
                 if(in_array($task->getEntityType(), ['record']))
                 {
-                    if(!$entity->getClientsFavorited()->contains($client))
+                    if(!$client->getFavoriteRecords()->contains($entity))
                     {
-                        $entity->addClientsFavorited($client);
+                        $client->addFavoriteRecord($entity);
                         $entity->setFavoriteCount( $entity->getFavoriteCount() + 1 );
                     }
                     else
@@ -188,9 +188,9 @@ class OfflineTasks
             case "-1":
                 if(in_array($task->getEntityType(), ['record']))
                 {
-                    if($entity->getClientsFavorited()->contains($client))
+                    if($client->getFavoriteRecords()->contains($entity))
                     {
-                        $entity->removeClientsFavorited($client);
+                        $client->removeFavoriteRecord($entity);
                         $entity->setFavoriteCount( $entity->getFavoriteCount() - 1 );
                     }
                     else
@@ -213,6 +213,7 @@ class OfflineTasks
 
 
         $em = $this->container->get('doctrine')->getManager();
+        $em->persist($client);
         $em->persist($entity);
         $em->flush();
 
