@@ -48,7 +48,7 @@ class Client implements UserInterface, \Serializable
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile", cascade={"persist"})
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
      * @Groups({"thread.list", "thread.details", "itinerary.list.api"})
      *
