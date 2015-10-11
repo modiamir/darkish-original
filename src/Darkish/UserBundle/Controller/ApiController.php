@@ -624,6 +624,7 @@ class ApiController extends FOSRestController
             $em->persist($client);
             $em->flush();
 
+            
             return 'done';
         }
 
