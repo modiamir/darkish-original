@@ -49,7 +49,7 @@ class AnonymousItinerary extends Itinerary
      *
      * @return AnonymousItinerary
      */
-    public function setClaimType($claimType)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 

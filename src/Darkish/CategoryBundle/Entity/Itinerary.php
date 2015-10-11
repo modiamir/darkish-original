@@ -2,9 +2,9 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
-use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
-use Darkish\CategoryBundle\Interfaces\LikableInterface;
-use Darkish\CategoryBundle\Interfaces\VisitableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\VisitableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;

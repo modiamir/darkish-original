@@ -1,6 +1,6 @@
 <?php
 
-namespace Darkish\CategoryBundle\Interfaces;
+namespace Darkish\CategoryBundle\Entity\Interfaces;
 
 use Darkish\UserBundle\Entity\Client;
 use Doctrine\Common\Collections\ArrayCollection;

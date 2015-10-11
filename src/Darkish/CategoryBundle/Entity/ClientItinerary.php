@@ -53,7 +53,7 @@ class ClientItinerary extends Itinerary
      *
      * @return ClientItinerary
      */
-    public function setClaimType($claimType)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 
