@@ -97,6 +97,7 @@ class OfflineTasks
 
         if(!$entity instanceof LikableInterface)
         {
+            die('asd');
             throw new \Exception('', self::INVALID_ENTITY_TYPE);
         }
 
