@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Itinerary implements LikableInterface, VisitableInterface, ClaimableInterface
 {
+    
     /**
      * @var integer
      *
