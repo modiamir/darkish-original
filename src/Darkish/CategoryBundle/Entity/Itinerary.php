@@ -377,7 +377,7 @@ class Itinerary implements LikableInterface, VisitableInterface, ClaimableInterf
      *
      * @return Itinerary
      */
-    public function setClaimType($claimType)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 
