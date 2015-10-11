@@ -624,10 +624,10 @@ class ApiController extends FOSRestController
             $em->persist($client);
             $em->flush();
 
-            return $client;
+            return 'done';
         }
 
-        return ['error' => $form->getErrorsAsString(), 'client' => $client];
+        return ['error' => $form->getErrorsAsString()];
 
     }
     
