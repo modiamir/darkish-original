@@ -5,11 +5,11 @@ namespace Darkish\UserBundle\Utils;
 
 
 use Darkish\CategoryBundle\Entity\Record;
-use Darkish\CategoryBundle\Interfaces\CanFavoriteInterface;
-use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
-use Darkish\CategoryBundle\Interfaces\LikableInterface;
-use Darkish\CategoryBundle\Interfaces\NotifiableInterface;
-use Darkish\CategoryBundle\Interfaces\VisitableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\CanFavoriteInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\NotifiableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\VisitableInterface;
 use Darkish\UserBundle\Model\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Container;
