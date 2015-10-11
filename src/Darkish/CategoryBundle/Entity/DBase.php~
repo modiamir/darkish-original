@@ -12,11 +12,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Product
  *
- * @ORM\Table(name="Database")
+ * @ORM\Table(name="DBase")
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"estate" = "Estate", "automobile" = "Automobile"})
+ * @ORM\DiscriminatorMap({"estate" = "Estate", "automobile" = "Automobile", "dbase" = "DBase"})
  * @UniqueEntity(
  *     fields={"code", "record"},
  *     errorPath="code",
@@ -36,7 +36,7 @@ class DBase
     protected $id;
 
     /**
-     * @ORM\Column(name="code", type="string")
+     * @ORM\Column(name="code", type="string", nullable=true)
      * @Groups({"database.list", "database.details"})
      * @Type("integer")
      */
@@ -57,24 +57,25 @@ class DBase
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Record")
+     * @ORM\ManyToOne(targetEntity="Record", inversedBy="dbaseItems")
+     * @Groups({"database.list", "database.details"})
      */
     protected $record;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="dbaseItems")
      * @Groups({"database.list", "database.details"})
      */
     protected $customer;
 
     /**
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      * @Groups({"database.list", "database.details"})
      */
     protected $status;
 
     /**
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created", type="datetime", nullable=true)
      * @Groups({"database.list", "database.details"})
      */
     protected $created;
@@ -90,13 +91,13 @@ class DBase
     protected $photos;
 
     /**
-     * @ORM\Column(name="price", type="bigint")
+     * @ORM\Column(name="price", type="bigint", nullable=true)
      * @Groups({"database.list", "database.details"})
      */
     protected $price;
 
     /**
-     * @ORM\Column(name="secondary_price", type="bigint")
+     * @ORM\Column(name="secondary_price", type="bigint", nullable=true)
      * @Groups({"database.list", "database.details"})
      */
     protected $secondaryPrice;
@@ -314,5 +315,51 @@ class DBase
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return DBase
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set secondaryPrice
+     *
+     * @param integer $secondaryPrice
+     * @return DBase
+     */
+    public function setSecondaryPrice($secondaryPrice)
+    {
+        $this->secondaryPrice = $secondaryPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get secondaryPrice
+     *
+     * @return integer 
+     */
+    public function getSecondaryPrice()
+    {
+        return $this->secondaryPrice;
     }
 }

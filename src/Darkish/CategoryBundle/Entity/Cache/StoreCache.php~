@@ -2,7 +2,7 @@
 
 namespace Darkish\CategoryBundle\Entity\Cache;
 
-use Darkish\CategoryBundle\Entity\Record;
+use Darkish\CategoryBundle\Entity\Record as Record;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +24,7 @@ class StoreCache
 
     /**
      * @var Record
-     * @ORM\OneToOne(targetEntity="Record")
+     * @ORM\OneToOne(targetEntity="\Darkish\CategoryBundle\Entity\Record", inversedBy="storeCache")
      */
     private $recordId;
 
@@ -73,4 +73,28 @@ class StoreCache
     }
 
    
+
+    /**
+     * Set recordId
+     *
+     * @param \Darkish\CategoryBundle\Entity\Cache\Record $recordId
+     *
+     * @return StoreCache
+     */
+    public function setRecordId(\Darkish\CategoryBundle\Entity\Record $recordId = null)
+    {
+        $this->recordId = $recordId;
+
+        return $this;
+    }
+
+    /**
+     * Get recordId
+     *
+     * @return \Darkish\CategoryBundle\Entity\Record
+     */
+    public function getRecordId()
+    {
+        return $this->recordId;
+    }
 }

@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * Area
  *
- * @ORM\Table()
+ * @ORM\Table(name="area")
  * @ORM\Entity
  */
 class Area
@@ -19,6 +19,7 @@ class Area
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"record.details", "area.list"})
      */
     private $id;
 
@@ -26,6 +27,7 @@ class Area
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"record.details", "area.list"})
      */
     private $name;
 
@@ -47,6 +49,7 @@ class Area
      * @var integer
      *
      * @ORM\Column(name="sort", type="integer")
+     * @Groups({"record.details", "area.list"})
      */
     private $sort;
 
@@ -159,5 +162,45 @@ class Area
     public function getSort()
     {
         return $this->sort;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->records = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     * @return Area
+     */
+    public function addRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records[] = $records;
+    
+        return $this;
+    }
+
+    /**
+     * Remove records
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $records
+     */
+    public function removeRecord(\Darkish\CategoryBundle\Entity\Record $records)
+    {
+        $this->records->removeElement($records);
+    }
+
+    /**
+     * Get records
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecords()
+    {
+        return $this->records;
     }
 }

@@ -1320,8 +1320,10 @@ a.dk-audio-play {
 .kish-forum-wrapper .kish-forum-over-image-class {
   position: absolute;
   left: 50%;
-  margin-left: -123px;
+  margin-left: -117px;
   bottom: 30px;
+  width: 246px;
+  z-index: 10;
 }
 @media (max-width: 767px) {
   /* line 718, ../sass/modules/_front.scss */
@@ -1331,27 +1333,41 @@ a.dk-audio-play {
     margin: 10px auto;
   }
 }
-
 /* line 732, ../sass/modules/_front.scss */
+.kish-forum-wrapper .center-line {
+  width: 2px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -1px;
+  top: 50%;
+  margin-top: -130px;
+  background: -webkit-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+  background: -o-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+  background: -moz-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+  background: linear-gradient(#00a5c9, #35bad7, #00a5c9);
+}
+
+/* line 747, ../sass/modules/_front.scss */
 .kish-classified-wrapper {
   background-color: #DFE6EB;
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   padding-top: 20px;
   text-align: center;
 }
-/* line 737, ../sass/modules/_front.scss */
+/* line 752, ../sass/modules/_front.scss */
 .kish-classified-wrapper .dark-text-class {
   text-align: center;
 }
-/* line 740, ../sass/modules/_front.scss */
+/* line 755, ../sass/modules/_front.scss */
 .kish-classified-wrapper .dark-subtext-class {
   text-align: center;
 }
-/* line 744, ../sass/modules/_front.scss */
+/* line 759, ../sass/modules/_front.scss */
 .kish-classified-wrapper .green-button-class {
   text-align: center;
 }
-/* line 746, ../sass/modules/_front.scss */
+/* line 761, ../sass/modules/_front.scss */
 .kish-classified-wrapper .green-button-class .arrow-right {
   width: 0;
   height: 0;
@@ -1360,47 +1376,47 @@ a.dk-audio-play {
   border-left: 20px solid #00B4A0;
   display: inline-flex;
 }
-/* line 756, ../sass/modules/_front.scss */
+/* line 771, ../sass/modules/_front.scss */
 .kish-classified-wrapper .green-button-class a.btn {
   background-color: #00B4A0;
   color: #E2E9ED;
 }
-/* line 762, ../sass/modules/_front.scss */
+/* line 777, ../sass/modules/_front.scss */
 .kish-classified-wrapper .kish_classified-images {
   margin-top: 10px;
   margin-bottom: 40px;
   text-align: center;
 }
 
-/* line 770, ../sass/modules/_front.scss */
+/* line 785, ../sass/modules/_front.scss */
 .kish-app-wrapper {
   background-color: #050F1E;
   font-family: 'BYekan', 'YekanNumbers', Tahoma;
   position: relative;
 }
-/* line 774, ../sass/modules/_front.scss */
+/* line 789, ../sass/modules/_front.scss */
 .kish-app-wrapper .right {
   text-align: center;
   z-index: 2;
 }
-/* line 777, ../sass/modules/_front.scss */
+/* line 792, ../sass/modules/_front.scss */
 .kish-app-wrapper .right .kish-app-image-right-class {
   margin-top: 30px;
   margin-bottom: 20px;
 }
-/* line 782, ../sass/modules/_front.scss */
+/* line 797, ../sass/modules/_front.scss */
 .kish-app-wrapper .left {
   text-align: center;
 }
-/* line 784, ../sass/modules/_front.scss */
+/* line 799, ../sass/modules/_front.scss */
 .kish-app-wrapper .left .kish-app-image-left-class {
   margin-bottom: 20px;
 }
-/* line 787, ../sass/modules/_front.scss */
+/* line 802, ../sass/modules/_front.scss */
 .kish-app-wrapper .left .light-subtext-class {
   color: #CDE1E9;
 }
-/* line 792, ../sass/modules/_front.scss */
+/* line 807, ../sass/modules/_front.scss */
 .kish-app-wrapper .kish-app-button-wrapper {
   position: absolute;
   bottom: 0;
@@ -1411,62 +1427,62 @@ a.dk-audio-play {
   z-index: 1;
 }
 @media (max-width: 767px) {
-  /* line 792, ../sass/modules/_front.scss */
+  /* line 807, ../sass/modules/_front.scss */
   .kish-app-wrapper .kish-app-button-wrapper {
     position: static;
     display: inline-block;
     width: 100%;
   }
 }
-/* line 805, ../sass/modules/_front.scss */
+/* line 820, ../sass/modules/_front.scss */
 .kish-app-wrapper .kish-app-button-wrapper > .col {
   text-align: center;
   padding: 10px;
 }
-/* line 808, ../sass/modules/_front.scss */
+/* line 823, ../sass/modules/_front.scss */
 .kish-app-wrapper .kish-app-button-wrapper > .col a {
   margin: 0 2%;
   float: right;
   width: 46%;
 }
-/* line 812, ../sass/modules/_front.scss */
+/* line 827, ../sass/modules/_front.scss */
 .kish-app-wrapper .kish-app-button-wrapper > .col a:first-child {
   text-align: left;
 }
-/* line 815, ../sass/modules/_front.scss */
+/* line 830, ../sass/modules/_front.scss */
 .kish-app-wrapper .kish-app-button-wrapper > .col a:last-child {
   text-align: right;
 }
 
-/* line 830, ../sass/modules/_front.scss */
+/* line 845, ../sass/modules/_front.scss */
 .green-text-class {
   color: #00C0A9;
 }
 
-/* line 834, ../sass/modules/_front.scss */
+/* line 849, ../sass/modules/_front.scss */
 .green-subtext-class {
   color: #BDC6CC;
 }
 
-/* line 840, ../sass/modules/_front.scss */
+/* line 855, ../sass/modules/_front.scss */
 a.btn.green-button-class {
   background-color: #00B4A0;
   color: #E2E9ED;
 }
 
-/* line 845, ../sass/modules/_front.scss */
+/* line 860, ../sass/modules/_front.scss */
 a.btn.dark-button-class {
   background-color: #24638A;
   border: 0;
   color: #E2E9ED;
 }
 
-/* line 852, ../sass/modules/_front.scss */
+/* line 867, ../sass/modules/_front.scss */
 .light-text-class {
   color: #CDE1E9;
 }
 
-/* line 856, ../sass/modules/_front.scss */
+/* line 871, ../sass/modules/_front.scss */
 .light-subtext-class {
   color: #005B94;
 }
@@ -2604,12 +2620,20 @@ ul.tree-list li a:hover {
   position: relative;
   margin-top: 60px;
   padding-bottom: 10px;
+  background: -webkit-linear-gradient(#f5faff, white, white, white, white, white, white, #f5faff);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#f5faff, white, white, white, white, white, white, #f5faff);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#f5faff, white, white, white, white, white, white, #f5faff);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#f5faff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #f5faff);
+  /* Standard syntax */
 }
-/* line 7, ../sass/modules/_offerblock.scss */
+/* line 11, ../sass/modules/_offerblock.scss */
 .offer-wrapper .cms-block {
   text-align: center;
 }
-/* line 10, ../sass/modules/_offerblock.scss */
+/* line 14, ../sass/modules/_offerblock.scss */
 .offer-wrapper .offer-block-title {
   text-align: center;
   color: #FF0000;
@@ -2622,7 +2646,7 @@ ul.tree-list li a:hover {
   position: relative;
   line-height: 60px;
 }
-/* line 21, ../sass/modules/_offerblock.scss */
+/* line 25, ../sass/modules/_offerblock.scss */
 .offer-wrapper .offer-block-title .icon {
   position: absolute;
   left: 0px;
@@ -2631,36 +2655,36 @@ ul.tree-list li a:hover {
   width: 60px;
   height: 60px;
 }
-/* line 30, ../sass/modules/_offerblock.scss */
+/* line 34, ../sass/modules/_offerblock.scss */
 .offer-wrapper img.offer-right {
   position: absolute;
   top: 40px;
   right: 40px;
 }
-/* line 36, ../sass/modules/_offerblock.scss */
+/* line 40, ../sass/modules/_offerblock.scss */
 .offer-wrapper img.offer-left {
   position: absolute;
   top: -5px;
   left: 40px;
 }
 
-/* line 45, ../sass/modules/_offerblock.scss */
+/* line 49, ../sass/modules/_offerblock.scss */
 #offer-carousel {
   width: 80%;
   margin: auto;
 }
-/* line 48, ../sass/modules/_offerblock.scss */
+/* line 52, ../sass/modules/_offerblock.scss */
 #offer-carousel img {
   margin-bottom: 0;
 }
-/* line 51, ../sass/modules/_offerblock.scss */
+/* line 55, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 }
-/* line 56, ../sass/modules/_offerblock.scss */
+/* line 60, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-prev, #offer-carousel .owl-controls .owl-next {
   font-family: cursive;
   font-size: 60px;
@@ -2670,13 +2694,13 @@ ul.tree-list li a:hover {
   line-height: 20px;
   text-align: center;
 }
-/* line 65, ../sass/modules/_offerblock.scss */
+/* line 69, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-prev {
   position: absolute;
   right: -50px;
   bottom: 0;
 }
-/* line 70, ../sass/modules/_offerblock.scss */
+/* line 74, ../sass/modules/_offerblock.scss */
 #offer-carousel .owl-controls .owl-next {
   position: absolute;
   left: -50px;

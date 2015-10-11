@@ -24,11 +24,11 @@ class AnonymousComment extends Comment
     protected $id;
 
     /**
-     * @ORM\Column(type="string", name="owner")
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Anonymous", cascade={"persist"})
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      * @Groups({"comment.details", "api.list"})
      */
     protected $owner;
-
     
     /**
      * @var integer
@@ -102,6 +102,7 @@ class AnonymousComment extends Comment
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -533,5 +534,29 @@ class AnonymousComment extends Comment
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param string $owner
+     *
+     * @return AnonymousComment
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return string
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

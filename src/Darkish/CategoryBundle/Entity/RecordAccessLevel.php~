@@ -299,4 +299,28 @@ class RecordAccessLevel
     {
         return $this->attachmentVideosLimit;
     }
+
+    /**
+     * Set groupMessageInterval
+     *
+     * @param integer $groupMessageInterval
+     *
+     * @return RecordAccessLevel
+     */
+    public function setGroupMessageInterval($groupMessageInterval)
+    {
+        $this->groupMessageInterval = $groupMessageInterval;
+
+        return $this;
+    }
+
+    /**
+     * Get groupMessageInterval
+     *
+     * @return integer
+     */
+    public function getGroupMessageInterval()
+    {
+        return $this->groupMessageInterval;
+    }
 }

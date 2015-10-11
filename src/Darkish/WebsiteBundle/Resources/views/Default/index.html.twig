@@ -68,6 +68,10 @@
         {{ include("DarkishWebsiteBundle:Default/front:centers.html.twig", {"centers": params.kish_centers}) }}
     </div>
 
+    <div id="{{ params.kish_gallery.class }}" class="container-fluid {{ params.kish_gallery.class }}">
+        {{ include("DarkishWebsiteBundle:Default/front:gallery.html.twig", {"kish_gallery": params.kish_gallery}) }}
+    </div>
+
     <div id="{{ params.kish_news.class }}" class="container-fluid {{ params.kish_news.class }}">
         {{ include("DarkishWebsiteBundle:Default/front:news.html.twig", {"kish_news": params.kish_news, "latest_news": latest_news}) }}
     </div>

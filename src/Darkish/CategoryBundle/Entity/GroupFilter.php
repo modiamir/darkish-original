@@ -112,4 +112,3 @@ class GroupFilter
         return $this->filterName;
     }
 }
-

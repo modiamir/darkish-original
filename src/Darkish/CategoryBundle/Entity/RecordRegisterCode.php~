@@ -4,12 +4,14 @@ namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use VMelnik\DoctrineEncryptBundle\Configuration\Encrypted;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * RecordRegisterCode
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity("email")
  */
 class RecordRegisterCode
 {
@@ -25,7 +27,7 @@ class RecordRegisterCode
     /**
      * @var string
      *
-     * @ORM\Column(name="recordNumber", type="string", length=255)
+     * @ORM\Column(name="recordNumber", type="string", length=255, unique=true)
      */
     private $recordNumber;
 
@@ -62,9 +64,9 @@ class RecordRegisterCode
     /**
      * @var boolean
      *
-     * @ORM\Column(name="printed", type="boolean")
+     * @ORM\Column(name="printed", type="boolean", options={"defaults" = false})
      */
-    private $printed;
+    private $printed = false;
 
     /**
      * Get id
@@ -195,5 +197,28 @@ class RecordRegisterCode
     {
         return $this->created;
     }
-}
 
+    /**
+     * Set printed
+     *
+     * @param boolean $printed
+     *
+     * @return RecordRegisterCode
+     */
+    public function setPrinted($printed)
+    {
+        $this->printed = $printed;
+
+        return $this;
+    }
+
+    /**
+     * Get printed
+     *
+     * @return boolean
+     */
+    public function getPrinted()
+    {
+        return $this->printed;
+    }
+}

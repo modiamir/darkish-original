@@ -2,6 +2,7 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="classified")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\ClassifiedRepository")
  */
-class Classified
+class Classified implements ClaimableInterface
 {
     /**
      * @var integer
@@ -1555,7 +1556,7 @@ class Classified
      *
      * @return Classified
      */
-    public function setClaimType(\Darkish\CategoryBundle\Entity\ClassifiedClaimTypes $claimType = null)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 

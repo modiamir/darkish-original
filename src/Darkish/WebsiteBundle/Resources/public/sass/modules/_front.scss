@@ -718,14 +718,29 @@
   .kish-forum-over-image-class {
     position: absolute;
     left: 50%;
-    margin-left: -123px;
+    margin-left: -117px;
     bottom: 30px;
+    width: 246px;
+    z-index: 10;
     @include breakpoint(xs) {
       position: static;
       display: block;
       margin: 10px auto;
 
     }
+  }
+  .center-line {
+    width: 2px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    margin-left: -1px;
+    top: 50%;
+    margin-top: -130px;
+    background: -webkit-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+    background: -o-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+    background: -moz-linear-gradient(#00a5c9, #35bad7, #00a5c9);
+    background: linear-gradient(#00a5c9, #35bad7, #00a5c9);
   }
 }
 

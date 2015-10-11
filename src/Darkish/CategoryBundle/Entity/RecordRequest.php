@@ -253,4 +253,3 @@ class RecordRequest
         return $this->description;
     }
 }
-

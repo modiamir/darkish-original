@@ -346,15 +346,15 @@ class Offer
 //    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="OfferOfferTree", mappedBy="offer", cascade={"remove", "persist"})
      * @Groups({"offer.details", "api.list", "api.body"})
      **/
     private $offertrees;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"remove"})
      * @ORM\JoinTable(name="offer_images",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details", "api.list", "api.body"})
@@ -365,7 +365,7 @@ class Offer
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="iconForOffer")
-     * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id")
+     * @ORM\JoinColumn(name="IconIndex", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({"offer.details", "api.list", "api.body"})
      * 
      **/
@@ -376,7 +376,7 @@ class Offer
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="ManagedFile", inversedBy="bannerForOffer")
-     * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id")
+     * @ORM\JoinColumn(name="BannerIndex", referencedColumnName="id", onDelete="CASCADE")
      * @Groups({"offer.details", "api.list", "api.body"})
      * 
      **/
@@ -397,7 +397,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_body_images",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -407,7 +407,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_videos",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -417,7 +417,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_body_videos",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -427,7 +427,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_audios",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -437,7 +437,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_body_audios",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -447,7 +447,7 @@ class Offer
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
      * @ORM\JoinTable(name="offer_body_docs",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
      *      )
      * @Groups({"offer.details"})
@@ -1661,5 +1661,29 @@ class Offer
     public function getVerticalBanner()
     {
         return $this->verticalBanner;
+    }
+
+    /**
+     * Set webBody
+     *
+     * @param string $webBody
+     *
+     * @return Offer
+     */
+    public function setWebBody($webBody)
+    {
+        $this->webBody = $webBody;
+
+        return $this;
+    }
+
+    /**
+     * Get webBody
+     *
+     * @return string
+     */
+    public function getWebBody()
+    {
+        return $this->webBody;
     }
 }

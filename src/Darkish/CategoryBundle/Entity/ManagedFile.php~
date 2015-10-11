@@ -21,6 +21,8 @@ use JMS\Serializer\Annotation\SerializedName;
 class ManagedFile
 {
 
+    public static $uploadDirectories = ["image", "video", "audio", "icon", "doc", "banner"];
+
     /**
      * 
      */
@@ -190,7 +192,7 @@ class ManagedFile
      * @ORM\Column(name="type", type="string", nullable=true)
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      *
-     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment"}, message = "input a valid entity type.")
+     * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment", "itinerary"}, message = "input a valid entity type.")
      *
      * @Assert\NotNull()
      */
@@ -262,7 +264,7 @@ class ManagedFile
      */
     protected $iconForSponsor;
     
-
+    protected $oneup = false;
 
     /**
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="banner")
@@ -626,6 +628,11 @@ class ManagedFile
         return __DIR__.'/../../../../web/uploads/'.$this->getUploadDir();
     }
 
+    /**
+     * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details", "message.list", "message.details"})
+     * @VirtualProperty
+     * @SerializedName("relative_path")
+     */
     public function getRelativePath() {
         return 'uploads/'.$this->getUploadDir().'/'.$this->getPath();   
     }
@@ -1300,5 +1307,46 @@ class ManagedFile
     public function getLabelWatermark()
     {
         return $this->labelWatermark;
+    }
+
+    /**
+     * Set checked
+     *
+     * @param boolean $checked
+     *
+     * @return ManagedFile
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean
+     */
+    public function getChecked()
+    {
+        return $this->checked;
+    }
+
+    public function setOneup($oneup)
+    {
+        $this->oneup = $oneup;
+
+        return $oneup;
+    }
+
+    /**
+     * Get oneup
+     *
+     * @return boolean
+     */
+    public function getOneup()
+    {
+        return $this->oneup;
     }
 }

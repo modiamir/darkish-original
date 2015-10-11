@@ -3,43 +3,45 @@
 
 namespace Darkish\CommentBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\LikableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use JMS\Serializer\Annotation\Groups;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Darkish\CommentBundle\Entity\CommentRepository")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="owner_type", type="string")
- * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment", "comment"="Comment"})
+ * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment",
+ *  "anonymous" = "AnonymousComment", "comment" = "Comment"})
  */
-class Comment
+class Comment implements LikableInterface
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="like_count", type="integer", nullable=true)
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $likeCount;
 
     /**
      * @ORM\Column(name="claim_type", type="integer", nullable=true)
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $claimType;
 
     /**
      * @ORM\Column(name="reply_count", type="integer", options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $replyCount = 0;
 
@@ -48,19 +50,19 @@ class Comment
      *
      * @var Thread
      * @ORM\ManyToOne(targetEntity="Thread", inversedBy="comments")
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $thread;
 
     /**
      * @ORM\Column(name="body", type="text")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $parent;
 
@@ -72,57 +74,68 @@ class Comment
 
     /**
      * @ORM\Column(name="created_at", type="datetime")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $createdAt;
 
 
     /**
      * @ORM\Column(name="state", type="smallint")
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $state;
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $hasLiked;
 
     /**
      * @ORM\Column(name="unseen_by_operators", type="boolean", nullable=true, options={"default":false})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByOperators = false;
 
     /**
      * @ORM\Column(name="unseen_replies_by_operators", type="integer", nullable=true, options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByOperators = 0;
 
     /**
      * @ORM\Column(name="unseen_by_customers", type="boolean", nullable=true, options={"default":false})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByCustomers = false;
 
     /**
      * @ORM\Column(name="unseen_replies_by_customers", type="integer", nullable=true, options={"unsigned":true, "default":0})
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByCustomers = 0;
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile", cascade={"persist"})
      * @ORM\JoinTable(name="comment_photos",
      *      joinColumns={@ORM\JoinColumn(name="comment_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id")}
      *      )
-     * @Groups({"comment.details"})
+     * @Groups({"comment.details", "api.list"})
      **/
     protected $photos;
+
+    /**
+     * @var string
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $ownerType;
+
+    /**
+     * @ORM\Column(name="notify", type="boolean", options={"default"=false})
+     */
+    protected $notify = false;
 
     /**
      * Constructor
@@ -383,6 +396,29 @@ class Comment
     }
 
     /**
+     * Set ownerType
+     *
+     * @param string $ownerType
+     * @return Comment
+     */
+    public function setOwnerType($ownerType)
+    {
+        $this->ownerType = $ownerType;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerType
+     *
+     * @return string
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
+    }
+
+    /**
      * Set unseenByOperators
      *
      * @param boolean $unseenByOperators
@@ -472,5 +508,38 @@ class Comment
     public function getUnseenRepliesByCustomers()
     {
         return $this->unseenRepliesByCustomers;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     * @return Comment
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

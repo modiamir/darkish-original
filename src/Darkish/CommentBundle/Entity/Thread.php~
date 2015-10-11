@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="thread_type", type="string")
- * @ORM\DiscriminatorMap({"record" = "RecordThread", "news" = "NewsThread", "forum_tree": "ForumTreeThread", "safarsaz": "SafarsazThread" ,"thread" = "Thread"})
+ * @ORM\DiscriminatorMap({"record" = "RecordThread", "news" = "NewsThread", "forum_tree": "ForumTreeThread", "itinerary": "ItineraryThread" ,"thread" = "Thread"})
  */
 class Thread
 {
@@ -27,7 +27,7 @@ class Thread
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="thread")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="thread", cascade={"remove"})
      * @Groups("thread.details")
      */
     protected $comments;
@@ -49,6 +49,7 @@ class Thread
      * @Groups("thread.details")
      */
     protected $isCommentable;
+
 
     
     /**
@@ -147,5 +148,28 @@ class Thread
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set lastCommentAt
+     *
+     * @param \DateTime $lastCommentAt
+     * @return Thread
+     */
+    public function setLastCommentAt($lastCommentAt)
+    {
+        $this->lastCommentAt = $lastCommentAt;
+
+        return $this;
+    }
+
+    /**
+     * Get lastCommentAt
+     *
+     * @return \DateTime 
+     */
+    public function getLastCommentAt()
+    {
+        return $this->lastCommentAt;
     }
 }

@@ -133,4 +133,28 @@ class RecordMainTree
     {
         return $this->sort;
     }
+
+    /**
+     * Set groupFilter
+     *
+     * @param \Darkish\CategoryBundle\Entity\GroupFilter $groupFilter
+     *
+     * @return RecordMainTree
+     */
+    public function setGroupFilter(\Darkish\CategoryBundle\Entity\GroupFilter $groupFilter = null)
+    {
+        $this->groupFilter = $groupFilter;
+
+        return $this;
+    }
+
+    /**
+     * Get groupFilter
+     *
+     * @return \Darkish\CategoryBundle\Entity\GroupFilter
+     */
+    public function getGroupFilter()
+    {
+        return $this->groupFilter;
+    }
 }

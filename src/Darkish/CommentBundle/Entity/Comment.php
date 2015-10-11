@@ -3,6 +3,9 @@
 
 namespace Darkish\CommentBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Interfaces\NotifiableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use JMS\Serializer\Annotation\Groups;
@@ -14,9 +17,9 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="owner_type", type="string")
  * @ORM\DiscriminatorMap({"operator" = "OperatorComment", "customer" = "CustomerComment", "client" = "ClientComment",
- *  "anonymous" = "AnonymousComment"})
+ *  "anonymous" = "AnonymousComment", "comment" = "Comment"})
  */
-abstract class Comment
+class Comment implements LikableInterface, NotifiableInterface, ClaimableInterface
 {
     /**
      * @ORM\Id
@@ -130,6 +133,11 @@ abstract class Comment
      * @Groups({"comment.details", "api.list"})
      */
     protected $ownerType;
+
+    /**
+     * @ORM\Column(name="notify", type="boolean", options={"default"=false})
+     */
+    protected $notify = false;
 
     /**
      * Constructor
@@ -535,5 +543,29 @@ abstract class Comment
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set notify
+     *
+     * @param boolean $notify
+     *
+     * @return Comment
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+
+        return $this;
+    }
+
+    /**
+     * Get notify
+     *
+     * @return boolean
+     */
+    public function getNotify()
+    {
+        return $this->notify;
     }
 }

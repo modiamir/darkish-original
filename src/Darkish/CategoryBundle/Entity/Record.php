@@ -3,6 +3,9 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Darkish\CategoryBundle\Entity\Cache\StoreCache;
+use Darkish\CategoryBundle\Interfaces\CanFavoriteInterface;
+use Darkish\CategoryBundle\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Interfaces\VisitableInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -18,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="record")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\RecordRepository")
  */
-class Record
+class Record implements LikableInterface, CanFavoriteInterface, VisitableInterface
 {
     /**
      * @var integer

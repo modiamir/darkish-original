@@ -19,63 +19,63 @@ class CustomerComment extends Comment
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="comments")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $owner;
 
     
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $likeCount;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $claimType;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $replyCount = 0;
 
     /**
      * @var string
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $body;
 
     /**
      * @var \DateTime
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $createdAt;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $state;
 
     /**
      * @var \Darkish\CommentBundle\Entity\Thread
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $thread;
 
     /**
      * @var \Darkish\CommentBundle\Entity\Comment
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $parent;
 
@@ -86,10 +86,16 @@ class CustomerComment extends Comment
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details", "api.list"})
      */
     protected $hasLiked;
 
+
+    /**
+     * @var string
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $ownerType;
 
     /**
      * Constructor
@@ -107,6 +113,29 @@ class CustomerComment extends Comment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set ownerType
+     *
+     * @param string $ownerType
+     * @return Comment
+     */
+    public function setOwnerType($ownerType)
+    {
+        $this->ownerType = $ownerType;
+
+        return $this;
+    }
+
+    /**
+     * Get ownerType
+     *
+     * @return string
+     */
+    public function getOwnerType()
+    {
+        return $this->ownerType;
     }
 
     /**
@@ -373,25 +402,25 @@ class CustomerComment extends Comment
     }
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByOperators;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByOperators;
 
     /**
      * @var boolean
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenByCustomers;
 
     /**
      * @var integer
-     * @Groups("comment.details")
+     * @Groups({"comment.details"})
      */
     protected $unseenRepliesByCustomers;
 
@@ -486,5 +515,44 @@ class CustomerComment extends Comment
     public function getUnseenRepliesByCustomers()
     {
         return $this->unseenRepliesByCustomers;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Groups({"comment.details", "api.list"})
+     */
+    protected $photos;
+
+
+    /**
+     * Add photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     * @return CustomerComment
+     */
+    public function addPhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Darkish\CategoryBundle\Entity\ManagedFile $photos
+     */
+    public function removePhoto(\Darkish\CategoryBundle\Entity\ManagedFile $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

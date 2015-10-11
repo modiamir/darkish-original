@@ -10,5 +10,7 @@ services:
         arguments: ["@service_container"]
         tags:
             - { name: validator.constraint_validator, alias: darkish_valid_name }
-
+    darkish.offline_tasks:
+        class: Darkish\UserBundle\Utils\OfflineTasks
+        arguments: ["@service_container"]
 

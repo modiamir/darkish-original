@@ -63,4 +63,3 @@ class InvalidNames
         return $this->name;
     }
 }
-
