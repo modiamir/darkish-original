@@ -559,4 +559,28 @@ class AnonymousComment extends Comment
     {
         return $this->owner;
     }
+
+    /**
+     * Set notify
+     *
+     * @param boolean $notify
+     *
+     * @return AnonymousComment
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+
+        return $this;
+    }
+
+    /**
+     * Get notify
+     *
+     * @return boolean
+     */
+    public function getNotify()
+    {
+        return $this->notify;
+    }
 }

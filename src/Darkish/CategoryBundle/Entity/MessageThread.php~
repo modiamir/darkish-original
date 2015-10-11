@@ -34,7 +34,7 @@ class MessageThread
     protected $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="thread")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="thread", cascade={"remove"})
      */
     protected $messages;
 
@@ -77,6 +77,8 @@ class MessageThread
      * @ORM\Column(name="deleted_by_client", type="boolean", options={"default"=false})
      */
     protected $deletedByClient = false;
+
+
 
 
     /**
@@ -275,5 +277,29 @@ class MessageThread
     public function getDeletedByClient()
     {
         return $this->deletedByClient;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     *
+     * @return MessageThread
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
     }
 }

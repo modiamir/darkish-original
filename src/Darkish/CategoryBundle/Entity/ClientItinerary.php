@@ -45,4 +45,28 @@ class ClientItinerary extends Itinerary
     {
         return $this->owner;
     }
+
+    /**
+     * Set claimType
+     *
+     * @param integer $claimType
+     *
+     * @return ClientItinerary
+     */
+    public function setClaimType($claimType)
+    {
+        $this->claimType = $claimType;
+
+        return $this;
+    }
+
+    /**
+     * Get claimType
+     *
+     * @return integer
+     */
+    public function getClaimType()
+    {
+        return $this->claimType;
+    }
 }

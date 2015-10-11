@@ -63,4 +63,3 @@ class ClassifiedClaimTypes
         return $this->name;
     }
 }
-

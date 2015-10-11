@@ -70,41 +70,58 @@ class GroupMessageThread extends MessageThread
     public function getThreadType() {
         return $this->threadType;
     }
+    
     /**
      * @var integer
+     * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     protected $id;
 
     /**
      * @var integer
+     * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordSeen;
 
     /**
      * @var integer
+     * @Groups({"thread.list", "thread.details"})
      */
     protected $lastRecordDelivered;
 
     /**
      * @var integer
+     * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientSeen;
 
     /**
      * @var integer
+     * @Groups({"thread.list", "thread.details"})
      */
     protected $lastClientDelivered;
 
     /**
-     * @var \Darkish\CategoryBundle\Entity\Record
+     * @var \Darkish\CustomerBundle\Entity\Customer
+     * @Groups({"thread.list", "thread.details"})
      */
-    protected $record;
+    protected $customer;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $messages;
 
+
+    /**
+     * @var boolean
+     */
+    protected $deletedByRecord;
+
+    /**
+     * @var boolean
+     */
+    protected $deletedByClient;
 
     /**
      * Get id
@@ -211,24 +228,24 @@ class GroupMessageThread extends MessageThread
     /**
      * Set record
      *
-     * @param \Darkish\CategoryBundle\Entity\Record $record
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
      * @return GroupMessageThread
      */
-    public function setRecord(\Darkish\CategoryBundle\Entity\Record $record = null)
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
     {
-        $this->record = $record;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * Get record
+     * Get customer
      *
-     * @return \Darkish\CategoryBundle\Entity\Record 
+     * @return \Darkish\CustomerBundle\Entity\Customer
      */
-    public function getRecord()
+    public function getCustomer()
     {
-        return $this->record;
+        return $this->customer;
     }
 
     /**
@@ -262,5 +279,53 @@ class GroupMessageThread extends MessageThread
     public function getMessages()
     {
         return $this->messages;
+    }
+    
+
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return GroupMessageThread
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return GroupMessageThread
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
     }
 }

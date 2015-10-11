@@ -2,6 +2,8 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Interfaces\VisitableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -16,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\NewsRepository")
  */
-class News
+class News implements LikableInterface, VisitableInterface
 {
     /**
      * @var integer

@@ -382,5 +382,28 @@ class SubmitRecord
     {
         return $this->reviewed;
     }
-}
 
+    /**
+     * Set companyRegDate
+     *
+     * @param string $companyRegDate
+     *
+     * @return SubmitRecord
+     */
+    public function setCompanyRegDate($companyRegDate)
+    {
+        $this->companyRegDate = $companyRegDate;
+
+        return $this;
+    }
+
+    /**
+     * Get companyRegDate
+     *
+     * @return string
+     */
+    public function getCompanyRegDate()
+    {
+        return $this->companyRegDate;
+    }
+}

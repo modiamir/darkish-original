@@ -3,8 +3,6 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Application\Sonata\UserBundle\Entity\User as User;
-
 /**
  * RecordLock
  *
@@ -133,5 +131,28 @@ class RecordLock
     public function getExpire()
     {
         return $this->expire;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     * @return RecordLock
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

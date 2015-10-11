@@ -301,6 +301,7 @@ class MainTree
 
     /**
      * @ORM\Column(name="recommend_ids", type="json_array", nullable=true)
+     * @Groups({"list", "details", "record.details", "api.list"})
      */
     private $recommendIds;
 
@@ -1210,5 +1211,29 @@ class MainTree
     public function getGroupFilter()
     {
         return $this->groupFilter;
+    }
+
+    /**
+     * Set recommendIds
+     *
+     * @param array $recommendIds
+     *
+     * @return MainTree
+     */
+    public function setRecommendIds($recommendIds)
+    {
+        $this->recommendIds = $recommendIds;
+
+        return $this;
+    }
+
+    /**
+     * Get recommendIds
+     *
+     * @return array
+     */
+    public function getRecommendIds()
+    {
+        return $this->recommendIds;
     }
 }

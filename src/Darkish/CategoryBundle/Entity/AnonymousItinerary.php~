@@ -17,4 +17,28 @@ class AnonymousItinerary extends Itinerary
      */
     private $owner;
 
+
+    /**
+     * Set owner
+     *
+     * @param \Darkish\UserBundle\Entity\Anonymous $owner
+     *
+     * @return AnonymousItinerary
+     */
+    public function setOwner(\Darkish\UserBundle\Entity\Anonymous $owner = null)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \Darkish\UserBundle\Entity\Anonymous
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 }

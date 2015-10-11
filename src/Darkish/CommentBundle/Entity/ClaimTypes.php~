@@ -70,4 +70,27 @@ class ClaimTypes
     {
         return $this->label;
     }
+
+    /**
+     * Set onlyCustomer
+     *
+     * @param boolean $onlyCustomer
+     * @return ClaimTypes
+     */
+    public function setOnlyCustomer($onlyCustomer)
+    {
+        $this->onlyCustomer = $onlyCustomer;
+
+        return $this;
+    }
+
+    /**
+     * Get onlyCustomer
+     *
+     * @return boolean 
+     */
+    public function getOnlyCustomer()
+    {
+        return $this->onlyCustomer;
+    }
 }

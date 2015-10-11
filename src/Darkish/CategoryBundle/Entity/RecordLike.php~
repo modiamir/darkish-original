@@ -49,4 +49,73 @@ class RecordLike
     {
         return $this->id;
     }
+
+    /**
+     * Set user_type
+     *
+     * @param string $userType
+     * @return RecordLike
+     */
+    public function setUserType($userType)
+    {
+        $this->user_type = $userType;
+
+        return $this;
+    }
+
+    /**
+     * Get user_type
+     *
+     * @return string 
+     */
+    public function getUserType()
+    {
+        return $this->user_type;
+    }
+
+    /**
+     * Set user_id
+     *
+     * @param integer $userId
+     * @return RecordLike
+     */
+    public function setUserId($userId)
+    {
+        $this->user_id = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get user_id
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set target
+     *
+     * @param \Darkish\CategoryBundle\Entity\Record $target
+     * @return RecordLike
+     */
+    public function setTarget(\Darkish\CategoryBundle\Entity\Record $target = null)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return \Darkish\CategoryBundle\Entity\Record 
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
 }

@@ -2,6 +2,9 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Interfaces\VisitableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"client" = "ClientItinerary", "anonymous" = "AnonymousItinerary", "itinerary" = "Itinerary"})
  */
-class Itinerary
+class Itinerary implements LikableInterface, VisitableInterface, ClaimableInterface
 {
     /**
      * @var integer
@@ -108,6 +111,12 @@ class Itinerary
      * @ORM\OneToOne(targetEntity="\Darkish\CommentBundle\Entity\ItineraryThread", mappedBy="target")
      */
     protected $thread;
+
+    /**
+     * @ORM\Column(name="claim_type", type="integer", nullable=true)
+     * @Groups({"comment.details"})
+     */
+    protected $claimType;
 
     /**
      * Get id
@@ -359,5 +368,29 @@ class Itinerary
     public function getLikeCount()
     {
         return $this->likeCount;
+    }
+
+    /**
+     * Set claimType
+     *
+     * @param integer $claimType
+     *
+     * @return Itinerary
+     */
+    public function setClaimType($claimType)
+    {
+        $this->claimType = $claimType;
+
+        return $this;
+    }
+
+    /**
+     * Get claimType
+     *
+     * @return integer
+     */
+    public function getClaimType()
+    {
+        return $this->claimType;
     }
 }

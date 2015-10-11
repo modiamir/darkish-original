@@ -2,6 +2,7 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
+use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="classified")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\ClassifiedRepository")
  */
-class Classified
+class Classified implements ClaimableInterface
 {
     /**
      * @var integer
@@ -299,13 +300,13 @@ class Classified
 //    private $trees;
 
     /**
-     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove", "persist"})
      * @Groups({"classified.details", "api.list", "api.body"})
      **/
     private $classifiedtrees;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ManagedFile")
+     * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="classified_images",
      *      joinColumns={@ORM\JoinColumn(name="classified_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="file_id", referencedColumnName="id", unique=true)}
@@ -1555,7 +1556,7 @@ class Classified
      *
      * @return Classified
      */
-    public function setClaimType(\Darkish\CategoryBundle\Entity\ClassifiedClaimTypes $claimType = null)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 
@@ -1570,5 +1571,29 @@ class Classified
     public function getClaimType()
     {
         return $this->claimType;
+    }
+
+    /**
+     * Set webBody
+     *
+     * @param string $webBody
+     *
+     * @return Classified
+     */
+    public function setWebBody($webBody)
+    {
+        $this->webBody = $webBody;
+
+        return $this;
+    }
+
+    /**
+     * Get webBody
+     *
+     * @return string
+     */
+    public function getWebBody()
+    {
+        return $this->webBody;
     }
 }

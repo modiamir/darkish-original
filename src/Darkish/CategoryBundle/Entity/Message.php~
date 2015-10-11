@@ -25,7 +25,7 @@ class Message
 
 
     /**
-     * @ORM\Column(name="text", type="string")
+     * @ORM\Column(name="text", type="text")
      * @Groups({"thread.list", "thread.details", "message.list", "message.details"})
      */
     private $text;
@@ -51,11 +51,29 @@ class Message
     private $thread;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer")
+     * @ORM\ManyToOne(targetEntity="\Darkish\CustomerBundle\Entity\Customer", inversedBy="messages")
      * @ORM\JoinColumn(name="customer", referencedColumnName="id")
      * @Groups({"message.list", "message.details"})
      */
     private $customer;
+
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordTitle;
+
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordNumber;
+
+    /**
+     * @var string
+     * @Groups({"message.list", "message.details", "thread.list", "thread.details"})
+     */
+    private $recordId;
 
 
     /**
@@ -171,5 +189,145 @@ class Message
     public function getFrom()
     {
         return $this->from;
+    }
+
+    /**
+     * Set deletedByRecord
+     *
+     * @param boolean $deletedByRecord
+     * @return Message
+     */
+    public function setDeletedByRecord($deletedByRecord)
+    {
+        $this->deletedByRecord = $deletedByRecord;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByRecord
+     *
+     * @return boolean 
+     */
+    public function getDeletedByRecord()
+    {
+        return $this->deletedByRecord;
+    }
+
+    /**
+     * Set deletedByClient
+     *
+     * @param boolean $deletedByClient
+     * @return Message
+     */
+    public function setDeletedByClient($deletedByClient)
+    {
+        $this->deletedByClient = $deletedByClient;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedByClient
+     *
+     * @return boolean 
+     */
+    public function getDeletedByClient()
+    {
+        return $this->deletedByClient;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Darkish\CustomerBundle\Entity\Customer $customer
+     * @return Message
+     */
+    public function setCustomer(\Darkish\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Darkish\CustomerBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+
+    /**
+     * Set recordTitle
+     *
+     * @param string $recordTitle
+     * @return Message
+     */
+    public function setRecordTitle($recordTitle)
+    {
+        $this->recordTitle = $recordTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get recordTitle
+     *
+     * @return string
+     */
+    public function getRecordTitle()
+    {
+        return $this->recordTitle;
+    }
+
+
+    /**
+     * Set recordTitle
+     *
+     * @param string $recordNumber
+     * @return Message
+     */
+    public function setRecordNumber($recordNumber)
+    {
+        $this->recordNumber = $recordNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get recordTitle
+     *
+     * @return string
+     */
+    public function getRecordNumber()
+    {
+        return $this->recordNumber;
+    }
+
+    /**
+     * Set recordId
+     *
+     * @param string $recordId
+     * @return Message
+     */
+    public function setRecordId($recordId)
+    {
+        $this->recordId = $recordId;
+
+        return $this;
+    }
+
+    /**
+     * Get recordId
+     *
+     * @return string
+     */
+    public function getRecordId()
+    {
+        return $this->recordId;
     }
 }

@@ -555,4 +555,28 @@ class CustomerComment extends Comment
     {
         return $this->photos;
     }
+
+    /**
+     * Set notify
+     *
+     * @param boolean $notify
+     *
+     * @return CustomerComment
+     */
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+
+        return $this;
+    }
+
+    /**
+     * Get notify
+     *
+     * @return boolean
+     */
+    public function getNotify()
+    {
+        return $this->notify;
+    }
 }

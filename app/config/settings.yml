@@ -114,7 +114,6 @@ parameters:
                         link: "0000"
                 -
                     class: about-kish-card-class
-
                     text: "سفر و زندگی در کیش"
                     text_class: blue-text-class
                     link: "0014"
@@ -287,6 +286,17 @@ parameters:
                         url: "kish_centers_daily.png"
                         class: kish-centers-image-class
                         link: link
+
+        kish_gallery:
+            class: kish-gallery-wrapper
+            text: گالری عکس و فیلم اختصتصی درکیش
+            text_class: blue-text-class
+            sub_text: متن توضیحات، متن توضیحات، متن توضیحات
+            sub_text_class: blue-subtext-class
+            button:
+                text: ورود به گالری
+                class: blue-button-class
+                link: gallery.darkish.ir
 
         kish_news:
             class: kish-news-wrapper
