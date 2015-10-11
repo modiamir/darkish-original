@@ -2,7 +2,7 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
-use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\ClaimableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;

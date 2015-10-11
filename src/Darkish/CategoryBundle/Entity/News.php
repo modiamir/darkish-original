@@ -2,8 +2,8 @@
 
 namespace Darkish\CategoryBundle\Entity;
 
-use Darkish\CategoryBundle\Interfaces\LikableInterface;
-use Darkish\CategoryBundle\Interfaces\VisitableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\VisitableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;

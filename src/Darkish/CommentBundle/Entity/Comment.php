@@ -3,9 +3,9 @@
 
 namespace Darkish\CommentBundle\Entity;
 
-use Darkish\CategoryBundle\Interfaces\ClaimableInterface;
-use Darkish\CategoryBundle\Interfaces\LikableInterface;
-use Darkish\CategoryBundle\Interfaces\NotifiableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\ClaimableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\NotifiableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\CommentBundle\Entity\Comment as BaseComment;
 use JMS\Serializer\Annotation\Groups;
@@ -186,7 +186,7 @@ class Comment implements LikableInterface, NotifiableInterface, ClaimableInterfa
      * @param integer $claimType
      * @return Comment
      */
-    public function setClaimType($claimType)
+    public function setClaimType($claimType = null)
     {
         $this->claimType = $claimType;
 

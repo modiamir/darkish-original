@@ -3,9 +3,9 @@
 namespace Darkish\CategoryBundle\Entity;
 
 use Darkish\CategoryBundle\Entity\Cache\StoreCache;
-use Darkish\CategoryBundle\Interfaces\CanFavoriteInterface;
-use Darkish\CategoryBundle\Interfaces\LikableInterface;
-use Darkish\CategoryBundle\Interfaces\VisitableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\CanFavoriteInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\LikableInterface;
+use Darkish\CategoryBundle\Entity\Interfaces\VisitableInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;

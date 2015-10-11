@@ -1,6 +1,6 @@
 <?php
 
-namespace Darkish\CategoryBundle\Interfaces;
+namespace Darkish\CategoryBundle\Entity\Interfaces;
 
 interface NotifiableInterface
 {
