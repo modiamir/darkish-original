@@ -82,6 +82,26 @@ class ApiController extends FOSRestController
     }
 
     /**
+     *
+     * @ApiDoc(
+     *  description="Get time request",
+     *  resource="User",
+     *  statusCodes={
+     *      200="Returned when user is logged in",
+     *      401="Returned when the user is not logged in",
+     *      403="Returned when the user apikey is invalid"
+     *  }
+     *
+     * )
+     *
+     * @View(serializerGroups={"file.details", "api.details"})
+     */
+    public function getUserAction()
+    {
+        return $this->get('security.token_storage')->getToken()->getUser();
+    }
+
+    /**
      * This route is for login request. with this route you send phone number (username) and device id
      * and server will generate an approve code for you that will save in database and send to user via sms.
      * Note that a user can request for approve code only three times per hour.

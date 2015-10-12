@@ -20,13 +20,13 @@ class Client implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "api.details"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
-     * @Groups({"thread.list", "thread.details"})
+     * @Groups({"thread.list", "thread.details", "api.details"})
      */
     private $username;
 
@@ -37,7 +37,7 @@ class Client implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", name="fullname", nullable = true)
-     * @Groups({"thread.list", "thread.details", "itinerary.list.api"})
+     * @Groups({"thread.list", "thread.details", "itinerary.list.api", "api.details"})
      */
     private $fullName;  
 
@@ -50,7 +50,7 @@ class Client implements UserInterface, \Serializable
      *
      * @ORM\ManyToOne(targetEntity="\Darkish\CategoryBundle\Entity\ManagedFile", cascade={"persist"})
      * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
-     * @Groups({"thread.list", "thread.details", "itinerary.list.api"})
+     * @Groups({"thread.list", "thread.details", "itinerary.list.api", "api.details"})
      *
      */
     private $photo;
