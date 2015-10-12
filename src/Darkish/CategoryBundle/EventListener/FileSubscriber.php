@@ -465,15 +465,18 @@ class FileSubscriber implements EventSubscriber
 
             $files = $manager->getFiles();
             $files->files()->name($entity->getFileName());
+            
+            if(!$files->count())
+            {
+                throw new \Exception("File Doesn't exiss");
+            }
+
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach($files as $f) {
                 $file = $f;
                 break;
             }
 
-            if(!isset($file) || !$file) {
-                throw new \Exception("File Doesn't exiss");
-            }
 
             $type = explode("-", $entity->getFileName())[0];
 
