@@ -465,7 +465,7 @@ class FileSubscriber implements EventSubscriber
 
             $files = $manager->getFiles();
             $files->files()->name($entity->getFileName());
-            
+
             if(!$files->count())
             {
                 throw new \Exception("File Doesn't exiss");
