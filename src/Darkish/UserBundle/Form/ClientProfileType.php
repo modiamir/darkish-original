@@ -24,7 +24,9 @@ class ClientProfileType extends AbstractType
             ->add('fullName', null,[
                 'required' => false
             ])
-            ->add('photo', new ManagedFileType(),[
+            ->add('photo', 'entity', [
+                'class' => 'Darkish\CategoryBundle\Entity\ManagedFile',
+                'multiple' => false,
                 'required' => false
             ])
         ;

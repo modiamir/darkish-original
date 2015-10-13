@@ -633,18 +633,6 @@ class ApiController extends FOSRestController
 
         if($form->isValid())
         {
-            if($request->get('darkish_client[photo][fileName]', null, true))
-            {
-                $photo = $client->getPhoto();
-
-                $newPhoto = new ManagedFile();
-                $newPhoto->setFileName($photo->getFileName());
-                $newPhoto->setOneup(true);
-                $newPhoto->setUserId($client->getId());
-                $client->setPhoto($newPhoto);
-
-            }
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($client);
             $em->flush();
