@@ -16,6 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="classified")
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\ClassifiedRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"person" = "Person", "employee" = "Employee"})
  */
 class Classified implements ClaimableInterface
 {
@@ -27,7 +30,7 @@ class Classified implements ClaimableInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"classified.list", "classified.details", "api.list", "api.body"})
      */
-    private $id;
+    protected $id;
 
     
 
@@ -43,7 +46,7 @@ class Classified implements ClaimableInterface
      *      minMessage = "طول عنوان نمیتواند کمتر از {{ limit }} باشد"
      * )
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
@@ -58,7 +61,7 @@ class Classified implements ClaimableInterface
      * )
      *
      */
-    private $subTitle;
+    protected $subTitle;
 
     
     /**
@@ -67,7 +70,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="CreationDate", type="datetime", nullable=false)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $creationDate;
+    protected $creationDate;
     
     
     
@@ -79,7 +82,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="LastUpdate", type="datetime", nullable=false)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $lastUpdate;
+    protected $lastUpdate;
     
     
     /**
@@ -88,7 +91,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="HtmlLastUpdate", type="datetime", nullable=false)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $htmlLastUpdate;
+    protected $htmlLastUpdate;
 
     /**
      * @var datetime
@@ -96,7 +99,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="PublishDate", type="datetime", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $publishDate;
+    protected $publishDate;
     
     /**
      * @var datetime
@@ -104,7 +107,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="ExpireDate", type="datetime", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $expireDate;
+    protected $expireDate;
     
     /**
      *
@@ -113,7 +116,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Continual", type="boolean", nullable=true, options={"default":0})
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $continual;
+    protected $continual;
     
 
     /**
@@ -123,7 +126,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="ListRank", type="integer", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $listRank;
+    protected $listRank;
     
     
 
@@ -133,7 +136,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Body", type="text", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $body;
+    protected $body;
 
     /**
      * @var string
@@ -141,7 +144,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="WebBody", type="text", nullable=true)
      * @Groups({"record.details", "api.body"})
      */
-    private $webBody;
+    protected $webBody;
 
     /**
      * @var boolean
@@ -149,7 +152,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Audio", type="boolean", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $audio;
+    protected $audio;
 
     /**
      * @var boolean
@@ -157,21 +160,21 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Video", type="boolean", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $video;
+    protected $video;
 
     
     /**
      * @ORM\Column(name="VisitCount", type="integer", nullable=true, options={"default"=0})
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $visitCount = 0;
+    protected $visitCount = 0;
 
 
     /**
      * @ORM\Column(name="price", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $price;
+    protected $price;
     
 
     /**
@@ -180,7 +183,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Active", type="boolean", nullable=false, options={"default":0})
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $active;
+    protected $active;
 
     /**
      * @var boolean
@@ -188,12 +191,12 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Verify", type="boolean", nullable=false, options={"default": 0})
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $verify;
+    protected $verify;
 
     /**
      * @ORM\ManyToOne(targetEntity="ClassifiedClaimTypes")
      */
-    private $claimType;
+    protected $claimType;
     
     
     /**
@@ -202,7 +205,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Address", type="string", length=255, nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $address;
+    protected $address;
     
     /**
      * @var string
@@ -210,7 +213,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="TelNumberOne", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $telNumberOne;
+    protected $telNumberOne;
 
     /**
      * @var string
@@ -218,7 +221,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="TelNumberTwo", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $telNumberTwo;
+    protected $telNumberTwo;
 
     /**
      * @var string
@@ -226,7 +229,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="TelNumberThree", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $telNumberThree;
+    protected $telNumberThree;
 
     /**
      * @var string
@@ -234,7 +237,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="TelNumberFour", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $telNumberFour;
+    protected $telNumberFour;
 
     /**
      * @var string
@@ -242,7 +245,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="FaxNumberOne", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $faxNumberOne;
+    protected $faxNumberOne;
 
     /**
      * @var string
@@ -250,7 +253,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="FaxNumberTwo", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $faxNumberTwo;
+    protected $faxNumberTwo;
 
     /**
      * @var string
@@ -258,7 +261,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="MobileNumberOne", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $mobileNumberOne;
+    protected $mobileNumberOne;
 
     /**
      * @var string
@@ -266,7 +269,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="MobileNumberTwo", type="bigint", nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $mobileNumberTwo;
+    protected $mobileNumberTwo;
 
     /**
      * @var string
@@ -274,7 +277,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
@@ -282,7 +285,7 @@ class Classified implements ClaimableInterface
      * @ORM\Column(name="Website", type="string", length=255, nullable=true)
      * @Groups({"classified.details", "api.list", "api.body"})
      */
-    private $website;
+    protected $website;
     
     
 
@@ -297,13 +300,13 @@ class Classified implements ClaimableInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="classifiedtree_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      **/
-//    private $trees;
+//    protected $trees;
 
     /**
      * @ORM\OneToMany(targetEntity="ClassifiedClassifiedTree", mappedBy="classified", cascade={"remove", "persist"})
      * @Groups({"classified.details", "api.list", "api.body"})
      **/
-    private $classifiedtrees;
+    protected $classifiedtrees;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile", cascade={"remove", "persist"})
@@ -313,7 +316,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details", "api.list", "api.body"})
      **/
-    private $images;
+    protected $images;
     
     /**
      * @var integer
@@ -323,7 +326,7 @@ class Classified implements ClaimableInterface
      * @Groups({"classified.details", "api.list", "api.body"})
      * 
      **/
-    private $icon;
+    protected $icon;
     
     
     
@@ -336,7 +339,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $bodyImages;
+    protected $bodyImages;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -346,7 +349,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $videos;
+    protected $videos;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -356,7 +359,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $bodyVideos;
+    protected $bodyVideos;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -366,7 +369,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $audios;
+    protected $audios;
 
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -376,7 +379,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $bodyAudios;
+    protected $bodyAudios;
     
     /**
      * @ORM\ManyToMany(targetEntity="ManagedFile")
@@ -386,7 +389,7 @@ class Classified implements ClaimableInterface
      *      )
      * @Groups({"classified.details"})
      **/
-    private $bodyDocs;
+    protected $bodyDocs;
 
 
     /**
@@ -396,7 +399,7 @@ class Classified implements ClaimableInterface
      * @ORM\JoinColumn(name="UserId", referencedColumnName="id")
      * @Groups({"classified.details"})
      */
-    private $user;
+    protected $user;
 
 
 

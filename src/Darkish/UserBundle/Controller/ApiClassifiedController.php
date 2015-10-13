@@ -2,6 +2,7 @@
 
 namespace Darkish\UserBundle\Controller;
 
+use Darkish\CategoryBundle\Entity\ClientClassified;
 use Darkish\CategoryBundle\Entity\ClientItinerary;
 use Darkish\UserBundle\Form\ItineraryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -31,7 +32,7 @@ use FOS\RestBundle\Controller\Annotations as RouteAnnot;
 /**
  * 
  */
-class ApiItineraryController extends FOSRestController
+class ApiClassifiedController extends FOSRestController
 {
 
     /**
@@ -42,44 +43,44 @@ class ApiItineraryController extends FOSRestController
      * @RouteAnnot\Get("get_itineraries/{count}/{page}", defaults={"_format"="json"})
      * @View(serializerGroups={"itinerary.list.api"})
      */
-    public function getItinerariesAction($count = 3, $page = 1, Request $request) {
-
-        $em    = $this->get('doctrine.orm.entity_manager');
-        $dql   = "SELECT a FROM DarkishCategoryBundle:Itinerary a";
-        $query = $em->createQuery($dql);
-
-        /* @var $paginator \Knp\Component\Pager\Paginator */
-        $paginator  = $this->get('knp_paginator');
-        /* @var $pagination \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination */
-        $pagination = $paginator->paginate(
-            $query,
-            $page/*page number*/,
-            $count/*count*/
-        );
-
-        // parameters to template
-        return $pagination->getItems();
-    }
+//    public function getItinerariesAction($count = 3, $page = 1, Request $request) {
+//
+//        $em    = $this->get('doctrine.orm.entity_manager');
+//        $dql   = "SELECT a FROM DarkishCategoryBundle:Itinerary a";
+//        $query = $em->createQuery($dql);
+//
+//        /* @var $paginator \Knp\Component\Pager\Paginator */
+//        $paginator  = $this->get('knp_paginator');
+//        /* @var $pagination \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination */
+//        $pagination = $paginator->paginate(
+//            $query,
+//            $page/*page number*/,
+//            $count/*count*/
+//        );
+//
+//        // parameters to template
+//        return $pagination->getItems();
+//    }
 
     /**
      * @ApiDoc(
      *  resource=true,
      *  section="Itinerary API"
      * )
-     * @RouteAnnot\Post("create_itineraries", defaults={"_format"="json"})
-     * @View(serializerGroups={"itinerary.list.api", "file.details"})
+     * @RouteAnnot\Post("create_classified", defaults={"_format"="json"})
+     * @View(serializerGroups={"classified.details", "file.details"})
      * @Security(expression="has_role('ROLE_USER')")
      */
-    public function postItineraryAction(Request $request)
+    public function postClassifiedAction(Request $request)
     {
 
         $client = $this->getUser();
 
-        $itinerary = new ClientItinerary();
+        $classified = new ClientClassified();
 
-        $form =  $this->createForm(new ItineraryType(), $itinerary);
+        $form =  $this->createForm(new ItineraryType(), $classified);
         $form->handleRequest($request);
-        $validation = $this->get('validator')->validate($itinerary);
+        $validation = $this->get('validator')->validate($classified);
         if($validation->count())
         {
             $errors = array();
@@ -101,12 +102,12 @@ class ApiItineraryController extends FOSRestController
 //                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
 //                $itineraryIterators->next();
 //            }
-            $itinerary->setCreated(new \DateTime);
-            $itinerary->setOwner($client);
+            $classified->setCreationDate(new \DateTime);
+            $classified->setClient($client);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($itinerary);
+            $em->persist($classified);
             $em->flush();
-            return $itinerary;
+            return $classified;
         }
 
         return $form->getErrors()->__toString();

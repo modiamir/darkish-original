@@ -347,7 +347,7 @@ class ApiController extends FOSRestController
      *  description="This is the upload file  API method",
      *  parameters={
      *      {"name"="file", "dataType"="file", "required"=true, "description"="file to upload"},
-     *      {"name"="type", "dataType"="string", "required"=true, "description"="one of these :news, classified, offer, sponsor, record, operator, customer, client, store, product, database, comment"},
+     *      {"name"="type", "dataType"="string", "required"=true, "description"="one of these :news, classified, offer, sponsor, record, operator, customer, client, store, product, database, comment, itinerary"},
      *      {"name"="continual", "dataType"="integer", "required"=true, "description"="should be true"},
      *      {"name"="uploadDir", "dataType"="string", "required"=true, "description"="one of these :image, video, audio, icon, doc, banner"}
      *  },

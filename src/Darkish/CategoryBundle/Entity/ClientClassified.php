@@ -1,0 +1,85 @@
+<?php
+
+namespace Darkish\CategoryBundle\Entity;
+
+use Darkish\CategoryBundle\Entity\Interfaces\ClaimableInterface;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+/**
+ * Classified
+ *
+ * @ORM\Entity()
+ *
+ */
+class ClientClassified extends Classified
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"classified.list", "classified.details", "api.list", "api.body"})
+     */
+    protected $id;
+
+    
+
+
+
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Darkish\UserBundle\Entity\Client")
+     * @ORM\JoinColumn(name="clientId", referencedColumnName="id")
+     * @Groups({"classified.details"})
+     */
+    protected $client;
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Set client
+     *
+     * @param \Darkish\UserBundle\Entity\Client $client
+     *
+     * @return ClientClassified
+     */
+    public function setClient(\Darkish\UserBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Darkish\UserBundle\Entity\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+}
