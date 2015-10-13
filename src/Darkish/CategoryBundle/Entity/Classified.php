@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Darkish\CategoryBundle\Entity\ClassifiedRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"person" = "Person", "employee" = "Employee"})
+ * @ORM\DiscriminatorMap({"general" = "Classified", "client" = "ClientClassified"})
  */
 class Classified implements ClaimableInterface
 {
