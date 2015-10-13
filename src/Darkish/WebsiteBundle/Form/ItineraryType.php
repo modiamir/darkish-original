@@ -5,6 +5,8 @@ namespace Darkish\WebsiteBundle\Form;
 use Darkish\CategoryBundle\Entity\ManagedFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
@@ -42,6 +44,28 @@ class ItineraryType extends AbstractType
 //            ))
 //            ->add('captcha', 'captcha')
         ;
+
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+
+
+
+
+            $data = $event->getData();
+            $form = $event->getForm();
+
+
+            if(!array_key_exists('fullName', $data)) {
+                $form->remove('fullName');
+            }
+
+            if(!array_key_exists('photo', $data)) {
+
+                $form->remove('photo');
+            }
+
+
+        });
 
     }
 

@@ -93,14 +93,14 @@ class ApiItineraryController extends FOSRestController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $itineraryIterators = $itinerary->getPhotos()->getIterator();
-            while($itineraryIterators->valid()) {
-                $photo = $itineraryIterators->current();
-                $photo->setUserId(0);
-                $photo->setOneup(true);
-                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
-                $itineraryIterators->next();
-            }
+//            $itineraryIterators = $itinerary->getPhotos()->getIterator();
+//            while($itineraryIterators->valid()) {
+//                $photo = $itineraryIterators->current();
+//                $photo->setUserId(0);
+//                $photo->setOneup(true);
+//                /* @var $photo \Darkish\CategoryBundle\Entity\ManagedFile */
+//                $itineraryIterators->next();
+//            }
             $itinerary->setCreated(new \DateTime);
             $itinerary->setOwner($client);
             $em = $this->getDoctrine()->getManager();
