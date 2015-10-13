@@ -8,6 +8,11 @@
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/sequencejs/scripts/sequence.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/js/sequencejs/sequence-theme.basic.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/js/lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/darkishwebsite/bower_components/video.js/dist/video.min.js') }}"></script>
+    <script>
+        videojs.options.flash.swf = "{{ asset('bundles/darkishwebsite/bower_components/video.js/dist/video-js.swf') }}"
+    </script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('a[href^="#"]').on('click',function (e) {
@@ -34,6 +39,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/darkishwebsite/bower_components/video.js/dist/video-js.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('bundles/darkishwebsite/bower_components/magnific-popup/dist/magnific-popup.css') }}">
 {% endblock %}
 
@@ -69,7 +76,8 @@
     </div>
 
     <div id="{{ params.kish_gallery.class }}" class="container-fluid {{ params.kish_gallery.class }}">
-        {{ include("DarkishWebsiteBundle:Default/front:gallery.html.twig", {"kish_gallery": params.kish_gallery}) }}
+        {{ include("DarkishWebsiteBundle:Default/front:gallery.html.twig", {"kish_gallery": params.kish_gallery
+            , 'kish_gallery_record': kish_gallery_record}) }}
     </div>
 
     <div id="{{ params.kish_news.class }}" class="container-fluid {{ params.kish_news.class }}">

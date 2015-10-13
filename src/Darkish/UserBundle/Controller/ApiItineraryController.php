@@ -40,7 +40,7 @@ class ApiItineraryController extends FOSRestController
      *  section="Itinerary API"
      * )
      * @RouteAnnot\Get("get_itineraries/{count}/{page}", defaults={"_format"="json"})
-     * @View(serializerGroups={"itinerary.list.api"})
+     * @View(serializerGroups={"itinerary.list.api", "file.details"})
      */
     public function getItinerariesAction($count = 3, $page = 1, Request $request) {
 
@@ -119,7 +119,7 @@ class ApiItineraryController extends FOSRestController
      *  section="Itinerary API"
      * )
      * @RouteAnnot\Get("get_itinerary/{itinerary}", defaults={"_format"="json"})
-     * @View(serializerGroups={"itinerary.list.api"})
+     * @View(serializerGroups={"itinerary.list.api", "file.details"})
      */
     public function getItineraryAction(Itinerary $itinerary) {
 

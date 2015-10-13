@@ -1,19 +1,44 @@
 <div class="container">
-    <h3 class="{{ kish_gallery.text_class }}">
-        {{ kish_gallery.text }}
-    </h3>
+    <div class="row first-row">
+        <h3 class="{{ kish_gallery.text_class }}">
+            {{ kish_gallery.text }}
+        </h3>
 
-    <div class="col col-xs-12 col-sm-offset-4 col-sm-4 {{ kish_gallery.sub_text_class }}">
-        {{ kish_gallery.sub_text }}
+        <div class="col col-xs-12 col-sm-offset-4 col-sm-4 {{ kish_gallery.sub_text_class }}">
+            {{ kish_gallery.sub_text }}
+        </div>
+
+        <div class="col col-xs-12 col-sm-3 {{ kish_gallery.button.class }}">
+            <div class="arrow-right hidden-xs hidden-sm"></div>
+            <button href="http://gallery.darkish.ir" data-mfp-src="#submit-record" class="btn btn-lg  {{ kish_gallery.button.class }}">
+                {{ kish_gallery.button.text }}
+            </button>
+        </div>
     </div>
-
-    <div class="col col-xs-12 col-sm-3 {{ kish_gallery.button.class }}">
-        <div class="arrow-right hidden-xs hidden-sm"></div>
-        <a href="http://gallery.darkish.ir" class="btn btn-lg  {{ kish_gallery.button.class }}">
-            {{ kish_gallery.button.text }}
-        </a>
+    <div class="second-row">
+        <div class="images col col-xs-12  col-lg-4">
+            <div class="row">
+                {% for image in kish_gallery_record.images %}
+                    <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-12">
+                        <a href="{{ image.relativePath | imagine_filter('1024') }}" data-lightbox="kish-gallery">
+                            <img src="{{ image.relativePath | imagine_filter('300x200') }}" />
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="video col col-xs-12  col-lg-8">
+            <video id="example_video_1" class="video-js vjs-default-skin"
+                   controls  width="auto" height="400px" preload="none"
+                   poster="http://video-js.zencoder.com/oceans-clip.png"
+                   data-setup='{"example_option":true}'>
+                <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+                <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+                <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+                <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+        </div>
     </div>
-
 
 
 </div>

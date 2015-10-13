@@ -68,6 +68,9 @@ class DefaultController extends Controller
         ]);
 
 
+        $kishGallery = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
+            ->findOneBy(['recordNumber' => '090000']);
+
     	return $this->render('DarkishWebsiteBundle:Default:index.html.twig', [
             'params' => $params,
             'festivals' => $festivals,
@@ -77,6 +80,7 @@ class DefaultController extends Controller
                 'kish_news' => $kishNews,
                 'announcement_news' => $announcementNews
             ],
+            'kish_gallery_record' => $kishGallery,
             'submit_record_form' => $submitRecordForm->createView()
         ]);
     }

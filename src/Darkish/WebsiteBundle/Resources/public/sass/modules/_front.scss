@@ -556,6 +556,110 @@
   }
 }
 
+.kish-gallery-wrapper {
+  background-color: #050F1E;
+  font-family: 'BYekan', 'YekanNumbers', Tahoma;
+  text-align: center;
+  color: #E2E9ED;
+  .container {
+
+    h3.blue-text-class {
+      color:#00ACCE;
+      margin-top: 30px;
+    }
+    .first-row {
+      margin-top:20px;
+      margin-bottom: 20px;
+
+      & > .col {
+        @include breakpoint(xs) {
+          margin-bottom: 20px;
+        }
+      }
+
+      .blue-subtext-class {
+        color: #E2E9ED;
+      }
+      .blue-button-class {
+        .arrow-right {
+          width: 0;
+          height: 0;
+          border-top: 20px solid transparent;
+          border-bottom: 20px solid transparent;
+
+          border-left: 20px solid #00B3D8;
+          display: inline-flex;
+        }
+
+        button {
+          background-color: #00B3D8;
+          color: #E2E9ED;
+        }
+      }
+    }
+
+    .second-row {
+      .images {
+        padding-top:20px;
+        padding-bottom: 20px;
+        a {
+          img {
+            margin: 5px 0;
+            height: 125px;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+      .video {
+        padding-top:20px;
+        padding-bottom: 20px;
+        .video-js.vjs-default-skin {
+          width: 100% !important;
+          margin: auto;
+        }
+      }
+    }
+
+  }
+
+
+  .trees {
+    background-color: #26343F;
+    padding: 50px 20px;
+    margin-bottom: 50px;
+    & > .kish-jobs-card-class {
+      height: 220px;
+      img {
+        width: 96px;
+        height: 96px;
+        object-fit: scale-down;
+        border: 4px solid #3B4B54;
+        border-radius: 48px;
+
+      }
+      h3 {
+        color: #00ACCE;
+        height: 40px;
+        object-fit: contain;
+        font-size: 16px;
+        margin: 10px 0 0 0;
+
+      }
+      h4 {
+        font-size: 14px;
+        margin: 5px 0 0 0;
+      }
+    }
+
+  }
+  #submit-record {
+    width: 90%;
+    margin-left: -45%;
+    margin-right: -45%;
+  }
+}
+
 
 .kish-centers-wrapper {
   background-color: #2C485F;
