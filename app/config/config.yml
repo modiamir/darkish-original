@@ -441,6 +441,13 @@ oneup_uploader:
             namer: darkish_website.uploader_namer
             storage:
                 directory:            uploads/image
+        api_image:
+            frontend: custom
+            namer: darkish_website.uploader_namer
+            use_orphanage: true
+            custom_frontend:
+                class: Darkish\UserBundle\Controller\ApiUploadController
+                name: ApiUploader
     orphanage:
         maxage: 86400
         directory: %kernel.root_dir%/../web/uploader/cache
