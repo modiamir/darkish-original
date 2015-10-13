@@ -338,7 +338,7 @@ nelmio_cors:
             allow_headers: ['X-Custom-Auth']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
-        '^/_uploader/image/upload/':
+        '^/_uploader/':
             allow_origin: ['*']
             allow_headers: ['X-Custom-Auth']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
