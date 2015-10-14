@@ -47,6 +47,11 @@ darkish_api_itinerary:
     type:     rest
     prefix:   api/rest/itinerary
 
+darkish_api_classified:
+    resource: "Darkish\UserBundle\Controller\ApiClassifiedController"
+    type:     rest
+    prefix:   api/rest/classified
+
 darkish_api_tasks:
     resource: "Darkish\UserBundle\Controller\ApiOfflineTasksController"
     type:     rest
