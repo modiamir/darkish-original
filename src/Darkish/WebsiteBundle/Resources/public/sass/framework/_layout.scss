@@ -103,15 +103,18 @@ font-style: normal;
 
 body {
 	font-family: 'BYekan', 'YekanNumbers', Tahoma;
-	font-size: 18px;
+	font-size: 14px;
     & > .container {
       min-width: 1170px;
       width: 90%;
     }
-	.header-wrapper {
-		background: $green;
+    .header-wrapper {
+		background: $blue;
 		border-bottom: 2px solid #f17022;
 		margin-bottom: 0px;
+        .container {
+          width: 90%;
+        }
 		.navbar-default {
 			height: 80px;
 			border: 0;
@@ -165,10 +168,14 @@ body {
 	}
 
 	.secondary-header-wrapper {
-	  border-bottom: 2px solid $green;
-	  background: #fff;
-	  position: relative;
+	  border-bottom: 2px solid $blue;
+      background: #fff;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      position: relative;
 	  .container {
+        width: 90%;
+        position: relative;
 		.navbar-default {
 		  background-color: transparent;
 		  border: 0;
@@ -179,20 +186,23 @@ body {
 		clear: both;
 		li {
           a {
-            padding: 10px 10px 10px 10px;
+            padding: 5px 10px;
           }
 		}
 	  }
 
-	  .news-mag {
+	  .download-app{
 		position: absolute;
 		top: -43px;
 		left: 45px;
 	  }
-	  .download-app {
+	  .news-mag  {
 		position: absolute;
-		top: 50px;
-		left: 46px;
+        top: 0;
+        left: 30px;
+        img {
+          height: 60px;
+        }
 	  }
 	}
 	
@@ -202,6 +212,9 @@ body {
 		margin-bottom: 10px;
 		font-size: 18px;
 		color: black;
+        .container {
+          width: 90%;
+        }
 		ul.breadcrumb {
 			margin-bottom: 0;
 			background-color: transparent;

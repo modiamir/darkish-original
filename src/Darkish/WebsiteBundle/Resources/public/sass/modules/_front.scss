@@ -9,6 +9,9 @@
       margin-bottom: 0;
       z-index: 10;
       top: 1px;
+      .container {
+        width: 90%;
+      }
       @include breakpoint(sm, md) {
         .navbar-nav > li > a {
           font-size: 14px;
@@ -21,7 +24,7 @@
         }
       }
 
-      & > .container-fluid {
+      & > .container-fluid, & > .container {
         .navbar-secondary-menu {
           @include breakpoint(md, lg) {
             border-left: 2px solid white;

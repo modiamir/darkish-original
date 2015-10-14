@@ -28,10 +28,13 @@
         {% if record.images|length <= 0 %}
 
             <script>
-                var center= $('.gallery-box .switchable.map #map').data();
-                console.log(center);
-                addMarker([center.latitude, center.longitude]);
-                $('.gallery-box .switchable.map #map').attr('dk-displayed', "1");
+                $(document).ready(function(){
+                    var center= $('.gallery-box .switchable.map #map').data();
+                    console.log(center);
+                    addMarker([center.latitude, center.longitude]);
+                    $('.gallery-box .switchable.map #map').attr('dk-displayed', "1");
+                });
+
             </script>
         {% endif %}
     {% endif %}

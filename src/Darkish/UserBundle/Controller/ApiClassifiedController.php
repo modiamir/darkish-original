@@ -5,6 +5,7 @@ namespace Darkish\UserBundle\Controller;
 use Darkish\CategoryBundle\Entity\ClientClassified;
 use Darkish\CategoryBundle\Entity\ClientItinerary;
 use Darkish\UserBundle\Form\ItineraryType;
+use Darkish\WebsiteBundle\Form\ClassifiedType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -78,7 +79,7 @@ class ApiClassifiedController extends FOSRestController
 
         $classified = new ClientClassified();
 
-        $form =  $this->createForm(new ItineraryType(), $classified);
+        $form =  $this->createForm(new ClassifiedType(), $classified);
         $form->handleRequest($request);
         $validation = $this->get('validator')->validate($classified);
         if($validation->count())
@@ -122,9 +123,9 @@ class ApiClassifiedController extends FOSRestController
      * @RouteAnnot\Get("get_itinerary/{itinerary}", defaults={"_format"="json"})
      * @View(serializerGroups={"itinerary.list.api"})
      */
-    public function getItineraryAction(Itinerary $itinerary) {
-
-        return $itinerary;
-    }
+//    public function getItineraryAction(Itinerary $itinerary) {
+//
+//        return $itinerary;
+//    }
 
 }
