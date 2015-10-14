@@ -66,7 +66,8 @@ class ApiClassifiedController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="Itinerary API"
+     *  section="Classified API",
+     *  input="Darkish\WebsiteBundle\Form\ClassifiedType"
      * )
      * @RouteAnnot\Post("create_classified", defaults={"_format"="json"})
      * @View(serializerGroups={"classified.details", "file.details"})
