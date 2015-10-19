@@ -477,7 +477,6 @@ class FileSubscriber implements EventSubscriber
                 break;
             }
 
-
             $type = explode("-", $entity->getFileName())[0];
 
             $entity->setType($type);
@@ -485,6 +484,7 @@ class FileSubscriber implements EventSubscriber
             $entity->setStatus(false);
             $entity->setTimestamp(new \DateTime());
             $sfile = new File($file->getPath().'/'.$file->getFilename());
+            $entity->setFile($sfile);
             $entity->setPath($entity->getFileName());
             $entity->setFilemime($sfile->getMimeType());
             $entity->setFilesize($file->getSize());

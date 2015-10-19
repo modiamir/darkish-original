@@ -50,11 +50,17 @@
 
 		{{record.title}}
 
+
 {% endblock %}
 
 {% block page_subtitle %}
 
 		{{record.subTitle}}
+        <div class="stats">
+            <span class="like-count">{{ record.getFormattedCount(record.likeCount)}}<i class="fa fa-thumbs-up"></i></span>
+            <span class="visit-count">{{ record.getFormattedCount(record.visitCount)}}<i class="fa fa-eye"></i></span>
+            <span class="comment-count">{{ record.getFormattedCount(record.commentCount)}}<i class="fa fa-comments"></i></span>
+        </div>
 
 {% endblock %}
 

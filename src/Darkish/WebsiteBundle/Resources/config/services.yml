@@ -116,3 +116,7 @@ services:
     darkish_website.uploader_namer:
         class: Darkish\WebsiteBundle\Uploader\UploadNamer
         arguments: ["@service_container"]
+
+    darkish_website.breadcrumb_manager:
+        class: Darkish\WebsiteBundle\Utils\Breadcrumbs\BreadcrumbManager
+        arguments: ["@service_container"]

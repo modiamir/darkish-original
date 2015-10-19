@@ -15,6 +15,7 @@ use Darkish\CommentBundle\Entity\NewsThread;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +40,15 @@ class CommentController extends Controller
      * @Route("/comment/post", name="website_comment_post")
      */
     public function postCommentAction(Request $request) {
+        $claimTypes = $this->container->get('doctrine')
+            ->getRepository('DarkishCommentBundle:ClaimTypes')
+            ->findBy(['onlyCustomer' => false]);
+
         $comment = new AnonymousComment();
-        $form = $this->createForm(new CommentType(), $comment);
+        $form = $this->createForm(new CommentType(), $comment,[
+            'action' => $this->container->get('router')->generate('website_comment_post'),
+            'method' => 'POST',
+        ]);
         $form->handleRequest($request);
 
 
@@ -127,7 +135,30 @@ class CommentController extends Controller
             $em->persist($thread);
 
             $em->flush();
-            return $this->redirect($url);
+
+            $isChild = ($comment->getParent()) ? true : false;
+
+            if($isChild) {
+                return new JsonResponse([
+                    'success' => true,
+                    'result' => $this->renderView('DarkishWebsiteBundle:Comment:child.html.twig', [
+                        'child' => $comment,
+                        'claim_types' => $claimTypes
+                    ])
+                ]);
+            } else {
+                return new JsonResponse([
+                    'success' => true,
+                    'result' => $this->renderView('DarkishWebsiteBundle:Comment:comment.html.twig', [
+                        'comment' => $comment,
+                        'claim_types' => $claimTypes,
+                        'entity_type' => $request->get('entity_type'),
+                        'entity_id' => $request->get('entity_id'),
+                    ])
+                ]);
+            }
+
+
         }
 
 
@@ -152,7 +183,17 @@ class CommentController extends Controller
                 $url = $this->generateUrl('website_itinerary', $parameters);
                 break;
         }
-        return $this->redirect($url);
+
+
+        return new JsonResponse([
+            'success' => false,
+            'result' => $this->renderView('DarkishWebsiteBundle:Comment:create-form.html.twig', [
+                'comment_form' => $form->createView(),
+                'entity_type' => $request->get('entity_type'),
+                'entity_id' => $request->get('entity_id'),
+                'is_child' => ($comment->getParent()) ? true : false
+            ])
+        ]);
 
     }
 
@@ -176,7 +217,8 @@ class CommentController extends Controller
         return [
             'comment_form' => $form->createView(),
             'entity_type' => $entityType,
-            'entity_id' => $entityId
+            'entity_id' => $entityId,
+            'is_child' => true
         ];
     }
 

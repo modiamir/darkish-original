@@ -1,4 +1,42 @@
-{{ form_start(comment_form) }}
+{{ form_errors(comment_form) }}
+{{ form_start(comment_form, {'attr': {'class': 'child'} }) }}
+
+
+
+
+{% if is_child == false %}
+    <div class="well">
+        <h3>
+            تصاویر
+        </h3>
+        تصویر اول به عنوان تصویر اصلی در نظر گرفته خواهد شد.
+
+        <div id="comment-file-list" class="row"
+             data-url="{{ oneup_uploader_endpoint('image') }}"
+             data-prototype="{{ form_widget(comment_form.photos.vars.prototype)|e }}"
+             data-entity-type="comment"
+             data-upload-dir="image"
+                >
+        </div>
+
+        <br />
+
+        <div id="upload-container">
+            <label><a id="comment-file-browse" href="javascript:;">[
+                    انتخاب فایل
+                    ...]</a></label>
+
+            <a id="comment-start-upload" href="javascript:;">[
+                بارگزاری فایل ها
+                ]</a>
+        </div>
+
+        <br />
+        <pre id="console"></pre>
+
+    </div>
+{% endif %}
+
     {{ form_widget(comment_form) }}
 
     <input type="hidden" value="{{ entity_type }}" name="entity_type" />

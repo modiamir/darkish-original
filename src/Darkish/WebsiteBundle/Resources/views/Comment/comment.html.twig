@@ -1,0 +1,85 @@
+<div id="comment-{{ comment.id }}" class="media comment">
+    <div class="media-right">
+        <a href="#">
+            {% if comment.owner | user_photo %}
+                <img class="media-object" src="{{ comment.owner | user_photo }}" alt="...">
+            {% else %}
+                <img class="media-object" src="{{ asset('bundles/darkishwebsite/images/default_profile.jpg') }}" alt="...">
+            {% endif %}
+
+        </a>
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading"> <span class="owner-name">{{ comment.owner | user_name }} - </span>   <span class="comment-date">{{ comment.createdAt | jdate('Y/m/d H:i') }}</span>   </h4>
+
+        {{ comment.body | raw }}
+
+        {% if comment.photos|length >= 1 %}
+            <hr>
+            <div class="row">
+                {% for photo in comment.photos %}
+                    <a class="comment-image" href="{{ photo.relativePath | imagine_filter('1024') }}" data-lightbox="comment-gallery-{{ comment.id }}">
+                        <img style="width: 150px !important;" src="{{ photo.relativePath | imagine_filter('128') }}" alt="">
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <hr>
+
+
+        <a type="button"
+           class="comment-buttons comment-like btn-sm"
+           comment-id="{{ comment.id }}"
+           data-like-count="{% if comment.likeCount %}{{ comment.likeCount }}{% else %}۰{% endif %}">
+            لایک (
+            <span class="like-count">{% if comment.likeCount %}{{ comment.likeCount }}{% else %}۰{% endif %}</span>
+            )
+        </a>
+        <div class="btn-group">
+            <button {% if comment.claimType %}disabled{% endif %} type="button" data-comment-id="{{ comment.id }}" class="comment-buttons comment-report btn-sm btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if comment.claimType %}
+                    در حال بررسی
+                {% else %}
+                    گزارش<span class="caret"></span>
+                {% endif %}
+            </button>
+            <ul class="dropdown-menu comment-report">
+                {% for claimType in claim_types %}
+                    <li><a data-claim-type-id="{{ claimType.id }}" data-comment-id="{{ comment.id }}" >{{ claimType.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <button type="button" class="comment-buttons btn-success comment-reply-button btn btn-default btn-sm" comment-id="{{ comment.id }}"
+                entity-type="{{ entity_type }}" entity-id="{{ entity_id }}">
+            پاسخ
+        </button>
+
+
+        {% set children = (comment | comment_children) %}
+        <div class="children-wrapper">
+        {% if children | length %}
+            <div id="children-{{ comment.id }}" class="children">
+                {% for child in children %}
+                    {{  include('DarkishWebsiteBundle:Comment:child.html.twig', {"child": child}) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+
+        <hr/>
+
+
+        {% if children | length %}
+            <button type="button"
+                    class="comment-buttons btn-info comment-more-button btn btn-default btn-sm"
+                    comment-id="{{ comment.id }}">
+                بیشتر
+            </button>
+        {% endif %}
+
+
+        {#{{ comment | comment_children }}#}
+    </div>
+</div>

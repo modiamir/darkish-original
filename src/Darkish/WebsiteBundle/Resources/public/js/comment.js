@@ -1,3 +1,28 @@
+function postForm( $form, callback ){
+
+    /*
+     * Get all form values
+     */
+    var values = {};
+    $.each( $form.serializeArray(), function(i, field) {
+        values[field.name] = field.value;
+    });
+
+    /*
+     * Throw the form values to the server!
+     */
+    $.ajax({
+        type        : $form.attr( 'method' ),
+        url         : $form.attr( 'action' ),
+        data        : values,
+        success     : function(data) {
+            callback( data );
+        }
+    });
+
+}
+
+
 
 $(document).ready(function () {
 
@@ -19,7 +44,16 @@ $(document).ready(function () {
             var el = this;
             $.ajax(settings).done(function (response) {
                 $('.media-body > form').remove();
-                $( el ).after( response );
+
+                var $mediaBody = $(el).closest('.media-body');
+                var $childrenWrapper = $mediaBody.find('.children-wrapper');
+                $childrenWrapper.after(response);
+                console.info('children wrapper', $childrenWrapper);
+                $('body,html').animate({
+                    scrollTop: $childrenWrapper.offset().top + $childrenWrapper.innerHeight()
+                }, 1000);
+                //$( el ).after( response );
+
             });
 
         })
@@ -111,8 +145,49 @@ $(document).ready(function () {
         })
 
 
-    $('#comment-file-list').dkUpload({
-        browse_button: 'comment-file-browse',
-        start_upload_button: 'comment-start-upload'
+    if($('#comment-file-list').length) {
+        $('#comment-file-list').dkUpload({
+            browse_button: 'comment-file-browse',
+            start_upload_button: 'comment-start-upload'
+        });
+    }
+
+
+    var forms = [
+        '[ name="submit_anonymous_comment"]'
+    ];
+
+    $('.content').off('submit', forms.join(',') )
+        .on('submit', forms.join(','), function(e){
+            var form = this;
+            e.preventDefault();
+
+            postForm( $(form), function( response ){
+                if(!response.success) {
+
+                    $(form).replaceWith(response.result);
+                    if($('#comment-file-list').length) {
+                        $('#comment-file-list').dkUpload({
+                            browse_button: 'comment-file-browse',
+                            start_upload_button: 'comment-start-upload'
+                        });
+                    }
+                    return;
+                }
+
+                if($(form).hasClass('child')) {
+                    var $currentComment = $(form).closest('.media.comment');
+                    $currentComment.find('.media-body .children-wrapper').prepend(response.result);
+                    $(form).remove();
+                    $('body,html').animate({
+                        scrollTop: $currentComment.offset().top + 'px'
+                    }, 1000);
+                } else {
+                    var $comments = $(form).closest('.comments .panel-body');
+                    $comments.prepend(response.result);
+                }
+            });
+
+            return false;
     });
 })

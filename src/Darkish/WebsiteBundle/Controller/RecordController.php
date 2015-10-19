@@ -98,6 +98,8 @@ class RecordController extends Controller
      */
     public function recordAction($record) {
 
+
+
         $record = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Record')
             ->findOneBy(['recordNumber' => $record]);
 
@@ -106,13 +108,15 @@ class RecordController extends Controller
             throw new NotFoundHttpException("The recordNumber is invalid");
         }
 
-    	$breadcrumbs = $this->get("white_october_breadcrumbs");
-	    // Simple example
-	    $breadcrumbs->addItem("خانه", $this->get("router")->generate("website_home"));
-		// Example without URL
-	    $breadcrumbs->addItem("رکوردها", $this->get("router")->generate("website_record"));
+        $this->get('darkish_website.breadcrumb_manager')->createBreadcrumb('website_record_single', $record);
 
-	    $breadcrumbs->addItem($record->getTitle());
+//    	$breadcrumbs = $this->get("white_october_breadcrumbs");
+//	    // Simple example
+//	    $breadcrumbs->addItem("خانه", $this->get("router")->generate("website_home"));
+//		// Example without URL
+//	    $breadcrumbs->addItem("رکوردها", $this->get("router")->generate("website_record"));
+//
+//	    $breadcrumbs->addItem($record->getTitle());
 
 	    // Example with parameter injected into translation "user.profile"
 	    // $breadcrumbs->addItem($txt, $url, ["%user%" => $user->getName()]);
@@ -120,6 +124,11 @@ class RecordController extends Controller
 		$products = $this->getDoctrine()
 						  	->getRepository('DarkishCategoryBundle:Record')
 							->getStoreInfo($record, $this->get('jms_serializer'));
+
+        $record->setVisitCount($record->getVisitCount() + 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($record);
+        $em->flush();
 
 //		$map = $this->get('ivory_google_map.map');
 //		$map->setAutoZoom(false);

@@ -29,6 +29,7 @@ class CommentType extends AbstractType
                 'class' => 'Darkish\CommentBundle\Entity\Comment',
             ])
             ->add('captcha', 'captcha')
+
         ;
 
 

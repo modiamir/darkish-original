@@ -31,7 +31,7 @@ class ManagedFile
     ];
 
     /**
-     * 
+     *
      */
     private $file;
 
@@ -51,7 +51,7 @@ class ManagedFile
      *
      * @ORM\Column(name="user_id", type="integer")
      *
-     * @Assert\NotNull()
+     *
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      */
     private $userId;
@@ -201,7 +201,7 @@ class ManagedFile
      *
      * @Assert\Choice(choices = {"news", "classified", "offer", "sponsor", "record", "operator", "customer", "client", "store", "product", "database", "comment", "itinerary"}, message = "input a valid entity type.")
      *
-     * @Assert\NotNull()
+     *
      */
     private $type;
 
@@ -223,7 +223,7 @@ class ManagedFile
      *
      * @Assert\Choice(choices = {"image", "video", "audio", "icon", "doc", "banner"}, message = "Input a valid uploadDir.")
      *
-     * @Assert\NotNull()
+     *
      * @Groups({"file.details", "record.details", "record.store", "product.list", "product.details", "news.details", "operator.details", "offer.details",  "sponsor.details", "classified.details", "customer.details"})
      */
     private $uploadDir;
@@ -687,37 +687,38 @@ class ManagedFile
     /**
      * @Assert\Callback
      */
-    public function fileValidation(ExecutionContextInterface $context) {
-        if($this->path) {
-            if(!$this->fileName) {
-                $context->buildViolation('fileName property should be set.')
-                    ->atPath('fileName')
-                    ->addViolation();
-            }
-            if(!$this->filemime) {
-                $context->buildViolation('filemime property should be set.')
-                    ->atPath('filemime')
-                    ->addViolation();
-            }
-            if(!$this->filesize) {
-                $context->buildViolation('filesize property should be set.')
-                    ->atPath('filesize')
-                    ->addViolation();
-            }
-
-
-        }else {
-            if($this->file == null) {
-                $context->buildViolation('file property should be set.')
-                    ->atPath('file')
-                    ->addViolation();
-            }
-        }
-
-    }
+//    public function fileValidation(ExecutionContextInterface $context) {
+//        if($this->path) {
+//            if(!$this->fileName) {
+//                $context->buildViolation('fileName property should be set.')
+//                    ->atPath('fileName')
+//                    ->addViolation();
+//            }
+//            if(!$this->filemime) {
+//                $context->buildViolation('filemime property should be set.')
+//                    ->atPath('filemime')
+//                    ->addViolation();
+//            }
+//            if(!$this->filesize) {
+//                $context->buildViolation('filesize property should be set.')
+//                    ->atPath('filesize')
+//                    ->addViolation();
+//            }
+//
+//
+//        }else {
+//            if($this->file == null) {
+//                $context->buildViolation('file property should be set.')
+//                    ->atPath('file')
+//                    ->addViolation();
+//            }
+//        }
+//
+//    }
 
     public function upload()
     {
+
         // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
             return;
@@ -803,6 +804,7 @@ class ManagedFile
     public function __construct()
     {
         $this->iconForRecord = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
