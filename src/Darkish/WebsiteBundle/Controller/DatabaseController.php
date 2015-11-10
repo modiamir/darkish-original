@@ -32,6 +32,12 @@ class DatabaseController extends Controller
      */
     public function databaseAction($type, Record $record = null, Request $request) {
 
+        $this->get('darkish_website.breadcrumb_manager')->createBreadcrumb(
+            get_class($this),
+            'website_record_database',
+            $type
+        );
+
         if( $record &&
             (!$record->getDbaseEnable() || !$record->getDbaseEnableCustomer() || ($record->getExpireDate() < new \DateTime()) )
         ) {

@@ -21,7 +21,7 @@ class AutomobileSearchType extends AbstractType
         $builder
             ->add('record', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\Record',
-                'property' => 'title',
+                'choice_label' => 'title',
                 'required' => false,
                 'expanded' => false,
                 'multiple' => false,
@@ -34,20 +34,20 @@ class AutomobileSearchType extends AbstractType
             ])
             ->add('automobileBrand', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\AutomobileBrand',
-                'property' => 'value',
+                'choice_label' => 'value',
                 'required' => false,
                 'label' => 'برند'
 
             ])
             ->add('automobileColor', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\AutomobileColor',
-                'property' => 'value',
+                'choice_label' => 'value',
                 'required' => false,
                 'label' => 'رنگ'
             ])
             ->add('automobileType', 'entity', [
                 'class' => 'Darkish\CategoryBundle\Entity\AutomobileType',
-                'property' => 'value',
+                'choice_label' => 'value',
                 'required' => false,
                 'label' => 'نوع'
             ])

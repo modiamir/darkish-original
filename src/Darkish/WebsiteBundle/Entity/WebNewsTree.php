@@ -198,6 +198,12 @@ class WebNewsTree
 
 
     /**
+     * @var array
+     * @ORM\Column(name="TreesIds", type="json_array")
+     */
+    private $treesIds;
+
+    /**
      * Get id
      *
      * @return integer
@@ -806,5 +812,28 @@ class WebNewsTree
     {
         return $this->hiddenTree;
     }
-}
 
+    /**
+     * Set treesIds
+     *
+     * @param array $treesIds
+     *
+     * @return WebNewsTree
+     */
+    public function setTreesIds($treesIds)
+    {
+        $this->treesIds = $treesIds;
+
+        return $this;
+    }
+
+    /**
+     * Get treesIds
+     *
+     * @return array
+     */
+    public function getTreesIds()
+    {
+        return $this->treesIds;
+    }
+}

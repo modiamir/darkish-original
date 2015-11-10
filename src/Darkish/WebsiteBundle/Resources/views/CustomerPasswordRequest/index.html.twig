@@ -1,8 +1,12 @@
-{% extends 'DarkishWebsiteBundle:Default:RegisterCustomer/register-customer.html.twig' %}
+{% extends 'DarkishWebsiteBundle:Default:website-layout.html.twig' %}
 
-{% block main %}
-    <h1>تغییر رمز عبور</h1>
 
+{% block page_title %}
+بازیابی رمز عبور
+{% endblock %}
+
+
+
+{% block content %}
     {{ form(form) }}
-
 {% endblock %}

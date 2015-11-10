@@ -25,6 +25,8 @@ class ClassifiedController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $this->get('darkish_website.breadcrumb_manager')->createBreadcrumb(get_class($this), 'website_classified');
+
         $repo = $this->getDoctrine()->getRepository('DarkishCategoryBundle:Classified');
 
         $qb = $repo->createQueryBuilder('c');
@@ -48,6 +50,7 @@ class ClassifiedController extends Controller
 
         }
         $qb->orderBy('c.id', 'Desc');
+
         $paginator  = $this->get('knp_paginator');
         $paginator = $paginator->paginate(
             $qb->getQuery(),
@@ -71,6 +74,8 @@ class ClassifiedController extends Controller
         $classified = new Classified();
         $classifiedClassifiedTree  = new ClassifiedClassifiedTree();
         $classified->addClassifiedtree($classifiedClassifiedTree);
+
+
 
         $form =$this->createForm(new ClassifiedType(), $classified);
 
@@ -114,7 +119,7 @@ class ClassifiedController extends Controller
      */
     public function classifiedSingleAction(Classified $classified)
     {
-
+        $this->get('darkish_website.breadcrumb_manager')->createBreadcrumb(get_class($this), 'website_classified_submit', $classified);
         return $this->render('DarkishWebsiteBundle:Classified:classified.html.twig', [
             'classified' => $classified
         ]);

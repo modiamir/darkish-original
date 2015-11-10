@@ -10,13 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SubmitRecordController
+ * Class SubmitRecordController.
+ *
  * @Route("/", host="%domain%")
  */
 class SubmitRecordController extends Controller
 {
     /**
      * @param $name
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/submit/record", name="website_submit_record")
      */
@@ -27,8 +29,8 @@ class SubmitRecordController extends Controller
         $submitted = false;
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($submitRecord);
             $em->flush();
@@ -38,17 +40,15 @@ class SubmitRecordController extends Controller
 
         return $this->render('DarkishWebsiteBundle:Submit:index.html.twig', [
             'form' => $form->createView(),
-            'submitted' => $submitted
+            'submitted' => $submitted,
         ]);
     }
-
 
     /**
      * @Route("get_files")
      */
     public function getFileAction(Request $request)
     {
-
         $manager = $this->get('oneup_uploader.orphanage_manager')->get('image');
         // get files
         /* @var $manager \Oneup\UploaderBundle\Uploader\Storage\FilesystemOrphanageStorage */
@@ -56,15 +56,14 @@ class SubmitRecordController extends Controller
 //
         $files->files()->name('file-1441720869-33642.jpg');
 
-        foreach($files as $f) {
+        foreach ($files as $f) {
             $file = $f;
             break;
         }
 
-
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
 
 //        $manager->uploadFiles($file);
-        return new Response($this->get('jms_serializer')->serialize($file,'json'));
+        return new Response($this->get('jms_serializer')->serialize($file, 'json'));
     }
 }

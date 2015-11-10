@@ -90,6 +90,8 @@ class CustomerPasswordRequestController extends Controller
      */
     public function indexAction()
     {
+        $this->get('darkish_website.breadcrumb_manager')->createBreadcrumb(get_class($this), 'password_request_create');
+
         $entity = new PasswordRequest();
         $form   = $this->createCreateForm($entity);
 
