@@ -81,13 +81,13 @@ class RecordController extends Controller
             /* @var $serializer JMSSerializer */
             $data = $serializer->deserialize($request->get('data'), 'array', 'json');
             /* @var $record Record*/
-            
-            
+
+
             $this->recordMassAssignment($record, $data);
             // $record->setLastUpdate(new \DateTime());
             // $record->setHtmlLastUpdate(new \DateTime());
             $record->setUser($user);
-            
+
             if(!in_array('ROLE_ADMIN', $user->getRolesNames()) &&  !in_array('ROLE_SUPER_ADMIN', $user->getRolesNames())) {
                 $record->setVerify(false);
             }
@@ -233,7 +233,7 @@ class RecordController extends Controller
         if(isset($data['turkish_sub_title'])) {
             $record->setTurkishSubTitle($data['turkish_sub_title']);
         }
-        
+
         if(isset($data['owner'])) {
             $record->setOwner($data['owner']);
         }
@@ -657,7 +657,7 @@ class RecordController extends Controller
 
             //$record->setTrees($data['trees']);
         }
-        
+
         if(isset($data['maintrees'])) {
             // die($this->get('jms_serializer')->serialize($data['maintrees'], 'json'));
             $currentMaintrees = $record->getMaintrees();
@@ -683,7 +683,7 @@ class RecordController extends Controller
             foreach($data['maintrees'] as $tree) {
                 // die(print_r($data['maintrees'], true));
                 $newTrees->add(array('tree' => $rep->find($tree['tree']['id']), 'sort' => $tree['sort'], 'group_filter' =>  ( isset($tree['group_filter']) )?$tree['group_filter']:0  ));
-                $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title'], 'recommendIds'=>$tree['tree']['recommend_ids']];
+                $treeJson[$tree['tree']['id']] = ['treeIndex'=>$tree['tree']['tree_index'], 'title'=>$tree['tree']['title'], 'recommendIds'=>(isset($tree['tree']['recommend_ids']))?$tree['tree']['recommend_ids']:[]];
             }   
             $record->setTreeJson($treeJson);
 
@@ -730,8 +730,8 @@ class RecordController extends Controller
 
             //$record->setTrees($data['trees']);
         }
-        
-        
+
+
         
         if(isset($data['images'])) {
 
