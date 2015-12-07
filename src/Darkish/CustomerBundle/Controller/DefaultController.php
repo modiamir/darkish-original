@@ -595,6 +595,9 @@ class DefaultController extends Controller
 
 //        $clients = $user->getRecord()->getClientsFavorited();
         $clients = $this->getDoctrine()->getRepository('DarkishUserBundle:Client')->findAll();
+        return new Response($this->get('jms_serializer')->serialize($clients, 'json'
+            ,SerializationContext::create()->setGroups(array('Default'))));
+
         $thread->setCustomer($user);
         $thread->setLastMessage($message);
         $thread->setLastClientDelivered(0);
