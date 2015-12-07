@@ -595,8 +595,7 @@ class DefaultController extends Controller
 
 //        $clients = $user->getRecord()->getClientsFavorited();
         $clients = $this->getDoctrine()->getRepository('DarkishUserBundle:Client')->findAll();
-        return new Response($this->get('jms_serializer')->serialize($clients, 'json'
-            ,SerializationContext::create()->setGroups(array('Default'))));
+
 
         $thread->setCustomer($user);
         $thread->setLastMessage($message);
@@ -607,10 +606,14 @@ class DefaultController extends Controller
         $thread->setDeletedByClient(0);
         $thread->setDeletedByRecord(0);
 
-        $clientsIterator = $clients->getIterator();
-        while($clientsIterator->valid()) {
-            $thread->addClient($clientsIterator->current());
-            $clientsIterator->next();
+//        $clientsIterator = $clients->getIterator();
+//        while($clientsIterator->valid()) {
+//            $thread->addClient($clientsIterator->current());
+//            $clientsIterator->next();
+//        }
+
+        foreach ($clients as $client) {
+            $thread->addClient($client);
         }
 
         $em->persist($thread);
@@ -621,7 +624,7 @@ class DefaultController extends Controller
 
         return new Response($this->get('jms_serializer')->serialize($thread, 'json'
             ,SerializationContext::create()->setGroups(array('thread.details'))));
-        
+
 
     }
 
