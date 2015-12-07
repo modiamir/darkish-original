@@ -593,8 +593,8 @@ class DefaultController extends Controller
         $message->setFrom('record');
         $message->setText($request->get('text'));
 
-        $clients = $user->getRecord()->getClientsFavorited();
-
+//        $clients = $user->getRecord()->getClientsFavorited();
+        $clients = $this->getDoctrine()->getRepository('DarkishUserBundle:Client')->findAll();
         $thread->setCustomer($user);
         $thread->setLastMessage($message);
         $thread->setLastClientDelivered(0);
