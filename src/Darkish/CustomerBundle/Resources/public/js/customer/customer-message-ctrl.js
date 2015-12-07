@@ -13,6 +13,7 @@ customerApp.controller('MessagesCtrl', ['$scope', '$window', 'threads', 'recordD
   }
 
   $scope.canSendGroupMessage = function() {
+    return true;
     var now = new Date();
     var before = new Date($scope.recordData.last_group_message);
     var validDay = recordData.access_class.group_message_interval;
